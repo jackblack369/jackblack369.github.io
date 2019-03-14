@@ -117,7 +117,7 @@
 <meta property="og:description" content="知识点 the size of blob column 1234  A BLOB can be 65535 bytes (64 KB) maximum.If you need more consider using:a MEDIUMBLOB for 16777215 bytes (16 MB)a LONGBLOB for 4294967295 bytes (4 GB).  join sql  st">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.stack.imgur.com/VQ5XP.png">
-<meta property="og:updated_time" content="2019-03-04T01:23:56.495Z">
+<meta property="og:updated_time" content="2019-03-14T06:52:13.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql snippet">
 <meta name="twitter:description" content="知识点 the size of blob column 1234  A BLOB can be 65535 bytes (64 KB) maximum.If you need more consider using:a MEDIUMBLOB for 16777215 bytes (16 MB)a LONGBLOB for 4294967295 bytes (4 GB).  join sql  st">
@@ -389,7 +389,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+                <time title="Modified: 2019-03-14 14:52:13" itemprop="dateModified" datetime="2019-03-14T14:52:13+08:00">2019-03-14</time>
               
             
           </span>
@@ -468,6 +468,37 @@
 <li>where</li>
 </ul>
 <p>sql查询条件中<code>where 1=1,1=2和1=0</code>，这种写法，主要是为了拼凑动态的sql语句，如果使用不好会起到副作用的，是根据个人的一些习惯，是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误，是为了后面附加and …方便程序逻辑处理用的。 </p>
+<ul>
+<li><p>select count(*)和select count(1)的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般情况下，Select Count(*)和Select Count(1)两着返回结果是一样的，假如表没有主键(Primary key), 那么count(1)比count(*)快，如果有主键的话，那主键作为count的条件时候count(主键)最快，如果你的表只有一个字段的话那count(*)就是最快的。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="事物隔离级别"><a href="#事物隔离级别" class="headerlink" title="事物隔离级别"></a>事物隔离级别</h3><ul>
+<li><p>read uncommitted（读取未提交数据）</p>
+<blockquote>
+<p>我们将事务隔离级别设置为read uncommitted，即便是事务没有commit，但是我们仍然能读到未提交的数据，这是所有隔离级别中最低的一种。</p>
+<p>脏读</p>
+</blockquote>
+</li>
+<li><p>read committed（可以读取其他事务提交的数据）</p>
+<blockquote>
+<p>大多数数据库默认的隔离级别;</p>
+<p>当我们将当前会话的隔离级别设置为read committed的时候，当前会话只能读取到其他事务提交的数据，未提交的数据读不到。</p>
+</blockquote>
+</li>
+<li><p>repeatable read（可重读）</p>
+<blockquote>
+<p>MySQL默认的隔离级别</p>
+<p>当我们将当前会话的隔离级别设置为repeatable read的时候，当前会话可以重复读，就是每次读取的结果集都相同，而不管其他事务有没有提交。</p>
+<p>幻读</p>
+</blockquote>
+</li>
+<li><p>serializable（串行化）</p>
+<blockquote>
+<p>当我们将当前会话的隔离级别设置为serializable的时候，其他会话对该表的写操作将被挂起。可以看到，这是隔离级别中最严格的，但是这样做势必对性能造成影响。所以在实际的选用上，我们要根据当前具体的情况选用合适的。</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -511,8 +542,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/02/16/java code snippet/" rel="prev" title="java code snippet">
-                java code snippet <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/18/websocket snippit/" rel="prev" title="websocket tracking">
+                websocket tracking <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +618,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -636,7 +667,47 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -667,7 +738,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -722,7 +799,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql语句"><span class="nav-number">2.</span> <span class="nav-text">sql语句</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql语句"><span class="nav-number">2.</span> <span class="nav-text">sql语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事物隔离级别"><span class="nav-number">3.</span> <span class="nav-text">事物隔离级别</span></a></li></ol></div>
             
 
           </div>

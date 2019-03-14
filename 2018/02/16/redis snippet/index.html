@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="知识点 show all keys KEYS *  Delete All Keys In Redis 123456Delete all keys from all Redis databases: `$ redis-cli FLUSHALL` Delete all keys of the currently selected Redis database: `$ redis-cli FLUSHDB">
+  <meta name="description" content="###　数据类型  String 1234redis 127.0.0.1:6379&amp;gt; SET name &amp;quot;runoob&amp;quot;OKredis 127.0.0.1:6379&amp;gt; GET name&amp;quot;runoob&amp;quot;  Hash 123456redis&amp;gt; HMSET myhash field1 &amp;quot;Hello&amp;quot; field2 &amp;quot;">
 <meta name="keywords" content="snippet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis snippet">
 <meta property="og:url" content="http://yoursite.com/2018/02/16/redis snippet/index.html">
 <meta property="og:site_name" content="Will">
-<meta property="og:description" content="知识点 show all keys KEYS *  Delete All Keys In Redis 123456Delete all keys from all Redis databases: `$ redis-cli FLUSHALL` Delete all keys of the currently selected Redis database: `$ redis-cli FLUSHDB">
+<meta property="og:description" content="###　数据类型  String 1234redis 127.0.0.1:6379&amp;gt; SET name &amp;quot;runoob&amp;quot;OKredis 127.0.0.1:6379&amp;gt; GET name&amp;quot;runoob&amp;quot;  Hash 123456redis&amp;gt; HMSET myhash field1 &amp;quot;Hello&amp;quot; field2 &amp;quot;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-04T01:23:56.501Z">
+<meta property="og:updated_time" content="2019-03-14T06:18:07.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis snippet">
-<meta name="twitter:description" content="知识点 show all keys KEYS *  Delete All Keys In Redis 123456Delete all keys from all Redis databases: `$ redis-cli FLUSHALL` Delete all keys of the currently selected Redis database: `$ redis-cli FLUSHDB">
+<meta name="twitter:description" content="###　数据类型  String 1234redis 127.0.0.1:6379&amp;gt; SET name &amp;quot;runoob&amp;quot;OKredis 127.0.0.1:6379&amp;gt; GET name&amp;quot;runoob&amp;quot;  Hash 123456redis&amp;gt; HMSET myhash field1 &amp;quot;Hello&amp;quot; field2 &amp;quot;">
 
 
 
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+                <time title="Modified: 2019-03-14 14:18:07" itemprop="dateModified" datetime="2019-03-14T14:18:07+08:00">2019-03-14</time>
               
             
           </span>
@@ -438,7 +438,35 @@
       
 
       
-        <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+        <p>###　数据类型</p>
+<ul>
+<li><p>String</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SET name &quot;runoob&quot;</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; GET name</span><br><span class="line">&quot;runoob&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HMSET myhash field1 &quot;Hello&quot; field2 &quot;World&quot;</span><br><span class="line">&quot;OK&quot;</span><br><span class="line">redis&gt; HGET myhash field1</span><br><span class="line">&quot;Hello&quot;</span><br><span class="line">redis&gt; HGET myhash field2</span><br><span class="line">&quot;World&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>List</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; lpush runoob redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; lpush runoob mongodb</span><br><span class="line">(integer) 2</span><br><span class="line">redis 127.0.0.1:6379&gt; lpush runoob rabitmq</span><br><span class="line">(integer) 3</span><br><span class="line">redis 127.0.0.1:6379&gt; lrange runoob 0 10</span><br><span class="line">1) &quot;rabitmq&quot;</span><br><span class="line">2) &quot;mongodb&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; sadd runoob redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob rabitmq</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob rabitmq</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; smembers runoob</span><br><span class="line"></span><br><span class="line">1) &quot;redis&quot;</span><br><span class="line">2) &quot;rabitmq&quot;</span><br><span class="line">3) &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>zset(sorted set：有序集合)</p>
+<ul>
+<li><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。</p>
+<p>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。zset的成员是唯一的,但分数(score)却可以重复。</p>
+</li>
+<li><p>命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zadd key score member</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 rabitmq</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 rabitmq</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; &gt; ZRANGEBYSCORE runoob 0 1000</span><br><span class="line">1) &quot;mongodb&quot;</span><br><span class="line">2) &quot;rabitmq&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
 <li><p>show all keys</p>
 <p><code>KEYS *</code></p>
 </li>
@@ -490,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/20/java design pattern/" rel="next" title="java design pattern">
-                <i class="fa fa-chevron-left"></i> java design pattern
+              <a href="/2018/01/21/course snippet/" rel="next" title="neo4j snippet">
+                <i class="fa fa-chevron-left"></i> neo4j snippet
               </a>
             
           </div>
@@ -500,8 +528,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/01/design-pattern build/" rel="prev" title="design pattern">
-                design pattern <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/01/hibernate snippet/" rel="prev" title="hibernate snippet">
+                hibernate snippet <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -576,7 +604,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -625,7 +653,47 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -656,7 +724,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

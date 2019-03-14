@@ -117,8 +117,9 @@
 <meta property="og:description" content="ORM is an acronym for Object/Relational mapping. It is a programming strategy to map object with the data stored in the database. It simplifies data creation, data manipulation, and data access.  The">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://www.javatpoint.com/images/hibernate/arc2.jpg">
-<meta property="og:image" content="https://www.javatpoint.com/images/hibernate/architecture.jpg">
-<meta property="og:updated_time" content="2019-03-04T05:56:02.277Z">
+<meta property="og:image" content="https://www.tutorialspoint.com/hibernate/images/hibernate_architecture.jpg">
+<meta property="og:image" content="https://www.tutorialspoint.com/hibernate/images/hibernate_cache.jpg">
+<meta property="og:updated_time" content="2019-03-12T01:19:44.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hibernate snippet">
 <meta name="twitter:description" content="ORM is an acronym for Object/Relational mapping. It is a programming strategy to map object with the data stored in the database. It simplifies data creation, data manipulation, and data access.  The">
@@ -390,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-04 13:56:02" itemprop="dateModified" datetime="2019-03-04T13:56:02+08:00">2019-03-04</time>
+                <time title="Modified: 2019-03-12 09:19:44" itemprop="dateModified" datetime="2019-03-12T09:19:44+08:00">2019-03-12</time>
               
             
           </span>
@@ -457,13 +458,20 @@
 <li>Database layer</li>
 </ul>
 <p><img src="https://www.javatpoint.com/images/hibernate/arc2.jpg" alt=""></p>
-<p><img src="https://www.javatpoint.com/images/hibernate/architecture.jpg" alt=""></p>
+<p>Hibernate Application Architecture：</p>
+<p><img src="https://www.tutorialspoint.com/hibernate/images/hibernate_architecture.jpg" alt=""></p>
 <blockquote>
 <p>JDBC (Java Database Connectivity)</p>
 <p>JTA (Java Transaction API) </p>
 <p>JNDI (Java Naming Directory Interface)</p>
 </blockquote>
 <h3 id="Elements-of-Hibernate-Architecture"><a href="#Elements-of-Hibernate-Architecture" class="headerlink" title="Elements of Hibernate Architecture"></a>Elements of Hibernate Architecture</h3><ul>
+<li><p>Configuration</p>
+<ul>
+<li><strong>Database Connection</strong> − This is handled through one or more configuration files supported by Hibernate. These files are <strong>hibernate.properties</strong> and <strong>hibernate.cfg.xml</strong>.</li>
+<li><strong>Class Mapping Setup</strong> − This component creates the connection between the Java classes and database tables.</li>
+</ul>
+</li>
 <li><p>SessionFactory</p>
 <blockquote>
 <p>SessionFactory is a thread-safe object, many threads cannot access it simultaneously.</p>
@@ -481,11 +489,19 @@
 </li>
 <li><p>ConnectionProvider</p>
 </li>
-<li><p>TransactionFactory</p>
+<li><p>Query</p>
+<blockquote>
+<p>Query objects use SQL or Hibernate Query Language (HQL) string to retrieve data from the database and create objects. A Query instance is used to bind query parameters, limit the number of results returned by the query, and finally to execute the query.</p>
+</blockquote>
+</li>
+<li><p>Criteria</p>
+<blockquote>
+<p>Criteria objects are used to create and execute object oriented criteria queries to retrieve objects.</p>
+</blockquote>
 </li>
 </ul>
 <h3 id="About-SQL"><a href="#About-SQL" class="headerlink" title="About SQL"></a>About SQL</h3><ul>
-<li><p>SQL query created in Hibernate</p>
+<li><p>SQL query created in Hibernate（Native sql）</p>
 <blockquote>
 <p>Session.createSQLQuery</p>
 </blockquote>
@@ -511,12 +527,34 @@
 <li>Criteria used to take more time to execute then HQL</li>
 <li>With Criteria we are safe with SQL Injection because of its dynamic query generation but in HQL as your queries are either fixed or parametrized, there is no safe from SQL Injection.</li>
 </ul>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h3><blockquote>
+<p>Cache memory stores recently used data items in order to reduce the number of database hits as much as possible.</p>
+</blockquote>
+<p><img src="https://www.tutorialspoint.com/hibernate/images/hibernate_cache.jpg" alt=""></p>
+<ul>
+<li><p>First level Cache</p>
+<blockquote>
+<p>Hibernate first level cache is associated with the Session object. Hibernate first level cache is enabled by default and there is no way to disable it. However hibernate provides methods through which we can delete selected objects from the cache or clear the cache completely.Any object cached in a session will not be visible to other sessions and when the session is closed, all the cached objects will also be lost.</p>
+</blockquote>
+</li>
+<li><p>Second level Cache</p>
+<blockquote>
+<p>Hibernate Second Level cache is disabled by default but we can enable it through configuration. Currently EHCache and Infinispan provides implementation for Hibernate Second level cache and we can use them. </p>
+</blockquote>
+</li>
+<li><p>Query Cache</p>
+<blockquote>
+<p>Hibernate can also cache result set of a query. Hibernate Query Cache doesn’t cache the state of the actual entities in the cache; it caches only identifier values and results of value type. So it should always be used in conjunction with the second-level cache.</p>
+</blockquote>
+</li>
+</ul>
+<hr>
 <h3 id="types-of-association-mapping"><a href="#types-of-association-mapping" class="headerlink" title="types of association mapping"></a>types of association mapping</h3><ol>
 <li><p>One to One</p>
 </li>
 <li><p>One to Many</p>
 <blockquote>
-<p>一对多）单向：会产生中间表，此时可以用@onetoMany @Joincolumn（name=” “）避免产生中间表**，并且指定了外键的名字（别看 @joincolumn在一中写着，但它存在在多的那个表中）</p>
+<p>（一对多）单向：会产生中间表，此时可以用@onetoMany @Joincolumn（name=” “）避免产生中间表**，并且指定了外键的名字（别看 @joincolumn在一中写着，但它存在在多的那个表中）</p>
 </blockquote>
 </li>
 <li><p>Many to One</p>
@@ -565,8 +603,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/01/design-pattern build/" rel="next" title="design pattern">
-                <i class="fa fa-chevron-left"></i> design pattern
+              <a href="/2018/02/16/redis snippet/" rel="next" title="redis snippet">
+                <i class="fa fa-chevron-left"></i> redis snippet
               </a>
             
           </div>
@@ -575,8 +613,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/22/windows snippet/" rel="prev" title="windows snippet">
-                windows snippet <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/01/design-pattern build/" rel="prev" title="design pattern">
+                design pattern <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -651,7 +689,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -700,7 +738,47 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -731,7 +809,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -786,7 +870,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-advantages-of-using-ORM-over-JDBC"><span class="nav-number">1.</span> <span class="nav-text">The advantages of using ORM over JDBC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hibernate-Architecture"><span class="nav-number">2.</span> <span class="nav-text">Hibernate Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elements-of-Hibernate-Architecture"><span class="nav-number">3.</span> <span class="nav-text">Elements of Hibernate Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#About-SQL"><span class="nav-number">4.</span> <span class="nav-text">About SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HQL-vs-Criteria"><span class="nav-number">5.</span> <span class="nav-text">HQL vs Criteria</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#types-of-association-mapping"><span class="nav-number">6.</span> <span class="nav-text">types of association mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要有实体关系映射"><span class="nav-number">6.1.</span> <span class="nav-text">为什么要有实体关系映射</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-advantages-of-using-ORM-over-JDBC"><span class="nav-number">1.</span> <span class="nav-text">The advantages of using ORM over JDBC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hibernate-Architecture"><span class="nav-number">2.</span> <span class="nav-text">Hibernate Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elements-of-Hibernate-Architecture"><span class="nav-number">3.</span> <span class="nav-text">Elements of Hibernate Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#About-SQL"><span class="nav-number">4.</span> <span class="nav-text">About SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HQL-vs-Criteria"><span class="nav-number">5.</span> <span class="nav-text">HQL vs Criteria</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Caching"><span class="nav-number">6.</span> <span class="nav-text">Caching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#types-of-association-mapping"><span class="nav-number">7.</span> <span class="nav-text">types of association mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要有实体关系映射"><span class="nav-number">7.1.</span> <span class="nav-text">为什么要有实体关系映射</span></a></li></ol></li></ol></div>
             
 
           </div>

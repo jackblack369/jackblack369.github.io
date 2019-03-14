@@ -120,7 +120,7 @@
 <meta property="og:image" content="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png">
 <meta property="og:image" content="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png">
 <meta property="og:image" content="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg">
-<meta property="og:updated_time" content="2019-03-04T10:13:13.395Z">
+<meta property="og:updated_time" content="2019-03-05T03:12:50.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java thread">
 <meta name="twitter:description" content="how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides t">
@@ -392,7 +392,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-04 18:13:13" itemprop="dateModified" datetime="2019-03-04T18:13:13+08:00">2019-03-04</time>
+                <time title="Modified: 2019-03-05 11:12:50" itemprop="dateModified" datetime="2019-03-05T11:12:50+08:00">2019-03-05</time>
               
             
           </span>
@@ -502,7 +502,57 @@
 </blockquote>
 <h3 id="synchronized-vs-concurrent-collection"><a href="#synchronized-vs-concurrent-collection" class="headerlink" title="synchronized vs concurrent collection"></a>synchronized vs concurrent collection</h3><blockquote>
 <p>later is more scalable than former</p>
+<p> synchronized collections locks the whole collection e.g. whole Map or List while concurrent collection never locks the whole Map or List. They achieve thread safety by using advanced and sophisticated techniques like lock stripping. For example, the ConcurrentHashMap divides the whole map into several segments and locks only the relevant segments, which allows multiple threads to access other segments of same ConcurrentHashMap without locking.</p>
 </blockquote>
+<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><blockquote>
+<p> CopyOnWriteArrayList allows multiple reader threads to read without synchronization and when a write happens it copies the whole ArrayList and swap with a newer one.</p>
+</blockquote>
+<h3 id="Stack-and-Heap"><a href="#Stack-and-Heap" class="headerlink" title="Stack and Heap"></a>Stack and Heap</h3><blockquote>
+<ul>
+<li>Each thread has their own stack, which is used to store local variables, method parameters and call stack. Variable stored in one Thread’s stack is not visible to other.</li>
+<li>heap is a common memory area which is shared by all threads.Objects whether local or at any level is created inside heap.</li>
+</ul>
+</blockquote>
+<ul>
+<li>To improve performance thread tends to cache values from heap into their stack, which can create problems if that variable is modified by more than one thread, this is where volatile variables comes in picture. volatile suggest threads to read value of variable always from main memory. </li>
+<li>If there is no memory left in the stack for storing function call or local variable, JVM will throw java.lang.StackOverFlowError, while if there is no more heap space for creating an object, JVM will throw java.lang.OutOfMemoryError: Java Heap Space</li>
+<li>Variables stored in stacks are only visible to the owner Thread while objects created in the heap are visible to all thread. In other words, stack memory is kind of private memory of Java Threads while heap memory is shared among all threads.</li>
+</ul>
+<h3 id="thread-pool"><a href="#thread-pool" class="headerlink" title="thread pool"></a>thread pool</h3><blockquote>
+<p>Java API provides Executor framework, which allows you to create different types of thread pools e.g. single thread pool, which process one task at a time, fixed thread pool (a pool of fixed number of thread) or cached thread pool (an expandable thread pool suitable for applications with many short lived tasks).</p>
+</blockquote>
+<h4 id="the-benefits"><a href="#the-benefits" class="headerlink" title="the benefits"></a>the benefits</h4><ul>
+<li><p>Use of Thread Pool reduces response time by avoiding thread creation during request or task processing.</p>
+</li>
+<li><p>Use of Thread Pool allows you to change your execution policy as you need. you can go from single thread to multiple threads by just replacing ExecutorService implementation.</p>
+</li>
+<li>Thread Pool in Java application increases the stability of the system by creating a configured number of threads decided based on system load and available resource.</li>
+<li>Thread Pool frees application developer from thread management stuff and allows to focus on business logic.</li>
+</ul>
+<h3 id="volatile-vs-atomic-variable"><a href="#volatile-vs-atomic-variable" class="headerlink" title="volatile vs atomic variable"></a>volatile vs atomic variable</h3><blockquote>
+<p>Volatile variable provides you happens-before guarantee that a write will happen before any subsequent write, it doesn’t guarantee atomicity. For example count++ operation will not become atomic just by declaring count variable as volatile. On the other hand AtomicInteger class provides atomic method to perform such compound operation atomically.</p>
+</blockquote>
+<h3 id="3-multi-threading-best-practice"><a href="#3-multi-threading-best-practice" class="headerlink" title="3 multi-threading best practice"></a>3 multi-threading best practice</h3><ul>
+<li>Always give meaningful name to your thread</li>
+<li><p>Avoid locking or Reduce scope of Synchronization</p>
+</li>
+<li><p>Prefer Synchronizers over wait and notify</p>
+</li>
+<li>Prefer Concurrent Collection over Synchronized Collection</li>
+</ul>
+<h3 id="Wait、Sleep、Yield"><a href="#Wait、Sleep、Yield" class="headerlink" title="Wait、Sleep、Yield"></a>Wait、Sleep、Yield</h3><ul>
+<li><p>sleep() and yield() methods are defined in thread class while wait() is defined in the Object class</p>
+</li>
+<li><p>The key difference between wait() and sleep() is that former is used for inter-thread communication while later is used to introduced to pause the current thread for a short duration. </p>
+</li>
+<li><p>This difference is more obvious from the fact that, when a thread calls the wait() method, it releases the monitor or lock it was holding on that object, but when a thread calls the sleep() method, it never releases the monitor even if it is holding. </p>
+</li>
+<li><p>yield() just releases the CPU hold by Thread to give another thread an opportunity to run though it’s not guaranteed who will get the CPU. It totally depends upon thread scheduler and <strong>it’s even possible that the thread which calls the yield() method gets the CPU again</strong>(有可能自己会再次获取到cpu执行时间). Hence, it’s not reliable to depend upon yield() method, it’s just on best effort basis.</p>
+<ul>
+<li>If there is no waiting thread or all the waiting threads have a lower priority then the same thread will continue its execution.</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -622,7 +672,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -671,7 +721,47 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -702,7 +792,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -757,7 +853,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-avoid-deadlock"><span class="nav-number">1.</span> <span class="nav-text">how to avoid deadlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap-faster-than-Hashtable"><span class="nav-number">2.</span> <span class="nav-text">ConcurrentHashMap faster than Hashtable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#submit-and-execute-method-of-Executor-and-ExecutorService"><span class="nav-number">3.</span> <span class="nav-text">submit() and execute() method of Executor and ExecutorService</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#when-to-use"><span class="nav-number">3.1.</span> <span class="nav-text">when to use</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock-vs-synchronized"><span class="nav-number">4.</span> <span class="nav-text">ReentrantLock vs synchronized</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-advantages-of-ReentrantLock"><span class="nav-number">4.1.</span> <span class="nav-text">the advantages of ReentrantLock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#the-disadvantages-of-ReentrantLock"><span class="nav-number">4.2.</span> <span class="nav-text">the disadvantages of ReentrantLock</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReadWriteLock"><span class="nav-number">5.</span> <span class="nav-text">ReadWriteLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stop-thread"><span class="nav-number">6.</span> <span class="nav-text">stop thread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">7.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized-vs-concurrent-collection"><span class="nav-number">8.</span> <span class="nav-text">synchronized vs concurrent collection</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-avoid-deadlock"><span class="nav-number">1.</span> <span class="nav-text">how to avoid deadlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap-faster-than-Hashtable"><span class="nav-number">2.</span> <span class="nav-text">ConcurrentHashMap faster than Hashtable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#submit-and-execute-method-of-Executor-and-ExecutorService"><span class="nav-number">3.</span> <span class="nav-text">submit() and execute() method of Executor and ExecutorService</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#when-to-use"><span class="nav-number">3.1.</span> <span class="nav-text">when to use</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock-vs-synchronized"><span class="nav-number">4.</span> <span class="nav-text">ReentrantLock vs synchronized</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-advantages-of-ReentrantLock"><span class="nav-number">4.1.</span> <span class="nav-text">the advantages of ReentrantLock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#the-disadvantages-of-ReentrantLock"><span class="nav-number">4.2.</span> <span class="nav-text">the disadvantages of ReentrantLock</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReadWriteLock"><span class="nav-number">5.</span> <span class="nav-text">ReadWriteLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stop-thread"><span class="nav-number">6.</span> <span class="nav-text">stop thread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">7.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized-vs-concurrent-collection"><span class="nav-number">8.</span> <span class="nav-text">synchronized vs concurrent collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CopyOnWriteArrayList"><span class="nav-number">8.1.</span> <span class="nav-text">CopyOnWriteArrayList</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack-and-Heap"><span class="nav-number">9.</span> <span class="nav-text">Stack and Heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread-pool"><span class="nav-number">10.</span> <span class="nav-text">thread pool</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-benefits"><span class="nav-number">10.1.</span> <span class="nav-text">the benefits</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile-vs-atomic-variable"><span class="nav-number">11.</span> <span class="nav-text">volatile vs atomic variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-multi-threading-best-practice"><span class="nav-number">12.</span> <span class="nav-text">3 multi-threading best practice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wait、Sleep、Yield"><span class="nav-number">13.</span> <span class="nav-text">Wait、Sleep、Yield</span></a></li></ol></div>
             
 
           </div>
