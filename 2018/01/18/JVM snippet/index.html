@@ -125,14 +125,13 @@
 <meta property="og:image" content="https://2.bp.blogspot.com/-eaOaDxPhWh4/VyMvvGfOO9I/AAAAAAAAAZ4/3v1d3iuqieMWMp5_HfKiRLaChQFcmFIMACLcB/s640/JVM4.png">
 <meta property="og:image" content="https://2.bp.blogspot.com/-u01Q_6NhvPk/VyM_pBkp3kI/AAAAAAAAAag/MgiZfTRTz0wxG6-6SEB02hTM7_ZE3SMHQCKgB/s1600/Untitled.png">
 <meta property="og:image" content="https://2.bp.blogspot.com/-oLUpq44AMXM/VyNIAVtyZ3I/AAAAAAAAAa0/lCVcaictQnk0MxCpCwxbUpXyL4Fy_83gACLcB/s1600/Untitled.png">
-<meta property="og:image" content="https://2.bp.blogspot.com/-K03M6Uni9m4/VyRNcS9tf4I/AAAAAAAAAbQ/MYBamJ20cb08iQTbDmnNmO4DyxMR_2giACLcB/s1600/Untitled.png">
 <meta property="og:image" content="https://4.bp.blogspot.com/-ROv0VjQvVGs/VyRf_zpQSpI/AAAAAAAAAbk/4kX92SN32gwi5KW4tPgQlEYmcnADWqrwgCLcB/s1600/Untitled.png">
 <meta property="og:image" content="https://3.bp.blogspot.com/-z0BIzBb7RSk/VyRoO5281LI/AAAAAAAAAb4/xU2X3082YSA7qyoelCxDj36l8luQkWjgwCLcB/s1600/Untitled.png">
 <meta property="og:image" content="https://4.bp.blogspot.com/-4bE2RL52NtA/VyRuBlfum-I/AAAAAAAAAcM/LzCOXj-d1F81ipQsZWs17QohYqrolOo0gCLcB/s1600/Untitled.png">
 <meta property="og:image" content="https://1.bp.blogspot.com/-YIMpPCtloyM/VyRvvs1tf0I/AAAAAAAAAcY/XkvoL2nuRS8hKUDMHR3gw0OCjaUeePrzQCLcB/s1600/Untitled.png">
 <meta property="og:image" content="https://1.bp.blogspot.com/-ANGvCzUbah4/VyXPF7DZ_vI/AAAAAAAAAdw/WXoC1nvYlLcPgVxyyLfSQtD6wM2fCDzMwCLcB/s1600/Untitled.png">
 <meta property="og:image" content="https://3.bp.blogspot.com/-0qA9I4nPJ5s/VyXRhVVabDI/AAAAAAAAAeE/JYW4byFQCMICubzScaBIaQvEVblinG7cgCLcB/s1600/Untitled.png">
-<meta property="og:updated_time" content="2019-07-16T03:09:02.944Z">
+<meta property="og:updated_time" content="2019-07-16T03:15:17.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm snippet">
 <meta name="twitter:description" content="JRE JVM JDK JRE:    java run-time   Java is every where in browser, in mobile, in TV or in set-top boxes and if you are into Java programming language than you know that Java code which is bundled in">
@@ -404,7 +403,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-16 11:09:02" itemprop="dateModified" datetime="2019-07-16T11:09:02+08:00">2019-07-16</time>
+                <time title="Modified: 2019-07-16 11:15:17" itemprop="dateModified" datetime="2019-07-16T11:15:17+08:00">2019-07-16</time>
               
             
           </span>
@@ -579,13 +578,10 @@
 <li><p>Access to this memory is fast when compared to heap memory</p>
 </li>
 <li><p>This memory is threadsafe as each thread operates in its own stack</p>
-<hr>
-</li>
-<li><p>Each and every method call performed by the thread and corresponding local variables will be stored by in the stack</p>
-<p><img src="https://2.bp.blogspot.com/-K03M6Uni9m4/VyRNcS9tf4I/AAAAAAAAAbQ/MYBamJ20cb08iQTbDmnNmO4DyxMR_2giACLcB/s1600/Untitled.png" alt=""></p>
 </li>
 </ul>
-<h5 id="Stack-Frame-Structure"><a href="#Stack-Frame-Structure" class="headerlink" title="Stack Frame Structure"></a>Stack Frame Structure</h5><ul>
+<hr>
+<ul>
 <li><p>Local Variable Array</p>
 <ul>
 <li><p>It contains all parameters and local variables of the method.</p>
@@ -609,6 +605,53 @@
 <li><p>Frame Data</p>
 </li>
 </ul>
+<p><strong>Stack Memory vs Heap Space</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Stack Memory</th>
+<th>Heap Space</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td>Stack is used in parts, one at a time during execution of a thread</td>
+<td>The entire application uses Heap space during runtime</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Stack has size limits depending upon OS and is usually smaller then Heap</td>
+<td>There is no size limit on Heap</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Stores only primitive variables and references to objects that are created in Heap Space</td>
+<td>All the newly created objects are stored here</td>
+</tr>
+<tr>
+<td>Order</td>
+<td>It is accessed using Last-in First-out (LIFO) memory allocation system</td>
+<td>This memory is accessed via complex memory management techniques that include Young Generation, Old or Tenured Generation, and Permanent Generation.</td>
+</tr>
+<tr>
+<td>Life</td>
+<td>Stack memory only exists as long as the current method is running</td>
+<td>Heap space exists as long as the application runs</td>
+</tr>
+<tr>
+<td>Efficiency</td>
+<td>Comparatively much faster to allocate when compared to heap</td>
+<td>Slower to allocate when compared to stack</td>
+</tr>
+<tr>
+<td>Allocation/Deallocation</td>
+<td>This Memory is automatically allocated and deallocated when a method is called and returned respectively</td>
+<td>Heap space is allocated when new objects are created and deallocated by Gargabe Collector when they are no longer referenced</td>
+</tr>
+</tbody>
+</table>
 <h4 id="4-PC-Registers-Program-Counter-Registers"><a href="#4-PC-Registers-Program-Counter-Registers" class="headerlink" title="4. PC Registers(Program Counter Registers)"></a>4. PC Registers(Program Counter Registers)</h4><blockquote>
 <p>For every thread a separate PC register will be created at the time of thread creation. PC register contains address of current executing instruction. Once instruction execution completes automatically PC register will be incremented to hold address of next instruction. An “address” can be a native pointer or an offset from the beginning of a method’s byte codes.   </p>
 </blockquote>
@@ -862,7 +905,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">47</span>
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -956,7 +1001,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JRE-JVM-JDK"><span class="nav-number">1.</span> <span class="nav-text">JRE JVM JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-architecture-of-the-JVM"><span class="nav-number">2.</span> <span class="nav-text">basic architecture of the JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-Loader-Sub-System"><span class="nav-number">2.1.</span> <span class="nav-text">Class Loader Sub System</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Loading"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. Loading</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Linking"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. Linking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Class-loader-sub-system-follows-delegation-hierarchy-algorithm"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. Class loader sub system follows delegation hierarchy algorithm</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Various-Memory-Areas-in-JVM"><span class="nav-number">2.2.</span> <span class="nav-text">Various Memory Areas in JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Method-Area"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. Method Area</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Heap-Area"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Heap Area</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Stack-Memory"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. Stack Memory</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Stack-Frame-Structure"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">Stack Frame Structure</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-PC-Registers-Program-Counter-Registers"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. PC Registers(Program Counter Registers)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Native-Method-Stacks"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. Native Method Stacks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Execution-Engine"><span class="nav-number">2.3.</span> <span class="nav-text">Execution Engine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Interpreter"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. Interpreter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JIT-Compiler"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. JIT Compiler</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Native-Interface-JNI"><span class="nav-number">2.4.</span> <span class="nav-text">Java Native Interface(JNI)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JRE-JVM-JDK"><span class="nav-number">1.</span> <span class="nav-text">JRE JVM JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-architecture-of-the-JVM"><span class="nav-number">2.</span> <span class="nav-text">basic architecture of the JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-Loader-Sub-System"><span class="nav-number">2.1.</span> <span class="nav-text">Class Loader Sub System</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Loading"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. Loading</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Linking"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. Linking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Class-loader-sub-system-follows-delegation-hierarchy-algorithm"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. Class loader sub system follows delegation hierarchy algorithm</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Various-Memory-Areas-in-JVM"><span class="nav-number">2.2.</span> <span class="nav-text">Various Memory Areas in JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Method-Area"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. Method Area</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Heap-Area"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. Heap Area</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Stack-Memory"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. Stack Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-PC-Registers-Program-Counter-Registers"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. PC Registers(Program Counter Registers)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Native-Method-Stacks"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. Native Method Stacks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Execution-Engine"><span class="nav-number">2.3.</span> <span class="nav-text">Execution Engine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Interpreter"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. Interpreter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JIT-Compiler"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. JIT Compiler</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Native-Interface-JNI"><span class="nav-number">2.4.</span> <span class="nav-text">Java Native Interface(JNI)</span></a></li></ol></li></ol></div>
             
 
           </div>
