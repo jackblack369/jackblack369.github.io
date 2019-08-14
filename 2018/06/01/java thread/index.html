@@ -108,22 +108,22 @@
 
 
 
-  <meta name="description" content="how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides t">
+  <meta name="description" content="线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。 how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternativ">
 <meta name="keywords" content="snippet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java thread">
 <meta property="og:url" content="http://yoursite.com/2018/06/01/java thread/index.html">
 <meta property="og:site_name" content="Will">
-<meta property="og:description" content="how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides t">
+<meta property="og:description" content="线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。 how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternativ">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg">
 <meta property="og:image" content="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png">
 <meta property="og:image" content="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png">
 <meta property="og:image" content="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg">
-<meta property="og:updated_time" content="2019-07-10T08:02:05.686Z">
+<meta property="og:updated_time" content="2019-08-14T08:34:12.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java thread">
-<meta name="twitter:description" content="how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides t">
+<meta name="twitter:description" content="线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。 how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternativ">
 <meta name="twitter:image" content="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg">
 
 
@@ -392,7 +392,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-10 16:02:05" itemprop="dateModified" datetime="2019-07-10T16:02:05+08:00">2019-07-10</time>
+                <time title="Modified: 2019-08-14 16:34:12" itemprop="dateModified" datetime="2019-08-14T16:34:12+08:00">2019-08-14</time>
               
             
           </span>
@@ -443,7 +443,8 @@
       
 
       
-        <h3 id="how-to-avoid-deadlock"><a href="#how-to-avoid-deadlock" class="headerlink" title="how to avoid deadlock"></a>how to avoid deadlock</h3><p><img src="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg" alt=""></p>
+        <p>线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。</p>
+<h3 id="how-to-avoid-deadlock"><a href="#how-to-avoid-deadlock" class="headerlink" title="how to avoid deadlock"></a>how to avoid deadlock</h3><p><img src="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg" alt=""></p>
 <h3 id="ConcurrentHashMap-faster-than-Hashtable"><a href="#ConcurrentHashMap-faster-than-Hashtable" class="headerlink" title="ConcurrentHashMap faster than Hashtable"></a>ConcurrentHashMap faster than Hashtable</h3><blockquote>
 <p> ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides the whole map into different segments and only lock a particular segment during the update operation, instead of <a href="http://javarevisited.blogspot.com/2012/01/java-hashtable-example-tutorial-code.html" target="_blank" rel="noopener">Hashtable</a>, which locks whole Map.</p>
 </blockquote>
@@ -586,8 +587,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/22/windows snippet/" rel="next" title="windows snippet">
-                <i class="fa fa-chevron-left"></i> windows snippet
+              <a href="/2018/06/01/java thread code/" rel="next" title="java thread code">
+                <i class="fa fa-chevron-left"></i> java thread code
               </a>
             
           </div>
@@ -596,8 +597,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/01/java thread code/" rel="prev" title="java thread code">
-                java thread code <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/28/words fragment/" rel="prev" title="words fragment">
+                words fragment <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
