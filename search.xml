@@ -1095,14 +1095,14 @@
     </entry>
     
     <entry>
-      <title>java skill</title>
-      <link href="/2016/05/20/java%20skill/"/>
-      <url>/2016/05/20/java%20skill/</url>
-      <content type="html"><![CDATA[<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul><li><p>int变量自增 效率问题 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;和i += 1;形成的指令数较少，且不需要操作数栈。相对而言，i = i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+= 1;的效率一样，并且二者的效率都优于i = i+1;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      <title>shiro snippet</title>
+      <link href="/2016/05/20/shiro%20snippet/"/>
+      <url>/2016/05/20/shiro%20snippet/</url>
+      <content type="html"><![CDATA[<p><strong>对于一个好的框架，从外部来看应该具有非常简单易于使用的 API，且 API 契约明确；从内部来看的话，其应该有一个可扩展的架构，即非常容易插入用户自定义实现，因为任何框架都不能满足所有需求。 </strong></p><hr><ul><li><p>Subject</p><p>主体，代表了当前的用户</p></li><li><p>SecurityManager</p><p>安全管理器，它管理着所有Subject，相当于springmvc中的DispatcherServlet(前端控制器)</p></li><li><p>Realm</p><p>域，Shiro从Realm获取安全数据（如用户、角色、权限） ，是验证主体subject的数据源</p></li></ul><p>流程如图：</p><p><img src="http://wiki.jikexueyuan.com/project/shiro/images/2.png" alt=""></p><p><strong>流程说明</strong>：</p><ol><li>应用代码通过 Subject 来进行认证和授权，而 Subject 又委托给 SecurityManager；</li><li>我们需要给 Shiro 的 SecurityManager 注入 Realm，从而让 SecurityManager 能得到合法的用户及其权限进行判断。</li></ol><p><strong>从以上也可以看出，Shiro 不提供维护用户 / 权限，而是通过 Realm 让开发人员自己注入。</strong> </p><hr><p>shiro的内部结构如图：</p><p><img src="http://wiki.jikexueyuan.com/project/shiro/images/3.png" alt=""></p><hr><h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h3><p><strong>principals</strong>：身份，即主体的标识属性，可以是任何东西，如用户名、邮箱等，唯一即可。 </p><p><strong>credentials</strong>：证明 / 凭证，即只有主体知道的安全值，如密码 / 数字证书等。 </p><ul><li>身份认证流程</li></ul><p><img src="http://wiki.jikexueyuan.com/project/shiro/images/4.png" alt=""></p><hr><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 </p><ul><li><p>授权方式</p><p>编程式、注解式、jsp/gsp标签式</p></li></ul>]]></content>
       
       <categories>
           
-          <category> java </category>
+          <category> shiro </category>
           
       </categories>
       
@@ -1116,14 +1116,14 @@
     </entry>
     
     <entry>
-      <title>shiro snippet</title>
-      <link href="/2016/05/20/shiro%20snippet/"/>
-      <url>/2016/05/20/shiro%20snippet/</url>
-      <content type="html"><![CDATA[<p><strong>对于一个好的框架，从外部来看应该具有非常简单易于使用的 API，且 API 契约明确；从内部来看的话，其应该有一个可扩展的架构，即非常容易插入用户自定义实现，因为任何框架都不能满足所有需求。 </strong></p><hr><ul><li><p>Subject</p><p>主体，代表了当前的用户</p></li><li><p>SecurityManager</p><p>安全管理器，它管理着所有Subject，相当于springmvc中的DispatcherServlet(前端控制器)</p></li><li><p>Realm</p><p>域，Shiro从Realm获取安全数据（如用户、角色、权限） ，是验证主体subject的数据源</p></li></ul><p>流程如图：</p><p><img src="http://wiki.jikexueyuan.com/project/shiro/images/2.png" alt=""></p><p><strong>流程说明</strong>：</p><ol><li>应用代码通过 Subject 来进行认证和授权，而 Subject 又委托给 SecurityManager；</li><li>我们需要给 Shiro 的 SecurityManager 注入 Realm，从而让 SecurityManager 能得到合法的用户及其权限进行判断。</li></ol><p><strong>从以上也可以看出，Shiro 不提供维护用户 / 权限，而是通过 Realm 让开发人员自己注入。</strong> </p><hr><p>shiro的内部结构如图：</p><p><img src="http://wiki.jikexueyuan.com/project/shiro/images/3.png" alt=""></p><hr><h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h3><p><strong>principals</strong>：身份，即主体的标识属性，可以是任何东西，如用户名、邮箱等，唯一即可。 </p><p><strong>credentials</strong>：证明 / 凭证，即只有主体知道的安全值，如密码 / 数字证书等。 </p><ul><li>身份认证流程</li></ul><p><img src="http://wiki.jikexueyuan.com/project/shiro/images/4.png" alt=""></p><hr><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 </p><ul><li><p>授权方式</p><p>编程式、注解式、jsp/gsp标签式</p></li></ul>]]></content>
+      <title>java skill</title>
+      <link href="/2016/05/20/java%20skill/"/>
+      <url>/2016/05/20/java%20skill/</url>
+      <content type="html"><![CDATA[<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul><li><p>int变量自增 效率问题 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;和i += 1;形成的指令数较少，且不需要操作数栈。相对而言，i = i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+= 1;的效率一样，并且二者的效率都优于i = i+1;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
       
       <categories>
           
-          <category> shiro </category>
+          <category> java </category>
           
       </categories>
       
