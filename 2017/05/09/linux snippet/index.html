@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。 /sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。 /root/    超级用户，即根用户的主目录。 /home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。 /boot/    存放Ubuntu内核和系统启动文件。 /mnt/">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-27T09:56:53.139Z">
+<meta property="og:updated_time" content="2019-08-30T03:24:59.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux snippet">
 <meta name="twitter:description" content="/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。 /sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。 /root/    超级用户，即根用户的主目录。 /home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。 /boot/    存放Ubuntu内核和系统启动文件。 /mnt/">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-27 17:56:53" itemprop="dateModified" datetime="2019-06-27T17:56:53+08:00">2019-06-27</time>
+                <time title="Modified: 2019-08-30 11:24:59" itemprop="dateModified" datetime="2019-08-30T11:24:59+08:00">2019-08-30</time>
               
             
           </span>
@@ -459,6 +459,9 @@
 <li>/srv/    存储系统提供的服务数据。</li>
 <li>/sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。</li>
 </ul>
+<h2 id="装机问题"><a href="#装机问题" class="headerlink" title="装机问题"></a>装机问题</h2><h3 id="Wifi-Not-Enabled-Acer-Aspire-4750"><a href="#Wifi-Not-Enabled-Acer-Aspire-4750" class="headerlink" title="Wifi Not Enabled Acer Aspire 4750"></a>Wifi Not Enabled Acer Aspire 4750</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~$ rfkill list all</span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: yes</span><br><span class="line"></span><br><span class="line">~$ sudo rmmod acer-wmi</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
+<p>add below line at the end of the file : /etc/modprobe.d/blacklist.conf<br>blacklist acer-wmi</p>
+<p>Then restart the system.<br>~$ rfkill list all<br>0: phy0: Wireless LAN<br>Soft blocked: no<br>Hard blocked: no<br><code>`</code></p>
 
       
     </div>
@@ -558,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -773,6 +785,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#装机问题"><span class="nav-number">1.</span> <span class="nav-text">装机问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Wifi-Not-Enabled-Acer-Aspire-4750"><span class="nav-number">1.1.</span> <span class="nav-text">Wifi Not Enabled Acer Aspire 4750</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
