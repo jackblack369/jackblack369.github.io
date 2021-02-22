@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition Bash:Bourne-Again SHellBash is a command language interpreter. conclusionDo not be afraid to break things as that is perfectly nor">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-18T01:13:08.052Z">
+<meta property="og:updated_time" content="2021-02-07T06:54:21.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux command">
 <meta name="twitter:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition Bash:Bourne-Again SHellBash is a command language interpreter. conclusionDo not be afraid to break things as that is perfectly nor">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-18 09:13:08" itemprop="dateModified" datetime="2020-03-18T09:13:08+08:00">2020-03-18</time>
+                <time title="Modified: 2021-02-07 14:54:21" itemprop="dateModified" datetime="2021-02-07T14:54:21+08:00">2021-02-07</time>
               
             
           </span>
@@ -458,12 +458,19 @@
 </li>
 <li><p>checking remote system tcp 80 port status</p>
 <ol>
-<li>Telnet</li>
-<li>nc</li>
-<li>nmap<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nmap myserver.com 80</span><br></pre></td></tr></table></figure>
+<li><p>Telnet</p>
+</li>
+<li><p>nc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
+</ul>
+<ol start="3">
+<li>nmap<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
 <li><p>通过进程名查看占用端口</p>
 <ul>
 <li>先查看进程pid    <code>ps -ef | grep 进程名</code></li>
@@ -514,6 +521,8 @@
 </li>
 <li><p>查看目录下文件大小        <code>du -sh</code></p>
 </li>
+<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -lh --max-depth=1</code></p>
+</li>
 </ul>
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>查找具体文件    <code>find / -name 文件名称</code></p>
 <h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
@@ -522,10 +531,14 @@
 <h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
 <p>###　安装deb文件出错时</p>
 <p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
 <h2 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br></pre></td></tr></table></figure>
 <h3 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h3><ul>
 <li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;{if($1==$5) print $1,$5,$10} filename&#39;</code></p>
 <p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
+</li>
+<li><p><a href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk" target="_blank" rel="noopener">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
+<p>awk ‘{ $5=””; print }’ file</p>
 </li>
 </ul>
 <h3 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h3><p>语法：wc [选项] 文件…</p>
@@ -540,6 +553,42 @@
 <h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p><a href="https://www.cnblogs.com/zhangeamon/p/5500744.html" target="_blank" rel="noopener">CentOS 7 时区设置</a></p>
 <h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>限定查询结果之后的前几行 <code>grep -m 10 &lt;pattern&gt; &lt;file&gt;</code></p>
 <p>限定查询结果倒数的几行 <code>grep &lt;pattern&gt; &lt;file&gt; | tail -10</code></p>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><ul>
+<li><p>判断　day of year     </p>
+<p><code>doy=$(date +%j)</code></p>
+</li>
+<li><p>制定日期减一天</p>
+<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
+</li>
+</ul>
+<h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
+<p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
+<h4 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载服务器文件	sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
+<h4 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo '&#123;"kind": "Service", "apiVersion": "v1", "status": &#123;"loadBalancer": true&#125;&#125;'|jq .</span><br></pre></td></tr></table></figure>
+<h4 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h4><ul>
+<li><p>替换字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i 's/Search_String/Replacement_String/g' Input_File</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h4><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
+<p>输出可能是这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
+<p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
+<p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>  iconv -f gb18030 -t UTF-8 input.file -o output.file</p>
+<p>  gb18030</p>
+<h3 id="tr命令"><a href="#tr命令" class="headerlink" title="tr命令"></a>tr命令</h3><p>tr – translate or delete characters </p>
+<ul>
+<li><p>大小写转换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -664,7 +713,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -877,7 +926,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash-Shell-Scripting-Definition"><span class="nav-number">1.</span> <span class="nav-text">Bash Shell Scripting Definition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number"></span> <span class="nav-text">conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number"></span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PORT"><span class="nav-number"></span> <span class="nav-text">PORT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar"><span class="nav-number"></span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#firewall"><span class="nav-number"></span> <span class="nav-text">firewall</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看系统配置"><span class="nav-number">1.</span> <span class="nav-text">查看系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘相关"><span class="nav-number">2.</span> <span class="nav-text">磁盘相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">3.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">4.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">5.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载安装的软件"><span class="nav-number">6.</span> <span class="nav-text">卸载安装的软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件权限"><span class="nav-number">7.</span> <span class="nav-text">文件权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光标"><span class="nav-number"></span> <span class="nav-text">光标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AWK"><span class="nav-number">1.</span> <span class="nav-text">AWK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计文件行数"><span class="nav-number">2.</span> <span class="nav-text">统计文件行数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限"><span class="nav-number">3.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时区"><span class="nav-number">4.</span> <span class="nav-text">时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">5.</span> <span class="nav-text">grep</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash-Shell-Scripting-Definition"><span class="nav-number">1.</span> <span class="nav-text">Bash Shell Scripting Definition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number"></span> <span class="nav-text">conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number"></span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PORT"><span class="nav-number"></span> <span class="nav-text">PORT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar"><span class="nav-number"></span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#firewall"><span class="nav-number"></span> <span class="nav-text">firewall</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看系统配置"><span class="nav-number">1.</span> <span class="nav-text">查看系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘相关"><span class="nav-number">2.</span> <span class="nav-text">磁盘相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">3.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">4.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">5.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载安装的软件"><span class="nav-number">6.</span> <span class="nav-text">卸载安装的软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件权限"><span class="nav-number">7.</span> <span class="nav-text">文件权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光标"><span class="nav-number"></span> <span class="nav-text">光标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AWK"><span class="nav-number">1.</span> <span class="nav-text">AWK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计文件行数"><span class="nav-number">2.</span> <span class="nav-text">统计文件行数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限"><span class="nav-number">3.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时区"><span class="nav-number">4.</span> <span class="nav-text">时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">5.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期"><span class="nav-number">6.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#剪切板"><span class="nav-number">7.</span> <span class="nav-text">剪切板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#securtCRT"><span class="nav-number">7.1.</span> <span class="nav-text">securtCRT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#格式化json"><span class="nav-number">7.2.</span> <span class="nav-text">格式化json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SED"><span class="nav-number">7.3.</span> <span class="nav-text">SED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换文件编码格式"><span class="nav-number">7.4.</span> <span class="nav-text">转换文件编码格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tr命令"><span class="nav-number">8.</span> <span class="nav-text">tr命令</span></a></li></ol></div>
             
 
           </div>
@@ -907,7 +956,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
