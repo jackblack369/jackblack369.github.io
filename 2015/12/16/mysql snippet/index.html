@@ -117,7 +117,7 @@
 <meta property="og:description" content="知识点 the size of blob column 1234  A BLOB can be 65535 bytes (64 KB) maximum.If you need more consider using:a MEDIUMBLOB for 16777215 bytes (16 MB)a LONGBLOB for 4294967295 bytes (4 GB).  join sql  st">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.stack.imgur.com/VQ5XP.png">
-<meta property="og:updated_time" content="2019-06-12T01:22:15.498Z">
+<meta property="og:updated_time" content="2021-04-09T03:25:17.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="database snippet">
 <meta name="twitter:description" content="知识点 the size of blob column 1234  A BLOB can be 65535 bytes (64 KB) maximum.If you need more consider using:a MEDIUMBLOB for 16777215 bytes (16 MB)a LONGBLOB for 4294967295 bytes (4 GB).  join sql  st">
@@ -389,7 +389,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-12 09:22:15" itemprop="dateModified" datetime="2019-06-12T09:22:15+08:00">2019-06-12</time>
+                <time title="Modified: 2021-04-09 11:25:17" itemprop="dateModified" datetime="2021-04-09T11:25:17+08:00">2021-04-09</time>
               
             
           </span>
@@ -501,6 +501,17 @@
 </ul>
 <h3 id="DDL-VS-DML"><a href="#DDL-VS-DML" class="headerlink" title="DDL VS DML"></a>DDL VS DML</h3><p>DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.</p>
 <p>Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.</p>
+<h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
+<li><p>导出数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p database &gt; file.sql</span><br><span class="line">其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导出数据表数据（根据sql的where条件）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p database --tables tablename --where="id&gt;8" &gt; result.sql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行sql文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/files/filename.sql</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -838,7 +849,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql语句"><span class="nav-number">2.</span> <span class="nav-text">sql语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事物隔离级别"><span class="nav-number">3.</span> <span class="nav-text">事物隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDL-VS-DML"><span class="nav-number">4.</span> <span class="nav-text">DDL VS DML</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql语句"><span class="nav-number">2.</span> <span class="nav-text">sql语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事物隔离级别"><span class="nav-number">3.</span> <span class="nav-text">事物隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDL-VS-DML"><span class="nav-number">4.</span> <span class="nav-text">DDL VS DML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysqldump"><span class="nav-number">5.</span> <span class="nav-text">mysqldump</span></a></li></ol></div>
             
 
           </div>

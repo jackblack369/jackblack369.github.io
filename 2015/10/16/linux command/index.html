@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition Bash:Bourne-Again SHellBash is a command language interpreter. conclusionDo not be afraid to break things as that is perfectly nor">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-02-07T06:54:21.612Z">
+<meta property="og:updated_time" content="2021-03-18T07:24:24.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux command">
 <meta name="twitter:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition Bash:Bourne-Again SHellBash is a command language interpreter. conclusionDo not be afraid to break things as that is perfectly nor">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-02-07 14:54:21" itemprop="dateModified" datetime="2021-02-07T14:54:21+08:00">2021-02-07</time>
+                <time title="Modified: 2021-03-18 15:24:24" itemprop="dateModified" datetime="2021-03-18T15:24:24+08:00">2021-03-18</time>
               
             
           </span>
@@ -505,7 +505,13 @@
 </li>
 </ul>
 <h3 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h3><ul>
-<li>查看内核<ul>
+<li><p>查看系统</p>
+<ul>
+<li><code>cat /etc/os-release</code></li>
+</ul>
+</li>
+<li><p>查看内核</p>
+<ul>
 <li><code>cat /proc/version</code></li>
 <li><code>uname -a</code></li>
 </ul>
@@ -522,6 +528,7 @@
 <li><p>查看目录下文件大小        <code>du -sh</code></p>
 </li>
 <li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -lh --max-depth=1</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看当前目录下user目录的大小，并不想看其他目录以及其子目录：</span><br><span class="line">du -sh user</span><br><span class="line">-s表示总结的意思，即只列出一个总结的值</span><br><span class="line">du -h --max-depth=0 user</span><br><span class="line">--max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>查找具体文件    <code>find / -name 文件名称</code></p>
@@ -532,7 +539,7 @@
 <p>###　安装deb文件出错时</p>
 <p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
-<h2 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br></pre></td></tr></table></figure>
+<h2 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
 <h3 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h3><ul>
 <li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;{if($1==$5) print $1,$5,$10} filename&#39;</code></p>
 <p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
