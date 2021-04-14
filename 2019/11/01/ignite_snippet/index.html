@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="ignite-2.7.0 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误 原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的Class&amp;lt;?&amp;gt; cls = Class.forName(pkgName + &amp;quot;.misc.Sh">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-14T03:39:21.513Z">
+<meta property="og:updated_time" content="2021-04-14T03:46:47.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ignite snippet">
 <meta name="twitter:description" content="ignite-2.7.0 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误 原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的Class&amp;lt;?&amp;gt; cls = Class.forName(pkgName + &amp;quot;.misc.Sh">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-04-14 11:39:21" itemprop="dateModified" datetime="2021-04-14T11:39:21+08:00">2021-04-14</time>
+                <time title="Modified: 2021-04-14 11:46:47" itemprop="dateModified" datetime="2021-04-14T11:46:47+08:00">2021-04-14</time>
               
             
           </span>
@@ -451,7 +451,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于在数据存入ignite之后，ignite会保存数据相关的schema信息,此时在enum项目之间修改item，会打乱之前的index</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>解决 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">更改enum类的名称，不再使用原有的schema信息</span><br><span class="line">方法二：</span><br><span class="line">enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">更改enum类的名称，不再使用原有的schema信息</span><br><span class="line">方法二：</span><br><span class="line">enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引</span><br><span class="line">方法三（未验证）：</span><br><span class="line">删除 $IGNITE_HOME/work/binary_meta/Nodex里面的文件</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>官方说明</p>
 <blockquote>
