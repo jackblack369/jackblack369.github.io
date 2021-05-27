@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="java config Use java -XshowSettings:properties to show the java.library.path (and others) value.  native lib config /lib contain “essential” libraries that may be needed even in single-user (admin-onl">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-27T09:56:48.250Z">
+<meta property="og:updated_time" content="2021-05-26T03:37:55.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux config">
 <meta name="twitter:description" content="java config Use java -XshowSettings:properties to show the java.library.path (and others) value.  native lib config /lib contain “essential” libraries that may be needed even in single-user (admin-onl">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-27 17:56:48" itemprop="dateModified" datetime="2019-06-27T17:56:48+08:00">2019-06-27</time>
+                <time title="Modified: 2021-05-26 11:37:55" itemprop="dateModified" datetime="2021-05-26T11:37:55+08:00">2021-05-26</time>
               
             
           </span>
@@ -454,6 +454,29 @@
 <li><code>service network restart</code></li>
 <li><code>ip a</code>查看ip</li>
 </ol>
+<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><ol>
+<li><p>进入目录 /root/.ssh</p>
+</li>
+<li><p>执行命令：<code>ssh-keygen -t rsa</code>，会生成文件id_rsa和id_rsa.pub</p>
+</li>
+<li><p>将公钥写入文件 authorized_keys，<code>cat id_rsa.pub &gt;&gt; authorized_keys</code></p>
+</li>
+<li><p>在其它机器重复上述操作</p>
+</li>
+<li><p>将其它机器的公钥拷贝到第一台机器的authorized_keys文件中</p>
+<p><code>ssh-copy-id -i id_rsa.pub 用户@ip</code></p>
+<blockquote>
+<p>注意，一定不要使用复制拷贝的方式把公钥复制到authorized_keys文件中，因为复制的时候会有特殊字符的加入，可以在vim中使用<code>:set list</code>进行验证</p>
+</blockquote>
+</li>
+<li><p>将第一台机器的authorized_keys复制到其它机器上</p>
+<p><code>scp authorized_keys 用户@ip:/路径/.ssh/</code></p>
+<p>注意点</p>
+</li>
+</ol>
+<ul>
+<li>authorized_keys的权限是600，即读和写（如果默认不是的话，需要修改）</li>
+</ul>
 
       
     </div>
@@ -578,7 +601,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -742,7 +765,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -797,7 +822,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-config"><span class="nav-number">1.</span> <span class="nav-text">java config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#native-lib-config"><span class="nav-number">2.</span> <span class="nav-text">native lib config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#other"><span class="nav-number">3.</span> <span class="nav-text">other</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmware-centos-ip-config"><span class="nav-number">4.</span> <span class="nav-text">vmware centos ip config</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-config"><span class="nav-number">1.</span> <span class="nav-text">java config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#native-lib-config"><span class="nav-number">2.</span> <span class="nav-text">native lib config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#other"><span class="nav-number">3.</span> <span class="nav-text">other</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmware-centos-ip-config"><span class="nav-number">4.</span> <span class="nav-text">vmware centos ip config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh"><span class="nav-number">5.</span> <span class="nav-text">ssh</span></a></li></ol></div>
             
 
           </div>
