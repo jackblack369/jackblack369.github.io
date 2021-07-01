@@ -108,21 +108,22 @@
 
 
 
-  <meta name="description" content="hive中几种分割符分隔符 \n    每行一条记录^A    分隔列（八进制 \001）^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）^C    分隔MAP中键值对的“键”和“值”（八进制 \003） 用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符 1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符 2，把hiv">
+  <meta name="description" content="beeline1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。 （2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。 （3）hiveserver2：hive服务端。提供hive服务。客户端可以通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Will">
 <meta property="og:url" content="http://yoursite.com/1970/01/01/hive snippet/index.html">
 <meta property="og:site_name" content="Will">
-<meta property="og:description" content="hive中几种分割符分隔符 \n    每行一条记录^A    分隔列（八进制 \001）^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）^C    分隔MAP中键值对的“键”和“值”（八进制 \003） 用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符 1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符 2，把hiv">
+<meta property="og:description" content="beeline1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。 （2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。 （3）hiveserver2：hive服务端。提供hive服务。客户端可以通过">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png">
 <meta property="og:image" content="http://image.okcode.net/DD9ED976ABB6F4313B8F0F7C2DD5C33E.png">
 <meta property="og:image" content="http://image.okcode.net/75D96F800A1815F7A84A8CF543BD7063.png">
-<meta property="og:updated_time" content="2020-01-16T15:02:39.435Z">
+<meta property="og:updated_time" content="2021-06-22T10:52:28.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Will">
-<meta name="twitter:description" content="hive中几种分割符分隔符 \n    每行一条记录^A    分隔列（八进制 \001）^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）^C    分隔MAP中键值对的“键”和“值”（八进制 \003） 用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符 1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符 2，把hiv">
-<meta name="twitter:image" content="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png">
+<meta name="twitter:description" content="beeline1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。 （2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。 （3）hiveserver2：hive服务端。提供hive服务。客户端可以通过">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70">
 
 
 
@@ -390,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-16 23:02:39" itemprop="dateModified" datetime="2020-01-16T23:02:39+08:00">2020-01-16</time>
+                <time title="Modified: 2021-06-22 18:52:28" itemprop="dateModified" datetime="2021-06-22T18:52:28+08:00">2021-06-22</time>
               
             
           </span>
@@ -423,7 +424,19 @@
       
 
       
-        <h1 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h1><p><strong>分隔符</strong></p>
+        <h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
+<p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
+<p>（3）hiveserver2：hive服务端。提供hive服务。客户端可以通过beeline，jdbc（即用java代码链接）等多种方式链接到hive。</p>
+<p>（4）beeline：hive客户端链接到hive的一个工具。可以理解成mysql的客户端。如：navite cat 等。</p>
+<p><img src="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>2 连接hive：<br>（1）./bin/hive<br>通过 ./bin/hive 启动的hive服务，第一步会先启动metastore服务，然后在启动一个客户端连接到metastore。此时metastore服务端和客户端都在一台机器上，别的机器无法连接到metastore，所以也无法连接到hive。这种方式不常用，一直只用于调试环节。</p>
+<p>（2） ./bin/hive  –service metastore<br><strong>通过hive –service metastore 会启动一个 hive metastore服务默认的端口号为：9083。metastore服务里面配置metadata相关的配置。此时可以有多个hive客户端在hive-site.xml配置hive.metastore.uris=thrift://ipxxx:9083  的方式链接到hive。motestore 虽然能使hive服务端和客户端分别部署到不同的节点，客户端不需要关注metadata的相关配置。但是metastore只能通过只能通过配置hive.metastore.uris的方式连接，无法通过jdbc的方式访问。</strong></p>
+<p>（3）./bin/hiveserver2<br>hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过beeline，jdbc，odbc的方式链接到hive。<strong>hiveserver2启动的时候会先检查有没有配置hive.metastore.uris，如果没有会先启动一个metastore服务，然后在启动hiveserver2。如果有配置hive.metastore.uris。会连接到远程的metastore服务。这种方式是最常用的。</strong>部署在图如下：</p>
+<ul>
+<li>登录bin/beeline，可以启动客户端链接到hiveserver2。执行beeline后在控制输入 !connect jdbc:hive2://localhost:10000/default root 123 就可以链接到 hiveserver2了；default表示链接到default database， root 和123 分别为密码。注意这里的密码不是mysql的密码，是hive中的用户</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
+<h1 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h1><p><strong>分隔符</strong></p>
 <p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
 <p><strong>用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符</strong></p>
 <p>1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符</p>
@@ -821,7 +834,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hive中几种分割符"><span class="nav-number">1.</span> <span class="nav-text">hive中几种分割符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何查看和修改分割符，特殊符号"><span class="nav-number">1.0.1.</span> <span class="nav-text">如何查看和修改分割符，特殊符号</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#beeline"><span class="nav-number">1.</span> <span class="nav-text">beeline</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive中几种分割符"><span class="nav-number"></span> <span class="nav-text">hive中几种分割符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何查看和修改分割符，特殊符号"><span class="nav-number">1.</span> <span class="nav-text">如何查看和修改分割符，特殊符号</span></a></li></ol></div>
             
 
           </div>
