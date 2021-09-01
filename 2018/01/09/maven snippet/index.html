@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="命令介绍 mvn compile 编译,将Java 源程序编译成 class 字节码文件。 mvn test 测试，并生成测试报告 mvn clean 将以前编译得到的旧的 class 字节码文件删除 mvn pakage 打包,动态 web工程打 war包，Java工程打 jar 包。 mvn install 将项目生成 jar 包放在仓库中，以便别的模块调用 Maven的几个常用plugin">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-16T08:44:26.034Z">
+<meta property="og:updated_time" content="2021-08-18T06:28:08.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven snippet">
 <meta name="twitter:description" content="命令介绍 mvn compile 编译,将Java 源程序编译成 class 字节码文件。 mvn test 测试，并生成测试报告 mvn clean 将以前编译得到的旧的 class 字节码文件删除 mvn pakage 打包,动态 web工程打 war包，Java工程打 jar 包。 mvn install 将项目生成 jar 包放在仓库中，以便别的模块调用 Maven的几个常用plugin">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-16 16:44:26" itemprop="dateModified" datetime="2019-10-16T16:44:26+08:00">2019-10-16</time>
+                <time title="Modified: 2021-08-18 14:28:08" itemprop="dateModified" datetime="2021-08-18T14:28:08+08:00">2021-08-18</time>
               
             
           </span>
@@ -467,7 +467,18 @@
 </ul>
 </li>
 </ul>
-<h2 id="创建本地引用包"><a href="#创建本地引用包" class="headerlink" title="创建本地引用包"></a>创建本地引用包</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar</span><br></pre></td></tr></table></figure>
+<h2 id="创建本地引用包"><a href="#创建本地引用包" class="headerlink" title="创建本地引用包"></a>创建本地引用包</h2><h4 id="1-直接引用本地jar"><a href="#1-直接引用本地jar" class="headerlink" title="1.直接引用本地jar"></a>1.直接引用本地jar</h4><p>将jar放在项目中，例如web项目就放在 <code>webapp/WEB-INF/lib</code>下面<br>然后再<code>pom.xml</code>中添加jar的依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;myjar&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;myjar&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">    &lt;systemPath&gt;$&#123;project.basedir&#125;/webapp/WEB-INF/lib/myjar-1.0.0.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-安装到本地仓库"><a href="#2-安装到本地仓库" class="headerlink" title="2.安装到本地仓库"></a>2.安装到本地仓库</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar</span><br><span class="line"></span><br><span class="line">参数说明:</span><br><span class="line">-DgroupId:对应dependency的groupId</span><br><span class="line">-DartifactId:对应dependency的artifactId</span><br><span class="line">-Dversion:对应dependency中的version</span><br><span class="line">-Dpackaging:安装的类型，jar或者pom</span><br><span class="line">-Dfile:要安装的jar文件的路径</span><br></pre></td></tr></table></figure>
+<h2 id="依赖传递原则"><a href="#依赖传递原则" class="headerlink" title="依赖传递原则"></a>依赖传递原则</h2><p>几乎所有的Jar包冲突都和依赖传递原则有关，所以我们先说Maven中的依赖传递原则：</p>
+<p><strong>最短路径优先原则</strong></p>
+<p>假如引入了2个Jar包A和B，都传递依赖了Z这个Jar包：</p>
+<p>A -&gt; X -&gt; Y -&gt; Z(2.5)<br>B -&gt; X -&gt; Z(2.0)</p>
+<p>那其实最终生效的是Z(2.0)这个版本。因为他的路径更加短。如果我本地引用了Z(3.0)的包，那生效的就是3.0的版本。一样的道理。</p>
+<p><strong>最先声明优先原则</strong></p>
+<p>如果路径长短一样，优先选最先声明的那个。</p>
+<p>A -&gt; Z(3.0)<br>B -&gt; Z(2.5)</p>
+<p>这里A最先声明，所以传递过来的Z选择用3.0版本的。</p>
 <h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><ul>
 <li><a href="https://www.cnblogs.com/baixiaoshuai/p/8939989.html" target="_blank" rel="noopener">idea中的maven模块变成灰色的可能原因</a></li>
 <li><a href="https://blog.csdn.net/qq_38663729/article/details/78275209" target="_blank" rel="noopener">jar包和war包的介绍与区别</a></li>
@@ -599,7 +610,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-count">80</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -820,7 +831,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令介绍"><span class="nav-number">1.</span> <span class="nav-text">命令介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat项目的部署"><span class="nav-number">2.</span> <span class="nav-text">tomcat项目的部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven多项目之间相互引用"><span class="nav-number">3.</span> <span class="nav-text">maven多项目之间相互引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地引用包"><span class="nav-number"></span> <span class="nav-text">创建本地引用包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关问题"><span class="nav-number"></span> <span class="nav-text">相关问题</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令介绍"><span class="nav-number">1.</span> <span class="nav-text">命令介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat项目的部署"><span class="nav-number">2.</span> <span class="nav-text">tomcat项目的部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven多项目之间相互引用"><span class="nav-number">3.</span> <span class="nav-text">maven多项目之间相互引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地引用包"><span class="nav-number"></span> <span class="nav-text">创建本地引用包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-直接引用本地jar"><span class="nav-number">0.1.</span> <span class="nav-text">1.直接引用本地jar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装到本地仓库"><span class="nav-number">0.2.</span> <span class="nav-text">2.安装到本地仓库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖传递原则"><span class="nav-number"></span> <span class="nav-text">依赖传递原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关问题"><span class="nav-number"></span> <span class="nav-text">相关问题</span></a></div>
             
 
           </div>
