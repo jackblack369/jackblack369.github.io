@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-09-23T01:35:18.375Z">
+<meta property="og:updated_time" content="2021-09-23T02:35:20.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM Learn">
 <meta name="twitter:description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-09-23 09:35:18" itemprop="dateModified" datetime="2021-09-23T09:35:18+08:00">2021-09-23</time>
+                <time title="Modified: 2021-09-23 10:35:20" itemprop="dateModified" datetime="2021-09-23T10:35:20+08:00">2021-09-23</time>
               
             
           </span>
@@ -469,7 +469,15 @@
 </li>
 </ul>
 <p>因为堆外内存由此特点，很多高性能的应用组件基于off-heap来提高性能。</p>
+<h4 id="System-gc常识"><a href="#System-gc常识" class="headerlink" title="System.gc常识"></a>System.gc常识</h4><ul>
+<li>system.gc其实是做一次full gc</li>
+<li>system.gc会暂停整个进程</li>
+<li>system.gc一般情况下我们要禁掉，使用-XX:+DisableExplicitGC</li>
+<li>system.gc在cms gc下我们通过-XX:+ExplicitGCInvokesConcurrent来做一次稍微高效点的GC(效果比Full GC要好些)</li>
+<li>system.gc最常见的场景是RMI/NIO下的堆外内存分配等</li>
+</ul>
 <h1 id="jvm常用参数的设置和含义"><a href="#jvm常用参数的设置和含义" class="headerlink" title="jvm常用参数的设置和含义"></a>jvm常用参数的设置和含义</h1><p><strong>1.设置堆的最大和最小值</strong><br> -Xmx20M(最大值) ,-Xms20M(最小值)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms和-Xmx实际上是 -XX:InitialHeapSize 和-XX:MaxHeapSize 的缩写</span><br></pre></td></tr></table></figure>
 <p><strong>2.设置栈的大小</strong><br> -Xss128k： 设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内 存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
 <p>功能开关:</p>
 <table>
@@ -925,6 +933,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/09/26/github skill/" rel="prev" title="github skill">
+                github skill <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -1002,7 +1014,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-count">88</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1121,7 +1133,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1168,7 +1190,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1223,7 +1247,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内与堆外"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#堆"><span class="nav-number">1.0.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆外"><span class="nav-number">1.0.2.</span> <span class="nav-text">堆外</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm常用参数的设置和含义"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内与堆外"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#堆"><span class="nav-number">1.0.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆外"><span class="nav-number">1.0.2.</span> <span class="nav-text">堆外</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#System-gc常识"><span class="nav-number">1.0.3.</span> <span class="nav-text">System.gc常识</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm常用参数的设置和含义"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a></div>
             
 
           </div>

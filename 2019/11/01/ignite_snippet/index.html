@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="ignite-2.7.0 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误 原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的Class&amp;lt;?&amp;gt; cls = Class.forName(pkgName + &amp;quot;.misc.Sh">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-14T03:46:47.535Z">
+<meta property="og:updated_time" content="2021-09-24T02:21:21.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ignite snippet">
 <meta name="twitter:description" content="ignite-2.7.0 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误 原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的Class&amp;lt;?&amp;gt; cls = Class.forName(pkgName + &amp;quot;.misc.Sh">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-04-14 11:46:47" itemprop="dateModified" datetime="2021-04-14T11:46:47+08:00">2021-04-14</time>
+                <time title="Modified: 2021-09-24 10:21:21" itemprop="dateModified" datetime="2021-09-24T10:21:21+08:00">2021-09-24</time>
               
             
           </span>
@@ -462,6 +462,13 @@
 </blockquote>
 </li>
 </ul>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
+<li>Ignite的原生持久化会在磁盘上存储一个数据的超集，以及根据容量在内存中存储一个子集。比如，如果有100个条目，然后内存只能存储20条，那么磁盘上会存储所有的100条，然后为了提高性能在内存中缓存20条。</li>
+<li>和纯内存的使用场景一样，当打开持久化时，每个独立的节点只会持久化数据的一个子集，不管是主还是备节点，都是只包括节点所属的分区的数据，总的来说，整个集群包括了完整的数据集。</li>
+<li>在开发应用时可能需要修改自定义对象字段的类型。例如假设对象A的字段类型<code>A.range</code>为<code>int</code>类型，然后决定将<code>A.range</code>的类型修改为<code>long</code>类型。之后会发现集群或应用将无法重启，因为Ignite不支持字段/列类型的更改。</li>
+<li>无法变更枚举值的顺序，也无法在枚举值列表的开始或者中部添加新的常量，但是可以在列表的末尾添加新的常量。</li>
+</ul>
+<h4 id="ZooKeeper-Discovery"><a href="#ZooKeeper-Discovery" class="headerlink" title="ZooKeeper Discovery"></a>ZooKeeper Discovery</h4><p>ZooKeeper Discovery是为需要保持易扩展性和线性性能的大规模部署而设计的。然而，同时使用Ignite和ZooKeeper需要配置和管理两个分布式系统，这可能是一个挑战。因此，我们建议你只有在计划扩展到100个或1000个节点时才使用ZooKeeper Discovery。否则，最好使用TCP/IP发现。</p>
 
       
     </div>
@@ -495,8 +502,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/16/idea keymap/" rel="next" title="idea keymap">
-                <i class="fa fa-chevron-left"></i> idea keymap
+              <a href="/2019/10/08/docker learn/" rel="next" title="docker learn">
+                <i class="fa fa-chevron-left"></i> docker learn
               </a>
             
           </div>
@@ -505,8 +512,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/04/14/$Output/" rel="prev" title="Output">
-                Output <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/11/java性能调优学习笔记/" rel="prev" title="java性能调优学习笔记">
+                java性能调优学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -586,7 +593,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-count">88</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -705,7 +712,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -752,7 +769,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -807,7 +826,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ignite-2-7-0"><span class="nav-number">1.</span> <span class="nav-text">ignite-2.7.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-BinaryObjectException-Conflicting-enum-values"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. BinaryObjectException: Conflicting enum values</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ignite-2-7-0"><span class="nav-number">1.</span> <span class="nav-text">ignite-2.7.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-BinaryObjectException-Conflicting-enum-values"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. BinaryObjectException: Conflicting enum values</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化"><span class="nav-number">1.2.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-Discovery"><span class="nav-number">1.2.1.</span> <span class="nav-text">ZooKeeper Discovery</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
