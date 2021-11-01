@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Git修改.gitignore不生效   在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件 但有时候把某些目录或者文件加入忽略规则，发现并未生效  未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的  解决方案：先把本地缓存删除（改变成未tra">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-09-08T11:23:49.744Z">
+<meta property="og:updated_time" content="2021-11-01T11:02:44.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git skill">
 <meta name="twitter:description" content="Git修改.gitignore不生效   在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件 但有时候把某些目录或者文件加入忽略规则，发现并未生效  未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的  解决方案：先把本地缓存删除（改变成未tra">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-09-08 19:23:49" itemprop="dateModified" datetime="2021-09-08T19:23:49+08:00">2021-09-08</time>
+                <time title="Modified: 2021-11-01 19:02:44" itemprop="dateModified" datetime="2021-11-01T19:02:44+08:00">2021-11-01</time>
               
             
           </span>
@@ -464,6 +464,18 @@
 </ul>
 <h4 id="Git-fork后的分支，更新最新的源代码"><a href="#Git-fork后的分支，更新最新的源代码" class="headerlink" title="Git fork后的分支，更新最新的源代码"></a>Git fork后的分支，更新最新的源代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 <h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># uncommited file to HEAD</span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"></span><br><span class="line"># uncommited file to before last commit</span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#last commit to before last commit</span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#difference between HEAD and n-th grandparent</span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#Another cool feature is whatchanged command</span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
+<blockquote>
+<p>git reset –hard HEAD~1</p>
+</blockquote>
+<p>（或者回滚到指定版本commitId）</p>
+<blockquote>
+<p>git reset –hard commitId</p>
+</blockquote>
+<p>2、加入-f参数，强制提交，远程端将强制跟新到reset版本</p>
+<blockquote>
+<p> git push -f</p>
+</blockquote>
 
       
     </div>
@@ -821,7 +833,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-fork后的分支，更新最新的源代码"><span class="nav-number">1.</span> <span class="nav-text">Git fork后的分支，更新最新的源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较文件，在不同版本的区别"><span class="nav-number">2.</span> <span class="nav-text">比较文件，在不同版本的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-fork后的分支，更新最新的源代码"><span class="nav-number">1.</span> <span class="nav-text">Git fork后的分支，更新最新的源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较文件，在不同版本的区别"><span class="nav-number">2.</span> <span class="nav-text">比较文件，在不同版本的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回滚远程分支"><span class="nav-number">3.</span> <span class="nav-text">回滚远程分支</span></a></li></ol></div>
             
 
           </div>

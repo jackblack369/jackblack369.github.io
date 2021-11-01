@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition Bash:Bourne-Again SHellBash is a command language interpreter. conclusionDo not be afraid to break things as that is perfectly nor">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-07-26T03:40:35.128Z">
+<meta property="og:updated_time" content="2021-10-26T01:35:30.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux command">
 <meta name="twitter:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition Bash:Bourne-Again SHellBash is a command language interpreter. conclusionDo not be afraid to break things as that is perfectly nor">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-07-26 11:40:35" itemprop="dateModified" datetime="2021-07-26T11:40:35+08:00">2021-07-26</time>
+                <time title="Modified: 2021-10-26 09:35:30" itemprop="dateModified" datetime="2021-10-26T09:35:30+08:00">2021-10-26</time>
               
             
           </span>
@@ -550,6 +550,12 @@
 <li><p>总结du常用命令</p>
 <p><strong>du -h –max-depth=1 |grep ‘G’ |sort   #查看上G目录并排序</strong></p>
 <p>du -h –max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序<br>du -sh –max-depth=1  #查看当前目录下所有一级子目录文件夹大小</p>
+</li>
+</ul>
+<ul>
+<li><p>清理指定目录下的文件</p>
+<p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find /tmp -mtime +21 -name "*" -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- "*"：希望查找的数据类型，".jpg"表示查找扩展名为jpg的所有文件，""表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>查找具体文件    <code>find / -name 文件名称</code></p>
