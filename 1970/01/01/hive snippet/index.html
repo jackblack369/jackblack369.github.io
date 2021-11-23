@@ -119,7 +119,7 @@
 <meta property="og:image" content="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png">
 <meta property="og:image" content="http://image.okcode.net/DD9ED976ABB6F4313B8F0F7C2DD5C33E.png">
 <meta property="og:image" content="http://image.okcode.net/75D96F800A1815F7A84A8CF543BD7063.png">
-<meta property="og:updated_time" content="2021-06-22T10:52:28.518Z">
+<meta property="og:updated_time" content="2021-11-18T02:23:45.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Will">
 <meta name="twitter:description" content="beeline1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。 （2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。 （3）hiveserver2：hive服务端。提供hive服务。客户端可以通过">
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-06-22 18:52:28" itemprop="dateModified" datetime="2021-06-22T18:52:28+08:00">2021-06-22</time>
+                <time title="Modified: 2021-11-18 10:23:45" itemprop="dateModified" datetime="2021-11-18T10:23:45+08:00">2021-11-18</time>
               
             
           </span>
@@ -495,6 +495,27 @@
 <p>（1）FIELDS，字段之间的分隔符是’\u0001’</p>
 <p>（2）COLLECTION ITEMS，多个集合之间的分隔符是’\u0002’，例如（kv1，kv2，kv3）这种多个键值对之间的分隔符就是’\u0002’</p>
 <p>（3）MAP KEYS，单个map的k和v之间的分隔符是\u0003\，例如kv1里，k \u0003 v</p>
+<h3 id="查看orc文件"><a href="#查看orc文件" class="headerlink" title="查看orc文件"></a>查看orc文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --orcfiledump &lt;hdfs-location-of-orc-file&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="修改字段类型"><a href="#修改字段类型" class="headerlink" title="修改字段类型"></a>修改字段类型</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;<span class="keyword">table</span>-<span class="keyword">name</span>&gt; <span class="keyword">CHANGE</span> &lt;<span class="keyword">old</span>-<span class="keyword">col</span>-<span class="keyword">name</span>&gt; &lt;<span class="keyword">new</span>-<span class="keyword">col</span>-<span class="keyword">name</span>&gt; &lt;<span class="keyword">data</span>-<span class="keyword">type</span>&gt;;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employee <span class="keyword">CHANGE</span> e_id e_id <span class="built_in">INT</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><ul>
+<li><p>Create ORC table</p>
+</li>
+<li><p>Login to the web console</p>
+</li>
+<li><p>Launch Hive by typing <code>hive</code> in the web console. Run the below commands in Hive.</p>
+</li>
+<li><p>Use your database by using the below command. <code>${env:USER}</code> gets replaced by your username automatically:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use $&#123;env:USER&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To create an ORC file format:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE orc_table (</span><br><span class="line">    first_name STRING, </span><br><span class="line">    last_name STRING</span><br><span class="line"> ) </span><br><span class="line"> STORED AS ORC;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To insert values in the table:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO orc_table VALUES (&apos;John&apos;,&apos;Gill&apos;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To retrieve all the values in the table:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM orc_table;</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -522,8 +543,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/1970/01/01/npm snippet/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/1970/01/01/next optimize/" rel="next" title="next optimize">
+                <i class="fa fa-chevron-left"></i> next optimize
               </a>
             
           </div>
@@ -846,7 +867,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#beeline"><span class="nav-number">1.</span> <span class="nav-text">beeline</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive中几种分割符"><span class="nav-number"></span> <span class="nav-text">hive中几种分割符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何查看和修改分割符，特殊符号"><span class="nav-number">1.</span> <span class="nav-text">如何查看和修改分割符，特殊符号</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#beeline"><span class="nav-number">1.</span> <span class="nav-text">beeline</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive中几种分割符"><span class="nav-number"></span> <span class="nav-text">hive中几种分割符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何查看和修改分割符，特殊符号"><span class="nav-number">1.</span> <span class="nav-text">如何查看和修改分割符，特殊符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看orc文件"><span class="nav-number">2.</span> <span class="nav-text">查看orc文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改字段类型"><span class="nav-number">3.</span> <span class="nav-text">修改字段类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建表"><span class="nav-number">4.</span> <span class="nav-text">建表</span></a></li></ol></div>
             
 
           </div>
