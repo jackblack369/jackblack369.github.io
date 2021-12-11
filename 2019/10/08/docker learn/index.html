@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Docker 包括三个基本概念: 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-12-07T01:51:05.762Z">
+<meta property="og:updated_time" content="2021-12-08T08:01:11.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker learn">
 <meta name="twitter:description" content="Docker 包括三个基本概念: 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-12-07 09:51:05" itemprop="dateModified" datetime="2021-12-07T09:51:05+08:00">2021-12-07</time>
+                <time title="Modified: 2021-12-08 16:01:11" itemprop="dateModified" datetime="2021-12-08T16:01:11+08:00">2021-12-08</time>
               
             
           </span>
@@ -451,7 +451,7 @@
 <li><p>导入镜像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在容器中运行镜像</p>
+<li><p>在镜像中运行容器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">-p 8899:8899 ：前面为docker内部的端口，后面后映射到的外面端口</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span>REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>进入运行的容器</p>
@@ -652,6 +652,17 @@
 </ul>
 </li>
 </ul>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><blockquote>
+<p>使用docker-compose up redis启动容器时，如果配置自定义配置文件 redis.conf，需要设置</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize no</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>docker-compose.yml文件内容</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.7"</span>                                                                            <span class="attr">services:</span></span><br><span class="line"><span class="attr">  redis:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">"redis:alpine"</span></span><br><span class="line"><span class="attr">    stdin_open:</span> <span class="literal">true</span> <span class="comment">#打开标准输入，可以接受外部输入。</span></span><br><span class="line"><span class="attr">    tty:</span> <span class="literal">true</span>  <span class="comment">#模拟一个伪终端。</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/docker/projects/test/redis.conf:/data/redis.conf</span> <span class="comment"># 主机路径:容器路径</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/data:/data</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/logs:/logs</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">redis-server</span> <span class="bullet">--include</span> <span class="string">/data/redis.conf</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 docker-compose –verbose up redis启动，可查看启动详情</p>
+</blockquote>
 
       
     </div>
@@ -776,7 +787,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">93</span>
+                    <span class="site-state-item-count">95</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -960,7 +971,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1015,7 +1028,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-包括三个基本概念"><span class="nav-number">1.</span> <span class="nav-text">Docker 包括三个基本概念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作镜像"><span class="nav-number"></span> <span class="nav-text">操作镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把jar包程序制作成镜像"><span class="nav-number"></span> <span class="nav-text">把jar包程序制作成镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作容器"><span class="nav-number"></span> <span class="nav-text">操作容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-File-vs-Docker-Compose"><span class="nav-number"></span> <span class="nav-text">Docker File vs Docker Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compose-file"><span class="nav-number">2.</span> <span class="nav-text">Compose file</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number"></span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置镜像源安装-VIM"><span class="nav-number"></span> <span class="nav-text">配置镜像源安装 VIM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#portainer"><span class="nav-number">1.</span> <span class="nav-text">portainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改已有容器的端口映射"><span class="nav-number">2.</span> <span class="nav-text">修改已有容器的端口映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nacos"><span class="nav-number"></span> <span class="nav-text">nacos</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-包括三个基本概念"><span class="nav-number">1.</span> <span class="nav-text">Docker 包括三个基本概念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作镜像"><span class="nav-number"></span> <span class="nav-text">操作镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把jar包程序制作成镜像"><span class="nav-number"></span> <span class="nav-text">把jar包程序制作成镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作容器"><span class="nav-number"></span> <span class="nav-text">操作容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-File-vs-Docker-Compose"><span class="nav-number"></span> <span class="nav-text">Docker File vs Docker Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compose-file"><span class="nav-number">2.</span> <span class="nav-text">Compose file</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number"></span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置镜像源安装-VIM"><span class="nav-number"></span> <span class="nav-text">配置镜像源安装 VIM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#portainer"><span class="nav-number">1.</span> <span class="nav-text">portainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改已有容器的端口映射"><span class="nav-number">2.</span> <span class="nav-text">修改已有容器的端口映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nacos"><span class="nav-number"></span> <span class="nav-text">nacos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number"></span> <span class="nav-text">redis</span></a></div>
             
 
           </div>
