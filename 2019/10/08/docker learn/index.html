@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Docker 包括三个基本概念: 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-12-08T08:01:11.226Z">
+<meta property="og:updated_time" content="2021-12-13T10:09:01.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker learn">
 <meta name="twitter:description" content="Docker 包括三个基本概念: 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-12-08 16:01:11" itemprop="dateModified" datetime="2021-12-08T16:01:11+08:00">2021-12-08</time>
+                <time title="Modified: 2021-12-13 18:09:01" itemprop="dateModified" datetime="2021-12-13T18:09:01+08:00">2021-12-13</time>
               
             
           </span>
@@ -452,7 +452,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在镜像中运行容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">-p 8899:8899 ：前面为docker内部的端口，后面后映射到的外面端口</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span>REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">-p 8899:8899 ：前面为docker内部的端口，后面后映射到的外面端口</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span>REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>进入运行的容器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it $CONTAINER_ID /bin/bash</span><br></pre></td></tr></table></figure>
@@ -579,90 +579,6 @@
 <p>或者docker-compose.yml配置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stdin_open: true</span><br><span class="line">tty: true</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
-<li><p>密码123456</p>
-</li>
-<li><p>创建容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br><span class="line">注意：</span><br><span class="line">-d:让容器在后台运行</span><br><span class="line">-P(大写):是容器内部端口随机映射到主机的高端口</span><br><span class="line">-p(小写):是容器内部端口绑定到指定的主机端口</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进入容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql-server /bin/bash</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问</p>
-<p><code>docker exec -it mysql-server mysql -uroot -p</code></p>
-</li>
-<li><p>修改root 可以通过任何客户端连接</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>从外部访问docker mysql-server</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h127.0.0.1 -P3306 -uroot -p</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>导入sql文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">先将文件导入到容器</span><br><span class="line">#docker cp **.sql 容器名:/root/</span><br><span class="line">进入容器</span><br><span class="line">#docker exec -ti 容器名或ID sh</span><br><span class="line">登录数据库</span><br><span class="line"># mysql -uroot -p </span><br><span class="line">将文件导入数据库</span><br><span class="line">source 数据库名 &lt; /root/***.sql</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>导出数据库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it  mysql-server（容器名） mysqldump -uroot -p123456 数据库名称 &gt; /opt/sql_bak/test_db.sql（导出表格路径）</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="配置镜像源安装-VIM"><a href="#配置镜像源安装-VIM" class="headerlink" title="配置镜像源安装 VIM"></a>配置镜像源安装 VIM</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/apt/sources.list /etc/apt/sources.list.bak </span><br><span class="line">echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" &gt;/etc/apt/sources.list </span><br><span class="line">echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" &gt;&gt;/etc/apt/sources.list </span><br><span class="line">echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" &gt;&gt;/etc/apt/sources.list </span><br><span class="line">echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" &gt;&gt;/etc/apt/sources.list </span><br><span class="line"><span class="meta">#</span>更新安装源 </span><br><span class="line">apt-get update </span><br><span class="line"><span class="meta">#</span>如果下载过程中卡在[waiting for headers] 删除/var/cache/apt/archives/下的所有文件 </span><br><span class="line"><span class="meta">#</span>安装vim </span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
-<h4 id="portainer"><a href="#portainer" class="headerlink" title="portainer"></a>portainer</h4><ul>
-<li><p>密码重置</p>
-<ul>
-<li><p>下载帮助镜像portainer/helper-reset-password</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull portainer/helper-reset-password</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>停止运行的portainer</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop "id-portainer-container"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行重置命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -v portainer_data:/data portainer/helper-reset-password</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>结果</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">06</span>/<span class="number">04</span> <span class="number">00</span>:<span class="number">13</span>:<span class="number">58</span> Password successfully updated <span class="keyword">for</span> user: admin</span><br><span class="line"><span class="number">2020</span>/<span class="number">06</span>/<span class="number">04</span> <span class="number">00</span>:<span class="number">13</span>:<span class="number">58</span> Use the following password to login: &amp;<span class="number">_4</span>#\<span class="number">3</span>^<span class="number">5</span>V8vLTd)E<span class="string">"NWiJBs26G*9HPl1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新运行portainer,密码 为👆重置的 &amp;_4#\3^5V8vLTd)E”NWiJBs26G*9HPl1</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start "id-portainer-container"</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>现在密码为 admin/admin</p>
-</li>
-</ul>
-<h4 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h4><ol>
-<li><p>停止容器 </p>
-</li>
-<li><p>停止docker服务(systemctl stop docker) </p>
-</li>
-<li><p>修改这个容器的hostconfig.json文件中的端口（原帖有人提到，如果config.v2.json里面也记录了端口，也要修改）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/docker/3b6ef264a040* #这里是CONTAINER ID</span><br><span class="line">vi hostconfig.json</span><br><span class="line">如果之前没有端口映射, 应该有这样的一段:</span><br><span class="line">"PortBindings":&#123;&#125;</span><br><span class="line">增加一个映射, 这样写:</span><br><span class="line">"PortBindings":&#123;"3306/tcp":[&#123;"HostIp":"","HostPort":"3307"&#125;]&#125;</span><br><span class="line">前一个数字是容器端口, 后一个是宿主机端口. </span><br><span class="line">而修改现有端口映射更简单, 把端口号改掉就行.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动docker服务(systemctl start docker) </p>
-</li>
-<li><p>启动容器</p>
-</li>
-</ol>
-<hr>
-<h3 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h3><ul>
-<li><p>run</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>Linux memory is insufficient</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -e JVM_XMS=256m -e JVM_XMX=256m --env MODE=standalone --name nacos -d -p 8848:8848 nacos/nacos-server</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><blockquote>
-<p>使用docker-compose up redis启动容器时，如果配置自定义配置文件 redis.conf，需要设置</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize no</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>docker-compose.yml文件内容</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.7"</span>                                                                            <span class="attr">services:</span></span><br><span class="line"><span class="attr">  redis:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">"redis:alpine"</span></span><br><span class="line"><span class="attr">    stdin_open:</span> <span class="literal">true</span> <span class="comment">#打开标准输入，可以接受外部输入。</span></span><br><span class="line"><span class="attr">    tty:</span> <span class="literal">true</span>  <span class="comment">#模拟一个伪终端。</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/docker/projects/test/redis.conf:/data/redis.conf</span> <span class="comment"># 主机路径:容器路径</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/data:/data</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/logs:/logs</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">redis-server</span> <span class="bullet">--include</span> <span class="string">/data/redis.conf</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>使用 docker-compose –verbose up redis启动，可查看启动详情</p>
-</blockquote>
 
       
     </div>
@@ -787,7 +703,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">95</span>
+                    <span class="site-state-item-count">96</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1028,7 +944,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-包括三个基本概念"><span class="nav-number">1.</span> <span class="nav-text">Docker 包括三个基本概念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作镜像"><span class="nav-number"></span> <span class="nav-text">操作镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把jar包程序制作成镜像"><span class="nav-number"></span> <span class="nav-text">把jar包程序制作成镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作容器"><span class="nav-number"></span> <span class="nav-text">操作容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-File-vs-Docker-Compose"><span class="nav-number"></span> <span class="nav-text">Docker File vs Docker Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compose-file"><span class="nav-number">2.</span> <span class="nav-text">Compose file</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number"></span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置镜像源安装-VIM"><span class="nav-number"></span> <span class="nav-text">配置镜像源安装 VIM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#portainer"><span class="nav-number">1.</span> <span class="nav-text">portainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改已有容器的端口映射"><span class="nav-number">2.</span> <span class="nav-text">修改已有容器的端口映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nacos"><span class="nav-number"></span> <span class="nav-text">nacos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number"></span> <span class="nav-text">redis</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-包括三个基本概念"><span class="nav-number">1.</span> <span class="nav-text">Docker 包括三个基本概念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作镜像"><span class="nav-number"></span> <span class="nav-text">操作镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把jar包程序制作成镜像"><span class="nav-number"></span> <span class="nav-text">把jar包程序制作成镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作容器"><span class="nav-number"></span> <span class="nav-text">操作容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-File-vs-Docker-Compose"><span class="nav-number"></span> <span class="nav-text">Docker File vs Docker Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compose-file"><span class="nav-number">2.</span> <span class="nav-text">Compose file</span></a></li></ol></div>
             
 
           </div>

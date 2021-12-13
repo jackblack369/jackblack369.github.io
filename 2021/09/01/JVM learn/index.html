@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-09-23T02:35:20.227Z">
+<meta property="og:updated_time" content="2021-12-13T08:19:07.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM Learn">
 <meta name="twitter:description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-09-23 10:35:20" itemprop="dateModified" datetime="2021-09-23T10:35:20+08:00">2021-09-23</time>
+                <time title="Modified: 2021-12-13 16:19:07" itemprop="dateModified" datetime="2021-12-13T16:19:07+08:00">2021-12-13</time>
               
             
           </span>
@@ -438,7 +438,7 @@
       
 
       
-        <h2 id="堆内与堆外"><a href="#堆内与堆外" class="headerlink" title="堆内与堆外"></a>堆内与堆外</h2><h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><ul>
+        <h2 id="堆内与堆外"><a href="#堆内与堆外" class="headerlink" title="堆内与堆外"></a>堆内与堆外</h2><h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><ul>
 <li><p>常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。</p>
 </li>
 <li><p>堆的特点：</p>
@@ -449,7 +449,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="堆外"><a href="#堆外" class="headerlink" title="堆外"></a>堆外</h4><ul>
+<h3 id="堆外"><a href="#堆外" class="headerlink" title="堆外"></a>堆外</h3><ul>
 <li><p>堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程开辟的一块内存空间。只不过，GC不会「光顾」这里。</p>
 </li>
 <li><p>堆外的特点：</p>
@@ -469,7 +469,10 @@
 </li>
 </ul>
 <p>因为堆外内存由此特点，很多高性能的应用组件基于off-heap来提高性能。</p>
-<h4 id="System-gc常识"><a href="#System-gc常识" class="headerlink" title="System.gc常识"></a>System.gc常识</h4><ul>
+<h4 id="堆外内存常配合使用System-GC"><a href="#堆外内存常配合使用System-GC" class="headerlink" title="堆外内存常配合使用System GC"></a>堆外内存常配合使用System GC</h4><blockquote>
+<p>堆外内存主要针对java.nio.DirectByteBuffer，这些对象的创建过程会通过Unsafe接口直接通过os::malloc来分配内存，然后将内存的起始地址和大小存到java.nio.DirectByteBuffer对象里，这样就可以直接操作这些内存。这些内存只有在DirectByteBuffer回收掉之后才有机会被回收，因此如果这些对象大部分都移到了old，但是一直没有触发CMS GC或者Full GC，那么悲剧将会发生，因为你的物理内存被他们耗尽了，因此为了避免这种悲剧的发生，通过-XX:MaxDirectMemorySize来指定最大的堆外内存大小，当使用达到了阈值的时候将调用System.gc来做一次full gc，以此来回收掉没有被使用的堆外内存。</p>
+</blockquote>
+<h3 id="System-gc常识"><a href="#System-gc常识" class="headerlink" title="System.gc常识"></a>System.gc常识</h3><ul>
 <li>system.gc其实是做一次full gc</li>
 <li>system.gc会暂停整个进程</li>
 <li>system.gc一般情况下我们要禁掉，使用-XX:+DisableExplicitGC</li>
@@ -890,6 +893,26 @@
 </tr>
 </tbody>
 </table>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><blockquote>
+<p>查看服务设置的jvm</p>
+<p>jps -v</p>
+<p>查看服务jvm的默认参数</p>
+<p>jinfo -flags PID</p>
+</blockquote>
+<ul>
+<li><p>参考kafka服务的运行参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-server</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:MaxGCPauseMillis=20</span><br><span class="line">-XX:InitiatingHeapOccupancyPercent=35</span><br><span class="line">-XX:+ExplicitGCInvokesConcurrent</span><br></pre></td></tr></table></figure>
+<p><strong>-XX:MaxGCPauseMillis=200</strong></p>
+<p>为所需的最长暂停时间设置目标值。默认值是 200 毫秒。这个数值是一个软目标，也就是说JVM会尽一切能力满足这个暂停要求，但是不能保证每次暂停一定在这个要求之内。</p>
+<p>根据测试发现，如果我们将这个值设定成50毫秒或者更低的话，JVM为了达到这个要求会将年轻代内存空间设定的非常小，从而导致youngGC的频率大大增高。所以我们并不设定这个参数。</p>
+<p><strong>-XX:InitiatingHeapOccupancyPercent=45</strong></p>
+<p>设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。就是说当使用内存占到堆总大小的45%的时候，G1将开始<strong>并发标记阶段。</strong>为混合GC做准备，这个数值在测试的时候我想让混合GC晚一些处理所以设定成了70%，经过观察发现如果这个数值设定过大会导致JVM无法启动并发标记，直接进行FullGC处理。</p>
+<p>G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%</p>
+</li>
+</ul>
+<blockquote>
+<p>之前查看ignite，12秒回收了71G</p>
+</blockquote>
 
       
     </div>
@@ -1014,7 +1037,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">95</span>
+                    <span class="site-state-item-count">96</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1255,7 +1278,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内与堆外"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#堆"><span class="nav-number">1.0.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆外"><span class="nav-number">1.0.2.</span> <span class="nav-text">堆外</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#System-gc常识"><span class="nav-number">1.0.3.</span> <span class="nav-text">System.gc常识</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm常用参数的设置和含义"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内与堆外"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-number">1.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆外"><span class="nav-number">1.2.</span> <span class="nav-text">堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#堆外内存常配合使用System-GC"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆外内存常配合使用System GC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-gc常识"><span class="nav-number">1.3.</span> <span class="nav-text">System.gc常识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm常用参数的设置和含义"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最佳实践"><span class="nav-number">0.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li></ol></div>
             
 
           </div>
