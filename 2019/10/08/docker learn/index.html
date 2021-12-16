@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Will">
 <meta property="og:description" content="Docker 包括三个基本概念: 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-12-13T10:09:01.916Z">
+<meta property="og:updated_time" content="2021-12-15T09:52:07.165Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker learn">
 <meta name="twitter:description" content="Docker 包括三个基本概念: 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-12-13 18:09:01" itemprop="dateModified" datetime="2021-12-13T18:09:01+08:00">2021-12-13</time>
+                <time title="Modified: 2021-12-15 17:52:07" itemprop="dateModified" datetime="2021-12-15T17:52:07+08:00">2021-12-15</time>
               
             
           </span>
@@ -452,8 +452,16 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在镜像中运行容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">-p 8899:8899 ：前面为docker内部的端口，后面后映射到的外面端口</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span>REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span>REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br><span class="line">-p hostPort:containerPort</span><br><span class="line">-v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步</span><br></pre></td></tr></table></figure>
+<h4 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h4></li>
+</ul>
+<blockquote>
+<p>Docker Image可以理解成多个只读文件叠加而成，因此Docker Image是只读的。</p>
+<p>当我们将其运行起来，就相当于在只读的Image外包裹了一层读写层变成了容器。</p>
+<p>当你删除容器之后，使用这个镜像重新创建一个容器，此时的镜像的只读层还和原来的一样，但是你在读写层的修改全部都会丢失（没有使用原有volume的前提下）。</p>
+<p> docker使用volume实现数据的持久化，不仅如此volume还能帮助容器和容器之间，容器和host之间共享数据。</p>
+</blockquote>
+<ul>
 <li><p>进入运行的容器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it $CONTAINER_ID /bin/bash</span><br></pre></td></tr></table></figure>
 <ul>
@@ -467,7 +475,9 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span>  openjdk:<span class="number">8</span>-jre</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定路径</span></span><br><span class="line"><span class="keyword">WORKDIR</span> /data/justMicroservice/learning-cloudalibaba</span><br><span class="line"></span><br><span class="line">ARG JAR_FILE=nacos-provider/target/nacos-provider-0.0.1-SNAPSHOT.jar</span><br><span class="line"># 复制jar文件到路径</span><br><span class="line">COPY $&#123;JAR_FILE&#125; nacos-provider.jar</span><br><span class="line"># 启动网关服务</span><br><span class="line">ENTRYPOINT ["java","-jar","nacos-provider.jar"]</span><br></pre></td></tr></table></figure>
 <p>在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t $repository -f $path/dockerfile .</span><br></pre></td></tr></table></figure>
-<h3 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br></pre></td></tr></table></figure>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br></pre></td></tr></table></figure>
+<blockquote>
+</blockquote>
 <h3 id="Docker-File-vs-Docker-Compose"><a href="#Docker-File-vs-Docker-Compose" class="headerlink" title="Docker File vs Docker Compose"></a>Docker File vs Docker Compose</h3><p>Dockerfile is what’s used to create a container image, and a Compose file is what’s used to deploy an instance of that image as a container.</p>
 <blockquote>
 <p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>
@@ -703,7 +713,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">96</span>
+                    <span class="site-state-item-count">97</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -944,7 +954,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-包括三个基本概念"><span class="nav-number">1.</span> <span class="nav-text">Docker 包括三个基本概念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作镜像"><span class="nav-number"></span> <span class="nav-text">操作镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把jar包程序制作成镜像"><span class="nav-number"></span> <span class="nav-text">把jar包程序制作成镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作容器"><span class="nav-number"></span> <span class="nav-text">操作容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-File-vs-Docker-Compose"><span class="nav-number"></span> <span class="nav-text">Docker File vs Docker Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compose-file"><span class="nav-number">2.</span> <span class="nav-text">Compose file</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-包括三个基本概念"><span class="nav-number">1.</span> <span class="nav-text">Docker 包括三个基本概念:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作镜像"><span class="nav-number"></span> <span class="nav-text">操作镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#volume"><span class="nav-number">1.</span> <span class="nav-text">volume</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把jar包程序制作成镜像"><span class="nav-number"></span> <span class="nav-text">把jar包程序制作成镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-number"></span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-File-vs-Docker-Compose"><span class="nav-number"></span> <span class="nav-text">Docker File vs Docker Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compose-file"><span class="nav-number">2.</span> <span class="nav-text">Compose file</span></a></li></ol></div>
             
 
           </div>
