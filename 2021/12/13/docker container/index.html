@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="mysql 密码123456  创建容器 12345docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7注意：-d:让容器在后台运行-P(大写):是容器内部端口随机映射到主机的高端口-p(小写):是容器内部端口绑定到指定的主机端口  进入容器 1docker exec -it m">
+  <meta name="description" content="容器123456789101112131415161718192021222324查看正在运行docker ps查看所有docker ps -a启动docker start 容器名或容器id终止docker stop [NAME]/[CONTAINER ID]:将容器退出。docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。查看容器端口docker port 容器">
 <meta name="keywords" content="snippet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker container">
 <meta property="og:url" content="http://yoursite.com/2021/12/13/docker container/index.html">
 <meta property="og:site_name" content="Will">
-<meta property="og:description" content="mysql 密码123456  创建容器 12345docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7注意：-d:让容器在后台运行-P(大写):是容器内部端口随机映射到主机的高端口-p(小写):是容器内部端口绑定到指定的主机端口  进入容器 1docker exec -it m">
+<meta property="og:description" content="容器123456789101112131415161718192021222324查看正在运行docker ps查看所有docker ps -a启动docker start 容器名或容器id终止docker stop [NAME]/[CONTAINER ID]:将容器退出。docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。查看容器端口docker port 容器">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-12-14T06:34:33.154Z">
+<meta property="og:updated_time" content="2021-12-17T11:01:34.064Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker container">
-<meta name="twitter:description" content="mysql 密码123456  创建容器 12345docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7注意：-d:让容器在后台运行-P(大写):是容器内部端口随机映射到主机的高端口-p(小写):是容器内部端口绑定到指定的主机端口  进入容器 1docker exec -it m">
+<meta name="twitter:description" content="容器123456789101112131415161718192021222324查看正在运行docker ps查看所有docker ps -a启动docker start 容器名或容器id终止docker stop [NAME]/[CONTAINER ID]:将容器退出。docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。查看容器端口docker port 容器">
 
 
 
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-12-14 14:34:33" itemprop="dateModified" datetime="2021-12-14T14:34:33+08:00">2021-12-14</time>
+                <time title="Modified: 2021-12-17 19:01:34" itemprop="dateModified" datetime="2021-12-17T19:01:34+08:00">2021-12-17</time>
               
             
           </span>
@@ -438,7 +438,31 @@
       
 
       
-        <h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+        <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br></pre></td></tr></table></figure>
+<h3 id="查看container现在工作网络模式"><a href="#查看container现在工作网络模式" class="headerlink" title="查看container现在工作网络模式"></a>查看container现在工作网络模式</h3><ul>
+<li><p>列出docker的所有网络模式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>针对bridge和host分别查找有哪些container在其中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect bridge</span><br><span class="line">docker network inspect host</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接查看container的信息，找到network段查看。或者用grep筛选出network。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器名/容器ID</span><br><span class="line">docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h4><p>Common exit codes associated with docker containers are:</p>
+<ul>
+<li><strong>Exit Code 0</strong>: Absence of an attached foreground process</li>
+<li><strong>Exit Code 1</strong>: Indicates failure due to application error</li>
+<li><strong>Exit Code 137</strong>: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])</li>
+<li><strong>Exit Code 139</strong>: Indicates failure as container received SIGSEGV</li>
+<li><p><strong>Exit Code 143</strong>: Indicates failure as container received SIGTERM</p>
+</li>
+<li><p><strong>Exit Code 126</strong>: Permission problem or command is not executable</p>
+</li>
+<li><strong>Exit Code 127</strong>: Possible typos in shell script with unrecognizable characters</li>
+</ul>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
 <li><p>密码123456</p>
 </li>
 <li><p>创建容器</p>
@@ -649,7 +673,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">97</span>
+                    <span class="site-state-item-count">101</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -890,7 +914,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">1.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#portainer"><span class="nav-number">2.</span> <span class="nav-text">portainer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nacos"><span class="nav-number">3.</span> <span class="nav-text">nacos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">4.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改已有容器的端口映射"><span class="nav-number">5.</span> <span class="nav-text">修改已有容器的端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置容器的镜像源（安装vim）"><span class="nav-number">6.</span> <span class="nav-text">配置容器的镜像源（安装vim）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-number">1.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看container现在工作网络模式"><span class="nav-number">2.</span> <span class="nav-text">查看container现在工作网络模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Exit-Codes"><span class="nav-number">2.1.</span> <span class="nav-text">Exit Codes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">3.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#portainer"><span class="nav-number">4.</span> <span class="nav-text">portainer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nacos"><span class="nav-number">5.</span> <span class="nav-text">nacos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">6.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改已有容器的端口映射"><span class="nav-number">7.</span> <span class="nav-text">修改已有容器的端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置容器的镜像源（安装vim）"><span class="nav-number">8.</span> <span class="nav-text">配置容器的镜像源（安装vim）</span></a></li></ol></div>
             
 
           </div>
