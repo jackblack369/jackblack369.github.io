@@ -1,23 +1,1543 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ title }}{% if theme.index_with_subtitle and subtitle %} &mdash; {{ subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta property="og:type" content="website">
+<meta property="og:title" content="source is the essence">
+<meta property="og:url" content="http://yoursite.com/page/10/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="brook">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/page/10/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>source is the essence</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/shiro%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/20/shiro%20snippet/" class="post-title-link" itemprop="url">shiro snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-20 21:50:30" itemprop="dateCreated datePublished" datetime="2016-05-20T21:50:30+08:00">2016-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:50:35" itemprop="dateModified" datetime="2019-03-14T14:50:35+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/shiro/" itemprop="url" rel="index"><span itemprop="name">shiro</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>**对于一个好的框架，从外部来看应该具有非常简单易于使用的 API，且 API 契约明确；从内部来看的话，其应该有一个可扩展的架构，即非常容易插入用户自定义实现，因为任何框架都不能满足所有需求。 **</p>
+<hr>
+<ul>
+<li><p>Subject</p>
+<p>主体，代表了当前的用户</p>
+</li>
+<li><p>SecurityManager</p>
+<p>安全管理器，它管理着所有Subject，相当于springmvc中的DispatcherServlet(前端控制器)</p>
+</li>
+<li><p>Realm</p>
+<p>域，Shiro从Realm获取安全数据（如用户、角色、权限） ，是验证主体subject的数据源</p>
+</li>
+</ul>
+<p>流程如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/2.png"></p>
+<p><strong>流程说明</strong>：</p>
+<ol>
+<li>应用代码通过 Subject 来进行认证和授权，而 Subject 又委托给 SecurityManager；</li>
+<li>我们需要给 Shiro 的 SecurityManager 注入 Realm，从而让 SecurityManager 能得到合法的用户及其权限进行判断。</li>
+</ol>
+<p><strong>从以上也可以看出，Shiro 不提供维护用户 / 权限，而是通过 Realm 让开发人员自己注入。</strong> </p>
+<hr>
+<p>shiro的内部结构如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/3.png"></p>
+<hr>
+<h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h3><p><strong>principals</strong>：身份，即主体的标识属性，可以是任何东西，如用户名、邮箱等，唯一即可。 </p>
+<p><strong>credentials</strong>：证明 / 凭证，即只有主体知道的安全值，如密码 / 数字证书等。 </p>
+<ul>
+<li>身份认证流程</li>
+</ul>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/4.png"></p>
+<hr>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 </p>
+<ul>
+<li><p>授权方式</p>
+<p>编程式、注解式、jsp/gsp标签式</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/16/version%20sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/16/version%20sort/" class="post-title-link" itemprop="url">linux config</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-16 20:20:30" itemprop="dateCreated datePublished" datetime="2016-05-16T20:20:30+08:00">2016-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:33:44" itemprop="dateModified" datetime="2019-03-14T14:33:44+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/version/" itemprop="url" rel="index"><span itemprop="name">version</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">1 	Α 	α 	alpha a:lf 阿尔法</span><br><span class="line">2 	Β 	β 	beta bet 贝塔</span><br><span class="line">3 	Γ 	γ 	gamma ga:m 伽马</span><br><span class="line">4 	Δ 	δ 	delta delt 德尔塔</span><br><span class="line">5 	Ε 	ε 	epsilon ep`silon 伊普西龙</span><br><span class="line">6 	Ζ 	ζ 	zeta zat 截塔</span><br><span class="line">7 	Η 	η 	eta eit 艾塔</span><br><span class="line">8 	Θ 	θ 	theta θit 西塔</span><br><span class="line">9 	Ι 	ι 	iota aiot 约塔</span><br><span class="line">10	Κ 	κ 	kappa kap 卡帕</span><br><span class="line">11	∧ 	λ 	lambda lambd 兰布达</span><br><span class="line">12	Μ 	μ 	mu mju 缪</span><br><span class="line">13	Ν 	ν 	nu nju 纽</span><br><span class="line">14	Ξ 	ξ 	xi ksi 克西</span><br><span class="line">15	Ο 	ο 	omicron omik`ron 奥密克戎</span><br><span class="line">16	∏ 	π 	pi pai 派</span><br><span class="line">17	Ρ 	ρ 	rho rou 肉</span><br><span class="line">18	∑ 	σ 	sigma `sigma 西格马</span><br><span class="line">19	Τ 	τ 	tau tau 套</span><br><span class="line">20 	Υ 	υ 	upsilon ju:p`sailon 宇普西龙</span><br><span class="line">21 	Φ 	φ 	phi fai 佛爱</span><br><span class="line">22 	Χ 	χ 	chi phai 西</span><br><span class="line">23 	Ψ 	ψ 	psi psai 普西</span><br><span class="line">24 	Ω 	ω 	omega o`miga 欧米伽</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/16/filter%20in%20servlet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/16/filter%20in%20servlet/" class="post-title-link" itemprop="url">filter in servlet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-03-16 20:01:30" itemprop="dateCreated datePublished" datetime="2016-03-16T20:01:30+08:00">2016-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>A filter is an object that is invoked at the preprocessing and postprocessing of a request.</p>
+</blockquote>
+<ul>
+<li>It is mainly used to perform filtering tasks such as conversion, logging, compression, encryption and decryption, input validation etc.</li>
+<li>The servlet filter is pluggable, i.e. its entry is defined in the web.xml file, if we remove the entry of filter from the web.xml file, filter will be removed automatically and we don’t need to change the servlet.</li>
+</ul>
+<p><img src="https://www.javatpoint.com/images/filter.JPG"></p>
+<h3 id="Usage-of-Filter"><a href="#Usage-of-Filter" class="headerlink" title="Usage of Filter"></a>Usage of Filter</h3><ul>
+<li>recording all incoming requests</li>
+<li>logs the IP addresses of the computers from which the requests originate</li>
+<li>conversion</li>
+<li>data compression</li>
+<li>encryption and decryption</li>
+<li>input validation etc.</li>
+</ul>
+<h3 id="Advantage-of-Fliter"><a href="#Advantage-of-Fliter" class="headerlink" title="Advantage of Fliter"></a>Advantage of Fliter</h3><ul>
+<li>Filter is pluggable.</li>
+<li>One filter don’t have dependency onto another resource.</li>
+<li>Less Maintenance</li>
+</ul>
+<h3 id="Filter-API"><a href="#Filter-API" class="headerlink" title="Filter API"></a>Filter API</h3><ul>
+<li><p>Filter</p>
+<blockquote>
+<p>For creating any filter, you must implement the Filter interface. Filter interface provides the life cycle methods for a filter.</p>
+</blockquote>
+</li>
+<li><p>FilterChain</p>
+<blockquote>
+<p>The object of FilterChain is responsible to invoke the next filter or resource in the chain.This object is passed in the doFilter method of Filter interface.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span></span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig arg0)</span> <span class="keyword">throws</span> ServletException </span>&#123;&#125;  </span><br><span class="line"></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp,  </span></span></span><br><span class="line"><span class="params"><span class="function">    	FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;  </span><br><span class="line">    	      </span><br><span class="line">    		PrintWriter out=resp.getWriter();  </span><br><span class="line">    		out.print(<span class="string">&quot;filter is invoked before&quot;</span>);  </span><br><span class="line">    		      </span><br><span class="line">    		chain.doFilter(req, resp);<span class="comment">//sends request to next resource  </span></span><br><span class="line">    		      </span><br><span class="line">    		out.print(<span class="string">&quot;filter is invoked after&quot;</span>);  </span><br><span class="line">    	&#125;  </span><br><span class="line">    	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;&#125;  </span><br><span class="line">  &#125;  	</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>FilterConfig</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/01/Event%20and%20Listen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/01/Event%20and%20Listen/" class="post-title-link" itemprop="url">Event and Listen</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-03-01 09:00:30" itemprop="dateCreated datePublished" datetime="2016-03-01T09:00:30+08:00">2016-03-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Events are basically occurrence of something. Changing the state of an object is known as an event.</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">We can perform some important tasks at the occurrence of these exceptions, such as counting total and current logged-in users, creating tables of the database at time of deploying the project, creating database connection object etc.</span><br></pre></td></tr></table></figure>
+<h3 id="Event-classes"><a href="#Event-classes" class="headerlink" title="Event classes"></a>Event classes</h3><ul>
+<li>ServletRequestEvent</li>
+<li>ServletContextEvent</li>
+<li>ServletRequestAttributeEvent</li>
+<li>ServletContextAttributeEvent</li>
+<li>HttpSessionEvent</li>
+<li>HttpSessionBindingEvent</li>
+</ul>
+<h3 id="Event-interfaces"><a href="#Event-interfaces" class="headerlink" title="Event interfaces"></a>Event interfaces</h3><ul>
+<li>ServletRequestListener</li>
+<li>ServletRequestAttributeListener</li>
+<li>ServletContextListener</li>
+<li>ServletContextAttributeListener</li>
+<li>HttpSessionListener</li>
+<li>HttpSessionAttributeListener</li>
+<li>HttpSessionBindingListener</li>
+<li>HttpSessionActivationListener</li>
+</ul>
+<hr>
+<h3 id="ServletContextEvent-and-ServletContextListener"><a href="#ServletContextEvent-and-ServletContextListener" class="headerlink" title="ServletContextEvent and ServletContextListener"></a>ServletContextEvent and ServletContextListener</h3><ul>
+<li>The ServletContextEvent is notified when web application is deployed on the server.</li>
+<li>If you want to perform some action at the time of deploying the web application such as creating database connection, creating all the tables of the project etc, you need to implement ServletContextListener interface and provide the implementation of its methods.</li>
+</ul>
+<p><code>Web application &gt; ServletContextEvent &gt; ServletContextListener</code></p>
+<h3 id="HttpSessionEvent-and-HttpSessionListener"><a href="#HttpSessionEvent-and-HttpSessionListener" class="headerlink" title="HttpSessionEvent and HttpSessionListener"></a>HttpSessionEvent and HttpSessionListener</h3><ul>
+<li>The HttpSessionEvent is notified when session object is changed. The corresponding Listener interface for this event is HttpSessionListener.</li>
+<li>We can perform some operations at this event such as counting total and current logged-in users, maintaing a log of user details such as login time, logout time etc.</li>
+</ul>
+<p><code>session object &gt; HttpSessionEvent &gt; HttpSessionListener</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/16/java%20code%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/02/16/java%20code%20snippet/" class="post-title-link" itemprop="url">java code snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-02-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-02-16T12:01:30+08:00">2016-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 16:12:01" itemprop="dateModified" datetime="2019-03-04T16:12:01+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="base64ToByte"><a href="#base64ToByte" class="headerlink" title="base64ToByte"></a>base64ToByte</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String string = <span class="string">&quot;SmF2YWNvZGVnZWVrcw==&quot;</span>;</span><br><span class="line"><span class="comment">// Get bytes from string</span></span><br><span class="line"><span class="keyword">byte</span>[] byteArray = Base64.decodeBase64(string.getBytes());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Print the decoded array</span></span><br><span class="line">System.out.println(Arrays.toString(byteArray));	</span><br><span class="line"><span class="comment">// Print the decoded string </span></span><br><span class="line">String decodedString = <span class="keyword">new</span> String(byteArray);</span><br><span class="line">System.out.println(string + <span class="string">&quot; = &quot;</span> + decodedString);</span><br></pre></td></tr></table></figure>
+
+<h2 id="TimeConvert"><a href="#TimeConvert" class="headerlink" title="TimeConvert"></a>TimeConvert</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//date format</span></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.time.DateFormatUtils;</span><br><span class="line">String timeStr = DateFormatUtils.format(dateDate,<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">Date dateTime = DateUtils.parseDate(dateTimeStr,<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">Date dateWithoutTime = sdf.parse(sdf.format(<span class="keyword">new</span> Date()));</span><br><span class="line"></span><br><span class="line"><span class="comment">//capitalize the first letter of word</span></span><br><span class="line">String output = input.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + input.substring(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//measure the time cost</span></span><br><span class="line"><span class="keyword">long</span> start = System.nanoTime();</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line"><span class="keyword">long</span> used = end-start;</span><br><span class="line">System.out.println(<span class="string">&quot;used:&quot;</span>+TimeUnit.NANOSECONDS.toMillis(used)+<span class="string">&quot; ms&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//stream read database   </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStreamRead</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        oracleSqlSessionTemplate.select(<span class="string">&quot;xxxx.OracleMapper.getPersonInfos&quot;</span>, <span class="keyword">new</span> ResultHandler() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleResult</span><span class="params">(ResultContext resultContext)</span> </span>&#123;</span><br><span class="line">                PersonInfo personInfo = (PersonInfo) resultContext.getResultObject();</span><br><span class="line">                LOG.debug(<span class="string">&quot;result count:[&#123;&#125;],result info:[&#123;&#125;]&quot;</span>, resultContext.getResultCount(), personInfo.getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStreamRead2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        oracleSqlSessionTemplate.select(<span class="string">&quot;xxxx.OracleMapper.getPersonInfos&quot;</span>,</span><br><span class="line">                resultContext -&gt; &#123;</span><br><span class="line">                    PersonInfo personInfo = (PersonInfo) resultContext.getResultObject();</span><br><span class="line">                    LOG.debug(<span class="string">&quot;result count:[&#123;&#125;],result info:[&#123;&#125;]&quot;</span>, resultContext.getResultCount(), personInfo.getName());</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//iterate list</span></span><br><span class="line">myFinalList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">myListToParse.stream()</span><br><span class="line">        .filter(elt -&gt; elt != <span class="keyword">null</span>)</span><br><span class="line">        .forEach(elt -&gt; myFinalList.add(doSomething(elt)));</span><br><span class="line"><span class="comment">//prefer</span></span><br><span class="line">myFinalList = myListToParse.stream()</span><br><span class="line">        .filter(elt -&gt; elt != <span class="keyword">null</span>)</span><br><span class="line">        .map(elt -&gt; doSomething(elt))</span><br><span class="line">        .collect(Collectors.toList()); </span><br></pre></td></tr></table></figure>
+
+<h2 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h2><h3 id="notify-thread"><a href="#notify-thread" class="headerlink" title="notify thread"></a>notify thread</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shared</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">waitMethod</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">         </span><br><span class="line">        System.out.println(t.getName()+<span class="string">&quot; is releasing the lock and going to wait&quot;</span>);</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            wait();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        System.out.println(t.getName()+<span class="string">&quot; has been notified and acquired the lock back&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">notifyOneThread</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">         </span><br><span class="line">        notify();</span><br><span class="line">         </span><br><span class="line">        System.out.println(t.getName()+<span class="string">&quot; has notified one thread waiting for this object lock&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Shared s = <span class="keyword">new</span> Shared();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t1 will be waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.waitMethod();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">         </span><br><span class="line">        t1.start();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t2 will be waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.waitMethod();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"> </span><br><span class="line">        t2.start();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t3 will be waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t3 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.waitMethod();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">         </span><br><span class="line">        t3.start();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t4 will notify only one thread which is waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t4 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.notifyOneThread();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">         </span><br><span class="line">        t4.start(); </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="stop-thread"><a href="#stop-thread" class="headerlink" title="stop thread"></a>stop thread</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//Initially setting the flag as true</span></span><br><span class="line">     </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">//This method will set flag as false</span></span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopRunning</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        flag = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//Keep the task in while loop</span></span><br><span class="line">         </span><br><span class="line">        <span class="comment">//This will make thread continue to run until flag becomes false</span></span><br><span class="line">         </span><br><span class="line">        <span class="keyword">while</span> (flag)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;I am running....&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        System.out.println(<span class="string">&quot;Stopped Running....&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        MyThread thread = <span class="keyword">new</span> MyThread();</span><br><span class="line">         </span><br><span class="line">        thread.start();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Thread.sleep(<span class="number">100</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//call stopRunning() method whenever you want to stop a thread</span></span><br><span class="line">         </span><br><span class="line">        thread.stopRunning();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!Thread.interrupted())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;I am running....&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        System.out.println(<span class="string">&quot;Stopped Running.....&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        MyThread thread = <span class="keyword">new</span> MyThread();</span><br><span class="line">         </span><br><span class="line">        thread.start();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Thread.sleep(<span class="number">100</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//interrupting the thread</span></span><br><span class="line">         </span><br><span class="line">        thread.interrupt();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try-catch-finally"></a>try-catch-finally</h3><ol>
+<li>不管有木有出现异常，finally块中代码都会执行** </li>
+<li><strong>当try和catch中有return时，finally仍然会执行</strong> </li>
+<li><strong>finally是在return后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，仍然是之前保存的值），所以函数返回值是在finally执行前确定的；</strong> </li>
+<li><strong>finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值。</strong> </li>
+<li>任何执行try 或者catch中的return语句之前，都会先执行finally语句，如果finally中有return语句，那么程序就return了，所以finally中的return是一定会被return的。</li>
+</ol>
+<h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Level;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Java program to show, how to use ReentrantLock in Java.</span></span><br><span class="line"><span class="comment"> * Reentrant lock is an alternative way of locking</span></span><br><span class="line"><span class="comment"> * apart from implicit locking provided by synchronized keyword in Java.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>  Javin Paul</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockHowto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//Locking using Lock and ReentrantLock</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; gets Count: &quot;</span> + count);</span><br><span class="line">            <span class="keyword">return</span> count++;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//Implicit locking using synchronized keyword</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">getCountTwo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> count++;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ThreadTest counter = <span class="keyword">new</span> ThreadTest();</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (counter.getCount() &amp;lt; <span class="number">6</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                        ex.printStackTrace();                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      </span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (counter.getCount() &amp;lt; <span class="number">6</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                        ex.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      </span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Output:</span><br><span class="line">Thread-0 gets Count: 0</span><br><span class="line">Thread-1 gets Count: 1</span><br><span class="line">Thread-1 gets Count: 2</span><br><span class="line">Thread-0 gets Count: 3</span><br><span class="line">Thread-1 gets Count: 4</span><br><span class="line">Thread-0 gets Count: 5</span><br><span class="line">Thread-0 gets Count: 6</span><br><span class="line">Thread-1 gets Count: 7</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/18/webservice%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/18/webservice%20snippet/" class="post-title-link" itemprop="url">websocket tracking</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-01-18 19:20:30" itemprop="dateCreated datePublished" datetime="2016-01-18T19:20:30+08:00">2016-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:24:15" itemprop="dateModified" datetime="2019-03-14T14:24:15+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webservice/" itemprop="url" rel="index"><span itemprop="name">webservice</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/49d7997ad3b7">https://www.jianshu.com/p/49d7997ad3b7</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33546747/article/details/53304097">https://blog.csdn.net/qq_33546747/article/details/53304097</a></p>
+<hr>
+<h2 id="WebService是一种跨编程语言和跨操作系统平台的远程调用技术。"><a href="#WebService是一种跨编程语言和跨操作系统平台的远程调用技术。" class="headerlink" title="WebService是一种跨编程语言和跨操作系统平台的远程调用技术。"></a>WebService是一种跨编程语言和跨操作系统平台的远程调用技术。</h2><p>多个角度来理解WebService<br>​    从表面上看，WebService就是一个应用程序向外界暴露出一个能通过Web进行调用的API，也就是说能用编程的方法通过Web来调用这个应用程序。<br>​    我们把调用这个WebService的应用程序叫做客户端，而把提供这个WebService的应用程序叫做服务端<br>​    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从深层次看，WebService是建立可互操作的分布式应用程序的新平台，是一个平台，是一套标准。</span><br><span class="line">它定义了应用程序如何在Web上实现互操作性，你可以用任何你喜欢的语言，在任何你喜欢的平台上写Web service ，只要我们可以通过Web service标准对这些服务进行查询和访问。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>构成WebService平台的三大技术：<br>​    XML+XSD,SOAP和WSDL<br>​<br>WebService采用HTTP协议传输数据，采用XML格式封装数据（即XML中说明调用远程服务对象的哪个方法，传递的参数是什么，以及服务对象的返回结果是什么）<br>WebService用XSD来作为其数据类型系统<br>HTTP消息头和XML内容格式就是SOAP协议。SOAP提供了标准的RPC方法来调用Web Service。</p>
+<p>SOAP协议 = HTTP协议 + XML数据格式</p>
+<p>比喻：HTTP就是普通公路，XML就是中间的绿色隔离带和两边的防护栏，SOAP就是普通公路经过加隔离带和防护栏改造过的高速公路。</p>
+<p>WSDL(Web Services Description Language)是基于XML的语言，用于描述Web Service及其函数、参数和返回值。</p>
+<p>WSDL文件保存在Web服务器上，通过一个url地址就可以访问到它。客户端要调用一个WebService服务之前，要知道该服务的WSDL文件的地址。<br>WebService服务提供商可以通过两种方式来暴露它的WSDL文件地址：1.注册到UDDI服务器，以便被人查找；2.直接告诉给客户端调用者。</p>
+<p>======================================================================================<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/snake-hand/archive/2013/06/09/3129915.html">https://www.cnblogs.com/snake-hand/archive/2013/06/09/3129915.html</a></p>
+<hr>
+<p>Axis和CXF，这两个产品都是Apache孵化器下面的Web Service开源开发工具</p>
+<p>CXF支持 WS-Addressing，WS-Policy， WS-RM， WS-Security和WS-I Basic Profile<br>Axis2不支持WS-Policy</p>
+<p>CXF可以很好支持Spring<br>Axis2不能很好支持Spring</p>
+<p> CXF只支持JAXB和Aegis。<br> AXIS2支持更广泛的数据并对，如XMLBeans，JiBX，JaxMe和JaxBRI和它自定义的数据绑定ADB。注意JaxME和JaxBRI都还是试验性的。AXIS2支持更广泛的数据并对，如XMLBeans，JiBX，JaxMe和JaxBRI和它自定义的数据绑定ADB。注意JaxME和JaxBRI都还是试验性的。</p>
+<hr>
+<p> 如何抉择：<br>1、如果应用程序需要多语言的支持，Axis2 应当是首选了；<br>2、如果应用程序是遵循Spring 哲学路线的话，Apache CXF 是一种更好的选择，特别对嵌入式的Web Services 来说；<br>3、如果应用程序没有新的特性需要的话，就仍是用原来项目所用的框架，比如Axis1，XFire，Celtrix或 BEA等等厂家自己的 WebServices 实现，就别劳民伤财了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/16/css%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/16/css%20snippet/" class="post-title-link" itemprop="url">css snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-01-16 20:30:00" itemprop="dateCreated datePublished" datetime="2016-01-16T20:30:00+08:00">2016-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-02 10:55:44" itemprop="dateModified" datetime="2019-08-02T10:55:44+08:00">2019-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>每个元素都有一个默认的 display 类型<br>不过你可以随时随地的重写它！如常见的例子是：把 li 元素修改成 inline，制作成水平菜单。</p>
+<p>p标签是块级元素，span元素是行内元素。内元素可以写在块级元素里面  比如<code>&lt;p&gt;&lt;span&gt;内容&lt;/span&gt;&lt;/p&gt;</code></p>
+<ul>
+<li>block</li>
+</ul>
+<p>值为block的为块级元素， 如：p、form、header、footer、section</p>
+<ul>
+<li>inline</li>
+</ul>
+<p>值为inline的为行内元素</p>
+<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><ul>
+<li>static</li>
+</ul>
+<p>static是默认值，一个static元素表示它不会被”positioned”,一个position属性被设置为其它值得元素表示它会被”positioned”</p>
+<ul>
+<li>relative</li>
+</ul>
+<p>relative,在一个相对定位（position属性的值为relative）的元素上设置 top 、 right 、 bottom 和 left 属性会使其偏离其正常位置。<br>其他的元素的位置则不会受该元素的影响发生位置改变来弥补它偏离后剩下的空隙。</p>
+<ul>
+<li>fixed</li>
+</ul>
+<p>fixed,一个固定定位（position属性的值为fixed）元素会相对于视窗来定位，这意味着即便页面滚动，它还是会停留在相同的位置。<br>和 relative 一样， top 、 right 、 bottom 和 left 属性都可用。</p>
+<ul>
+<li>absolute</li>
+</ul>
+<p>absolute, 它与 fixed 的表现类似，但是它不是相对于视窗而是相对于最近的“positioned”祖先元素。<br>如果绝对定位（position属性的值为absolute）的元素没有“positioned”祖先元素，那么它是相对于文档的 body 元素，并且它会随着页面滚动而移动。<br>记住一个“positioned”元素是指 position 值不是 static 的元素。</p>
+<h3 id="mbp"><a href="#mbp" class="headerlink" title="mbp"></a>mbp</h3><p><img src="https://mdn.mozillademos.org/files/13647/box-model-standard-small.png"></p>
+<ul>
+<li><p>margin</p>
+<blockquote>
+<p>是设置两个标签的间隔，也就是距离</p>
+</blockquote>
+</li>
+<li><p>padding</p>
+<blockquote>
+<p>比如一个p标签，它是100px*100px,我们使用的时候p标签的文字是贴着p标签的最左侧的，想要它的文字距离边界远一点，好看一点，就是需要做一个样式的调整，我们可以用到padding这个属性，假如说设置是10px，就是说这个p标签的大小依然是100px*100px，但是它的内容是变成了90px*90px；</p>
+</blockquote>
+</li>
+<li><p>border</p>
+<blockquote>
+<p>boarder是设置边框的意思，他和padding的区别在于，padding是在标签边缘往里缩减，而border是在标签的边缘往外扩展，也就是说是一个100px*100px的标签，我设置他的border为20px，我们就可以看到整个标签的大小是变成了120px*120px，也就是说多出来了120px，其标签的内容也还是100px*100px的</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/18/websocket%20snippit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/12/18/websocket%20snippit/" class="post-title-link" itemprop="url">websocket tracking</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-18 18:01:30" itemprop="dateCreated datePublished" datetime="2015-12-18T18:01:30+08:00">2015-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:23:05" itemprop="dateModified" datetime="2019-03-14T14:23:05+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/websocket/" itemprop="url" rel="index"><span itemprop="name">websocket</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LOVELONG8808/article/details/52235132">https://blog.csdn.net/LOVELONG8808/article/details/52235132</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/w1992wishes/article/details/79583543">https://blog.csdn.net/w1992wishes/article/details/79583543</a></p>
+<hr>
+<p>WebSocket API是下一代客户端-服务器的异步通信方法。<br>WebSocket API最伟大之处在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息。<br>WebSocket并不限于以Ajax(或XHR)方式通信，因为Ajax技术需要客户端发起请求，而WebSocket服务器和客户端可以彼此相互推送信息；<br>​    XHR受到域的限制，而WebSocket允许跨域通信。<br>​    Ajax技术很聪明的一点是没有设计要使用的方式。WebSocket为指定目标创建，用于双向推送消息。</p>
+<hr>
+<p>activemq是消息中间件，主要实现是队列。用于处理消息。<br>websocket是 html5的一种传议实现前台向后台，后台向前台发出请求。</p>
+<hr>
+<p>websocket是HTML5协议，实时，全双工通信，长连接。WebSocket的服务端可以将数据推送到客户端，<br>​    如实时将证券信息反馈到客户端，实时天气数据，比http请求响应模式更灵活，代替了以往一些需要轮训的业务。</p>
+<p>STOMP协议的前身是TTMP协议（一个简单的基于文本的协议），专为消息中间件设计。</p>
+<p>这两个协议的介绍来看设计的目的不同。目前一些消息队列都是基于STOMP协议的比如ActiveMQ，RabbitMQ，消息队列一般用于一些需要异步处理的服务器任务或者一些通知类的任务。</p>
+<p>websocket更多的使用场景是需要服务端主动通知客户端的实时通讯业务。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/16/mysql%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/12/16/mysql%20snippet/" class="post-title-link" itemprop="url">mysql snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-16 20:01:30" itemprop="dateCreated datePublished" datetime="2015-12-16T20:01:30+08:00">2015-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-16 14:39:56" itemprop="dateModified" datetime="2021-11-16T14:39:56+08:00">2021-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/database/" itemprop="url" rel="index"><span itemprop="name">database</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<li><p>the size of blob column</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  A BLOB can be 65535 bytes (64 KB) maximum.</span><br><span class="line">If you need more consider using:</span><br><span class="line">a MEDIUMBLOB for 16777215 bytes (16 MB)</span><br><span class="line">a LONGBLOB for 4294967295 bytes (4 GB).</span><br></pre></td></tr></table></figure></li>
+<li><p>join sql<br><img src="https://i.stack.imgur.com/VQ5XP.png"></p>
+</li>
+<li><p>string convert to timstamp</p>
+<p><code>SELECT STR_TO_DATE(&#39;2014-05-28 11:30:10&#39;,&#39;%Y-%m-%d %H:%i:%s&#39;);</code></p>
+</li>
+</ul>
+<h3 id="sql语句"><a href="#sql语句" class="headerlink" title="sql语句"></a>sql语句</h3><ul>
+<li>IN</li>
+</ul>
+<p>确定给定的值是否与子查询或列表中的值相匹配。in在查询的时候，首先查询子查询的表，然后将内表和外表做一个笛卡尔积，然后按照条件进行筛选。所以相对内表比较小的时候，in的速度较快。 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    `<span class="keyword">user</span>`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    `<span class="keyword">user</span>`.id <span class="keyword">IN</span> (</span><br><span class="line">        <span class="keyword">SELECT</span></span><br><span class="line">            `<span class="keyword">order</span>`.user_id</span><br><span class="line">        <span class="keyword">FROM</span></span><br><span class="line">            `<span class="keyword">order</span>`</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<p>以上查询使用了in语句,in()只执行一次,它查出B表中的所有id字段并缓存起来.之后,检查A表的id是否与B表中的id相等,如果相等则将A表的记录加入结果集中,直到遍历完A表的所有记录。</p>
+<p>可以看出,当B表数据较大时不适合使用in(),因为它会B表数据全部遍历一次. 如:A表有10000条记录,B表有1000000条记录,那么最多有可能遍历10000<code>*</code>1000000次,效率很差. 再如:A表有10000条记录,B表有100条记录,那么最多有可能遍历10000*100次,遍历次数大大减少,效率大大提升。</p>
+<ul>
+<li>exists</li>
+</ul>
+<p>指定一个子查询，检测行的存在。遍历循环外表，然后看外表中的记录有没有和内表的数据一样的。匹配上就将结果放入结果集中。 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.<span class="operator">*</span> <span class="keyword">from</span> A a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> B b <span class="keyword">where</span> a.id<span class="operator">=</span>b.id)</span><br></pre></td></tr></table></figure>
+
+<p>以上查询使用了exists语句,exists()会执行A.length次,它并不缓存exists()结果集,因为exists()结果集的内容并不重要,重要的是结果集中是否有记录,如果有则返回true,没有则返回false。</p>
+<p>当B表比A表数据大时适合使用exists(),因为它没有那么遍历操作,只需要再执行一次查询就行. 如:A表有10000条记录,B表有1000000条记录,那么exists()会执行10000次去判断A表中的id是否与B表中的id相等. 如:A表有10000条记录,B表有100000000条记录,那么exists()还是执行10000次,因为它只执行A.length次,可见B表数据越多,越适合exists()发挥效果. 再如:A表有10000条记录,B表有100条记录,那么exists()还是执行10000次,还不如使用in()遍历10000*100次,因为in()是在内存里遍历比较,而exists()需要查询数据库,我们都知道查询数据库所消耗的性能更高,而内存比较很快. </p>
+<ul>
+<li>where</li>
+</ul>
+<p>sql查询条件中<code>where 1=1,1=2和1=0</code>，这种写法，主要是为了拼凑动态的sql语句，如果使用不好会起到副作用的，是根据个人的一些习惯，是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误，是为了后面附加and …方便程序逻辑处理用的。 </p>
+<ul>
+<li><p>select count(*)和select count(1)的区别</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般情况下，Select Count(*)和Select Count(1)两着返回结果是一样的，假如表没有主键(Primary key), 那么count(1)比count(*)快，如果有主键的话，那主键作为count的条件时候count(主键)最快，如果你的表只有一个字段的话那count(*)就是最快的。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="事物隔离级别"><a href="#事物隔离级别" class="headerlink" title="事物隔离级别"></a>事物隔离级别</h3><ul>
+<li><p>read uncommitted（读取未提交数据）</p>
+<blockquote>
+<p>我们将事务隔离级别设置为read uncommitted，即便是事务没有commit，但是我们仍然能读到未提交的数据，这是所有隔离级别中最低的一种。</p>
+<p>脏读</p>
+</blockquote>
+</li>
+<li><p>read committed（可以读取其他事务提交的数据）</p>
+<blockquote>
+<p>大多数数据库默认的隔离级别;</p>
+<p>当我们将当前会话的隔离级别设置为read committed的时候，当前会话只能读取到其他事务提交的数据，未提交的数据读不到。</p>
+</blockquote>
+</li>
+<li><p>repeatable read（可重读）</p>
+<blockquote>
+<p>MySQL默认的隔离级别</p>
+<p>当我们将当前会话的隔离级别设置为repeatable read的时候，当前会话可以重复读，就是每次读取的结果集都相同，而不管其他事务有没有提交。</p>
+<p>幻读</p>
+</blockquote>
+</li>
+<li><p>serializable（串行化）</p>
+<blockquote>
+<p>当我们将当前会话的隔离级别设置为serializable的时候，其他会话对该表的写操作将被挂起。可以看到，这是隔离级别中最严格的，但是这样做势必对性能造成影响。所以在实际的选用上，我们要根据当前具体的情况选用合适的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="DDL-VS-DML"><a href="#DDL-VS-DML" class="headerlink" title="DDL VS DML"></a>DDL VS DML</h3><p>DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.</p>
+<p>Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.</p>
+<h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
+<li><p>导出数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p database &gt; file.sql</span><br><span class="line">其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称</span><br></pre></td></tr></table></figure></li>
+<li><p>导出数据表数据（根据sql的where条件）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p database --tables tablename --where=&quot;id&gt;8&quot; &gt; result.sql </span><br></pre></td></tr></table></figure></li>
+<li><p>执行sql文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/files/filename.sql</span></span><br></pre></td></tr></table></figure></li>
+<li><p>导出所有数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt; backup_filename.sql</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/10/16/linux%20command/" class="post-title-link" itemprop="url">linux command</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-14 15:07:41" itemprop="dateModified" datetime="2021-12-14T15:07:41+08:00">2021-12-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
+<h3 id="Bash-Shell-Scripting-Definition"><a href="#Bash-Shell-Scripting-Definition" class="headerlink" title="Bash Shell Scripting Definition"></a>Bash Shell Scripting Definition</h3><ul>
+<li>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. <h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><ul>
+<li>kill seesion <code>screen -X -S [session # you want to kill] quit</code></li>
+<li>新建screen会话           screen -S xxx</li>
+<li>恢复指定会话               screen -r xxx</li>
+<li>查看所有会话                screen -ls</li>
+<li>删除指定会话                screen -S xxx -X quit</li>
+<li>回到终端                        Ctrl-a d</li>
+</ul>
+<h2 id="PORT"><a href="#PORT" class="headerlink" title="PORT"></a>PORT</h2><ul>
+<li><p>Check the listening ports</p>
+<p>Run any one of the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure></li>
+<li><p>checking remote system tcp 80 port status</p>
+<ol>
+<li><p>Telnet</p>
+</li>
+<li><p>nc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
+<li><p>nmap</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>通过进程名查看占用端口</p>
+<ul>
+<li>先查看进程pid    <code>ps -ef | grep 进程名 </code></li>
+<li>再通过pid查看占用端口    <code>netstat -nap | grep 进程pid </code></li>
+</ul>
+</li>
+<li><p>通过端口查看进程</p>
+<p><code>netstat -nap | grep 端口号 </code>或<code>netstat -apn | grep 端口号</code></p>
+<p><code>netstat -tln | grep 8080</code> 查看端口8080的使用情况</p>
+</li>
+</ul>
+<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><ul>
+<li><p>c – Creates a new .tar archive file.</p>
+</li>
+<li><p>x — to untar or extract a tar file</p>
+</li>
+<li><p>v – Verbosely show the .tar file progress.</p>
+</li>
+<li><p>f – File name type of the archive file.</p>
+</li>
+<li><p>z — gzip archive file</p>
+</li>
+<li><p>j —  bz2 feature compress and create archive file</p>
+</li>
+<li><p>t — to list the contents of tar archive file</p>
+</li>
+</ul>
+<h2 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h2><ul>
+<li>check status : <code>sudo ufw status</code></li>
+<li>enable firewall: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">Command may disrupt existing ssh connections. Proceed with operation (y|n)? y</span><br><span class="line">Firewall is active and enabled on system startup</span><br></pre></td></tr></table></figure></li>
+<li>disable firewall<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h3><ul>
+<li><p>查看系统</p>
+<ul>
+<li><code>cat /etc/os-release</code></li>
+</ul>
+</li>
+<li><p>查看内核</p>
+<ul>
+<li><code>cat /proc/version</code></li>
+<li><code>uname -a</code></li>
+</ul>
+</li>
+<li><p>查看linux版本</p>
+<ul>
+<li><code>lsb_release -a</code></li>
+<li><code>cat /etc/issue</code></li>
+</ul>
+</li>
+<li><blockquote>
+<p>总核数 = 物理CPU个数 X 每颗物理CPU的核数 </p>
+<p>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</p>
+</blockquote>
+<ul>
+<li><p>查看物理CPU个数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
+<li><p>查看每个物理CPU中core的个数(即核数)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
+<li><p>查看逻辑CPU的个数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘相关"><a href="#磁盘相关" class="headerlink" title="磁盘相关"></a>磁盘相关</h3><ul>
+<li><p>查看系统磁盘占用情况    <code> df -h</code></p>
+</li>
+<li><p>查看目录下文件大小        <code>du -sh</code></p>
+</li>
+<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -lh --max-depth=1 </code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看当前目录下user目录的大小，并不想看其他目录以及其子目录：</span><br><span class="line">du -sh user</span><br><span class="line">-s表示总结的意思，即只列出一个总结的值</span><br><span class="line">du -h --max-depth=0 user</span><br><span class="line">--max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。</span><br></pre></td></tr></table></figure></li>
+<li><p>总结du常用命令</p>
+<p><strong>du -h –max-depth=1 |grep ‘G’ |sort   #查看上G目录并排序</strong></p>
+<p>du -h –max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序<br>du -sh –max-depth=1  #查看当前目录下所有一级子目录文件夹大小</p>
+</li>
+<li><p>清理指定目录下的文件</p>
+<p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>查找具体文件    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
+
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename1&quot;|&quot;filename2&quot;) </span><br></pre></td></tr></table></figure>
+
+<p><strong>3.</strong> The example below shows how to remove all files other than all <code>.zip</code> files interactively:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i !(*.zip)</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">浏览已安装的程序	dpkg --list</span><br><span class="line">卸载程序和所有配置文件	sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序	sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
+
+<h3 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h3><ul>
+<li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
+<p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
+<p>awk ‘{ $5=””; print }’ file</p>
+</li>
+</ul>
+<h3 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h3><p>语法：wc [选项] 文件…</p>
+<p>说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。</p>
+<p>该命令各选项含义如下：</p>
+<p>　　- c 统计字节数。</p>
+<p>　　- l 统计行数。</p>
+<p>　　- w 统计字数。</p>
+<p>这些选项可以组合使用。</p>
+<h3 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h3><p>使文件可以直接执行的命令：chmod +x filename</p>
+<p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
+<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>限定查询结果之后的前几行 <code>grep -m 10 &lt;pattern&gt; &lt;file&gt; </code></p>
+<p>限定查询结果倒数的几行 <code>grep &lt;pattern&gt; &lt;file&gt; | tail -10</code></p>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><ul>
+<li><p>判断　day of year     </p>
+<p><code>doy=$(date +%j)</code></p>
+</li>
+<li><p>制定日期减一天</p>
+<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
+</li>
+</ul>
+<h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
+<p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
+<h4 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载服务器文件	sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
+
+<h4 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
+
+<h4 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h4><ul>
+<li><p>替换字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h4><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
+
+<p>输出可能是这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
+<p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iconv -f gb18030 -t UTF-8 input.file -o output.file</span><br><span class="line"></span><br><span class="line">gb18030</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="tr命令"><a href="#tr命令" class="headerlink" title="tr命令"></a>tr命令</h3><p>tr – translate or delete characters </p>
+<ul>
+<li><p>大小写转换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
+<li><p>“1”</p>
+<p>查看所有CPU核的使用情况</p>
+</li>
+<li><p>“c”</p>
+<p>查看具体进程的路径</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line"></span><br><span class="line">　　t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line"></span><br><span class="line">　　m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line"></span><br><span class="line">　　N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line"></span><br><span class="line">　　P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　h - 显示帮助</span><br><span class="line"></span><br><span class="line">　　n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line"></span><br><span class="line">　　q - 退出 top</span><br><span class="line"></span><br><span class="line">　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><ul>
+<li><p>markdown文件转word文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h3><ul>
+<li><p>查看本地网络代理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export | grep -i proxy</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭代理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset http_proxy </span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

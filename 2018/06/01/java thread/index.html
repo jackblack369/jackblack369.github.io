@@ -1,35 +1,526 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。 how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternativ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java thread">
+<meta property="og:url" content="http://yoursite.com/2018/06/01/java%20thread/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。 how to avoid deadlock ConcurrentHashMap faster than Hashtable  ConcurrentHashMap is introduced as an alternativ">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg">
+<meta property="og:image" content="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png">
+<meta property="og:image" content="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png">
+<meta property="og:image" content="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg">
+<meta property="article:published_time" content="2018-06-01T02:01:30.000Z">
+<meta property="article:modified_time" content="2019-08-14T08:34:12.000Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="snippet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2018/06/01/java%20thread/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>java thread | source is the essence</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/java%20thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java thread
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-06-01T10:01:30+08:00">2018-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-14 16:34:12" itemprop="dateModified" datetime="2019-08-14T16:34:12+08:00">2019-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。</p>
+<h3 id="how-to-avoid-deadlock"><a href="#how-to-avoid-deadlock" class="headerlink" title="how to avoid deadlock"></a>how to avoid deadlock</h3><p><img src="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg"></p>
+<h3 id="ConcurrentHashMap-faster-than-Hashtable"><a href="#ConcurrentHashMap-faster-than-Hashtable" class="headerlink" title="ConcurrentHashMap faster than Hashtable"></a>ConcurrentHashMap faster than Hashtable</h3><blockquote>
+<p> ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides the whole map into different segments and only lock a particular segment during the update operation, instead of <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/01/java-hashtable-example-tutorial-code.html">Hashtable</a>, which locks whole Map.</p>
+</blockquote>
+<p><img src="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png"></p>
+<h3 id="submit-and-execute-method-of-Executor-and-ExecutorService"><a href="#submit-and-execute-method-of-Executor-and-ExecutorService" class="headerlink" title="submit() and execute() method of Executor and ExecutorService"></a>submit() and execute() method of Executor and ExecutorService</h3><blockquote>
+<p> The main difference between submit and execute method from ExecutorService interface is that former return a result in the form of a Future object, while later doesn’t return a result. By the way, both are used to submit a task to thread pool in Java but one is defined in Executor interface,while other is added into ExecutorService interface.</p>
+</blockquote>
+<p><img src="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png"></p>
+<h4 id="when-to-use"><a href="#when-to-use" class="headerlink" title="when to use"></a>when to use</h4><blockquote>
+<ul>
+<li>In general, if you are doing computational task e.g. calculating some risk stats, <a target="_blank" rel="noopener" href="http://java67.blogspot.com/2015/09/how-to-use-biginteger-class-in-java.html">calculating factorial of large numbers</a> or doing some time-consuming computation e which results in some value then use the submit() method. It immediately returns a Future object, which can be later queried to get the value of computation by calling get() method.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Remember, get() is a <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/02/what-is-blocking-methods-in-java-and.html">blocking call</a> so always call the version which accepts a timeout. While you can use the execute() method if you just want your code to be run in parallel by worker threads of the thread pool.</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous task&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">future.get();  <span class="comment">//returns null if the task has finished correctly.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Callable()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous Callable&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Callable Result&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;future.get() = &quot;</span> + future.get());</span><br></pre></td></tr></table></figure>
+
+<h3 id="ReentrantLock-vs-synchronized"><a href="#ReentrantLock-vs-synchronized" class="headerlink" title="ReentrantLock vs synchronized"></a>ReentrantLock vs synchronized</h3><h4 id="the-advantages-of-ReentrantLock"><a href="#the-advantages-of-ReentrantLock" class="headerlink" title="the advantages of ReentrantLock"></a>the advantages of ReentrantLock</h4><ol>
+<li><p>Ability to lock interruptibly.</p>
+</li>
+<li><p>Ability to timeout while waiting for lock.</p>
+</li>
+<li><p>Power to create fair lock.</p>
+</li>
+<li><p>API to get list of waiting thread for lock.</p>
+</li>
+<li><p>Flexibility to try for lock without blocking.</p>
+</li>
+</ol>
+<h4 id="the-disadvantages-of-ReentrantLock"><a href="#the-disadvantages-of-ReentrantLock" class="headerlink" title="the disadvantages of ReentrantLock"></a>the disadvantages of ReentrantLock</h4><ol>
+<li><p>  Major drawback of using ReentrantLock in Java is wrapping method body inside <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/11/difference-between-final-finally-and-finalize-java.html">try-finally block</a>, which makes code unreadable and hides business logic. </p>
+</li>
+<li><p>programmer is responsible for acquiring and releasing lock, which is a power but also opens gate for new subtle bugs, when programmer forget to release the lock in finally block.</p>
+</li>
+</ol>
+<h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><p><img src="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg"></p>
+<h3 id="stop-thread"><a href="#stop-thread" class="headerlink" title="stop thread"></a>stop thread</h3><blockquote>
+<ul>
+<li>There was some control methods in JDK 1.0 e.g. stop(), suspend() and resume() which was deprecated in later releases due to potential deadlock threats, from then Java API designers has not made any effort to provide a consistent, thread-safe and elegant way to stop threads.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Programmers mainly rely on the fact that thread stops automatically as soon as they finish execution of run() or call() method. To manually stop, programmers either take advantage of volatile boolean variable and check in every iteration if run method has loops or interrupt threads to abruptly cancel tasks.</li>
+</ul>
+</blockquote>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><blockquote>
+<ul>
+<li>The <code>ThreadLocal</code> class in Java enables you to create variables that can only be read and written by the same thread. Thus, even if two threads are executing the same code, and the code has a reference to a<code>ThreadLocal</code> variable, then the two threads cannot see each other’s <code>ThreadLocal</code> variables.</li>
+<li>Each thread holds an exclusive copy of ThreadLocal variable which becomes eligible to Garbage collection after thread finished or died, normally or due to any Exception, Given those ThreadLocal variable doesn’t have any other live references.</li>
+<li>ThreadLocal variables in Java are generally private static fields in Classes and maintain its state inside Thread.</li>
+</ul>
+</blockquote>
+<h3 id="synchronized-vs-concurrent-collection"><a href="#synchronized-vs-concurrent-collection" class="headerlink" title="synchronized vs concurrent collection"></a>synchronized vs concurrent collection</h3><blockquote>
+<p>later is more scalable than former</p>
+<p> synchronized collections locks the whole collection e.g. whole Map or List while concurrent collection never locks the whole Map or List. They achieve thread safety by using advanced and sophisticated techniques like lock stripping. For example, the ConcurrentHashMap divides the whole map into several segments and locks only the relevant segments, which allows multiple threads to access other segments of same ConcurrentHashMap without locking.</p>
+</blockquote>
+<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><blockquote>
+<p> CopyOnWriteArrayList allows multiple reader threads to read without synchronization and when a write happens it copies the whole ArrayList and swap with a newer one.</p>
+</blockquote>
+<h3 id="Stack-and-Heap"><a href="#Stack-and-Heap" class="headerlink" title="Stack and Heap"></a>Stack and Heap</h3><blockquote>
+<ul>
+<li>Each thread has their own stack, which is used to store local variables, method parameters and call stack. Variable stored in one Thread’s stack is not visible to other.</li>
+<li>heap is a common memory area which is shared by all threads.Objects whether local or at any level is created inside heap.</li>
+</ul>
+</blockquote>
+<ul>
+<li>To improve performance thread tends to cache values from heap into their stack, which can create problems if that variable is modified by more than one thread, this is where volatile variables comes in picture. volatile suggest threads to read value of variable always from main memory. </li>
+<li>If there is no memory left in the stack for storing function call or local variable, JVM will throw java.lang.StackOverFlowError, while if there is no more heap space for creating an object, JVM will throw java.lang.OutOfMemoryError: Java Heap Space</li>
+<li>Variables stored in stacks are only visible to the owner Thread while objects created in the heap are visible to all thread. In other words, stack memory is kind of private memory of Java Threads while heap memory is shared among all threads.</li>
+</ul>
+<h3 id="thread-pool"><a href="#thread-pool" class="headerlink" title="thread pool"></a>thread pool</h3><blockquote>
+<p>Java API provides Executor framework, which allows you to create different types of thread pools e.g. single thread pool, which process one task at a time, fixed thread pool (a pool of fixed number of thread) or cached thread pool (an expandable thread pool suitable for applications with many short lived tasks).</p>
+</blockquote>
+<h4 id="the-benefits"><a href="#the-benefits" class="headerlink" title="the benefits"></a>the benefits</h4><ul>
+<li><p>Use of Thread Pool reduces response time by avoiding thread creation during request or task processing.</p>
+</li>
+<li><p>Use of Thread Pool allows you to change your execution policy as you need. you can go from single thread to multiple threads by just replacing ExecutorService implementation.</p>
+</li>
+<li><p>Thread Pool in Java application increases the stability of the system by creating a configured number of threads decided based on system load and available resource.</p>
+</li>
+<li><p>Thread Pool frees application developer from thread management stuff and allows to focus on business logic.</p>
+</li>
+</ul>
+<h3 id="volatile-vs-atomic-variable"><a href="#volatile-vs-atomic-variable" class="headerlink" title="volatile vs atomic variable"></a>volatile vs atomic variable</h3><blockquote>
+<p>Volatile variable provides you happens-before guarantee that a write will happen before any subsequent write, it doesn’t guarantee atomicity. For example count++ operation will not become atomic just by declaring count variable as volatile. On the other hand AtomicInteger class provides atomic method to perform such compound operation atomically.</p>
+</blockquote>
+<h3 id="3-multi-threading-best-practice"><a href="#3-multi-threading-best-practice" class="headerlink" title="3 multi-threading best practice"></a>3 multi-threading best practice</h3><ul>
+<li><p>Always give meaningful name to your thread</p>
+</li>
+<li><p>Avoid locking or Reduce scope of Synchronization</p>
+</li>
+<li><p>Prefer Synchronizers over wait and notify</p>
+</li>
+<li><p>Prefer Concurrent Collection over Synchronized Collection</p>
+</li>
+</ul>
+<h3 id="Wait、Sleep、Yield"><a href="#Wait、Sleep、Yield" class="headerlink" title="Wait、Sleep、Yield"></a>Wait、Sleep、Yield</h3><ul>
+<li><p>sleep() and yield() methods are defined in thread class while wait() is defined in the Object class</p>
+</li>
+<li><p>The key difference between wait() and sleep() is that former is used for inter-thread communication while later is used to introduced to pause the current thread for a short duration. </p>
+</li>
+<li><p>This difference is more obvious from the fact that, when a thread calls the wait() method, it releases the monitor or lock it was holding on that object, but when a thread calls the sleep() method, it never releases the monitor even if it is holding. </p>
+</li>
+<li><p>yield() just releases the CPU hold by Thread to give another thread an opportunity to run though it’s not guaranteed who will get the CPU. It totally depends upon thread scheduler and <strong>it’s even possible that the thread which calls the yield() method gets the CPU again</strong>(有可能自己会再次获取到cpu执行时间). Hence, it’s not reliable to depend upon yield() method, it’s just on best effort basis.</p>
+<ul>
+<li>If there is no waiting thread or all the waiting threads have a lower priority then the same thread will continue its execution.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/snippet/" rel="tag"># snippet</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/01/java%20thread%20code/" rel="prev" title="java thread code">
+      <i class="fa fa-chevron-left"></i> java thread code
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/08/28/words%20fragment/" rel="next" title="words fragment">
+      words fragment <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-avoid-deadlock"><span class="nav-number">1.</span> <span class="nav-text">how to avoid deadlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap-faster-than-Hashtable"><span class="nav-number">2.</span> <span class="nav-text">ConcurrentHashMap faster than Hashtable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#submit-and-execute-method-of-Executor-and-ExecutorService"><span class="nav-number">3.</span> <span class="nav-text">submit() and execute() method of Executor and ExecutorService</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#when-to-use"><span class="nav-number">3.1.</span> <span class="nav-text">when to use</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock-vs-synchronized"><span class="nav-number">4.</span> <span class="nav-text">ReentrantLock vs synchronized</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-advantages-of-ReentrantLock"><span class="nav-number">4.1.</span> <span class="nav-text">the advantages of ReentrantLock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#the-disadvantages-of-ReentrantLock"><span class="nav-number">4.2.</span> <span class="nav-text">the disadvantages of ReentrantLock</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReadWriteLock"><span class="nav-number">5.</span> <span class="nav-text">ReadWriteLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stop-thread"><span class="nav-number">6.</span> <span class="nav-text">stop thread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">7.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized-vs-concurrent-collection"><span class="nav-number">8.</span> <span class="nav-text">synchronized vs concurrent collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CopyOnWriteArrayList"><span class="nav-number">8.1.</span> <span class="nav-text">CopyOnWriteArrayList</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack-and-Heap"><span class="nav-number">9.</span> <span class="nav-text">Stack and Heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread-pool"><span class="nav-number">10.</span> <span class="nav-text">thread pool</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-benefits"><span class="nav-number">10.1.</span> <span class="nav-text">the benefits</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile-vs-atomic-variable"><span class="nav-number">11.</span> <span class="nav-text">volatile vs atomic variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-multi-threading-best-practice"><span class="nav-number">12.</span> <span class="nav-text">3 multi-threading best practice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wait%E3%80%81Sleep%E3%80%81Yield"><span class="nav-number">13.</span> <span class="nav-text">Wait、Sleep、Yield</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

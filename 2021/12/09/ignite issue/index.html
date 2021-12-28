@@ -1,35 +1,448 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="BinaryObjectException: Conflicting enum values 原因 1234567存入ignite的数据格式key: String , value: Map&lt;Enum, BigDecimal&gt;Enum类型包含&amp;#123;A,B,C&amp;#125;在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间&amp;#123;A,D,B,C&amp;#125; 分析 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ignite issue">
+<meta property="og:url" content="http://yoursite.com/2021/12/09/ignite%20issue/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="BinaryObjectException: Conflicting enum values 原因 1234567存入ignite的数据格式key: String , value: Map&lt;Enum, BigDecimal&gt;Enum类型包含&amp;#123;A,B,C&amp;#125;在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间&amp;#123;A,D,B,C&amp;#125; 分析 1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2021/12/09/ignite%20issue/img/ignite/gc_collect.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/09/ignite%20issue/img/ignite/gc_2.png">
+<meta property="article:published_time" content="2021-12-09T07:22:02.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:08:26.000Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="issue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/12/09/ignite%20issue/img/ignite/gc_collect.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/12/09/ignite%20issue/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>ignite issue | source is the essence</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/09/ignite%20issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ignite issue
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-09 15:22:02" itemprop="dateCreated datePublished" datetime="2021-12-09T15:22:02+08:00">2021-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-10 15:08:26" itemprop="dateModified" datetime="2021-12-10T15:08:26+08:00">2021-12-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="BinaryObjectException-Conflicting-enum-values"><a href="#BinaryObjectException-Conflicting-enum-values" class="headerlink" title="BinaryObjectException: Conflicting enum values"></a>BinaryObjectException: Conflicting enum values</h3><ul>
+<li><p>原因</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">存入ignite的数据格式</span><br><span class="line">key: String , value: Map&lt;Enum, BigDecimal&gt;</span><br><span class="line">Enum类型包含</span><br><span class="line">&#123;A,B,C&#125;</span><br><span class="line"></span><br><span class="line">在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间</span><br><span class="line">&#123;A,D,B,C&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于在数据存入ignite之后，ignite会保存数据相关的schema信息,此时在enum项目之间修改item，会打乱之前的index</span><br></pre></td></tr></table></figure></li>
+<li><p>解决 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">更改enum类的名称，不再使用原有的schema信息</span><br><span class="line">方法二：</span><br><span class="line">enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引</span><br><span class="line">方法三（未验证）：</span><br><span class="line">删除 $IGNITE_HOME/work/binary_meta/Nodex里面的文件</span><br></pre></td></tr></table></figure></li>
+<li><p>官方说明</p>
+<blockquote>
+<ul>
+<li>You cannot change the types of existing fields.</li>
+<li>You cannot change the order of enum values or add new constants at the beginning or in the middle of the list of enum’s values. You can add new constants to the end of the list though.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><strong>处理conflict enum values, 需要清除数据</strong></li>
+</ul>
+<blockquote>
+<p>需要清理 $IGNITE_HOME/work/db目录下的 binary_meta、marshaller</p>
+<p>需要验证是否清理 storagePath、walPath、walArchivePath</p>
+</blockquote>
+<h3 id="gc"><a href="#gc" class="headerlink" title="gc"></a>gc</h3><p><img src="img/ignite/gc_collect.png"></p>
+<blockquote>
+<p>3s进行gc  (110060-52672)/1024=56.04G</p>
+</blockquote>
+<p><img src="img/ignite/gc_2.png"></p>
+<blockquote>
+<p>17s进行gc (109952-52658)/1024=55.95G</p>
+</blockquote>
+<h3 id="IgniteCacheException"><a href="#IgniteCacheException" class="headerlink" title="IgniteCacheException"></a>IgniteCacheException</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ERROR org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.spi</span><span class="variable">.communication</span><span class="variable">.tcp</span><span class="variable">.TcpCommunicationSpi</span>  [] - Failed to send message to remote node [node=ZookeeperClusterNode [id=<span class="number">1</span>c8a032d-<span class="number">042</span>e-<span class="number">4386</span>-<span class="number">9</span>ce8-<span class="number">2605</span>c0699304, addrs=[<span class="number">17</span><span class="variable">.9</span><span class="variable">.11</span><span class="variable">.11</span>], order=<span class="number">1</span>, loc=false, client=false], msg=GridIoMessage [plc=<span class="number">2</span>, topic=TOPIC_CACHE, topicOrd=<span class="number">8</span>, ordered=false, timeout=<span class="number">0</span>, skipOnTimeout=false, msg=GridNearLockRequest [topVer=AffinityTopologyVersion [topVer=<span class="number">358</span>, minorTopVer=<span class="number">0</span>], miniId=<span class="number">1</span>, dhtVers=GridCacheVersion[] [<span class="literal">null</span>], subjId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, taskNameHash=<span class="number">0</span>, createTtl=-<span class="number">1</span>, accessTtl=-<span class="number">1</span>, flags=<span class="number">3</span>, txLbl=<span class="literal">null</span>, filter=<span class="literal">null</span>, <span class="keyword">super</span>=GridDistributedLockRequest [nodeId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, nearXidVer=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], threadId=<span class="number">11960694</span>, futId=<span class="number">96</span>c1bf42d71-<span class="number">90702925</span>-<span class="number">3</span>ef9-<span class="number">4</span>c70-b7a7-<span class="number">4</span>be2fb6d75ba, timeout=<span class="number">0</span>, isInTx=true, isInvalidate=false, isRead=true, isolation=REPEATABLE_READ, retVals=[true], txSize=<span class="number">0</span>, flags=<span class="number">0</span>, keysCnt=<span class="number">1</span>, <span class="keyword">super</span>=GridDistributedBaseMessage [ver=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], committedVers=<span class="literal">null</span>, rolledbackVers=<span class="literal">null</span>, cnt=<span class="number">1</span>, <span class="keyword">super</span>=GridCacheIdMessage [cacheId=-<span class="number">182240380</span>, <span class="keyword">super</span>=GridCacheMessage [msgId=<span class="number">1360862</span>, depInfo=<span class="literal">null</span>, lastAffChangedTopVer=AffinityTopologyVersion [topVer=<span class="number">336</span>, minorTopVer=<span class="number">0</span>], err=<span class="literal">null</span>, skipPrepare=false]]]]]]]</span><br><span class="line"></span><br><span class="line">org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Failed to connect to node due to unrecoverable exception (is node still alive?). Make sure that each ComputeTask <span class="keyword">and</span> cache Transaction has a timeout set in order to prevent parties from waiting <span class="keyword">forever</span> in <span class="keyword">case</span> of network issues [nodeId=d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895, addrs=[x/x<span class="variable">.x</span><span class="variable">.x</span><span class="variable">.x</span>:<span class="number">47100</span>], err= <span class="keyword">class</span> org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895]</span><br><span class="line">    </span><br><span class="line">Caused by: org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895</span><br></pre></td></tr></table></figure>
+
+
+
+
+<ul>
+<li>gc的策略</li>
+<li>ignite client的异常捕获</li>
+<li></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/issue/" rel="tag"># issue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/03/elasticstatic/" rel="prev" title="Elastic Stack learn">
+      <i class="fa fa-chevron-left"></i> Elastic Stack learn
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/11/jconsole%20snippet/" rel="next" title="jconsole snippet">
+      jconsole snippet <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BinaryObjectException-Conflicting-enum-values"><span class="nav-number">2.</span> <span class="nav-text">BinaryObjectException: Conflicting enum values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gc"><span class="nav-number">3.</span> <span class="nav-text">gc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IgniteCacheException"><span class="nav-number">4.</span> <span class="nav-text">IgniteCacheException</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

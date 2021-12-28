@@ -1,35 +1,875 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM Learn">
+<meta property="og:url" content="http://yoursite.com/2021/09/01/JVM%20learn/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-01T00:35:47.000Z">
+<meta property="article:modified_time" content="2021-12-13T08:19:07.000Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="learn">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/09/01/JVM%20learn/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>JVM Learn | source is the essence</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/01/JVM%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM Learn
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-01 08:35:47" itemprop="dateCreated datePublished" datetime="2021-09-01T08:35:47+08:00">2021-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-13 16:19:07" itemprop="dateModified" datetime="2021-12-13T16:19:07+08:00">2021-12-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="堆内与堆外"><a href="#堆内与堆外" class="headerlink" title="堆内与堆外"></a>堆内与堆外</h2><h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><ul>
+<li><p>常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。</p>
+</li>
+<li><p>堆的特点：</p>
+</li>
+<li><ul>
+<li>由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。</li>
+<li>对象存储到GC中无需进行序列化、反序列化的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="堆外"><a href="#堆外" class="headerlink" title="堆外"></a>堆外</h3><ul>
+<li><p>堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程开辟的一块内存空间。只不过，GC不会「光顾」这里。</p>
+</li>
+<li><p>堆外的特点：</p>
+</li>
+<li><ul>
+<li>由操作系统直接管理。别的进程能够直接访问。</li>
+<li>特别适合分配次数少，读写非常频繁的场景。</li>
+<li>可以避免在分配GB级别的内存而造成GC开销。</li>
+</ul>
+</li>
+<li><p>堆外的缺点：</p>
+</li>
+<li><ul>
+<li>容易出现内存泄漏，难以排查。</li>
+<li>对象的存储需要序列化、和反序列化。</li>
+</ul>
+</li>
+</ul>
+<p>因为堆外内存由此特点，很多高性能的应用组件基于off-heap来提高性能。</p>
+<h4 id="堆外内存常配合使用System-GC"><a href="#堆外内存常配合使用System-GC" class="headerlink" title="堆外内存常配合使用System GC"></a>堆外内存常配合使用System GC</h4><blockquote>
+<p>堆外内存主要针对java.nio.DirectByteBuffer，这些对象的创建过程会通过Unsafe接口直接通过os::malloc来分配内存，然后将内存的起始地址和大小存到java.nio.DirectByteBuffer对象里，这样就可以直接操作这些内存。这些内存只有在DirectByteBuffer回收掉之后才有机会被回收，因此如果这些对象大部分都移到了old，但是一直没有触发CMS GC或者Full GC，那么悲剧将会发生，因为你的物理内存被他们耗尽了，因此为了避免这种悲剧的发生，通过-XX:MaxDirectMemorySize来指定最大的堆外内存大小，当使用达到了阈值的时候将调用System.gc来做一次full gc，以此来回收掉没有被使用的堆外内存。</p>
+</blockquote>
+<h3 id="System-gc常识"><a href="#System-gc常识" class="headerlink" title="System.gc常识"></a>System.gc常识</h3><ul>
+<li>system.gc其实是做一次full gc</li>
+<li>system.gc会暂停整个进程</li>
+<li>system.gc一般情况下我们要禁掉，使用-XX:+DisableExplicitGC</li>
+<li>system.gc在cms gc下我们通过-XX:+ExplicitGCInvokesConcurrent来做一次稍微高效点的GC(效果比Full GC要好些)</li>
+<li>system.gc最常见的场景是RMI/NIO下的堆外内存分配等</li>
+</ul>
+<h1 id="jvm常用参数的设置和含义"><a href="#jvm常用参数的设置和含义" class="headerlink" title="jvm常用参数的设置和含义"></a>jvm常用参数的设置和含义</h1><p><strong>1.设置堆的最大和最小值</strong><br> -Xmx20M(最大值) ,-Xms20M(最小值)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms和-Xmx实际上是 -XX:InitialHeapSize 和-XX:MaxHeapSize 的缩写</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.设置栈的大小</strong><br> -Xss128k： 设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内 存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
+<p>功能开关:</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值或限制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-XX:-AllowUserSignalHandlers</td>
+<td>限于Linux和Solaris，默认不启用</td>
+<td>允许为java进程安装信号处理器,信号处理参见类:sun.misc.Signal, sun.misc.SignalHandler</td>
+</tr>
+<tr>
+<td>-XX:+DisableExplicitGC</td>
+<td>默认启用</td>
+<td>禁止在运行期显式地调用System.gc()</td>
+</tr>
+<tr>
+<td>-XX:+FailOverToOldVerifier</td>
+<td>Java6新引入选项，默认启用</td>
+<td>如果新的Class校验器检查失败，则使用老的校验器(失败原因:因为JDK6最高向下兼容到JDK1.2，而JDK1.2的class info 与JDK6的info存在较大的差异，所以新校验器可能会出现校验失败的情况)</td>
+</tr>
+<tr>
+<td>-XX:+HandlePromotionFailure</td>
+<td>java5以前是默认不启用，java6默认启用</td>
+<td>关闭新生代收集担保</td>
+</tr>
+<tr>
+<td>-XX:+MaxFDLimit</td>
+<td>限于Solaris，默认启用</td>
+<td>设置java进程可用文件描述符为操作系统允许的最大值。</td>
+</tr>
+<tr>
+<td>-XX:PreBlockSpin=10</td>
+<td>-XX:+UseSpinning 必须先启用，对于java6来说已经默认启用了，这里默认自旋10次</td>
+<td>控制多线程自旋锁优化的自旋次数</td>
+</tr>
+<tr>
+<td>-XX:-RelaxAccessControlCheck</td>
+<td>默认不启用</td>
+<td>在Class校验器中，放松对访问控制的检查,作用与reflection里的setAccessible类似</td>
+</tr>
+<tr>
+<td>-XX:+ScavengeBeforeFullGC</td>
+<td>默认启用</td>
+<td>在Full GC前触发一次Minor GC</td>
+</tr>
+<tr>
+<td>-XX:+UseAltSigs</td>
+<td>限于Solaris，默认启用</td>
+<td>为了防止与其他发送信号的应用程序冲突，允许使用候补信号替代 SIGUSR1和SIGUSR2</td>
+</tr>
+<tr>
+<td>-XX:+UseBoundThreads</td>
+<td>限于Solaris, 默认启用</td>
+<td>绑定所有的用户线程到内核线程, 减少线程进入饥饿状态（得不到任何cpu time）的次数</td>
+</tr>
+<tr>
+<td>-XX:-UseConcMarkSweepGC</td>
+<td>默认不启用</td>
+<td>启用CMS低停顿垃圾收集器,减少FGC的暂停时间</td>
+</tr>
+<tr>
+<td>-XX:+UseGCOverheadLimit</td>
+<td>默认启用</td>
+<td>限制GC的运行时间。如果GC耗时过长，就抛OOM</td>
+</tr>
+<tr>
+<td>-XX:+UseLWPSynchronization</td>
+<td>限于solaris，默认启用</td>
+<td>使用轻量级进程（内核线程）替换线程同步</td>
+</tr>
+<tr>
+<td>-XX:-UseParallelGC</td>
+<td>-server时启用,其他情况下，默认不启用</td>
+<td>策略为新生代使用并行清除，年老代使用单线程Mark-Sweep-Compact的垃圾收集器</td>
+</tr>
+<tr>
+<td>-XX:-UseParallelOldGC</td>
+<td>默认不启用</td>
+<td>策略为老年代和新生代都使用并行清除的垃圾收集器</td>
+</tr>
+<tr>
+<td>-XX:-UseSerialGC</td>
+<td>-client时启用,其他情况下，默认不启用</td>
+<td>使用串行垃圾收集器</td>
+</tr>
+<tr>
+<td>-XX:-UseSpinning</td>
+<td>java1.4.2和1.5需要手动启用, java6默认已启用</td>
+<td>启用多线程自旋锁优化</td>
+</tr>
+<tr>
+<td>-XX:+UseTLAB</td>
+<td>1.4.2以前和使用-client选项时，默认不启用，其余版本默认启用</td>
+<td>启用线程本地缓存区</td>
+</tr>
+<tr>
+<td>-XX:+UseSplitVerifier</td>
+<td>java5默认不启用, java6默认启用</td>
+<td>使用新的Class类型校验器</td>
+</tr>
+<tr>
+<td>-XX:+UseThreadPriorities</td>
+<td>默认启用</td>
+<td>使用本地线程的优先级</td>
+</tr>
+<tr>
+<td>-XX:+UseVMInterruptibleIO</td>
+<td>限于solaris，默认启用</td>
+<td>在solaris中，允许运行时中断线程</td>
+</tr>
+</tbody></table>
+<p>性能参数:</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值或限制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-XX:+AggressiveOpts</td>
+<td>JDK 5 update 6后引入，但需要手动启用, JDK6默认启用</td>
+<td>启用JVM开发团队最新的调优成果。例如编译优化，偏向锁，并行年老代收集等</td>
+</tr>
+<tr>
+<td>-XX:CompileThreshold=10000</td>
+<td>1000</td>
+<td>通过JIT编译器，将方法编译成机器码的触发阀值，可以理解为调用方法的次数，例如调1000次，将方法编译为机器码</td>
+</tr>
+<tr>
+<td>-XX:LargePageSizeInBytes=4m</td>
+<td>默认4m, amd64位：2m</td>
+<td>设置堆内存的内存页大小</td>
+</tr>
+<tr>
+<td>-XX:MaxHeapFreeRatio=70</td>
+<td>70</td>
+<td>GC后，如果发现空闲堆内存占到整个预估上限值的70%，则收缩预估上限值</td>
+</tr>
+<tr>
+<td>-XX:MaxNewSize=size</td>
+<td>1.3.1 Sparc: 32m, 1.3.1 x86: 2.5m</td>
+<td>新生代占整个堆内存的最大值</td>
+</tr>
+<tr>
+<td>-XX:MaxPermSize=64m</td>
+<td>5.0以后: 64 bit VMs会增大预设值的30%, 1.4 amd64: 96m, 1.3.1 -client: 32m, 其他默认 64m</td>
+<td>Perm（俗称方法区）占整个堆内存的最大值</td>
+</tr>
+<tr>
+<td>-XX:MinHeapFreeRatio=40</td>
+<td>40</td>
+<td>GC后，如果发现空闲堆内存占到整个预估上限值的40%，则增大上限值</td>
+</tr>
+<tr>
+<td>-XX:NewRatio=2</td>
+<td>Sparc -client: 8, x86 -server: 8, x86 -client: 12, -client: 4 (1.3), 8 (1.3.1+), x86: 12, 其他默认 2</td>
+<td>新生代和年老代的堆内存占用比例, 例如2表示新生代占年老代的1/2，占整个堆内存的1/3</td>
+</tr>
+<tr>
+<td>-XX:NewSize=2.125m</td>
+<td>5.0以后: 64 bit Vms 会增大预设值的30%, x86: 1m, x86, 5.0以后: 640k, 其他默认 2.125m</td>
+<td>新生代预估上限的默认值</td>
+</tr>
+<tr>
+<td>-XX:ReservedCodeCacheSize=32m</td>
+<td>Solaris 64-bit, amd64, -server x86: 48m, 1.5.0_06之前, Solaris 64-bit amd64: 1024m, 其他默认 32m</td>
+<td>设置代码缓存的最大值，编译时用</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio=8</td>
+<td>Solaris amd64: 6, Sparc in 1.3.1: 25, Solaris platforms 5.0以前: 32, 其他默认 8</td>
+<td>Eden与Survivor的占用比例。例如8表示，一个survivor区占用 1/8 的Eden内存，即1/10的新生代内存，为什么不是1/9？ 因为我们的新生代有2个survivor，即S0和S1。所以survivor总共是占用新生代内存的 2/10，Eden与新生代的占比则为 8/10</td>
+</tr>
+<tr>
+<td>-XX:TargetSurvivorRatio=50</td>
+<td>50</td>
+<td>实际使用的survivor空间大小占比。默认是50%，最高90%</td>
+</tr>
+<tr>
+<td>-XX:ThreadStackSize=512</td>
+<td>Sparc: 512, Solaris x86: 320 (5.0以前 256), Sparc 64 bit: 1024, Linux amd64: 1024 (5.0 以前 0), 其他默认 512.</td>
+<td>线程堆栈大小</td>
+</tr>
+<tr>
+<td>-XX:+UseBiasedLocking</td>
+<td>JDK 5 update 6后引入，但需要手动启用, JDK6默认启用</td>
+<td>启用偏向锁</td>
+</tr>
+<tr>
+<td>-XX:+UseFastAccessorMethods</td>
+<td>默认启用</td>
+<td>优化原始类型的getter方法性能(get/set:Primitive Type)</td>
+</tr>
+<tr>
+<td>-XX:-UseISM</td>
+<td>默认启用</td>
+<td>启用solaris的ISM</td>
+</tr>
+<tr>
+<td>-XX:+UseLargePages</td>
+<td>JDK 5 update 5后引入，但需要手动启用, JDK6默认启用</td>
+<td>启用大内存分页</td>
+</tr>
+<tr>
+<td>-XX:+UseMPSS</td>
+<td>1.4.1 之前: 不启用, 其余版本默认启用</td>
+<td>启用solaris的MPSS，不能与ISM同时使用</td>
+</tr>
+<tr>
+<td>-XX:+UseStringCache</td>
+<td>默认开启</td>
+<td>启用缓存常用的字符串。</td>
+</tr>
+<tr>
+<td>-XX:AllocatePrefetchLines=1</td>
+<td>1</td>
+<td>Number of cache lines to load after the last object allocation using prefetch instructions generated in JIT compiled code. Default values are 1 if the last allocated object was an instance and 3 if it was an array.</td>
+</tr>
+<tr>
+<td>-XX:AllocatePrefetchStyle=1</td>
+<td>1</td>
+<td>Generated code style for prefetch instructions. 0 – no prefetch instructions are generate<em>d</em>, 1 – execute prefetch instructions after each allocation, 2 – use TLAB allocation watermark pointer to gate when prefetch instructions are executed.</td>
+</tr>
+<tr>
+<td>-XX:+UseCompressedStrings</td>
+<td>Java 6 update 21有一选项</td>
+<td>其中，对于不需要16位字符的字符串，可以使用byte[] 而非char[]。对于许多应用，这可以节省内存，但速度较慢（5％-10％）</td>
+</tr>
+<tr>
+<td>-XX:+OptimizeStringConcat</td>
+<td>在Java 6更新20中引入</td>
+<td>优化字符串连接操作在可能的情况下</td>
+</tr>
+</tbody></table>
+<p>调试参数:</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值或限制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-XX:-CITime</td>
+<td></td>
+<td>打印发费在JIT编译上的时间</td>
+</tr>
+<tr>
+<td>-XX:ErrorFile=./hs_err_pid<pid>.log</td>
+<td>JDK6中引入</td>
+<td>错误文件</td>
+</tr>
+<tr>
+<td>-XX:-ExtendedDTraceProbes</td>
+<td>JDK6中引入仅在Solaris</td>
+<td>启用性能的影响DTrace探测器</td>
+</tr>
+<tr>
+<td>-XX:HeapDumpPath=./java_pid<pid>.hprof</td>
+<td>1.4.2 update 12, 5.0 update 7</td>
+<td>指定HeapDump的文件路径或目录</td>
+</tr>
+<tr>
+<td>-XX:-HeapDumpOnOutOfMemoryError</td>
+<td>1.4.2 update 12, 5.0 update 7</td>
+<td>当抛出OOM时进行HeapDump</td>
+</tr>
+<tr>
+<td>-XX:OnError=”<cmd args>;<cmd args>”</td>
+<td>1.4.2 update 9</td>
+<td>当发生错误时执行用户指定的命令</td>
+</tr>
+<tr>
+<td>-XX:OnOutOfMemoryError=”<cmd args>; <cmd args>”</td>
+<td>1.4.2 update 12, 6</td>
+<td>当发生OOM时执行用户指定的命令</td>
+</tr>
+<tr>
+<td>-XX:-PrintClassHistogram</td>
+<td>1.4.2</td>
+<td>当Ctrl+Break发生时打印Class实例信息,与jmap -histo相同</td>
+</tr>
+<tr>
+<td>-XX:-PrintConcurrentLocks</td>
+<td>6</td>
+<td>当Ctrl+Break发生时打印java.util.concurrent的锁信息, 与jstack -l相同</td>
+</tr>
+<tr>
+<td>-XX:-PrintCommandLineFlags</td>
+<td>5</td>
+<td>打印命令行上的标记</td>
+</tr>
+<tr>
+<td>-XX:-PrintCompilation</td>
+<td></td>
+<td>当方法被编译时打印信息</td>
+</tr>
+<tr>
+<td>-XX:-PrintGC</td>
+<td></td>
+<td>当GC发生时打印信息</td>
+</tr>
+<tr>
+<td>-XX:-PrintGCDetails</td>
+<td>1.4.0</td>
+<td>打印GC详细信息</td>
+</tr>
+<tr>
+<td>-XX:-PrintGCTimeStamps</td>
+<td>1.4.0</td>
+<td>打印GC用时</td>
+</tr>
+<tr>
+<td>-XX:-PrintTenuringDistribution</td>
+<td></td>
+<td>打印Tenuring年龄信息</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassLoading</td>
+<td></td>
+<td>跟踪类加载</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassLoadingPreorder</td>
+<td>1.4.2</td>
+<td>跟踪所有加载的引用类</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassResolution</td>
+<td>1.4.2</td>
+<td>跟踪常量池的变化</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassUnloading</td>
+<td></td>
+<td>跟踪类的卸载</td>
+</tr>
+<tr>
+<td>-XX:-TraceLoaderConstraints</td>
+<td>6</td>
+<td>Trace recording of loader constraints</td>
+</tr>
+<tr>
+<td>-XX:+PerfSaveDataToFile</td>
+<td></td>
+<td>退出时保存jvmstat二进制文件</td>
+</tr>
+<tr>
+<td>-XX:ParallelGCThreads=</td>
+<td></td>
+<td>设置新生代与老年代并行垃圾回收器的线程数</td>
+</tr>
+<tr>
+<td>-XX:+UseCompressedOops</td>
+<td></td>
+<td>Enables the use of compressed pointers (object references represented as 32 bit offsets instead of 64-bit pointers) for optimized 64-bit performance with Java heap sizes less than 32gb.</td>
+</tr>
+<tr>
+<td>-XX:+AlwaysPreTouch</td>
+<td></td>
+<td>Pre-touch the Java heap during JVM initialization. Every page of the heap is thus demand-zeroed during initialization rather than incrementally during application execution.</td>
+</tr>
+<tr>
+<td>-XX:AllocatePrefetchDistance=</td>
+<td></td>
+<td>Sets the prefetch distance for object allocation. Memory about to be written with the value of new objects is prefetched into cache at this distance (in bytes) beyond the address of the last allocated object. Each Java thread has its own allocation point. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:InlineSmallCode=</td>
+<td></td>
+<td>当编译的代码小于指定的值时,内联编译的代码</td>
+</tr>
+<tr>
+<td>-XX:MaxInlineSize=35</td>
+<td></td>
+<td>内联方法的最大字节数</td>
+</tr>
+<tr>
+<td>-XX:FreqInlineSize=</td>
+<td></td>
+<td>内联频繁执行的方法的最大字节码大小</td>
+</tr>
+<tr>
+<td>-XX:LoopUnrollLimit=</td>
+<td></td>
+<td>Unroll loop bodies with server compiler intermediate representation node count less than this value. The limit used by the server compiler is a function of this value, not the actual value. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:InitialTenuringThreshold=7</td>
+<td></td>
+<td>设置初始的对象在新生代中最大存活次数</td>
+</tr>
+<tr>
+<td>-XX:MaxTenuringThreshold=</td>
+<td></td>
+<td>设置对象在新生代中最大的存活次数,最大值15,并行回收机制默认为15,CMS默认为4</td>
+</tr>
+</tbody></table>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><blockquote>
+<p>查看服务设置的jvm</p>
+<p>jps -v</p>
+<p>查看服务jvm的默认参数</p>
+<p>jinfo -flags PID</p>
+</blockquote>
+<ul>
+<li><p>参考kafka服务的运行参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-server</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:MaxGCPauseMillis=20</span><br><span class="line">-XX:InitiatingHeapOccupancyPercent=35</span><br><span class="line">-XX:+ExplicitGCInvokesConcurrent</span><br></pre></td></tr></table></figure>
+
+<p><strong>-XX:MaxGCPauseMillis=200</strong></p>
+<p>为所需的最长暂停时间设置目标值。默认值是 200 毫秒。这个数值是一个软目标，也就是说JVM会尽一切能力满足这个暂停要求，但是不能保证每次暂停一定在这个要求之内。</p>
+<p>根据测试发现，如果我们将这个值设定成50毫秒或者更低的话，JVM为了达到这个要求会将年轻代内存空间设定的非常小，从而导致youngGC的频率大大增高。所以我们并不设定这个参数。</p>
+<p><strong>-XX:InitiatingHeapOccupancyPercent=45</strong></p>
+<p>设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。就是说当使用内存占到堆总大小的45%的时候，G1将开始<strong>并发标记阶段。</strong>为混合GC做准备，这个数值在测试的时候我想让混合GC晚一些处理所以设定成了70%，经过观察发现如果这个数值设定过大会导致JVM无法启动并发标记，直接进行FullGC处理。</p>
+<p>G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%</p>
+</li>
+</ul>
+<blockquote>
+<p>之前查看ignite，12秒回收了71G</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/learn/" rel="tag"># learn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/05/npm%20snippet/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/26/github%20skill/" rel="next" title="github skill">
+      github skill <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E4%B8%8E%E5%A0%86%E5%A4%96"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">1.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%A4%96"><span class="nav-number">1.2.</span> <span class="nav-text">堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E5%B8%B8%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8System-GC"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆外内存常配合使用System GC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-gc%E5%B8%B8%E8%AF%86"><span class="nav-number">1.3.</span> <span class="nav-text">System.gc常识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E7%9A%84%E8%AE%BE%E7%BD%AE%E5%92%8C%E5%90%AB%E4%B9%89"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">0.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

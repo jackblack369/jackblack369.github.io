@@ -1,35 +1,463 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数据类型 String 1234redis 127.0.0.1:6379&gt; SET name &quot;runoob&quot;OKredis 127.0.0.1:6379&gt; GET name&quot;runoob&quot; Hash 123456redis&gt; HMSET myhash field1 &quot;Hello&quot; field2 &quot;World&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis snippet">
+<meta property="og:url" content="http://yoursite.com/2018/02/16/redis%20snippet/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="数据类型 String 1234redis 127.0.0.1:6379&gt; SET name &quot;runoob&quot;OKredis 127.0.0.1:6379&gt; GET name&quot;runoob&quot; Hash 123456redis&gt; HMSET myhash field1 &quot;Hello&quot; field2 &quot;World&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-02-16T04:01:30.000Z">
+<meta property="article:modified_time" content="2020-10-21T02:19:53.000Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="snippet">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/02/16/redis%20snippet/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>redis snippet | source is the essence</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/16/redis%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          redis snippet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-02-16 12:01:30" itemprop="dateCreated datePublished" datetime="2018-02-16T12:01:30+08:00">2018-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-21 10:19:53" itemprop="dateModified" datetime="2020-10-21T10:19:53+08:00">2020-10-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li><p>String</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SET name &quot;runoob&quot;</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; GET name</span><br><span class="line">&quot;runoob&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>Hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HMSET myhash field1 &quot;Hello&quot; field2 &quot;World&quot;</span><br><span class="line">&quot;OK&quot;</span><br><span class="line">redis&gt; HGET myhash field1</span><br><span class="line">&quot;Hello&quot;</span><br><span class="line">redis&gt; HGET myhash field2</span><br><span class="line">&quot;World&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>List</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; lpush runoob redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; lpush runoob mongodb</span><br><span class="line">(integer) 2</span><br><span class="line">redis 127.0.0.1:6379&gt; lpush runoob rabitmq</span><br><span class="line">(integer) 3</span><br><span class="line">redis 127.0.0.1:6379&gt; lrange runoob 0 10</span><br><span class="line">1) &quot;rabitmq&quot;</span><br><span class="line">2) &quot;mongodb&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>Set</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; sadd runoob redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob rabitmq</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob rabitmq</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; smembers runoob</span><br><span class="line"></span><br><span class="line">1) &quot;redis&quot;</span><br><span class="line">2) &quot;rabitmq&quot;</span><br><span class="line">3) &quot;mongodb&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>zset(sorted set：有序集合)</p>
+<ul>
+<li><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。</p>
+<p>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。zset的成员是唯一的,但分数(score)却可以重复。</p>
+</li>
+<li><p>命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zadd key score member </span><br></pre></td></tr></table></figure></li>
+<li><p>实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 rabitmq</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 0 rabitmq</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; &gt; ZRANGEBYSCORE runoob 0 1000</span><br><span class="line">1) &quot;mongodb&quot;</span><br><span class="line">2) &quot;rabitmq&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<li><p>show all keys</p>
+<p><code>KEYS *</code></p>
+</li>
+<li><p>Delete All Keys In Redis</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Delete all keys from all Redis databases:</span><br><span class="line"> `$ redis-cli FLUSHALL`</span><br><span class="line"> Delete all keys of the currently selected Redis database:</span><br><span class="line"> `$ redis-cli FLUSHDB`</span><br><span class="line"> Delete all keys of the specified Redis database:</span><br><span class="line"> `$ redis-cli -n &lt;database_number&gt; FLUSHDB`</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><ul>
+<li><p>RedisConnectionFailureException</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis.conf中默认的是bind 127.0.0.1，需要将这段注释</span><br><span class="line">设置protected-mode no，因为如果是yes的话，只能进行本地访问。如果设置了密码和bind这个可以开启，如果没有设置，这个属性可以设置为no即可。</span><br><span class="line">daemonize  yes表示后台运行</span><br></pre></td></tr></table></figure></li>
+<li><p>需要安装gcc</p>
+</li>
+<li><p>make时，提示fatal error: jemalloc/jemalloc.h: No such file or directory</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解决：   </span><br><span class="line"><span class="built_in">cd</span> src/deps</span><br><span class="line">make hiredis jemalloc linenoise lua geohash-int</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="自定义配置redis-server"><a href="#自定义配置redis-server" class="headerlink" title="自定义配置redis server"></a>自定义配置redis server</h3><p> 涉及到的目录或文件有<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 1.配置文件	/etc/redis/xxxx.conf</span><br><span class="line"> 2.日志、数据文件	/data/redis/xxxx</span><br><span class="line"> 3.启动脚本	/etc/init.d/redis_xxxx</span><br><span class="line"> </span><br><span class="line">客户端启动时	redis-cli -p xxxx</span><br></pre></td></tr></table></figure></p>
+<h3 id="Enable-remote-Redis-connection"><a href="#Enable-remote-Redis-connection" class="headerlink" title="Enable remote Redis connection"></a>Enable remote Redis connection</h3><ul>
+<li>Replaced <code>bind 127.0.0.1</code> with <code>bind 0.0.0.0</code> in the <code>/etc/redis/redis.conf</code> file, the line does not have a leading <code>#</code> nor space,</li>
+<li>Replaced <code>protected-mode yes</code> with <code>protected-mode no</code> in this same file,</li>
+<li>Allowed all traffic to port <code>6379</code> using <code>ufw allow 6379</code> and <code>ufw allow 6379/tcp</code></li>
+</ul>
+<h3 id="secure-redis"><a href="#secure-redis" class="headerlink" title="secure redis"></a>secure redis</h3><p>By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </p>
+<p>linux command</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install epel-release -y</span><br></pre></td></tr></table></figure>
+
+<p>Once the EPEL repository is installed, you can install UFW by just running the following linux command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install --enablerepo=&quot;epel&quot; ufw -y</span><br></pre></td></tr></table></figure>
+
+<p>After installing UFW, start UFW service and enable it to start on boot time by running the following </p>
+<p>linux command</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ufw enable </span><br></pre></td></tr></table></figure>
+
+<p>Next, check the status of UFW with the following linux command. You should see the following output:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ufw status </span><br><span class="line">Status: active </span><br></pre></td></tr></table></figure>
+
+<p>You can also disable UFW firewall by running the following linux command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ufw disable </span><br></pre></td></tr></table></figure>
+<h3 id="中文乱码"><a href="#中文乱码" class="headerlink" title="中文乱码"></a>中文乱码</h3><p>在启动命令中添加 –raw即可</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/snippet/" rel="tag"># snippet</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/21/course%20snippet/" rel="prev" title="neo4j snippet">
+      <i class="fa fa-chevron-left"></i> neo4j snippet
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/01/hibernate%20snippet/" rel="next" title="hibernate snippet">
+      hibernate snippet <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">3.</span> <span class="nav-text">问题解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AEredis-server"><span class="nav-number">4.</span> <span class="nav-text">自定义配置redis server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-remote-Redis-connection"><span class="nav-number">5.</span> <span class="nav-text">Enable remote Redis connection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#secure-redis"><span class="nav-number">6.</span> <span class="nav-text">secure redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">中文乱码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

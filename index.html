@@ -1,23 +1,1535 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ title }}{% if theme.index_with_subtitle and subtitle %} &mdash; {{ subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta property="og:type" content="website">
+<meta property="og:title" content="source is the essence">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="brook">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>source is the essence</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20points/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/28/flink%20points/" class="post-title-link" itemprop="url">flink points</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-28 18:43:00" itemprop="dateCreated datePublished" datetime="2021-12-28T18:43:00+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-29 01:11:26" itemprop="dateModified" datetime="2021-12-29T01:11:26+08:00">2021-12-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/24/flink%20table/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/24/flink%20table/" class="post-title-link" itemprop="url">flink table</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-24 09:00:00" itemprop="dateCreated datePublished" datetime="2021-12-24T09:00:00+08:00">2021-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-27 10:43:50" itemprop="dateModified" datetime="2021-12-27T10:43:50+08:00">2021-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><ul>
+<li><p>timestamp</p>
+<p>可以将时间戳类型数据最高精确微秒(百万分之一秒)，数据类型定义为timestamp(N),N取值范围为0-6，默认为0，如需要精确到毫秒则设置为Timestamp(3)，如需要精确到微秒则设置为timestamp(6)，数据精度提高的代价是其内部存储空间的变大，但仍未改变时间戳类型的最小和最大取值范围。</p>
+</li>
+</ul>
+<h3 id="connector-kafka"><a href="#connector-kafka" class="headerlink" title="connector kafka"></a>connector kafka</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/20/macos%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/20/macos%20snippet/" class="post-title-link" itemprop="url">macos snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-20 11:25:00" itemprop="dateCreated datePublished" datetime="2021-12-20T11:25:00+08:00">2021-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-24 10:11:52" itemprop="dateModified" datetime="2021-12-24T10:11:52+08:00">2021-12-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/macos/" itemprop="url" rel="index"><span itemprop="name">macos</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Installing-pkg"><a href="#Installing-pkg" class="headerlink" title="Installing .pkg"></a>Installing .pkg</h3><p>a.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo installer -pkg /path/to/package.pkg -target /</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>will install the package in /Applications.</p>
+</blockquote>
+<p>is all that’s needed. Here <code>/</code> is the mount point of <code>Macintosh HD</code> volume. <code>-target</code> accepts path like <code>&quot;/Volumes/Macintosh HD&quot;</code>, or <code>/dev/disk0</code> also.</p>
+<p>b.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">installer -pkg myapp.pkg -target CurrentUserHomeDirectory</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>will install the package in ~/Applications.</p>
+</blockquote>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<li> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20image%20mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20image%20mysql/" class="post-title-link" itemprop="url">docker image mysql</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 18:57:57 / Modified: 18:59:12" itemprop="dateCreated datePublished" datetime="2021-12-17T18:57:57+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="mysql镜像制作"><a href="#mysql镜像制作" class="headerlink" title="mysql镜像制作"></a>mysql镜像制作</h2><ol>
+<li><p>需要备份当前需要同步的全量数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it dlabel_mysql mysqldump -uroot -p123456 dls &gt; /path/to/backup.sql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意事项：</p>
+<p>其中dlabel_mysql，是在第二步中设置的name的名称</p>
+<p>/path/to/backup.sql是导出sql的地址路径，根据操作系统不同，需要自行更改</p>
+<p>假定以下操作是在/path/to的目录下</p>
+</blockquote>
+</li>
+</ol>
+<ol start="2">
+<li><p>在/path/to目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Derived from official mysql image (our base image)</span></span><br><span class="line">FROM mysql:5.7.30</span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the content of the sql-scripts/ directory to your image</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> All scripts <span class="keyword">in</span> docker-entrypoint-initdb.d/ are automatically</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> executed during container startup</span></span><br><span class="line">COPY ./backup.sql /docker-entrypoint-initdb.d/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意COPY指令中，backup.sql需要和操作1中的导出文件名保持一致</p>
+</blockquote>
+</li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:mysql20211216 .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:mysql20211216是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:mysql20211216 hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:mysql20211216和操作3中保持一致</p>
+<p>hostAddress/dlabel/service:mysql20211216，格式为hostAddress/library/REPOSITORY:TAG，其中可自行修改service:mysql20211216名称</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure></li>
+<li><p>登录<strong><a target="_blank" rel="noopener" href="http://hostaddress/">http://hostAddress</a></strong>查看镜像上传情况</p>
+</li>
+<li><p>在镜像详情界面，点击“拉取命名”按钮进行命令复制，在终端执行命令即可拉取该镜像</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20image%20es/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20image%20es/" class="post-title-link" itemprop="url">docker es</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 18:51:56 / Modified: 19:01:02" itemprop="dateCreated datePublished" datetime="2021-12-17T18:51:56+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文中hostAddress需要替换具体的ip地址</p>
+</blockquote>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><blockquote>
+<p>查看现有环境相关参数ulimit -a</p>
+</blockquote>
+<ul>
+<li><p>设置文件句柄数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># End of file</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nofile 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>修改max user processes进程数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nproc 65536</span><br><span class="line">* hard nproc 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>调整vm.max_map_count的大小，该参数会限制一个进程可以拥有的VMA(虚拟内存区域)的数量</p>
+<p>通过修改**/etc/sysctl.conf**参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br></pre></td></tr></table></figure>
+
+<p>然后执行<code>sysctl -p</code></p>
+</li>
+<li><p>调整stack size的大小（可选），在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft stack 1024</span><br><span class="line">* hard stack 1024</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="manual-init-data"><a href="#manual-init-data" class="headerlink" title="manual init data"></a>manual init data</h3><ul>
+<li><p>create index</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://localhost:9200/indexName&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>import data</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://localhost:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>拉取远程仓库镜像文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+<li><p>启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name es_origin -e ES_JAVA_POTS=&quot;-Xms6g -Xmx6g&quot; -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.16.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="制作elasticsearch镜像"><a href="#制作elasticsearch镜像" class="headerlink" title="制作elasticsearch镜像"></a>制作elasticsearch镜像</h3><ol>
+<li>导出ES的已有索引和数据</li>
+</ol>
+<ul>
+<li><p>环境准备</p>
+<ul>
+<li>安装nodejs，安装文件地址<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">nodejs</a></li>
+<li>安装elasticdump，安装命令<code>npm install -g elasticdump</code></li>
+</ul>
+</li>
+<li><p>导出es索引文件<strong>es_mapping.json</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \               --input=http://127.0.0.1:9200/indexName \</span></span><br><span class="line"><span class="bash">  --output=/data/es_mapping.json \</span></span><br><span class="line"><span class="bash">  --<span class="built_in">type</span>=mapping</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：$nodejs_home代表nodejs的安装目录</p>
+</blockquote>
+</li>
+<li><p>导出es数据<strong>es_init_data.txt</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \ </span>          </span><br><span class="line">  --input=http://127.0.0.1:9200/indexName \</span><br><span class="line">  --output=/data/es_init_data.txt \</span><br><span class="line">  --searchBody &#x27;&#123;&quot;query&quot;:&#123;&quot;match_all&quot;:&#123; &#125;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><p>编写es数据初始化脚本 <strong>initEs.sh</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">create index</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://127.0.0.1:9200/indexName&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">import data</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://127.0.0.1:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>initEs.sh文件同1,2操作中的文件存放路径保持一致，均放在/data目录下</p>
+</blockquote>
+</li>
+<li><p>在/data目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM elasticsearch:7.16.1</span><br><span class="line">COPY ./data/* /data/</span><br><span class="line">RUN chown -R elasticsearch:root /data </span><br><span class="line">USER elasticsearch</span><br><span class="line">RUN elasticsearch -E discovery.type=single-node -p /tmp/epid &amp; /bin/bash /data/wait-for-it.sh -t 0 localhost:9200 -- /data/initEs.sh; kill $(cat /tmp/epid) &amp;&amp; wait $(cat /tmp/epid); exit 0;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:elasticsearch .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:es是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:elasticsearch hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:elasticsearch和操作3中保持一致</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20compose/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20compose/" class="post-title-link" itemprop="url">docker compose</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 11:21:10 / Modified: 14:52:28" itemprop="dateCreated datePublished" datetime="2021-12-17T11:21:10+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Docker-File-vs-Docker-Compose"><a href="#Docker-File-vs-Docker-Compose" class="headerlink" title="Docker File vs Docker Compose"></a>Docker File vs Docker Compose</h3><p>Dockerfile is what’s used to create a container image, and a Compose file is what’s used to deploy an instance of that image as a container.</p>
+<blockquote>
+<p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>
+</blockquote>
+<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><p>Dockerfile the predecessor of a container image. You build an image from a Dockerfile. A typical Dockerfile contains special build instructions, commands like <code>RUN</code>, <code>ADD</code>, <code>COPY</code>, <code>ENTRYPOINT</code>, etc.</p>
+<h4 id="Compose-file"><a href="#Compose-file" class="headerlink" title="Compose file"></a>Compose file</h4><p>Compose files are used in two types of deployments: in the non-cluster deployment with <code>docker-compose</code> and a cluster deployment with <code>docker swarm</code>.</p>
+<p>Compose files are used in two types of deployments: in the non-cluster deployment with <code>docker-compose</code> and a cluster deployment with <code>docker swarm</code>.</p>
+<p>To distinguish the two types, I’m going to address the compose file responsible for cluster deployment as stack files. I’ll talk about stack files in a moment.</p>
+<p>Compose files are part of a tool called <code>docker-compose</code>. It’s a client application to the docker daemon server, kind of like the <code>docker</code> CLI client, but instead of typing the whole <code>run</code> commands every time, with <code>docker-compose</code> you can re-use the same YAML file over and over again, and deploy the same container with the same configuration as you did in the first time.</p>
+<p>It’s more readable, more maintainable, more intuitive. A single compose file can contain multiple container deployment configurations.</p>
+<ul>
+<li><p>执行<code>docker-compose up</code>，报错</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Couldn’t connect to Docker daemon at http+docker:<span class="comment">//localhost - is it running?</span></span><br></pre></td></tr></table></figure>
+
+<p>其中<code>docker-compose.yml</code>信息如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.7&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5000:5000&quot;</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决，使用sudo权限</p>
+<ol>
+<li><p>Add user to docker group (if not already added)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure></li>
+<li><p>create a symbolic link to /usr/bin using the following command</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br></pre></td></tr></table></figure></li>
+<li><p>Restart docker service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></li>
+<li><p>execute</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker-compose up</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>运行docker compose up或docker compose up -d(后台运行)运行您的整个应用程序。 <code>注意：每次修改任一配置文件后，都要使用 docker-compose up --build 重新构建</code></p>
+<blockquote>
+<p>有了docker-compose，当我们想启动多个服务时，无需再一个一个进行docker run操作，而只需要编写docker-compose.yml配置文件，即可一次运行你的全部服务。</p>
+</blockquote>
+<hr>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker-compose build</td>
+<td>(构建yml中某个服务的镜像)</td>
+</tr>
+<tr>
+<td>docker-compose ps</td>
+<td>(查看已经启动的服务状态）</td>
+</tr>
+<tr>
+<td>docker-compose kill</td>
+<td>(停止某个服务）</td>
+</tr>
+<tr>
+<td>docker-compose logs</td>
+<td>(可以查看某个服务的log）</td>
+</tr>
+<tr>
+<td>docker-compose port</td>
+<td>(打印绑定的public port）</td>
+</tr>
+<tr>
+<td>docker-compose pull</td>
+<td>(pull服务镜像)</td>
+</tr>
+<tr>
+<td>docker-compose up</td>
+<td>(启动yml定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose stop</td>
+<td>(停止yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose start</td>
+<td>(启动被停止的yml中的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose kill</td>
+<td>(强行停止yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose rm</td>
+<td>（删除yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose restart</td>
+<td>(重启yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose scale</td>
+<td>(扩展某个服务的个数，可以向上或向下）</td>
+</tr>
+<tr>
+<td>docker-compose version</td>
+<td>（查看compose的版本）</td>
+</tr>
+</tbody></table>
+<p>日志输出  </p>
+<p>终端输出：<code>docker-compose --verbose up $service_name</code></p>
+<p>或者docker-compose.yml配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stdin_open: true</span><br><span class="line">tty: true</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="镜像重新编译"><a href="#镜像重新编译" class="headerlink" title="镜像重新编译"></a>镜像重新编译</h3><p>如果修改了 Dockerfile内容里面相关的信息，需要重新编译镜像，如果使用docker compose，则需要使用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up --build</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/dockerFile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/dockerFile/" class="post-title-link" itemprop="url">dockerFile</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 11:20:31 / Modified: 11:20:35" itemprop="dateCreated datePublished" datetime="2021-12-17T11:20:31+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p><strong>RUN</strong> is executed while the image is being build</p>
+<p>while <strong>ENTRYPOINT</strong> is executed after the image has been built.</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/14/docker%20migration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/14/docker%20migration/" class="post-title-link" itemprop="url">docker migration</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-14 14:52:21" itemprop="dateCreated datePublished" datetime="2021-12-14T14:52:21+08:00">2021-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-16 15:01:56" itemprop="dateModified" datetime="2021-12-16T15:01:56+08:00">2021-12-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>reference </p>
+<p><a target="_blank" rel="noopener" href="https://bobcares.com/blog/move-docker-container-to-another-host/">5 ways to move Docker container to another host</a></p>
+<p><a target="_blank" rel="noopener" href="https://morioh.com/p/d8d9e7732952">Build a Docker Image with MySQL Database</a></p>
+<h2 id="Plan-A"><a href="#Plan-A" class="headerlink" title="Plan A"></a>Plan A</h2><h3 id="Step1-create-an-Image-From-a-Container"><a href="#Step1-create-an-Image-From-a-Container" class="headerlink" title="Step1    create an Image From a Container"></a>Step1    create an Image From a Container</h3><blockquote>
+<p>Create a new image from a container’s changes</p>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/commit/">commit command</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>options</p>
+<table>
+<thead>
+<tr>
+<th>Name, shorthand</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--author</code> , <code>-a</code></td>
+<td></td>
+<td>Author (e.g., “will brook”)</td>
+</tr>
+<tr>
+<td><code>--change</code> , <code>-c</code></td>
+<td></td>
+<td>Apply Dockerfile instruction to the created image</td>
+</tr>
+<tr>
+<td><code>--message</code> , <code>-m</code></td>
+<td></td>
+<td>Commit message</td>
+</tr>
+<tr>
+<td><code>--pause</code> , <code>-p</code></td>
+<td><code>true</code></td>
+<td>Pause container during commit</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="Step-2-export-the-image-to-a-file"><a href="#Step-2-export-the-image-to-a-file" class="headerlink" title="Step 2    export the image to a file"></a>Step 2    export the image to a file</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker save -o /path/to/your_image.tar your_image_name</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Step-3-load-the-Docker-image-file"><a href="#Step-3-load-the-Docker-image-file" class="headerlink" title="Step 3 load the Docker image file"></a>Step 3 load the Docker image file</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker load -i your_image.tar</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="Plan-B"><a href="#Plan-B" class="headerlink" title="Plan B"></a>Plan B</h2><h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>First save the new image by finding the container ID (using <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/ps/"><code>docker container ls</code></a>) and then committing it to a new image name. Note that only <code>a-z0-9-_.</code> are allowed when naming images:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create image from container</span></span><br><span class="line">docker container commit c16378f943fe rhel-httpd:latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p> tag the image with the host name or IP address, and the port of the registry:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> re-tag repository:tag info about image</span></span><br><span class="line">docker image tag rhel-httpd:latest registry-host:5000/myadmin/rhel-httpd:latest</span><br><span class="line">or</span><br><span class="line">docker tag 0e5574283393 registry-host:5000/myadmin/rhel-httpd:latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h3><p>log in from Docker client:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login &lt;harbor_address&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-4"><a href="#Step-4" class="headerlink" title="Step 4"></a>Step 4</h3><p>push the image to the registry using the image ID. </p>
+<p>In this example the registry is on host named <code>registry-host</code> and listening on port <code>5000</code>. (harbor默认配置端口80，详见harbor.yml)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> push repository:tag,</span></span><br><span class="line">docker image push registry-host:5000/myadmin/rhel-httpd:latest</span><br><span class="line">or</span><br><span class="line">docker push registry-host:5000/myname/myimage</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Pull-Image-from-Harbor"><a href="#Pull-Image-from-Harbor" class="headerlink" title="Pull Image from Harbor"></a>Pull Image from Harbor</h2><p><a target="_blank" rel="noopener" href="https://goharbor.io/docs/2.0.0/install-config/run-installer-script/#connect-http">Connecting to Harbor via HTTP</a></p>
+<h3 id="Step-1-1"><a href="#Step-1-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>add the option <code>--insecure-registry</code> to your client’s Docker daemon. By default, the daemon file is located at <code>/etc/docker/daemon.json</code>.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;insecure-registries&quot; : [&quot;ip:port&quot;, &quot;0.0.0.0&quot;] #如果port为80，则可省略</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Restart Docker Engine.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-2-1"><a href="#Step-2-1" class="headerlink" title="Step 2"></a>Step 2</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/library/REPOSITORY:TAG</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/13/docker%20container/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/13/docker%20container/" class="post-title-link" itemprop="url">docker container</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-13 18:07:46" itemprop="dateCreated datePublished" datetime="2021-12-13T18:07:46+08:00">2021-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-17 19:01:34" itemprop="dateModified" datetime="2021-12-17T19:01:34+08:00">2021-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="查看container现在工作网络模式"><a href="#查看container现在工作网络模式" class="headerlink" title="查看container现在工作网络模式"></a>查看container现在工作网络模式</h3><ul>
+<li><p>列出docker的所有网络模式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure></li>
+<li><p>针对bridge和host分别查找有哪些container在其中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect bridge</span><br><span class="line">docker network inspect host</span><br></pre></td></tr></table></figure></li>
+<li><p>直接查看container的信息，找到network段查看。或者用grep筛选出network。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器名/容器ID</span><br><span class="line">docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h4><p>Common exit codes associated with docker containers are:</p>
+<ul>
+<li><p><strong>Exit Code 0</strong>: Absence of an attached foreground process</p>
+</li>
+<li><p><strong>Exit Code 1</strong>: Indicates failure due to application error</p>
+</li>
+<li><p><strong>Exit Code 137</strong>: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])</p>
+</li>
+<li><p><strong>Exit Code 139</strong>: Indicates failure as container received SIGSEGV</p>
+</li>
+<li><p><strong>Exit Code 143</strong>: Indicates failure as container received SIGTERM</p>
+</li>
+<li><p><strong>Exit Code 126</strong>: Permission problem or command is not executable</p>
+</li>
+<li><p><strong>Exit Code 127</strong>: Possible typos in shell script with unrecognizable characters</p>
+</li>
+</ul>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<li><p>密码123456</p>
+</li>
+<li><p>创建容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br><span class="line">注意：</span><br><span class="line">-d:让容器在后台运行</span><br><span class="line">-P(大写):是容器内部端口随机映射到主机的高端口</span><br><span class="line">-p(小写):是容器内部端口绑定到指定的主机端口</span><br></pre></td></tr></table></figure></li>
+<li><p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql-server /bin/bash</span><br></pre></td></tr></table></figure></li>
+<li><p>访问</p>
+<p><code>docker exec -it mysql-server mysql -uroot -p</code></p>
+</li>
+<li><p>修改root 可以通过任何客户端连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;123456&#x27;;</span><br></pre></td></tr></table></figure></li>
+<li><p>从外部访问docker mysql-server</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h127.0.0.1 -P3306 -uroot -p</span><br></pre></td></tr></table></figure></li>
+<li><p>导入sql文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">先将文件导入到容器</span><br><span class="line">#docker cp **.sql 容器名:/root/</span><br><span class="line">进入容器</span><br><span class="line">#docker exec -ti 容器名或ID sh</span><br><span class="line">登录数据库</span><br><span class="line"># mysql -uroot -p </span><br><span class="line">将文件导入数据库</span><br><span class="line">source 数据库名 &lt; /root/***.sql</span><br></pre></td></tr></table></figure></li>
+<li><p>导出数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it  mysql-server（容器名） mysqldump -uroot -p123456 数据库名称 &gt; /opt/sql_bak/test_db.sql（导出表格路径）</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="portainer"><a href="#portainer" class="headerlink" title="portainer"></a>portainer</h3><ul>
+<li><p>密码重置</p>
+<ul>
+<li><p>下载帮助镜像portainer/helper-reset-password</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull portainer/helper-reset-password</span><br></pre></td></tr></table></figure></li>
+<li><p>停止运行的portainer</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop &quot;id-portainer-container&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>运行重置命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -v portainer_data:/data portainer/helper-reset-password</span><br></pre></td></tr></table></figure></li>
+<li><p>结果</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">06</span>/<span class="number">04</span> <span class="number">00</span>:<span class="number">13</span>:<span class="number">58</span> Password successfully updated <span class="keyword">for</span> user: admin</span><br><span class="line"><span class="number">2020</span>/<span class="number">06</span>/<span class="number">04</span> <span class="number">00</span>:<span class="number">13</span>:<span class="number">58</span> Use the following password to login: &amp;<span class="number">_4</span>#\<span class="number">3</span>^<span class="number">5</span>V8vLTd)E<span class="string">&quot;NWiJBs26G*9HPl1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>重新运行portainer,密码 为👆重置的 &amp;_4#\3^5V8vLTd)E”NWiJBs26G*9HPl1</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start &quot;id-portainer-container&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>现在密码为 admin/admin</p>
+</li>
+</ul>
+<ul>
+<li><p>重新安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer \</span><br><span class="line">    --restart=always \</span><br><span class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">    -v portainer_data:/data \</span><br><span class="line">    cr.portainer.io/portainer/portainer-ce:2.9.3</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h3><ul>
+<li><p>run</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Linux memory is insufficient</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -e JVM_XMS=256m -e JVM_XMX=256m --env MODE=standalone --name nacos -d -p 8848:8848 nacos/nacos-server</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><blockquote>
+<p>使用docker-compose up redis启动容器时，如果配置自定义配置文件 redis.conf，需要设置</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize no</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>docker-compose.yml文件内容</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.7&quot;</span>                                                                            <span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br><span class="line">    <span class="attr">stdin_open:</span> <span class="literal">true</span> <span class="comment">#打开标准输入，可以接受外部输入。</span></span><br><span class="line">    <span class="attr">tty:</span> <span class="literal">true</span>  <span class="comment">#模拟一个伪终端。</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/docker/projects/test/redis.conf:/data/redis.conf</span> <span class="comment"># 主机路径:容器路径</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/data:/data</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/logs:/logs</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--include</span> <span class="string">/data/redis.conf</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 docker-compose –verbose up redis启动，可查看启动详情</p>
+</blockquote>
+<h3 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h3><ol>
+<li><p>停止容器 </p>
+</li>
+<li><p>停止docker服务(systemctl stop docker) </p>
+</li>
+<li><p>修改这个容器的hostconfig.json文件中的端口（原帖有人提到，如果config.v2.json里面也记录了端口，也要修改）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/docker/3b6ef264a040* #这里是CONTAINER ID</span><br><span class="line">vi hostconfig.json</span><br><span class="line">如果之前没有端口映射, 应该有这样的一段:</span><br><span class="line">&quot;PortBindings&quot;:&#123;&#125;</span><br><span class="line">增加一个映射, 这样写:</span><br><span class="line">&quot;PortBindings&quot;:&#123;&quot;3306/tcp&quot;:[&#123;&quot;HostIp&quot;:&quot;&quot;,&quot;HostPort&quot;:&quot;3307&quot;&#125;]&#125;</span><br><span class="line">前一个数字是容器端口, 后一个是宿主机端口. </span><br><span class="line">而修改现有端口映射更简单, 把端口号改掉就行.</span><br></pre></td></tr></table></figure></li>
+<li><p>启动docker服务(systemctl start docker) </p>
+</li>
+<li><p>启动容器</p>
+</li>
+</ol>
+<h3 id="配置容器的镜像源（安装vim）"><a href="#配置容器的镜像源（安装vim）" class="headerlink" title="配置容器的镜像源（安装vim）"></a>配置容器的镜像源（安装vim）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list </span><br><span class="line"><span class="meta">#</span><span class="bash">更新安装源</span> </span><br><span class="line">apt-get update </span><br><span class="line"><span class="meta">#</span><span class="bash">如果下载过程中卡在[waiting <span class="keyword">for</span> headers] 删除/var/cache/apt/archives/下的所有文件</span> </span><br><span class="line"><span class="meta">#</span><span class="bash">安装vim</span> </span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/11/jconsole%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/11/jconsole%20snippet/" class="post-title-link" itemprop="url">jconsole snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-11 21:05:29 / Modified: 21:13:07" itemprop="dateCreated datePublished" datetime="2021-12-11T21:05:29+08:00">2021-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="jconsole配置远程监控"><a href="#jconsole配置远程监控" class="headerlink" title="jconsole配置远程监控"></a>jconsole配置远程监控</h3><ul>
+<li><p>远程jvm进程需配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">env.java.opts: </span><br><span class="line">-Dcom.sun.management.jmxremote </span><br><span class="line">-Dcom.sun.management.jmxremote.port=9999</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false </span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中9999为指定监控端口</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

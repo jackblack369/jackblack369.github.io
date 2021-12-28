@@ -1,23 +1,1834 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ title }}{% if theme.index_with_subtitle and subtitle %} &mdash; {{ subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta property="og:type" content="website">
+<meta property="og:title" content="source is the essence">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="brook">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/page/4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>source is the essence</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/java%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/11/java%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">java性能调优学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-11 14:05:30" itemprop="dateCreated datePublished" datetime="2019-11-11T14:05:30+08:00">2019-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-14 09:21:07" itemprop="dateModified" datetime="2019-11-14T09:21:07+08:00">2019-11-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/" itemprop="url" rel="index"><span itemprop="name">course</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h2><p>“纸上得来终觉浅，绝知此事要躬行”。</p>
+<p>学会透过现象看本质</p>
+<p><strong>1. 扎实的计算机基础</strong></p>
+<blockquote>
+<p>我们需要储备计算机组成原理、操作系统、网络协议以及数据库等基础知识。具体的性能问题往往还与传输、计算、存储数据等相关，那我们还需要储备数据结构、算法以及数学等基础知识。</p>
+</blockquote>
+<p><strong>2. 习惯透过源码了解技术本质</strong></p>
+<blockquote>
+<p>我们需要深入源码，通过分析来学习、总结一项技术的实现原理和优缺点，这样我们就能更客观地去学习一项技术，还能透过源码来学习牛人的思维方式，收获更好的编码实现方式。</p>
+</blockquote>
+<p><strong>3. 善于追问和总结</strong></p>
+<blockquote>
+<p>“知其然且知所以然”才是我们积累经验的关键。知道了一项技术背后的实现原理，我们才能在遇到性能问题时，做到触类旁通。</p>
+</blockquote>
+<h2 id="调优政策"><a href="#调优政策" class="headerlink" title="调优政策"></a>调优政策</h2><ul>
+<li>分析查找问题是一个复杂而又细致的过程，某个性能问题可能是一个原因导致的，也可能是几个原因共同导致的结果。我们分析查找问题可以采用自下而上的方式，而我们解决系统性能问题，则可以采用自上而下的方式逐级优化。</li>
+</ul>
+<p><strong>1. 优化代码</strong></p>
+<p><strong>2. 优化设计</strong></p>
+<p><strong>3. 优化算法</strong></p>
+<p><strong>4. 时间换空间</strong></p>
+<p><strong>5. 空间换时间</strong></p>
+<p><strong>6. 参数调优</strong></p>
+<p><strong>7. 兜底策略，确保系统稳定性</strong></p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p><strong>数组</strong>：采用一段连续的存储单元来存储数据。对于指定下标的查找，时间复杂度为 O(1)，但在数组中间以及头部插入数据时，需要复制移动后面的元素。</p>
+<p><strong>链表</strong>：一种在物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。由于链表不用必须按顺序存储，所以链表在插入的时候可以达到 O(1) 的复杂度，但查找一个结点或者访问特定编号的结点需要 O(n) 的时间。</p>
+<p><strong>哈希表</strong>：根据关键码值（Key value）直接进行访问的数据结构。通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做哈希函数，存放记录的数组就叫做哈希表。</p>
+<p><strong>树</strong>：由 n（n≥1）个有限结点组成的一个具有层次关系的集合，就像是一棵倒挂的树。</p>
+<h3 id="字符串性能优化"><a href="#字符串性能优化" class="headerlink" title="字符串性能优化"></a>字符串性能优化</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/MGD7wV"><img src="https://s2.ax1x.com/2019/11/13/MGD7wV.md.jpg" alt="MGD7wV.md.jpg"></a></p>
+<ul>
+<li><p>一个 char 字符占 16 位，2 个字节。这个情况下，存储单字节编码内的字符（占一个字节的字符）就显得非常浪费。JDK1.9 的 String 类为了节约内存空间，于是使用了占 8 位，1 个字节的 byte 数组来存放字符串</p>
+</li>
+<li><p>String 对象的不可变性</p>
+</li>
+<li><p>对象和对象引用</p>
+</li>
+<li><p>使用 String.intern 来节省内存空间，从而优化 String 对象的存储</p>
+<blockquote>
+<p>具体做法就是，在每次赋值的时候使用 String 的 intern 方法，如果常量池中有相同值，就会重复使用该对象，返回对象引用，这样一开始的对象就可以被回收掉。这种方式可以使重复性非常高的地址信息存储大小从 20G 降到几百兆。</p>
+<p>如果调用 intern 方法，会去查看字符串常量池中是否有等于该对象的字符串，如果没有，就在常量池中新增该对象，并返回该对象引用；如果有，就返回常量池中的字符串引用。堆内存中原有的对象由于没有引用指向它，将会通过垃圾回收器回收。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a =<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line">    	  </span><br><span class="line"><span class="keyword">if</span>(a==b) &#123;<span class="comment">// a 和 b 引用的是同一个对象。</span></span><br><span class="line">    System.out.print(<span class="string">&quot;a==b&quot;</span>);<span class="comment">//正常输出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>用 String.indexOf() 方法代替 Split() 方法完成字符串的分割 </p>
+</li>
+</ul>
+<h3 id="慎重使用正则表达式"><a href="#慎重使用正则表达式" class="headerlink" title="慎重使用正则表达式"></a>慎重使用正则表达式</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/MGDWWQ"><img src="https://s2.ax1x.com/2019/11/13/MGDWWQ.md.jpg" alt="MGDWWQ.md.jpg"></a></p>
+<blockquote>
+<p>正则表达式是一个用正则符号写出的公式，程序对这个公式进行语法分析，建立一个语法分析树，再根据这个分析树结合正则表达式的引擎生成执行程序（这个执行程序我们把它称作状态机，也叫状态自动机），用于字符匹配。</p>
+<p>如果使用正则表达式能使你的代码简洁方便，那么在做好性能排查的前提下，可以去使用；如果不能，那么正则表达式能不用就不用，以此避免造成更多的性能问题。</p>
+</blockquote>
+<h3 id="ArrayList-VS-LinkedList"><a href="#ArrayList-VS-LinkedList" class="headerlink" title="ArrayList VS LinkedList"></a>ArrayList VS LinkedList</h3><ul>
+<li>由于 ArrayList 是数组实现的，而数组是一块连续的内存空间，在添加元素到数组头部的时候，需要对头部以后的数据进行复制重排，所以效率很低；而 LinkedList 是基于链表实现，在添加元素的时候，首先会通过循环查找到添加元素的位置，如果要添加的位置处于 List 的前半段，就从前往后找；若其位置处于后半段，就从后往前找。因此 LinkedList 添加元素到头部是非常高效的。</li>
+<li>LinkedList 的 for 循环性能是最差的，而 ArrayList 的 for 循环性能是最好的。</li>
+</ul>
+<h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/MY0E6A"><img src="https://s2.ax1x.com/2019/11/14/MY0E6A.md.jpg" alt="MY0E6A.md.jpg"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/ignite_snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/01/ignite_snippet/" class="post-title-link" itemprop="url">ignite snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-01 12:01:30" itemprop="dateCreated datePublished" datetime="2019-11-01T12:01:30+08:00">2019-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-09 15:28:37" itemprop="dateModified" datetime="2021-12-09T15:28:37+08:00">2021-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
+<li> 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误</li>
+</ul>
+<p>  原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
+<li>Ignite的原生持久化会在磁盘上存储一个数据的超集，以及根据容量在内存中存储一个子集。比如，如果有100个条目，然后内存只能存储20条，那么磁盘上会存储所有的100条，然后为了提高性能在内存中缓存20条。</li>
+<li>和纯内存的使用场景一样，当打开持久化时，每个独立的节点只会持久化数据的一个子集，不管是主还是备节点，都是只包括节点所属的分区的数据，总的来说，整个集群包括了完整的数据集。</li>
+<li>在开发应用时可能需要修改自定义对象字段的类型。例如假设对象A的字段类型<code>A.range</code>为<code>int</code>类型，然后决定将<code>A.range</code>的类型修改为<code>long</code>类型。之后会发现集群或应用将无法重启，因为Ignite不支持字段/列类型的更改。</li>
+<li>无法变更枚举值的顺序，也无法在枚举值列表的开始或者中部添加新的常量，但是可以在列表的末尾添加新的常量。</li>
+</ul>
+<h3 id="ZooKeeper-Discovery"><a href="#ZooKeeper-Discovery" class="headerlink" title="ZooKeeper Discovery"></a>ZooKeeper Discovery</h3><p>ZooKeeper Discovery是为需要保持易扩展性和线性性能的大规模部署而设计的。然而，同时使用Ignite和ZooKeeper需要配置和管理两个分布式系统，这可能是一个挑战。因此，我们建议你只有在计划扩展到100个或1000个节点时才使用ZooKeeper Discovery。否则，最好使用TCP/IP发现。</p>
+<hr>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
+<li><p>marshaller</p>
+<blockquote>
+<p> $IGNITE_HOME/work/db/marshaller    类classpath信息</p>
+</blockquote>
+</li>
+<li><p>binary_meta</p>
+<blockquote>
+<p>$IGNITE_HOME/work/db/binary_meta    类的元素信息</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>下面三个配置项是在配置文件中进行配置</strong></p>
+<ul>
+<li><p>storagePath</p>
+<blockquote>
+<p>$RDX_HOME/data/ignite/persistent    持久化文件</p>
+</blockquote>
+</li>
+<li><p>walPath</p>
+<blockquote>
+<p>$RDX_HOME/data/ignite/wal_store    持久化数据的元数据信息（类名、元素名、位置）</p>
+</blockquote>
+<ul>
+<li>walPath和storagePath存储的数据的关联</li>
+</ul>
+</li>
+<li><p>walArchivePath</p>
+<blockquote>
+<p>$RDX_HOME/data/ignite/wal_archive</p>
+</blockquote>
+<ul>
+<li>和walPath存储的数据结构一样，二者的关系</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/flink%20Memory%20Model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/01/flink%20Memory%20Model/" class="post-title-link" itemprop="url">flink Memory Model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-01 22:00:30" itemprop="dateCreated datePublished" datetime="2019-10-01T22:00:30+08:00">2019-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-28 18:42:57" itemprop="dateModified" datetime="2021-12-28T18:42:57+08:00">2021-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><h3 id="jobmanager"><a href="#jobmanager" class="headerlink" title="jobmanager"></a>jobmanager</h3><p><img src="./img/flink/jobmanager.jpg"></p>
+<ul>
+<li>JVM Heap大小设置对应配置文件<code>flink-conf.yaml</code>的<strong>jobmanager.heap.size</strong></li>
+</ul>
+<h3 id="taskmanager"><a href="#taskmanager" class="headerlink" title="taskmanager"></a>taskmanager</h3><p><img src="./img/flink/taskmanager.jpg"></p>
+<ul>
+<li>Total Flink Memory对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.flink.size</strong></li>
+<li>JVM Metaspace对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.jvm-metaspace.size</strong></li>
+<li>Total Process Memory对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.process.size</strong></li>
+</ul>
+<h2 id="配置优化"><a href="#配置优化" class="headerlink" title="配置优化"></a>配置优化</h2><ul>
+<li><p><strong>节点平均分配</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cluster.evenly-spread-out-slots:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/16/idea%20keymap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/16/idea%20keymap/" class="post-title-link" itemprop="url">idea keymap</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-16 11:17:30" itemprop="dateCreated datePublished" datetime="2019-09-16T11:17:30+08:00">2019-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-27 15:24:19" itemprop="dateModified" datetime="2021-05-27T15:24:19+08:00">2021-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index"><span itemprop="name">tool</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><ul>
+<li>ctrl + P<br>列出参数列表（使用比较多 ）</li>
+<li>ctrl + shift + enter<br>当在括号里输入完最后一个参数时候他会直接光标跳到最后并且添加分号，不需要自己按向左键移动光标。（使用比较多 ）<br>ctrl + enter 向下插入一行，光标位置不变</li>
+<li>shift + enter<br>向下插入一行。光标位置进入下一行（可以在一行的任何位置换行，而不必将光标移动到行尾，使用比较多）</li>
+<li>ctrl+left/right<br>在单词间跳动光标，基本在所有的编辑器中都是适用 （使用比较多 ）</li>
+<li>ctr+shitf+left/right<br>快速选中，基本在所有的编辑器中都是适用（shift选中，ctrl+left/right在单词中快速跳动，使用比较多 ）</li>
+<li>Alt+left/right，切换代码视图（使用比较多 ）</li>
+<li>Alt+Up/Down，在方法间快速移动定位（使用比较多 ）</li>
+<li>F2 或 Shift+F2，高亮错误或警告快速定位（使用比较多）</li>
+<li>Ctrl+Alt+T<br>可以把代码包在一个块内，例如：try/catch（使用比较多 ）</li>
+<li>Ctrl+F，处于查找状态下按down向下查找，up向上查找（使用比较多）</li>
+<li>Ctrl+F12，可以显示当前文件的结构（快速查找当前类中某个方法，使用比较多）</li>
+<li>Ctrl+Shift+W，取消选择光标所在词（使用比较多）</li>
+<li>Ctrl+[ OR ]，可以跑到大括号的开头与结尾</li>
+<li>Ctrl+Shift +[ OR ]，选择大括号中的内容</li>
+<li>alt + 1 同上（在工程目录和编辑页面间切换，使用比较多）</li>
+<li>Ctrl+Alt+O，优化导入的类和包(去掉没有使用的import，使用比较多 )</li>
+<li>Shift+F6，重构 - 重命名（使用比较多 ）</li>
+<li>Ctrl+G，定位行</li>
+<li>Ctrl+H，显示类结构图（类的继承层次）</li>
+<li>Ctrl+U，转到父类</li>
+<li>Ctrl+”+/-“，当前方法展开、折叠</li>
+<li>Ctrl+Shift+”+/-“，全部展开、折叠</li>
+<li>Ctrl+Shift+J，整合两行</li>
+<li>ctrl + shift + space<br>当new 一个变量的时候，已经写了变量类型，打了等号之后按这个可以快速完成。</li>
+</ul>
+<hr>
+<h2 id="Compile-and-Run"><a href="#Compile-and-Run" class="headerlink" title="Compile and Run"></a>Compile and Run</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRX0JI"><img src="https://s2.ax1x.com/2019/09/16/nRX0JI.jpg" alt="nRX0JI.jpg"></a></p>
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXhYn"><img src="https://s2.ax1x.com/2019/09/16/nRXhYn.jpg" alt="nRXhYn.jpg"></a></p>
+<h2 id="Editing"><a href="#Editing" class="headerlink" title="Editing"></a>Editing</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXwFA"><img src="https://s2.ax1x.com/2019/09/16/nRXwFA.jpg" alt="nRXwFA.jpg"></a></p>
+<h2 id="General"><a href="#General" class="headerlink" title="General"></a>General</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRX2wQ"><img src="https://s2.ax1x.com/2019/09/16/nRX2wQ.jpg" alt="nRX2wQ.jpg"></a></p>
+<h2 id="Live-Templates"><a href="#Live-Templates" class="headerlink" title="Live Templates"></a>Live Templates</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXRoj"><img src="https://s2.ax1x.com/2019/09/16/nRXRoj.jpg" alt="nRXRoj.jpg"></a></p>
+<h2 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXBWt"><img src="https://s2.ax1x.com/2019/09/16/nRXBWt.jpg" alt="nRXBWt.jpg"></a></p>
+<h2 id="Refactoring"><a href="#Refactoring" class="headerlink" title="Refactoring"></a>Refactoring</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXsQf"><img src="https://s2.ax1x.com/2019/09/16/nRXsQf.jpg" alt="nRXsQf.jpg"></a></p>
+<h2 id="Search-Replace"><a href="#Search-Replace" class="headerlink" title="Search/Replace"></a>Search/Replace</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXrSP"><img src="https://s2.ax1x.com/2019/09/16/nRXrSP.jpg" alt="nRXrSP.jpg"></a></p>
+<h2 id="Usage-Search"><a href="#Usage-Search" class="headerlink" title="Usage Search"></a>Usage Search</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXyy8"><img src="https://s2.ax1x.com/2019/09/16/nRXyy8.jpg" alt="nRXyy8.jpg"></a></p>
+<h2 id="VCS-Local-History"><a href="#VCS-Local-History" class="headerlink" title="VCS/Local History"></a>VCS/Local History</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRX6OS"><img src="https://s2.ax1x.com/2019/09/16/nRX6OS.jpg" alt="nRX6OS.jpg"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/docker%20image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/16/docker%20image/" class="post-title-link" itemprop="url">docker image</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-16 14:34:30" itemprop="dateCreated datePublished" datetime="2019-08-16T14:34:30+08:00">2019-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-17 11:24:19" itemprop="dateModified" datetime="2021-12-17T11:24:19+08:00">2021-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Docker-包括三个基本概念"><a href="#Docker-包括三个基本概念" class="headerlink" title="Docker 包括三个基本概念:"></a>Docker 包括三个基本概念:</h4><ul>
+<li><strong>镜像（Image）</strong>：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。</li>
+<li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
+<li><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</li>
+</ul>
+<h3 id="操作镜像"><a href="#操作镜像" class="headerlink" title="操作镜像"></a>操作镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">查找</span><br><span class="line">docker search xxx</span><br><span class="line">拉取</span><br><span class="line">docker pull xxx</span><br><span class="line">运行(容器)</span><br><span class="line">docker run xxx</span><br><span class="line">删除</span><br><span class="line">docker rmi xxx</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"></span><br><span class="line">语法</span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>导出镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker save $REPOSITORY:$TAG &gt; $PATH/$NAME.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意$后面的变量需要替换</span></span><br></pre></td></tr></table></figure></li>
+<li><p>导入镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure></li>
+<li><p>在镜像中运行容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span><span class="bash">REPOSITORY:<span class="variable">$TAG</span>：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span></span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br><span class="line">-p hostPort:containerPort</span><br><span class="line">-v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步</span><br></pre></td></tr></table></figure>
+
+<h4 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h4></li>
+</ul>
+<blockquote>
+<p>Docker Image可以理解成多个只读文件叠加而成，因此Docker Image是只读的。</p>
+<p>当我们将其运行起来，就相当于在只读的Image外包裹了一层读写层变成了容器。</p>
+<p>当你删除容器之后，使用这个镜像重新创建一个容器，此时的镜像的只读层还和原来的一样，但是你在读写层的修改全部都会丢失（没有使用原有volume的前提下）。</p>
+<p> docker使用volume实现数据的持久化，不仅如此volume还能帮助容器和容器之间，容器和host之间共享数据。</p>
+</blockquote>
+<ul>
+<li><p>进入运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it $CONTAINER_ID /bin/bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>注意</p>
+<p>命令中的/bin/bash是根据<code> docker inspect $image_id</code>，根据”Cmd”配置项决定的</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="把jar包程序制作成镜像"><a href="#把jar包程序制作成镜像" class="headerlink" title="把jar包程序制作成镜像"></a>把jar包程序制作成镜像</h3><p>编辑dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span>  openjdk:<span class="number">8</span>-jre</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定路径</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /data/justMicroservice/learning-cloudalibaba</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=nacos-provider/target/nacos-provider-<span class="number">0.0</span>.<span class="number">1</span>-SNAPSHOT.jar</span><br><span class="line"><span class="comment"># 复制jar文件到路径</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> nacos-provider.jar</span></span><br><span class="line"><span class="comment"># 启动网关服务</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;nacos-provider.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t $repository -f $path/dockerfile .</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/docker%20solution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/16/docker%20solution/" class="post-title-link" itemprop="url">docker solution</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-16 14:34:30" itemprop="dateCreated datePublished" datetime="2019-08-16T14:34:30+08:00">2019-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-17 11:27:08" itemprop="dateModified" datetime="2021-12-17T11:27:08+08:00">2021-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Manage-Docker-as-a-non-root-user"><a href="#Manage-Docker-as-a-non-root-user" class="headerlink" title="Manage Docker as a non-root user"></a>Manage Docker as a non-root user</h2><ol>
+<li><p>Create the <code>docker</code> group.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
+<li><p>Add your user to the <code>docker</code> group.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure></li>
+<li><p>Log out and log back in so that your group membership is re-evaluated.</p>
+<p>If testing on a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.</p>
+<p>On a desktop Linux environment such as X Windows, log out of your session completely and then log back in.</p>
+<p>On Linux, you can also run the following command to activate the changes to groups:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ newgrp docker </span><br></pre></td></tr></table></figure></li>
+<li><p>Verify that you can run <code>docker</code> commands without <code>sudo</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Failed-to-load-listeners-no-sockets-found-via-socket-activation-make-sure-the-service-was-started-by-systemd"><a href="#Failed-to-load-listeners-no-sockets-found-via-socket-activation-make-sure-the-service-was-started-by-systemd" class="headerlink" title="Failed to load listeners: no sockets found via socket activation: make sure the service was started by systemd"></a>Failed to load listeners: no sockets found via socket activation: make sure the service was started by systemd</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">edit the docker’s systemd unit file and change the ExecStart:</span><br><span class="line">sudo systemctl edit docker.service</span><br><span class="line"></span><br><span class="line">edite The value ExecStart, change fd:// to unix://:</span><br><span class="line">[Service]</span><br><span class="line">ExecStart=</span><br><span class="line">ExecStart=/usr/bin/dockerd -H unix://</span><br></pre></td></tr></table></figure>
+
+<h4 id="Error-creating-default-“bridge”-network-cannot-create-network-docker0-conflicts-with-network-docker0-networks-have-same-bridge-name"><a href="#Error-creating-default-“bridge”-network-cannot-create-network-docker0-conflicts-with-network-docker0-networks-have-same-bridge-name" class="headerlink" title="Error creating default “bridge” network: cannot create network (docker0): conflicts with network (docker0): networks have same bridge name"></a>Error creating default “bridge” network: cannot create network (docker0): conflicts with network (docker0): networks have same bridge name</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /var/lib/docker/network</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/14/js%E4%B8%AD%E7%9A%84this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/14/js%E4%B8%AD%E7%9A%84this/" class="post-title-link" itemprop="url">js中的this</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-14 11:17:30" itemprop="dateCreated datePublished" datetime="2019-08-14T11:17:30+08:00">2019-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-01 08:35:13" itemprop="dateModified" datetime="2021-09-01T08:35:13+08:00">2021-09-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>文字转载自<a target="_blank" rel="noopener" href="https://juejin.im/post/5d51feaef265da039005219e#heading-5">JS 中 this 在各个场景下的指向</a></p>
+<h2 id="1-this-的奥秘"><a href="#1-this-的奥秘" class="headerlink" title="1. this 的奥秘"></a>1. this 的奥秘</h2><p>很多时候, JS 中的 <code>this</code> 对于咱们的初学者很容易产生困惑不解。 <code>this</code> 的功能很强大，但需要一定付出才能慢慢理解它。</p>
+<p>对Java、PHP或其他标准语言来看，<code>this</code> 表示类方法中当前对象的实例。大多数情况下，<code>this</code>不能在方法之外使用，这样就比较不会造成混淆。</p>
+<p>在J要中情况就有所不同: <code>this</code>表示函数的当前执行上下文，JS 中函数调用主要有以下几种方式：</p>
+<ul>
+<li>函数调用: <code>alert(&#39;Hello World!&#39;)</code></li>
+<li>方法调用: <code>console.log(&#39;Hello World!&#39;)</code></li>
+<li>构造函数: <code>new RegExp(&#39;\\d&#39;)</code></li>
+<li>隐式调用: <code>alert.call(undefined, &#39;Hello World!&#39;)</code></li>
+</ul>
+<p>每种调用类型以自己的方式定义上下文，所以就很容易产生混淆。</p>
+<p>此外，严格模式也会影响执行上下文。</p>
+<p>理解<code>this</code>关键是要清楚的知道函数调用及其如何影响上下文。</p>
+<p>本文主要说明函数的调用方式及如何影响 <code>this</code>，并且说明执行上下文的常见陷阱。</p>
+<p>在开始之前，先知道几个术语：</p>
+<p>调用函数正在执行创建函数体的代码，或者只是调用函数。 例如，parseInt函数调用是parseInt（’15’）。</p>
+<ul>
+<li><strong>函数调用</strong>：执行构成函数主体的代码：例如，<code>parseInt</code>函数调用是<code>parseInt(&#39;15&#39;)</code>。</li>
+<li><strong>调用的上下文</strong>：指 <code>this</code> 在函数体内的值。 例如，<code>map.set(&#39;key&#39;, &#39;value&#39;)</code>的调用上下文是 <code>map</code>。</li>
+<li><strong>函数的作用域</strong>：是在函数体中可访问的变量、对象和函数的集合。</li>
+</ul>
+<h2 id="2-函数调用"><a href="#2-函数调用" class="headerlink" title="2.函数调用"></a>2.函数调用</h2><p>当一个表达式为函数接着一个<code>(</code>，一些用逗号分隔的参数以及一个<code>）</code>时，函数调用被执行，例如<code>parseInt(&#39;18&#39;)</code>。</p>
+<p>函数调用表达式不能是属性方式的调用，如 <code>obj.myFunc()</code>，这种是创建一个方法调用。再如 <code>[1,5].join(&#39;,&#39;)</code>不是函数调用，而是方法调用，<strong>这种区别需要记住哈，很重要滴</strong>。</p>
+<p>函数调用的一个简单示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function hello(name) &#123;</span><br><span class="line">  return &#x27;Hello &#x27; + name + &#x27;!&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">// 函数调用</span><br><span class="line">const message = hello(&#x27;World&#x27;);</span><br><span class="line">console.log(message); // =&gt; &#x27;Hello World!&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>hello(&#39;World&#39;)</code>是函数调用: <code>hello</code>表达式等价于一个函数，跟在它后面的是一对括号以及<code>&#39;World&#39;</code>参数。</p>
+<p>一个更高级的例子是<strong>IIFE</strong>(立即调用的函数表达式)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const message = (function(name) &#123;</span><br><span class="line">   return &#x27;Hello &#x27; + name + &#x27;!&#x27;;</span><br><span class="line">&#125;)(&#x27;World&#x27;);</span><br><span class="line">console.log(message) // =&gt; &#x27;Hello World!&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>IIFE</strong>也是一个函数调用:第一对圆括号<code>(function(name) &#123;...&#125;)</code>是一个表达式，它的计算结果是一个函数对象，后面跟着一对圆括号，圆括号的参数是<code>“World”</code>。</p>
+<h4 id="2-1-在函数调用中的this"><a href="#2-1-在函数调用中的this" class="headerlink" title="2.1. 在函数调用中的this"></a>2.1. 在函数调用中的this</h4><blockquote>
+<p>this 在函数调用中是一个全局对象</p>
+</blockquote>
+<p>局对象由执行环境决定。在浏览器中，<code>this</code>是 <code>window</code> 对象。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/8/13/16c884b811a409ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>在函数调用中，执行上下文是全局对象。</p>
+<p>再来看看下面函数中的上下文又是什么鬼：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function sum(a, b) &#123;</span><br><span class="line">   console.log(this === window); // =&gt; true</span><br><span class="line">   this.myNumber = 20; // 将&#x27;myNumber&#x27;属性添加到全局对象</span><br><span class="line">   return a + b;</span><br><span class="line">&#125;</span><br><span class="line">// sum() is invoked as a function</span><br><span class="line">// sum() 中的 `this` 是一个全局对象（window）</span><br><span class="line">sum(15, 16);     // =&gt; 31</span><br><span class="line">window.myNumber; // =&gt; 20</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>在调用<code>sum(15,16)</code>时，JS 自动将<code>this</code>设置为全局对象，在浏览器中该对象是<code>window</code>。</p>
+<p>当<code>this</code>在任何函数作用域(最顶层作用域:全局执行上下文)之外使用，<code>this</code> 表示 <code>window</code> 对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(this === window); // =&gt; true</span><br><span class="line">this.myString = &#x27;Hello World!&#x27;;</span><br><span class="line">console.log(window.myString); // =&gt; &#x27;Hello World!&#x27;</span><br><span class="line"></span><br><span class="line">&lt;!-- In an html file --&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">   console.log(this === window); // =&gt; true</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-严格模式下的函数调用-this-又是什么样的"><a href="#2-2-严格模式下的函数调用-this-又是什么样的" class="headerlink" title="2.2 严格模式下的函数调用 this 又是什么样的"></a>2.2 严格模式下的函数调用 this 又是什么样的</h4><blockquote>
+<p><code>this</code> 在严格模式下的函数调用中为 <strong>undefined</strong></p>
+</blockquote>
+<p>严格模式是在 ECMAScript 5.1中引入的，它提供了更好的安全性和更强的错误检查。</p>
+<p>要启用严格模式，函数头部写入<code>use strict</code> 即可。</p>
+<p>启用后，严格模式会影响执行上下文，<code>this</code> 在常规函数调用中值为<code>undefined</code>。 与上述情况<code>2.1</code>相反，执行上下文不再是全局对象。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/8/13/16c884ceb97a4874?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>严格模式函数调用示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function multiply(a, b) &#123;</span><br><span class="line">  &#x27;use strict&#x27;; // 启用严格模式</span><br><span class="line">  console.log(this === undefined); // =&gt; true</span><br><span class="line">  return a * b;</span><br><span class="line">&#125;</span><br><span class="line">multiply(2, 5); // =&gt; 10</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>当<code>multiply(2,5)</code>作为函数调用时，<code>this</code>是<code>undefined</code>。</p>
+<p>严格模式不仅在当前作用域中有效，在内部作用域中也是有效的(对于在内部声明的所有函数):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function execute() &#123;</span><br><span class="line">   &#x27;use strict&#x27;; // 开启严格模式  </span><br><span class="line">   function concat(str1, str2) &#123;</span><br><span class="line">     // 严格模式仍然有效  </span><br><span class="line">     console.log(this === undefined); // =&gt; true</span><br><span class="line">     return str1 + str2;</span><br><span class="line">   &#125;</span><br><span class="line">   // concat() 在严格模式下作为函数调用</span><br><span class="line">   // this in concat() is undefined</span><br><span class="line">   concat(&#x27;Hello&#x27;, &#x27; World!&#x27;); // =&gt; &quot;Hello World!&quot;</span><br><span class="line">&#125;</span><br><span class="line">execute();</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>&#39;use strict&#39;</code>被插入到执行体的顶部，在其作用域内启用严格模式。 因为函数<code>concat</code>是在执行的作用域中声明的，所以它继承了严格模式。</p>
+<p>单个JS文件可能包含严格和非严格模式。 因此，对于相同的调用类型，可以在单个脚本中具有不同的上下文行为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function nonStrictSum(a, b) &#123;</span><br><span class="line">  // 非严格模式</span><br><span class="line">  console.log(this === window); // =&gt; true</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line">function strictSum(a, b) &#123;</span><br><span class="line">  &#x27;use strict&#x27;;</span><br><span class="line">  // 启用严格模式</span><br><span class="line">  console.log(this === undefined); // =&gt; true</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">nonStrictSum(5, 6); // =&gt; 11</span><br><span class="line">strictSum(8, 12); // =&gt; 20</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-陷阱-this-在内部函数中的时候"><a href="#2-3-陷阱-this-在内部函数中的时候" class="headerlink" title="2.3 陷阱:this 在内部函数中的时候"></a>2.3 陷阱:<code>this</code> 在内部函数中的时候</h4><p>函数调用的一个常见陷阱是，认为<code>this</code>在内部函数中的情况与外部函数中的情况相同。</p>
+<p>正确地说，内部函数的上下文只依赖于它的调用类型，而不依赖于外部函数的上下文。</p>
+<p>要将 <code>this</code> 设置为所需的值，可以通过 <code>.call()</code>或<code>.apply()</code>修改内部函数的上下文或使用<code>.bind()</code>创建绑定函数。</p>
+<p>下面的例子是计算两个数的和：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const numbers = &#123;</span><br><span class="line">   numberA: 5,</span><br><span class="line">   numberB: 10,</span><br><span class="line">   sum: function() &#123;</span><br><span class="line">     console.log(this === numbers); // =&gt; true</span><br><span class="line">     function calculate() &#123;</span><br><span class="line">       console.log(this === numbers); // =&gt; false</span><br><span class="line">       return this.numberA + this.numberB;</span><br><span class="line">     &#125;</span><br><span class="line">     return calculate();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line">numbers.sum(); // =&gt; NaN</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>sum()</code>是对象上的方法调用，所以<code>sum</code>中的上下文是<code>numbers</code>对象。<code>calculate</code>函数是在<code>sum</code>中定义的，你可能希望在<code>calculate()</code>中<code>this</code>也表示<code>number</code>对象。</p>
+<p><code>calculate()</code>是一个函数调用(不是方法调用)，它将<code>this</code>作为全局对象<code>window</code>(非严格模下)。即使外部函数<code>sum</code>将上下文作为<code>number</code>对象，它在<code>calculate</code>里面没有影响。</p>
+<p><code>sum()</code>的调用结果是<code>NaN</code>，不是预期的结果<code>5 + 10 = 15</code>，这都是因为没有正确调用<code>calculate</code>。</p>
+<p>为了解决这个问题，<code>calculate</code>函数中上下文应该与 <code>sum</code> 中的一样，以便可以访问<code>numberA</code>和<code>numberB</code>属性。</p>
+<p>一种解决方案是通过调用<code>calculator.call(this)</code>手动将<code>calculate</code>上下文更改为所需的上下文。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const numbers = &#123;</span><br><span class="line">   numberA: 5,</span><br><span class="line">   numberB: 10,</span><br><span class="line">   sum: function() &#123;</span><br><span class="line">     console.log(this === numbers); // =&gt; true</span><br><span class="line">     function calculate() &#123;</span><br><span class="line">       console.log(this === numbers); // =&gt; true</span><br><span class="line">       return this.numberA + this.numberB;</span><br><span class="line">     &#125;</span><br><span class="line">     // 使用 .call() 方法修改上下文</span><br><span class="line">     return calculate.call(this);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line">numbers.sum(); // =&gt; 15</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>call(this)</code>像往常一样执行<code>calculate</code>函数，但 <code>call</code> 会把上下文修改为指定为第一个参数的值。</p>
+<p>现在<code>this.numberA</code> + <code>this.numberB</code>相当于<code>numbers.numberA + numbers.numberB</code>。 该函数返回预期结果<code>5 + 10 = 15</code>。</p>
+<p>另一种就是使用箭头函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const numbers = &#123;</span><br><span class="line">   numberA: 5,</span><br><span class="line">   numberB: 10,</span><br><span class="line">   sum: function() &#123;</span><br><span class="line">     console.log(this === numbers); // =&gt; true</span><br><span class="line">     const calculate = () =&gt; &#123;</span><br><span class="line">       console.log(this === numbers); // =&gt; true</span><br><span class="line">       return this.numberA + this.numberB;</span><br><span class="line">     &#125;</span><br><span class="line">     return calculate();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line">numbers.sum(); // =&gt; 15</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-方法调用"><a href="#3-方法调用" class="headerlink" title="3.方法调用"></a>3.方法调用</h2><p>方法是存储在对象属性中的函数。例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const myObject = &#123;</span><br><span class="line">  // helloFunction 是一个方法</span><br><span class="line">  helloFunction: function() &#123;</span><br><span class="line">    return &#x27;Hello World!&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">const message = myObject.helloFunction();</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>helloFunction</code>是<code>myObject</code>的一个方法，要调用该方法，可以这样子调用 :<code>myObject.helloFunction</code>。</p>
+<p>当一个表达式以属性访问的形式执行时，执行的是方法调用，它相当于以个函数接着(，一组用逗号分隔的参数以及)。</p>
+<p>利用前面的例子，<code>myObject.helloFunction()</code>是对象<code>myObject</code>上的一个<code>helloFunction</code>的方法调用。<code>[1, 2].join(&#39;,&#39;)</code> 或<code>/\s/.test(&#39;beautiful world&#39;)</code>也被认为是方法调用。</p>
+<p>区分函数调用和方法调用非常重要，因为它们是不同的类型。主要区别在于方法调用需要一个属性访问器形式来调用函数(<code>obj.myFunc()</code>或<code>obj[&#39;myFunc&#39;]()</code>)，而函数调用不需要(<code>myFunc()</code>)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;Hello&#x27;, &#x27;World&#x27;].join(&#x27;, &#x27;); // 方法调用</span><br><span class="line">(&#123; ten: function() &#123; return 10; &#125; &#125;).ten(); // 方法调用</span><br><span class="line">const obj = &#123;&#125;;</span><br><span class="line">obj.myFunction = function() &#123;</span><br><span class="line">  return new Date().toString();</span><br><span class="line">&#125;;</span><br><span class="line">obj.myFunction(); // 方法调用</span><br><span class="line"></span><br><span class="line">const otherFunction = obj.myFunction;</span><br><span class="line">otherFunction();     // 函数调用</span><br><span class="line">parseFloat(&#x27;16.60&#x27;); // 函数调用</span><br><span class="line">isNaN(0);            // 函数调用</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>理解函数调用和方法调用之间的区别有助于正确识别上下文。</p>
+<h4 id="3-1-方法调用中-this-是肿么样"><a href="#3-1-方法调用中-this-是肿么样" class="headerlink" title="3.1 方法调用中 this 是肿么样"></a>3.1 方法调用中 this 是肿么样</h4><blockquote>
+<p>在方法调用中，<code>this</code>是拥有这个方法的对象</p>
+</blockquote>
+<p>当调用对象上的方法时，<code>this</code>就变成了对象本身。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/8/13/16c884d308092da0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>创建一个对象，该对象有一个递增数字的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const calc = &#123;</span><br><span class="line">  num: 0,</span><br><span class="line">  increment: function() &#123;</span><br><span class="line">    console.log(this === calc); // =&gt; true</span><br><span class="line">    this.num += 1;</span><br><span class="line">    return this.num;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">// method invocation. this is calc</span><br><span class="line">calc.increment(); // =&gt; 1</span><br><span class="line">calc.increment(); // =&gt; 2</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>调用<code>calc.increment()</code>使<code>increment</code>函数的上下文成为<code>calc</code>对象。所以使用<code>this.num</code>来增加<code>num</code>属性是有效的。</p>
+<p>再来看看另一个例子。JS对象从原型继承一个方法，当在对象上调用继承的方法时，调用的上下文仍然是对象本身</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const myDog = Object.create(&#123;</span><br><span class="line">  sayName: function() &#123;</span><br><span class="line">     console.log(this === myDog); // =&gt; true</span><br><span class="line">     return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">myDog.name = &#x27;Milo&#x27;;</span><br><span class="line">// 方法调用 this 指向 myDog</span><br><span class="line">myDog.sayName(); // =&gt; &#x27;Milo&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>Object.create()</code>创建一个新对象<code>myDog</code>，并根据第一个参数设置其原型。<code>myDog</code>对象继承<code>sayName</code>方法。</p>
+<p>执行<code>myDog. sayname()</code>时，<code>myDog</code>是调用的上下文。</p>
+<p>在EC6 <code>class</code> 语法中，方法调用上下文也是实例本身</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Planet &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;    </span><br><span class="line">  &#125;</span><br><span class="line">  getName() &#123;</span><br><span class="line">    console.log(this === earth); // =&gt; true</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var earth = new Planet(&#x27;Earth&#x27;);</span><br><span class="line">// method invocation. the context is earth</span><br><span class="line">earth.getName(); // =&gt; &#x27;Earth&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-陷阱-将方法与其对象分离"><a href="#3-2-陷阱-将方法与其对象分离" class="headerlink" title="3.2 陷阱:将方法与其对象分离"></a>3.2 陷阱:将方法与其对象分离</h4><p>方法可以从对象中提取到一个单独的变量<code>const alone = myObj.myMethod</code>。当方法单独调用时，与原始对象<code>alone()</code>分离，你可能认为当前的<code>this</code>就是定义方法的对象<code>myObject</code>。</p>
+<p>如果方法在没有对象的情况下调用，那么函数调用就会发生，此时的<code>this</code>指向全局对象<code>window</code>严格模式下是<code>undefined</code>。</p>
+<p>下面的示例定义了<code>Animal</code>构造函数并创建了它的一个实例:<code>myCat</code>。然后<code>setTimout()</code>在1秒后打印<code>myCat</code>对象信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Animal(type, legs) &#123;</span><br><span class="line">  this.type = type;</span><br><span class="line">  this.legs = legs;  </span><br><span class="line">  this.logInfo = function() &#123;</span><br><span class="line">    console.log(this === myCat); // =&gt; false</span><br><span class="line">    console.log(&#x27;The &#x27; + this.type + &#x27; has &#x27; + this.legs + &#x27; legs&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const myCat = new Animal(&#x27;Cat&#x27;, 4);</span><br><span class="line">// The undefined has undefined legs</span><br><span class="line">setTimeout(myCat.logInfo, 1000);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>你可能认为<code>setTimout</code>调用<code>myCat.loginfo()</code>时，它应该打印关于<code>myCat</code>对象的信息。</p>
+<p>不幸的是，方法在作为参数传递时与对象是分离，<code>setTimout(myCat.logInfo)</code>以下情况是等效的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimout(myCat.logInfo);</span><br><span class="line">// 等价于</span><br><span class="line">const extractedLogInfo = myCat.logInfo;</span><br><span class="line">setTimout(extractedLogInfo);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>将分离的<code>logInfo</code>作为函数调用时，<code>this</code>是全局 <code>window</code>,所以对象信息没有正确地打印。</p>
+<p>函数可以使用<code>.bind()</code>方法与对象绑定,就可以解决 <code>this</code> 指向的问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Animal(type, legs) &#123;</span><br><span class="line">  this.type = type;</span><br><span class="line">  this.legs = legs;  </span><br><span class="line">  this.logInfo = function() &#123;</span><br><span class="line">    console.log(this === myCat); // =&gt; true</span><br><span class="line">    console.log(&#x27;The &#x27; + this.type + &#x27; has &#x27; + this.legs + &#x27; legs&#x27;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">const myCat = new Animal(&#x27;Cat&#x27;, 4);</span><br><span class="line">// logs &quot;The Cat has 4 legs&quot;</span><br><span class="line">setTimeout(myCat.logInfo.bind(myCat), 1000);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>myCat.logInfo.bind(myCat)</code>返回一个新函数，它的执行方式与<code>logInfo</code>完全相同，但是此时的 <code>this</code> 指向 <code>myCat</code>，即使在函数调用中也是如此。</p>
+<p>另一种解决方案是将<code>logInfo()</code>方法定义为一个箭头函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Animal(type, legs) &#123;</span><br><span class="line">  this.type = type;</span><br><span class="line">  this.legs = legs;  </span><br><span class="line">  this.logInfo = () =&gt; &#123;</span><br><span class="line">    console.log(this === myCat); // =&gt; true</span><br><span class="line">    console.log(&#x27;The &#x27; + this.type + &#x27; has &#x27; + this.legs + &#x27; legs&#x27;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">const myCat = new Animal(&#x27;Cat&#x27;, 4);</span><br><span class="line">// logs &quot;The Cat has 4 legs&quot;</span><br><span class="line">setTimeout(myCat.logInfo, 1000);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-构造函数调用"><a href="#4-构造函数调用" class="headerlink" title="4. 构造函数调用"></a>4. 构造函数调用</h2><p>当<code>new</code>关键词紧接着函数对象,(,一组逗号分隔的参数以及)时被调用，执行的是构造函数调用如<code>new RegExp(&#39;\\d&#39;)</code>。</p>
+<p>声明了一个<code>Country</code>函数，并且将它作为一个构造函数调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Country(name, traveled) &#123;</span><br><span class="line">   this.name = name ? name : &#x27;United Kingdom&#x27;;</span><br><span class="line">   this.traveled = Boolean(traveled);</span><br><span class="line">&#125;</span><br><span class="line">Country.prototype.travel = function() &#123;</span><br><span class="line">  this.traveled = true;</span><br><span class="line">&#125;;</span><br><span class="line">// 构造函数调用</span><br><span class="line">const france = new Country(&#x27;France&#x27;, false);</span><br><span class="line">// 构造函数调用</span><br><span class="line">const unitedKingdom = new Country;</span><br><span class="line"></span><br><span class="line">france.travel(); // Travel to France</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>new Country(&#39;France&#39;, false)</code>是<code>Country</code>函数的构造函数调用。它的执行结果是一个<code>name</code>属性为<code>&#39;France&#39;</code>的新的对象。 如果这个构造函数调用时不需要参数，那么括号可以省略：<code>new Country</code>。</p>
+<p>从ES6开始，JS 允许用<code>class</code>关键词来定义构造函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class City &#123;</span><br><span class="line">  constructor(name, traveled) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.traveled = false;</span><br><span class="line">  &#125;</span><br><span class="line">  travel() &#123;</span><br><span class="line">    this.traveled = true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Constructor invocation</span><br><span class="line">const paris = new City(&#x27;Paris&#x27;, false);</span><br><span class="line">paris.travel();</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>new City(&#39;Paris&#39;)</code>是构造函数调用。这个对象的初始化由这个类中一个特殊的方法<code>constructor</code>来处理。其中，<code>this</code>指向新创建的对象。</p>
+<p>构造函数创建了一个新的空的对象，它从构造函数的原型继承了属性。构造函数的作用就是去初始化这个对象。 可能你已经知道了，在这种类型的调用中，上下文指向新创建的实例。</p>
+<p>当属性访问<code>myObject.myFunction</code>前面有一个<code>new</code>关键词时，JS会执行构造函数调用而不是原来的方法调用。</p>
+<p>例如<code>new myObject.myFunction()</code>：它相当于先用属性访问把方法提取出来<code>extractedFunction = myObject.myFunction</code>，然后利用把它作为构造函数创建一个新的对象： <code>new extractedFunction()</code>。</p>
+<h2 id="4-1-构造函数中的-this"><a href="#4-1-构造函数中的-this" class="headerlink" title="4.1. 构造函数中的 this"></a>4.1. 构造函数中的 this</h2><blockquote>
+<p>在构造函数调用中 this 指向新创建的对象</p>
+</blockquote>
+<p>构造函数调用的上下文是新创建的对象。它利用构造函数的参数初始化新的对象，设定属性的初始值，添加事件处理函数等等。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/8/13/16c884d774863ecb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>来看看下面示例中的上下文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Foo () &#123;</span><br><span class="line">  console.log(this instanceof Foo); // =&gt; true</span><br><span class="line">  this.property = &#x27;Default Value&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">// Constructor invocation</span><br><span class="line">const fooInstance = new Foo();</span><br><span class="line">fooInstance.property; // =&gt; &#x27;Default Value&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>new Foo()</code> 正在进行构造函数调用，其中上下文是<code>fooInstance</code>。 在<code>Foo</code>内部初始化对象：<code>this.property</code>被赋值为默认值。</p>
+<p>同样的情况在用<code>class</code>语法（从ES6起）时也会发生，唯一的区别是初始化在<code>constructor</code>方法中进行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Bar &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    console.log(this instanceof Bar); // =&gt; true</span><br><span class="line">    this.property = &#x27;Default Value&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Constructor invocation</span><br><span class="line">const barInstance = new Bar();</span><br><span class="line">barInstance.property; // =&gt; &#x27;Default Value&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-陷阱-忘了使用-new"><a href="#4-2-陷阱-忘了使用-new" class="headerlink" title="4.2. 陷阱: 忘了使用 new"></a>4.2. 陷阱: 忘了使用 new</h4><p>有些JS函数不是只在作为构造函数调用的时候才创建新的对象，作为函数调用时也会，例如<code>RegExp</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var reg1 = new RegExp(&#x27;\\w+&#x27;);</span><br><span class="line">var reg2 = RegExp(&#x27;\\w+&#x27;);</span><br><span class="line"></span><br><span class="line">reg1 instanceof RegExp;      // =&gt; true</span><br><span class="line">reg2 instanceof RegExp;      // =&gt; true</span><br><span class="line">reg1.source === reg2.source; // =&gt; true</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>当执行的 <code>new RegExp(&#39;\\w+&#39;)</code>和<code>RegExp(&#39;\\w+&#39;)</code>时，JS 会创建等价的正则表达式对象。</p>
+<p>使用函数调用来创建对象存在一个潜在的问题(不包括工厂模式)，因为一些构造函数可能会忽略在缺少<code>new</code>关键字时初始化对象的逻辑。</p>
+<p>下面的例子说明了这个问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Vehicle(type, wheelsCount) &#123;</span><br><span class="line">  this.type = type;</span><br><span class="line">  this.wheelsCount = wheelsCount;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line">// 忘记使用 new</span><br><span class="line">const car = Vehicle(&#x27;Car&#x27;, 4);</span><br><span class="line">car.type;       // =&gt; &#x27;Car&#x27;</span><br><span class="line">car.wheelsCount // =&gt; 4</span><br><span class="line">car === window  // =&gt; true</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>Vehicle</code>是一个在上下文对象上设置<code>type</code>和<code>wheelsCount</code>属性的函数。</p>
+<p>当执行<code>Vehicle(&#39;Car&#39;， 4)</code>时，返回一个对象<code>Car</code>，它具有正确的属性:<code>Car.type</code> 为 <code>Car</code>和<code>Car.wheelsCount</code> 为<code>4</code>，你可能认为它很适合创建和初始化新对象。</p>
+<p>然而，在函数调用中，<code>this</code>是<code>window</code>对象 ，因此 <code>Vehicle（&#39;Car&#39;，4）</code>在 <code>window</code> 对象上设置属性。 显然这是错误，它并没有创建新对象。</p>
+<p>当你希望调用构造函数时，确保你使用了<code>new</code>操作符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Vehicle(type, wheelsCount) &#123;</span><br><span class="line">  if (!(this instanceof Vehicle)) &#123;</span><br><span class="line">    throw Error(&#x27;Error: Incorrect invocation&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">  this.type = type;</span><br><span class="line">  this.wheelsCount = wheelsCount;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line">// Constructor invocation</span><br><span class="line">const car = new Vehicle(&#x27;Car&#x27;, 4);</span><br><span class="line">car.type               // =&gt; &#x27;Car&#x27;</span><br><span class="line">car.wheelsCount        // =&gt; 4</span><br><span class="line">car instanceof Vehicle // =&gt; true</span><br><span class="line"></span><br><span class="line">// Function invocation. Throws an error.</span><br><span class="line">const brokenCar = Vehicle(&#x27;Broken Car&#x27;, 3);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>new Vehicle(&#39;Car&#39;，4)</code> 运行正常：创建并初始化一个新对象，因为构造函数调用中时使用了<code>new</code>关键字。</p>
+<p>在构造函数里添加了一个验证<code>this instanceof Vehicle</code>来确保执行的上下文是正确的对象类型。如果<code>this</code>不是<code>Vehicle</code>，那么就会报错。这样，如果执行<code>Vehicle(&#39;Broken Car&#39;, 3)</code>(没有<code>new</code>)，我们会得到一个异常：<code>Error: Incorrect invocation</code>。</p>
+<h2 id="5-隐式调用"><a href="#5-隐式调用" class="headerlink" title="5. 隐式调用"></a>5. 隐式调用</h2><p>使用<code>myFun.call()</code>或<code>myFun.apply()</code>方法调用函数时，执行的是隐式调用。</p>
+<p>JS中的函数是第一类对象，这意味着函数就是对象，对象的类型为<code>Function</code>。从函数对象的方法列表中，<code>.call()</code>和<code>.apply()</code>用于调用具有可配置上下文的函数。</p>
+<ul>
+<li>方法 <code>.call(thisArg[, arg1[, arg2[, ...]]])</code>将接受的第一个参数<code>thisArg</code>作为调用时的上下文，<code>arg1, arg2, ...</code>这些则作为参数传入被调用的函数。</li>
+<li>方法<code>.apply(thisArg, [args])</code>将接受的第一个参数<code>thisArg</code>作为调用时的上下文，并且接受另一个类似数组的对象<code>[arg1, arg2, ...]</code>作为被调用函数的参数传入。</li>
+</ul>
+<p>下面是隐式调用的例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function increment(number) &#123;</span><br><span class="line">  return ++number;  </span><br><span class="line">&#125;</span><br><span class="line">increment.call(undefined, 10);    // =&gt; 11</span><br><span class="line">increment.apply(undefined, [10]); // =&gt; 11</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>increment.call()</code>和<code>increment.apply()</code>都用参数<code>10</code>调用了这个自增函数。</p>
+<p>两者的区别是<code>.call()</code>接受一组参数，例如<code>myFunction.call(thisValue, &#39;value1&#39;, &#39;value2&#39;)</code>。而<code>.apply()</code>接受的一组参数必须是一个类似数组的对象，例如<code>myFunction.apply(thisValue, [&#39;value1&#39;, &#39;value2&#39;]</code>)。</p>
+<h4 id="5-1-隐式调用中的this"><a href="#5-1-隐式调用中的this" class="headerlink" title="5.1. 隐式调用中的this"></a>5.1. 隐式调用中的this</h4><blockquote>
+<p>在隐式调用.call()或.apply()中，this是第一个参数</p>
+</blockquote>
+<p>很明显，在隐式调用中，<code>this</code>作为第一个参数传递给<code>.call()</code>或<code>.apply()</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var rabbit = &#123; name: &#x27;White Rabbit&#x27; &#125;;</span><br><span class="line">function concatName(string) &#123;</span><br><span class="line">  console.log(this === rabbit); // =&gt; true</span><br><span class="line">  return string + this.name;</span><br><span class="line">&#125;</span><br><span class="line">concatName.call(rabbit, &#x27;Hello &#x27;);  // =&gt; &#x27;Hello White Rabbit&#x27;</span><br><span class="line">concatName.apply(rabbit, [&#x27;Bye &#x27;]); // =&gt; &#x27;Bye White Rabbit&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>当应该使用特定上下文执行函数时，隐式调用非常有用。例如为了解决方法调用时，<code>this</code>总是<code>window</code>或严格模式下的<code>undefined</code>的上下文问题。隐式调用可以用于模拟在一个对象上调用某个方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Runner(name) &#123;</span><br><span class="line">  console.log(this instanceof Rabbit); // =&gt; true</span><br><span class="line">  this.name = name;  </span><br><span class="line">&#125;</span><br><span class="line">function Rabbit(name, countLegs) &#123;</span><br><span class="line">  console.log(this instanceof Rabbit); // =&gt; true</span><br><span class="line">  Runner.call(this, name);</span><br><span class="line">  this.countLegs = countLegs;</span><br><span class="line">&#125;</span><br><span class="line">const myRabbit = new Rabbit(&#x27;White Rabbit&#x27;, 4);</span><br><span class="line">myRabbit; // &#123; name: &#x27;White Rabbit&#x27;, countLegs: 4 &#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>Rabbit</code>中的<code>Runner.call(this, name)</code>隐式调用了父类的函数来初始化这个对象。</p>
+<h2 id="6-绑定函数"><a href="#6-绑定函数" class="headerlink" title="6. 绑定函数"></a>6. 绑定函数</h2><p>绑定函数是与对象连接的函数。通常使用<code>.bind()</code>方法从原始函数创建。原始函数和绑定函数共享相同的代码和作用域，但执行时上下文不同。</p>
+<p>方法 <code>myFunc.bind(thisArg[, arg1[, arg2[, ...]]])</code>接受第一个参数<code>thisArg</code>作为绑定函数执行时的上下文，并且它接受一组可选的参数 <code>arg1, arg2, ...</code>作为被调用函数的参数。它返回一个绑定了<code>thisArg</code>的新函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function multiply(number) &#123;</span><br><span class="line">  &#x27;use strict&#x27;;</span><br><span class="line">  return this * number;</span><br><span class="line">&#125;</span><br><span class="line">const double = multiply.bind(2);</span><br><span class="line"></span><br><span class="line">double(3);  // =&gt; 6</span><br><span class="line">double(10); // =&gt; 20</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>bind(2)</code>返回一个新的函数对象<code>double</code>，<code>double</code> 绑定了数字<code>2</code>。<code>multiply</code>和<code>double</code>具有相同的代码和作用域。</p>
+<p>与<code>.apply()</code>和<code>.call()</code> 方法相反，它不会立即调用该函数，<code>.bind()</code>方法只返回一个新函数，在之后被调用，只是this<code>已经</code>被提前设置好了。</p>
+<h4 id="6-1-绑定函数中的this"><a href="#6-1-绑定函数中的this" class="headerlink" title="6.1. 绑定函数中的this"></a>6.1. 绑定函数中的this</h4><blockquote>
+<p>在调用绑定函数时，<code>this</code>是<code>.bind()</code>的第一个参数。</p>
+</blockquote>
+<p><code>.bind()</code>的作用是创建一个新函数，调用该函数时，将上下文作为传递给<code>.bind()</code>的第一个参数。它是一种强大的技术，使咱们可以创建一个定义了<code>this</code>值的函数。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/8/13/16c884dceeb04418?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>来看看，如何在如何在绑定函数设置 <code>this</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const numbers = &#123;</span><br><span class="line">  array: [3, 5, 10],</span><br><span class="line">  getNumbers: function() &#123;</span><br><span class="line">    return this.array;    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">const boundGetNumbers = numbers.getNumbers.bind(numbers);</span><br><span class="line">boundGetNumbers(); // =&gt; [3, 5, 10]</span><br><span class="line">// Extract method from object</span><br><span class="line">const simpleGetNumbers = numbers.getNumbers;</span><br><span class="line">simpleGetNumbers(); // =&gt; undefined (严格模式下报错)</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>numbers.getNumbers.bind(numbers)</code>返回绑定<code>numbers</code>对象<code>boundGetNumbers</code>函数。<code>boundGetNumbers()</code>调用时的<code>this</code>是<code>number</code>对象，并能够返回正确的数组对象。</p>
+<p>可以将函数<code>numbers.getNumbers</code>提取到变量<code>simpleGetNumbers</code>中而不进行绑定。在之后的函数调用中<code>simpleGetNumbers()</code>的<code>this</code>是<code>window</code>(严格模式下为<code>undefined</code>)，不是<code>number</code>对象。在这个情况下，<code>simpleGetNumbers()</code>不会正确返回数组。</p>
+<h4 id="6-2-紧密的上下文绑定"><a href="#6-2-紧密的上下文绑定" class="headerlink" title="6.2 紧密的上下文绑定"></a>6.2 紧密的上下文绑定</h4><p><code>.bind()</code>创建一个永久的上下文链接，并始终保持它。 一个绑定函数不能通过<code>.call()</code>或者<code>.apply()</code>来改变它的上下文，甚至是再次绑定也不会有什么作用。</p>
+<p>只有绑定函数的构造函数调用才能更改已经绑定的上下文，但是很不推荐的做法(构造函数调用必须使用常规的非绑定函数)。</p>
+<p>下面示例创建一个绑定函数，然后尝试更改其已预先定义好的上下文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function getThis() &#123;</span><br><span class="line">  &#x27;use strict&#x27;;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line">const one = getThis.bind(1);</span><br><span class="line">// 绑定函数调用</span><br><span class="line">one(); // =&gt; 1</span><br><span class="line">// 使用带有.apply()和.call()的绑定函数</span><br><span class="line">one.call(2);  // =&gt; 1</span><br><span class="line">one.apply(2); // =&gt; 1</span><br><span class="line">// 再次绑定</span><br><span class="line">one.bind(2)(); // =&gt; 1</span><br><span class="line">// 以构造函数的形式调用绑定函数</span><br><span class="line">new one(); // =&gt; Object</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>只有<code>new one()</code>改变了绑定函数的上下文，其他方式的调用中<code>this</code>总是等于1。</p>
+<h2 id="7-箭头函数"><a href="#7-箭头函数" class="headerlink" title="7. 箭头函数"></a>7. 箭头函数</h2><p>箭头函数用于以更短的形式声明函数，并在词法上绑定上下文。它可以这样使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const hello = (name) =&gt; &#123;</span><br><span class="line">  return &#x27;Hello &#x27; + name;</span><br><span class="line">&#125;;</span><br><span class="line">hello(&#x27;World&#x27;); // =&gt; &#x27;Hello World&#x27;</span><br><span class="line">// Keep only even numbers</span><br><span class="line">[1, 2, 5, 6].filter(item =&gt; item % 2 === 0); // =&gt; [2, 6]</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数语法简单，没有冗长的<code>function</code> 关键字。当箭头函数只有一条语句时，甚至可以省略<code>return</code>关键字。</p>
+<p>箭头函数是匿名的，这意味着<code>name</code>属性是一个空字符串<code>&#39;&#39;</code>。这样它就没有词法上函数名(函数名对于递归、分离事件处理程序非常有用)</p>
+<p>同时，跟常规函数相反，它也不提供<code>arguments</code>对象。但是，这在ES6中通过<code>rest parameters</code>修复了:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const sumArguments = (...args) =&gt; &#123;</span><br><span class="line">   console.log(typeof arguments); // =&gt; &#x27;undefined&#x27;</span><br><span class="line">   return args.reduce((result, item) =&gt; result + item);</span><br><span class="line">&#125;;</span><br><span class="line">sumArguments.name      // =&gt; &#x27;&#x27;</span><br><span class="line">sumArguments(5, 5, 6); // =&gt; 16</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-1-箭头函数中的this"><a href="#7-1-箭头函数中的this" class="headerlink" title="7.1. 箭头函数中的this"></a>7.1. 箭头函数中的this</h4><blockquote>
+<p>this 定义箭头函数的封闭上下文</p>
+</blockquote>
+<p>箭头函数不会创建自己的执行上下文，而是从定义它的外部函数中获取 <code>this</code>。 换句话说，箭头函数在词汇上绑定 <code>this</code>。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/8/13/16c884dfd5bf33de?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>下面的例子说明了这个上下文透明的特性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">  log() &#123;</span><br><span class="line">    console.log(this === myPoint); // =&gt; true</span><br><span class="line">    setTimeout(()=&gt; &#123;</span><br><span class="line">      console.log(this === myPoint);      // =&gt; true</span><br><span class="line">      console.log(this.x + &#x27;:&#x27; + this.y); // =&gt; &#x27;95:165&#x27;</span><br><span class="line">    &#125;, 1000);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const myPoint = new Point(95, 165);</span><br><span class="line">myPoint.log();</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>setTimeout</code>使用与<code>log()</code>方法相同的上下文(<code>myPoint</code>对象)调用箭头函数。正如所见，箭头函数从定义它的函数继承上下文。</p>
+<p>如果在这个例子里尝试用常规函数,它创建自己的上下文(<code>window</code>或严格模式下的<code>undefined</code>)。因此，要使相同的代码正确地使用函数表达式，需要手动绑定上下文:<code>setTimeout(function()&#123;…&#125;.bind(this))</code>。这很冗长，使用箭头函数是一种更简洁、更短的解决方案。</p>
+<p>如果箭头函数在最顶层的作用域中定义（在任何函数之外），则上下文始终是全局对象（浏览器中的 window）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onst getContext = () =&gt; &#123;</span><br><span class="line">   console.log(this === window); // =&gt; true</span><br><span class="line">   return this;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(getContext() === window); // =&gt; true</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数一劳永逸地与词汇上下文绑定。 即使修改上下文，<code>this</code>也不能被改变：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const numbers = [1, 2];</span><br><span class="line">(function() &#123;  </span><br><span class="line">  const get = () =&gt; &#123;</span><br><span class="line">    console.log(this === numbers); // =&gt; true</span><br><span class="line">    return this;</span><br><span class="line">  &#125;;</span><br><span class="line">  console.log(this === numbers); // =&gt; true</span><br><span class="line">  get(); // =&gt; [1, 2]</span><br><span class="line">  // Use arrow function with .apply() and .call()</span><br><span class="line">  get.call([0]);  // =&gt; [1, 2]</span><br><span class="line">  get.apply([0]); // =&gt; [1, 2]</span><br><span class="line">  // Bind</span><br><span class="line">  get.bind([0])(); // =&gt; [1, 2]</span><br><span class="line">&#125;).call(numbers);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>无论如何调用箭头函数<code>get</code>，它总是保留词汇上下文<code>numbers</code>。 用其他上下文的隐式调用(通过 <code>get.call([0])</code>或<code>get.apply([0])</code>)或者重新绑定(通过<code>.bind()</code>)都不会起作用。</p>
+<p>箭头函数不能用作构造函数。 将它作为构造函数调用(<code>new get()</code>)会抛出一个错误：<code>TypeError: get is not a constructor</code>。</p>
+<h4 id="7-2-陷阱-用箭头函数定义方法"><a href="#7-2-陷阱-用箭头函数定义方法" class="headerlink" title="7.2. 陷阱: 用箭头函数定义方法"></a>7.2. 陷阱: 用箭头函数定义方法</h4><p>你可能希望使用箭头函数来声明一个对象上的方法。箭头函数的定义相比于函数表达式短得多：<code>(param) =&gt; &#123;...&#125; instead of function(param) &#123;..&#125;</code>。</p>
+<p>来看看例子，用箭头函数在Period类上定义了<code>format()</code>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Period (hours, minutes) &#123;  </span><br><span class="line">  this.hours = hours;</span><br><span class="line">  this.minutes = minutes;</span><br><span class="line">&#125;</span><br><span class="line">Period.prototype.format = () =&gt; &#123;</span><br><span class="line">  console.log(this === window); // =&gt; true</span><br><span class="line">  return this.hours + &#x27; hours and &#x27; + this.minutes + &#x27; minutes&#x27;;</span><br><span class="line">&#125;;</span><br><span class="line">const walkPeriod = new Period(2, 30);  </span><br><span class="line">walkPeriod.format(); // =&gt; &#x27;undefined hours and undefined minutes&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>由于<code>format</code>是一个箭头函数，并且在全局上下文（最顶层的作用域）中定义，因此 <code>this</code> 指向<code>window</code>对象。</p>
+<p>即使<code>format</code>作为方法在一个对象上被调用如<code>walkPeriod.format()</code>，<code>window</code>仍然是这次调用的上下文。之所以会这样是因为箭头函数有静态的上下文，并不会随着调用方式的改变而改变。</p>
+<p>该方法返回<code>&#39;undefined hours和undefined minutes&#39;</code>，这不是咱们想要的结果。</p>
+<p>函数表达式解决了这个问题，因为常规函数确实能根据实际调用改变它的上下文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Period (hours, minutes) &#123;  </span><br><span class="line">  this.hours = hours;</span><br><span class="line">  this.minutes = minutes;</span><br><span class="line">&#125;</span><br><span class="line">Period.prototype.format = function() &#123;</span><br><span class="line">  console.log(this === walkPeriod); // =&gt; true</span><br><span class="line">  return this.hours + &#x27; hours and &#x27; + this.minutes + &#x27; minutes&#x27;;</span><br><span class="line">&#125;;</span><br><span class="line">const walkPeriod = new Period(2, 30);  </span><br><span class="line">walkPeriod.format(); // =&gt; &#x27;2 hours and 30 minutes&#x27;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><code>walkPeriod.format()</code>是一个对象上的方法调用，它的上下文是<code>walkPeriod</code>对象。<code>this.hours</code>等于<code>2</code>，<code>this.minutes</code>等于<code>30</code>，所以这个方法返回了正确的结果：<code>&#39;2 hours and 30 minutes&#39;</code>。</p>
+<p><strong>原文：dmitripavlutin.com/gentle-expl…</strong></p>
+<p><strong>代码部署后可能存在的BUG没法实时知道，事后为了解决这些BUG，花了大量的时间进行log 调试，这边顺便给大家推荐一个好用的BUG监控工具 Fundebug。</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为函数调用对<code>this</code>影响最大，从现在开始不要问自己：</p>
+<blockquote>
+<p>this 是从哪里来的？</p>
+</blockquote>
+<p>而是要看看</p>
+<blockquote>
+<p>函数是怎么被调用的？</p>
+</blockquote>
+<p>对于箭头函数，需要想想</p>
+<blockquote>
+<p>在这个箭头函数被定义的地方，this是什么？</p>
+</blockquote>
+<p>这是处理<code>this</code>时的正确想法，它们可以让你免于头痛。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/coin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/31/coin/" class="post-title-link" itemprop="url">挖矿程序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-31 10:00:30" itemprop="dateCreated datePublished" datetime="2019-07-31T10:00:30+08:00">2019-07-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-28 13:59:44" itemprop="dateModified" datetime="2021-12-28T13:59:44+08:00">2021-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config.json （挖矿配置）、</span><br><span class="line">sysupdate （XMR 挖矿软件）、</span><br><span class="line">update.sh （本脚本）、</span><br><span class="line">networkservice(scanner扫描并入侵其他的主机)、</span><br><span class="line">sysguard(watchdog 用于监控并保证病毒的正常运行以及更新) 并保证他们以 root 权限运行。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>查看病毒的 PID 号</p>
+</li>
+<li><p>获取绝对路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /proc/&#123;pid 号&#125;/exe</span><br></pre></td></tr></table></figure></li>
+<li><p>删除/tmp文件夹的所有文件</p>
+</li>
+<li><p>检查下定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l 或者 cat /var/spool/cron/will</span><br></pre></td></tr></table></figure>
+
+<p>上面的will为当前用户名</p>
+<p>查看定时任务的日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more /var/<span class="built_in">log</span>/cron <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>删除定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm /var/spool/cron/root 或者 crontab -r 删除定时任务</span><br></pre></td></tr></table></figure></li>
+<li><p>kill 命令将相关进程干掉</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sysupdate</span><br><span class="line">networkservice</span><br><span class="line">sysguard</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/java%20io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/10/java%20io/" class="post-title-link" itemprop="url">java io</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-07-10 14:25:30 / Modified: 15:58:46" itemprop="dateCreated datePublished" datetime="2019-07-10T14:25:30+08:00">2019-07-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">流包括字符流和字节流，流从概念上来说是一个连续的数据流。当程序需要读数据的时候就需要使用输入流读取数据，当需要往外写数据的时候就需要输出流</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>字节流：字节流主要用来处理字节或二进制对象<code>InputStream、OutputStream，</code></p>
+<blockquote>
+<p>在使用字节流的时候，InputStream和OutputStream都是抽象类，我们实例化的都是他们的子类，每一个子类都有自己的作用范围</p>
+</blockquote>
+<p><img src="https://i.imgur.com/s39Xj3r.png"></p>
+</li>
+<li><p>字符流：字符流用来处理字符文本或字符串<code>Reader、Writer</code></p>
+<blockquote>
+<p>在使用字符流的时候也是，Reader和Writer都是抽象类，我们实例化的都是他们的子类，每一个子类都有自己的作用范围</p>
+</blockquote>
+<p><img src="https://i.imgur.com/RMD0koG.png"></p>
+</li>
+<li><p>字节流转换为字符流</p>
+<blockquote>
+<p>使用<code>InputStreamReader、OutputStreamWriter</code>可以将输入字节流转化为输入字符流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Reader reader  =  <span class="keyword">new</span> InputStreamReader(inputStream);</span><br><span class="line">Writer writer = <span class="keyword">new</span> OutputStreamWriter(outputStream)</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>输入字节流：<strong>InputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/a.txt&quot;</span>);</span><br><span class="line">    InputStream inputStream = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>) file.length()];</span><br><span class="line">    inputStream.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    inputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入字符流：<strong>Reader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/a.txt&quot;</span>);</span><br><span class="line">    Reader reader = <span class="keyword">new</span> FileReader(file);</span><br><span class="line">    <span class="keyword">char</span>[] bytes = <span class="keyword">new</span> <span class="keyword">char</span>[(<span class="keyword">int</span>) file.length()];</span><br><span class="line">    reader.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    reader.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出字节流：<strong>OutputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String <span class="keyword">var</span> = <span class="string">&quot;hai this is a test&quot;</span>;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/b.txt&quot;</span>);</span><br><span class="line">    OutputStream outputStream = <span class="keyword">new</span> FileOutputStream(file);</span><br><span class="line">    outputStream.write(<span class="keyword">var</span>.getBytes());</span><br><span class="line">    outputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出字符流：<strong>Writer</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String <span class="keyword">var</span> = <span class="string">&quot;hai this is a test&quot;</span>;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/b.txt&quot;</span>);</span><br><span class="line">    Writer writer = <span class="keyword">new</span> FileWriter(file);</span><br><span class="line">    writer.write(<span class="keyword">var</span>);</span><br><span class="line">    writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedInputStream</strong></p>
+<blockquote>
+<p>在使用InputStream的时候，都是一个字节一个字节的读或写，而BufferedInputStream为输入字节流提供了缓冲区，读数据的时候会一次读取一块数据放到缓冲区里，当缓冲区里的数据被读完之后，输入流会再次填充数据缓冲区，直到输入流被读完，有了缓冲区就能够提高很多io速度</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * inputStream 输入流</span></span><br><span class="line"><span class="comment"> * 1024 内部缓冲区大小为1024byte</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BufferedInputStream bufferedInputStream = <span class="keyword">new</span> BufferedInputStream(inputStream,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedOutputStream</strong></p>
+<blockquote>
+<p>BufferedOutputStream可以为输出字节流提供缓冲区，作用与BufferedInputStream类似，使用方式将输出流包装到BufferedOutputStream中</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * outputStream 输出流</span></span><br><span class="line"><span class="comment"> * 1024 内部缓冲区大小为1024byte</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BufferedOutputStream bufferedOutputStream = <span class="keyword">new</span> BufferedOutputStream(outputStream,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedReader</strong></p>
+<blockquote>
+<p>为输入字符流提供缓冲区</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(reader,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedWriter</strong></p>
+<blockquote>
+<p>为输出字符流提供缓冲区</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(writer,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="io模型"><a href="#io模型" class="headerlink" title="io模型"></a>io模型</h2><h3 id="bio"><a href="#bio" class="headerlink" title="bio"></a>bio</h3><blockquote>
+<p>同步阻塞IO模型</p>
+<p>JDK 1.4版本以前</p>
+</blockquote>
+<p><img src="https://chenmingyu.top/nio/bio%E7%BA%BF%E7%A8%8B.png"></p>
+<p>在这种模式中通常用一个线程去接受请求，然后用一个线程池去处理请求，用这种方式并发管理多个Socket客户端连接</p>
+<p><img src="https://chenmingyu.top/nio/BIO%E7%BA%BF%E7%A8%8B+%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></p>
+<h3 id="nio"><a href="#nio" class="headerlink" title="nio"></a>nio</h3><blockquote>
+<p>同步非阻塞IO模型</p>
+<p>JDK 1.4版本以后</p>
+</blockquote>
+<p>成熟的框架，比如Netty</p>
+<h3 id="aio"><a href="#aio" class="headerlink" title="aio"></a>aio</h3><blockquote>
+<p>异步非阻塞IO模型</p>
+<p>JDK1.7升级了Nio类库，成为Nio2.0，最主要的是提供了异步文件的IO操作，以及事件驱动IO，AIO的异步套接字通道是真正的异步非阻塞IO</p>
+</blockquote>
+<p><img src="https://chenmingyu.top/nio/%E5%90%84IO%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94.png"></p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://chenmingyu.top/nio/">一文看懂java io系统</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/kafka%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/11/kafka%20learn/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-11 14:01:30" itemprop="dateCreated datePublished" datetime="2019-06-11T14:01:30+08:00">2019-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-09 09:05:20" itemprop="dateModified" datetime="2021-10-09T09:05:20+08:00">2021-10-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kafka/" itemprop="url" rel="index"><span itemprop="name">kafka</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="port（confluent-reference）"><a href="#port（confluent-reference）" class="headerlink" title="port（confluent reference）"></a>port（confluent reference）</h2><table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="left">Default Port</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Zookeeper</td>
+<td align="left">2181</td>
+</tr>
+<tr>
+<td align="left">Apache Kafka brokers (plain text)</td>
+<td align="left">9092</td>
+</tr>
+<tr>
+<td align="left">Schema Registry REST API</td>
+<td align="left">8081</td>
+</tr>
+<tr>
+<td align="left">REST Proxy</td>
+<td align="left">8082</td>
+</tr>
+<tr>
+<td align="left">Kafka Connect REST API</td>
+<td align="left">8083</td>
+</tr>
+<tr>
+<td align="left">Confluent Control Center</td>
+<td align="left">9021</td>
+</tr>
+</tbody></table>
+<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p><img src="https://i.imgur.com/gG71h6m.png"></p>
+<ul>
+<li><strong>kafka Producer API:</strong> Applications directly producing data (ex: clickstream, logs, IoT).</li>
+<li><strong>Kafka Connect Source API:</strong> Applications bridging between a datastore we don’t control and Kafka (ex: CDC, Postgres, MongoDB, Twitter, REST API).</li>
+<li><strong>Kafka Streams API / KSQL:</strong> Applications wanting to consume from Kafka and produce back into Kafka, also called stream processing. Use KSQL if you think you can write your real-time job as SQL-like, use Kafka Streams API if you think you’re going to need to write complex logic for your job.</li>
+<li><strong>Kafka Consumer API:</strong> Read a stream and perform real-time actions on it (e.g. send email…)</li>
+<li><strong>Kafka Connect Sink API</strong>: Read a stream and store it into a target store (ex: Kafka to S3, Kafka to HDFS, Kafka to PostgreSQL, Kafka to MongoDB, etc.)</li>
+</ul>
+<p><img src="https://www.sohamkamani.com/basic_arch-e0b11d2ab5b62a78cb7fd26d3a9d279b.svg"></p>
+<ol>
+<li><strong>Zookeeper</strong> : Which is used by Kafka to maintain state between the nodes of the cluster.</li>
+<li><strong>Kafka brokers</strong> : The “pipes” in our pipeline, which store and emit data.</li>
+<li><strong>Producers</strong> : That insert data into the cluster.</li>
+<li><strong>Consumers</strong> : That read data from the cluster.</li>
+</ol>
+<p><img src="https://kafka.apache.org/22/images/kafka-apis.png"></p>
+<h3 id="Creating-a-topic"><a href="#Creating-a-topic" class="headerlink" title="Creating a topic"></a>Creating a topic</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh \</span><br><span class="line">--create \</span><br><span class="line">--topic my-kafka-topic \</span><br><span class="line">--zookeeper localhost:2181 \</span><br><span class="line">--partitions 3 \</span><br><span class="line">--replication-factor 2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The <code>paritions</code> options lets you decide how many brokers you want your data to be split between. Since we set up 3 brokers, we can set this option to 3.</li>
+<li>The <code>replication-factor</code> describes how many copies of you data you want (in case one of the brokers goes down, you still have your data on the others).</li>
+</ul>
+<h3 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh \</span><br><span class="line">--broker-list localhost:9093,localhost:9094,localhost:9095 \</span><br><span class="line">--topic my-kafka-topic</span><br></pre></td></tr></table></figure>
+
+<h3 id="Consumers"><a href="#Consumers" class="headerlink" title="Consumers"></a>Consumers</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server localhost:9093 \</span><br><span class="line">--topic my-kafka-topic \</span><br><span class="line">--from-beginning</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The <code>bootstrap-server</code> can be any one of the brokers in the cluster.</li>
+<li>The <code>from-beginning</code> option tells the cluster that you want all the messages that it currently has with it, even messages that we put into it previously.</li>
+</ul>
+<p>Try starting another consumer in a different terminal window:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server localhost:9093 \</span><br><span class="line">--topic my-kafka-topic \</span><br><span class="line">--from-beginning \</span><br><span class="line">--group group2</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Kafka-as-a-Messaging-System"><a href="#Kafka-as-a-Messaging-System" class="headerlink" title="Kafka as a Messaging System"></a>Kafka as a Messaging System</h2><ul>
+<li><p>As with a queue the consumer group allows you to divide up processing over a collection of processes (the members of the consumer group). As with publish-subscribe, Kafka allows you to broadcast messages to multiple consumer groups.</p>
+<p><img src="https://kafka.apache.org/22/images/consumer-groups.png"></p>
+</li>
+<li><p>Kafka does it better. By having a notion of parallelism—the partition—within the topics, Kafka is able to provide both ordering guarantees and load balancing over a pool of consumer processes. This is achieved by assigning the partitions in the topic to the consumers in the consumer group so that each partition is consumed by exactly one consumer in the group. By doing this we ensure that the consumer is the only reader of that partition and consumes the data in order. Since there are many partitions this still balances the load over many consumer instances. Note however that there cannot be more consumer instances in a consumer group than partitions.</p>
+</li>
+<li><p>Each record consists of a key, a value, and a timestamp.</p>
+</li>
+</ul>
+<h2 id="Kafka-as-a-Storage-System"><a href="#Kafka-as-a-Storage-System" class="headerlink" title="Kafka as a Storage System"></a>Kafka as a Storage System</h2><h2 id="Kafka-as-Stream-Processing"><a href="#Kafka-as-Stream-Processing" class="headerlink" title="Kafka as Stream Processing"></a>Kafka as Stream Processing</h2><h2 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h2><h3 id="源码文件结构"><a href="#源码文件结构" class="headerlink" title="源码文件结构"></a>源码文件结构</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bin</td>
+<td>存放可直接在Linux或Windows上运行的.sh文件和.bat文件，包含Kafka常用操作以及ZooKeeper便捷脚本</td>
+</tr>
+<tr>
+<td>checkstyle</td>
+<td>存放代码规范检查文档</td>
+</tr>
+<tr>
+<td>clients</td>
+<td>客户端的实现</td>
+</tr>
+<tr>
+<td>config</td>
+<td>存放配置文件</td>
+</tr>
+<tr>
+<td>connetct</td>
+<td>Kafka Connect工具的实现</td>
+</tr>
+<tr>
+<td>core</td>
+<td>核心模块</td>
+</tr>
+<tr>
+<td>docs</td>
+<td>官方文档</td>
+</tr>
+<tr>
+<td>examples</td>
+<td>Kafka生产者消费者简单Demo</td>
+</tr>
+<tr>
+<td>jmh-benchmarks</td>
+<td>基准测试模块</td>
+</tr>
+<tr>
+<td>log4j-appender</td>
+<td>日志模块</td>
+</tr>
+<tr>
+<td>streams</td>
+<td>Kafka Streams客户端库</td>
+</tr>
+<tr>
+<td>tools</td>
+<td>工具类</td>
+</tr>
+</tbody></table>
+<h3 id="核心模块结构"><a href="#核心模块结构" class="headerlink" title="核心模块结构"></a>核心模块结构</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>admin</td>
+<td>管理模块，操作和管理topic， broker, consumer group， records等</td>
+</tr>
+<tr>
+<td>api</td>
+<td>封装调用</td>
+</tr>
+<tr>
+<td>client</td>
+<td>Producer生产的元数据信息的传递</td>
+</tr>
+<tr>
+<td>cluster</td>
+<td>存活的Broker集群、分区、副本以及他们的底层属性和相互关系</td>
+</tr>
+<tr>
+<td>common</td>
+<td>异常类、枚举类、格式化类、配置类等</td>
+</tr>
+<tr>
+<td>consumer</td>
+<td>旧版本的废弃消费者类</td>
+</tr>
+<tr>
+<td>controller</td>
+<td>Kafka集群控制中心的选举，分区状态管理，分区副本状态管理，监听ZooKeeper数据变化等</td>
+</tr>
+<tr>
+<td>coordinator</td>
+<td>GroupCoordinator处理一般组成员资格和偏移量。transaction管理事务</td>
+</tr>
+<tr>
+<td>javaapi</td>
+<td>给java调用的生产者、消费者、消息集api</td>
+</tr>
+<tr>
+<td>log</td>
+<td>管理log，它是消息存储的形式，可对应到磁盘上的一个文件夹</td>
+</tr>
+<tr>
+<td>message</td>
+<td>由消息封装而成的一个压缩消息集</td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>Kafka监控模块</td>
+</tr>
+<tr>
+<td>network</td>
+<td>网络管理模块，对客户端连接的处理</td>
+</tr>
+<tr>
+<td>producer</td>
+<td>旧版本的废弃生产者类</td>
+</tr>
+<tr>
+<td>security</td>
+<td>权限管理</td>
+</tr>
+<tr>
+<td>serializer</td>
+<td>消息序列化与反序列化处理</td>
+</tr>
+<tr>
+<td>server</td>
+<td>服务器端的实现</td>
+</tr>
+<tr>
+<td>tools</td>
+<td>各种控制台工具的实现</td>
+</tr>
+<tr>
+<td>utils</td>
+<td>工具类</td>
+</tr>
+<tr>
+<td>zk</td>
+<td>提供与ZooKeeper交互的管理方法和在管道之上的更高级别的Kafka特定操作</td>
+</tr>
+<tr>
+<td>zookeeper</td>
+<td>一个促进管道传输请求的ZooKeeper客户端</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
