@@ -146,6 +146,324 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/09/linux%20snippet/" class="post-title-link" itemprop="url">linux snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-12 23:31:39" itemprop="dateModified" datetime="2021-09-12T23:31:39+08:00">2021-09-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。</li>
+<li>/sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。</li>
+<li>/root/    超级用户，即根用户的主目录。</li>
+<li>/home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。</li>
+<li>/boot/    存放Ubuntu内核和系统启动文件。</li>
+<li>/mnt/     通常包括系统引导后被挂载的文件系统的挂载点。</li>
+<li>/dev/    存储设备文件，包括计算机的所有外部设备，如硬盘、是、键盘、鼠标等。</li>
+<li>/etc/    存放文件管理配置文件和目录。</li>
+<li>/lib/    存储各种程序所需要的共享库文件。</li>
+<li>/lost+found/    一般为空，当非法关机时，会存放一些零散的文件。</li>
+<li>/var/    用于存放很多不断变化的文件，例如日志文件等。</li>
+<li>/usr/    包括与系统用户直接有关的文件和目录</li>
+<li>/media/    存放Ubuntu系统自动挂载的设备文件。</li>
+<li>/proc/    这是一个虚拟目录，它是内存的映射，包括系统信息和进程信息。</li>
+<li>/tmp/    存储系统和用户的临时信息。</li>
+<li>/initrd/    用来加载启动时临时挂载的initrd.img映像文件，以及载入所要的设备模块目录。</li>
+<li>/opt/    作为可选文件和程序的存放目录，否则将无法引导计算机进入操作系统。</li>
+<li>/srv/    存储系统提供的服务数据。</li>
+<li>/sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。</li>
+</ul>
+<h2 id="装机问题"><a href="#装机问题" class="headerlink" title="装机问题"></a>装机问题</h2><h3 id="Wifi-Not-Enabled-Acer-Aspire-4750"><a href="#Wifi-Not-Enabled-Acer-Aspire-4750" class="headerlink" title="Wifi Not Enabled Acer Aspire 4750"></a>Wifi Not Enabled Acer Aspire 4750</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: yes</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">~$</span><span class="bash"> sudo rmmod acer-wmi</span></span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">add below line at the end of the file : /etc/modprobe.d/blacklist.conf</span><br><span class="line">blacklist acer-wmi</span><br><span class="line"></span><br><span class="line">Then restart the system.</span><br><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: no</span><br></pre></td></tr></table></figure>
+
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><ul>
+<li>防火墙 firewalld.service</li>
+</ul>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p><strong>shell与export命令</strong></p>
+<p>用户登录到Linux系统后，系统将启动一个用户shell。在这个shell中，可以使用shell命令或声明变量，也可以创建并运行 shell脚本程序。运行shell脚本程序时，系统将创建一个子shell。此时，系统中将有两个shell，一个是登录时系统启动的shell，另一 个是系统为运行脚本程序创建的shell。当一个脚本程序运行完毕，它的脚本shell将终止，可以返回到执行该脚本之前的shell。从这种意义上来 说，用户可以有许多 shell，每个shell都是由某个shell（称为父shell）派生的。</p>
+<p>在子 shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内 的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用export命令对已定义的变量进行输出。 export命令将使系统在创建每一个新的shell时定义这个变量的一个拷贝。这个过程称之为变量输出。</p>
+<h3 id="操作文件名中含有“-”的文件"><a href="#操作文件名中含有“-”的文件" class="headerlink" title="操作文件名中含有“-”的文件"></a>操作文件名中含有“-”的文件</h3><ul>
+<li>使用转移字符 “–”， 比如查看文件“-abc.txt“，命令为 <code>vim -- -abc.txt</code></li>
+</ul>
+<h3 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h3><p>KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是一个基于 Linux 内核的虚拟化管理系统。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/07/cache%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/07/cache%20snippet/" class="post-title-link" itemprop="url">cache snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-07 21:50:30" itemprop="dateCreated datePublished" datetime="2017-03-07T21:50:30+08:00">2017-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:41:04" itemprop="dateModified" datetime="2019-03-14T14:41:04+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cache/" itemprop="url" rel="index"><span itemprop="name">cache</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>what is cache ?    why use cache ?<ol>
+<li>Cache是高速缓冲存储器 一种特殊的存储器子系统，其中复制了频繁使用的数据以利于快速访问</li>
+<li>凡是位于速度相差较大的两种硬件/软件之间的，用于协调两者数据传输速度差异的结构，均可称之为 Cache </li>
+</ol>
+</li>
+<li>缓存的分类<ul>
+<li>操作系统磁盘缓存-&gt;减少磁盘机械操作</li>
+<li>数据库缓存-&gt;减少文件系统I/O</li>
+<li>应用程序缓存-&gt;减少对数据库的查询 </li>
+<li>Web服务器缓存-&gt;减少应用服务器请求</li>
+<li>客户端浏览器缓存-&gt;减少对网站的访问</li>
+</ul>
+</li>
+</ul>
+<h3 id="技术框架"><a href="#技术框架" class="headerlink" title="技术框架"></a>技术框架</h3><ul>
+<li><strong>Encache</strong><ul>
+<li>设计于提高在数据从RDBMS中取出来的高花费、高延迟采取的一种缓存方案 </li>
+<li>java编写，直接在jvm虚拟机中缓存，速度快，效率高；但是缓存共享麻烦，集群分布式应用不方便。</li>
+<li>特点：<ul>
+<li>快</li>
+<li>简单</li>
+<li>袖珍</li>
+<li>轻量</li>
+<li>扩展</li>
+<li>监听器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>memcache</strong><ul>
+<li>一种高性能、分布式对象缓存系统，最初设计于缓解动态网站数据库加载数据的延迟性，你可以把它想象成一个大的内存HashTable，就是一个key-value键值缓存。</li>
+<li>C语言编写</li>
+<li>特点：<ul>
+<li>依赖</li>
+<li>多线程支持</li>
+<li>高性能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>redis</strong><ul>
+<li>通过socket访问到缓存服务，效率比encache低，比数据库要快很多，处理集群和分布式缓存方便，有成熟的方案。</li>
+<li>特性：<ul>
+<li>支持持久化</li>
+<li>丰富的数据类型</li>
+<li>高性能</li>
+<li>主从复制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/other%20tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/16/other%20tips/" class="post-title-link" itemprop="url">other snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-16 12:01:30" itemprop="dateCreated datePublished" datetime="2017-02-16T12:01:30+08:00">2017-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fragment/" itemprop="url" rel="index"><span itemprop="name">fragment</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="other-snippet"><a href="#other-snippet" class="headerlink" title="other snippet"></a>other snippet</h2><h3 id="generate-code-based-proto-file"><a href="#generate-code-based-proto-file" class="headerlink" title="generate code based proto file"></a>generate code based proto file</h3><p><code>protoc --proto_path=扫描目录 --java_out=代码生成目录 proto文件目录</code></p>
+<blockquote>
+<p>protoc –proto_path=src –java_out=build/gen src/foo.proto</p>
+</blockquote>
+<h3 id="Spring-provides-three-way-of-scheduling"><a href="#Spring-provides-three-way-of-scheduling" class="headerlink" title="Spring provides three way of scheduling:"></a>Spring provides three way of scheduling:</h3><ul>
+<li>@Scheduled</li>
+<li>Via Quartz</li>
+<li>Via JDK Timer</li>
+</ul>
+<hr>
+<h3 id="one-word"><a href="#one-word" class="headerlink" title="one word"></a>one word</h3><ul>
+<li>\x对应的是UTF-8编码的数据</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/10/html%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1078,324 +1396,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/14/springboot%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/14/springboot%20snippet/" class="post-title-link" itemprop="url">springboot snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-08-14 18:38:22" itemprop="dateCreated datePublished" datetime="2016-08-14T18:38:22+08:00">2016-08-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题随记"><a href="#问题随记" class="headerlink" title="问题随记"></a>问题随记</h2><ol>
-<li>Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库</li>
-</ol>
-<ul>
-<li><p>首先在配置文件application.properties</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/test</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#mybatis.typeAliasesPackage：为实体对象所在的包，跟数据库表一一对应</span></span><br><span class="line"><span class="comment">#mybatis.mapperLocations：mapper文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="meta">mybatis.typeAliasesPackage</span>=<span class="string">com.xxx.model</span></span><br><span class="line"><span class="meta">mybatis.mapperLocations</span>=<span class="string">classpath:mybatis/mapper/*Mapper.xml</span></span><br></pre></td></tr></table></figure></li>
-<li><p>在启动类Application.java中写上配置信息 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.xxx.dao&quot;)</span> <span class="comment">// mybatis扫描路径，针对的是接口Mapper类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyreportApplication</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DailyreportApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="2">
-<li>mysql连接异常<code>java.sql.SQLException: Value &#39;0000-00-00&#39; can not be represented as java.sql.Date</code></li>
-</ol>
-<ul>
-<li><p>解决办法</p>
-<p><code>jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull </code></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/05/git%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/05/git%20snippet/" class="post-title-link" itemprop="url">git skill</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-08-05 22:00:30" itemprop="dateCreated datePublished" datetime="2016-08-05T22:00:30+08:00">2016-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-30 17:36:50" itemprop="dateModified" datetime="2021-11-30T17:36:50+08:00">2021-11-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h4><ul>
-<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
-<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
-</li>
-<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
-</li>
-<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="文件提交"><a href="#文件提交" class="headerlink" title="文件提交"></a>文件提交</h4><ul>
-<li><p>提交单个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
-<li><p>提交多个文件，但是需要排除指定的文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add -u</span><br><span class="line">git reset -- main/dontcheckmein.txt</span><br><span class="line">然后进行commit、pull等操作</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="Git-fork后的分支，更新最新的源代码"><a href="#Git-fork后的分支，更新最新的源代码" class="headerlink" title="Git fork后的分支，更新最新的源代码"></a>Git fork后的分支，更新最新的源代码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># uncommited file to HEAD</span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"></span><br><span class="line"># uncommited file to before last commit</span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#last commit to before last commit</span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#difference between HEAD and n-th grandparent</span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#Another cool feature is whatchanged command</span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
-<blockquote>
-<p>git reset –hard HEAD~1</p>
-</blockquote>
-<p>（或者回滚到指定版本commitId）</p>
-<blockquote>
-<p>git reset –hard commitId</p>
-</blockquote>
-<p>2、加入-f参数，强制提交，远程端将强制跟新到reset版本</p>
-<blockquote>
-<p> git push -f</p>
-</blockquote>
-<h4 id="拉取远程分支"><a href="#拉取远程分支" class="headerlink" title="拉取远程分支"></a>拉取远程分支</h4><p>First, fetch the remote branches:</p>
-<p><strong>git fetch origin</strong></p>
-<p>Next, checkout the branch you want. In this case, the branch we want is called “branchxyz”.</p>
-<p><strong>git checkout -b branchxyz origin/branchxyz</strong></p>
-<h4 id="新建分支"><a href="#新建分支" class="headerlink" title="新建分支"></a>新建分支</h4><ul>
-<li><p>To create a new branch from a branch you do NOT have checked out:</p>
-<p><code>git branch new_branch from_branch</code></p>
-</li>
-<li><p>To create a new branch from the branch you DO have checked out:</p>
-<p><code>git branch new_branch</code></p>
-</li>
-<li><p>To create <em>and check out</em> a new branch from the branch you DO have checked out:</p>
-<p><code>git checkout -b new_branch</code></p>
-</li>
-<li><p>To create <em>and check out</em> a new branch from a branch you do NOT have checked out:</p>
-<p><code>git checkout -b new_branch from_branch</code></p>
-</li>
-<li><p>To rename a branch</p>
-<p><code>git branch -m old_name new_name</code></p>
-</li>
-</ul>
-<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/java%20skill/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/05/20/java%20skill/" class="post-title-link" itemprop="url">java skill</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-05-20 21:50:30" itemprop="dateCreated datePublished" datetime="2016-05-20T21:50:30+08:00">2016-05-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-04 17:00:22" itemprop="dateModified" datetime="2019-11-04T17:00:22+08:00">2019-11-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
-<li><p>int变量自增 效率问题 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;和i += 1;形成的指令数较少，且不需要操作数栈。相对而言，i = i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+= 1;的效率一样，并且二者的效率都优于i = i+1;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><strong>T，E，K，V，？是这样约定的：</strong></p>
-<ul>
-<li>？表示不确定的 java 类型</li>
-<li>T (type) 表示具体的一个java类型</li>
-<li>K V (key value) 分别代表java键值中的Key Value</li>
-<li>E (element) 代表Element</li>
-</ul>
-<p><strong>？和 T 的区别</strong>：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/knmrNHnmCLFRVA73vYfkqVGfia90X5nyEsksfM8Vz6btFZCRd3PCSJC1XkZhaJ0ufxcoohxAdr8X1tykU9CZPUQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
-<p>？和 T 都表示不确定的类型，区别在于我们可以对 T 进行操作，但是对 ？不行，比如如下这种 ：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 可以</span><br><span class="line">T t = operate();</span><br><span class="line"></span><br><span class="line">// 不可以</span><br><span class="line">？car = operate();</span><br></pre></td></tr></table></figure>
-
-<p>简单总结下：</p>
-<p>T 是一个 确定的 类型，通常用于泛型类和泛型方法的定义，？是一个 不确定 的类型，通常用于泛型方法的调用代码和形参，不能用于定义类和泛型方法。</p>
-<p><strong>PECS（Producer Extends Consumer Super）</strong>原则：作为生产者提供数据（往外读取）时，适合用上界通配符（extends）；作为消费者消费数据（往里写入）时，适合用下界通配符（super）。</p>
-<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><p>在 JDK8 以后，建议使用 DateTimeFormatter 代替 SimpleDateFormat ，因为 SimpleDateFormat 是线程不安全的，而 DateTimeFormatter 是线程安全的。当然，也可以采用第三方提供的线程安全日期格式化函数，比如 apache 的 DateFormatUtils 工具类。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1465,13 +1465,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1503,7 +1503,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

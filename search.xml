@@ -2760,7 +2760,74 @@
   <entry>
     <title>flink table</title>
     <url>/2021/12/24/flink%20table/</url>
-    <content><![CDATA[<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><ul>
+    <content><![CDATA[<h2 id="时间属性"><a href="#时间属性" class="headerlink" title="时间属性"></a>时间属性</h2><blockquote>
+<p> 像窗口（在 <a href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/table/tableapi/#group-windows">Table API</a> 和 <a href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/table/sql/queries/window-agg/">SQL</a> ）这种基于时间的操作，需要有时间信息。因此，Table API 中的表就需要提供<em>逻辑时间属性</em>来表示时间，以及支持时间相关的操作。</p>
+</blockquote>
+<p>每种类型的表都可以有时间属性，时间属性可以通过</p>
+<ol>
+<li>用CREATE TABLE DDL创建表的时候指定</li>
+<li>可以在 <code>DataStream</code> 中指定</li>
+<li>可以在定义 <code>TableSource</code> 时指定。</li>
+</ol>
+<p>一旦时间属性定义好，它就可以像普通列一样使用，也可以在时间相关的操作中使用，只要时间属性没有被修改，而是简单地从一个表传递到另一个表，它就仍然是一个有效的时间属性。</p>
+<p>时间属性可以像普通的时间戳的列一样被使用和计算。一旦时间属性被用在了计算中，它就会被物化，进而变成一个普通的时间戳。普通的时间戳是无法跟 Flink 的时间以及watermark等一起使用的，所以普通的时间戳就无法用在时间相关的操作中（这句话是只限于被修改的普通时间戳，还是包含未被修改的时间戳）。</p>
+<h3 id="处理时间"><a href="#处理时间" class="headerlink" title="处理时间"></a>处理时间</h3><blockquote>
+<p>处理时间是基于机器的本地时间来处理数据，它是最简单的一种时间概念，但是它不能提供确定性。它既不需要从数据里获取时间，也不需要生成 watermark。</p>
+</blockquote>
+<p>定义处理时间的三种方法:</p>
+<ol>
+<li><p>在创建表的 DDL 中定义</p>
+<blockquote>
+<p>用 <code>PROCTIME()</code> 就可以定义处理时间，函数 <code>PROCTIME()</code> 的返回类型是 TIMESTAMP_LTZ </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  user_action_time AS PROCTIME()</span> -- 声明一个额外的列作为处理时间属性</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>在 DataStream 到 Table 转换时定义</p>
+<blockquote>
+<p>处理时间属性可以在 schema 定义的时候用 <code>.proctime</code> 后缀来定义。时间属性一定不能定义在一个已有字段上，所以它只能定义在 schema 定义的最后。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = ...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个额外的字段作为时间属性字段</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>), $(<span class="string">&quot;user_action_time&quot;</span>).proctime());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = table.window(</span><br><span class="line">        Tumble.over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">            .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">            .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 TableSource 定义</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义一个由处理时间属性的 table source</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionSource</span> <span class="keyword">implements</span> <span class="title">StreamTableSource</span>&lt;<span class="title">Row</span>&gt;, <span class="title">DefinedProctimeAttribute</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TypeInformation&lt;Row&gt; <span class="title">getReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String[] names = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;user_name&quot;</span> , <span class="string">&quot;data&quot;</span>&#125;;</span><br><span class="line">		TypeInformation[] types = <span class="keyword">new</span> TypeInformation[] &#123;Types.STRING(), Types.STRING()&#125;;</span><br><span class="line">		<span class="keyword">return</span> Types.ROW(names, types);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> DataStream&lt;Row&gt; <span class="title">getDataStream</span><span class="params">(StreamExecutionEnvironment execEnv)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// create stream</span></span><br><span class="line">		DataStream&lt;Row&gt; stream = ...;</span><br><span class="line">		<span class="keyword">return</span> stream;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getProctimeAttribute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 这个名字的列会被追加到最后，作为第三列</span></span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;user_action_time&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// register table source</span></span><br><span class="line">tEnv.registerTableSource(<span class="string">&quot;user_actions&quot;</span>, <span class="keyword">new</span> UserActionSource());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = tEnv</span><br><span class="line">	.from(<span class="string">&quot;user_actions&quot;</span>)</span><br><span class="line">	.window(Tumble</span><br><span class="line">	    .over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">	    .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">	    .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="事件时间"><a href="#事件时间" class="headerlink" title="事件时间"></a>事件时间</h3><blockquote>
+<p>事件时间允许程序按照数据中包含的时间来处理，这样可以在有乱序或者晚到的数据的情况下产生一致的处理结果。为了能够处理乱序的事件，并且区分正常到达和晚到的事件，Flink 需要从事件中获取事件时间并且产生 <a href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/concepts/time/">watermarks</a>。</p>
+</blockquote>
+<p>定义事件时间的三种方法:</p>
+<ol>
+<li><p>在 DDL 中定义</p>
+<blockquote>
+<p>WATERMARK 语句在一个已有字段上定义一个 watermark 生成表达式，同时标记这个已有字段为时间属性字段。</p>
+</blockquote>
+<p>Flink 支持和在 TIMESTAMP 列和 TIMESTAMP_LTZ 列上定义事件时间。</p>
+<ul>
+<li><p>如果源数据中的时间戳数据表示为年-月-日-时-分-秒，则通常为不带时区信息的字符串值，例如 <code>2020-04-15 20:13:40.564</code>，建议将事件时间属性定义在 <code>TIMESTAMP</code> 列上,</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  user_action_time TIMESTAMP(<span class="number">3</span>)</span>,</span></span><br><span class="line"><span class="function">  -- 声明 user_action_time 是事件时间属性，并且用 延迟 5 秒的策略来生成 watermark</span></span><br><span class="line"><span class="function">  WATERMARK FOR user_action_time AS user_action_time - INTERVAL &#x27;5&#x27; SECOND</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT <span class="title">TUMBLE_START</span><span class="params">(user_action_time, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span>, <span class="title">COUNT</span><span class="params">(DISTINCT user_name)</span></span></span><br><span class="line"><span class="function">FROM user_actions</span></span><br><span class="line"><span class="function">GROUP BY <span class="title">TUMBLE</span><span class="params">(user_action_time, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>如果源数据中的时间戳数据为带时区信息的字符串值，例如源数据中的时间戳数据表示为一个纪元 (epoch) 时间，通常是一个 long 值，例如 <code>1618989564564</code>，建议将事件时间属性定义在 <code>TIMESTAMP_LTZ</code> 列上：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"> user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function"> data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function"> ts BIGINT,</span></span></span><br><span class="line"><span class="params"><span class="function"> time_ltz AS TO_TIMESTAMP_LTZ(ts, <span class="number">3</span>)</span>,</span></span><br><span class="line"><span class="function"> -- declare time_ltz as event time attribute and use 5 seconds delayed watermark strategy</span></span><br><span class="line"><span class="function"> WATERMARK FOR time_ltz AS time_ltz - INTERVAL &#x27;5&#x27; SECOND</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"> ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT <span class="title">TUMBLE_START</span><span class="params">(time_ltz, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span>, <span class="title">COUNT</span><span class="params">(DISTINCT user_name)</span></span></span><br><span class="line"><span class="function">FROM user_actions</span></span><br><span class="line"><span class="function">GROUP BY <span class="title">TUMBLE</span><span class="params">(time_ltz, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span></span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在 DataStream 到 Table 转换时定义</p>
+<blockquote>
+<p>事件时间属性可以用 <code>.rowtime</code> 后缀在定义 <code>DataStream</code> schema 的时候来定义。</p>
+<p><a href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/concepts/time/">时间戳和 watermark</a> 在这之前一定是在 <code>DataStream</code> 上已经定义好了。 在从 DataStream 转换到 Table 时，由于 <code>DataStream</code> 没有时区概念，因此 Flink 总是将 <code>rowtime</code> 属性解析成 <code>TIMESTAMP WITHOUT TIME ZONE</code> 类型，并且将所有事件时间的值都视为 UTC 时区的值。</p>
+</blockquote>
+<ul>
+<li><p>Option 1</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基于 stream 中的事件产生时间戳和 watermark</span></span><br><span class="line">DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个额外的逻辑字段作为事件时间属性</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>), $(<span class="string">&quot;user_action_time&quot;</span>).rowtime());</span><br></pre></td></tr></table></figure></li>
+<li><p>Option 2</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 从第一个字段获取事件时间，并且产生 watermark</span></span><br><span class="line">DataStream&lt;Tuple3&lt;Long, String, String&gt;&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个字段已经用作事件时间抽取了，不用再用一个新字段来表示事件时间了</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_action_time&quot;</span>).rowtime(), $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage:</span></span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = table.window(Tumble</span><br><span class="line">       .over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">       .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">       .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用 TableSource 定义</p>
+<blockquote>
+<p>事件时间属性可以在实现了 <code>DefinedRowTimeAttributes</code> 的 <code>TableSource</code> 中定义。<code>getRowtimeAttributeDescriptors()</code> 方法返回 <code>RowtimeAttributeDescriptor</code> 的列表，包含了描述事件时间属性的字段名字、如何计算事件时间、以及 watermark 生成策略等信息。</p>
+<p>同时需要确保 <code>getDataStream</code> 返回的 <code>DataStream</code> 已经定义好了时间属性。</p>
+<p> 只有在定义了 <code>StreamRecordTimestamp</code> 时间戳分配器的时候，才认为 <code>DataStream</code> 是有时间戳信息的。 只有定义了 <code>PreserveWatermarks</code> watermark 生成策略的 <code>DataStream</code> 的 watermark 才会被保留。反之，则只有时间字段的值是生效的。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义一个有事件时间属性的 table source</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionSource</span> <span class="keyword">implements</span> <span class="title">StreamTableSource</span>&lt;<span class="title">Row</span>&gt;, <span class="title">DefinedRowtimeAttributes</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TypeInformation&lt;Row&gt; <span class="title">getReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String[] names = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;user_name&quot;</span>, <span class="string">&quot;data&quot;</span>, <span class="string">&quot;user_action_time&quot;</span>&#125;;</span><br><span class="line">		TypeInformation[] types =</span><br><span class="line">		    <span class="keyword">new</span> TypeInformation[] &#123;Types.STRING(), Types.STRING(), Types.LONG()&#125;;</span><br><span class="line">		<span class="keyword">return</span> Types.ROW(names, types);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> DataStream&lt;Row&gt; <span class="title">getDataStream</span><span class="params">(StreamExecutionEnvironment execEnv)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 构造 DataStream</span></span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="comment">// 基于 &quot;user_action_time&quot; 定义 watermark</span></span><br><span class="line">		DataStream&lt;Row&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line">		<span class="keyword">return</span> stream;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;RowtimeAttributeDescriptor&gt; <span class="title">getRowtimeAttributeDescriptors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 标记 &quot;user_action_time&quot; 字段是事件时间字段</span></span><br><span class="line">		<span class="comment">// 给 &quot;user_action_time&quot; 构造一个时间属性描述符</span></span><br><span class="line">		RowtimeAttributeDescriptor rowtimeAttrDescr = <span class="keyword">new</span> RowtimeAttributeDescriptor(</span><br><span class="line">			<span class="string">&quot;user_action_time&quot;</span>,</span><br><span class="line">			<span class="keyword">new</span> ExistingField(<span class="string">&quot;user_action_time&quot;</span>),</span><br><span class="line">			<span class="keyword">new</span> AscendingTimestamps());</span><br><span class="line">		List&lt;RowtimeAttributeDescriptor&gt; listRowtimeAttrDescr = Collections.singletonList(rowtimeAttrDescr);</span><br><span class="line">		<span class="keyword">return</span> listRowtimeAttrDescr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// register the table source</span></span><br><span class="line">tEnv.registerTableSource(<span class="string">&quot;user_actions&quot;</span>, <span class="keyword">new</span> UserActionSource());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = tEnv</span><br><span class="line">	.from(<span class="string">&quot;user_actions&quot;</span>)</span><br><span class="line">	.window(Tumble.over(lit(<span class="number">10</span>).minutes()).on($(<span class="string">&quot;user_action_time&quot;</span>)).as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><ul>
 <li><p>timestamp</p>
 <p>可以将时间戳类型数据最高精确微秒(百万分之一秒)，数据类型定义为timestamp(N),N取值范围为0-6，默认为0，如需要精确到毫秒则设置为Timestamp(3)，如需要精确到微秒则设置为timestamp(6)，数据精度提高的代价是其内部存储空间的变大，但仍未改变时间戳类型的最小和最大取值范围。</p>
 </li>
@@ -6811,6 +6878,8 @@
     <content><![CDATA[<ul>
 <li><p>format json</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:%!jq .</span><br></pre></td></tr></table></figure></li>
+<li><p>formate xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:%!xmllint --format %</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -7284,9 +7353,16 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2021/01/29/yarn%20snippet/</url>
-    <content><![CDATA[]]></content>
+    <title>yarn point</title>
+    <url>/2021/12/31/yarn%20snippet/</url>
+    <content><![CDATA[<p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>
+]]></content>
+      <categories>
+        <category>yarn</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
   </entry>
   <entry>
     <title>zookeeper learn</title>
@@ -7323,6 +7399,92 @@
       </categories>
       <tags>
         <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cdc &amp; 实时数仓 points</title>
+    <url>/2021/12/29/cdc/</url>
+    <content><![CDATA[<p><strong>Change Data Capture（变更数据获取）</strong></p>
+<p>核心思想是，监测并捕获数据库的变动（包括数据或数据表的插入、更新以及删除等），将这些变更按发生的顺序完整记录下来，写入到消息中间件中以供其他服务进行订阅及消费。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li><strong>数据同步</strong>，用于备份，容灾；</li>
+<li><strong>数据分发</strong>，一个数据源分发给多个下游；</li>
+<li><strong>数据采集</strong>(E)，面向数据仓库/数据湖的 ETL 数据集成。</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>主要分为<strong>基于查询</strong>和<strong>基于 Binlog</strong> 两种方式</p>
+<h3 id="传统-CDC-ETL"><a href="#传统-CDC-ETL" class="headerlink" title="传统 CDC ETL"></a>传统 CDC ETL</h3><p><img src="/images/cdc/cdc_etl.png"></p>
+<h3 id="基于-Flink-CDC-的-ETL-分析"><a href="#基于-Flink-CDC-的-ETL-分析" class="headerlink" title="基于 Flink CDC 的 ETL 分析"></a>基于 Flink CDC 的 ETL 分析</h3><p><img src="/images/cdc/flink_cdc_etl.png"></p>
+<h3 id="基于-Flink-CDC-的聚合分析"><a href="#基于-Flink-CDC-的聚合分析" class="headerlink" title="基于 Flink CDC 的聚合分析"></a>基于 Flink CDC 的聚合分析</h3><p><img src="/images/cdc/flink_cdc_aggregate.png"></p>
+<h3 id="基于-Flink-CDC-的数据打宽"><a href="#基于-Flink-CDC-的数据打宽" class="headerlink" title="基于 Flink CDC 的数据打宽"></a>基于 Flink CDC 的数据打宽</h3><p><img src="/images/cdc/flink_cdc_merge.png"></p>
+<h2 id="性能点"><a href="#性能点" class="headerlink" title="性能点"></a>性能点</h2><p>大数据领域的 4 类场景：</p>
+<p><strong>B</strong>    batch    离线计算</p>
+<p><strong>A</strong>    Analytical    交互式分析</p>
+<p><strong>S</strong>    Servering    高并发的在线服务</p>
+<p><strong>T</strong>    Transaction    事务隔离机制</p>
+<blockquote>
+<p>离线计算通常在计算层，所以应该重点考虑 A、S 和 T</p>
+</blockquote>
+<h2 id="考虑点"><a href="#考虑点" class="headerlink" title="考虑点"></a>考虑点</h2><ul>
+<li><p>保证端到端的数据一致性，包括维度一致性以及全流程数据一致性;</p>
+</li>
+<li><p>实时流处理过程中数据到达顺序无法预知时，如何保证双流 join 时数据能及时关联同时不造成数据堵塞；</p>
+</li>
+<li><p>Oracle</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.Oracle 是第三方厂商维护的，不允许对线上系统有过多的侵入，容易造成监听故障甚至系统瘫痪，</span><br><span class="line">2.归档日志是在开启那一刻起才开始生成的，之前的存量数据难以进入 kafka，但是后来实时数据又必须依赖前面的计算结果</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="实时数仓方案"><a href="#实时数仓方案" class="headerlink" title="实时数仓方案"></a>实时数仓方案</h2><h3 id="Lambda-架构"><a href="#Lambda-架构" class="headerlink" title="Lambda 架构"></a>Lambda 架构</h3><blockquote>
+<p>目前主流的一套实时数仓架构，存在离线和实时两条链路。实时部分以消息队列的方式实时增量消费，一般以 Flink+Kafka 的组合实现，维度表存在关系型数据库或者 HBase；离线部分一般采用 T+1 周期调度分析历史存量数据，每天凌晨产出，更新覆盖前一天的结果数据，计算引擎通常会选择 Hive 或者 Spark。</p>
+</blockquote>
+<p><img src="/images/cdc/structure_lambda.png"></p>
+<h3 id="Kappa-架构"><a href="#Kappa-架构" class="headerlink" title="Kappa 架构"></a>Kappa 架构</h3><blockquote>
+<p>相较于 Lambda 架构，它移除了离线生产链路，思路是通过传递任意想要的 offset(偏移量)来达到重新消费处理历史数据的目的。优点是架构相对简化，数据来源单一，共用一套代码，开发效率高；缺点是必须要求消息队列中保存了存量数据，而且主要业务逻辑在计算层，比较消耗内存资源。</p>
+</blockquote>
+<p><img src="/images/cdc/structure_kappa.png"></p>
+<h3 id="OLAP-变体架构"><a href="#OLAP-变体架构" class="headerlink" title="OLAP 变体架构"></a>OLAP 变体架构</h3><blockquote>
+<p>是 Kappa 架构的进一步演化，它的思路是将聚合分析计算由 OLAP 引擎承担，减轻实时计算部分的聚合处理压力。优点是自由度高，可以满足数据分析师的实时自助分析需求，减轻了计算引擎的处理压力；缺点是必须要求消息队列中保存存量数据，且因为是将计算部分的压力转移到了查询层，对查询引擎的吞吐和实时摄入性能要求较高。</p>
+</blockquote>
+<p><img src="/images/cdc/structure_olap.png"></p>
+<h3 id="数据湖架构"><a href="#数据湖架构" class="headerlink" title="数据湖架构"></a>数据湖架构</h3><blockquote>
+<p>存储、计算和查询，分别由三个独立产品负责，分别是数据湖、Flink 和 Clickhouse。数仓分层存储和维度表管理均由数据湖承担，Flink SQL 负责批流任务的 SQL 化协同开发，Clickhouse 实现变体的事务机制，为用户提供离线分析和交互查询。CDC 到消息队列这一链路将来是完全可以去掉的，只需要 Flink CDC 家族中再添加 Oracle CDC 一员。未来，实时数仓架构将得到极致的简化并且性能有质的提升。</p>
+</blockquote>
+<p><img src="/images/cdc/structure_rtdb.png"></p>
+]]></content>
+      <categories>
+        <category>cdc</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>clickhouse points</title>
+    <url>/2021/12/29/clickhouse/</url>
+    <content><![CDATA[<h2 id="存储架构"><a href="#存储架构" class="headerlink" title="存储架构"></a>存储架构</h2><blockquote>
+<p>Clickhouse 存储中的最小单位是 DataPart，写入链路为了提升吞吐，放弃了部分写入实时可见性，即数据攒批写入，一次批量写入的数据会落盘成一个 DataPart.</p>
+<p>它不像 Druid 那样一条一条实时摄入。但 ClickHouse 把数据延迟攒批写入的工作交给来客户端实现，比如达到 10 条记录或每过 5s 间隔写入，换句话说就是可以在用户侧平衡吞吐量和时延，如果在业务高峰期流量不是太大，可以结合实际场景将参数调小，以达到极致的实时效果。</p>
+</blockquote>
+<h2 id="查询架构"><a href="#查询架构" class="headerlink" title="查询架构"></a>查询架构</h2><h3 id="计算能力方面"><a href="#计算能力方面" class="headerlink" title="计算能力方面"></a>计算能力方面</h3><p>Clickhouse 采用向量化函数和 aggregator 算子极大地提升了聚合计算性能，配合完备的 SQL 能力使得数据分析变得更加简单、灵活。</p>
+<h3 id="数据扫描方面"><a href="#数据扫描方面" class="headerlink" title="数据扫描方面"></a>数据扫描方面</h3><p>ClickHouse 是完全列式的存储计算引擎，而且是以有序存储为核心，在查询扫描数据的过程中，首先会根据存储的有序性、列存块统计信息、分区键等信息推断出需要扫描的列存块，然后进行并行的数据扫描，像表达式计算、聚合算子都是在正规的计算引擎中处理。从计算引擎到数据扫描，数据流转都是以列存块为单位，高度向量化的。</p>
+<h3 id="高并发服务方面"><a href="#高并发服务方面" class="headerlink" title="高并发服务方面"></a>高并发服务方面</h3><p>Clickhouse 的并发能力其实是与并行计算量和机器资源决定的。如果查询需要扫描的数据量和计算复杂度很大，并发度就会降低，但是如果保证单个 query 的 latency 足够低（增加内存和 cpu 资源），部分场景下用户可以通过设置合适的系统参数来提升并发能力，比如 max_threads 等。其他分析型系统（例如 Elasticsearch）的并发能力为什么很好，从 Cache 设计层面来看，ES 的 Cache 包括 Query Cache, Request Cache，Data Cache，Index Cache，从查询结果到索引扫描结果层层的 Cache 加速，因为 Elasticsearch 认为它的场景下存在热点数据，可能被反复查询。反观 ClickHouse，只有一个面向 IO 的 UnCompressedBlockCache 和系统的 PageCache，为了实现更优秀的并发，我们很容易想到在 Clickhouse 外面加一层 Cache，比如 redis，但是分析场景下的数据和查询都是多变的，查询结果等 Cache 都不容易命中，而且在广投业务中实时查询的数据是基于 T 之后不断更新的数据，如果外挂缓存将降低数据查询的时效性。</p>
+]]></content>
+      <categories>
+        <category>clickhouse</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据湖</title>
+    <url>/2021/12/30/%E6%95%B0%E6%8D%AE%E6%B9%96/</url>
+    <content><![CDATA[<p>数据湖，目前关注度比较高的有 Databricks 推出的 Delta Lake、Uber 的 Hudi 以及 Netflix 的 Iceberg</p>
+<p>reference <a href="https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew">https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew</a></p>
+]]></content>
+      <categories>
+        <category>DSA</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
       </tags>
   </entry>
 </search>

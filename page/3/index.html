@@ -146,6 +146,449 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/18/hive%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/18/hive%20snippet/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-18 10:23:45" itemprop="dateCreated datePublished" datetime="2021-11-18T10:23:45+08:00">2021-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-24 18:47:32" itemprop="dateModified" datetime="2021-12-24T18:47:32+08:00">2021-12-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Hive-site里面的配置！！！</p>
+</blockquote>
+<h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
+<p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
+<p>（3）hiveserver2：hive服务端。提供hive服务。客户端可以通过beeline，jdbc（即用java代码链接）等多种方式链接到hive。</p>
+<p>（4）beeline：hive客户端链接到hive的一个工具。可以理解成mysql的客户端。如：navite cat 等。</p>
+<p><img src="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70"></p>
+<p>2 连接hive：<br>（1）./bin/hive<br>通过 ./bin/hive 启动的hive服务，第一步会先启动metastore服务，然后在启动一个客户端连接到metastore。此时metastore服务端和客户端都在一台机器上，别的机器无法连接到metastore，所以也无法连接到hive。这种方式不常用，一直只用于调试环节。</p>
+<p>（2） ./bin/hive  –service metastore<br><strong>通过hive –service metastore 会启动一个 hive metastore服务默认的端口号为：9083。metastore服务里面配置metadata相关的配置。此时可以有多个hive客户端在hive-site.xml配置hive.metastore.uris=thrift://ipxxx:9083  的方式链接到hive。motestore 虽然能使hive服务端和客户端分别部署到不同的节点，客户端不需要关注metadata的相关配置。但是metastore只能通过只能通过配置hive.metastore.uris的方式连接，无法通过jdbc的方式访问。</strong></p>
+<p>（3）./bin/hiveserver2<br>hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过beeline，jdbc，odbc的方式链接到hive。<strong>hiveserver2启动的时候会先检查有没有配置hive.metastore.uris，如果没有会先启动一个metastore服务，然后在启动hiveserver2。如果有配置hive.metastore.uris。会连接到远程的metastore服务。这种方式是最常用的。</strong>部署在图如下：</p>
+<ul>
+<li>登录bin/beeline，可以启动客户端链接到hiveserver2。执行beeline后在控制输入 !connect jdbc:hive2://localhost:10000/default root 123 就可以链接到 hiveserver2了；default表示链接到default database， root 和123 分别为密码。注意这里的密码不是mysql的密码，是hive中的用户</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h1><p><strong>分隔符</strong></p>
+<p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
+<p><strong>用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符</strong></p>
+<p>1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符</p>
+<p>2，把hive表格导出到本地时，系统默认的分隔符是^A，这个是特殊字符，直接cat或者vim是看不到的</p>
+<p><strong>分隔符在HIVE中的用途</strong></p>
+<table>
+<thead>
+<tr>
+<th>分隔符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>对于文本文件来说，每行都是一条记录，因此换行符可以分隔记录</td>
+</tr>
+<tr>
+<td>^A(Ctrl+A)</td>
+<td>用于分隔字段(列)。在CREATE TABLE语句中可以使用八进制编码\001表示</td>
+</tr>
+<tr>
+<td>^B(Ctrl+B)</td>
+<td>用于分隔ARRAY或者STRUCT中的元素，或用于MAP中键-值对之间的分隔。在CREATE TABLE语句中可以使用八进制编码\002表示</td>
+</tr>
+<tr>
+<td>^C(Ctrl+C)</td>
+<td>用于MAP中键和值之间的分隔。在CREATE TABLE语句中可以使用八进制编码\003表示</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Hive 中没有定义专门的数据格式，数据格式可以由用户指定，用户定义数据格式需要指定三个属性：列分隔符（通常为空格、”\t”、”\x001″）、行分隔符（”\n”）以及读取文件数据的方法。由于在加载数据的过程中，不需要从用户数据格式到 Hive 定义的数据格式的转换，因此，Hive 在加载的过程中不会对数据本身进行任何修改，而只是将数据内容复制或者移动到相应的 HDFS 目录中。</p>
+</blockquote>
+<p>我们可以在create表格的时候，选择如下，表格加载input的文件的时候就会按照下面格式匹配</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row format delimited </span><br><span class="line">fields terminated by &#x27;\001&#x27; </span><br><span class="line">collection items terminated by &#x27;\002&#x27; </span><br><span class="line">map keys terminated by &#x27;\003&#x27;</span><br><span class="line">lines terminated by &#x27;\n&#x27; </span><br><span class="line">stored as textfile;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何查看和修改分割符，特殊符号"><a href="#如何查看和修改分割符，特殊符号" class="headerlink" title="如何查看和修改分割符，特殊符号"></a>如何查看和修改分割符，特殊符号</h3><ol>
+<li>查看隐藏字符的方法</li>
+</ol>
+<p>1.1，cat -A filename</p>
+<p><img src="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png" alt="img"></p>
+<p>1.2，vim filename后 命令模式下输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set list显示特殊符号</span><br><span class="line">set nolist 取消显示特殊符号</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改隐藏字符的方法</li>
+</ol>
+<p>首先按照1.2打开显示特殊符号。进入INSERT模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrl + V 可以输入 ^符号</span><br><span class="line">ctrl + a 可以输入A---&#x27;\001&#x27;</span><br><span class="line">ctrl + b 可以输入A---&#x27;\002&#x27;</span><br><span class="line">ctrl + c 可以输入A---&#x27;\003&#x27;</span><br></pre></td></tr></table></figure>
+
+<p> 注意：虽然键盘上你能找到^和A但直接输入时不行的，必须按照上面的方法输入。</p>
+<p>第一行是特殊符号颜色蓝色，第二行直接输入不是特殊符号。</p>
+<p><img src="http://image.okcode.net/DD9ED976ABB6F4313B8F0F7C2DD5C33E.png" alt="img"></p>
+<p>特殊号直接cat是不可以看见的，但是第二行是可见的，所以不是特殊符号。</p>
+<p><img src="http://image.okcode.net/75D96F800A1815F7A84A8CF543BD7063.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ROW FORMAT DELIMITED </span><br><span class="line">FIELDS TERMINATED BY &#x27;\u0001&#x27; </span><br><span class="line">COLLECTION ITEMS TERMINATED BY &#x27;\u0002&#x27; </span><br><span class="line">MAP KEYS TERMINATED BY &#x27;\u0003&#x27;</span><br><span class="line">\u0001是ASCII编码值，对应java代码中的&quot;\001&quot;</span><br></pre></td></tr></table></figure>
+
+<p>意义如下：</p>
+<p>（1）FIELDS，字段之间的分隔符是’\u0001’</p>
+<p>（2）COLLECTION ITEMS，多个集合之间的分隔符是’\u0002’，例如（kv1，kv2，kv3）这种多个键值对之间的分隔符就是’\u0002’</p>
+<p>（3）MAP KEYS，单个map的k和v之间的分隔符是\u0003\，例如kv1里，k \u0003 v</p>
+<h3 id="查看orc文件"><a href="#查看orc文件" class="headerlink" title="查看orc文件"></a>查看orc文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --orcfiledump &lt;hdfs-location-of-orc-file&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="修改字段类型"><a href="#修改字段类型" class="headerlink" title="修改字段类型"></a>修改字段类型</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span><span class="keyword">table</span><span class="operator">-</span>name<span class="operator">&gt;</span> CHANGE <span class="operator">&lt;</span><span class="keyword">old</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">new</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span>data<span class="operator">-</span>type<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employee CHANGE e_id e_id <span class="type">INT</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><ul>
+<li><p>Create ORC table</p>
+</li>
+<li><p>Login to the web console</p>
+</li>
+<li><p>Launch Hive by typing <code>hive</code> in the web console. Run the below commands in Hive.</p>
+</li>
+<li><p>Use your database by using the below command. <code>$&#123;env:USER&#125;</code> gets replaced by your username automatically:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use $&#123;env:USER&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>To create an ORC file format:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE orc_table (</span><br><span class="line">    first_name STRING, </span><br><span class="line">    last_name STRING</span><br><span class="line"> ) </span><br><span class="line"> STORED AS ORC;</span><br></pre></td></tr></table></figure></li>
+<li><p>To insert values in the table:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO orc_table VALUES (&#x27;John&#x27;,&#x27;Gill&#x27;);</span><br></pre></td></tr></table></figure></li>
+<li><p>To retrieve all the values in the table:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM orc_table;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>查看hive进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps -ml  | grep Hive</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/08/ubuntu%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/08/ubuntu%20snippet/" class="post-title-link" itemprop="url">ubuntu snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-08 17:07:33" itemprop="dateCreated datePublished" datetime="2021-10-08T17:07:33+08:00">2021-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-21 15:50:56" itemprop="dateModified" datetime="2021-10-21T15:50:56+08:00">2021-10-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ubuntu/" itemprop="url" rel="index"><span itemprop="name">ubuntu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="磁盘挂载"><a href="#磁盘挂载" class="headerlink" title="磁盘挂载"></a>磁盘挂载</h2><ol>
+<li><p>Get the UUID of the partition</p>
+<p><code>sudo blkid</code></p>
+</li>
+<li><p>Add partition to fstab</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /data was on /dev/sda3</span></span><br><span class="line">UUID=0009091A00027E42 /data            ntfs   defaults,iocharset=utf8,fmask=111,dmask=002        0       2</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="deepin-wine"><a href="#deepin-wine" class="headerlink" title="deepin wine"></a>deepin wine</h2><h2 id="百度网盘id"><a href="#百度网盘id" class="headerlink" title="百度网盘id"></a>百度网盘id</h2><ul>
+<li><p>一直停留在登录界面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">删除　～/baidunetdisk文件夹，再次启动即可</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="光驱相关"><a href="#光驱相关" class="headerlink" title="光驱相关"></a>光驱相关</h2><p>CDROM, DVD 这些设备现在来说都是属于古董了，但因为有些第三方软件是以CDROM的形式提供的，所以有时候还会遇到如何挂载的问题?</p>
+<p>在Ubuntu Server 18.04中，要挂载 CDROM(DVD)可以遵循以下步骤:</p>
+<h4 id="挂载-CDROM-DVD"><a href="#挂载-CDROM-DVD" class="headerlink" title="挂载 CDROM(DVD)"></a>挂载 CDROM(DVD)</h4><ol>
+<li>确认设备文件名, 进入 dev 目录， 执行：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /dev</span><br><span class="line">ls -lt | less</span><br></pre></td></tr></table></figure>
+
+<p>系统显示一个设备列表，可以看到其中有两个特别的，分别是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cdrom -&gt; sr0</span><br><span class="line">dvd -&gt; sr0</span><br></pre></td></tr></table></figure>
+
+<p>说明系统已经将 cdrom, dvd 命名为 sr0 的别名，其实是同一个设备。</p>
+<ol>
+<li>执行 mount 命令挂载cdrom, 因为 ubuntu server 18.04中，已经在根目录下建了一个名为 cdrom 的目录，我们就使用这个目录来挂载，执行:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/cdrom /cdrom</span><br></pre></td></tr></table></figure>
+
+<h4 id="卸载-CDROM-DVD"><a href="#卸载-CDROM-DVD" class="headerlink" title="卸载 CDROM (DVD)"></a>卸载 CDROM (DVD)</h4><p>要想卸载 CDROM, 可以简单的执行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo umount /cdrom</span><br></pre></td></tr></table></figure>
+
+<p>如果是想推出当前的光盘，则可以执行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo eject /cdrom</span><br></pre></td></tr></table></figure>
+
+<h3 id="postgre"><a href="#postgre" class="headerlink" title="postgre"></a>postgre</h3><p>在本机安装，非docker，user: postgres     pw:postgres </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="更改-Ubuntu-18-04-登陆背景"><a href="#更改-Ubuntu-18-04-登陆背景" class="headerlink" title="更改 Ubuntu 18.04 登陆背景"></a>更改 Ubuntu 18.04 登陆背景</h4><ol>
+<li><p><code>sudo vi /etc/alternatives/gdm3.css</code></p>
+</li>
+<li><p>修改 CSS 文件内容</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#lockDialogGroup</span> &#123;</span><br><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">/*自己喜欢的图片的路径。注意，不需要resource://开头*/</span>);</span><br><span class="line"><span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line"><span class="attribute">background-size</span>: cover;</span><br><span class="line"><span class="attribute">background-position</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="配合electron-ssr进行终端外网访问"><a href="#配合electron-ssr进行终端外网访问" class="headerlink" title="配合electron-ssr进行终端外网访问"></a>配合electron-ssr进行终端外网访问</h4><p>在<code>/etc/profile</code>中添加配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=&quot;http://127.0.0.1:12333&quot;</span><br><span class="line">export https_proxy=&quot;http://127.0.0.1:12333&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后<code>source /etc/profile</code>即可</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/26/ansible%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/26/ansible%20snippet/" class="post-title-link" itemprop="url">ansible snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-26 19:49:45 / Modified: 19:54:48" itemprop="dateCreated datePublished" datetime="2021-09-26T19:49:45+08:00">2021-09-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/" itemprop="url" rel="index"><span itemprop="name">ansible</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="roles"><a href="#roles" class="headerlink" title="roles"></a>roles</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defaults	参数</span><br><span class="line">tasks		启动脚本</span><br><span class="line">templates	配置文档</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/26/github%20skill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/26/github%20skill/" class="post-title-link" itemprop="url">github skill</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-26 15:14:03" itemprop="dateCreated datePublished" datetime="2021-09-26T15:14:03+08:00">2021-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-27 08:57:27" itemprop="dateModified" datetime="2021-09-27T08:57:27+08:00">2021-09-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index"><span itemprop="name">github</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Issues-搜索"><a href="#Issues-搜索" class="headerlink" title="Issues 搜索"></a>Issues 搜索</h4><p><code>searchKeyWord is:issue is:closed repo:Alamofire/Alamofire</code> </p>
+<p>这条搜索，searchKeyWord是搜索关键字, <code>is:issue</code> 表示我们要搜索 issue， <code>is:closed</code> 表示已经关闭的 issue， <code>repo:Alamofire/Alamofire</code> 表示我们只搜索这个仓库范围的 issue</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/01/JVM%20learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1218,410 +1661,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/29/yarn%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/29/yarn%20snippet/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-29 00:36:17" itemprop="dateCreated datePublished" datetime="2021-01-29T00:36:17+08:00">2021-01-29</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/08/zookeeper%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/08/zookeeper%20learn/" class="post-title-link" itemprop="url">zookeeper learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-08 17:08:10" itemprop="dateCreated datePublished" datetime="2020-10-08T17:08:10+08:00">2020-10-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-15 00:59:53" itemprop="dateModified" datetime="2021-12-15T00:59:53+08:00">2021-12-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="新増节点"><a href="#新増节点" class="headerlink" title="新増节点"></a>新増节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create [-s] [-e] path data #其中-s 为有序节点，-e临时节点。不写 -s/-e 默认为创建持久化节点</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="查看节点"><a href="#查看节点" class="headerlink" title="查看节点"></a>查看节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get path</span><br></pre></td></tr></table></figure>
-
-<p><img src="./img/zkInfo.png"></p>
-<ul>
-<li><p>查看节点状态</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stat path  #返回结果和get命令类似，但不会返回节点数据内容。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="修改节点"><a href="#修改节点" class="headerlink" title="修改节点"></a>修改节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set path data [dataVersion]</span><br></pre></td></tr></table></figure>
-
-<p>可以用set命令修改节点数据。也可以基于版本号进行修改，当传入的dataVersion与当前版本号不一致时，zookeeper会拒绝修改。</p>
-<p><img src="./img/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9.png"></p>
-<h3 id="返回节点列表"><a href="#返回节点列表" class="headerlink" title="返回节点列表"></a>返回节点列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls   path</span><br><span class="line">ls2  path</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete path [dataVersion]</span><br></pre></td></tr></table></figure>
-
-<p> 与更新节点类似，删除也可以传入版本号，当传入的dataVersion与当前版本号不一致时，zookeeper会拒绝删除。</p>
-<ul>
-<li><p>要想删除某个节点及其后代节点，可以使用递归删除</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmr path</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/01/flink%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/01/flink%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">flink learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-01 22:00:30" itemprop="dateCreated datePublished" datetime="2020-10-01T22:00:30+08:00">2020-10-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 11:06:48" itemprop="dateModified" datetime="2021-12-24T11:06:48+08:00">2021-12-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="运行时框架"><a href="#运行时框架" class="headerlink" title="运行时框架"></a>运行时框架</h3><p><img src="./img/flink/flink_runtime_architecture.png"></p>
-<h3 id="作业调度框架"><a href="#作业调度框架" class="headerlink" title="作业调度框架"></a>作业调度框架</h3><p><img src="./img/flink/flink_schedule_architecture.png"></p>
-<h3 id="table模块架构"><a href="#table模块架构" class="headerlink" title="table模块架构"></a>table模块架构</h3><p><img src="./img/flink/flink_table_architecture.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/02/hadoop%20snippt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/02/hadoop%20snippt/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-06-02 10:52:23" itemprop="dateCreated datePublished" datetime="2020-06-02T10:52:23+08:00">2020-06-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-Create-a-directory-in-HDFS-at-given-path-s"><a href="#1-Create-a-directory-in-HDFS-at-given-path-s" class="headerlink" title="1. Create a directory in HDFS at given path(s)."></a>1. Create a directory in HDFS at given path(s).</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir &lt;paths&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfs -mkdir /user/saurzcode/dir1 /user/saurzcode/dir2</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-List-the-contents-of-a-directory"><a href="#2-List-the-contents-of-a-directory" class="headerlink" title="2.  List the contents of a directory."></a>2.  List the contents of a directory.</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -ls &lt;args&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -ls /user/saurzcode</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Upload-and-download-a-file-in-HDFS"><a href="#3-Upload-and-download-a-file-in-HDFS" class="headerlink" title="3. Upload and download a file in HDFS."></a>3. Upload and download a file in HDFS.</h2><p><strong>Upload:</strong></p>
-<p><strong>hdfs fs -put:</strong></p>
-<p>Copy single src file, or multiple src files from local file system to the hdfs data file system</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put &lt;localsrc&gt; ... &lt;HDFS_dest_Path&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put /home/saurzcode/Samplefile.txt  /user/saurzcode/dir3/</span><br></pre></td></tr></table></figure>
-
-<p><strong>*Download:</strong>*</p>
-<p><strong>hdfs fs -get:</strong></p>
-<p>Copies/Downloads files to the local file system</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -get &lt;hdfs_src&gt; &lt;localdst&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -get /user/saurzcode/dir3/Samplefile.txt /home/</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-See-contents-of-a-file"><a href="#4-See-contents-of-a-file" class="headerlink" title="4. See contents of a file"></a>4. See contents of a file</h2><p>Same as unix cat command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cat &lt;path[filename]&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cat /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-Copy-a-file-from-source-to-destination"><a href="#5-Copy-a-file-from-source-to-destination" class="headerlink" title="5. Copy a file from source to destination"></a>5. Copy a file from source to destination</h2><p>This command allows multiple sources as well in which case the destination must be a directory.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cp &lt;source&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cp /user/saurzcode/dir1/abc.txt /user/saurzcode/dir2</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-Copy-a-file-from-To-Local-file-system-to-HDFS"><a href="#6-Copy-a-file-from-To-Local-file-system-to-HDFS" class="headerlink" title="6. Copy a file from/To Local file system to HDFS"></a>6. Copy a file from/To Local file system to HDFS</h2><p><strong>copyFromLocal</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -copyFromLocal &lt;localsrc&gt; URI</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -copyFromLocal /home/saurzcode/abc.txt  /user/saurzcode/abc.txt</span><br></pre></td></tr></table></figure>
-
-<p>Similar to put command, except that the source is restricted to a local file reference.</p>
-<p><strong>copyToLocal</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -copyToLocal [-ignorecrc] [-crc] URI &lt;localdst&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Similar to get command, except that the destination is restricted to a local file reference.</p>
-<h2 id="7-Move-file-from-source-to-destination"><a href="#7-Move-file-from-source-to-destination" class="headerlink" title="7. Move file from source to destination."></a>7. Move file from source to destination.</h2><p>Note:- Moving files across filesystem is not permitted.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mv &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mv /user/saurzcode/dir1/abc.txt /user/saurzcode/dir2</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-Remove-a-file-or-directory-in-HDFS"><a href="#8-Remove-a-file-or-directory-in-HDFS" class="headerlink" title="8. Remove a file or directory in HDFS."></a>8. Remove a file or directory in HDFS.</h2><p>Remove files specified as argument. Deletes directory only when it is empty</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rm &lt;arg&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rm /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
-
-<p><strong>*Recursive version of delete.</strong>*</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rmr &lt;arg&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rmr /user/saurzcode/</span><br></pre></td></tr></table></figure>
-
-<h2 id="9-Display-last-few-lines-of-a-file"><a href="#9-Display-last-few-lines-of-a-file" class="headerlink" title="9. Display last few lines of a file."></a>9. Display last few lines of a file.</h2><p>Similar to tail command in Unix.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -tail &lt;path[filename]&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -tail /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
-
-<h2 id="10-Display-the-aggregate-length-of-a-file"><a href="#10-Display-the-aggregate-length-of-a-file" class="headerlink" title="10. Display the aggregate length of a file."></a>10. Display the aggregate length of a file.</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -du &lt;path&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">hdfs dfs -du /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
-
-<p>Please comment which of these commands you found most useful while dealing with Hadoop /HDFS.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1691,13 +1730,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1729,7 +1768,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

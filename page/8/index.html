@@ -146,6 +146,319 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/spring%20aop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/18/spring%20aop/" class="post-title-link" itemprop="url">spring aop</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-18 20:50:30" itemprop="dateCreated datePublished" datetime="2017-12-18T20:50:30+08:00">2017-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-22 09:20:29" itemprop="dateModified" datetime="2019-03-22T09:20:29+08:00">2019-03-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Architectural"><a href="#Architectural" class="headerlink" title="Architectural"></a>Architectural</h3><p><img src="https://www.baeldung.com/wp-content/uploads/2017/11/Program_Execution.jpg"></p>
+<h3 id="Business-Object"><a href="#Business-Object" class="headerlink" title="Business Object"></a>Business Object</h3><blockquote>
+<p><strong>A business object is a normal class which has a normal business logic.</strong></p>
+</blockquote>
+<h3 id="Aspect"><a href="#Aspect" class="headerlink" title="Aspect"></a>Aspect</h3><blockquote>
+<p><strong>An aspect is a modularization of a concern that cuts across multiple classes.</strong></p>
+</blockquote>
+<h3 id="JoinPoint"><a href="#JoinPoint" class="headerlink" title="JoinPoint"></a>JoinPoint</h3><blockquote>
+<p><strong>A Joinpoint is a point during the execution of a program, such as execution of a method or the handling of an exception.</strong></p>
+</blockquote>
+<p>In Spring AOP, a <em>JoinPoint</em> always represents a method execution.</p>
+<h3 id="Pointcut"><a href="#Pointcut" class="headerlink" title="Pointcut"></a>Pointcut</h3><blockquote>
+<p><strong>A Pointcut is a predicate that helps match an <em>Advice</em> to be applied by an <em>Aspect</em> at a particular <em>JoinPoint</em>.</strong></p>
+</blockquote>
+<p>The Advice is often associated with a <em>Pointcut</em> expression and runs at any <em>Joinpoint</em> matched by the Pointcut.</p>
+<h3 id="Advice"><a href="#Advice" class="headerlink" title="Advice"></a>Advice</h3><blockquote>
+<p><strong>An advice is an action taken by an aspect at a particular <em>Joinpoint</em>. Different types of advice include <em>“around,” “before”</em> and <em>“after”</em> advice.</strong></p>
+</blockquote>
+<p>In Spring, an <em>Advice</em> is modeled as an interceptor, maintaining a chain of interceptors around the <em>Joinpoint</em>.</p>
+<hr>
+<h3 id="Example-Wiring-Business-Object-and-Aspect"><a href="#Example-Wiring-Business-Object-and-Aspect" class="headerlink" title="Example:Wiring Business Object and Aspect"></a>Example:Wiring Business Object and Aspect</h3><ul>
+<li><p>Business Object</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleAdder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>a simple Aspect</p>
+<p>Unified logging can be an example of such cross-cutting concern:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdderAfterReturnAspect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturn</span><span class="params">(Object returnValue)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;value return was &#123;&#125;&quot;</span>,  returnValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>config excerpt</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sampleAdder&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.xxx.SampleAdder&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;doAfterReturningAspect&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">&quot;org.xxx.AdderAfterReturnAspect&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">&quot;aspects&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;doAfterReturningAspect&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;pointCutAfterReturning&quot;</span> <span class="attr">expression</span>=</span></span><br><span class="line"><span class="tag">         <span class="string">&quot;execution(* org.xxx.SampleAdder+.*(..))&quot;</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;afterReturn&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">returning</span>=<span class="string">&quot;returnValue&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutAfterReturning&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<blockquote>
+<p>依赖注入DI有助于应用对象之间的解耦，而AOP可以实现横切关注点与它们所影响的对象之间的解耦</p>
+</blockquote>
+<ul>
+<li><p>通知Advice</p>
+<blockquote>
+<p>切面的工作被称为通知，通知定义了切面是什么以及何时使用。</p>
+</blockquote>
+<ul>
+<li>前置通知（Before）：在目标方法被调用之前调用通知功能</li>
+<li>后置通知（After）：在目标方法完成之后调用通知，此时不会关心方法的输出</li>
+<li>返回通知（After-returning）：在目标方法成功执行之后调用通知</li>
+<li>异常通知（After-throwing）：在目标方法抛出异常后调用通知</li>
+<li>环绕通知（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为。</li>
+</ul>
+</li>
+<li><p>连接点Join point</p>
+<blockquote>
+<p>连接点是应用程序的点，可供插入切面</p>
+<p>我理解的是程序的某处，或者任意一处都可以称作为连接点</p>
+</blockquote>
+</li>
+<li><p>切点Pointcut</p>
+<blockquote>
+<p>切点有助于缩小切面所通知的连接点的范围</p>
+<p>如果Advice定义了切面的what和when,那么pointcut就定义了where</p>
+</blockquote>
+</li>
+<li><p>切面Aspect</p>
+<blockquote>
+<p>Aspect是Advice和Pointcut的结合</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/rpc%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/16/rpc%20snippet/" class="post-title-link" itemprop="url">rpc snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-16 10:01:30" itemprop="dateCreated datePublished" datetime="2017-12-16T10:01:30+08:00">2017-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:21:38" itemprop="dateModified" datetime="2019-03-14T14:21:38+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/rpc/" itemprop="url" rel="index"><span itemprop="name">rpc</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>RPC<br>Remote Procedure Call，远程过程调用</p>
+<hr>
+<p>服务之间的调用大多采用rpc的方式调用，或者消息队列的方式进行解耦。</p>
+<p>RPC与http调用的区别<br>rpc是基于TCP/IP协议的，而HTTP服务主要是基于HTTP协议的，而http协议是在传输层协议TCP之上的。所以rpc效率更好。</p>
+<p>RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数/方法，<br>由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</p>
+<p>由于计算能力需要横向扩展，需要在多台机器组成的集群上部署应用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/restful%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/08/restful%20snippet/" class="post-title-link" itemprop="url">restful snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-08 12:01:30" itemprop="dateCreated datePublished" datetime="2017-12-08T12:01:30+08:00">2017-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-16 14:33:41" itemprop="dateModified" datetime="2019-08-16T14:33:41+08:00">2019-08-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/restful/" itemprop="url" rel="index"><span itemprop="name">restful</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><strong>GET</strong>: A safe read-only method that reads a single or a list of resources.</li>
+<li><strong>POST</strong>: Creates a new resource.</li>
+<li><strong>PUT</strong>: Completely replaces the resource(s) at the given location with the new data.</li>
+<li><strong>PATCH</strong>: Merges the resource(s) at the given location with the new data.</li>
+<li><strong>DELETE</strong>: Deletes the resource(s) at a location.</li>
+<li><strong>HEAD</strong>: Same as GET but only returns the header and no data.</li>
+</ul>
+<p><strong>用 URL 表示要操作的资源，用不同的 HTTP 请求（GET，POST，PUT，DELETE）描述对资源的操作，通过 HTTP 的状态码来判断此次对资源操作的结果</strong>，这就是 Restful风格。 </p>
+<ol>
+<li>GET 用来获取资源</li>
+<li>POST 用来新增资源</li>
+<li>PUT 用来更新资源</li>
+<li>DELETE 用来删除资源</li>
+</ol>
+<ul>
+<li>put和delete虽然是http协议的规范 ,但是遗憾的是,所有的无论是html4还是h5都不支持,所以我们在实际开开发过程当中要模拟这两种状态。 </li>
+</ul>
+<h3 id="Restful有什么意义"><a href="#Restful有什么意义" class="headerlink" title="Restful有什么意义"></a>Restful有什么意义</h3><ul>
+<li>网络上的所有的信息体都看作一种资源，对网络资源的某种操作，都是通过 method 来确定的。 </li>
+<li>对于现在的数据或者资源提供方，对外透露的接口一般是 restful 风格的，有利于不同系统之间的资源共享,而且只需要遵守规范不需要做另外的配置就能达到资源共享。 </li>
+</ul>
+<p><strong>restful 是用来外提供接口的，主要用于在不同的系统之间进行数据的交互。</strong></p>
+<p><strong>ps：其实在做内部系统的时候并不会使用 restful 风格的 url 请求，只用普通的 @RequestMapping 来匹配请求就行了。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/07/vue%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -934,324 +1247,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/05/09/linux%20snippet/" class="post-title-link" itemprop="url">linux snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-12 23:31:39" itemprop="dateModified" datetime="2021-09-12T23:31:39+08:00">2021-09-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。</li>
-<li>/sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。</li>
-<li>/root/    超级用户，即根用户的主目录。</li>
-<li>/home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。</li>
-<li>/boot/    存放Ubuntu内核和系统启动文件。</li>
-<li>/mnt/     通常包括系统引导后被挂载的文件系统的挂载点。</li>
-<li>/dev/    存储设备文件，包括计算机的所有外部设备，如硬盘、是、键盘、鼠标等。</li>
-<li>/etc/    存放文件管理配置文件和目录。</li>
-<li>/lib/    存储各种程序所需要的共享库文件。</li>
-<li>/lost+found/    一般为空，当非法关机时，会存放一些零散的文件。</li>
-<li>/var/    用于存放很多不断变化的文件，例如日志文件等。</li>
-<li>/usr/    包括与系统用户直接有关的文件和目录</li>
-<li>/media/    存放Ubuntu系统自动挂载的设备文件。</li>
-<li>/proc/    这是一个虚拟目录，它是内存的映射，包括系统信息和进程信息。</li>
-<li>/tmp/    存储系统和用户的临时信息。</li>
-<li>/initrd/    用来加载启动时临时挂载的initrd.img映像文件，以及载入所要的设备模块目录。</li>
-<li>/opt/    作为可选文件和程序的存放目录，否则将无法引导计算机进入操作系统。</li>
-<li>/srv/    存储系统提供的服务数据。</li>
-<li>/sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。</li>
-</ul>
-<h2 id="装机问题"><a href="#装机问题" class="headerlink" title="装机问题"></a>装机问题</h2><h3 id="Wifi-Not-Enabled-Acer-Aspire-4750"><a href="#Wifi-Not-Enabled-Acer-Aspire-4750" class="headerlink" title="Wifi Not Enabled Acer Aspire 4750"></a>Wifi Not Enabled Acer Aspire 4750</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: yes</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">~$</span><span class="bash"> sudo rmmod acer-wmi</span></span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">add below line at the end of the file : /etc/modprobe.d/blacklist.conf</span><br><span class="line">blacklist acer-wmi</span><br><span class="line"></span><br><span class="line">Then restart the system.</span><br><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: no</span><br></pre></td></tr></table></figure>
-
-<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><ul>
-<li>防火墙 firewalld.service</li>
-</ul>
-<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p><strong>shell与export命令</strong></p>
-<p>用户登录到Linux系统后，系统将启动一个用户shell。在这个shell中，可以使用shell命令或声明变量，也可以创建并运行 shell脚本程序。运行shell脚本程序时，系统将创建一个子shell。此时，系统中将有两个shell，一个是登录时系统启动的shell，另一 个是系统为运行脚本程序创建的shell。当一个脚本程序运行完毕，它的脚本shell将终止，可以返回到执行该脚本之前的shell。从这种意义上来 说，用户可以有许多 shell，每个shell都是由某个shell（称为父shell）派生的。</p>
-<p>在子 shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内 的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用export命令对已定义的变量进行输出。 export命令将使系统在创建每一个新的shell时定义这个变量的一个拷贝。这个过程称之为变量输出。</p>
-<h3 id="操作文件名中含有“-”的文件"><a href="#操作文件名中含有“-”的文件" class="headerlink" title="操作文件名中含有“-”的文件"></a>操作文件名中含有“-”的文件</h3><ul>
-<li>使用转移字符 “–”， 比如查看文件“-abc.txt“，命令为 <code>vim -- -abc.txt</code></li>
-</ul>
-<h3 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h3><p>KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是一个基于 Linux 内核的虚拟化管理系统。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/07/cache%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/07/cache%20snippet/" class="post-title-link" itemprop="url">cache snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-03-07 21:50:30" itemprop="dateCreated datePublished" datetime="2017-03-07T21:50:30+08:00">2017-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 14:41:04" itemprop="dateModified" datetime="2019-03-14T14:41:04+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cache/" itemprop="url" rel="index"><span itemprop="name">cache</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>what is cache ?    why use cache ?<ol>
-<li>Cache是高速缓冲存储器 一种特殊的存储器子系统，其中复制了频繁使用的数据以利于快速访问</li>
-<li>凡是位于速度相差较大的两种硬件/软件之间的，用于协调两者数据传输速度差异的结构，均可称之为 Cache </li>
-</ol>
-</li>
-<li>缓存的分类<ul>
-<li>操作系统磁盘缓存-&gt;减少磁盘机械操作</li>
-<li>数据库缓存-&gt;减少文件系统I/O</li>
-<li>应用程序缓存-&gt;减少对数据库的查询 </li>
-<li>Web服务器缓存-&gt;减少应用服务器请求</li>
-<li>客户端浏览器缓存-&gt;减少对网站的访问</li>
-</ul>
-</li>
-</ul>
-<h3 id="技术框架"><a href="#技术框架" class="headerlink" title="技术框架"></a>技术框架</h3><ul>
-<li><strong>Encache</strong><ul>
-<li>设计于提高在数据从RDBMS中取出来的高花费、高延迟采取的一种缓存方案 </li>
-<li>java编写，直接在jvm虚拟机中缓存，速度快，效率高；但是缓存共享麻烦，集群分布式应用不方便。</li>
-<li>特点：<ul>
-<li>快</li>
-<li>简单</li>
-<li>袖珍</li>
-<li>轻量</li>
-<li>扩展</li>
-<li>监听器</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>memcache</strong><ul>
-<li>一种高性能、分布式对象缓存系统，最初设计于缓解动态网站数据库加载数据的延迟性，你可以把它想象成一个大的内存HashTable，就是一个key-value键值缓存。</li>
-<li>C语言编写</li>
-<li>特点：<ul>
-<li>依赖</li>
-<li>多线程支持</li>
-<li>高性能</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>redis</strong><ul>
-<li>通过socket访问到缓存服务，效率比encache低，比数据库要快很多，处理集群和分布式缓存方便，有成熟的方案。</li>
-<li>特性：<ul>
-<li>支持持久化</li>
-<li>丰富的数据类型</li>
-<li>高性能</li>
-<li>主从复制</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/other%20tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/16/other%20tips/" class="post-title-link" itemprop="url">other snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-02-16 12:01:30" itemprop="dateCreated datePublished" datetime="2017-02-16T12:01:30+08:00">2017-02-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/fragment/" itemprop="url" rel="index"><span itemprop="name">fragment</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="other-snippet"><a href="#other-snippet" class="headerlink" title="other snippet"></a>other snippet</h2><h3 id="generate-code-based-proto-file"><a href="#generate-code-based-proto-file" class="headerlink" title="generate code based proto file"></a>generate code based proto file</h3><p><code>protoc --proto_path=扫描目录 --java_out=代码生成目录 proto文件目录</code></p>
-<blockquote>
-<p>protoc –proto_path=src –java_out=build/gen src/foo.proto</p>
-</blockquote>
-<h3 id="Spring-provides-three-way-of-scheduling"><a href="#Spring-provides-three-way-of-scheduling" class="headerlink" title="Spring provides three way of scheduling:"></a>Spring provides three way of scheduling:</h3><ul>
-<li>@Scheduled</li>
-<li>Via Quartz</li>
-<li>Via JDK Timer</li>
-</ul>
-<hr>
-<h3 id="one-word"><a href="#one-word" class="headerlink" title="one word"></a>one word</h3><ul>
-<li>\x对应的是UTF-8编码的数据</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1321,13 +1316,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1359,7 +1354,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

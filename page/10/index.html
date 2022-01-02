@@ -146,6 +146,324 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/14/springboot%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/14/springboot%20snippet/" class="post-title-link" itemprop="url">springboot snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-08-14 18:38:22" itemprop="dateCreated datePublished" datetime="2016-08-14T18:38:22+08:00">2016-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题随记"><a href="#问题随记" class="headerlink" title="问题随记"></a>问题随记</h2><ol>
+<li>Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库</li>
+</ol>
+<ul>
+<li><p>首先在配置文件application.properties</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/test</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#mybatis.typeAliasesPackage：为实体对象所在的包，跟数据库表一一对应</span></span><br><span class="line"><span class="comment">#mybatis.mapperLocations：mapper文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="meta">mybatis.typeAliasesPackage</span>=<span class="string">com.xxx.model</span></span><br><span class="line"><span class="meta">mybatis.mapperLocations</span>=<span class="string">classpath:mybatis/mapper/*Mapper.xml</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在启动类Application.java中写上配置信息 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.xxx.dao&quot;)</span> <span class="comment">// mybatis扫描路径，针对的是接口Mapper类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyreportApplication</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DailyreportApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>mysql连接异常<code>java.sql.SQLException: Value &#39;0000-00-00&#39; can not be represented as java.sql.Date</code></li>
+</ol>
+<ul>
+<li><p>解决办法</p>
+<p><code>jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull </code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/05/git%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/05/git%20snippet/" class="post-title-link" itemprop="url">git skill</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-08-05 22:00:30" itemprop="dateCreated datePublished" datetime="2016-08-05T22:00:30+08:00">2016-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-30 17:36:50" itemprop="dateModified" datetime="2021-11-30T17:36:50+08:00">2021-11-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h4><ul>
+<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
+<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
+</li>
+<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
+</li>
+<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="文件提交"><a href="#文件提交" class="headerlink" title="文件提交"></a>文件提交</h4><ul>
+<li><p>提交单个文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
+<li><p>提交多个文件，但是需要排除指定的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add -u</span><br><span class="line">git reset -- main/dontcheckmein.txt</span><br><span class="line">然后进行commit、pull等操作</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Git-fork后的分支，更新最新的源代码"><a href="#Git-fork后的分支，更新最新的源代码" class="headerlink" title="Git fork后的分支，更新最新的源代码"></a>Git fork后的分支，更新最新的源代码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># uncommited file to HEAD</span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"></span><br><span class="line"># uncommited file to before last commit</span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#last commit to before last commit</span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#difference between HEAD and n-th grandparent</span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#Another cool feature is whatchanged command</span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
+<blockquote>
+<p>git reset –hard HEAD~1</p>
+</blockquote>
+<p>（或者回滚到指定版本commitId）</p>
+<blockquote>
+<p>git reset –hard commitId</p>
+</blockquote>
+<p>2、加入-f参数，强制提交，远程端将强制跟新到reset版本</p>
+<blockquote>
+<p> git push -f</p>
+</blockquote>
+<h4 id="拉取远程分支"><a href="#拉取远程分支" class="headerlink" title="拉取远程分支"></a>拉取远程分支</h4><p>First, fetch the remote branches:</p>
+<p><strong>git fetch origin</strong></p>
+<p>Next, checkout the branch you want. In this case, the branch we want is called “branchxyz”.</p>
+<p><strong>git checkout -b branchxyz origin/branchxyz</strong></p>
+<h4 id="新建分支"><a href="#新建分支" class="headerlink" title="新建分支"></a>新建分支</h4><ul>
+<li><p>To create a new branch from a branch you do NOT have checked out:</p>
+<p><code>git branch new_branch from_branch</code></p>
+</li>
+<li><p>To create a new branch from the branch you DO have checked out:</p>
+<p><code>git branch new_branch</code></p>
+</li>
+<li><p>To create <em>and check out</em> a new branch from the branch you DO have checked out:</p>
+<p><code>git checkout -b new_branch</code></p>
+</li>
+<li><p>To create <em>and check out</em> a new branch from a branch you do NOT have checked out:</p>
+<p><code>git checkout -b new_branch from_branch</code></p>
+</li>
+<li><p>To rename a branch</p>
+<p><code>git branch -m old_name new_name</code></p>
+</li>
+</ul>
+<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/java%20skill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/20/java%20skill/" class="post-title-link" itemprop="url">java skill</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-20 21:50:30" itemprop="dateCreated datePublished" datetime="2016-05-20T21:50:30+08:00">2016-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-04 17:00:22" itemprop="dateModified" datetime="2019-11-04T17:00:22+08:00">2019-11-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
+<li><p>int变量自增 效率问题 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;和i += 1;形成的指令数较少，且不需要操作数栈。相对而言，i = i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+= 1;的效率一样，并且二者的效率都优于i = i+1;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><strong>T，E，K，V，？是这样约定的：</strong></p>
+<ul>
+<li>？表示不确定的 java 类型</li>
+<li>T (type) 表示具体的一个java类型</li>
+<li>K V (key value) 分别代表java键值中的Key Value</li>
+<li>E (element) 代表Element</li>
+</ul>
+<p><strong>？和 T 的区别</strong>：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz/knmrNHnmCLFRVA73vYfkqVGfia90X5nyEsksfM8Vz6btFZCRd3PCSJC1XkZhaJ0ufxcoohxAdr8X1tykU9CZPUQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>？和 T 都表示不确定的类型，区别在于我们可以对 T 进行操作，但是对 ？不行，比如如下这种 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 可以</span><br><span class="line">T t = operate();</span><br><span class="line"></span><br><span class="line">// 不可以</span><br><span class="line">？car = operate();</span><br></pre></td></tr></table></figure>
+
+<p>简单总结下：</p>
+<p>T 是一个 确定的 类型，通常用于泛型类和泛型方法的定义，？是一个 不确定 的类型，通常用于泛型方法的调用代码和形参，不能用于定义类和泛型方法。</p>
+<p><strong>PECS（Producer Extends Consumer Super）</strong>原则：作为生产者提供数据（往外读取）时，适合用上界通配符（extends）；作为消费者消费数据（往里写入）时，适合用下界通配符（super）。</p>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><p>在 JDK8 以后，建议使用 DateTimeFormatter 代替 SimpleDateFormat ，因为 SimpleDateFormat 是线程不安全的，而 DateTimeFormatter 是线程安全的。当然，也可以采用第三方提供的线程安全日期格式化函数，比如 apache 的 DateFormatUtils 工具类。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/shiro%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -852,526 +1170,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/18/websocket%20snippit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/12/18/websocket%20snippit/" class="post-title-link" itemprop="url">websocket tracking</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-12-18 18:01:30" itemprop="dateCreated datePublished" datetime="2015-12-18T18:01:30+08:00">2015-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 14:23:05" itemprop="dateModified" datetime="2019-03-14T14:23:05+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/websocket/" itemprop="url" rel="index"><span itemprop="name">websocket</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LOVELONG8808/article/details/52235132">https://blog.csdn.net/LOVELONG8808/article/details/52235132</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/w1992wishes/article/details/79583543">https://blog.csdn.net/w1992wishes/article/details/79583543</a></p>
-<hr>
-<p>WebSocket API是下一代客户端-服务器的异步通信方法。<br>WebSocket API最伟大之处在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息。<br>WebSocket并不限于以Ajax(或XHR)方式通信，因为Ajax技术需要客户端发起请求，而WebSocket服务器和客户端可以彼此相互推送信息；<br>​    XHR受到域的限制，而WebSocket允许跨域通信。<br>​    Ajax技术很聪明的一点是没有设计要使用的方式。WebSocket为指定目标创建，用于双向推送消息。</p>
-<hr>
-<p>activemq是消息中间件，主要实现是队列。用于处理消息。<br>websocket是 html5的一种传议实现前台向后台，后台向前台发出请求。</p>
-<hr>
-<p>websocket是HTML5协议，实时，全双工通信，长连接。WebSocket的服务端可以将数据推送到客户端，<br>​    如实时将证券信息反馈到客户端，实时天气数据，比http请求响应模式更灵活，代替了以往一些需要轮训的业务。</p>
-<p>STOMP协议的前身是TTMP协议（一个简单的基于文本的协议），专为消息中间件设计。</p>
-<p>这两个协议的介绍来看设计的目的不同。目前一些消息队列都是基于STOMP协议的比如ActiveMQ，RabbitMQ，消息队列一般用于一些需要异步处理的服务器任务或者一些通知类的任务。</p>
-<p>websocket更多的使用场景是需要服务端主动通知客户端的实时通讯业务。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/16/mysql%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/12/16/mysql%20snippet/" class="post-title-link" itemprop="url">mysql snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-12-16 20:01:30" itemprop="dateCreated datePublished" datetime="2015-12-16T20:01:30+08:00">2015-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-16 14:39:56" itemprop="dateModified" datetime="2021-11-16T14:39:56+08:00">2021-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index"><span itemprop="name">database</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
-<li><p>the size of blob column</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  A BLOB can be 65535 bytes (64 KB) maximum.</span><br><span class="line">If you need more consider using:</span><br><span class="line">a MEDIUMBLOB for 16777215 bytes (16 MB)</span><br><span class="line">a LONGBLOB for 4294967295 bytes (4 GB).</span><br></pre></td></tr></table></figure></li>
-<li><p>join sql<br><img src="https://i.stack.imgur.com/VQ5XP.png"></p>
-</li>
-<li><p>string convert to timstamp</p>
-<p><code>SELECT STR_TO_DATE(&#39;2014-05-28 11:30:10&#39;,&#39;%Y-%m-%d %H:%i:%s&#39;);</code></p>
-</li>
-</ul>
-<h3 id="sql语句"><a href="#sql语句" class="headerlink" title="sql语句"></a>sql语句</h3><ul>
-<li>IN</li>
-</ul>
-<p>确定给定的值是否与子查询或列表中的值相匹配。in在查询的时候，首先查询子查询的表，然后将内表和外表做一个笛卡尔积，然后按照条件进行筛选。所以相对内表比较小的时候，in的速度较快。 </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    `<span class="keyword">user</span>`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    `<span class="keyword">user</span>`.id <span class="keyword">IN</span> (</span><br><span class="line">        <span class="keyword">SELECT</span></span><br><span class="line">            `<span class="keyword">order</span>`.user_id</span><br><span class="line">        <span class="keyword">FROM</span></span><br><span class="line">            `<span class="keyword">order</span>`</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-
-<p>以上查询使用了in语句,in()只执行一次,它查出B表中的所有id字段并缓存起来.之后,检查A表的id是否与B表中的id相等,如果相等则将A表的记录加入结果集中,直到遍历完A表的所有记录。</p>
-<p>可以看出,当B表数据较大时不适合使用in(),因为它会B表数据全部遍历一次. 如:A表有10000条记录,B表有1000000条记录,那么最多有可能遍历10000<code>*</code>1000000次,效率很差. 再如:A表有10000条记录,B表有100条记录,那么最多有可能遍历10000*100次,遍历次数大大减少,效率大大提升。</p>
-<ul>
-<li>exists</li>
-</ul>
-<p>指定一个子查询，检测行的存在。遍历循环外表，然后看外表中的记录有没有和内表的数据一样的。匹配上就将结果放入结果集中。 </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.<span class="operator">*</span> <span class="keyword">from</span> A a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> B b <span class="keyword">where</span> a.id<span class="operator">=</span>b.id)</span><br></pre></td></tr></table></figure>
-
-<p>以上查询使用了exists语句,exists()会执行A.length次,它并不缓存exists()结果集,因为exists()结果集的内容并不重要,重要的是结果集中是否有记录,如果有则返回true,没有则返回false。</p>
-<p>当B表比A表数据大时适合使用exists(),因为它没有那么遍历操作,只需要再执行一次查询就行. 如:A表有10000条记录,B表有1000000条记录,那么exists()会执行10000次去判断A表中的id是否与B表中的id相等. 如:A表有10000条记录,B表有100000000条记录,那么exists()还是执行10000次,因为它只执行A.length次,可见B表数据越多,越适合exists()发挥效果. 再如:A表有10000条记录,B表有100条记录,那么exists()还是执行10000次,还不如使用in()遍历10000*100次,因为in()是在内存里遍历比较,而exists()需要查询数据库,我们都知道查询数据库所消耗的性能更高,而内存比较很快. </p>
-<ul>
-<li>where</li>
-</ul>
-<p>sql查询条件中<code>where 1=1,1=2和1=0</code>，这种写法，主要是为了拼凑动态的sql语句，如果使用不好会起到副作用的，是根据个人的一些习惯，是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误，是为了后面附加and …方便程序逻辑处理用的。 </p>
-<ul>
-<li><p>select count(*)和select count(1)的区别</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般情况下，Select Count(*)和Select Count(1)两着返回结果是一样的，假如表没有主键(Primary key), 那么count(1)比count(*)快，如果有主键的话，那主键作为count的条件时候count(主键)最快，如果你的表只有一个字段的话那count(*)就是最快的。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="事物隔离级别"><a href="#事物隔离级别" class="headerlink" title="事物隔离级别"></a>事物隔离级别</h3><ul>
-<li><p>read uncommitted（读取未提交数据）</p>
-<blockquote>
-<p>我们将事务隔离级别设置为read uncommitted，即便是事务没有commit，但是我们仍然能读到未提交的数据，这是所有隔离级别中最低的一种。</p>
-<p>脏读</p>
-</blockquote>
-</li>
-<li><p>read committed（可以读取其他事务提交的数据）</p>
-<blockquote>
-<p>大多数数据库默认的隔离级别;</p>
-<p>当我们将当前会话的隔离级别设置为read committed的时候，当前会话只能读取到其他事务提交的数据，未提交的数据读不到。</p>
-</blockquote>
-</li>
-<li><p>repeatable read（可重读）</p>
-<blockquote>
-<p>MySQL默认的隔离级别</p>
-<p>当我们将当前会话的隔离级别设置为repeatable read的时候，当前会话可以重复读，就是每次读取的结果集都相同，而不管其他事务有没有提交。</p>
-<p>幻读</p>
-</blockquote>
-</li>
-<li><p>serializable（串行化）</p>
-<blockquote>
-<p>当我们将当前会话的隔离级别设置为serializable的时候，其他会话对该表的写操作将被挂起。可以看到，这是隔离级别中最严格的，但是这样做势必对性能造成影响。所以在实际的选用上，我们要根据当前具体的情况选用合适的。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="DDL-VS-DML"><a href="#DDL-VS-DML" class="headerlink" title="DDL VS DML"></a>DDL VS DML</h3><p>DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.</p>
-<p>Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.</p>
-<h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
-<li><p>导出数据库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p database &gt; file.sql</span><br><span class="line">其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称</span><br></pre></td></tr></table></figure></li>
-<li><p>导出数据表数据（根据sql的where条件）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p database --tables tablename --where=&quot;id&gt;8&quot; &gt; result.sql </span><br></pre></td></tr></table></figure></li>
-<li><p>执行sql文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/files/filename.sql</span></span><br></pre></td></tr></table></figure></li>
-<li><p>导出所有数据库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt; backup_filename.sql</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/10/16/linux%20command/" class="post-title-link" itemprop="url">linux command</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-14 15:07:41" itemprop="dateModified" datetime="2021-12-14T15:07:41+08:00">2021-12-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
-<h3 id="Bash-Shell-Scripting-Definition"><a href="#Bash-Shell-Scripting-Definition" class="headerlink" title="Bash Shell Scripting Definition"></a>Bash Shell Scripting Definition</h3><ul>
-<li>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. <h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
-<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><ul>
-<li>kill seesion <code>screen -X -S [session # you want to kill] quit</code></li>
-<li>新建screen会话           screen -S xxx</li>
-<li>恢复指定会话               screen -r xxx</li>
-<li>查看所有会话                screen -ls</li>
-<li>删除指定会话                screen -S xxx -X quit</li>
-<li>回到终端                        Ctrl-a d</li>
-</ul>
-<h2 id="PORT"><a href="#PORT" class="headerlink" title="PORT"></a>PORT</h2><ul>
-<li><p>Check the listening ports</p>
-<p>Run any one of the following command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure></li>
-<li><p>checking remote system tcp 80 port status</p>
-<ol>
-<li><p>Telnet</p>
-</li>
-<li><p>nc</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
-<li><p>nmap</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>通过进程名查看占用端口</p>
-<ul>
-<li>先查看进程pid    <code>ps -ef | grep 进程名 </code></li>
-<li>再通过pid查看占用端口    <code>netstat -nap | grep 进程pid </code></li>
-</ul>
-</li>
-<li><p>通过端口查看进程</p>
-<p><code>netstat -nap | grep 端口号 </code>或<code>netstat -apn | grep 端口号</code></p>
-<p><code>netstat -tln | grep 8080</code> 查看端口8080的使用情况</p>
-</li>
-</ul>
-<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><ul>
-<li><p>c – Creates a new .tar archive file.</p>
-</li>
-<li><p>x — to untar or extract a tar file</p>
-</li>
-<li><p>v – Verbosely show the .tar file progress.</p>
-</li>
-<li><p>f – File name type of the archive file.</p>
-</li>
-<li><p>z — gzip archive file</p>
-</li>
-<li><p>j —  bz2 feature compress and create archive file</p>
-</li>
-<li><p>t — to list the contents of tar archive file</p>
-</li>
-</ul>
-<h2 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h2><ul>
-<li>check status : <code>sudo ufw status</code></li>
-<li>enable firewall: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">Command may disrupt existing ssh connections. Proceed with operation (y|n)? y</span><br><span class="line">Firewall is active and enabled on system startup</span><br></pre></td></tr></table></figure></li>
-<li>disable firewall<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h3><ul>
-<li><p>查看系统</p>
-<ul>
-<li><code>cat /etc/os-release</code></li>
-</ul>
-</li>
-<li><p>查看内核</p>
-<ul>
-<li><code>cat /proc/version</code></li>
-<li><code>uname -a</code></li>
-</ul>
-</li>
-<li><p>查看linux版本</p>
-<ul>
-<li><code>lsb_release -a</code></li>
-<li><code>cat /etc/issue</code></li>
-</ul>
-</li>
-<li><blockquote>
-<p>总核数 = 物理CPU个数 X 每颗物理CPU的核数 </p>
-<p>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</p>
-</blockquote>
-<ul>
-<li><p>查看物理CPU个数</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>查看每个物理CPU中core的个数(即核数)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
-<li><p>查看逻辑CPU的个数</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="磁盘相关"><a href="#磁盘相关" class="headerlink" title="磁盘相关"></a>磁盘相关</h3><ul>
-<li><p>查看系统磁盘占用情况    <code> df -h</code></p>
-</li>
-<li><p>查看目录下文件大小        <code>du -sh</code></p>
-</li>
-<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -lh --max-depth=1 </code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看当前目录下user目录的大小，并不想看其他目录以及其子目录：</span><br><span class="line">du -sh user</span><br><span class="line">-s表示总结的意思，即只列出一个总结的值</span><br><span class="line">du -h --max-depth=0 user</span><br><span class="line">--max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。</span><br></pre></td></tr></table></figure></li>
-<li><p>总结du常用命令</p>
-<p><strong>du -h –max-depth=1 |grep ‘G’ |sort   #查看上G目录并排序</strong></p>
-<p>du -h –max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序<br>du -sh –max-depth=1  #查看当前目录下所有一级子目录文件夹大小</p>
-</li>
-<li><p>清理指定目录下的文件</p>
-<p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>查找具体文件    </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
-
-<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
-<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
-<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename1&quot;|&quot;filename2&quot;) </span><br></pre></td></tr></table></figure>
-
-<p><strong>3.</strong> The example below shows how to remove all files other than all <code>.zip</code> files interactively:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i !(*.zip)</span><br></pre></td></tr></table></figure>
-
-<p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">浏览已安装的程序	dpkg --list</span><br><span class="line">卸载程序和所有配置文件	sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序	sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
-
-<h2 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
-
-<h3 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h3><ul>
-<li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
-<p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
-<p>awk ‘{ $5=””; print }’ file</p>
-</li>
-</ul>
-<h3 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h3><p>语法：wc [选项] 文件…</p>
-<p>说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。</p>
-<p>该命令各选项含义如下：</p>
-<p>　　- c 统计字节数。</p>
-<p>　　- l 统计行数。</p>
-<p>　　- w 统计字数。</p>
-<p>这些选项可以组合使用。</p>
-<h3 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h3><p>使文件可以直接执行的命令：chmod +x filename</p>
-<p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
-<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>限定查询结果之后的前几行 <code>grep -m 10 &lt;pattern&gt; &lt;file&gt; </code></p>
-<p>限定查询结果倒数的几行 <code>grep &lt;pattern&gt; &lt;file&gt; | tail -10</code></p>
-<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><ul>
-<li><p>判断　day of year     </p>
-<p><code>doy=$(date +%j)</code></p>
-</li>
-<li><p>制定日期减一天</p>
-<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
-</li>
-</ul>
-<h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
-<p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
-<h4 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载服务器文件	sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
-
-<h4 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
-
-<h4 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h4><ul>
-<li><p>替换字符</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h4><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
-
-<p>输出可能是这样</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
-
-<p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
-<p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iconv -f gb18030 -t UTF-8 input.file -o output.file</span><br><span class="line"></span><br><span class="line">gb18030</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="tr命令"><a href="#tr命令" class="headerlink" title="tr命令"></a>tr命令</h3><p>tr – translate or delete characters </p>
-<ul>
-<li><p>大小写转换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
-<li><p>“1”</p>
-<p>查看所有CPU核的使用情况</p>
-</li>
-<li><p>“c”</p>
-<p>查看具体进程的路径</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line"></span><br><span class="line">　　t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line"></span><br><span class="line">　　m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line"></span><br><span class="line">　　N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line"></span><br><span class="line">　　P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　h - 显示帮助</span><br><span class="line"></span><br><span class="line">　　n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line"></span><br><span class="line">　　q - 退出 top</span><br><span class="line"></span><br><span class="line">　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><ul>
-<li><p>markdown文件转word文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h3><ul>
-<li><p>查看本地网络代理</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export | grep -i proxy</span><br></pre></td></tr></table></figure></li>
-<li><p>关闭代理</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset http_proxy </span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1441,13 +1239,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1479,7 +1277,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
