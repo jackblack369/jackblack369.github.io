@@ -146,6 +146,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/dva%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/dva%20learn/" class="post-title-link" itemprop="url">dva learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-11 13:52:30" itemprop="dateCreated datePublished" datetime="2019-04-11T13:52:30+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-18 10:36:56" itemprop="dateModified" datetime="2021-11-18T10:36:56+08:00">2021-11-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dva/" itemprop="url" rel="index"><span itemprop="name">dva</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>dva = React-Router + Redux + Redux-saga</p>
+<ul>
+<li>路由： <a target="_blank" rel="noopener" href="https://github.com/ReactTraining/react-router/tree/v2.8.1">React-Router</a></li>
+<li>架构： <a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">Redux</a></li>
+<li>异步操作： <a target="_blank" rel="noopener" href="https://github.com/yelouafi/redux-saga">Redux-saga</a></li>
+</ul>
+<p><img src="./img/PPrerEAKbIoDZYr.png"></p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>tate 表示 Model 的状态数据</p>
+<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>Action 是一个普通 javascript 对象，它是改变 State 的唯一途径。</p>
+<ul>
+<li>action 必须带有 <code>type</code> 属性指明具体的行为，其它字段可以自定义，如果要发起一个 action 需要使用 <code>dispatch</code> 函数；需要注意的是 <code>dispatch</code> 是在组件 connect Models以后，通过 props 传入的。</li>
+</ul>
+<h3 id="dispatch"><a href="#dispatch" class="headerlink" title="dispatch"></a>dispatch</h3><p>dispatching function 是一个用于触发 action 的函数</p>
+<ul>
+<li><p>action 是改变 State 的唯一途径，但是action只描述了一个行为，而 dipatch 可以看作是触发这个行为的方式，而 Reducer 则是描述如何改变数据的。</p>
+</li>
+<li><p>connect Model 的组件通过 props 可以访问到 dispatch，可以调用 Model 中的 Reducer 或者 Effects.</p>
+</li>
+</ul>
+<h3 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h3><p>Reducer函数接受两个参数：之前已经累积运算的结果和当前要被累积的值，返回的是一个新的累积结果。该函数把一个集合归并成一个单值。</p>
+<ul>
+<li>在 dva 中，reducers 聚合积累的结果是当前 model 的 state 对象。通过 actions 中传入的值，与当前 reducers 中的值进行运算获得新的值（也就是新的 state）。</li>
+</ul>
+<h3 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h3><p>Effect 被称为副作用，在我们的应用中，最常见的就是异步操作。</p>
+<ul>
+<li><p>它来自于函数编程的概念，之所以叫副作用是因为它使得我们的函数变得不纯，同样的输入不一定获得同样的输出。</p>
+</li>
+<li><p>dva 为了控制副作用的操作，将异步转成同步写法，从而将effects转为纯函数</p>
+</li>
+</ul>
+<h3 id="Subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h3><p>Subscriptions 是一种从 <strong>源</strong> 获取数据的方法，它来自于 elm。</p>
+<ul>
+<li>Subscription 语义是订阅，用于订阅一个数据源，然后根据条件 dispatch 需要的 action。</li>
+</ul>
+<h3 id="数据流图"><a href="#数据流图" class="headerlink" title="数据流图"></a>数据流图</h3><p><img src="./img/hUFIivoOFjVmwNXjjfPE.png"></p>
+<ul>
+<li><p>State 是储存数据的地方，收到 Action 以后，会更新数据。</p>
+</li>
+<li><p>View 就是 React 组件构成的 UI 层，从 State 取数据后，渲染成 HTML 代码。只要 State 有变化，View 就会自动更新。</p>
+</li>
+<li><p>Action 是用来描述 UI 层事件的一个对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dispatch(&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;click-submit-button&#x27;</span>,</span><br><span class="line">  <span class="attr">payload</span>: <span class="built_in">this</span>.form.data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>connect 是一个函数，绑定 State 到 View。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&#x27;dva&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mapStateToProps</span>(<span class="params">state</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">todos</span>: state.todos &#125;;</span><br><span class="line">&#125;</span><br><span class="line">connect(mapStateToProps)(App);</span><br></pre></td></tr></table></figure>
+
+<p>connect 方法返回的也是一个 React 组件，通常称为容器组件。因为它是原始 UI 组件的容器，即在外面包了一层 State。</p>
+</li>
+<li><p>dispatch 是一个函数方法，用来将 Action 发送给 State。</p>
+<p><strong>被 connect 的 Component 会自动在 props 中拥有 dispatch 方法。</strong></p>
+</li>
+</ul>
+<h3 id="数据流图二"><a href="#数据流图二" class="headerlink" title="数据流图二"></a>数据流图二</h3><p><img src="./img/pHTYrKJxQHPyJGAYOzMu.png"></p>
+<h3 id="Model-对象的属性"><a href="#Model-对象的属性" class="headerlink" title="Model 对象的属性"></a>Model 对象的属性</h3><blockquote>
+<p>每个model，实际上都是普通的JavaScript对象</p>
+</blockquote>
+<ul>
+<li><p>namespace: 当前 Model 的名称。整个应用的 State，由多个小的 Model 的 State 以 namespace 为 key 合成</p>
+</li>
+<li><p>state: 该 Model 当前的状态。数据保存在这里，直接决定了视图层的输出</p>
+</li>
+<li><p>reducers: Action 处理器，处理同步动作，用来算出最新的 State</p>
+</li>
+<li><p>effects：Action 处理器，处理异步动。dva 提供多个 effect 函数内部的处理函数，比较常用的是 <code>call</code> 和 <code>put</code>。</p>
+<ul>
+<li>call：执行异步函数</li>
+<li>put：发出一个 Action，类似于 dispatch</li>
+</ul>
+</li>
+<li><p>subscriptions</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/redux%20learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1929,196 +2073,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/java%20thread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/06/01/java%20thread/" class="post-title-link" itemprop="url">java thread</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-06-01T10:01:30+08:00">2018-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-14 16:34:12" itemprop="dateModified" datetime="2019-08-14T16:34:12+08:00">2019-08-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。</p>
-<h3 id="how-to-avoid-deadlock"><a href="#how-to-avoid-deadlock" class="headerlink" title="how to avoid deadlock"></a>how to avoid deadlock</h3><p><img src="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg"></p>
-<h3 id="ConcurrentHashMap-faster-than-Hashtable"><a href="#ConcurrentHashMap-faster-than-Hashtable" class="headerlink" title="ConcurrentHashMap faster than Hashtable"></a>ConcurrentHashMap faster than Hashtable</h3><blockquote>
-<p> ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides the whole map into different segments and only lock a particular segment during the update operation, instead of <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/01/java-hashtable-example-tutorial-code.html">Hashtable</a>, which locks whole Map.</p>
-</blockquote>
-<p><img src="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png"></p>
-<h3 id="submit-and-execute-method-of-Executor-and-ExecutorService"><a href="#submit-and-execute-method-of-Executor-and-ExecutorService" class="headerlink" title="submit() and execute() method of Executor and ExecutorService"></a>submit() and execute() method of Executor and ExecutorService</h3><blockquote>
-<p> The main difference between submit and execute method from ExecutorService interface is that former return a result in the form of a Future object, while later doesn’t return a result. By the way, both are used to submit a task to thread pool in Java but one is defined in Executor interface,while other is added into ExecutorService interface.</p>
-</blockquote>
-<p><img src="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png"></p>
-<h4 id="when-to-use"><a href="#when-to-use" class="headerlink" title="when to use"></a>when to use</h4><blockquote>
-<ul>
-<li>In general, if you are doing computational task e.g. calculating some risk stats, <a target="_blank" rel="noopener" href="http://java67.blogspot.com/2015/09/how-to-use-biginteger-class-in-java.html">calculating factorial of large numbers</a> or doing some time-consuming computation e which results in some value then use the submit() method. It immediately returns a Future object, which can be later queried to get the value of computation by calling get() method.</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Remember, get() is a <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/02/what-is-blocking-methods-in-java-and.html">blocking call</a> so always call the version which accepts a timeout. While you can use the execute() method if you just want your code to be run in parallel by worker threads of the thread pool.</li>
-</ul>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous task&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">future.get();  <span class="comment">//returns null if the task has finished correctly.</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Callable()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous Callable&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Callable Result&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;future.get() = &quot;</span> + future.get());</span><br></pre></td></tr></table></figure>
-
-<h3 id="ReentrantLock-vs-synchronized"><a href="#ReentrantLock-vs-synchronized" class="headerlink" title="ReentrantLock vs synchronized"></a>ReentrantLock vs synchronized</h3><h4 id="the-advantages-of-ReentrantLock"><a href="#the-advantages-of-ReentrantLock" class="headerlink" title="the advantages of ReentrantLock"></a>the advantages of ReentrantLock</h4><ol>
-<li><p>Ability to lock interruptibly.</p>
-</li>
-<li><p>Ability to timeout while waiting for lock.</p>
-</li>
-<li><p>Power to create fair lock.</p>
-</li>
-<li><p>API to get list of waiting thread for lock.</p>
-</li>
-<li><p>Flexibility to try for lock without blocking.</p>
-</li>
-</ol>
-<h4 id="the-disadvantages-of-ReentrantLock"><a href="#the-disadvantages-of-ReentrantLock" class="headerlink" title="the disadvantages of ReentrantLock"></a>the disadvantages of ReentrantLock</h4><ol>
-<li><p>  Major drawback of using ReentrantLock in Java is wrapping method body inside <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/11/difference-between-final-finally-and-finalize-java.html">try-finally block</a>, which makes code unreadable and hides business logic. </p>
-</li>
-<li><p>programmer is responsible for acquiring and releasing lock, which is a power but also opens gate for new subtle bugs, when programmer forget to release the lock in finally block.</p>
-</li>
-</ol>
-<h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><p><img src="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg"></p>
-<h3 id="stop-thread"><a href="#stop-thread" class="headerlink" title="stop thread"></a>stop thread</h3><blockquote>
-<ul>
-<li>There was some control methods in JDK 1.0 e.g. stop(), suspend() and resume() which was deprecated in later releases due to potential deadlock threats, from then Java API designers has not made any effort to provide a consistent, thread-safe and elegant way to stop threads.</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Programmers mainly rely on the fact that thread stops automatically as soon as they finish execution of run() or call() method. To manually stop, programmers either take advantage of volatile boolean variable and check in every iteration if run method has loops or interrupt threads to abruptly cancel tasks.</li>
-</ul>
-</blockquote>
-<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><blockquote>
-<ul>
-<li>The <code>ThreadLocal</code> class in Java enables you to create variables that can only be read and written by the same thread. Thus, even if two threads are executing the same code, and the code has a reference to a<code>ThreadLocal</code> variable, then the two threads cannot see each other’s <code>ThreadLocal</code> variables.</li>
-<li>Each thread holds an exclusive copy of ThreadLocal variable which becomes eligible to Garbage collection after thread finished or died, normally or due to any Exception, Given those ThreadLocal variable doesn’t have any other live references.</li>
-<li>ThreadLocal variables in Java are generally private static fields in Classes and maintain its state inside Thread.</li>
-</ul>
-</blockquote>
-<h3 id="synchronized-vs-concurrent-collection"><a href="#synchronized-vs-concurrent-collection" class="headerlink" title="synchronized vs concurrent collection"></a>synchronized vs concurrent collection</h3><blockquote>
-<p>later is more scalable than former</p>
-<p> synchronized collections locks the whole collection e.g. whole Map or List while concurrent collection never locks the whole Map or List. They achieve thread safety by using advanced and sophisticated techniques like lock stripping. For example, the ConcurrentHashMap divides the whole map into several segments and locks only the relevant segments, which allows multiple threads to access other segments of same ConcurrentHashMap without locking.</p>
-</blockquote>
-<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><blockquote>
-<p> CopyOnWriteArrayList allows multiple reader threads to read without synchronization and when a write happens it copies the whole ArrayList and swap with a newer one.</p>
-</blockquote>
-<h3 id="Stack-and-Heap"><a href="#Stack-and-Heap" class="headerlink" title="Stack and Heap"></a>Stack and Heap</h3><blockquote>
-<ul>
-<li>Each thread has their own stack, which is used to store local variables, method parameters and call stack. Variable stored in one Thread’s stack is not visible to other.</li>
-<li>heap is a common memory area which is shared by all threads.Objects whether local or at any level is created inside heap.</li>
-</ul>
-</blockquote>
-<ul>
-<li>To improve performance thread tends to cache values from heap into their stack, which can create problems if that variable is modified by more than one thread, this is where volatile variables comes in picture. volatile suggest threads to read value of variable always from main memory. </li>
-<li>If there is no memory left in the stack for storing function call or local variable, JVM will throw java.lang.StackOverFlowError, while if there is no more heap space for creating an object, JVM will throw java.lang.OutOfMemoryError: Java Heap Space</li>
-<li>Variables stored in stacks are only visible to the owner Thread while objects created in the heap are visible to all thread. In other words, stack memory is kind of private memory of Java Threads while heap memory is shared among all threads.</li>
-</ul>
-<h3 id="thread-pool"><a href="#thread-pool" class="headerlink" title="thread pool"></a>thread pool</h3><blockquote>
-<p>Java API provides Executor framework, which allows you to create different types of thread pools e.g. single thread pool, which process one task at a time, fixed thread pool (a pool of fixed number of thread) or cached thread pool (an expandable thread pool suitable for applications with many short lived tasks).</p>
-</blockquote>
-<h4 id="the-benefits"><a href="#the-benefits" class="headerlink" title="the benefits"></a>the benefits</h4><ul>
-<li><p>Use of Thread Pool reduces response time by avoiding thread creation during request or task processing.</p>
-</li>
-<li><p>Use of Thread Pool allows you to change your execution policy as you need. you can go from single thread to multiple threads by just replacing ExecutorService implementation.</p>
-</li>
-<li><p>Thread Pool in Java application increases the stability of the system by creating a configured number of threads decided based on system load and available resource.</p>
-</li>
-<li><p>Thread Pool frees application developer from thread management stuff and allows to focus on business logic.</p>
-</li>
-</ul>
-<h3 id="volatile-vs-atomic-variable"><a href="#volatile-vs-atomic-variable" class="headerlink" title="volatile vs atomic variable"></a>volatile vs atomic variable</h3><blockquote>
-<p>Volatile variable provides you happens-before guarantee that a write will happen before any subsequent write, it doesn’t guarantee atomicity. For example count++ operation will not become atomic just by declaring count variable as volatile. On the other hand AtomicInteger class provides atomic method to perform such compound operation atomically.</p>
-</blockquote>
-<h3 id="3-multi-threading-best-practice"><a href="#3-multi-threading-best-practice" class="headerlink" title="3 multi-threading best practice"></a>3 multi-threading best practice</h3><ul>
-<li><p>Always give meaningful name to your thread</p>
-</li>
-<li><p>Avoid locking or Reduce scope of Synchronization</p>
-</li>
-<li><p>Prefer Synchronizers over wait and notify</p>
-</li>
-<li><p>Prefer Concurrent Collection over Synchronized Collection</p>
-</li>
-</ul>
-<h3 id="Wait、Sleep、Yield"><a href="#Wait、Sleep、Yield" class="headerlink" title="Wait、Sleep、Yield"></a>Wait、Sleep、Yield</h3><ul>
-<li><p>sleep() and yield() methods are defined in thread class while wait() is defined in the Object class</p>
-</li>
-<li><p>The key difference between wait() and sleep() is that former is used for inter-thread communication while later is used to introduced to pause the current thread for a short duration. </p>
-</li>
-<li><p>This difference is more obvious from the fact that, when a thread calls the wait() method, it releases the monitor or lock it was holding on that object, but when a thread calls the sleep() method, it never releases the monitor even if it is holding. </p>
-</li>
-<li><p>yield() just releases the CPU hold by Thread to give another thread an opportunity to run though it’s not guaranteed who will get the CPU. It totally depends upon thread scheduler and <strong>it’s even possible that the thread which calls the yield() method gets the CPU again</strong>(有可能自己会再次获取到cpu执行时间). Hence, it’s not reliable to depend upon yield() method, it’s just on best effort basis.</p>
-<ul>
-<li>If there is no waiting thread or all the waiting threads have a lower priority then the same thread will continue its execution.</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2188,7 +2142,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

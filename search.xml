@@ -2868,8 +2868,6 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 
-
-
 <h4 id="文件提交"><a href="#文件提交" class="headerlink" title="文件提交"></a>文件提交</h4><ul>
 <li><p>提交单个文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
@@ -2878,13 +2876,7 @@
 </ul>
 <h4 id="Git-fork后的分支，更新最新的源代码"><a href="#Git-fork后的分支，更新最新的源代码" class="headerlink" title="Git fork后的分支，更新最新的源代码"></a>Git fork后的分支，更新最新的源代码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 
-
-
 <h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># uncommited file to HEAD</span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"></span><br><span class="line"># uncommited file to before last commit</span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#last commit to before last commit</span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#difference between HEAD and n-th grandparent</span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#Another cool feature is whatchanged command</span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
 <blockquote>
@@ -2919,7 +2911,14 @@
 <p><code>git branch -m old_name new_name</code></p>
 </li>
 </ul>
-<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>]]></content>
+<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h4><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
+<p>git config pull.rebase false # 合并（缺省策略）<br>git config pull.rebase true # 变基<br>git config pull.ff only # 仅快进</p>
+<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
+]]></content>
       <categories>
         <category>git</category>
       </categories>
@@ -5033,10 +5032,13 @@
 </li>
 <li><p>nc</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
-<li><p>nmap</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
+</ul>
+<ol start="3">
+<li>nmap<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
 <li><p>通过进程名查看占用端口</p>
 <ul>
 <li>先查看进程pid    <code>ps -ef | grep 进程名 </code></li>
@@ -5065,9 +5067,12 @@
 </li>
 </ul>
 <h2 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h2><ul>
-<li>check status : <code>sudo ufw status</code></li>
-<li>enable firewall: <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">Command may disrupt existing ssh connections. Proceed with operation (y|n)? y</span><br><span class="line">Firewall is active and enabled on system startup</span><br></pre></td></tr></table></figure></li>
-<li>disable firewall<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
+<li><p>check status : <code>sudo ufw status</code></p>
+</li>
+<li><p>enable firewall: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">Command may disrupt existing ssh connections. Proceed with operation (y|n)? y</span><br><span class="line">Firewall is active and enabled on system startup</span><br></pre></td></tr></table></figure></li>
+<li><p>disable firewall</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h3><ul>
 <li><p>查看系统</p>
@@ -5096,7 +5101,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
 <li><p>查看每个物理CPU中core的个数(即核数)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
-<li><p>查看逻辑CPU的个数</p>
+<li><p>查看逻辑CPU的总数</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
@@ -5114,7 +5119,7 @@
 </li>
 <li><p>清理指定目录下的文件</p>
 <p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>查找具体文件    </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
@@ -5133,11 +5138,7 @@
 <p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序	dpkg --list</span><br><span class="line">卸载程序和所有配置文件	sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序	sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
 
@@ -5176,13 +5177,12 @@
 </ul>
 <h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
 <p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
-<h4 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">下载服务器文件	sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
+<h4 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">下载服务器文件    sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
 
 <h4 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
 
 <h4 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h4><ul>
-<li><p>替换字符</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+<li>替换字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h4><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
@@ -5195,17 +5195,13 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iconv -f gb18030 -t UTF-8 input.file -o output.file</span><br><span class="line"></span><br><span class="line">gb18030</span><br></pre></td></tr></table></figure></li>
+<li>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure></li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iconv -f gb18030 -t UTF-8 input.file -o output.file</span><br><span class="line"></span><br><span class="line">gb18030</span><br></pre></td></tr></table></figure>
+
 <h3 id="tr命令"><a href="#tr命令" class="headerlink" title="tr命令"></a>tr命令</h3><p>tr – translate or delete characters </p>
 <ul>
-<li><p>大小写转换</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
+<li>大小写转换<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
 <li><p>“1”</p>
@@ -5217,11 +5213,8 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line"></span><br><span class="line">　　t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line"></span><br><span class="line">　　m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line"></span><br><span class="line">　　N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line"></span><br><span class="line">　　P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　h - 显示帮助</span><br><span class="line"></span><br><span class="line">　　n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line"></span><br><span class="line">　　q - 退出 top</span><br><span class="line"></span><br><span class="line">　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><ul>
-<li><p>markdown文件转word文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
+<li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h3><ul>
 <li><p>查看本地网络代理</p>
@@ -7355,7 +7348,45 @@
   <entry>
     <title>yarn point</title>
     <url>/2021/12/31/yarn%20snippet/</url>
-    <content><![CDATA[<p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>
+    <content><![CDATA[<p><strong>Yet Another Resource Negotiator</strong></p>
+<p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>
+<p><img src="/images/yarn/yarn_construct.gif"></p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="contrainer"><a href="#contrainer" class="headerlink" title="contrainer"></a>contrainer</h4><blockquote>
+<p>容器（Container）这个东西是 Yarn 对资源做的一层抽象。就像我们平时开发过程中，经常需要对底层一些东西进行封装，只提供给上层一个调用接口一样，Yarn 对资源的管理也是用到了这种思想。</p>
+</blockquote>
+<p><img src="/images/yarn/contrainer.jpeg"></p>
+<blockquote>
+<p>Yarn 将CPU核数，内存这些计算资源都封装成为一个个的容器（Container）。    </p>
+</blockquote>
+<ul>
+<li>容器由 NodeManager 启动和管理，并被它所监控。</li>
+<li>容器被 ResourceManager 进行调度。</li>
+</ul>
+<h4 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h4><blockquote>
+<p>负责资源管理的，整个系统有且只有一个 RM ，来负责资源的调度。它也包含了两个主要的组件：定时调用器(Scheduler)以及应用管理器(ApplicationManager)。</p>
+</blockquote>
+<ol>
+<li>定时调度器(Scheduler)：从本质上来说，定时调度器就是一种策略，或者说一种算法。当 Client 提交一个任务的时候，它会根据所需要的资源以及当前集群的资源状况进行分配。注意，它只负责向应用程序分配资源，并不做监控以及应用程序的状态跟踪。</li>
+<li>应用管理器(ApplicationManager)：同样，听名字就能大概知道它是干嘛的。应用管理器就是负责管理 Client 用户提交的应用。上面不是说到定时调度器（Scheduler）不对用户提交的程序监控嘛，其实啊，监控应用的工作正是由应用管理器（ApplicationManager）完成的。</li>
+</ol>
+<h4 id="ApplicationMaster"><a href="#ApplicationMaster" class="headerlink" title="ApplicationMaster"></a>ApplicationMaster</h4><blockquote>
+<p>每当 Client 提交一个 Application 时候，就会新建一个 ApplicationMaster 。由这个 ApplicationMaster 去与 ResourceManager 申请容器资源，获得资源后会将要运行的程序发送到容器上启动，然后进行分布式计算。</p>
+<p>ps: 大数据分布式计算的思想，大数据难以移动（海量数据移动成本太大，时间太长），那就把容易移动的应用程序发布到各个节点进行计算。</p>
+</blockquote>
+<h4 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h4><blockquote>
+<p>NodeManager 是 ResourceManager 在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager/Scheduler 提供这些资源使用报告。</p>
+</blockquote>
+<h2 id="submit-application-to-yarn"><a href="#submit-application-to-yarn" class="headerlink" title="submit application to yarn"></a>submit application to yarn</h2><p><img src="/images/yarn/submit_app_flow.jpeg"></p>
+<ol>
+<li>Client 向 Yarn 提交 Application，这里我们假设是一个 MapReduce 作业。</li>
+<li>ResourceManager 向 NodeManager 通信，为该 Application 分配第一个容器。并在这个容器中运行这个应用程序对应的 ApplicationMaster。</li>
+<li>ApplicationMaster 启动以后，对 作业（也就是 Application） 进行拆分，拆分 task 出来，这些 task 可以运行在一个或多个容器中。然后向 ResourceManager 申请要运行程序的容器，并定时向 ResourceManager 发送心跳。</li>
+<li>申请到容器后，ApplicationMaster 会去和容器对应的 NodeManager 通信，而后将作业分发到对应的 NodeManager 中的容器去运行，这里会将拆分后的 MapReduce 进行分发，对应容器中运行的可能是 Map 任务，也可能是 Reduce 任务。</li>
+<li>容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。</li>
+</ol>
+<hr>
+<p>reference:</p>
+<p><a href="https://zhuanlan.zhihu.com/p/54192454">https://zhuanlan.zhihu.com/p/54192454</a></p>
 ]]></content>
       <categories>
         <category>yarn</category>
@@ -7485,6 +7516,18 @@
       </categories>
       <tags>
         <tag>snippet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TOP command</title>
+    <url>/2022/01/03/top%20command/</url>
+    <content><![CDATA[<h3 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h3><p>us：用户态使用的cpu时间比<br>sy：系统态使用的cpu时间比<br>ni：用做nice加权的进程分配的用户态cpu时间比<br>id：空闲的cpu时间比<br>wa：cpu等待磁盘写入完成时间<br>hi：硬中断消耗时间<br>si：软中断消耗时间<br>st：虚拟机偷取时间</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>command</tag>
       </tags>
   </entry>
 </search>

@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-12-30T18:01:42.899Z</updated>
+  <updated>2022-01-03T10:28:12.172Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,18 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>TOP command</title>
+    <link href="http://yoursite.com/2022/01/03/top%20command/"/>
+    <id>http://yoursite.com/2022/01/03/top%20command/</id>
+    <published>2022-01-03T09:18:01.000Z</published>
+    <updated>2022-01-03T10:28:12.172Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h3><p>us：用户态使用的cpu时间比<br>sy：系统态使用的cpu时间比<br>ni：用做nice加权的进程分配的用户态cpu时间比<br>id：空闲的cpu时间比<br>wa：cpu等待磁盘写入完成时间<br>hi：硬中断消耗时间<br>si：软中断消耗时间<br>st：虚拟机偷取时间</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;cpu&quot;&gt;&lt;a href=&quot;#cpu&quot; class=&quot;headerlink&quot; title=&quot;cpu&quot;&gt;&lt;/a&gt;cpu&lt;/h3&gt;&lt;p&gt;us：用户态使用的cpu时间比&lt;br&gt;sy：系统态使用的cpu时间比&lt;br&gt;ni：用做nice加权的进程分配的用户态cpu时间比&lt;b</summary>
+      
+    
+    
+    
+    <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+    <category term="command" scheme="http://yoursite.com/tags/command/"/>
+    
+  </entry>
+  
+  <entry>
     <title>yarn point</title>
     <link href="http://yoursite.com/2021/12/31/yarn%20snippet/"/>
     <id>http://yoursite.com/2021/12/31/yarn%20snippet/</id>
     <published>2021-12-30T18:01:13.000Z</published>
-    <updated>2021-12-30T18:01:42.899Z</updated>
+    <updated>2022-01-02T10:02:33.041Z</updated>
     
-    <content type="html"><![CDATA[<p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>]]></content>
+    <content type="html"><![CDATA[<p><strong>Yet Another Resource Negotiator</strong></p><p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p><p><img src="/images/yarn/yarn_construct.gif"></p><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="contrainer"><a href="#contrainer" class="headerlink" title="contrainer"></a>contrainer</h4><blockquote><p>容器（Container）这个东西是 Yarn 对资源做的一层抽象。就像我们平时开发过程中，经常需要对底层一些东西进行封装，只提供给上层一个调用接口一样，Yarn 对资源的管理也是用到了这种思想。</p></blockquote><p><img src="/images/yarn/contrainer.jpeg"></p><blockquote><p>Yarn 将CPU核数，内存这些计算资源都封装成为一个个的容器（Container）。    </p></blockquote><ul><li>容器由 NodeManager 启动和管理，并被它所监控。</li><li>容器被 ResourceManager 进行调度。</li></ul><h4 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h4><blockquote><p>负责资源管理的，整个系统有且只有一个 RM ，来负责资源的调度。它也包含了两个主要的组件：定时调用器(Scheduler)以及应用管理器(ApplicationManager)。</p></blockquote><ol><li>定时调度器(Scheduler)：从本质上来说，定时调度器就是一种策略，或者说一种算法。当 Client 提交一个任务的时候，它会根据所需要的资源以及当前集群的资源状况进行分配。注意，它只负责向应用程序分配资源，并不做监控以及应用程序的状态跟踪。</li><li>应用管理器(ApplicationManager)：同样，听名字就能大概知道它是干嘛的。应用管理器就是负责管理 Client 用户提交的应用。上面不是说到定时调度器（Scheduler）不对用户提交的程序监控嘛，其实啊，监控应用的工作正是由应用管理器（ApplicationManager）完成的。</li></ol><h4 id="ApplicationMaster"><a href="#ApplicationMaster" class="headerlink" title="ApplicationMaster"></a>ApplicationMaster</h4><blockquote><p>每当 Client 提交一个 Application 时候，就会新建一个 ApplicationMaster 。由这个 ApplicationMaster 去与 ResourceManager 申请容器资源，获得资源后会将要运行的程序发送到容器上启动，然后进行分布式计算。</p><p>ps: 大数据分布式计算的思想，大数据难以移动（海量数据移动成本太大，时间太长），那就把容易移动的应用程序发布到各个节点进行计算。</p></blockquote><h4 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h4><blockquote><p>NodeManager 是 ResourceManager 在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager/Scheduler 提供这些资源使用报告。</p></blockquote><h2 id="submit-application-to-yarn"><a href="#submit-application-to-yarn" class="headerlink" title="submit application to yarn"></a>submit application to yarn</h2><p><img src="/images/yarn/submit_app_flow.jpeg"></p><ol><li>Client 向 Yarn 提交 Application，这里我们假设是一个 MapReduce 作业。</li><li>ResourceManager 向 NodeManager 通信，为该 Application 分配第一个容器。并在这个容器中运行这个应用程序对应的 ApplicationMaster。</li><li>ApplicationMaster 启动以后，对 作业（也就是 Application） 进行拆分，拆分 task 出来，这些 task 可以运行在一个或多个容器中。然后向 ResourceManager 申请要运行程序的容器，并定时向 ResourceManager 发送心跳。</li><li>申请到容器后，ApplicationMaster 会去和容器对应的 NodeManager 通信，而后将作业分发到对应的 NodeManager 中的容器去运行，这里会将拆分后的 MapReduce 进行分发，对应容器中运行的可能是 Map 任务，也可能是 Reduce 任务。</li><li>容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。</li></ol><hr><p>reference:</p><p><a href="https://zhuanlan.zhihu.com/p/54192454">https://zhuanlan.zhihu.com/p/54192454</a></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）</summary>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Yet Another Resource Negotiator&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切</summary>
       
     
     
@@ -488,31 +513,6 @@
     
     
     <category term="fragment" scheme="http://yoursite.com/categories/fragment/"/>
-    
-    
-    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>gradle snippet</title>
-    <link href="http://yoursite.com/2021/11/23/gradle/"/>
-    <id>http://yoursite.com/2021/11/23/gradle/</id>
-    <published>2021-11-23T09:03:43.000Z</published>
-    <updated>2021-11-23T09:04:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol><li><strong>Process ‘command ‘/opt/jdk8/bin/java’’ finished with non-zero exit value 1</strong></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Process ‘command ‘/opt/jdk8/bin/java’’ finished with non</summary>
-      
-    
-    
-    
-    <category term="tool" scheme="http://yoursite.com/categories/tool/"/>
     
     
     <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
