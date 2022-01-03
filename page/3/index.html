@@ -146,6 +146,177 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/01/nacos%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/nacos%20snippet/" class="post-title-link" itemprop="url">nacos snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-01 15:14:40 / Modified: 15:15:43" itemprop="dateCreated datePublished" datetime="2021-12-01T15:14:40+08:00">2021-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring-cloud/" itemprop="url" rel="index"><span itemprop="name">spring cloud</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
+<li><p>2.0.3版本启动，需要添加 -m属性</p>
+<p><code>./startup.sh -m standalone</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/01/postgresql%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/postgresql%20snippet/" class="post-title-link" itemprop="url">postgresql snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-01 10:30:22 / Modified: 16:30:09" itemprop="dateCreated datePublished" datetime="2021-12-01T10:30:22+08:00">2021-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fragment/" itemprop="url" rel="index"><span itemprop="name">fragment</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="终端登录pg"><a href="#终端登录pg" class="headerlink" title="终端登录pg"></a>终端登录pg</h3><ul>
+<li><p>如果之前没有登录过，需要设置当前用户进行登录操作</p>
+<p>There is no default username and password without you creating one. The simplest possible setup is to follow these steps to set up your own user as a superuser.</p>
+<p>At a terminal prompt, create a postgres user with your own username</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres createuser --superuser $USER	# $USER无须替换</span><br></pre></td></tr></table></figure>
+
+<p>Start the postgresql command prompt as your username but running as root since you didn’t set a password yet;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
+
+<p>At the postgresql prompt, set your password;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\password $USER    # 其中$USER需要替换成当前用户名</span><br></pre></td></tr></table></figure>
+
+<p>After that, you should be able to log on just fine.</p>
+</li>
+</ul>
+<ul>
+<li><p>如果之前设置了上面的步骤，可直接运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql postgres</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="导入文件"><a href="#导入文件" class="headerlink" title="导入文件"></a>导入文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">psql postgres	# login command</span><br><span class="line">\c some_database	# choose database</span><br><span class="line">\i \path\TO\file_name.sql	# execute sql</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="连接指定schema"><a href="#连接指定schema" class="headerlink" title="连接指定schema"></a>连接指定schema</h3><ul>
+<li><p>如果不指定schema的话，会默认访问public的schema</p>
+</li>
+<li><p>指定schema</p>
+<p><code>jdbc:postgresql://localhost:5432/mydatabase?currentSchema=myschema</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/23/gradle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -197,184 +368,6 @@
           <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
 <li><strong>Process ‘command ‘/opt/jdk8/bin/java’’ finished with non-zero exit value 1</strong></li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/18/hive%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/18/hive%20snippet/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-18 10:23:45" itemprop="dateCreated datePublished" datetime="2021-11-18T10:23:45+08:00">2021-11-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 18:47:32" itemprop="dateModified" datetime="2021-12-24T18:47:32+08:00">2021-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Hive-site里面的配置！！！</p>
-</blockquote>
-<h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
-<p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
-<p>（3）hiveserver2：hive服务端。提供hive服务。客户端可以通过beeline，jdbc（即用java代码链接）等多种方式链接到hive。</p>
-<p>（4）beeline：hive客户端链接到hive的一个工具。可以理解成mysql的客户端。如：navite cat 等。</p>
-<p><img src="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70"></p>
-<p>2 连接hive：<br>（1）./bin/hive<br>通过 ./bin/hive 启动的hive服务，第一步会先启动metastore服务，然后在启动一个客户端连接到metastore。此时metastore服务端和客户端都在一台机器上，别的机器无法连接到metastore，所以也无法连接到hive。这种方式不常用，一直只用于调试环节。</p>
-<p>（2） ./bin/hive  –service metastore<br><strong>通过hive –service metastore 会启动一个 hive metastore服务默认的端口号为：9083。metastore服务里面配置metadata相关的配置。此时可以有多个hive客户端在hive-site.xml配置hive.metastore.uris=thrift://ipxxx:9083  的方式链接到hive。motestore 虽然能使hive服务端和客户端分别部署到不同的节点，客户端不需要关注metadata的相关配置。但是metastore只能通过只能通过配置hive.metastore.uris的方式连接，无法通过jdbc的方式访问。</strong></p>
-<p>（3）./bin/hiveserver2<br>hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过beeline，jdbc，odbc的方式链接到hive。<strong>hiveserver2启动的时候会先检查有没有配置hive.metastore.uris，如果没有会先启动一个metastore服务，然后在启动hiveserver2。如果有配置hive.metastore.uris。会连接到远程的metastore服务。这种方式是最常用的。</strong>部署在图如下：</p>
-<ul>
-<li>登录bin/beeline，可以启动客户端链接到hiveserver2。执行beeline后在控制输入 !connect jdbc:hive2://localhost:10000/default root 123 就可以链接到 hiveserver2了；default表示链接到default database， root 和123 分别为密码。注意这里的密码不是mysql的密码，是hive中的用户</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h1><p><strong>分隔符</strong></p>
-<p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
-<p><strong>用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符</strong></p>
-<p>1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符</p>
-<p>2，把hive表格导出到本地时，系统默认的分隔符是^A，这个是特殊字符，直接cat或者vim是看不到的</p>
-<p><strong>分隔符在HIVE中的用途</strong></p>
-<table>
-<thead>
-<tr>
-<th>分隔符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\n</td>
-<td>对于文本文件来说，每行都是一条记录，因此换行符可以分隔记录</td>
-</tr>
-<tr>
-<td>^A(Ctrl+A)</td>
-<td>用于分隔字段(列)。在CREATE TABLE语句中可以使用八进制编码\001表示</td>
-</tr>
-<tr>
-<td>^B(Ctrl+B)</td>
-<td>用于分隔ARRAY或者STRUCT中的元素，或用于MAP中键-值对之间的分隔。在CREATE TABLE语句中可以使用八进制编码\002表示</td>
-</tr>
-<tr>
-<td>^C(Ctrl+C)</td>
-<td>用于MAP中键和值之间的分隔。在CREATE TABLE语句中可以使用八进制编码\003表示</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>Hive 中没有定义专门的数据格式，数据格式可以由用户指定，用户定义数据格式需要指定三个属性：列分隔符（通常为空格、”\t”、”\x001″）、行分隔符（”\n”）以及读取文件数据的方法。由于在加载数据的过程中，不需要从用户数据格式到 Hive 定义的数据格式的转换，因此，Hive 在加载的过程中不会对数据本身进行任何修改，而只是将数据内容复制或者移动到相应的 HDFS 目录中。</p>
-</blockquote>
-<p>我们可以在create表格的时候，选择如下，表格加载input的文件的时候就会按照下面格式匹配</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row format delimited </span><br><span class="line">fields terminated by &#x27;\001&#x27; </span><br><span class="line">collection items terminated by &#x27;\002&#x27; </span><br><span class="line">map keys terminated by &#x27;\003&#x27;</span><br><span class="line">lines terminated by &#x27;\n&#x27; </span><br><span class="line">stored as textfile;</span><br></pre></td></tr></table></figure>
-
-<h3 id="如何查看和修改分割符，特殊符号"><a href="#如何查看和修改分割符，特殊符号" class="headerlink" title="如何查看和修改分割符，特殊符号"></a>如何查看和修改分割符，特殊符号</h3><ol>
-<li>查看隐藏字符的方法</li>
-</ol>
-<p>1.1，cat -A filename</p>
-<p><img src="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png" alt="img"></p>
-<p>1.2，vim filename后 命令模式下输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set list显示特殊符号</span><br><span class="line">set nolist 取消显示特殊符号</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>修改隐藏字符的方法</li>
-</ol>
-<p>首先按照1.2打开显示特殊符号。进入INSERT模式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrl + V 可以输入 ^符号</span><br><span class="line">ctrl + a 可以输入A---&#x27;\001&#x27;</span><br><span class="line">ctrl + b 可以输入A---&#x27;\002&#x27;</span><br><span class="line">ctrl + c 可以输入A---&#x27;\003&#x27;</span><br></pre></td></tr></table></figure>
-
-<p> 注意：虽然键盘上你能找到^和A但直接输入时不行的，必须按照上面的方法输入。</p>
-<p>第一行是特殊符号颜色蓝色，第二行直接输入不是特殊符号。</p>
-<p><img src="http://image.okcode.net/DD9ED976ABB6F4313B8F0F7C2DD5C33E.png" alt="img"></p>
-<p>特殊号直接cat是不可以看见的，但是第二行是可见的，所以不是特殊符号。</p>
-<p><img src="http://image.okcode.net/75D96F800A1815F7A84A8CF543BD7063.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ROW FORMAT DELIMITED </span><br><span class="line">FIELDS TERMINATED BY &#x27;\u0001&#x27; </span><br><span class="line">COLLECTION ITEMS TERMINATED BY &#x27;\u0002&#x27; </span><br><span class="line">MAP KEYS TERMINATED BY &#x27;\u0003&#x27;</span><br><span class="line">\u0001是ASCII编码值，对应java代码中的&quot;\001&quot;</span><br></pre></td></tr></table></figure>
-
-<p>意义如下：</p>
-<p>（1）FIELDS，字段之间的分隔符是’\u0001’</p>
-<p>（2）COLLECTION ITEMS，多个集合之间的分隔符是’\u0002’，例如（kv1，kv2，kv3）这种多个键值对之间的分隔符就是’\u0002’</p>
-<p>（3）MAP KEYS，单个map的k和v之间的分隔符是\u0003\，例如kv1里，k \u0003 v</p>
-<h3 id="查看orc文件"><a href="#查看orc文件" class="headerlink" title="查看orc文件"></a>查看orc文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --orcfiledump &lt;hdfs-location-of-orc-file&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="修改字段类型"><a href="#修改字段类型" class="headerlink" title="修改字段类型"></a>修改字段类型</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span><span class="keyword">table</span><span class="operator">-</span>name<span class="operator">&gt;</span> CHANGE <span class="operator">&lt;</span><span class="keyword">old</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">new</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span>data<span class="operator">-</span>type<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employee CHANGE e_id e_id <span class="type">INT</span>;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><ul>
-<li><p>Create ORC table</p>
-</li>
-<li><p>Login to the web console</p>
-</li>
-<li><p>Launch Hive by typing <code>hive</code> in the web console. Run the below commands in Hive.</p>
-</li>
-<li><p>Use your database by using the below command. <code>$&#123;env:USER&#125;</code> gets replaced by your username automatically:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use $&#123;env:USER&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><p>To create an ORC file format:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE orc_table (</span><br><span class="line">    first_name STRING, </span><br><span class="line">    last_name STRING</span><br><span class="line"> ) </span><br><span class="line"> STORED AS ORC;</span><br></pre></td></tr></table></figure></li>
-<li><p>To insert values in the table:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO orc_table VALUES (&#x27;John&#x27;,&#x27;Gill&#x27;);</span><br></pre></td></tr></table></figure></li>
-<li><p>To retrieve all the values in the table:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM orc_table;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>查看hive进程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps -ml  | grep Hive</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
@@ -1588,83 +1581,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/14/$Awareness/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/14/$Awareness/" class="post-title-link" itemprop="url">Awareness</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-14 14:54:23 / Modified: 15:01:39" itemprop="dateCreated datePublished" datetime="2021-04-14T14:54:23+08:00">2021-04-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/will/" itemprop="url" rel="index"><span itemprop="name">will</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>行动为王，思想为妃</p>
-</li>
-<li><p>自律且专注</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1730,13 +1650,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-count">67</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

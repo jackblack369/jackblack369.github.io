@@ -2596,8 +2596,7 @@
 <li>Total Process Memory对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.process.size</strong></li>
 </ul>
 <h2 id="配置优化"><a href="#配置优化" class="headerlink" title="配置优化"></a>配置优化</h2><ul>
-<li><p><strong>节点平均分配</strong></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">cluster.evenly-spread-out-slots:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>节点平均分配</strong><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">cluster.evenly-spread-out-slots:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -3133,16 +3132,12 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2021/11/18/hive%20snippet/</url>
+    <title>hive snippet</title>
+    <url>/2022/01/04/hive%20snippet/</url>
     <content><![CDATA[<blockquote>
 <p>Hive-site里面的配置！！！</p>
 </blockquote>
 <h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
 <p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
@@ -3156,10 +3151,6 @@
 <li>登录bin/beeline，可以启动客户端链接到hiveserver2。执行beeline后在控制输入 !connect jdbc:hive2://localhost:10000/default root 123 就可以链接到 hiveserver2了；default表示链接到default database， root 和123 分别为密码。注意这里的密码不是mysql的密码，是hive中的用户</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h1 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h1><p><strong>分隔符</strong></p>
 <p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
@@ -3224,11 +3215,7 @@
 <p>（3）MAP KEYS，单个map的k和v之间的分隔符是\u0003\，例如kv1里，k \u0003 v</p>
 <h3 id="查看orc文件"><a href="#查看orc文件" class="headerlink" title="查看orc文件"></a>查看orc文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive --orcfiledump &lt;hdfs-location-of-orc-file&gt;</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="修改字段类型"><a href="#修改字段类型" class="headerlink" title="修改字段类型"></a>修改字段类型</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span><span class="keyword">table</span><span class="operator">-</span>name<span class="operator">&gt;</span> CHANGE <span class="operator">&lt;</span><span class="keyword">old</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">new</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span>data<span class="operator">-</span>type<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employee CHANGE e_id e_id <span class="type">INT</span>;</span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><ul>
 <li><p>Create ORC table</p>
@@ -3248,8 +3235,13 @@
 </ul>
 <h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>查看hive进程</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jps -ml  | grep Hive</span><br></pre></td></tr></table></figure>
-
 ]]></content>
+      <categories>
+        <category>hive</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
+      </tags>
   </entry>
   <entry>
     <title>hibernate snippet</title>
@@ -7528,6 +7520,68 @@
       </categories>
       <tags>
         <tag>command</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flink on yarn</title>
+    <url>/2022/01/04/flink%20on%20yarn/</url>
+    <content><![CDATA[<h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
+<blockquote>
+</blockquote>
+<h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
+<h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
+<p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p>
+<p>ps:适用于本地测试或者开发</p>
+</blockquote>
+<h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote>
+<p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>YarnSessionClusterEntrypoint进程</p>
+<p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p>
+<ul>
+<li><p>本节点提交任务</p>
+<p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p>
+</li>
+<li><p>如果需要在其他主机节点提交任务</p>
+<p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p>
+</li>
+</ul>
+</li>
+<li><p>FlinkYarnSessionCli进程</p>
+<p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p>
+</li>
+</ul>
+<h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote>
+<p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p>
+</blockquote>
+<h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote>
+<p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p>
+<p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>注意使用参数-m yarn-cluster提交到yarn集群。</p>
+<ul>
+<li>运行到指定的yarn session可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</li>
+</ul>
+<hr>
+<p>reference</p>
+<p><a href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p>
+<p><a href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
       </tags>
   </entry>
 </search>
