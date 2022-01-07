@@ -146,6 +146,373 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/21/neo4j%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/21/neo4j%20snippet/" class="post-title-link" itemprop="url">neo4j snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-21 17:17:00" itemprop="dateCreated datePublished" datetime="2017-11-21T17:17:00+08:00">2017-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:52:44" itemprop="dateModified" datetime="2019-03-14T14:52:44+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/neo4j/" itemprop="url" rel="index"><span itemprop="name">neo4j</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>cypher语法对大小写敏感，注意属性的大小写</li>
+<li>导入csv出现乱码时，需要通过记事本更改编码格式，如果文本过大，需要一段一段的复制粘贴到新文本中，且以UTF-8格式编码</li>
+<li>MERGE命令是CREATE命令和MATCH命令的组合。<code>MERGE = CREATE + MATCH</code></li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>1.<br>​    <strong>现象</strong>： 在外部处理csv数据，导入服务器，然后load csv到neo4j中，可能由于文件所属问题，不能成功导入csv，提示<code>Couldn&#39;t load the external resource</code>的错误。<br>​    <strong>解决</strong>：复制可以导入的csv文件为副本，把待导入的数据粘贴到副本中，load csv副本即可</p>
+<p>2.<br>​    <strong>现象</strong>： 在外部处理csv数据，进行merge操作的时候，提示<code>cannot merge using null property value for uid</code>的错误。<br>​    <strong>解决</strong>：经发现，是由于指令中的属性拼写错误，导致<code>Neo.ClientError.Statement.SemanticError</code>的错误，例如把<code>sfzh</code>拼写成<code>sfhm</code>。</p>
+<p>3.<br>​    <strong>现象</strong>： 大量数据的导入问题。<br>​    <strong>解决</strong>：需使用<a target="_blank" rel="noopener" href="https://neo4j.com/docs/operations-manual/current/tools/import/" title="大量数据的导入">https://neo4j.com/docs/operations-manual/current/tools/import/</a><br>​    <strong>注意</strong>：<code>Import tool is only for newly created databases.</code><br>​        <code>You can use LOAD CSV cypher command to load into an existing database.</code>也就是说neo4j-admin import只会在新建数据库的时候会用到</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/jpa%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/16/jpa%20snippet/" class="post-title-link" itemprop="url">jpa snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-16 20:01:30" itemprop="dateCreated datePublished" datetime="2017-10-16T20:01:30+08:00">2017-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-12 18:18:50" itemprop="dateModified" datetime="2019-03-12T18:18:50+08:00">2019-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/jpa/" itemprop="url" rel="index"><span itemprop="name">jpa</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="What-is"><a href="#What-is" class="headerlink" title="What is"></a>What is</h3><blockquote>
+<p>Java Persistence API is a collection of classes and methods to persistently store the vast amounts of data into a database which is provided by the Oracle Corporation.</p>
+</blockquote>
+<h3 id="Where-to-use"><a href="#Where-to-use" class="headerlink" title="Where to use"></a>Where to use</h3><blockquote>
+<p>To reduce the burden of writing codes for relational object management, a programmer follows the ‘JPA Provider’ framework, which allows easy interaction with database instance. Here the required framework is taken over by JPA.</p>
+</blockquote>
+<p><img src="https://www.tutorialspoint.com/jpa/images/jpa_provider.png"></p>
+<ul>
+<li><p>JPA Pro</p>
+<blockquote>
+<p>JPA is an open source API, therefore various enterprise vendors such as Oracle, Redhat, Eclipse, etc. provide new products by adding the JPA persistence flavor in them. Some of these products include:<strong>Hibernate, Eclipselink, Toplink, Spring Data JPA, etc.</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p><img src="https://www.tutorialspoint.com/jpa/images/jpa_class_level_architecture.png"></p>
+<ul>
+<li><p>jpa class relationships</p>
+<p><img src="https://www.tutorialspoint.com/jpa/images/jpa_class_relationships.png"></p>
+</li>
+<li><p>ORM Architecture</p>
+<p><img src="https://www.tutorialspoint.com/jpa/images/object_relational_mapping.png"></p>
+</li>
+</ul>
+<ul>
+<li>Entity Relationships<ul>
+<li>@ManyToOne Relation</li>
+<li>@OneToMany Relation</li>
+<li>@OneToOne Relation</li>
+<li>@ManyToMany Relation</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/java%20stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/16/java%20stream/" class="post-title-link" itemprop="url">java stream</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-16 20:00:30" itemprop="dateCreated datePublished" datetime="2017-10-16T20:00:30+08:00">2017-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Creating-Java-Streams"><a href="#Creating-Java-Streams" class="headerlink" title="Creating Java Streams"></a>Creating Java Streams</h3><ol>
+<li>We can use Stream.of() to create a stream from similar type of data. For example, we can create Java Stream of integers from a group of int or Integer objects.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; stream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure></li>
+<li>We can use Stream.of() with an array of Objects to return the stream. Note that it doesn’t support autoboxing, so we can’t pass primitive type array.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; stream = Stream.of(<span class="keyword">new</span> Integer[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;); </span><br><span class="line"><span class="comment">//works fine</span></span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; stream1 = Stream.of(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;); </span><br><span class="line"><span class="comment">//Compile time error, Type mismatch: cannot convert from Stream&lt;int[]&gt; to Stream&lt;Integer&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>We can use Collection stream() to create sequential stream and parallelStream() to create parallel stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; myList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) myList.add(i);</span><br><span class="line">		</span><br><span class="line"><span class="comment">//sequential stream</span></span><br><span class="line">Stream&lt;Integer&gt; sequentialStream = myList.stream();</span><br><span class="line">		</span><br><span class="line"><span class="comment">//parallel stream</span></span><br><span class="line">Stream&lt;Integer&gt; parallelStream = myList.parallelStream();</span><br></pre></td></tr></table></figure></li>
+<li>We can use Stream.generate() and Stream.iterate() methods to create Stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream1 = Stream.generate(() -&gt; &#123;<span class="keyword">return</span> <span class="string">&quot;abc&quot;</span>;&#125;);</span><br><span class="line">Stream&lt;String&gt; stream2 = Stream.iterate(<span class="string">&quot;abc&quot;</span>, (i) -&gt; i);</span><br></pre></td></tr></table></figure></li>
+<li>Using Arrays.stream() and String.chars() methods.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LongStream is = Arrays.stream(<span class="keyword">new</span> <span class="keyword">long</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);</span><br><span class="line">IntStream is2 = <span class="string">&quot;abc&quot;</span>.chars();</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Converting-Java-Stream-to-Collection-or-Array"><a href="#Converting-Java-Stream-to-Collection-or-Array" class="headerlink" title="Converting Java Stream to Collection or Array"></a>Converting Java Stream to Collection or Array</h3><ol>
+<li>We can use java Stream collect() method to get List, Map or Set from stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; intStream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">List&lt;Integer&gt; intList = intStream.collect(Collectors.toList());</span><br><span class="line">System.out.println(intList); <span class="comment">//prints [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line">intStream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>); <span class="comment">//stream is closed, so we need to create it again</span></span><br><span class="line">Map&lt;Integer,Integer&gt; intMap = intStream.collect(Collectors.toMap(i -&gt; i, i -&gt; i+<span class="number">10</span>));</span><br><span class="line">System.out.println(intMap); <span class="comment">//prints &#123;1=11, 2=12, 3=13, 4=14&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>We can use stream toArray() method to create an array from the stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; intStream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">Integer[] intArray = intStream.toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">System.out.println(Arrays.toString(intArray)); <span class="comment">//prints [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Java-Stream-Intermediate-Operations"><a href="#Java-Stream-Intermediate-Operations" class="headerlink" title="Java Stream Intermediate Operations"></a>Java Stream Intermediate Operations</h3><ol>
+<li>Stream filter() : We can use filter() method to test stream elements for a condition and generate filtered list.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; myList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) myList.add(i);</span><br><span class="line">Stream&lt;Integer&gt; sequentialStream = myList.stream();</span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; highNums = sequentialStream.filter(p -&gt; p &gt; <span class="number">90</span>); <span class="comment">//filter numbers greater than 90</span></span><br><span class="line">System.out.print(<span class="string">&quot;High Nums greater than 90=&quot;</span>);</span><br><span class="line">highNums.forEach(p -&gt; System.out.print(p+<span class="string">&quot; &quot;</span>));</span><br><span class="line"><span class="comment">//prints &quot;High Nums greater than 90=91 92 93 94 95 96 97 98 99 &quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream map() : We can use map() to apply functions to an stream. Let’s see how we can use it to apply upper case function to a list of Strings.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; names = Stream.of(<span class="string">&quot;aBc&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;ef&quot;</span>);</span><br><span class="line">System.out.println(names.map(s -&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> s.toUpperCase();</span><br><span class="line">	&#125;).collect(Collectors.toList()));</span><br><span class="line"><span class="comment">//prints [ABC, D, EF]</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream sorted() : We can use sorted() to sort the stream elements by passing Comparator argument.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; names2 = Stream.of(<span class="string">&quot;aBc&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;ef&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">List&lt;String&gt; reverseSorted = names2.sorted(Comparator.reverseOrder()).collect(Collectors.toList());</span><br><span class="line">System.out.println(reverseSorted); <span class="comment">// [ef, d, aBc, 123456]</span></span><br><span class="line"></span><br><span class="line">Stream&lt;String&gt; names3 = Stream.of(<span class="string">&quot;aBc&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;ef&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">List&lt;String&gt; naturalSorted = names3.sorted().collect(Collectors.toList());</span><br><span class="line">System.out.println(naturalSorted); <span class="comment">//[123456, aBc, d, ef]</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream flatMap() : We can use flatMap() to create a stream from the stream of list. Let’s see a simple example to clear this doubt.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;List&lt;String&gt;&gt; namesOriginalList = Stream.of(</span><br><span class="line">	Arrays.asList(<span class="string">&quot;Pankaj&quot;</span>), </span><br><span class="line">	Arrays.asList(<span class="string">&quot;David&quot;</span>, <span class="string">&quot;Lisa&quot;</span>),</span><br><span class="line">	Arrays.asList(<span class="string">&quot;Amit&quot;</span>));</span><br><span class="line"><span class="comment">//flat the stream from List&lt;String&gt; to String stream</span></span><br><span class="line">Stream&lt;String&gt; flatStream = namesOriginalList</span><br><span class="line">	.flatMap(strList -&gt; strList.stream());</span><br><span class="line"></span><br><span class="line">flatStream.forEach(System.out::println);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Java-Stream-Terminal-Operations"><a href="#Java-Stream-Terminal-Operations" class="headerlink" title="Java Stream Terminal Operations"></a>Java Stream Terminal Operations</h3><ol>
+<li>Stream reduce() example: We can use reduce() to perform a reduction on the elements of the stream, using an associative accumulation function, and return an Optional. Let’s see how we can use it multiply the integers in a stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">		</span><br><span class="line">Optional&lt;Integer&gt; intOptional = numbers.reduce((i,j) -&gt; &#123;<span class="keyword">return</span> i*j;&#125;);</span><br><span class="line"><span class="keyword">if</span>(intOptional.isPresent()) System.out.println(<span class="string">&quot;Multiplication = &quot;</span>+intOptional.get()); <span class="comment">//120</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream count() example: We can use this terminal operation to count the number of items in the stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers1 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Number of elements in stream=&quot;</span>+numbers1.count()); <span class="comment">//5</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream forEach() example: This can be used for iterating over the stream. We can use this in place of iterator. Let’s see how to use it for printing all the elements of the stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers2 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">numbers2.forEach(i -&gt; System.out.print(i+<span class="string">&quot;,&quot;</span>)); <span class="comment">//1,2,3,4,5,</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream match() examples: Let’s see some of the examples for matching methods in Stream API.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers3 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Stream contains 4? &quot;</span>+numbers3.anyMatch(i -&gt; i==<span class="number">4</span>));</span><br><span class="line"><span class="comment">//Stream contains 4? true</span></span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; numbers4 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Stream contains all elements less than 10? &quot;</span>+numbers4.allMatch(i -&gt; i&lt;<span class="number">10</span>));</span><br><span class="line"><span class="comment">//Stream contains all elements less than 10? true</span></span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; numbers5 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Stream doesn&#x27;t contain 10? &quot;</span>+numbers5.noneMatch(i -&gt; i==<span class="number">10</span>));</span><br><span class="line"><span class="comment">//Stream doesn&#x27;t contain 10? true</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream findFirst() :This is a short circuiting terminal operation, let’s see how we can use it to find the first string from a stream starting with D.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; names4 = Stream.of(<span class="string">&quot;Pankaj&quot;</span>,<span class="string">&quot;Amit&quot;</span>,<span class="string">&quot;David&quot;</span>, <span class="string">&quot;Lisa&quot;</span>);</span><br><span class="line">Optional&lt;String&gt; firstNameWithD = names4.filter(i -&gt; i.startsWith(<span class="string">&quot;D&quot;</span>)).findFirst();</span><br><span class="line"><span class="keyword">if</span>(firstNameWithD.isPresent())&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;First Name starting with D=&quot;</span>+firstNameWithD.get()); <span class="comment">//David</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="some-example"><a href="#some-example" class="headerlink" title="some example"></a>some example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//merge collection</span></span><br><span class="line">List&lt;String&gt; resultPersonnos = Stream.of(list1, list2)</span><br><span class="line">                .flatMap(Collection::stream)</span><br><span class="line">                .distinct()</span><br><span class="line">                .sorted()</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/sublime%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/07/sublime%20snippet/" class="post-title-link" itemprop="url">sublime snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-09-07 12:01:30" itemprop="dateCreated datePublished" datetime="2017-09-07T12:01:30+08:00">2017-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:35:11" itemprop="dateModified" datetime="2019-03-14T14:35:11+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sublime/" itemprop="url" rel="index"><span itemprop="name">sublime</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p>安装插件</p>
+<p><code>CTRL + SHIFT + P并且输入Package Control: Install Package  </code></p>
+</li>
+<li><p>html格式化</p>
+<p><code>输入！，然后按 TAB</code></p>
+</li>
+<li><p>Pretty JSON插件</p>
+<p><code>格式化  CTRL + ALT + J</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/jquery%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -748,380 +1115,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/16/idea%20skill/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/16/idea%20skill/" class="post-title-link" itemprop="url">idea skill</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-12-16 23:10:30" itemprop="dateCreated datePublished" datetime="2016-12-16T23:10:30+08:00">2016-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-14 11:29:25" itemprop="dateModified" datetime="2021-04-14T11:29:25+08:00">2021-04-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><ul>
-<li><p>参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/q547550831/article/details/79129311">一大坨插件</a></p>
-</li>
-<li><p>现在已安装的插件：</p>
-<ul>
-<li>Translation(翻译工具)</li>
-<li>CheckStyle-IDEA（代码规范）</li>
-<li>FindBugs-IDEA(静态分析工具)</li>
-<li>BashSupport（Linux Bash支持，对bash语法的高亮支持）</li>
-<li>CodeGlance（类似SublimeText的Mini Map插件 ）</li>
-<li>Key promoter（提示功能快捷键）</li>
-<li>GsonFormat（暂未安装，其功能为把json格式的内容转成Object）</li>
-<li>jRebel（暂未安装，热部署插件）</li>
-</ul>
-</li>
-<li><p><strong>scratches草稿功能</strong></p>
-<ul>
-<li><p>参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/theape/article/details/70194185">强大的草稿功能</a></p>
-</li>
-<li><p>scratch中文乱码解决办法</p>
-<p>需要在<code>C:\Users\Administrator\.IntelliJIdea2019.1\config</code>中修改文件<code>idea64.exe.vmoptions</code>,在后面加上设置<code>-Dfile.encoding=UTF-8</code></p>
-</li>
-</ul>
-</li>
-<li><p>**Lombok **插件</p>
-<p>提高编码效率</p>
-</li>
-</ul>
-<h3 id="中文编码配置"><a href="#中文编码配置" class="headerlink" title="中文编码配置"></a>中文编码配置</h3><ul>
-<li><p>有关Properties文件中的中文unicode转码问题</p>
-<p>在IDEA中创建了properties文件，发现默认中文不会自动进行unicode转码，需要配置</p>
-<p><img src="https://i.imgur.com/W2a0nMR.jpg"></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/16/tomcat%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/16/tomcat%20snippet/" class="post-title-link" itemprop="url">tomcat snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-12-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-12-16T12:01:30+08:00">2016-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 15:15:40" itemprop="dateModified" datetime="2019-03-14T15:15:40+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tomcat/" itemprop="url" rel="index"><span itemprop="name">tomcat</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="配置项"><a href="#配置项" class="headerlink" title="配置项"></a>配置项</h3><ul>
-<li>项目部署到linux的tomcat中，验证码在页面中刷新不了，需要修改<code>catalina.sh</code>,添加<code>JAVA_OPTS=&quot;$JAVA_OPTS -Djava.awt.headless=true&quot;</code>配置</li>
-</ul>
-<h3 id="设置虚拟路径的两种方法"><a href="#设置虚拟路径的两种方法" class="headerlink" title="设置虚拟路径的两种方法"></a>设置虚拟路径的两种方法</h3><ul>
-<li>使用tomcat自身设置虚拟路径</li>
-</ul>
-<ol>
-<li><p>在tomcat的server.xml配置文件中，配置context标签</p>
-<p>Context标签中的相关属性：</p>
-<ul>
-<li>path: 指定访问该web应用的URL入口，即虚拟文件目录</li>
-<li>docBase:为访问的真实路径</li>
-<li>reloadable:如果这个属性设为true，tomcat服务器在运行状态下会监视在WEB-INF/classes和WEB-INF/lib目录下class文件的改动， 如果监测到有class文件被更新的，服务器会自动重新加载Web应用。 </li>
-</ul>
-</li>
-<li><p>如果这事使用idea启动项目，需要将Deploy applications configured in Tomcat instance勾上 </p>
-</li>
-</ol>
-<ul>
-<li><p>单独设置IDEA进行设置虚拟路径</p>
-<ol>
-<li><p>上图的中<code>Deploy applications configured in Tomcat instance</code>不要勾上 </p>
-</li>
-<li><p>选中<code>edit configurations</code>，点击加号按钮，选择实际路径，并在<code>Appication context</code>中填写虚拟路径。</p>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="设置URL请求参数长度"><a href="#设置URL请求参数长度" class="headerlink" title="设置URL请求参数长度"></a>设置URL请求参数长度</h3><ul>
-<li><p>问题描述</p>
-<p>post请求，本身请求参数无大小限制，但是一般的服务器像tomcat都有默认大小，如果传输的参数超过了默认大小，则会报错<code>http post request header is too large</code></p>
-</li>
-<li><p>解决办法</p>
-<p>在server.xml中<code>&lt;Connector connectionTimeout=&quot;20000&quot; port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot; redirectPort=&quot;8443&quot;/&gt;  </code>，添加设置项<code>maxHttpHeaderSize =&quot;102400&quot; </code></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/16/webpack%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/16/webpack%20snippet/" class="post-title-link" itemprop="url">webpack snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-12-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-12-16T12:01:30+08:00">2016-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 15:16:49" itemprop="dateModified" datetime="2019-03-14T15:16:49+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>四个核心概念：</p>
-<p>入口    entry</p>
-<p>输出    output</p>
-<p>loader</p>
-<p>插件    plugins</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/16/spring%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/16/spring%20snippet/" class="post-title-link" itemprop="url">spring snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-16 16:01:30" itemprop="dateCreated datePublished" datetime="2016-10-16T16:01:30+08:00">2016-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-23 13:44:48" itemprop="dateModified" datetime="2021-12-23T13:44:48+08:00">2021-12-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><h4 id="传JSON字符串-RequestBody接收"><a href="#传JSON字符串-RequestBody接收" class="headerlink" title="传JSON字符串+@RequestBody接收"></a>传JSON字符串+@RequestBody接收</h4><ul>
-<li>前端<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">icheckDelete</span><span class="params">(url)</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parms = &#123;</span><br><span class="line">        list : array <span class="comment">//这是个数组</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        dataType: <span class="string">&quot;JSON&quot;</span>,</span><br><span class="line">        contentType:<span class="string">&#x27;application/json;charset=UTF-8&#x27;</span>,<span class="comment">//关键是要加上这行</span></span><br><span class="line">        traditional:<span class="keyword">true</span>,<span class="comment">//这使json格式的字符不会被转码</span></span><br><span class="line">        data: JSON.stringify(parms),</span><br><span class="line">        type: <span class="string">&quot;DELETE&quot;</span>, </span><br><span class="line">        timeout: <span class="number">20000</span>,</span><br><span class="line">        url: url,</span><br><span class="line">        success : function () &#123;</span><br><span class="line">            alert(<span class="string">&quot;删除成功！&quot;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        error : function (data)&#123;</span><br><span class="line">            alert(data.responseText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>后端<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Controller:</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;deleteList&quot;, method = RequestMethod.DELETE)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(<span class="meta">@RequestBody</span> DeleteListRequest request)</span> <span class="keyword">throws</span> WebTransException</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 逻辑代码 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1191,13 +1184,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">68</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

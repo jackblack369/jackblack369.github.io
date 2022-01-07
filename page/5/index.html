@@ -146,6 +146,440 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/ignite_snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/01/ignite_snippet/" class="post-title-link" itemprop="url">ignite snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-01 12:01:30" itemprop="dateCreated datePublished" datetime="2019-11-01T12:01:30+08:00">2019-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-09 15:28:37" itemprop="dateModified" datetime="2021-12-09T15:28:37+08:00">2021-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
+<li> 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误</li>
+</ul>
+<p>  原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
+<li>Ignite的原生持久化会在磁盘上存储一个数据的超集，以及根据容量在内存中存储一个子集。比如，如果有100个条目，然后内存只能存储20条，那么磁盘上会存储所有的100条，然后为了提高性能在内存中缓存20条。</li>
+<li>和纯内存的使用场景一样，当打开持久化时，每个独立的节点只会持久化数据的一个子集，不管是主还是备节点，都是只包括节点所属的分区的数据，总的来说，整个集群包括了完整的数据集。</li>
+<li>在开发应用时可能需要修改自定义对象字段的类型。例如假设对象A的字段类型<code>A.range</code>为<code>int</code>类型，然后决定将<code>A.range</code>的类型修改为<code>long</code>类型。之后会发现集群或应用将无法重启，因为Ignite不支持字段/列类型的更改。</li>
+<li>无法变更枚举值的顺序，也无法在枚举值列表的开始或者中部添加新的常量，但是可以在列表的末尾添加新的常量。</li>
+</ul>
+<h3 id="ZooKeeper-Discovery"><a href="#ZooKeeper-Discovery" class="headerlink" title="ZooKeeper Discovery"></a>ZooKeeper Discovery</h3><p>ZooKeeper Discovery是为需要保持易扩展性和线性性能的大规模部署而设计的。然而，同时使用Ignite和ZooKeeper需要配置和管理两个分布式系统，这可能是一个挑战。因此，我们建议你只有在计划扩展到100个或1000个节点时才使用ZooKeeper Discovery。否则，最好使用TCP/IP发现。</p>
+<hr>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
+<li><p>marshaller</p>
+<blockquote>
+<p> $IGNITE_HOME/work/db/marshaller    类classpath信息</p>
+</blockquote>
+</li>
+<li><p>binary_meta</p>
+<blockquote>
+<p>$IGNITE_HOME/work/db/binary_meta    类的元素信息</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>下面三个配置项是在配置文件中进行配置</strong></p>
+<ul>
+<li><p>storagePath</p>
+<blockquote>
+<p>$RDX_HOME/data/ignite/persistent    持久化文件</p>
+</blockquote>
+</li>
+<li><p>walPath</p>
+<blockquote>
+<p>$RDX_HOME/data/ignite/wal_store    持久化数据的元数据信息（类名、元素名、位置）</p>
+</blockquote>
+<ul>
+<li>walPath和storagePath存储的数据的关联</li>
+</ul>
+</li>
+<li><p>walArchivePath</p>
+<blockquote>
+<p>$RDX_HOME/data/ignite/wal_archive</p>
+</blockquote>
+<ul>
+<li>和walPath存储的数据结构一样，二者的关系</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/flink%20Memory%20Model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/01/flink%20Memory%20Model/" class="post-title-link" itemprop="url">flink Memory Model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-01 22:00:30" itemprop="dateCreated datePublished" datetime="2019-10-01T22:00:30+08:00">2019-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-05 16:50:11" itemprop="dateModified" datetime="2022-01-05T16:50:11+08:00">2022-01-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><h3 id="jobmanager"><a href="#jobmanager" class="headerlink" title="jobmanager"></a>jobmanager</h3><p><img src="/images/flink/jobmanager.jpg"></p>
+<ul>
+<li>JVM Heap大小设置对应配置文件<code>flink-conf.yaml</code>的<strong>jobmanager.heap.size</strong></li>
+</ul>
+<h3 id="taskmanager"><a href="#taskmanager" class="headerlink" title="taskmanager"></a>taskmanager</h3><p><img src="./img/flink/taskmanager.jpg"></p>
+<ul>
+<li>Total Flink Memory对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.flink.size</strong></li>
+<li>JVM Metaspace对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.jvm-metaspace.size</strong></li>
+<li>Total Process Memory对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.process.size</strong></li>
+</ul>
+<h2 id="配置优化"><a href="#配置优化" class="headerlink" title="配置优化"></a>配置优化</h2><ul>
+<li><strong>节点平均分配</strong><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cluster.evenly-spread-out-slots:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/16/idea%20keymap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/16/idea%20keymap/" class="post-title-link" itemprop="url">idea keymap</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-16 11:17:30" itemprop="dateCreated datePublished" datetime="2019-09-16T11:17:30+08:00">2019-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-27 15:24:19" itemprop="dateModified" datetime="2021-05-27T15:24:19+08:00">2021-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index"><span itemprop="name">tool</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><ul>
+<li>ctrl + P<br>列出参数列表（使用比较多 ）</li>
+<li>ctrl + shift + enter<br>当在括号里输入完最后一个参数时候他会直接光标跳到最后并且添加分号，不需要自己按向左键移动光标。（使用比较多 ）<br>ctrl + enter 向下插入一行，光标位置不变</li>
+<li>shift + enter<br>向下插入一行。光标位置进入下一行（可以在一行的任何位置换行，而不必将光标移动到行尾，使用比较多）</li>
+<li>ctrl+left/right<br>在单词间跳动光标，基本在所有的编辑器中都是适用 （使用比较多 ）</li>
+<li>ctr+shitf+left/right<br>快速选中，基本在所有的编辑器中都是适用（shift选中，ctrl+left/right在单词中快速跳动，使用比较多 ）</li>
+<li>Alt+left/right，切换代码视图（使用比较多 ）</li>
+<li>Alt+Up/Down，在方法间快速移动定位（使用比较多 ）</li>
+<li>F2 或 Shift+F2，高亮错误或警告快速定位（使用比较多）</li>
+<li>Ctrl+Alt+T<br>可以把代码包在一个块内，例如：try/catch（使用比较多 ）</li>
+<li>Ctrl+F，处于查找状态下按down向下查找，up向上查找（使用比较多）</li>
+<li>Ctrl+F12，可以显示当前文件的结构（快速查找当前类中某个方法，使用比较多）</li>
+<li>Ctrl+Shift+W，取消选择光标所在词（使用比较多）</li>
+<li>Ctrl+[ OR ]，可以跑到大括号的开头与结尾</li>
+<li>Ctrl+Shift +[ OR ]，选择大括号中的内容</li>
+<li>alt + 1 同上（在工程目录和编辑页面间切换，使用比较多）</li>
+<li>Ctrl+Alt+O，优化导入的类和包(去掉没有使用的import，使用比较多 )</li>
+<li>Shift+F6，重构 - 重命名（使用比较多 ）</li>
+<li>Ctrl+G，定位行</li>
+<li>Ctrl+H，显示类结构图（类的继承层次）</li>
+<li>Ctrl+U，转到父类</li>
+<li>Ctrl+”+/-“，当前方法展开、折叠</li>
+<li>Ctrl+Shift+”+/-“，全部展开、折叠</li>
+<li>Ctrl+Shift+J，整合两行</li>
+<li>ctrl + shift + space<br>当new 一个变量的时候，已经写了变量类型，打了等号之后按这个可以快速完成。</li>
+</ul>
+<hr>
+<h2 id="Compile-and-Run"><a href="#Compile-and-Run" class="headerlink" title="Compile and Run"></a>Compile and Run</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRX0JI"><img src="https://s2.ax1x.com/2019/09/16/nRX0JI.jpg" alt="nRX0JI.jpg"></a></p>
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXhYn"><img src="https://s2.ax1x.com/2019/09/16/nRXhYn.jpg" alt="nRXhYn.jpg"></a></p>
+<h2 id="Editing"><a href="#Editing" class="headerlink" title="Editing"></a>Editing</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXwFA"><img src="https://s2.ax1x.com/2019/09/16/nRXwFA.jpg" alt="nRXwFA.jpg"></a></p>
+<h2 id="General"><a href="#General" class="headerlink" title="General"></a>General</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRX2wQ"><img src="https://s2.ax1x.com/2019/09/16/nRX2wQ.jpg" alt="nRX2wQ.jpg"></a></p>
+<h2 id="Live-Templates"><a href="#Live-Templates" class="headerlink" title="Live Templates"></a>Live Templates</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXRoj"><img src="https://s2.ax1x.com/2019/09/16/nRXRoj.jpg" alt="nRXRoj.jpg"></a></p>
+<h2 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXBWt"><img src="https://s2.ax1x.com/2019/09/16/nRXBWt.jpg" alt="nRXBWt.jpg"></a></p>
+<h2 id="Refactoring"><a href="#Refactoring" class="headerlink" title="Refactoring"></a>Refactoring</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXsQf"><img src="https://s2.ax1x.com/2019/09/16/nRXsQf.jpg" alt="nRXsQf.jpg"></a></p>
+<h2 id="Search-Replace"><a href="#Search-Replace" class="headerlink" title="Search/Replace"></a>Search/Replace</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXrSP"><img src="https://s2.ax1x.com/2019/09/16/nRXrSP.jpg" alt="nRXrSP.jpg"></a></p>
+<h2 id="Usage-Search"><a href="#Usage-Search" class="headerlink" title="Usage Search"></a>Usage Search</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRXyy8"><img src="https://s2.ax1x.com/2019/09/16/nRXyy8.jpg" alt="nRXyy8.jpg"></a></p>
+<h2 id="VCS-Local-History"><a href="#VCS-Local-History" class="headerlink" title="VCS/Local History"></a>VCS/Local History</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/nRX6OS"><img src="https://s2.ax1x.com/2019/09/16/nRX6OS.jpg" alt="nRX6OS.jpg"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/docker%20image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/16/docker%20image/" class="post-title-link" itemprop="url">docker image</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-16 14:34:30" itemprop="dateCreated datePublished" datetime="2019-08-16T14:34:30+08:00">2019-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-17 11:24:19" itemprop="dateModified" datetime="2021-12-17T11:24:19+08:00">2021-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Docker-包括三个基本概念"><a href="#Docker-包括三个基本概念" class="headerlink" title="Docker 包括三个基本概念:"></a>Docker 包括三个基本概念:</h4><ul>
+<li><strong>镜像（Image）</strong>：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。</li>
+<li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
+<li><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</li>
+</ul>
+<h3 id="操作镜像"><a href="#操作镜像" class="headerlink" title="操作镜像"></a>操作镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">查找</span><br><span class="line">docker search xxx</span><br><span class="line">拉取</span><br><span class="line">docker pull xxx</span><br><span class="line">运行(容器)</span><br><span class="line">docker run xxx</span><br><span class="line">删除</span><br><span class="line">docker rmi xxx</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"></span><br><span class="line">语法</span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>导出镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker save $REPOSITORY:$TAG &gt; $PATH/$NAME.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意$后面的变量需要替换</span></span><br></pre></td></tr></table></figure></li>
+<li><p>导入镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure></li>
+<li><p>在镜像中运行容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span><span class="bash">REPOSITORY:<span class="variable">$TAG</span>：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span></span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br><span class="line">-p hostPort:containerPort</span><br><span class="line">-v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步</span><br></pre></td></tr></table></figure>
+
+<h4 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h4></li>
+</ul>
+<blockquote>
+<p>Docker Image可以理解成多个只读文件叠加而成，因此Docker Image是只读的。</p>
+<p>当我们将其运行起来，就相当于在只读的Image外包裹了一层读写层变成了容器。</p>
+<p>当你删除容器之后，使用这个镜像重新创建一个容器，此时的镜像的只读层还和原来的一样，但是你在读写层的修改全部都会丢失（没有使用原有volume的前提下）。</p>
+<p> docker使用volume实现数据的持久化，不仅如此volume还能帮助容器和容器之间，容器和host之间共享数据。</p>
+</blockquote>
+<ul>
+<li><p>进入运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it $CONTAINER_ID /bin/bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>注意</p>
+<p>命令中的/bin/bash是根据<code> docker inspect $image_id</code>，根据”Cmd”配置项决定的</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="把jar包程序制作成镜像"><a href="#把jar包程序制作成镜像" class="headerlink" title="把jar包程序制作成镜像"></a>把jar包程序制作成镜像</h3><p>编辑dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span>  openjdk:<span class="number">8</span>-jre</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定路径</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /data/justMicroservice/learning-cloudalibaba</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=nacos-provider/target/nacos-provider-<span class="number">0.0</span>.<span class="number">1</span>-SNAPSHOT.jar</span><br><span class="line"><span class="comment"># 复制jar文件到路径</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> nacos-provider.jar</span></span><br><span class="line"><span class="comment"># 启动网关服务</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;nacos-provider.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t $repository -f $path/dockerfile .</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/docker%20solution/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1202,416 +1636,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/rabbitmq/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/14/rabbitmq/" class="post-title-link" itemprop="url">rabbitmq learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-05-14 11:45:30 / Modified: 13:33:11" itemprop="dateCreated datePublished" datetime="2019-05-14T11:45:30+08:00">2019-05-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/rabbitmq/" itemprop="url" rel="index"><span itemprop="name">rabbitmq</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>查询已有queue</p>
-<p><code>sudo rabbitmqctl list_queues</code></p>
-</li>
-<li><p>查询已有exchanges</p>
-<p><code>sudo rabbitmqctl list_exchanges</code></p>
-</li>
-</ul>
-<h2 id="Publish-Subscribe"><a href="#Publish-Subscribe" class="headerlink" title="Publish/Subscribe"></a>Publish/Subscribe</h2><ul>
-<li><p>Exchanges</p>
-<p>There are a few exchange types available: <strong>direct</strong>, <strong>topic</strong>, <strong>headers</strong> and <strong>fanout</strong>.</p>
-</li>
-<li><p>Bindings</p>
-<p>A binding is a relationship between an exchange and a queue</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/http%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/14/http%20learn/" class="post-title-link" itemprop="url">http learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-05-14 10:07:30" itemprop="dateCreated datePublished" datetime="2019-05-14T10:07:30+08:00">2019-05-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-08 16:31:19" itemprop="dateModified" datetime="2019-08-08T16:31:19+08:00">2019-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="http-1-0-http-1-1"><a href="#http-1-0-http-1-1" class="headerlink" title="http 1.0 http 1.1"></a>http 1.0 http 1.1</h2><ul>
-<li><p>HTTP1.0最早在网页中使用是1996年，那个时候只是使用一些较为简单的网页和网络的请求，每次请求都需要建立一个单独的连接，上一次和下一次请求完全分离。这种做法，即使每次的请求量都很小，但是客户端和服务端每次建立TCP连接和关闭TCP连接都是相对比较费时的过程，严重影响客户端和服务端的性能。</p>
-</li>
-<li><p>基于以上的问题，HTTP1.1在1999年广泛应用于现在的各大浏览器网络请求中，同时HTTP1.1也是当前使用最为广泛的HTTP协议（2015年诞生了HTTP2，但是还未大规模应用），这里不详细对比HTTP1.1针对HTTP1.0改进了什么，只是在连接这块，HTTP1.1支持在一个TCP连接上传送多个HTTP请求和响应，减少了建立和关闭连接的消耗延迟，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点，这就是长连接，HTTP1.1默认使用长连接。</p>
-</li>
-<li><p>那么，长连接是如何工作的呢？首先，我们要明确一下，长短连接是通信层（TCP）的概念，HTTP是应用层协议，它只能说告诉通信层我打算一段时间内复用TCP通道而没有自己去建立、释放TCP通道的能力。</p>
-</li>
-</ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eZzl4LXykQwdKAeT5rjMFfDXeITCDnbwnNXWrFDaIIhBibAk4N83H5dKXAkMNleqewC53Y8WQ6cOhRjA7k4SuMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
-<ul>
-<li>http的keep-alive和tcp的keep-alive的区别<ul>
-<li>http的keep-alive是为了复用已有连接</li>
-<li>tcp的keep-alive是为了保活，即保证对端还存活，不然对端已经不在了我这边还占着和对端的这个连接，浪费服务器资源，做法是隔一段时间发送一个心跳包到对端服务器，一旦长时间没有接收到应答，就主动关闭连接</li>
-</ul>
-</li>
-</ul>
-<h2 id="WebSockets"><a href="#WebSockets" class="headerlink" title="WebSockets"></a>WebSockets</h2><p>WebSockets provide a persistent connection between a client and server that both parties can use to start sending data at any time.**</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Create a new WebSocket.</span><br><span class="line">var socket = new WebSocket(&#x27;ws://echo.websocket.org&#x27;);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Once the connection has been established the <code>open</code> event will be fired on your WebSocket instance.</p>
-</li>
-<li><p>请求</p>
-<p><code>ws://localhost:9095/webSocket/d72b3660-29a8-4276-9eb1-3373e82fdd92</code></p>
-</li>
-<li><p>后台请求的结果传入websocket是通过session建立关联的</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/bigdata/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/05/bigdata/" class="post-title-link" itemprop="url">bigdata snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-05-05 22:52:30" itemprop="dateCreated datePublished" datetime="2019-05-05T22:52:30+08:00">2019-05-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-18 10:35:48" itemprop="dateModified" datetime="2021-11-18T10:35:48+08:00">2021-11-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="BIG-DATA-What-is-Types-Characteristics-amp-Example"><a href="#BIG-DATA-What-is-Types-Characteristics-amp-Example" class="headerlink" title="BIG DATA: What is, Types, Characteristics &amp; Example"></a>BIG DATA: What is, Types, Characteristics &amp; Example</h2><ul>
-<li>Big Data is defined as data that is huge in size. Bigdata is a term used to describe a collection of data that is huge in size and yet growing exponentially with time.</li>
-<li>Examples of Big Data generation includes stock exchanges, social media sites, jet engines, etc.</li>
-<li>Big Data could be 1) Structured, 2) Unstructured, 3) Semi-structured</li>
-<li>Volume, Variety, Velocity, and Variability are few Characteristics of Bigdata</li>
-<li>Improved customer service, better operational efficiency, Better Decision Making are few advantages of Bigdata</li>
-</ul>
-<h2 id="Hadoop-EcoSystem-and-Components"><a href="#Hadoop-EcoSystem-and-Components" class="headerlink" title="Hadoop EcoSystem and Components"></a>Hadoop EcoSystem and Components</h2><p><img src="./img/061114_0803_LearnHadoop4.png"></p>
-<h3 id="Hadoop-Architecture"><a href="#Hadoop-Architecture" class="headerlink" title="Hadoop Architecture"></a>Hadoop Architecture</h3><p><img src="./img/hadoop-architecture.png"></p>
-<h4 id="HDFS-Architecture"><a href="#HDFS-Architecture" class="headerlink" title="HDFS Architecture"></a>HDFS Architecture</h4><p>HDFS cluster primarily consists of a <strong>NameNode</strong> that manages the file system <strong>Metadata</strong> and a <strong>DataNodes</strong> that stores the <strong>actual data</strong>.</p>
-<ul>
-<li><p>Read Operation In HDFS</p>
-<p><img src="./img/061114_0923_LearnHDFSAB1.png"></p>
-</li>
-<li><p>Write Operation In HDFS</p>
-<p><img src="./img/061114_0923_LearnHDFSAB2.png"></p>
-</li>
-</ul>
-<h4 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h4><p>The whole process goes through four phases of execution namely, splitting, mapping, shuffling, and reducing.</p>
-<p><img src="./img/061114_0930_Introductio1.png"></p>
-<ol>
-<li><strong>Jobtracker</strong>: Acts like a <strong>master</strong> (responsible for complete execution of submitted job)</li>
-<li><strong>Multiple Task Trackers</strong>: Acts like <strong>slaves,</strong> each of them performing the job</li>
-</ol>
-<p><img src="./img/061114_0930_Introductio2.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/vmware/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/20/vmware/" class="post-title-link" itemprop="url">vmware snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-20 16:15:30" itemprop="dateCreated datePublished" datetime="2019-04-20T16:15:30+08:00">2019-04-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-07-24 17:34:53" itemprop="dateModified" datetime="2019-07-24T17:34:53+08:00">2019-07-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vmware/" itemprop="url" rel="index"><span itemprop="name">vmware</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>新增用户</p>
-<p><code>adduser username</code></p>
-<p><code>passwd username</code></p>
-<p><code>usermod -aG wheel username</code></p>
-<p><code>su - username</code></p>
-</li>
-</ul>
-<h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><ul>
-<li><p>安装完毕之后，需要设置IP分配</p>
-<ol>
-<li><p><code>cd /etc/sysconfig/network-scripts/</code></p>
-</li>
-<li><p>再进入编辑<code>ifcfg-e**</code> 文件 执行命令<br><code>vi ifcfg-e**</code></p>
-</li>
-<li><p>修改ONBOOT项</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其中部分内容如下： </span><br><span class="line">DEVICE=eth0 #设备名称，可根据ifcofnig命令查看到。 </span><br><span class="line">BOOTPROTO=dhcp #连接方式，dhcp会自动分配地址，此时不需要在下面设置ip和网关 </span><br><span class="line">ONBOOT=yes #yes表示启动就执行该配置，需要改为yes</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><p>修改完后需要重启网络设置，执行</p>
-<p><code>service network restart</code></p>
-</li>
-</ol>
-</li>
-<li><p>设置静态IP</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/clevercode/article/details/50574695">虚拟机设置</a></p>
-</li>
-<li><p>宿主机器设置</p>
-<p>需要设置vmnet8的ip为同一网段的配置</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h3><ul>
-<li><p>安装jdk</p>
-<p><code>sudo yum install java-1.8.0-openjdk-devel</code></p>
-<ul>
-<li>find path</li>
-</ul>
-<p><code>update-alternatives --config java</code></p>
-<ul>
-<li>config .bashrc</li>
-</ul>
-<p><code>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64/jre</code></p>
-</li>
-</ul>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
-<li><p>授权所有机器可以从外界访问mysql</p>
-<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;will&#39;;</code></p>
-<p><code>FLUSH PRIVILEGES;</code></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1681,13 +1705,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">68</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
