@@ -146,6 +146,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/07/mac%20command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/07/mac%20command/" class="post-title-link" itemprop="url">macos command</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-07 14:03:15 / Modified: 14:23:09" itemprop="dateCreated datePublished" datetime="2022-01-07T14:03:15+08:00">2022-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/macos/" itemprop="url" rel="index"><span itemprop="name">macos</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>解压带有中文名称的zip包</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ditto -V -x -k --sequesterRsrc filename.zip destination</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/07/file%20system/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -171,7 +244,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-01-07 05:47:16 / Modified: 13:59:23" itemprop="dateCreated datePublished" datetime="2022-01-07T05:47:16+08:00">2022-01-07</time>
+              <time title="Created: 2022-01-07 13:59:21 / Modified: 14:23:11" itemprop="dateCreated datePublished" datetime="2022-01-07T13:59:21+08:00">2022-01-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -322,7 +395,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-07 13:33:02" itemprop="dateModified" datetime="2022-01-07T13:33:02+08:00">2022-01-07</time>
+                <time title="Modified: 2022-01-11 00:56:22" itemprop="dateModified" datetime="2022-01-11T00:56:22+08:00">2022-01-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -350,7 +423,32 @@
 <p>在离线场景中，join 的数据集是有边界的，可以缓存数据有边界的数据集进行查询，有Nested Loop/Hash Join/Sort Merge Join 等多表 join；</p>
 <p>而在实时场景中，join 两侧的数据都是无边界的数据流，所以缓存数据集对长时间 job 来说，存储和查询压力很大，另外双流的到达时间可能不一致，造成 join 计算结果准确度不够；因此，Flink SQL 提供了多种 join 方法，来帮助用户应对各种 join 场景。</p>
 </blockquote>
-<h3 id="regular-join"><a href="#regular-join" class="headerlink" title="regular join"></a>regular join</h3><h3 id="interval-join"><a href="#interval-join" class="headerlink" title="interval join"></a>interval join</h3><h3 id="temproal-table-join"><a href="#temproal-table-join" class="headerlink" title="temproal table join"></a>temproal table join</h3>
+<h3 id="regular-join"><a href="#regular-join" class="headerlink" title="regular join"></a>regular join</h3><blockquote>
+<p>regular join 是最通用的 join 类型，不支持时间窗口以及时间属性，任何一侧数据流有更改都是可见的，直接影响整个 join 结果。如果有一侧数据流增加一个新纪录，那么它将会把另一侧的所有的过去和将来的数据合并在一起，因为 regular join 没有剔除策略，这就影响最新输出的结果; 正因为历史数据不会被清理，所以 regular join 支持数据流的任何更新操作。</p>
+<p>对于 regular join 来说，更适合用于离线场景和小数据量场景。</p>
+</blockquote>
+<ul>
+<li>语法<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span><span class="operator">/</span><span class="keyword">INNER</span><span class="operator">/</span><span class="keyword">FULL</span> <span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> t2</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="interval-join"><a href="#interval-join" class="headerlink" title="interval join"></a>interval join</h3><blockquote>
+<p>相对于 regular join，interval Join 则利用窗口的给两个输入表设定一个 Join 的时间界限，超出时间范围的数据则对 join 不可见并可以被清理掉，这样就能修正 regular join 因为没有剔除数据策略带来 join 结果的误差以及需要大量的资源。</p>
+<p>但是使用interval join，需要定义好时间属性字段，可以是计算发生的 Processing Time，也可以是根据数据本身提取的 Event Time；如果是定义的是 Processing Time，则Flink 框架本身根据系统划分的时间窗口定时清理数据；如果定义的是 Event Time，Flink 框架分配 Event Time 窗口并根据设置的 watermark 来清理数据。</p>
+</blockquote>
+<ul>
+<li><p>语法1</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span><span class="operator">/</span><span class="keyword">INNER</span><span class="operator">/</span><span class="keyword">FULL</span> <span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> t2</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1 <span class="keyword">AND</span> t1.timestamp <span class="keyword">BETWEEN</span> t2.timestamp  <span class="keyword">AND</span>  <span class="keyword">BETWEEN</span> t2.timestamp <span class="operator">+</span> <span class="operator">+</span> <span class="type">INTERVAL</span> <span class="string">&#x27;10&#x27;</span> <span class="keyword">MINUTE</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>语法2</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span><span class="operator">/</span><span class="keyword">INNER</span><span class="operator">/</span><span class="keyword">FULL</span> <span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> t2</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1 <span class="keyword">AND</span> t2.timestamp <span class="operator">&lt;=</span> t1.timestamp <span class="keyword">and</span> t1.timestamp <span class="operator">&lt;=</span>  t2.timestamp <span class="operator">+</span> <span class="operator">+</span> <span class="type">INTERVAL</span> ’<span class="number">10</span><span class="string">&#x27; MINUTE ;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="temproal-table-join"><a href="#temproal-table-join" class="headerlink" title="temproal table join"></a>temproal table join</h3><blockquote>
+<p>interval Join 提供了剔除数据的策略，解决资源问题以及计算更加准确，这是有个前提：join 的两个流需要时间属性，需要明确时间的下界，来方便剔除数据；</p>
+<p>显然，这种场景不适合维度表的 join，因为维度表没有时间界限，对于这种场景，Flink 提供了 temproal table join 来覆盖此类场景。</p>
+<p>在 regular join和interval join中，join 两侧的表是平等的，任意的一个表的更新，都会去和另外的历史纪录进行匹配，temproal table 的更新对另一表在该时间节点以前的记录是不可见的。</p>
+</blockquote>
+<ul>
+<li>语法<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span>] <span class="keyword">JOIN</span> t2 <span class="keyword">FOR</span> <span class="built_in">SYSTEM_TIME</span> <span class="keyword">AS</span> <span class="keyword">OF</span> t1.proctime [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias2<span class="operator">&gt;</span>]</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
     </div>
 
@@ -983,80 +1081,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/29/clickhouse/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/29/clickhouse/" class="post-title-link" itemprop="url">clickhouse points</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-29 19:11:30 / Modified: 19:16:57" itemprop="dateCreated datePublished" datetime="2021-12-29T19:11:30+08:00">2021-12-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/clickhouse/" itemprop="url" rel="index"><span itemprop="name">clickhouse</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="存储架构"><a href="#存储架构" class="headerlink" title="存储架构"></a>存储架构</h2><blockquote>
-<p>Clickhouse 存储中的最小单位是 DataPart，写入链路为了提升吞吐，放弃了部分写入实时可见性，即数据攒批写入，一次批量写入的数据会落盘成一个 DataPart.</p>
-<p>它不像 Druid 那样一条一条实时摄入。但 ClickHouse 把数据延迟攒批写入的工作交给来客户端实现，比如达到 10 条记录或每过 5s 间隔写入，换句话说就是可以在用户侧平衡吞吐量和时延，如果在业务高峰期流量不是太大，可以结合实际场景将参数调小，以达到极致的实时效果。</p>
-</blockquote>
-<h2 id="查询架构"><a href="#查询架构" class="headerlink" title="查询架构"></a>查询架构</h2><h3 id="计算能力方面"><a href="#计算能力方面" class="headerlink" title="计算能力方面"></a>计算能力方面</h3><p>Clickhouse 采用向量化函数和 aggregator 算子极大地提升了聚合计算性能，配合完备的 SQL 能力使得数据分析变得更加简单、灵活。</p>
-<h3 id="数据扫描方面"><a href="#数据扫描方面" class="headerlink" title="数据扫描方面"></a>数据扫描方面</h3><p>ClickHouse 是完全列式的存储计算引擎，而且是以有序存储为核心，在查询扫描数据的过程中，首先会根据存储的有序性、列存块统计信息、分区键等信息推断出需要扫描的列存块，然后进行并行的数据扫描，像表达式计算、聚合算子都是在正规的计算引擎中处理。从计算引擎到数据扫描，数据流转都是以列存块为单位，高度向量化的。</p>
-<h3 id="高并发服务方面"><a href="#高并发服务方面" class="headerlink" title="高并发服务方面"></a>高并发服务方面</h3><p>Clickhouse 的并发能力其实是与并行计算量和机器资源决定的。如果查询需要扫描的数据量和计算复杂度很大，并发度就会降低，但是如果保证单个 query 的 latency 足够低（增加内存和 cpu 资源），部分场景下用户可以通过设置合适的系统参数来提升并发能力，比如 max_threads 等。其他分析型系统（例如 Elasticsearch）的并发能力为什么很好，从 Cache 设计层面来看，ES 的 Cache 包括 Query Cache, Request Cache，Data Cache，Index Cache，从查询结果到索引扫描结果层层的 Cache 加速，因为 Elasticsearch 认为它的场景下存在热点数据，可能被反复查询。反观 ClickHouse，只有一个面向 IO 的 UnCompressedBlockCache 和系统的 PageCache，为了实现更优秀的并发，我们很容易想到在 Clickhouse 外面加一层 Cache，比如 redis，但是分析场景下的数据和查询都是多变的，查询结果等 Cache 都不容易命中，而且在广投业务中实时查询的数据是基于 T 之后不断更新的数据，如果外挂缓存将降低数据查询的时效性。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1126,7 +1150,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

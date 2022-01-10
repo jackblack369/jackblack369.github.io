@@ -146,6 +146,178 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/13/docker%20container/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/13/docker%20container/" class="post-title-link" itemprop="url">docker container</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-13 18:07:46" itemprop="dateCreated datePublished" datetime="2021-12-13T18:07:46+08:00">2021-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-07 14:02:27" itemprop="dateModified" datetime="2022-01-07T14:02:27+08:00">2022-01-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看container现在工作网络模式"><a href="#查看container现在工作网络模式" class="headerlink" title="查看container现在工作网络模式"></a>查看container现在工作网络模式</h3><ul>
+<li><p>列出docker的所有网络模式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure></li>
+<li><p>针对bridge和host分别查找有哪些container在其中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect bridge</span><br><span class="line">docker network inspect host</span><br></pre></td></tr></table></figure></li>
+<li><p>直接查看container的信息，找到network段查看。或者用grep筛选出network。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器名/容器ID</span><br><span class="line">docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h4><p>Common exit codes associated with docker containers are:</p>
+<ul>
+<li><p><strong>Exit Code 0</strong>: Absence of an attached foreground process</p>
+</li>
+<li><p><strong>Exit Code 1</strong>: Indicates failure due to application error</p>
+</li>
+<li><p><strong>Exit Code 137</strong>: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])</p>
+</li>
+<li><p><strong>Exit Code 139</strong>: Indicates failure as container received SIGSEGV</p>
+</li>
+<li><p><strong>Exit Code 143</strong>: Indicates failure as container received SIGTERM</p>
+</li>
+<li><p><strong>Exit Code 126</strong>: Permission problem or command is not executable</p>
+</li>
+<li><p><strong>Exit Code 127</strong>: Possible typos in shell script with unrecognizable characters</p>
+</li>
+</ul>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<li><p>密码123456</p>
+</li>
+<li><p>创建容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br><span class="line">注意：</span><br><span class="line">-d:让容器在后台运行</span><br><span class="line">-P(大写):是容器内部端口随机映射到主机的高端口</span><br><span class="line">-p(小写):是容器内部端口绑定到指定的主机端口</span><br></pre></td></tr></table></figure></li>
+<li><p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql-server /bin/bash</span><br></pre></td></tr></table></figure></li>
+<li><p>访问</p>
+<p><code>docker exec -it mysql-server mysql -uroot -p</code></p>
+</li>
+<li><p>修改root 可以通过任何客户端连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;123456&#x27;;</span><br></pre></td></tr></table></figure></li>
+<li><p>从外部访问docker mysql-server</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h127.0.0.1 -P3306 -uroot -p</span><br></pre></td></tr></table></figure></li>
+<li><p>导入sql文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">先将文件导入到容器</span><br><span class="line">#docker cp **.sql 容器名:/root/</span><br><span class="line">进入容器</span><br><span class="line">#docker exec -ti 容器名或ID sh</span><br><span class="line">登录数据库</span><br><span class="line"># mysql -uroot -p </span><br><span class="line">将文件导入数据库</span><br><span class="line">source 数据库名 &lt; /root/***.sql</span><br></pre></td></tr></table></figure></li>
+<li><p>导出数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it  mysql-server（容器名） mysqldump -uroot -p123456 数据库名称 &gt; /opt/sql_bak/test_db.sql（导出表格路径）</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="portainer"><a href="#portainer" class="headerlink" title="portainer"></a>portainer</h3><ul>
+<li><p>密码重置</p>
+<ul>
+<li><p>下载帮助镜像portainer/helper-reset-password</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull portainer/helper-reset-password</span><br></pre></td></tr></table></figure></li>
+<li><p>停止运行的portainer</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop &quot;id-portainer-container&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>运行重置命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -v portainer_data:/data portainer/helper-reset-password</span><br></pre></td></tr></table></figure></li>
+<li><p>结果</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">06</span>/<span class="number">04</span> <span class="number">00</span>:<span class="number">13</span>:<span class="number">58</span> Password successfully updated <span class="keyword">for</span> user: admin</span><br><span class="line"><span class="number">2020</span>/<span class="number">06</span>/<span class="number">04</span> <span class="number">00</span>:<span class="number">13</span>:<span class="number">58</span> Use the following password to login: &amp;<span class="number">_4</span>#\<span class="number">3</span>^<span class="number">5</span>V8vLTd)E<span class="string">&quot;NWiJBs26G*9HPl1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>重新运行portainer,密码 为👆重置的 &amp;_4#\3^5V8vLTd)E”NWiJBs26G*9HPl1</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start &quot;id-portainer-container&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>现在密码为 admin/admin</p>
+</li>
+<li><p>重新安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer \</span><br><span class="line">    --restart=always \</span><br><span class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">    -v portainer_data:/data \</span><br><span class="line">    cr.portainer.io/portainer/portainer-ce:2.9.3</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h3><ul>
+<li>run<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Linux memory is insufficient<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -e JVM_XMS=256m -e JVM_XMX=256m --env MODE=standalone --name nacos -d -p 8848:8848 nacos/nacos-server</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><blockquote>
+<p>使用docker-compose up redis启动容器时，如果配置自定义配置文件 redis.conf，需要设置</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize no</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>docker-compose.yml文件内容</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.7&quot;</span>                                                                            <span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br><span class="line">    <span class="attr">stdin_open:</span> <span class="literal">true</span> <span class="comment">#打开标准输入，可以接受外部输入。</span></span><br><span class="line">    <span class="attr">tty:</span> <span class="literal">true</span>  <span class="comment">#模拟一个伪终端。</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/docker/projects/test/redis.conf:/data/redis.conf</span> <span class="comment"># 主机路径:容器路径</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/data:/data</span></span><br><span class="line">    <span class="comment">#   - /docker/projects/test/redis/logs:/logs</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--include</span> <span class="string">/data/redis.conf</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 docker-compose –verbose up redis启动，可查看启动详情</p>
+</blockquote>
+<h3 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h3><ol>
+<li><p>停止容器 </p>
+</li>
+<li><p>停止docker服务(systemctl stop docker) </p>
+</li>
+<li><p>修改这个容器的hostconfig.json文件中的端口（原帖有人提到，如果config.v2.json里面也记录了端口，也要修改）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/docker/3b6ef264a040* #这里是CONTAINER ID</span><br><span class="line">vi hostconfig.json</span><br><span class="line">如果之前没有端口映射, 应该有这样的一段:</span><br><span class="line">&quot;PortBindings&quot;:&#123;&#125;</span><br><span class="line">增加一个映射, 这样写:</span><br><span class="line">&quot;PortBindings&quot;:&#123;&quot;3306/tcp&quot;:[&#123;&quot;HostIp&quot;:&quot;&quot;,&quot;HostPort&quot;:&quot;3307&quot;&#125;]&#125;</span><br><span class="line">前一个数字是容器端口, 后一个是宿主机端口. </span><br><span class="line">而修改现有端口映射更简单, 把端口号改掉就行.</span><br></pre></td></tr></table></figure></li>
+<li><p>启动docker服务(systemctl start docker) </p>
+</li>
+<li><p>启动容器</p>
+</li>
+</ol>
+<h3 id="配置容器的镜像源（安装vim）"><a href="#配置容器的镜像源（安装vim）" class="headerlink" title="配置容器的镜像源（安装vim）"></a>配置容器的镜像源（安装vim）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list </span><br><span class="line"><span class="meta">#</span><span class="bash">更新安装源</span> </span><br><span class="line">apt-get update </span><br><span class="line"><span class="meta">#</span><span class="bash">如果下载过程中卡在[waiting <span class="keyword">for</span> headers] 删除/var/cache/apt/archives/下的所有文件</span> </span><br><span class="line"><span class="meta">#</span><span class="bash">安装vim</span> </span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/11/jconsole%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -948,81 +1120,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/26/github%20skill/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/26/github%20skill/" class="post-title-link" itemprop="url">github skill</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-26 15:14:03" itemprop="dateCreated datePublished" datetime="2021-09-26T15:14:03+08:00">2021-09-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-27 08:57:27" itemprop="dateModified" datetime="2021-09-27T08:57:27+08:00">2021-09-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/github/" itemprop="url" rel="index"><span itemprop="name">github</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Issues-搜索"><a href="#Issues-搜索" class="headerlink" title="Issues 搜索"></a>Issues 搜索</h4><p><code>searchKeyWord is:issue is:closed repo:Alamofire/Alamofire</code> </p>
-<p>这条搜索，searchKeyWord是搜索关键字, <code>is:issue</code> 表示我们要搜索 issue， <code>is:closed</code> 表示已经关闭的 issue， <code>repo:Alamofire/Alamofire</code> 表示我们只搜索这个仓库范围的 issue</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1092,7 +1189,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
