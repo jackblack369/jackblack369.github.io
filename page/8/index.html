@@ -146,6 +146,187 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/windows%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/22/windows%20snippet/" class="post-title-link" itemprop="url">windows snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-22 16:44:00" itemprop="dateCreated datePublished" datetime="2018-05-22T16:44:00+08:00">2018-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:31:23" itemprop="dateModified" datetime="2019-03-14T14:31:23+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/windows/" itemprop="url" rel="index"><span itemprop="name">windows</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="进程操作"><a href="#进程操作" class="headerlink" title="进程操作"></a>进程操作</h3><ul>
+<li>netstat -aon|findstr “8080” </li>
+</ul>
+<p>TCP     127.0.0.1:80       0.0.0.0:0             LISTENING    2448<br>端口被进程号为2448的进程占用，继续执行下面命令：</p>
+<ul>
+<li>tasklist|findstr “2448” </li>
+</ul>
+<p>thread.exe                   2016 Console                 0     16,064 K</p>
+<p>很清楚，thread占用了你的端口,Kill it</p>
+<ul>
+<li>taskkill -F -PID 2448</li>
+</ul>
+<p>如果第二步查不到，那就开任务管理器，进程—查看—选择列—pid（进程位标识符）打个勾就可以了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/TCP%20and%20UDP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/09/TCP%20and%20UDP/" class="post-title-link" itemprop="url">socket snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-09 08:01:30" itemprop="dateCreated datePublished" datetime="2018-05-09T08:01:30+08:00">2018-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-13 17:41:22" itemprop="dateModified" datetime="2019-03-13T17:41:22+08:00">2019-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index"><span itemprop="name">Socket</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="TCP-and-UDP"><a href="#TCP-and-UDP" class="headerlink" title="TCP and UDP"></a>TCP and UDP</h2><blockquote>
+<ul>
+<li>TCP stands for Transmission Control Protocol and UDP stands for User Datagram Protocol, and both are used extensively to build Internet applications.</li>
+<li>The protocol which is the core of internet, HTTP is based on TCP.</li>
+</ul>
+</blockquote>
+<h3 id="why"><a href="#why" class="headerlink" title="why"></a>why</h3><blockquote>
+<p> why Java developer should understand these two protocols in detail is that Java is extensively used to write multi-threaded, concurrent and scalable servers.</p>
+</blockquote>
+<h3 id="where"><a href="#where" class="headerlink" title="where"></a>where</h3><blockquote>
+<p> While UDP is more suitable for applications that need fast, efficient transmission, such as games. UDP’s stateless nature is also useful for servers that answer small queries from huge numbers of clients. In practice, TCP is used in finance domain e.g. <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.sg/2011/04/fix-protocol-tutorial-for-beginners.html">FIX protocol</a> is a TCP based protocol, UDP is used heavily in gaming and entertainment sites.</p>
+</blockquote>
+<h3 id="how"><a href="#how" class="headerlink" title="how"></a>how</h3><ul>
+<li><p>  TCP is connection oriented, reliable, slow, provides guaranteed delivery and preserves the order of messages</p>
+</li>
+<li><p>  UDP is connectionless, unreliable, no ordering guarantee, but a fast protocol. </p>
+</li>
+<li><p>  TCP overhead is also much higher than UDP, as it transmits more metadata per packet than UDP.  that header size of Transmission control protocol is 20 bytes, compared to 8 bytes header of User Datagram protocol.</p>
+</li>
+<li><p>  Use TCP, if you can’t afford to lose any message, while UDP is better for high-speed data transmission, where loss of a single packet is acceptable e.g. video streaming or online multiplayer games.</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/design%20pattern-build/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1340,182 +1521,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/rpc%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/16/rpc%20snippet/" class="post-title-link" itemprop="url">rpc snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-16 10:01:30" itemprop="dateCreated datePublished" datetime="2017-12-16T10:01:30+08:00">2017-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 14:21:38" itemprop="dateModified" datetime="2019-03-14T14:21:38+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/rpc/" itemprop="url" rel="index"><span itemprop="name">rpc</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>RPC<br>Remote Procedure Call，远程过程调用</p>
-<hr>
-<p>服务之间的调用大多采用rpc的方式调用，或者消息队列的方式进行解耦。</p>
-<p>RPC与http调用的区别<br>rpc是基于TCP/IP协议的，而HTTP服务主要是基于HTTP协议的，而http协议是在传输层协议TCP之上的。所以rpc效率更好。</p>
-<p>RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数/方法，<br>由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</p>
-<p>由于计算能力需要横向扩展，需要在多台机器组成的集群上部署应用。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/restful%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/08/restful%20snippet/" class="post-title-link" itemprop="url">restful snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-08 12:01:30" itemprop="dateCreated datePublished" datetime="2017-12-08T12:01:30+08:00">2017-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-16 14:33:41" itemprop="dateModified" datetime="2019-08-16T14:33:41+08:00">2019-08-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/restful/" itemprop="url" rel="index"><span itemprop="name">restful</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><strong>GET</strong>: A safe read-only method that reads a single or a list of resources.</li>
-<li><strong>POST</strong>: Creates a new resource.</li>
-<li><strong>PUT</strong>: Completely replaces the resource(s) at the given location with the new data.</li>
-<li><strong>PATCH</strong>: Merges the resource(s) at the given location with the new data.</li>
-<li><strong>DELETE</strong>: Deletes the resource(s) at a location.</li>
-<li><strong>HEAD</strong>: Same as GET but only returns the header and no data.</li>
-</ul>
-<p><strong>用 URL 表示要操作的资源，用不同的 HTTP 请求（GET，POST，PUT，DELETE）描述对资源的操作，通过 HTTP 的状态码来判断此次对资源操作的结果</strong>，这就是 Restful风格。 </p>
-<ol>
-<li>GET 用来获取资源</li>
-<li>POST 用来新增资源</li>
-<li>PUT 用来更新资源</li>
-<li>DELETE 用来删除资源</li>
-</ol>
-<ul>
-<li>put和delete虽然是http协议的规范 ,但是遗憾的是,所有的无论是html4还是h5都不支持,所以我们在实际开开发过程当中要模拟这两种状态。 </li>
-</ul>
-<h3 id="Restful有什么意义"><a href="#Restful有什么意义" class="headerlink" title="Restful有什么意义"></a>Restful有什么意义</h3><ul>
-<li>网络上的所有的信息体都看作一种资源，对网络资源的某种操作，都是通过 method 来确定的。 </li>
-<li>对于现在的数据或者资源提供方，对外透露的接口一般是 restful 风格的，有利于不同系统之间的资源共享,而且只需要遵守规范不需要做另外的配置就能达到资源共享。 </li>
-</ul>
-<p><strong>restful 是用来外提供接口的，主要用于在不同的系统之间进行数据的交互。</strong></p>
-<p><strong>ps：其实在做内部系统的时候并不会使用 restful 风格的 url 请求，只用普通的 @RequestMapping 来匹配请求就行了。</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1585,18 +1590,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

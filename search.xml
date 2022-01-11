@@ -325,8 +325,7 @@
 </blockquote>
 <p><img src="https://i.imgur.com/R6zwf9U.png"></p>
 <ul>
-<li><p>the types of trees</p>
-<ul>
+<li>the types of trees<ul>
 <li>N-ary Tree</li>
 <li>Balanced Tree</li>
 <li>Binary Tree</li>
@@ -2681,74 +2680,6 @@
       </categories>
       <tags>
         <tag>learn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>flink points</title>
-    <url>/2021/12/28/flink%20points/</url>
-    <content><![CDATA[<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
-<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
-<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
-</blockquote>
-<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
-<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
-</blockquote>
-<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
-<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
-</blockquote>
-<p><img src="/images/flink/flink_time.png"></p>
-<ul>
-<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
-</li>
-<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
-</li>
-<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
-<blockquote>
-<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
-<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
-<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
-<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
-</blockquote>
-<p><img src="/images/flink/flink_window.png"></p>
-<ul>
-<li><p>滚动窗口（Tumbling Window）</p>
-<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
-<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
-<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
-<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
-<p><img src="/images/flink/flink_window_tumbling.png"></p>
-</li>
-<li><p>滑动窗口（Sliding Window）</p>
-<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
-<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
-<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
-<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
-<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
-<p><img src="/images/flink/flink_window_sliding.png"></p>
-</li>
-<li><p>会话窗口（Session Window）</p>
-<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
-<p>特点：<strong>时间无对齐</strong></p>
-<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
-</li>
-</ul>
-<p>​        <img src="/images/flink/flink_window_session.png"></p>
-<hr>
-<p>flink API</p>
-<p><img src="/images/flink/flink_runtime.png"></p>
-<blockquote>
-<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>flink</category>
-      </categories>
-      <tags>
-        <tag>point</tag>
       </tags>
   </entry>
   <entry>
@@ -5472,7 +5403,7 @@
   </entry>
   <entry>
     <title>next optimize</title>
-    <url>/2019/03/22/next%20optimize/</url>
+    <url>/2017/06/01/next%20optimize/</url>
     <content><![CDATA[<h3 id="安装评论"><a href="#安装评论" class="headerlink" title="安装评论"></a>安装评论</h3><p><a href="https://zhuanlan.zhihu.com/p/33617273">来必力评论</a></p>
 <p><a href="https://sjq597.github.io/2018/05/18/Hexo-%E4%BD%BF%E7%94%A8Gitment%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/">使用Gitment评论功能</a></p>
 <h3 id="置顶功能"><a href="#置顶功能" class="headerlink" title="置顶功能"></a>置顶功能</h3><p><a href="https://donlex.cn/archives/caeb67e2.html">添加置顶</a></p>
@@ -5576,9 +5507,15 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2021/08/05/npm%20snippet/</url>
+    <title>npm snippet</title>
+    <url>/2018/06/01/npm%20snippet/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vue项目： npm run dev  会在开发环境下 立即启动项目   </span><br><span class="line"></span><br><span class="line">react项目： npm run start  会在开发环境下 立即启动项目</span><br><span class="line"></span><br><span class="line">编译打包项目:npm run build  </span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>npm</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
+      </tags>
   </entry>
   <entry>
     <title>reactjs learn</title>
@@ -7669,6 +7606,9 @@
 <ul>
 <li>语法<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span>] <span class="keyword">JOIN</span> t2 <span class="keyword">FOR</span> <span class="built_in">SYSTEM_TIME</span> <span class="keyword">AS</span> <span class="keyword">OF</span> t1.proctime [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias2<span class="operator">&gt;</span>]</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1</span><br></pre></td></tr></table></figure></li>
 </ul>
+<hr>
+<p>reference:</p>
+<p><a href="https://developer.aliyun.com/article/780048?accounttraceid=dd5fdbf3eed04f6185ed6461d8a33012zihq">Flink SQL 实战：双流 join 场景应用-阿里云开发者社区</a></p>
 ]]></content>
       <categories>
         <category>flink</category>
@@ -7693,5 +7633,130 @@
       <tags>
         <tag>command</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>flink overview</title>
+    <url>/2021/12/28/flink%20overview/</url>
+    <content><![CDATA[<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flink state</title>
+    <url>/2022/01/11/flink%20state/</url>
+    <content><![CDATA[<h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
+<h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
+<h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul>
+<li>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</li>
+<li>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</li>
+<li>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；<blockquote>
+<p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
+</blockquote>
+</li>
+<li>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</li>
+</ul>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p>
+<ul>
+<li><p>算子类state</p>
+<p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p>
+</li>
+<li><p>数据类state</p>
+<p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flink streaming warehouse</title>
+    <url>/2022/01/11/flink%20streaming%20warehouse/</url>
+    <content><![CDATA[<p>流式数仓（Streaming Warehouse）更准确地说，其实是“make data warehouse streaming”，就是让整个数仓的数据全实时地流动起来，且是以纯流的方式而不是微批（mini-batch）的方式流动。</p>
+<p>目标是实现一个具备端到端实时性的纯流服务（Streaming Service），用一套 API 分析所有流动中的数据，当源头数据发生变化，比如捕捉到在线服务的 Log 或数据库的 Binlog 以后，就按照提前定义好的 Query 逻辑或数据处理逻辑，对数据进行分析，分析后的数据落到数仓的某一个分层，再从第一个分层向下一个分层流动，然后数仓所有分层会全部流动起来，最终流到一个在线系统里，用户可以看到整个数仓的全实时流动效果。</p>
+<p>在这个过程中，数据是主动的，而查询是被动的，分析由数据的变化来驱动。同时在垂直方向上，对每一个数据明细层，用户都可以执行 Query 进行主动查询，并且能实时获得查询结果。此外，它还能兼容离线分析场景，API 依然是同一套，实现真正的一体化。</p>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>warehouse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/01/11/flink%20watermark/</url>
+    <content><![CDATA[<hr>
+<hr>
+<p>Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。</p>
+<p>由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Periodic两种方式生成的一种系统Event，与普通数据流Event一样流转到对应的下游算子，接收到Watermark Event的算子以此不断调整自己管理的EventTime clock。</p>
+<p>Apache Flink 框架保证Watermark单调递增，算子接收到一个Watermark时候，框架知道不会再有任何小于该Watermark的时间戳的数据元素到来了，所以Watermark可以看做是告诉Apache Flink框架数据流已经处理到什么位置(时间维度)的方式。</p>
+<p>Watermark的产生和Apache Flink内部处理逻辑如下图所示:</p>
+<p><img src="/images/flink/flink_watermark.png"></p>
+]]></content>
   </entry>
 </search>
