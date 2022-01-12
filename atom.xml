@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-01-11T10:41:25.481Z</updated>
+  <updated>2022-01-11T10:44:03.586Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,25 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>flink watermark</title>
     <link href="http://yoursite.com/2022/01/11/flink%20watermark/"/>
     <id>http://yoursite.com/2022/01/11/flink%20watermark/</id>
-    <published>2022-01-11T10:36:04.779Z</published>
-    <updated>2022-01-11T10:41:25.481Z</updated>
+    <published>2022-01-11T10:42:32.000Z</published>
+    <updated>2022-01-11T10:44:03.586Z</updated>
     
-    <content type="html"><![CDATA[<hr><hr><p>Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。</p><p>由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Periodic两种方式生成的一种系统Event，与普通数据流Event一样流转到对应的下游算子，接收到Watermark Event的算子以此不断调整自己管理的EventTime clock。</p><p>Apache Flink 框架保证Watermark单调递增，算子接收到一个Watermark时候，框架知道不会再有任何小于该Watermark的时间戳的数据元素到来了，所以Watermark可以看做是告诉Apache Flink框架数据流已经处理到什么位置(时间维度)的方式。</p><p>Watermark的产生和Apache Flink内部处理逻辑如下图所示:</p><p><img src="/images/flink/flink_watermark.png"></p>]]></content>
+    <content type="html"><![CDATA[<p>Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。</p><p>由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Periodic两种方式生成的一种系统Event，与普通数据流Event一样流转到对应的下游算子，接收到Watermark Event的算子以此不断调整自己管理的EventTime clock。</p><p>Apache Flink 框架保证Watermark单调递增，算子接收到一个Watermark时候，框架知道不会再有任何小于该Watermark的时间戳的数据元素到来了，所以Watermark可以看做是告诉Apache Flink框架数据流已经处理到什么位置(时间维度)的方式。</p><p>Watermark的产生和Apache Flink内部处理逻辑如下图所示:</p><p><img src="/images/flink/flink_watermark.png"></p><h3 id="产生方式"><a href="#产生方式" class="headerlink" title="产生方式"></a>产生方式</h3><ul><li><p>Punctuated - 数据流中每一个递增的EventTime都会产生一个Watermark。 在实际的生产中Punctuated方式在TPS很高的场景下会产生大量的Watermark在一定程度上对下游算子造成压力，所以只有在实时性要求非常高的场景才会选择Punctuated的方式进行Watermark的生成。</p></li><li><p>Periodic - 周期性的（一定时间间隔或者达到一定的记录条数）产生一个Watermark。在实际的生产中Periodic的方式必须结合时间和积累条数两个维度继续周期性产生Watermark，否则在极端情况下会有很大的延时。</p></li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;hr&gt;
-&lt;hr&gt;
-&lt;p&gt;Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。&lt;/p&gt;
-&lt;p&gt;由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Period</summary>
+    <summary type="html">&lt;p&gt;Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。&lt;/p&gt;
+&lt;p&gt;由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Periodic两种方式生成的一</summary>
       
     
     
     
+    <category term="flink" scheme="http://yoursite.com/categories/flink/"/>
+    
+    
+    <category term="point" scheme="http://yoursite.com/tags/point/"/>
     
   </entry>
   
@@ -418,6 +420,31 @@
   </entry>
   
   <entry>
+    <title>flink points</title>
+    <link href="http://yoursite.com/2021/12/28/flink%20points/"/>
+    <id>http://yoursite.com/2021/12/28/flink%20points/</id>
+    <published>2021-12-28T10:43:00.000Z</published>
+    <updated>2022-01-12T03:30:33.347Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote><p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p><p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p></blockquote><h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote><p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p></blockquote><h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote><p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p></blockquote><p><img src="/images/flink/flink_time.png"></p><ul><li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p></li><li><p>Ingestion Time：是数据进入 Flink 的时间。</p></li><li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p><blockquote><p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p><p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p><p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p></blockquote></li></ul><h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote><p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p></blockquote><p><img src="/images/flink/flink_window.png"></p><ul><li><p>滚动窗口（Tumbling Window）</p><p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p><p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p><p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p><p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p><p><img src="/images/flink/flink_window_tumbling.png"></p></li><li><p>滑动窗口（Sliding Window）</p><p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p><p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p><p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p><p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p><p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p><p><img src="/images/flink/flink_window_sliding.png"></p></li><li><p>会话窗口（Session Window）</p><p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p><p>特点：<strong>时间无对齐</strong></p><p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p></li></ul><p>​        <img src="/images/flink/flink_window_session.png"></p><hr><p>flink API</p><p><img src="/images/flink/flink_runtime.png"></p><blockquote><p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;checkpoint&quot;&gt;&lt;a href=&quot;#checkpoint&quot; class=&quot;headerlink&quot; title=&quot;checkpoint&quot;&gt;&lt;/a&gt;checkpoint&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;基于 Chandy-Lamport 算法实现了一个</summary>
+      
+    
+    
+    
+    <category term="flink" scheme="http://yoursite.com/categories/flink/"/>
+    
+    
+    <category term="point" scheme="http://yoursite.com/tags/point/"/>
+    
+  </entry>
+  
+  <entry>
     <title>flink table</title>
     <link href="http://yoursite.com/2021/12/24/flink%20table/"/>
     <id>http://yoursite.com/2021/12/24/flink%20table/</id>
@@ -482,33 +509,6 @@
     <summary type="html">&lt;h2 id=&quot;mysql镜像制作&quot;&gt;&lt;a href=&quot;#mysql镜像制作&quot; class=&quot;headerlink&quot; title=&quot;mysql镜像制作&quot;&gt;&lt;/a&gt;mysql镜像制作&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;需要备份当前需要同步的全量数据&lt;/p&gt;
 &lt;figure class</summary>
-      
-    
-    
-    
-    <category term="docker" scheme="http://yoursite.com/categories/docker/"/>
-    
-    
-    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker es</title>
-    <link href="http://yoursite.com/2021/12/17/docker%20image%20es/"/>
-    <id>http://yoursite.com/2021/12/17/docker%20image%20es/</id>
-    <published>2021-12-17T10:51:56.000Z</published>
-    <updated>2021-12-17T11:01:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>文中hostAddress需要替换具体的ip地址</p></blockquote><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><blockquote><p>查看现有环境相关参数ulimit -a</p></blockquote><ul><li><p>设置文件句柄数，在**/etc/security/limits.conf**中设置</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># End of file</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nofile 65536</span><br></pre></td></tr></table></figure></li><li><p>修改max user processes进程数，在**/etc/security/limits.conf**中设置</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nproc 65536</span><br><span class="line">* hard nproc 65536</span><br></pre></td></tr></table></figure></li><li><p>调整vm.max_map_count的大小，该参数会限制一个进程可以拥有的VMA(虚拟内存区域)的数量</p><p>通过修改**/etc/sysctl.conf**参数</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br></pre></td></tr></table></figure><p>然后执行<code>sysctl -p</code></p></li><li><p>调整stack size的大小（可选），在**/etc/security/limits.conf**中设置</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft stack 1024</span><br><span class="line">* hard stack 1024</span><br></pre></td></tr></table></figure></li></ul><h3 id="manual-init-data"><a href="#manual-init-data" class="headerlink" title="manual init data"></a>manual init data</h3><ul><li><p>create index</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://localhost:9200/indexName&#x27;</span><br></pre></td></tr></table></figure></li><li><p>import data</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://localhost:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>拉取远程仓库镜像文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li><li><p>启动容器</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name es_origin -e ES_JAVA_POTS=&quot;-Xms6g -Xmx6g&quot; -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.16.1</span><br></pre></td></tr></table></figure></li></ul><h3 id="制作elasticsearch镜像"><a href="#制作elasticsearch镜像" class="headerlink" title="制作elasticsearch镜像"></a>制作elasticsearch镜像</h3><ol><li>导出ES的已有索引和数据</li></ol><ul><li><p>环境准备</p><ul><li>安装nodejs，安装文件地址<a href="https://nodejs.org/en/download/">nodejs</a></li><li>安装elasticdump，安装命令<code>npm install -g elasticdump</code></li></ul></li><li><p>导出es索引文件<strong>es_mapping.json</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \               --input=http://127.0.0.1:9200/indexName \</span></span><br><span class="line"><span class="bash">  --output=/data/es_mapping.json \</span></span><br><span class="line"><span class="bash">  --<span class="built_in">type</span>=mapping</span></span><br></pre></td></tr></table></figure><blockquote><p>注意：$nodejs_home代表nodejs的安装目录</p></blockquote></li><li><p>导出es数据<strong>es_init_data.txt</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \ </span>          </span><br><span class="line">  --input=http://127.0.0.1:9200/indexName \</span><br><span class="line">  --output=/data/es_init_data.txt \</span><br><span class="line">  --searchBody &#x27;&#123;&quot;query&quot;:&#123;&quot;match_all&quot;:&#123; &#125;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure></li></ul><ol start="2"><li><p>编写es数据初始化脚本 <strong>initEs.sh</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">create index</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://127.0.0.1:9200/indexName&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">import data</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://127.0.0.1:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure><blockquote><p>initEs.sh文件同1,2操作中的文件存放路径保持一致，均放在/data目录下</p></blockquote></li><li><p>在/data目录下创建Dockerfile文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM elasticsearch:7.16.1</span><br><span class="line">COPY ./data/* /data/</span><br><span class="line">RUN chown -R elasticsearch:root /data </span><br><span class="line">USER elasticsearch</span><br><span class="line">RUN elasticsearch -E discovery.type=single-node -p /tmp/epid &amp; /bin/bash /data/wait-for-it.sh -t 0 localhost:9200 -- /data/initEs.sh; kill $(cat /tmp/epid) &amp;&amp; wait $(cat /tmp/epid); exit 0;</span><br></pre></td></tr></table></figure></li><li><p>创建镜像</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:elasticsearch .</span><br></pre></td></tr></table></figure><blockquote><p>dlabel:es是 REPOSITORY:TAG格式，可自行更改</p></blockquote></li><li><p>登录远程仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure><p>根据提示，输入用户名admin，密码Harbor12345</p></li><li><p>映射远程仓库REPOSITORY:TAG</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:elasticsearch hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure><blockquote><p>其中dlabel:elasticsearch和操作3中保持一致</p></blockquote></li><li><p>推送当地镜像到远程仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;文中hostAddress需要替换具体的ip地址&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;block</summary>
       
     
     

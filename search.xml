@@ -5237,16 +5237,15 @@
 <li>启动项目时，如果test包里面有测试程序，为了忽略编译test测试程序，需要运行命令打包<code>mvn clean package -DskipTests</code>，另外运行tomcat的时候以debug模式进行启动。</li>
 </ul>
 <h3 id="maven多项目之间相互引用"><a href="#maven多项目之间相互引用" class="headerlink" title="maven多项目之间相互引用"></a>maven多项目之间相互引用</h3><ul>
-<li>应该在父目录下进行maven install操作，会自动生成子模块的jar或war包。</li>
-</ul>
-<ul>
+<li><p>应该在父目录下进行maven install操作，会自动生成子模块的jar或war包。</p>
+</li>
 <li><p><strong>解决maven无法加载本地lib/下的jar包问题(程序包XXX不存在)</strong></p>
 <ul>
 <li><p>原因</p>
 <p>若该程序包是第三方的jar，解决方案是让maven既加载maven库中的jar包，又要加载本地WEB-INF/lib下的jar包。 </p>
 </li>
 <li><p>解决</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;3.6.0&lt;/version&gt;</span><br><span class="line">	&lt;configuration&gt;</span><br><span class="line">		&lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">		&lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">		&lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">		&lt;compilerArguments&gt;</span><br><span class="line">			&lt;extdirs&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib&lt;/extdirs&gt;</span><br><span class="line">		&lt;/compilerArguments&gt;</span><br><span class="line">	&lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.6.0&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">        &lt;compilerArguments&gt;</span><br><span class="line">            &lt;extdirs&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib&lt;/extdirs&gt;</span><br><span class="line">        &lt;/compilerArguments&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
@@ -5254,8 +5253,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;myjar&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;myjar&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">    &lt;systemPath&gt;$&#123;project.basedir&#125;/webapp/WEB-INF/lib/myjar-1.0.0.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-安装到本地仓库"><a href="#2-安装到本地仓库" class="headerlink" title="2.安装到本地仓库"></a>2.安装到本地仓库</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar</span><br><span class="line"></span><br><span class="line">参数说明:</span><br><span class="line">-DgroupId:对应dependency的groupId</span><br><span class="line">-DartifactId:对应dependency的artifactId</span><br><span class="line">-Dversion:对应dependency中的version</span><br><span class="line">-Dpackaging:安装的类型，jar或者pom</span><br><span class="line">-Dfile:要安装的jar文件的路径</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h2><ul>
 <li><p>compile<br>默认就是compile，什么都不配置也就是意味着compile。compile表示被依赖项目需要参与当前项目的编译，当然后续的测试，运行周期也参与其中，是一个比较强的依赖。打包的时候通常需要包含进去。</p>
@@ -5266,7 +5263,7 @@
 </li>
 <li><p>provided<br>provided意味着打包的时候可以不用包进去，别的设施(Web Container)会提供。事实上该依赖理论上可以参与编译，测试，运行等周期。相当于compile，但是在打包阶段做了exclude的动作。</p>
 </li>
-<li><p>system<br>从参与度来说，也provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用</p>
+<li><p>system<br>从参与度来说，和provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用</p>
 </li>
 </ul>
 <h2 id="依赖传递原则"><a href="#依赖传递原则" class="headerlink" title="依赖传递原则"></a>依赖传递原则</h2><p>几乎所有的Jar包冲突都和依赖传递原则有关，所以我们先说Maven中的依赖传递原则：</p>
@@ -5278,12 +5275,26 @@
 <p>如果路径长短一样，优先选最先声明的那个。</p>
 <p>A -&gt; Z(3.0)<br>B -&gt; Z(2.5)</p>
 <p>这里A最先声明，所以传递过来的Z选择用3.0版本的。</p>
+<h2 id="引用本地jar包依赖"><a href="#引用本地jar包依赖" class="headerlink" title="引用本地jar包依赖"></a>引用本地jar包依赖</h2><ol>
+<li><p>jar包放入项目指定位置 ie：${project.basedir}/src/main/resources/lib/xxx.jar</p>
+</li>
+<li><p>pom文件引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sdk.core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/src/main/resources/lib/xxx.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>systemPath这个路径是jar包的路径。${project.basedir}只是一个系统自己的常量。</p>
+</blockquote>
+</li>
+<li><p>在将项目用Maven打包是需要在 <plugin> 标签中加入:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includeSystemScope</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeSystemScope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
 <h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><ul>
-<li><a href="https://www.cnblogs.com/baixiaoshuai/p/8939989.html">idea中的maven模块变成灰色的可能原因</a></li>
-<li><a href="https://blog.csdn.net/qq_38663729/article/details/78275209">jar包和war包的介绍与区别</a></li>
-</ul>
-<ul>
-<li>由于没有mvn install操作，没有在本地下载依赖包到lib目录下，所以启动项目，会提示java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener错误</li>
+<li><p><a href="https://www.cnblogs.com/baixiaoshuai/p/8939989.html">idea中的maven模块变成灰色的可能原因</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_38663729/article/details/78275209">jar包和war包的介绍与区别</a></p>
+</li>
+<li><p>由于没有mvn install操作，没有在本地下载依赖包到lib目录下，所以启动项目，会提示java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener错误</p>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -7748,15 +7759,93 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>flink watermark</title>
     <url>/2022/01/11/flink%20watermark/</url>
-    <content><![CDATA[<hr>
-<hr>
-<p>Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。</p>
+    <content><![CDATA[<p>Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。</p>
 <p>由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Periodic两种方式生成的一种系统Event，与普通数据流Event一样流转到对应的下游算子，接收到Watermark Event的算子以此不断调整自己管理的EventTime clock。</p>
 <p>Apache Flink 框架保证Watermark单调递增，算子接收到一个Watermark时候，框架知道不会再有任何小于该Watermark的时间戳的数据元素到来了，所以Watermark可以看做是告诉Apache Flink框架数据流已经处理到什么位置(时间维度)的方式。</p>
 <p>Watermark的产生和Apache Flink内部处理逻辑如下图所示:</p>
 <p><img src="/images/flink/flink_watermark.png"></p>
+<h3 id="产生方式"><a href="#产生方式" class="headerlink" title="产生方式"></a>产生方式</h3><ul>
+<li><p>Punctuated - 数据流中每一个递增的EventTime都会产生一个Watermark。 在实际的生产中Punctuated方式在TPS很高的场景下会产生大量的Watermark在一定程度上对下游算子造成压力，所以只有在实时性要求非常高的场景才会选择Punctuated的方式进行Watermark的生成。</p>
+</li>
+<li><p>Periodic - 周期性的（一定时间间隔或者达到一定的记录条数）产生一个Watermark。在实际的生产中Periodic的方式必须结合时间和积累条数两个维度继续周期性产生Watermark，否则在极端情况下会有很大的延时。</p>
+</li>
+</ul>
 ]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flink points</title>
+    <url>/2021/12/28/flink%20points/</url>
+    <content><![CDATA[<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
   </entry>
 </search>

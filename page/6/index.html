@@ -146,6 +146,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/coin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/31/coin/" class="post-title-link" itemprop="url">挖矿程序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-31 10:00:30" itemprop="dateCreated datePublished" datetime="2019-07-31T10:00:30+08:00">2019-07-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-28 13:59:44" itemprop="dateModified" datetime="2021-12-28T13:59:44+08:00">2021-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config.json （挖矿配置）、</span><br><span class="line">sysupdate （XMR 挖矿软件）、</span><br><span class="line">update.sh （本脚本）、</span><br><span class="line">networkservice(scanner扫描并入侵其他的主机)、</span><br><span class="line">sysguard(watchdog 用于监控并保证病毒的正常运行以及更新) 并保证他们以 root 权限运行。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>查看病毒的 PID 号</p>
+</li>
+<li><p>获取绝对路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /proc/&#123;pid 号&#125;/exe</span><br></pre></td></tr></table></figure></li>
+<li><p>删除/tmp文件夹的所有文件</p>
+</li>
+<li><p>检查下定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l 或者 cat /var/spool/cron/will</span><br></pre></td></tr></table></figure>
+
+<p>上面的will为当前用户名</p>
+<p>查看定时任务的日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more /var/<span class="built_in">log</span>/cron <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>删除定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm /var/spool/cron/root 或者 crontab -r 删除定时任务</span><br></pre></td></tr></table></figure></li>
+<li><p>kill 命令将相关进程干掉</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sysupdate</span><br><span class="line">networkservice</span><br><span class="line">sysguard</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/java%20io/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1338,135 +1431,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/redux%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/07/redux%20learn/" class="post-title-link" itemprop="url">redux learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-07 23:50:30" itemprop="dateCreated datePublished" datetime="2019-04-07T23:50:30+08:00">2019-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-04-11 01:22:18" itemprop="dateModified" datetime="2019-04-11T01:22:18+08:00">2019-04-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redux/" itemprop="url" rel="index"><span itemprop="name">redux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Passing-Data-Between-Adjacent-Components"><a href="#Passing-Data-Between-Adjacent-Components" class="headerlink" title="Passing Data Between Adjacent Components"></a>Passing Data Between Adjacent Components</h3><p>If you have components that are siblings and need to share data, the way to do that in React is to pull that data up into a parent component and pass it down with props.</p>
-<p>That can be cumbersome though. Redux can help by giving you one global “parent” where you can store the data, and then you can <code>connect</code> the sibling components to the data with React-Redux.</p>
-<h3 id="redux-vs-react-redux"><a href="#redux-vs-react-redux" class="headerlink" title="redux vs react-redux"></a>redux vs react-redux</h3><p><code>redux</code> knows nothing about React <em>at all</em>. (The <code>redux</code> library can be used outside of a React app too. It’ll work with Vue, Angular, and even backend Node/Express apps.)</p>
-<p><code>react-redux</code> lets you connect pieces of the state to React components.</p>
-<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><p>in charge for orchestrating all the interactions</p>
-<p>the <strong>state</strong> is the data, and the <strong>store</strong> is where it’s kept.</p>
-<h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3><p>the producer to make the state</p>
-<blockquote>
-<p>(state, action) =&gt; newState</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> letters = [<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;x&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// `reduce` takes 2 arguments:</span></span><br><span class="line"><span class="comment">//   - a function to do the reducing (you might say, a &quot;reducer&quot;)</span></span><br><span class="line"><span class="comment">//   - an initial value for accumulatedResult</span></span><br><span class="line"><span class="keyword">var</span> word = letters.reduce(</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">accumulatedResult, arrayItem</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accumulatedResult + arrayItem;</span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;&#x27;</span>); <span class="comment">// &lt;-- notice this empty string argument: it&#x27;s the initial value</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(word) <span class="comment">// =&gt; &quot;redux&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>**Important Rule of Reducers **:</p>
-<ul>
-<li>Never return undefined from a reducer.</li>
-<li>Reducers must be pure functions.(This means that they can’t modify their arguments, and they can’t have side effects.)</li>
-</ul>
-<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>plain JavaScript objects with a property named type. </p>
-<blockquote>
-<p>An action object describes a change you want to make (like “please increment the counter”) or an event that happenend (like “the request to the server failed with this error”).</p>
-<p>action don’t really <em>do</em> anything. Not on their own, anyway.</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;add an item&quot;</span>,</span><br><span class="line">  <span class="attr">item</span>: <span class="string">&quot;Apple&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="number">7008</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;INCREMENT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In order to make an action DO something, you need to <strong>dispatch</strong> it.</p>
-<hr>
-<h3 id="redux-tips"><a href="#redux-tips" class="headerlink" title="redux tips"></a>redux tips</h3><h4 id="Redux-avoids-these-problems-with-some-simple-rules"><a href="#Redux-avoids-these-problems-with-some-simple-rules" class="headerlink" title="Redux avoids these problems with some simple rules."></a>Redux avoids these problems with some simple rules.</h4><ul>
-<li>State is read-only, and actions are the only way to modify it.</li>
-<li>Changes happen one way, and one way only: dispatch(action) -&gt; reducer -&gt; new state.</li>
-<li>The reducer function must be “pure” – it cannot modify its arguments, and it can’t have side effects.</li>
-</ul>
-<h4 id="The-most-important-methods"><a href="#The-most-important-methods" class="headerlink" title="The most important methods."></a>The most important methods.</h4><ul>
-<li>getState for <strong>accessing the current state</strong> of the application</li>
-<li>dispatch for <strong>dispatching an action</strong></li>
-<li>subscribe for <strong>listening on state changes</strong></li>
-</ul>
-<h3 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h3><h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>By wrapping the entire app with the <code>Provider</code> component, <em>every component</em> in the app tree will be able to access the Redux store if it wants to.</p>
-<h4 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h4><p>all of components can access the Redux store, but not automatically , We’ll need to use the <code>connect</code> function on our components to access the store.</p>
-<h4 id="connects-a-React-component-with-the-Redux-store"><a href="#connects-a-React-component-with-the-Redux-store" class="headerlink" title="connects a React component with the Redux store."></a>connects a React component with the Redux store.</h4><ul>
-<li>the mapStateToProps function</li>
-<li>the mapDispatchToProps function</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">&quot;./logo.svg&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./App.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; fetching, dog, onRequestDog, error &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        ......</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">fetching</span>: state.fetching,</span><br><span class="line">    <span class="attr">dog</span>: state.dog,</span><br><span class="line">    <span class="attr">error</span>: state.error</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">onRequestDog</span>: <span class="function">() =&gt;</span> dispatch(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_REQUEST&quot;</span> &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(App);</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h3><p>It is a <strong>middleware</strong>, basically a plugin for Redux, that enables Redux to deal with actions like <code>getUser()</code>, ie.<code>dispatch(getUser())</code></p>
-<p>thunk: it’s an action creator that returns a function instead of a plain action object, like this:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doStuff</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">dispatch, getState</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// dispatch actions here</span></span><br><span class="line">    <span class="comment">// or fetch data</span></span><br><span class="line">    <span class="comment">// or whatever</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>the 2 agruments in return function,Most of the time you’ll only need <code>dispatch</code>, but sometimes you want to do something conditionally, based on some value in the Redux state. In that case, call <code>getState()</code> and you’ll have the entire state to read as needed.</p>
-<h4 id="setup-redux-thunk"><a href="#setup-redux-thunk" class="headerlink" title="setup redux thunk"></a>setup redux thunk</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">  reducer,</span><br><span class="line">  applyMiddleware(thunk)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<h3 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h3><p><code>redux-saga</code> relies on generators, but does a decent amount of the work for us, so (in my fairly limited experience) a deep understanding of them for this use-case isn’t necessary.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeLatest, call, put &#125; <span class="keyword">from</span> <span class="string">&quot;redux-saga/effects&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// watcher saga: watches for actions dispatched to the store, starts worker saga</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">watcherSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> takeLatest(<span class="string">&quot;API_CALL_REQUEST&quot;</span>, workerSaga);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function that makes the api request and returns a Promise for response</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchDog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;https://dog.ceo/api/breeds/image/random&quot;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// worker saga: makes the api call when watcher saga sees the action</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">workerSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">yield</span> call(fetchDog);</span><br><span class="line">    <span class="keyword">const</span> dog = response.data.message;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dispatch a success action to the store with the new dog</span></span><br><span class="line">    <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_SUCCESS&quot;</span>, dog &#125;);</span><br><span class="line">  </span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="comment">// dispatch a failure action to the store with the error</span></span><br><span class="line">    <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_FAILURE&quot;</span>, error &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1536,7 +1500,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
