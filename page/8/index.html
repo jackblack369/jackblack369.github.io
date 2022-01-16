@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="website">
@@ -100,6 +100,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -119,11 +120,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -142,6 +170,196 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/java%20thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/01/java%20thread/" class="post-title-link" itemprop="url">java thread</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-06-01T10:01:30+08:00">2018-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-14 16:34:12" itemprop="dateModified" datetime="2019-08-14T16:34:12+08:00">2019-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。</p>
+<h3 id="how-to-avoid-deadlock"><a href="#how-to-avoid-deadlock" class="headerlink" title="how to avoid deadlock"></a>how to avoid deadlock</h3><p><img src="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg"></p>
+<h3 id="ConcurrentHashMap-faster-than-Hashtable"><a href="#ConcurrentHashMap-faster-than-Hashtable" class="headerlink" title="ConcurrentHashMap faster than Hashtable"></a>ConcurrentHashMap faster than Hashtable</h3><blockquote>
+<p> ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides the whole map into different segments and only lock a particular segment during the update operation, instead of <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/01/java-hashtable-example-tutorial-code.html">Hashtable</a>, which locks whole Map.</p>
+</blockquote>
+<p><img src="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png"></p>
+<h3 id="submit-and-execute-method-of-Executor-and-ExecutorService"><a href="#submit-and-execute-method-of-Executor-and-ExecutorService" class="headerlink" title="submit() and execute() method of Executor and ExecutorService"></a>submit() and execute() method of Executor and ExecutorService</h3><blockquote>
+<p> The main difference between submit and execute method from ExecutorService interface is that former return a result in the form of a Future object, while later doesn’t return a result. By the way, both are used to submit a task to thread pool in Java but one is defined in Executor interface,while other is added into ExecutorService interface.</p>
+</blockquote>
+<p><img src="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png"></p>
+<h4 id="when-to-use"><a href="#when-to-use" class="headerlink" title="when to use"></a>when to use</h4><blockquote>
+<ul>
+<li>In general, if you are doing computational task e.g. calculating some risk stats, <a target="_blank" rel="noopener" href="http://java67.blogspot.com/2015/09/how-to-use-biginteger-class-in-java.html">calculating factorial of large numbers</a> or doing some time-consuming computation e which results in some value then use the submit() method. It immediately returns a Future object, which can be later queried to get the value of computation by calling get() method.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Remember, get() is a <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/02/what-is-blocking-methods-in-java-and.html">blocking call</a> so always call the version which accepts a timeout. While you can use the execute() method if you just want your code to be run in parallel by worker threads of the thread pool.</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous task&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">future.get();  <span class="comment">//returns null if the task has finished correctly.</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Callable()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous Callable&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Callable Result&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;future.get() = &quot;</span> + future.get());</span><br></pre></td></tr></table></figure>
+
+<h3 id="ReentrantLock-vs-synchronized"><a href="#ReentrantLock-vs-synchronized" class="headerlink" title="ReentrantLock vs synchronized"></a>ReentrantLock vs synchronized</h3><h4 id="the-advantages-of-ReentrantLock"><a href="#the-advantages-of-ReentrantLock" class="headerlink" title="the advantages of ReentrantLock"></a>the advantages of ReentrantLock</h4><ol>
+<li><p>Ability to lock interruptibly.</p>
+</li>
+<li><p>Ability to timeout while waiting for lock.</p>
+</li>
+<li><p>Power to create fair lock.</p>
+</li>
+<li><p>API to get list of waiting thread for lock.</p>
+</li>
+<li><p>Flexibility to try for lock without blocking.</p>
+</li>
+</ol>
+<h4 id="the-disadvantages-of-ReentrantLock"><a href="#the-disadvantages-of-ReentrantLock" class="headerlink" title="the disadvantages of ReentrantLock"></a>the disadvantages of ReentrantLock</h4><ol>
+<li><p>  Major drawback of using ReentrantLock in Java is wrapping method body inside <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/11/difference-between-final-finally-and-finalize-java.html">try-finally block</a>, which makes code unreadable and hides business logic. </p>
+</li>
+<li><p>programmer is responsible for acquiring and releasing lock, which is a power but also opens gate for new subtle bugs, when programmer forget to release the lock in finally block.</p>
+</li>
+</ol>
+<h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><p><img src="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg"></p>
+<h3 id="stop-thread"><a href="#stop-thread" class="headerlink" title="stop thread"></a>stop thread</h3><blockquote>
+<ul>
+<li>There was some control methods in JDK 1.0 e.g. stop(), suspend() and resume() which was deprecated in later releases due to potential deadlock threats, from then Java API designers has not made any effort to provide a consistent, thread-safe and elegant way to stop threads.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Programmers mainly rely on the fact that thread stops automatically as soon as they finish execution of run() or call() method. To manually stop, programmers either take advantage of volatile boolean variable and check in every iteration if run method has loops or interrupt threads to abruptly cancel tasks.</li>
+</ul>
+</blockquote>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><blockquote>
+<ul>
+<li>The <code>ThreadLocal</code> class in Java enables you to create variables that can only be read and written by the same thread. Thus, even if two threads are executing the same code, and the code has a reference to a<code>ThreadLocal</code> variable, then the two threads cannot see each other’s <code>ThreadLocal</code> variables.</li>
+<li>Each thread holds an exclusive copy of ThreadLocal variable which becomes eligible to Garbage collection after thread finished or died, normally or due to any Exception, Given those ThreadLocal variable doesn’t have any other live references.</li>
+<li>ThreadLocal variables in Java are generally private static fields in Classes and maintain its state inside Thread.</li>
+</ul>
+</blockquote>
+<h3 id="synchronized-vs-concurrent-collection"><a href="#synchronized-vs-concurrent-collection" class="headerlink" title="synchronized vs concurrent collection"></a>synchronized vs concurrent collection</h3><blockquote>
+<p>later is more scalable than former</p>
+<p> synchronized collections locks the whole collection e.g. whole Map or List while concurrent collection never locks the whole Map or List. They achieve thread safety by using advanced and sophisticated techniques like lock stripping. For example, the ConcurrentHashMap divides the whole map into several segments and locks only the relevant segments, which allows multiple threads to access other segments of same ConcurrentHashMap without locking.</p>
+</blockquote>
+<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><blockquote>
+<p> CopyOnWriteArrayList allows multiple reader threads to read without synchronization and when a write happens it copies the whole ArrayList and swap with a newer one.</p>
+</blockquote>
+<h3 id="Stack-and-Heap"><a href="#Stack-and-Heap" class="headerlink" title="Stack and Heap"></a>Stack and Heap</h3><blockquote>
+<ul>
+<li>Each thread has their own stack, which is used to store local variables, method parameters and call stack. Variable stored in one Thread’s stack is not visible to other.</li>
+<li>heap is a common memory area which is shared by all threads.Objects whether local or at any level is created inside heap.</li>
+</ul>
+</blockquote>
+<ul>
+<li>To improve performance thread tends to cache values from heap into their stack, which can create problems if that variable is modified by more than one thread, this is where volatile variables comes in picture. volatile suggest threads to read value of variable always from main memory. </li>
+<li>If there is no memory left in the stack for storing function call or local variable, JVM will throw java.lang.StackOverFlowError, while if there is no more heap space for creating an object, JVM will throw java.lang.OutOfMemoryError: Java Heap Space</li>
+<li>Variables stored in stacks are only visible to the owner Thread while objects created in the heap are visible to all thread. In other words, stack memory is kind of private memory of Java Threads while heap memory is shared among all threads.</li>
+</ul>
+<h3 id="thread-pool"><a href="#thread-pool" class="headerlink" title="thread pool"></a>thread pool</h3><blockquote>
+<p>Java API provides Executor framework, which allows you to create different types of thread pools e.g. single thread pool, which process one task at a time, fixed thread pool (a pool of fixed number of thread) or cached thread pool (an expandable thread pool suitable for applications with many short lived tasks).</p>
+</blockquote>
+<h4 id="the-benefits"><a href="#the-benefits" class="headerlink" title="the benefits"></a>the benefits</h4><ul>
+<li><p>Use of Thread Pool reduces response time by avoiding thread creation during request or task processing.</p>
+</li>
+<li><p>Use of Thread Pool allows you to change your execution policy as you need. you can go from single thread to multiple threads by just replacing ExecutorService implementation.</p>
+</li>
+<li><p>Thread Pool in Java application increases the stability of the system by creating a configured number of threads decided based on system load and available resource.</p>
+</li>
+<li><p>Thread Pool frees application developer from thread management stuff and allows to focus on business logic.</p>
+</li>
+</ul>
+<h3 id="volatile-vs-atomic-variable"><a href="#volatile-vs-atomic-variable" class="headerlink" title="volatile vs atomic variable"></a>volatile vs atomic variable</h3><blockquote>
+<p>Volatile variable provides you happens-before guarantee that a write will happen before any subsequent write, it doesn’t guarantee atomicity. For example count++ operation will not become atomic just by declaring count variable as volatile. On the other hand AtomicInteger class provides atomic method to perform such compound operation atomically.</p>
+</blockquote>
+<h3 id="3-multi-threading-best-practice"><a href="#3-multi-threading-best-practice" class="headerlink" title="3 multi-threading best practice"></a>3 multi-threading best practice</h3><ul>
+<li><p>Always give meaningful name to your thread</p>
+</li>
+<li><p>Avoid locking or Reduce scope of Synchronization</p>
+</li>
+<li><p>Prefer Synchronizers over wait and notify</p>
+</li>
+<li><p>Prefer Concurrent Collection over Synchronized Collection</p>
+</li>
+</ul>
+<h3 id="Wait、Sleep、Yield"><a href="#Wait、Sleep、Yield" class="headerlink" title="Wait、Sleep、Yield"></a>Wait、Sleep、Yield</h3><ul>
+<li><p>sleep() and yield() methods are defined in thread class while wait() is defined in the Object class</p>
+</li>
+<li><p>The key difference between wait() and sleep() is that former is used for inter-thread communication while later is used to introduced to pause the current thread for a short duration. </p>
+</li>
+<li><p>This difference is more obvious from the fact that, when a thread calls the wait() method, it releases the monitor or lock it was holding on that object, but when a thread calls the sleep() method, it never releases the monitor even if it is holding. </p>
+</li>
+<li><p>yield() just releases the CPU hold by Thread to give another thread an opportunity to run though it’s not guaranteed who will get the CPU. It totally depends upon thread scheduler and <strong>it’s even possible that the thread which calls the yield() method gets the CPU again</strong>(有可能自己会再次获取到cpu执行时间). Hence, it’s not reliable to depend upon yield() method, it’s just on best effort basis.</p>
+<ul>
+<li>If there is no waiting thread or all the waiting threads have a lower priority then the same thread will continue its execution.</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1334,162 +1552,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/java%20design%20pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/20/java%20design%20pattern/" class="post-title-link" itemprop="url">java design pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-20 12:01:30" itemprop="dateCreated datePublished" datetime="2017-12-20T12:01:30+08:00">2017-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-06-25 10:04:25" itemprop="dateModified" datetime="2019-06-25T10:04:25+08:00">2019-06-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/design-pattern/" itemprop="url" rel="index"><span itemprop="name">design pattern</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Creational-Design-Patterns"><a href="#Creational-Design-Patterns" class="headerlink" title="Creational Design Patterns"></a>Creational Design Patterns</h2><blockquote>
-<p>These design patterns provide a way to create objects while hiding the creation logic, rather than instantiating objects directly using new operator. This gives program more flexibility in deciding which objects need to be created for a given use case.</p>
-</blockquote>
-<h3 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h3><blockquote>
-<p>In Factory pattern, we create object without exposing the creation logic to the client and refer to newly created object using a common interface.</p>
-</blockquote>
-<ul>
-<li><p>different approaches to implement:</p>
-<ul>
-<li>Private constructor to restrict instantiation of the class from other classes.</li>
-<li>Private static variable of the same class that is the only instance of the class.</li>
-<li>Public static method that returns the instance of the class, this is the global access point for outer world to get the instance of the singleton class.</li>
-</ul>
-</li>
-<li><p>design concerns with the implementation</p>
-<ul>
-<li>Eager initialization</li>
-<li>Static block initialization</li>
-<li>Lazy Initialization</li>
-<li>Thread Safe Singleton</li>
-<li>Bill Pugh Singleton Implementation</li>
-<li>Using Reflection to destroy Singleton Pattern</li>
-<li>Enum Singleton</li>
-<li>Serialization and Singleton</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SingleObject.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//create an object of SingleObject</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line"></span><br><span class="line">   <span class="comment">//make the constructor private so that this class cannot be</span></span><br><span class="line">   <span class="comment">//instantiated</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//Get the only object available</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SingletonPatternDemo.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//illegal construct</span></span><br><span class="line">      <span class="comment">//Compile Time Error: The constructor SingleObject() is not visible</span></span><br><span class="line">      <span class="comment">//SingleObject object = new SingleObject();</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//Get the only object available</span></span><br><span class="line">      SingleObject object = SingleObject.getInstance();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//show the message</span></span><br><span class="line">      object.showMessage();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Factory"><a href="#Factory" class="headerlink" title="Factory"></a>Factory</h3><ul>
-<li>Factory design pattern provides approach to code for interface rather than implementation.</li>
-<li>Factory pattern removes the instantiation of actual implementation classes from client code. Factory pattern makes our code more robust, less coupled and easy to extend. For example, we can easily change PC class implementation because client program is unaware of this.</li>
-<li>Factory pattern provides abstraction between implementation and client classes through inheritance.</li>
-</ul>
-<h3 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h3><ul>
-<li>Abstract Factory design pattern provides approach to code for interface rather than implementation.</li>
-<li>Abstract Factory pattern is “factory of factories” and can be easily extended to accommodate more products, for example we can add another sub-class Laptop and a factory LaptopFactory.</li>
-<li>Abstract Factory pattern is robust and avoid conditional logic of Factory pattern.</li>
-</ul>
-<h3 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h3><ul>
-<li>Builder pattern solves the issue with large number of optional parameters and inconsistent state by providing a way to build the object step-by-step and provide a method that will actually return the final Object.</li>
-</ul>
-<h3 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h3><ul>
-<li>Prototype design pattern is used when the Object creation is a costly affair and requires a lot of time and resources and you have a similar object already existing.Prototype pattern provides a mechanism to copy the original object to a new object and then modify it according to our needs. Prototype design pattern uses java cloning to copy the object.</li>
-</ul>
-<h2 id="Structural-Design-Patterns"><a href="#Structural-Design-Patterns" class="headerlink" title="Structural Design Patterns"></a>Structural Design Patterns</h2><blockquote>
-<p>These design patterns concern class and object composition. Concept of inheritance is used to compose interfaces and define ways to compose objects to obtain new functionalities.</p>
-</blockquote>
-<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><ul>
-<li>Adapter design pattern is one of the structural design pattern and its used so that two unrelated interfaces can work together. The object that joins these unrelated interface is called an Adapter.</li>
-</ul>
-<h3 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h3><ul>
-<li>Composite design pattern is used when we have to represent a part-whole hierarchy.</li>
-</ul>
-<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><ul>
-<li>Proxy design pattern common uses are to control access or to provide a wrapper implementation for better performance.</li>
-</ul>
-<h3 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h3><ul>
-<li>Use sharing to support large numbers of fine-grained objects efficiently</li>
-</ul>
-<h3 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h3><ul>
-<li>Provide a unified interface to a set of interfaces in a subsystem. Facade Pattern defines a higher-level interface that makes the subsystem easier to use.</li>
-</ul>
-<h3 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h3><ul>
-<li>Decouple an abstraction from its implementation so that the two can vary independently.</li>
-</ul>
-<h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><ul>
-<li>Decorator design pattern is helpful in providing runtime modification abilities and hence more flexible. Its easy to maintain and extend when the number of choices are more.</li>
-<li>The disadvantage of decorator design pattern is that it uses a lot of similar kind of objects (decorators).</li>
-</ul>
-<h2 id="Behavioral-Design-Patterns"><a href="#Behavioral-Design-Patterns" class="headerlink" title="Behavioral Design Patterns"></a>Behavioral Design Patterns</h2><blockquote>
-<p>These design patterns are specifically concerned with communication between objects.</p>
-</blockquote>
-<h3 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h3><ul>
-<li>Template method should consists of certain steps whose order is fixed and for some of the methods, implementation differs from base class to subclass. Template method should be final.</li>
-<li>Most of the times, subclasses calls methods from super class but in template pattern, superclass template method calls methods from subclasses, this is known as Hollywood Principle – “don’t call us, we’ll call you.”.</li>
-<li>Methods in base class with default implementation are referred as Hooks and they are intended to be overridden by subclasses, if you want some of the methods to be not overridden, you can make them final, for example in our case we can make buildFoundation() method final because if we don’t want subclasses to override it.</li>
-</ul>
-<h3 id="Media"><a href="#Media" class="headerlink" title="Media"></a>Media</h3><ul>
-<li>Allows loose coupling by encapsulating the way disparate sets of objects interact and communicate with each other. Allows for the actions of each object set to vary independently of one another.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1555,7 +1621,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1566,7 +1632,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1638,6 +1704,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -1652,6 +1722,7 @@
   
 
   
+
 
 </body>
 </html>

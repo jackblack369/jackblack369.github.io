@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-01-11T10:44:03.586Z</updated>
+  <updated>2022-01-14T08:24:15.313Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>flink cep</title>
+    <link href="http://yoursite.com/2022/01/14/flink%20cep/"/>
+    <id>http://yoursite.com/2022/01/14/flink%20cep/</id>
+    <published>2022-01-14T08:24:07.000Z</published>
+    <updated>2022-01-14T08:24:15.313Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>风险控制<br>对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。</p><p>策略营销<br>用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。</p><p>运维监控<br>灵活配置多指标、多依赖来实现更复杂的监控模式。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;应用场景&quot;&gt;&lt;a href=&quot;#应用场景&quot; class=&quot;headerlink&quot; title=&quot;应用场景&quot;&gt;&lt;/a&gt;应用场景&lt;/h3&gt;&lt;p&gt;风险控制&lt;br&gt;对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。&lt;/p&gt;</summary>
+      
+    
+    
+    
+    <category term="flink" scheme="http://yoursite.com/categories/flink/"/>
+    
+    
+    <category term="cep" scheme="http://yoursite.com/tags/cep/"/>
+    
+  </entry>
   
   <entry>
     <title>flink watermark</title>
@@ -146,7 +170,7 @@
     <link href="http://yoursite.com/2022/01/06/flink%20cdc/"/>
     <id>http://yoursite.com/2022/01/06/flink%20cdc/</id>
     <published>2022-01-06T08:52:25.071Z</published>
-    <updated>2022-01-06T08:52:54.457Z</updated>
+    <updated>2022-01-12T17:36:45.477Z</updated>
     
     <content type="html"><![CDATA[<hr><hr><p>reference</p><p><a href="https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418">Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区</a></p>]]></content>
     
@@ -169,7 +193,7 @@
     <link href="http://yoursite.com/2022/01/05/flink%20join/"/>
     <id>http://yoursite.com/2022/01/05/flink%20join/</id>
     <published>2022-01-05T08:52:01.000Z</published>
-    <updated>2022-01-10T16:58:35.497Z</updated>
+    <updated>2022-01-16T06:44:29.191Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>使用 SQL 进行数据分析的过程中，join 是经常要使用的操作。</p><p>在离线场景中，join 的数据集是有边界的，可以缓存数据有边界的数据集进行查询，有Nested Loop/Hash Join/Sort Merge Join 等多表 join；</p><p>而在实时场景中，join 两侧的数据都是无边界的数据流，所以缓存数据集对长时间 job 来说，存储和查询压力很大，另外双流的到达时间可能不一致，造成 join 计算结果准确度不够；因此，Flink SQL 提供了多种 join 方法，来帮助用户应对各种 join 场景。</p></blockquote><h3 id="regular-join"><a href="#regular-join" class="headerlink" title="regular join"></a>regular join</h3><blockquote><p>regular join 是最通用的 join 类型，不支持时间窗口以及时间属性，任何一侧数据流有更改都是可见的，直接影响整个 join 结果。如果有一侧数据流增加一个新纪录，那么它将会把另一侧的所有的过去和将来的数据合并在一起，因为 regular join 没有剔除策略，这就影响最新输出的结果; 正因为历史数据不会被清理，所以 regular join 支持数据流的任何更新操作。</p><p>对于 regular join 来说，更适合用于离线场景和小数据量场景。</p></blockquote><ul><li>语法<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span><span class="operator">/</span><span class="keyword">INNER</span><span class="operator">/</span><span class="keyword">FULL</span> <span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> t2</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1</span><br></pre></td></tr></table></figure></li></ul><h3 id="interval-join"><a href="#interval-join" class="headerlink" title="interval join"></a>interval join</h3><blockquote><p>相对于 regular join，interval Join 则利用窗口的给两个输入表设定一个 Join 的时间界限，超出时间范围的数据则对 join 不可见并可以被清理掉，这样就能修正 regular join 因为没有剔除数据策略带来 join 结果的误差以及需要大量的资源。</p><p>但是使用interval join，需要定义好时间属性字段，可以是计算发生的 Processing Time，也可以是根据数据本身提取的 Event Time；如果是定义的是 Processing Time，则Flink 框架本身根据系统划分的时间窗口定时清理数据；如果定义的是 Event Time，Flink 框架分配 Event Time 窗口并根据设置的 watermark 来清理数据。</p></blockquote><ul><li><p>语法1</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span><span class="operator">/</span><span class="keyword">INNER</span><span class="operator">/</span><span class="keyword">FULL</span> <span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> t2</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1 <span class="keyword">AND</span> t1.timestamp <span class="keyword">BETWEEN</span> t2.timestamp  <span class="keyword">AND</span>  <span class="keyword">BETWEEN</span> t2.timestamp <span class="operator">+</span> <span class="operator">+</span> <span class="type">INTERVAL</span> <span class="string">&#x27;10&#x27;</span> <span class="keyword">MINUTE</span>;</span><br></pre></td></tr></table></figure></li><li><p>语法2</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span><span class="operator">/</span><span class="keyword">INNER</span><span class="operator">/</span><span class="keyword">FULL</span> <span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> t2</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1 <span class="keyword">AND</span> t2.timestamp <span class="operator">&lt;=</span> t1.timestamp <span class="keyword">and</span> t1.timestamp <span class="operator">&lt;=</span>  t2.timestamp <span class="operator">+</span> <span class="operator">+</span> <span class="type">INTERVAL</span> ’<span class="number">10</span><span class="string">&#x27; MINUTE ;</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="temproal-table-join"><a href="#temproal-table-join" class="headerlink" title="temproal table join"></a>temproal table join</h3><blockquote><p>interval Join 提供了剔除数据的策略，解决资源问题以及计算更加准确，这是有个前提：join 的两个流需要时间属性，需要明确时间的下界，来方便剔除数据；</p><p>显然，这种场景不适合维度表的 join，因为维度表没有时间界限，对于这种场景，Flink 提供了 temproal table join 来覆盖此类场景。</p><p>在 regular join和interval join中，join 两侧的表是平等的，任意的一个表的更新，都会去和另外的历史纪录进行匹配，temproal table 的更新对另一表在该时间节点以前的记录是不可见的。</p></blockquote><ul><li>语法<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span>] <span class="keyword">JOIN</span> t2 <span class="keyword">FOR</span> <span class="built_in">SYSTEM_TIME</span> <span class="keyword">AS</span> <span class="keyword">OF</span> t1.proctime [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias2<span class="operator">&gt;</span>]</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1</span><br></pre></td></tr></table></figure></li></ul><hr><p>reference:</p><p><a href="https://developer.aliyun.com/article/780048?accounttraceid=dd5fdbf3eed04f6185ed6461d8a33012zihq">Flink SQL 实战：双流 join 场景应用-阿里云开发者社区</a></p>]]></content>
     
@@ -488,32 +512,6 @@
     
     
     <category term="macos" scheme="http://yoursite.com/categories/macos/"/>
-    
-    
-    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker image mysql</title>
-    <link href="http://yoursite.com/2021/12/17/docker%20image%20mysql/"/>
-    <id>http://yoursite.com/2021/12/17/docker%20image%20mysql/</id>
-    <published>2021-12-17T10:57:57.000Z</published>
-    <updated>2021-12-17T10:59:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="mysql镜像制作"><a href="#mysql镜像制作" class="headerlink" title="mysql镜像制作"></a>mysql镜像制作</h2><ol><li><p>需要备份当前需要同步的全量数据</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it dlabel_mysql mysqldump -uroot -p123456 dls &gt; /path/to/backup.sql</span><br></pre></td></tr></table></figure><blockquote><p>注意事项：</p><p>其中dlabel_mysql，是在第二步中设置的name的名称</p><p>/path/to/backup.sql是导出sql的地址路径，根据操作系统不同，需要自行更改</p><p>假定以下操作是在/path/to的目录下</p></blockquote></li></ol><ol start="2"><li><p>在/path/to目录下创建Dockerfile文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Derived from official mysql image (our base image)</span></span><br><span class="line">FROM mysql:5.7.30</span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the content of the sql-scripts/ directory to your image</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> All scripts <span class="keyword">in</span> docker-entrypoint-initdb.d/ are automatically</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> executed during container startup</span></span><br><span class="line">COPY ./backup.sql /docker-entrypoint-initdb.d/</span><br></pre></td></tr></table></figure><blockquote><p>注意COPY指令中，backup.sql需要和操作1中的导出文件名保持一致</p></blockquote></li><li><p>创建镜像</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:mysql20211216 .</span><br></pre></td></tr></table></figure><blockquote><p>dlabel:mysql20211216是 REPOSITORY:TAG格式，可自行更改</p></blockquote></li><li><p>登录远程仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure><p>根据提示，输入用户名admin，密码Harbor12345</p></li><li><p>映射远程仓库REPOSITORY:TAG</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:mysql20211216 hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure><blockquote><p>其中dlabel:mysql20211216和操作3中保持一致</p><p>hostAddress/dlabel/service:mysql20211216，格式为hostAddress/library/REPOSITORY:TAG，其中可自行修改service:mysql20211216名称</p></blockquote></li><li><p>推送当地镜像到远程仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure></li><li><p>登录<strong><a href="http://hostaddress/">http://hostAddress</a></strong>查看镜像上传情况</p></li><li><p>在镜像详情界面，点击“拉取命名”按钮进行命令复制，在终端执行命令即可拉取该镜像</p></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;mysql镜像制作&quot;&gt;&lt;a href=&quot;#mysql镜像制作&quot; class=&quot;headerlink&quot; title=&quot;mysql镜像制作&quot;&gt;&lt;/a&gt;mysql镜像制作&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;需要备份当前需要同步的全量数据&lt;/p&gt;
-&lt;figure class</summary>
-      
-    
-    
-    
-    <category term="docker" scheme="http://yoursite.com/categories/docker/"/>
     
     
     <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>

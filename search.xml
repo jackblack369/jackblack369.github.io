@@ -2526,9 +2526,11 @@
 <blockquote>
 <p>The object of FilterChain is responsible to invoke the next filter or resource in the chain.This object is passed in the doFilter method of Filter interface.</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span></span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig arg0)</span> <span class="keyword">throws</span> ServletException </span>&#123;&#125;  </span><br><span class="line"></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp,  </span></span></span><br><span class="line"><span class="params"><span class="function">    	FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;  </span><br><span class="line">    	      </span><br><span class="line">    		PrintWriter out=resp.getWriter();  </span><br><span class="line">    		out.print(<span class="string">&quot;filter is invoked before&quot;</span>);  </span><br><span class="line">    		      </span><br><span class="line">    		chain.doFilter(req, resp);<span class="comment">//sends request to next resource  </span></span><br><span class="line">    		      </span><br><span class="line">    		out.print(<span class="string">&quot;filter is invoked after&quot;</span>);  </span><br><span class="line">    	&#125;  </span><br><span class="line">    	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;&#125;  </span><br><span class="line">  &#125;  	</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>FilterConfig</p>
-</li>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span></span>&#123;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig arg0)</span> <span class="keyword">throws</span> ServletException </span>&#123;&#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp,  </span></span></span><br><span class="line"><span class="params"><span class="function">      FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;  </span><br><span class="line"></span><br><span class="line">          PrintWriter out=resp.getWriter();  </span><br><span class="line">          out.print(<span class="string">&quot;filter is invoked before&quot;</span>);  </span><br><span class="line"></span><br><span class="line">          chain.doFilter(req, resp);<span class="comment">//sends request to next resource  </span></span><br><span class="line"></span><br><span class="line">          out.print(<span class="string">&quot;filter is invoked after&quot;</span>);  </span><br><span class="line">      &#125;  </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;&#125;  </span><br><span class="line">&#125;      </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>```</p>
+<ul>
+<li>FilterConfig</li>
 </ul>
 ]]></content>
       <categories>
@@ -2583,7 +2585,7 @@
 <ul>
 <li>JVM Heap大小设置对应配置文件<code>flink-conf.yaml</code>的<strong>jobmanager.heap.size</strong></li>
 </ul>
-<h3 id="taskmanager"><a href="#taskmanager" class="headerlink" title="taskmanager"></a>taskmanager</h3><p><img src="./img/flink/taskmanager.jpg"></p>
+<h3 id="taskmanager"><a href="#taskmanager" class="headerlink" title="taskmanager"></a>taskmanager</h3><p><img src="/images/flink/taskmanager.jpg"></p>
 <ul>
 <li>Total Flink Memory对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.flink.size</strong></li>
 <li>JVM Metaspace对应<code>flink-conf.yaml</code>的<strong>taskmanager.memory.jvm-metaspace.size</strong></li>
@@ -2837,8 +2839,6 @@
 </li>
 </ul>
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
-
-
 
 <h4 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h4><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
 <p>git config pull.rebase false # 合并（缺省策略）<br>git config pull.rebase true # 变基<br>git config pull.ff only # 仅快进</p>
@@ -5449,9 +5449,7 @@
     <title>nacos snippet</title>
     <url>/2021/12/01/nacos%20snippet/</url>
     <content><![CDATA[<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
-<li><p>2.0.3版本启动，需要添加 -m属性</p>
-<p><code>./startup.sh -m standalone</code></p>
-</li>
+<li>2.0.3版本启动，需要添加 -m属性<code>./startup.sh -m standalone</code></li>
 </ul>
 ]]></content>
       <categories>
@@ -7846,6 +7844,20 @@
       </categories>
       <tags>
         <tag>point</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flink cep</title>
+    <url>/2022/01/14/flink%20cep/</url>
+    <content><![CDATA[<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>风险控制<br>对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。</p>
+<p>策略营销<br>用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。</p>
+<p>运维监控<br>灵活配置多指标、多依赖来实现更复杂的监控模式。</p>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>cep</tag>
       </tags>
   </entry>
 </search>
