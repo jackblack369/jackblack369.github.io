@@ -6871,6 +6871,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:%!jq .</span><br></pre></td></tr></table></figure></li>
 <li><p>formate xml</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:%!xmllint --format %</span><br></pre></td></tr></table></figure></li>
+<li><p>显示不可见字符</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set list</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -7683,6 +7685,7 @@
 <hr>
 <p>reference:</p>
 <p><a href="https://developer.aliyun.com/article/780048?accounttraceid=dd5fdbf3eed04f6185ed6461d8a33012zihq">Flink SQL 实战：双流 join 场景应用-阿里云开发者社区</a></p>
+<p><a href="https://www.liangzl.com/get-article-detail-114889.html">Flink SQL 功能解密系列 —— 维表 JOIN 与异步优化</a></p>
 ]]></content>
       <categories>
         <category>flink</category>
@@ -8041,6 +8044,31 @@
       </categories>
       <tags>
         <tag>backup</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实时数仓</title>
+    <url>/2021/12/30/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/</url>
+    <content><![CDATA[<blockquote>
+<p>当设计一款产品或者平台的时候，可以划分为两层，即底层实现和上层抽象。</p>
+</blockquote>
+<p>实时数仓和传统数仓的对比主要可以从四个方面考虑：</p>
+<ul>
+<li>第一个是<strong>分层方式</strong>，离线数仓为了考虑到效率问题，一般会采取空间换时间的方式，层级划分会比较多；则实时数仓考虑到实时性问题，一般分层会比较少，另外也减少了中间流程出错的可能性。</li>
+<li>第二个是<strong>事实数据</strong>存储方面，离线数仓会基于 HDFS，实时数仓则会基于消息队列（如 Kafka）。</li>
+<li>第三个是<strong>维度数据</strong>存储，实时数仓会将数据放在 KV 存储上面。</li>
+<li>第四个是<strong>数据加工</strong>过程，离线数仓一般以 Hive、Spark 等批处理为主，而实时数仓则是基于实时计算引擎如 Storm、Flink 等，以流处理为主。</li>
+</ul>
+<p>实时数仓主要有两个要点。首先是分层设计上，一般也是参考离线数仓的设计，通常会分为ODS操作数据层、DWD明细层、DWS汇总层以及ADS应用层，可能还会分出一层DIM维度数据层。另外分层设计上也有不同的思路，比如可以将DWS和ADS归为DM数据集市层</p>
+<hr>
+<p>reference：</p>
+<p><a href="https://cloud.tencent.com/developer/article/1618182">实时数仓 | 你想要的数仓分层设计与技术选型 - 云+社区 - 腾讯云</a></p>
+]]></content>
+      <categories>
+        <category>实时数仓</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
       </tags>
   </entry>
 </search>
