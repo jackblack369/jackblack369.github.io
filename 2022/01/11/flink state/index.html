@@ -28,7 +28,7 @@
 <meta property="og:description" content="what ?State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-11T06:32:39.000Z">
-<meta property="article:modified_time" content="2022-01-11T06:56:56.985Z">
+<meta property="article:modified_time" content="2022-01-24T16:57:50.819Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="point">
 <meta name="twitter:card" content="summary">
@@ -202,10 +202,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-01-11 14:32:39 / Modified: 14:56:56" itemprop="dateCreated datePublished" datetime="2022-01-11T14:32:39+08:00">2022-01-11</time>
+              <time title="Created: 2022-01-11 14:32:39" itemprop="dateCreated datePublished" datetime="2022-01-11T14:32:39+08:00">2022-01-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-25 00:57:50" itemprop="dateModified" datetime="2022-01-25T00:57:50+08:00">2022-01-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -230,13 +236,17 @@
         <h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
 <h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
 <h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul>
-<li>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</li>
-<li>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</li>
-<li>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；<blockquote>
+<li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p>
+</li>
+<li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p>
+</li>
+<li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p>
+<blockquote>
 <p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
 </blockquote>
 </li>
-<li>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</li>
+<li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p>
+</li>
 </ul>
 <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p>
 <ul>
@@ -349,7 +359,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

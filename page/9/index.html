@@ -174,6 +174,279 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/design%20pattern-build/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/01/design%20pattern-build/" class="post-title-link" itemprop="url">design pattern-build</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-05-01T10:01:30+08:00">2018-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-06-25 09:59:32" itemprop="dateModified" datetime="2019-06-25T09:59:32+08:00">2019-06-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/design-pattern/" itemprop="url" rel="index"><span itemprop="name">design pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="build"><a href="#build" class="headerlink" title="build"></a>build</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Computer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//required parameters</span></span><br><span class="line"><span class="keyword">private</span> String HDD;</span><br><span class="line"><span class="keyword">private</span> String RAM;</span><br><span class="line"></span><br><span class="line"><span class="comment">//optional parameters</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isGraphicsCardEnabled;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isBluetoothEnabled;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getHDD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> HDD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> RAM;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isGraphicsCardEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isGraphicsCardEnabled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBluetoothEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isBluetoothEnabled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Computer</span><span class="params">(ComputerBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.HDD=builder.HDD;</span><br><span class="line">    <span class="keyword">this</span>.RAM=builder.RAM;</span><br><span class="line">    <span class="keyword">this</span>.isGraphicsCardEnabled=builder.isGraphicsCardEnabled;</span><br><span class="line">    <span class="keyword">this</span>.isBluetoothEnabled=builder.isBluetoothEnabled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Builder Class</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ComputerBuilder</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// required parameters</span></span><br><span class="line">    <span class="keyword">private</span> String HDD;</span><br><span class="line">    <span class="keyword">private</span> String RAM;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// optional parameters</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isGraphicsCardEnabled;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isBluetoothEnabled;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ComputerBuilder</span><span class="params">(String hdd, String ram)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.HDD=hdd;</span><br><span class="line">        <span class="keyword">this</span>.RAM=ram;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ComputerBuilder <span class="title">setGraphicsCardEnabled</span><span class="params">(<span class="keyword">boolean</span> isGraphicsCardEnabled)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isGraphicsCardEnabled = isGraphicsCardEnabled;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ComputerBuilder <span class="title">setBluetoothEnabled</span><span class="params">(<span class="keyword">boolean</span> isBluetoothEnabled)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isBluetoothEnabled = isBluetoothEnabled;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Computer <span class="title">build</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Computer(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ComputerBuilder</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.journaldev.design.builder.Computer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestBuilderPattern</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Using builder to get the object in a single line of code and </span></span><br><span class="line">            <span class="comment">//without any inconsistent state or arguments management issues        </span></span><br><span class="line">    Computer comp = <span class="keyword">new</span> Computer.ComputerBuilder(</span><br><span class="line">            <span class="string">&quot;500 GB&quot;</span>, <span class="string">&quot;2 GB&quot;</span>).setBluetoothEnabled(<span class="keyword">true</span>)</span><br><span class="line">            .setGraphicsCardEnabled(<span class="keyword">true</span>).build();</span><br><span class="line">&#125;</span><br><span class="line">&#125; ```</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/hibernate%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/01/hibernate%20snippet/" class="post-title-link" itemprop="url">hibernate snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-05-01T10:01:30+08:00">2018-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-12 09:19:44" itemprop="dateModified" datetime="2019-03-12T09:19:44+08:00">2019-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hibernate/" itemprop="url" rel="index"><span itemprop="name">hibernate</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>ORM is an acronym for Object/Relational mapping. It is a programming strategy to map object with the data stored in the database. It simplifies data creation, data manipulation, and data access.</p>
+</blockquote>
+<h3 id="The-advantages-of-using-ORM-over-JDBC"><a href="#The-advantages-of-using-ORM-over-JDBC" class="headerlink" title="The advantages of using ORM over JDBC"></a>The advantages of using ORM over JDBC</h3><ul>
+<li>Application development is fast.</li>
+<li>Management of transaction.</li>
+<li>Generates key automatically.</li>
+<li>Details of SQL queries are hidden.</li>
+</ul>
+<h3 id="Hibernate-Architecture"><a href="#Hibernate-Architecture" class="headerlink" title="Hibernate Architecture"></a>Hibernate Architecture</h3><ul>
+<li>Java application layer</li>
+<li>Hibernate framework layer</li>
+<li>Backhand api layer</li>
+<li>Database layer</li>
+</ul>
+<p><img src="https://www.javatpoint.com/images/hibernate/arc2.jpg"></p>
+<p>Hibernate Application Architecture：</p>
+<p><img src="https://www.tutorialspoint.com/hibernate/images/hibernate_architecture.jpg"></p>
+<blockquote>
+<p>JDBC (Java Database Connectivity)</p>
+<p>JTA (Java Transaction API) </p>
+<p>JNDI (Java Naming Directory Interface)</p>
+</blockquote>
+<h3 id="Elements-of-Hibernate-Architecture"><a href="#Elements-of-Hibernate-Architecture" class="headerlink" title="Elements of Hibernate Architecture"></a>Elements of Hibernate Architecture</h3><ul>
+<li><p>Configuration</p>
+<ul>
+<li><strong>Database Connection</strong> − This is handled through one or more configuration files supported by Hibernate. These files are <strong>hibernate.properties</strong> and <strong>hibernate.cfg.xml</strong>.</li>
+<li><strong>Class Mapping Setup</strong> − This component creates the connection between the Java classes and database tables.</li>
+</ul>
+</li>
+<li><p>SessionFactory</p>
+<blockquote>
+<p>SessionFactory is a thread-safe object, many threads cannot access it simultaneously.</p>
+</blockquote>
+</li>
+<li><p>Session</p>
+<blockquote>
+<ul>
+<li>It maintains a connection between the hibernate application and database.It provides methods to store, update, delete or fetch data from the database such as persist(), update(), delete(), load(), get() etc.</li>
+<li>Session is not a thread-safe object, many threads can access it simultaneously. In other words, you can share it between threads.</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Transaction</p>
+</li>
+<li><p>ConnectionProvider</p>
+</li>
+<li><p>Query</p>
+<blockquote>
+<p>Query objects use SQL or Hibernate Query Language (HQL) string to retrieve data from the database and create objects. A Query instance is used to bind query parameters, limit the number of results returned by the query, and finally to execute the query.</p>
+</blockquote>
+</li>
+<li><p>Criteria</p>
+<blockquote>
+<p>Criteria objects are used to create and execute object oriented criteria queries to retrieve objects.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="About-SQL"><a href="#About-SQL" class="headerlink" title="About SQL"></a>About SQL</h3><ul>
+<li><p>SQL query created in Hibernate（Native sql）</p>
+<blockquote>
+<p>Session.createSQLQuery</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session.createSQLQuery()</span><br><span class="line"><span class="comment">//The method createSQLQuery() creates Query object using the native SQL syntax. </span></span><br><span class="line">Query query = session.createSQLQuery(<span class="string">&quot;Select * from Student&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>HQL query</p>
+<blockquote>
+<p>Session.createQuery</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session.createQuery()</span><br><span class="line"><span class="comment">//The method createQuery() creates Query object using the HQL syntax. </span></span><br><span class="line">Query query = session.createQuery(<span class="string">&quot;from Student s where s.name like &#x27;k%&#x27;&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>criteria query</p>
+<blockquote>
+<p>Session.createCriteria</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session.createCriteria()</span><br><span class="line"><span class="comment">//The method createCriteria() creates Criteria object for setting the query parameters. This is more useful feature for those who don&#x27;t want to write the query in hand. You can specify any type of complicated syntax using the Criteria API.</span></span><br><span class="line">Criteria criteria = session.createCriteria(Student.class);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="HQL-vs-Criteria"><a href="#HQL-vs-Criteria" class="headerlink" title="HQL vs Criteria"></a>HQL vs Criteria</h3><ul>
+<li>HQL is to perform both select and non-select operations on the data,  but Criteria is only for selecting the data, we cannot perform non-select operations using criteria</li>
+<li>HQL is suitable for executing Static Queries, where as Criteria is suitable for executing Dynamic Queries</li>
+<li>HQL doesn’t support pagination concept, but we can achieve pagination with Criteria</li>
+<li>Criteria used to take more time to execute then HQL</li>
+<li>With Criteria we are safe with SQL Injection because of its dynamic query generation but in HQL as your queries are either fixed or parametrized, there is no safe from SQL Injection.</li>
+</ul>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h3><blockquote>
+<p>Cache memory stores recently used data items in order to reduce the number of database hits as much as possible.</p>
+</blockquote>
+<p><img src="https://www.tutorialspoint.com/hibernate/images/hibernate_cache.jpg"></p>
+<ul>
+<li><p>First level Cache</p>
+<blockquote>
+<p>Hibernate first level cache is associated with the Session object. Hibernate first level cache is enabled by default and there is no way to disable it. However hibernate provides methods through which we can delete selected objects from the cache or clear the cache completely.Any object cached in a session will not be visible to other sessions and when the session is closed, all the cached objects will also be lost.</p>
+</blockquote>
+</li>
+<li><p>Second level Cache</p>
+<blockquote>
+<p>Hibernate Second Level cache is disabled by default but we can enable it through configuration. Currently EHCache and Infinispan provides implementation for Hibernate Second level cache and we can use them. </p>
+</blockquote>
+</li>
+<li><p>Query Cache</p>
+<blockquote>
+<p>Hibernate can also cache result set of a query. Hibernate Query Cache doesn’t cache the state of the actual entities in the cache; it caches only identifier values and results of value type. So it should always be used in conjunction with the second-level cache.</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="types-of-association-mapping"><a href="#types-of-association-mapping" class="headerlink" title="types of association mapping"></a>types of association mapping</h3><ol>
+<li><p>One to One</p>
+</li>
+<li><p>One to Many</p>
+<blockquote>
+<p>（一对多）单向：会产生中间表，此时可以用@onetoMany @Joincolumn（name=” “）避免产生中间表**，并且指定了外键的名字（别看 @joincolumn在一中写着，但它存在在多的那个表中）</p>
+</blockquote>
+</li>
+<li><p>Many to One</p>
+<blockquote>
+<p>（多对一）单向：不产生中间表，但可以用@Joincolumn（name=”  “）来指定生成外键的名字，外键在多的一方表中产生！</p>
+</blockquote>
+</li>
+<li><p>Many to Many</p>
+</li>
+</ol>
+<hr>
+<p>可参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/54108abb070f">JPA实体关系映射</a></p>
+<h4 id="为什么要有实体关系映射"><a href="#为什么要有实体关系映射" class="headerlink" title="为什么要有实体关系映射"></a>为什么要有实体关系映射</h4><blockquote>
+<p>简化编程操作。把冗余的操作交给底层框架来处理。<br> 例如，如果我要给一位新入学的学生添加一位新的老师。而这个老师又是新来的，在学生数据库与教师数据库中均不存在对应的数据。那么我需要先在教师数据库中保存新来的老师的数据，同时在学生数据库中保存新学生的数据，然后再给两者建立关联。<br> 而如果我们使用了实体关系映射，我们只需要将该新教师实体交给该学生实体，然后保存该学生实体即可完成。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/16/redis%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -205,7 +478,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-21 10:19:53" itemprop="dateModified" datetime="2020-10-21T10:19:53+08:00">2020-10-21</time>
+                <time title="Modified: 2022-01-26 01:10:15" itemprop="dateModified" datetime="2022-01-26T01:10:15+08:00">2022-01-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,7 +527,7 @@
 <p><code>KEYS *</code></p>
 </li>
 <li><p>Delete All Keys In Redis</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Delete all keys from all Redis databases:</span><br><span class="line"> `$ redis-cli FLUSHALL`</span><br><span class="line"> Delete all keys of the currently selected Redis database:</span><br><span class="line"> `$ redis-cli FLUSHDB`</span><br><span class="line"> Delete all keys of the specified Redis database:</span><br><span class="line"> `$ redis-cli -n &lt;database_number&gt; FLUSHDB`</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  Delete all keys from all Redis databases:</span><br><span class="line">`$ redis-cli FLUSHALL`</span><br><span class="line">Delete all keys of the currently selected Redis database:</span><br><span class="line">`$ redis-cli FLUSHDB`</span><br><span class="line">Delete all keys of the specified Redis database:</span><br><span class="line">`$ redis-cli -n &lt;database_number&gt; FLUSHDB`</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><ul>
 <li><p>RedisConnectionFailureException</p>
@@ -262,30 +535,24 @@
 <li><p>需要安装gcc</p>
 </li>
 <li><p>make时，提示fatal error: jemalloc/jemalloc.h: No such file or directory</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解决：   </span><br><span class="line"><span class="built_in">cd</span> src/deps</span><br><span class="line">make hiredis jemalloc linenoise lua geohash-int</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">解决：   </span><br><span class="line"><span class="built_in">cd</span> src/deps</span><br><span class="line">make hiredis jemalloc linenoise lua geohash-int</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义配置redis-server"><a href="#自定义配置redis-server" class="headerlink" title="自定义配置redis server"></a>自定义配置redis server</h3><p>涉及到的目录或文件有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.配置文件    /etc/redis/xxxx.conf</span><br><span class="line">2.日志、数据文件    /data/redis/xxxx</span><br><span class="line">3.启动脚本    /etc/init.d/redis_xxxx</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="自定义配置redis-server"><a href="#自定义配置redis-server" class="headerlink" title="自定义配置redis server"></a>自定义配置redis server</h3><p> 涉及到的目录或文件有<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 1.配置文件	/etc/redis/xxxx.conf</span><br><span class="line"> 2.日志、数据文件	/data/redis/xxxx</span><br><span class="line"> 3.启动脚本	/etc/init.d/redis_xxxx</span><br><span class="line"> </span><br><span class="line">客户端启动时	redis-cli -p xxxx</span><br></pre></td></tr></table></figure></p>
-<h3 id="Enable-remote-Redis-connection"><a href="#Enable-remote-Redis-connection" class="headerlink" title="Enable remote Redis connection"></a>Enable remote Redis connection</h3><ul>
-<li>Replaced <code>bind 127.0.0.1</code> with <code>bind 0.0.0.0</code> in the <code>/etc/redis/redis.conf</code> file, the line does not have a leading <code>#</code> nor space,</li>
-<li>Replaced <code>protected-mode yes</code> with <code>protected-mode no</code> in this same file,</li>
-<li>Allowed all traffic to port <code>6379</code> using <code>ufw allow 6379</code> and <code>ufw allow 6379/tcp</code></li>
-</ul>
-<h3 id="secure-redis"><a href="#secure-redis" class="headerlink" title="secure redis"></a>secure redis</h3><p>By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </p>
-<p>linux command</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install epel-release -y</span><br></pre></td></tr></table></figure>
+<p>客户端启动时    redis-cli -p xxxx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">### Enable remote Redis connection</span><br><span class="line"></span><br><span class="line">- Replaced `bind 127.0.0.1` with `bind 0.0.0.0` in the `/etc/redis/redis.conf` file, the line does not have a leading `#` nor space,</span><br><span class="line">- Replaced `protected-mode yes` with `protected-mode no` in this same file,</span><br><span class="line">- Allowed all traffic to port `6379` using `ufw allow 6379` and `ufw allow 6379/tcp`</span><br><span class="line"></span><br><span class="line">### secure redis</span><br><span class="line"></span><br><span class="line">By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
 
-<p>Once the EPEL repository is installed, you can install UFW by just running the following linux command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install --enablerepo=&quot;epel&quot; ufw -y</span><br></pre></td></tr></table></figure>
+<h1 id="yum-install-epel-release-y"><a href="#yum-install-epel-release-y" class="headerlink" title="yum install epel-release -y"></a>yum install epel-release -y</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Once the EPEL repository is installed, you can install UFW by just running the following linux command:</span><br></pre></td></tr></table></figure>
 
-<p>After installing UFW, start UFW service and enable it to start on boot time by running the following </p>
-<p>linux command</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ufw enable </span><br></pre></td></tr></table></figure>
+<h1 id="yum-install-–enablerepo-”epel”-ufw-y"><a href="#yum-install-–enablerepo-”epel”-ufw-y" class="headerlink" title="yum install –enablerepo=”epel” ufw -y"></a>yum install –enablerepo=”epel” ufw -y</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">After installing UFW, start UFW service and enable it to start on boot time by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
 
-<p>Next, check the status of UFW with the following linux command. You should see the following output:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ufw status </span><br><span class="line">Status: active </span><br></pre></td></tr></table></figure>
+<h1 id="ufw-enable"><a href="#ufw-enable" class="headerlink" title="ufw enable"></a>ufw enable</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Next, check the status of UFW with the following linux command. You should see the following output:</span><br></pre></td></tr></table></figure>
 
-<p>You can also disable UFW firewall by running the following linux command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ufw disable </span><br></pre></td></tr></table></figure>
+<h1 id="ufw-status"><a href="#ufw-status" class="headerlink" title="ufw status"></a>ufw status</h1><p>Status: active </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You can also disable UFW firewall by running the following linux command:</span><br></pre></td></tr></table></figure>
+
+<h1 id="ufw-disable"><a href="#ufw-disable" class="headerlink" title="ufw disable"></a>ufw disable</h1><p>```</p>
 <h3 id="中文乱码"><a href="#中文乱码" class="headerlink" title="中文乱码"></a>中文乱码</h3><p>在启动命令中添加 –raw即可</p>
 
       
@@ -418,7 +685,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-01 08:34:26" itemprop="dateModified" datetime="2021-09-01T08:34:26+08:00">2021-09-01</time>
+                <time title="Modified: 2022-01-25 00:57:54" itemprop="dateModified" datetime="2022-01-25T00:57:54+08:00">2022-01-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -504,9 +771,7 @@
 </li>
 </ul>
 <h4 id="3-Class-loader-sub-system-follows-delegation-hierarchy-algorithm"><a href="#3-Class-loader-sub-system-follows-delegation-hierarchy-algorithm" class="headerlink" title="3. Class loader sub system follows delegation hierarchy algorithm"></a>3. Class loader sub system follows delegation hierarchy algorithm</h4><ul>
-<li><p><strong>Customized class loader</strong></p>
-<p>Sometimes we may not satisfy with default class loader mechanism then we can go for Customized class loader. For example:</p>
-</li>
+<li><strong>Customized class loader</strong>Sometimes we may not satisfy with default class loader mechanism then we can go for Customized class loader. For example:</li>
 </ul>
 <h3 id="Various-Memory-Areas-in-JVM"><a href="#Various-Memory-Areas-in-JVM" class="headerlink" title="Various Memory Areas in JVM"></a>Various Memory Areas in JVM</h3><h4 id="1-Method-Area"><a href="#1-Method-Area" class="headerlink" title="1. Method Area"></a>1. Method Area</h4><ul>
 <li><p>Inside method area class level binary data including static variables will be stored</p>
@@ -1282,303 +1547,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/07/vue%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/07/vue%20snippet/" class="post-title-link" itemprop="url">vue snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-07 21:50:30" itemprop="dateCreated datePublished" datetime="2017-12-07T21:50:30+08:00">2017-12-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 15:17:45" itemprop="dateModified" datetime="2019-03-14T15:17:45+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>vue实例初始化过程：</p>
-<ul>
-<li>设置数据监听</li>
-<li>编译模板</li>
-<li>将实例挂载到DOM并在数据变化时更新DOM等</li>
-</ul>
-</li>
-<li><p>生命周期钩子：提供用户在不同阶段添加自己的代码的机会</p>
-<ul>
-<li>created，用来实例被创建之后执行代码</li>
-<li>mounted,</li>
-<li>updated,</li>
-<li>destoryed</li>
-</ul>
-</li>
-<li><p>指令（Directives）是带有<code>v-</code>前缀的特殊特性。指令特性的值预期是单个JavaScript表达式（<code>v-for</code>是例外情况），指令的职责是：当表达式的值改变时，将其产生的连带影响，响应式地作用于DOM。</p>
-<ul>
-<li><p><code>v-bind</code>，可以接受一个参数，用于响应式地更新HTML特性。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 完整语法 --&gt;</span><br><span class="line">&lt;a v-bind:href=&quot;url&quot;&gt;...&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;a :href=&quot;url&quot;&gt;...&lt;/a&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p><code>v-on</code>，用于监听DOM事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 完整语法 --&gt;</span><br><span class="line">&lt;a v-on:click=&quot;doSomething&quot;&gt;...&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;a @click=&quot;doSomething&quot;&gt;...&lt;/a&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>修饰符<code>v-on:submit.prevent</code>,<code>.prevent</code> 修饰符告诉 <code>v-on</code> 指令对于触发的事件调用 <code>event.preventDefault()</code>。</p>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li><p>计算属性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;example&quot;&gt;</span><br><span class="line">  &lt;p&gt;Original message: &quot;&#123;&#123; message &#125;&#125;&quot;&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;Computed reversed message: &quot;&#123;&#123; reversedMessage &#125;&#125;&quot;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: &#x27;#example&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &#x27;Hello&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    // 计算属性的 getter</span><br><span class="line">    reversedMessage: function () &#123;</span><br><span class="line">      // `this` 指向 vm 实例</span><br><span class="line">      return this.message.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>计算属性缓存vs方法</p>
-<p>在方法中实现同计算属性同样的效果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;Reversed message: &quot;&#123;&#123; reversedMessage() &#125;&#125;&quot;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 在组件中</span><br><span class="line">methods: &#123;</span><br><span class="line">  reversedMessage: function () &#123;</span><br><span class="line">    return this.message.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>计算属性是基于它们的依赖进行缓存的</strong>。只在相关依赖发生改变时它们才会重新求值。 </p>
-</li>
-<li><p>计算属性vs侦听属性</p>
-<p>侦听属性的用法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;demo&quot;&gt;&#123;&#123; fullName &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: &#x27;#demo&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: &#x27;Foo&#x27;,</span><br><span class="line">    lastName: &#x27;Bar&#x27;,</span><br><span class="line">    fullName: &#x27;Foo Bar&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    firstName: function (val) &#123;</span><br><span class="line">      this.fullName = val + &#x27; &#x27; + this.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    lastName: function (val) &#123;</span><br><span class="line">      this.fullName = this.firstName + &#x27; &#x27; + val</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>与计算属性的版本进行对比：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: &#x27;#demo&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: &#x27;Foo&#x27;,</span><br><span class="line">    lastName: &#x27;Bar&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    fullName: function () &#123;</span><br><span class="line">      return this.firstName + &#x27; &#x27; + this.lastName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li><p>计算属性的setter</p>
-<p>计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter ： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// ...</span><br><span class="line">computed: &#123;</span><br><span class="line">  fullName: &#123;</span><br><span class="line">    // getter</span><br><span class="line">    get: function () &#123;</span><br><span class="line">      return this.firstName + &#x27; &#x27; + this.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    // setter</span><br><span class="line">    set: function (newValue) &#123;</span><br><span class="line">      var names = newValue.split(&#x27; &#x27;)</span><br><span class="line">      this.firstName = names[0]</span><br><span class="line">      this.lastName = names[names.length - 1]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// ...</span><br></pre></td></tr></table></figure>
-
-<p>现在再运行 <code>vm.fullName = &#39;John Doe&#39;</code> 时，setter 会被调用，<code>vm.firstName</code> 和 <code>vm.lastName</code> 也会相应地被更新。 </p>
-</li>
-</ul>
-</li>
-<li><p>侦听器</p>
-<p>使用场景：当需要在数据变化时执行异步或开销较大的操作时 </p>
-</li>
-</ul>
-<hr>
-<ul>
-<li><p>条件渲染</p>
-<p><code>v-if</code></p>
-</li>
-<li><p>展示元素</p>
-<p><code>v-show</code>，它只是简单地切换元素的css属性<code>display</code></p>
-<p>**<em>注意</em>：<code>v-show</code> 不支持 <code>&lt;template&gt;</code> 元素，也不支持 <code>v-else</code>。 </p>
-<ul>
-<li><p><code>v-if</code>vs<code>v-show</code></p>
-<p>一般来说，<code>v-if</code> 有更高的切换开销，而 <code>v-show</code> 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 <code>v-show</code> 较好；如果在运行时条件很少改变，则使用 <code>v-if</code> 较好。 </p>
-</li>
-</ul>
-</li>
-<li><p>列表渲染</p>
-<p><code>v-for</code></p>
-<ul>
-<li><p>实例一</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;example-1&quot;&gt;</span><br><span class="line">  &lt;li v-for=&quot;item in items&quot;&gt;</span><br><span class="line">    &#123;&#123; item.message &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var example1 = new Vue(&#123;</span><br><span class="line">  el: &#x27;#example-1&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    items: [</span><br><span class="line">      &#123; message: &#x27;Foo&#x27; &#125;,</span><br><span class="line">      &#123; message: &#x27;Bar&#x27; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li><p>实例二</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;example-2&quot;&gt;</span><br><span class="line">  &lt;li v-for=&quot;(item, index) in items&quot;&gt;</span><br><span class="line">    &#123;&#123; parentMessage &#125;&#125; - &#123;&#123; index &#125;&#125; - &#123;&#123; item.message &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var example2 = new Vue(&#123;</span><br><span class="line">  el: &#x27;#example-2&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parentMessage: &#x27;Parent&#x27;,</span><br><span class="line">    items: [</span><br><span class="line">      &#123; message: &#x27;Foo&#x27; &#125;,</span><br><span class="line">      &#123; message: &#x27;Bar&#x27; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li><p>可以用 of 替代 in 作为分隔符</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-for=&quot;item of items&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>实例三</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#x27;#v-for-object&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    object: &#123;</span><br><span class="line">      firstName: &#x27;John&#x27;,</span><br><span class="line">      lastName: &#x27;Doe&#x27;,</span><br><span class="line">      age: 30</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;v-for-object&quot; class=&quot;demo&quot;&gt;</span><br><span class="line">  &lt;li v-for=&quot;value in object&quot;&gt;</span><br><span class="line">    &#123;&#123; value &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-for=&quot;(value, key) in object&quot;&gt;</span><br><span class="line">  &#123;&#123; key &#125;&#125;: &#123;&#123; value &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-for=&quot;(value, key, index) in object&quot;&gt;</span><br><span class="line">  &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125;: &#123;&#123; value &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>数组更新检测</p>
-<ul>
-<li>变异方法，会改变被这些方法调用的原始数组 <ul>
-<li><code>push()</code></li>
-<li><code>pop()</code></li>
-<li><code>shift()</code></li>
-<li><code>unshift()</code></li>
-<li><code>splice()</code></li>
-<li><code>sort()</code></li>
-<li><code>reverse()</code></li>
-</ul>
-</li>
-<li>也有非变异 (non-mutating method) 方法，例如：<code>filter()</code>, <code>concat()</code> 和 <code>slice()</code> 。这些不会改变原始数组，但<strong>总是返回一个新数组</strong>。</li>
-</ul>
-<hr>
-</li>
-<li><p>vue组件实例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个名为 button-counter 的新组件</span><br><span class="line">Vue.component(&#x27;button-counter&#x27;, &#123;</span><br><span class="line">  data: function () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      count: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: &#x27;&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;/button&gt;&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>prop可以在组件上注册的一些自定义特性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&#x27;blog-post&#x27;, &#123;</span><br><span class="line">  props: [&#x27;title&#x27;],</span><br><span class="line">  template: &#x27;&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;/h3&gt;&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;blog-post title=&quot;My journey with Vue&quot;&gt;&lt;/blog-post&gt;</span><br><span class="line">&lt;blog-post title=&quot;Blogging with Vue&quot;&gt;&lt;/blog-post&gt;</span><br><span class="line">&lt;blog-post title=&quot;Why Vue is so fun&quot;&gt;&lt;/blog-post&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>调用内建的 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#vm-emit"><strong>$emit</strong> 方法</a>并传入事件的名字，来向父级组件触发一个事件： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click=&quot;$emit(&#x27;enlarge-text&#x27;)&quot;&gt;</span><br><span class="line">  Enlarge text</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-<p>然后我们可以用 <code>v-on</code> 在博文组件上监听这个事件，就像监听一个原生 DOM 事件一样 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">...</span><br><span class="line">v-on:enlarge-text=&quot;postFontSize += 0.1&quot;</span><br><span class="line">&gt;&lt;/blog-post&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="组件注册"><a href="#组件注册" class="headerlink" title="组件注册"></a>组件注册</h3><ul>
-<li><p>全局注册</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&#x27;my-component-name&#x27;, &#123;</span><br><span class="line">  // ... 选项 ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li><p>局部注册</p>
-<p>定义组件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var ComponentA = &#123; /* ... */ &#125;</span><br><span class="line">var ComponentB = &#123; /* ... */ &#125;</span><br><span class="line">var ComponentC = &#123; /* ... */ &#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用组件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">el: &#x27;#app&#x27;,</span><br><span class="line">components: &#123;</span><br><span class="line">  &#x27;component-a&#x27;: ComponentA,</span><br><span class="line">  &#x27;component-b&#x27;: ComponentB</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>全局注册的行为必须在根 Vue 实例 (通过 new Vue) 创建之前发生</strong> </p>
-<hr>
-<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/21/neo4j%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/21/neo4j%20snippet/" class="post-title-link" itemprop="url">neo4j snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-21 17:17:00" itemprop="dateCreated datePublished" datetime="2017-11-21T17:17:00+08:00">2017-11-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-13 01:36:45" itemprop="dateModified" datetime="2022-01-13T01:36:45+08:00">2022-01-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/neo4j/" itemprop="url" rel="index"><span itemprop="name">neo4j</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>cypher语法对大小写敏感，注意属性的大小写</li>
-<li>导入csv出现乱码时，需要通过记事本更改编码格式，如果文本过大，需要一段一段的复制粘贴到新文本中，且以UTF-8格式编码</li>
-<li>MERGE命令是CREATE命令和MATCH命令的组合。<code>MERGE = CREATE + MATCH</code></li>
-</ul>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>1.<br>​    <strong>现象</strong>： 在外部处理csv数据，导入服务器，然后load csv到neo4j中，可能由于文件所属问题，不能成功导入csv，提示<code>Couldn&#39;t load the external resource</code>的错误。<br>​    <strong>解决</strong>：复制可以导入的csv文件为副本，把待导入的数据粘贴到副本中，load csv副本即可</p>
-<p>2.<br>​    <strong>现象</strong>： 在外部处理csv数据，进行merge操作的时候，提示<code>cannot merge using null property value for uid</code>的错误。<br>​    <strong>解决</strong>：经发现，是由于指令中的属性拼写错误，导致<code>Neo.ClientError.Statement.SemanticError</code>的错误，例如把<code>sfzh</code>拼写成<code>sfhm</code>。</p>
-<p>3.<br>​    <strong>现象</strong>： 大量数据的导入问题。<br>​    <strong>解决</strong>：需使用<a target="_blank" rel="noopener" href="https://neo4j.com/docs/operations-manual/current/tools/import/" title="大量数据的导入">https://neo4j.com/docs/operations-manual/current/tools/import/</a><br>​    <strong>注意</strong>：<code>Import tool is only for newly created databases.</code><br>​        <code>You can use LOAD CSV cypher command to load into an existing database.</code>也就是说neo4j-admin import只会在新建数据库的时候会用到</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1648,7 +1616,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

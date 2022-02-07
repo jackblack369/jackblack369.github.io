@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-01-20T01:36:49.474Z</updated>
+  <updated>2022-01-24T16:55:56.173Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2022/01/25/mysql%20backup%20plan/"/>
+    <id>http://yoursite.com/2022/01/25/mysql%20backup%20plan/</id>
+    <published>2022-01-24T16:55:56.173Z</published>
+    <updated>2022-01-24T16:55:56.173Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="mysql数据库备份"><a href="#mysql数据库备份" class="headerlink" title="mysql数据库备份"></a>mysql数据库备份</h1><h2 id="方案一：定期备份数据库数据文件"><a href="#方案一：定期备份数据库数据文件" class="headerlink" title="方案一：定期备份数据库数据文件"></a>方案一：定期备份数据库数据文件</h2><h3 id="一、编写shell脚本"><a href="#一、编写shell脚本" class="headerlink" title="一、编写shell脚本"></a>一、编写shell脚本</h3><p>脚本文件<strong>backup_mysql.sh</strong>信息如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">username=root</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=填写密码</span><br><span class="line"><span class="meta">#</span><span class="bash">将要备份的数据库</span></span><br><span class="line">database_name=填写需要备份的数据库</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">保存备份文件最多个数</span></span><br><span class="line">count=30</span><br><span class="line"><span class="meta">#</span><span class="bash">备份保存路径</span></span><br><span class="line">backup_path=/data/mysql_backup</span><br><span class="line"><span class="meta">#</span><span class="bash">日期</span></span><br><span class="line">date_time=`date +%Y-%m-%d-%H-%M`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果文件夹不存在则创建</span></span><br><span class="line">if [ ! -d $backup_path ]; </span><br><span class="line">then     </span><br><span class="line">    mkdir -p $backup_path; </span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash">开始备份</span></span><br><span class="line">mysqldump -u $username -p$password $database_name &gt; $backup_path/$database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">开始压缩</span></span><br><span class="line">cd $backup_path</span><br><span class="line">tar -zcvf $database_name-$date_time.tar.gz $database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">删除源文件</span></span><br><span class="line">rm -rf $backup_path/$database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">更新备份日志</span></span><br><span class="line">echo &quot;create $backup_path/$database_name-$date_time.tar.gz&quot; &gt;&gt; $backup_path/dump.log</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">找出需要删除的备份</span></span><br><span class="line">delfile=`ls -l -crt $backup_path/*.tar.gz | awk &#x27;&#123;print $9 &#125;&#x27; | head -1`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">判断现在的备份数量是否大于阈值</span></span><br><span class="line">number=`ls -l -crt  $backup_path/*.tar.gz | awk &#x27;&#123;print $9 &#125;&#x27; | wc -l`</span><br><span class="line"></span><br><span class="line">if [ $number -gt $count ]</span><br><span class="line">then</span><br><span class="line"><span class="meta">  #</span><span class="bash">删除最早生成的备份，只保留count数量的备份</span></span><br><span class="line">  rm $delfile</span><br><span class="line"><span class="meta">  #</span><span class="bash">更新删除文件日志</span></span><br><span class="line">  echo &quot;delete $delfile&quot; &gt;&gt; $backup_path/dump.log</span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>该脚本实现的功能：备份指定数据库的数据信息到指定目录，并只保存指定数量的最新文件。</p><p>注意：脚本中需要补全脚本中的<strong>password</strong>和<strong>database_name</strong>信息，可修改备份保存路径<strong>backup_path</strong>，以及最多保存的备份文件数量<strong>count</strong>。</p><p>编写完脚本信息之后，需要给脚本赋予可执行权限 <code>chmod +x backup_mysql.sh</code></p><h3 id="二、设定定时任务crontab"><a href="#二、设定定时任务crontab" class="headerlink" title="二、设定定时任务crontab"></a>二、设定定时任务crontab</h3><p>运行crontab -e命令，打开一个可编辑的文本，输入<code>0 1 * * * /path/to/backup_mysql.sh</code>  保本并退出即添加完成。</p><p>注意：其中<code>0 1 * * *</code>，表示每天凌晨1点进行备份操作，可自行修改1的值（范围0～23）</p><p>其中路径信息<code>/path/to/backup_mysql.sh</code>需要修改为实际的脚本路径。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;mysql数据库备份&quot;&gt;&lt;a href=&quot;#mysql数据库备份&quot; class=&quot;headerlink&quot; title=&quot;mysql数据库备份&quot;&gt;&lt;/a&gt;mysql数据库备份&lt;/h1&gt;&lt;h2 id=&quot;方案一：定期备份数据库数据文件&quot;&gt;&lt;a href=&quot;#方案一：定期</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2022/01/24/fabric8(docker-maven-plugin)/"/>
+    <id>http://yoursite.com/2022/01/24/fabric8(docker-maven-plugin)/</id>
+    <published>2022-01-24T02:36:17.450Z</published>
+    <updated>2022-01-24T02:36:17.450Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -142,9 +175,9 @@
     <link href="http://yoursite.com/2022/01/11/flink%20state/"/>
     <id>http://yoursite.com/2022/01/11/flink%20state/</id>
     <published>2022-01-11T06:32:39.000Z</published>
-    <updated>2022-01-11T06:56:56.985Z</updated>
+    <updated>2022-01-24T16:57:50.819Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p><h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p><h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul><li>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</li><li>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</li><li>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；<blockquote><p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p></blockquote></li><li>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</li></ul><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p><ul><li><p>算子类state</p><p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p></li><li><p>数据类state</p><p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p><h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p><h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul><li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p></li><li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p></li><li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p><blockquote><p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p></blockquote></li><li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p></li></ul><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p><ul><li><p>算子类state</p><p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p></li><li><p>数据类state</p><p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p></li></ul>]]></content>
     
     
       
@@ -419,7 +452,7 @@
     <link href="http://yoursite.com/2021/12/30/%E6%95%B0%E6%8D%AE%E6%B9%96/"/>
     <id>http://yoursite.com/2021/12/30/%E6%95%B0%E6%8D%AE%E6%B9%96/</id>
     <published>2021-12-30T01:52:19.000Z</published>
-    <updated>2021-12-30T01:52:32.124Z</updated>
+    <updated>2022-01-24T16:57:51.415Z</updated>
     
     <content type="html"><![CDATA[<p>数据湖，目前关注度比较高的有 Databricks 推出的 Delta Lake、Uber 的 Hudi 以及 Netflix 的 Iceberg</p><p>reference <a href="https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew">https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew</a></p>]]></content>
     
@@ -465,57 +498,6 @@
     
     
     <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>clickhouse points</title>
-    <link href="http://yoursite.com/2021/12/29/clickhouse/"/>
-    <id>http://yoursite.com/2021/12/29/clickhouse/</id>
-    <published>2021-12-29T11:11:30.000Z</published>
-    <updated>2021-12-29T11:16:57.430Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="存储架构"><a href="#存储架构" class="headerlink" title="存储架构"></a>存储架构</h2><blockquote><p>Clickhouse 存储中的最小单位是 DataPart，写入链路为了提升吞吐，放弃了部分写入实时可见性，即数据攒批写入，一次批量写入的数据会落盘成一个 DataPart.</p><p>它不像 Druid 那样一条一条实时摄入。但 ClickHouse 把数据延迟攒批写入的工作交给来客户端实现，比如达到 10 条记录或每过 5s 间隔写入，换句话说就是可以在用户侧平衡吞吐量和时延，如果在业务高峰期流量不是太大，可以结合实际场景将参数调小，以达到极致的实时效果。</p></blockquote><h2 id="查询架构"><a href="#查询架构" class="headerlink" title="查询架构"></a>查询架构</h2><h3 id="计算能力方面"><a href="#计算能力方面" class="headerlink" title="计算能力方面"></a>计算能力方面</h3><p>Clickhouse 采用向量化函数和 aggregator 算子极大地提升了聚合计算性能，配合完备的 SQL 能力使得数据分析变得更加简单、灵活。</p><h3 id="数据扫描方面"><a href="#数据扫描方面" class="headerlink" title="数据扫描方面"></a>数据扫描方面</h3><p>ClickHouse 是完全列式的存储计算引擎，而且是以有序存储为核心，在查询扫描数据的过程中，首先会根据存储的有序性、列存块统计信息、分区键等信息推断出需要扫描的列存块，然后进行并行的数据扫描，像表达式计算、聚合算子都是在正规的计算引擎中处理。从计算引擎到数据扫描，数据流转都是以列存块为单位，高度向量化的。</p><h3 id="高并发服务方面"><a href="#高并发服务方面" class="headerlink" title="高并发服务方面"></a>高并发服务方面</h3><p>Clickhouse 的并发能力其实是与并行计算量和机器资源决定的。如果查询需要扫描的数据量和计算复杂度很大，并发度就会降低，但是如果保证单个 query 的 latency 足够低（增加内存和 cpu 资源），部分场景下用户可以通过设置合适的系统参数来提升并发能力，比如 max_threads 等。其他分析型系统（例如 Elasticsearch）的并发能力为什么很好，从 Cache 设计层面来看，ES 的 Cache 包括 Query Cache, Request Cache，Data Cache，Index Cache，从查询结果到索引扫描结果层层的 Cache 加速，因为 Elasticsearch 认为它的场景下存在热点数据，可能被反复查询。反观 ClickHouse，只有一个面向 IO 的 UnCompressedBlockCache 和系统的 PageCache，为了实现更优秀的并发，我们很容易想到在 Clickhouse 外面加一层 Cache，比如 redis，但是分析场景下的数据和查询都是多变的，查询结果等 Cache 都不容易命中，而且在广投业务中实时查询的数据是基于 T 之后不断更新的数据，如果外挂缓存将降低数据查询的时效性。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;存储架构&quot;&gt;&lt;a href=&quot;#存储架构&quot; class=&quot;headerlink&quot; title=&quot;存储架构&quot;&gt;&lt;/a&gt;存储架构&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;Clickhouse 存储中的最小单位是 DataPart，写入链路为了提升吞吐，放弃了部分写入实</summary>
-      
-    
-    
-    
-    <category term="clickhouse" scheme="http://yoursite.com/categories/clickhouse/"/>
-    
-    
-    <category term="point" scheme="http://yoursite.com/tags/point/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cdc &amp; 实时数仓 points</title>
-    <link href="http://yoursite.com/2021/12/29/cdc/"/>
-    <id>http://yoursite.com/2021/12/29/cdc/</id>
-    <published>2021-12-29T09:42:30.000Z</published>
-    <updated>2022-01-05T03:02:31.125Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>Change Data Capture（变更数据获取）</strong></p><p>核心思想是，监测并捕获数据库的变动（包括数据或数据表的插入、更新以及删除等），将这些变更按发生的顺序完整记录下来，写入到消息中间件中以供其他服务进行订阅及消费。</p><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul><li><strong>数据同步</strong>，用于备份，容灾；</li><li><strong>数据分发</strong>，一个数据源分发给多个下游；</li><li><strong>数据采集</strong>(E)，面向数据仓库/数据湖的 ETL 数据集成。</li></ul><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>主要分为<strong>基于查询</strong>和<strong>基于 Binlog</strong> 两种方式</p><h3 id="传统-CDC-ETL"><a href="#传统-CDC-ETL" class="headerlink" title="传统 CDC ETL"></a>传统 CDC ETL</h3><p><img src="/images/cdc/cdc_etl.png"></p><h3 id="基于-Flink-CDC-的-ETL-分析"><a href="#基于-Flink-CDC-的-ETL-分析" class="headerlink" title="基于 Flink CDC 的 ETL 分析"></a>基于 Flink CDC 的 ETL 分析</h3><p><img src="/images/cdc/flink_cdc_etl.png"></p><h3 id="基于-Flink-CDC-的聚合分析"><a href="#基于-Flink-CDC-的聚合分析" class="headerlink" title="基于 Flink CDC 的聚合分析"></a>基于 Flink CDC 的聚合分析</h3><p><img src="/images/cdc/flink_cdc_aggregate.png"></p><h3 id="基于-Flink-CDC-的数据打宽"><a href="#基于-Flink-CDC-的数据打宽" class="headerlink" title="基于 Flink CDC 的数据打宽"></a>基于 Flink CDC 的数据打宽</h3><p><img src="/images/cdc/flink_cdc_merge.png"></p><h2 id="性能点"><a href="#性能点" class="headerlink" title="性能点"></a>性能点</h2><p>大数据领域的 4 类场景：</p><p><strong>B</strong>    batch    离线计算</p><p><strong>A</strong>    Analytical    交互式分析</p><p><strong>S</strong>    Servering    高并发的在线服务</p><p><strong>T</strong>    Transaction    事务隔离机制</p><blockquote><p>离线计算通常在计算层，所以应该重点考虑 A、S 和 T</p></blockquote><h2 id="考虑点"><a href="#考虑点" class="headerlink" title="考虑点"></a>考虑点</h2><ul><li><p>保证端到端的数据一致性，包括维度一致性以及全流程数据一致性;</p></li><li><p>实时流处理过程中数据到达顺序无法预知时，如何保证双流 join 时数据能及时关联同时不造成数据堵塞；</p></li><li><p>Oracle</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.Oracle 是第三方厂商维护的，不允许对线上系统有过多的侵入，容易造成监听故障甚至系统瘫痪，</span><br><span class="line">2.归档日志是在开启那一刻起才开始生成的，之前的存量数据难以进入 kafka，但是后来实时数据又必须依赖前面的计算结果</span><br></pre></td></tr></table></figure></li></ul><h2 id="实时数仓方案"><a href="#实时数仓方案" class="headerlink" title="实时数仓方案"></a>实时数仓方案</h2><h3 id="Lambda-架构"><a href="#Lambda-架构" class="headerlink" title="Lambda 架构"></a>Lambda 架构</h3><blockquote><p>目前主流的一套实时数仓架构，存在离线和实时两条链路。实时部分以消息队列的方式实时增量消费，一般以 Flink+Kafka 的组合实现，维度表存在关系型数据库或者 HBase；离线部分一般采用 T+1 周期调度分析历史存量数据，每天凌晨产出，更新覆盖前一天的结果数据，计算引擎通常会选择 Hive 或者 Spark。</p></blockquote><p><img src="/images/cdc/structure_lambda.png"></p><h3 id="Kappa-架构"><a href="#Kappa-架构" class="headerlink" title="Kappa 架构"></a>Kappa 架构</h3><blockquote><p>相较于 Lambda 架构，它移除了离线生产链路，思路是通过传递任意想要的 offset(偏移量)来达到重新消费处理历史数据的目的。优点是架构相对简化，数据来源单一，共用一套代码，开发效率高；缺点是必须要求消息队列中保存了存量数据，而且主要业务逻辑在计算层，比较消耗内存资源。</p></blockquote><p><img src="/images/cdc/structure_kappa.png"></p><h3 id="OLAP-变体架构"><a href="#OLAP-变体架构" class="headerlink" title="OLAP 变体架构"></a>OLAP 变体架构</h3><blockquote><p>是 Kappa 架构的进一步演化，它的思路是将聚合分析计算由 OLAP 引擎承担，减轻实时计算部分的聚合处理压力。优点是自由度高，可以满足数据分析师的实时自助分析需求，减轻了计算引擎的处理压力；缺点是必须要求消息队列中保存存量数据，且因为是将计算部分的压力转移到了查询层，对查询引擎的吞吐和实时摄入性能要求较高。</p></blockquote><p><img src="/images/cdc/structure_olap.png"></p><h3 id="数据湖架构"><a href="#数据湖架构" class="headerlink" title="数据湖架构"></a>数据湖架构</h3><blockquote><p>存储、计算和查询，分别由三个独立产品负责，分别是数据湖、Flink 和 Clickhouse。数仓分层存储和维度表管理均由数据湖承担，Flink SQL 负责批流任务的 SQL 化协同开发，Clickhouse 实现变体的事务机制，为用户提供离线分析和交互查询。CDC 到消息队列这一链路将来是完全可以去掉的，只需要 Flink CDC 家族中再添加 Oracle CDC 一员。未来，实时数仓架构将得到极致的简化并且性能有质的提升。</p></blockquote><p><img src="/images/cdc/structure_rtdb.png"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;strong&gt;Change Data Capture（变更数据获取）&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;核心思想是，监测并捕获数据库的变动（包括数据或数据表的插入、更新以及删除等），将这些变更按发生的顺序完整记录下来，写入到消息中间件中以供其他服务进行订阅及消费。&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="cdc" scheme="http://yoursite.com/categories/cdc/"/>
-    
-    
-    <category term="point" scheme="http://yoursite.com/tags/point/"/>
     
   </entry>
   

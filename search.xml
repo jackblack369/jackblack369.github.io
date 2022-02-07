@@ -1041,16 +1041,9 @@
 <p>jinfo -flags PID</p>
 </blockquote>
 <ul>
-<li><p>参考kafka服务的运行参数</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-server</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:MaxGCPauseMillis=20</span><br><span class="line">-XX:InitiatingHeapOccupancyPercent=35</span><br><span class="line">-XX:+ExplicitGCInvokesConcurrent</span><br></pre></td></tr></table></figure>
+<li>参考kafka服务的运行参数<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-server</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:MaxGCPauseMillis=20</span><br><span class="line">-XX:InitiatingHeapOccupancyPercent=35</span><br><span class="line">-XX:+ExplicitGCInvokesConcurrent</span><br></pre></td></tr></table></figure>
 
-<p><strong>-XX:MaxGCPauseMillis=200</strong></p>
-<p>为所需的最长暂停时间设置目标值。默认值是 200 毫秒。这个数值是一个软目标，也就是说JVM会尽一切能力满足这个暂停要求，但是不能保证每次暂停一定在这个要求之内。</p>
-<p>根据测试发现，如果我们将这个值设定成50毫秒或者更低的话，JVM为了达到这个要求会将年轻代内存空间设定的非常小，从而导致youngGC的频率大大增高。所以我们并不设定这个参数。</p>
-<p><strong>-XX:InitiatingHeapOccupancyPercent=45</strong></p>
-<p>设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。就是说当使用内存占到堆总大小的45%的时候，G1将开始<strong>并发标记阶段。</strong>为混合GC做准备，这个数值在测试的时候我想让混合GC晚一些处理所以设定成了70%，经过观察发现如果这个数值设定过大会导致JVM无法启动并发标记，直接进行FullGC处理。</p>
-<p>G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%</p>
-</li>
+<strong>-XX:MaxGCPauseMillis=200</strong>为所需的最长暂停时间设置目标值。默认值是 200 毫秒。这个数值是一个软目标，也就是说JVM会尽一切能力满足这个暂停要求，但是不能保证每次暂停一定在这个要求之内。根据测试发现，如果我们将这个值设定成50毫秒或者更低的话，JVM为了达到这个要求会将年轻代内存空间设定的非常小，从而导致youngGC的频率大大增高。所以我们并不设定这个参数。<strong>-XX:InitiatingHeapOccupancyPercent=45</strong>设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。就是说当使用内存占到堆总大小的45%的时候，G1将开始<strong>并发标记阶段。</strong>为混合GC做准备，这个数值在测试的时候我想让混合GC晚一些处理所以设定成了70%，经过观察发现如果这个数值设定过大会导致JVM无法启动并发标记，直接进行FullGC处理。G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%</li>
 </ul>
 <blockquote>
 <p>之前查看ignite，12秒回收了71G</p>
@@ -1129,9 +1122,7 @@
 </li>
 </ul>
 <h4 id="3-Class-loader-sub-system-follows-delegation-hierarchy-algorithm"><a href="#3-Class-loader-sub-system-follows-delegation-hierarchy-algorithm" class="headerlink" title="3. Class loader sub system follows delegation hierarchy algorithm"></a>3. Class loader sub system follows delegation hierarchy algorithm</h4><ul>
-<li><p><strong>Customized class loader</strong></p>
-<p>Sometimes we may not satisfy with default class loader mechanism then we can go for Customized class loader. For example:</p>
-</li>
+<li><strong>Customized class loader</strong>Sometimes we may not satisfy with default class loader mechanism then we can go for Customized class loader. For example:</li>
 </ul>
 <h3 id="Various-Memory-Areas-in-JVM"><a href="#Various-Memory-Areas-in-JVM" class="headerlink" title="Various Memory Areas in JVM"></a>Various Memory Areas in JVM</h3><h4 id="1-Method-Area"><a href="#1-Method-Area" class="headerlink" title="1. Method Area"></a>1. Method Area</h4><ul>
 <li><p>Inside method area class level binary data including static variables will be stored</p>
@@ -2867,9 +2858,9 @@
 <li><p>提交多个文件，但是需要排除指定的文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add -u</span><br><span class="line">git reset -- main/dontcheckmein.txt</span><br><span class="line">然后进行commit、pull等操作</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="Git-fork后的分支，更新最新的源代码"><a href="#Git-fork后的分支，更新最新的源代码" class="headerlink" title="Git fork后的分支，更新最新的源代码"></a>Git fork后的分支，更新最新的源代码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h4 id="Git-fork后的分支，更新最新的源代码"><a href="#Git-fork后的分支，更新最新的源代码" class="headerlink" title="Git fork后的分支，更新最新的源代码"></a>Git fork后的分支，更新最新的源代码</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 
-<h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># uncommited file to HEAD</span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"></span><br><span class="line"># uncommited file to before last commit</span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#last commit to before last commit</span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#difference between HEAD and n-th grandparent</span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"></span><br><span class="line">#Another cool feature is whatchanged command</span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to HEAD</span></span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to before last commit</span></span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">last commit to before last commit</span></span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">difference between HEAD and n-th grandparent</span></span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">Another cool feature is whatchanged <span class="built_in">command</span></span></span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
 
 <h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
 <blockquote>
@@ -2907,8 +2898,12 @@
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 
 <h4 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h4><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
-<p>git config pull.rebase false # 合并（缺省策略）<br>git config pull.rebase true # 变基<br>git config pull.ff only # 仅快进</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
+
 <p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
+<h4 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看本地分支与远程分支的关联"><a href="#查看本地分支与远程分支的关联" class="headerlink" title="查看本地分支与远程分支的关联"></a>查看本地分支与远程分支的关联</h4><p><code>git branch -vv</code></p>
 ]]></content>
       <categories>
         <category>git</category>
@@ -4191,7 +4186,7 @@
 <p>具体做法就是，在每次赋值的时候使用 String 的 intern 方法，如果常量池中有相同值，就会重复使用该对象，返回对象引用，这样一开始的对象就可以被回收掉。这种方式可以使重复性非常高的地址信息存储大小从 20G 降到几百兆。</p>
 <p>如果调用 intern 方法，会去查看字符串常量池中是否有等于该对象的字符串，如果没有，就在常量池中新增该对象，并返回该对象引用；如果有，就返回常量池中的字符串引用。堆内存中原有的对象由于没有引用指向它，将会通过垃圾回收器回收。</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String a =<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line">    	  </span><br><span class="line"><span class="keyword">if</span>(a==b) &#123;<span class="comment">// a 和 b 引用的是同一个对象。</span></span><br><span class="line">    System.out.print(<span class="string">&quot;a==b&quot;</span>);<span class="comment">//正常输出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String a =<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(a==b) &#123;<span class="comment">// a 和 b 引用的是同一个对象。</span></span><br><span class="line">    System.out.print(<span class="string">&quot;a==b&quot;</span>);<span class="comment">//正常输出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>用 String.indexOf() 方法代替 Split() 方法完成字符串的分割 </p>
 </li>
 </ul>
@@ -4384,8 +4379,7 @@
     <title>jconsole snippet</title>
     <url>/2021/12/11/jconsole%20snippet/</url>
     <content><![CDATA[<h3 id="jconsole配置远程监控"><a href="#jconsole配置远程监控" class="headerlink" title="jconsole配置远程监控"></a>jconsole配置远程监控</h3><ul>
-<li><p>远程jvm进程需配置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">env.java.opts: </span><br><span class="line">-Dcom.sun.management.jmxremote </span><br><span class="line">-Dcom.sun.management.jmxremote.port=9999</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false </span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false</span><br></pre></td></tr></table></figure>
+<li>远程jvm进程需配置<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">env.java.opts: </span><br><span class="line">-Dcom.sun.management.jmxremote </span><br><span class="line">-Dcom.sun.management.jmxremote.port=9999</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false </span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>其中9999为指定监控端口</p>
@@ -4411,8 +4405,7 @@
 </blockquote>
 <p><img src="https://www.tutorialspoint.com/jpa/images/jpa_provider.png"></p>
 <ul>
-<li><p>JPA Pro</p>
-<blockquote>
+<li>JPA Pro<blockquote>
 <p>JPA is an open source API, therefore various enterprise vendors such as Oracle, Redhat, Eclipse, etc. provide new products by adding the JPA persistence flavor in them. Some of these products include:<strong>Hibernate, Eclipselink, Toplink, Spring Data JPA, etc.</strong></p>
 </blockquote>
 </li>
@@ -4425,9 +4418,8 @@
 <li><p>ORM Architecture</p>
 <p><img src="https://www.tutorialspoint.com/jpa/images/object_relational_mapping.png"></p>
 </li>
-</ul>
+<li><p>Entity Relationships</p>
 <ul>
-<li>Entity Relationships<ul>
 <li>@ManyToOne Relation</li>
 <li>@OneToMany Relation</li>
 <li>@OneToOne Relation</li>
@@ -5560,9 +5552,9 @@
 </li>
 <li><p>将第一台机器的authorized_keys复制到其它机器上</p>
 <p><code>scp authorized_keys 用户@ip:/路径/.ssh/</code></p>
+<p>注意点</p>
 </li>
 </ol>
-<p>  注意点</p>
 <ul>
 <li>authorized_keys的权限是600，即读和写（如果默认不是的话，需要修改）</li>
 </ul>
@@ -5909,7 +5901,7 @@
 <p><code>KEYS *</code></p>
 </li>
 <li><p>Delete All Keys In Redis</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Delete all keys from all Redis databases:</span><br><span class="line"> `$ redis-cli FLUSHALL`</span><br><span class="line"> Delete all keys of the currently selected Redis database:</span><br><span class="line"> `$ redis-cli FLUSHDB`</span><br><span class="line"> Delete all keys of the specified Redis database:</span><br><span class="line"> `$ redis-cli -n &lt;database_number&gt; FLUSHDB`</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  Delete all keys from all Redis databases:</span><br><span class="line">`$ redis-cli FLUSHALL`</span><br><span class="line">Delete all keys of the currently selected Redis database:</span><br><span class="line">`$ redis-cli FLUSHDB`</span><br><span class="line">Delete all keys of the specified Redis database:</span><br><span class="line">`$ redis-cli -n &lt;database_number&gt; FLUSHDB`</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><ul>
 <li><p>RedisConnectionFailureException</p>
@@ -5917,30 +5909,24 @@
 <li><p>需要安装gcc</p>
 </li>
 <li><p>make时，提示fatal error: jemalloc/jemalloc.h: No such file or directory</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">解决：   </span><br><span class="line"><span class="built_in">cd</span> src/deps</span><br><span class="line">make hiredis jemalloc linenoise lua geohash-int</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">解决：   </span><br><span class="line"><span class="built_in">cd</span> src/deps</span><br><span class="line">make hiredis jemalloc linenoise lua geohash-int</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义配置redis-server"><a href="#自定义配置redis-server" class="headerlink" title="自定义配置redis server"></a>自定义配置redis server</h3><p>涉及到的目录或文件有</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.配置文件    /etc/redis/xxxx.conf</span><br><span class="line">2.日志、数据文件    /data/redis/xxxx</span><br><span class="line">3.启动脚本    /etc/init.d/redis_xxxx</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="自定义配置redis-server"><a href="#自定义配置redis-server" class="headerlink" title="自定义配置redis server"></a>自定义配置redis server</h3><p> 涉及到的目录或文件有<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> 1.配置文件	/etc/redis/xxxx.conf</span><br><span class="line"> 2.日志、数据文件	/data/redis/xxxx</span><br><span class="line"> 3.启动脚本	/etc/init.d/redis_xxxx</span><br><span class="line"> </span><br><span class="line">客户端启动时	redis-cli -p xxxx</span><br></pre></td></tr></table></figure></p>
-<h3 id="Enable-remote-Redis-connection"><a href="#Enable-remote-Redis-connection" class="headerlink" title="Enable remote Redis connection"></a>Enable remote Redis connection</h3><ul>
-<li>Replaced <code>bind 127.0.0.1</code> with <code>bind 0.0.0.0</code> in the <code>/etc/redis/redis.conf</code> file, the line does not have a leading <code>#</code> nor space,</li>
-<li>Replaced <code>protected-mode yes</code> with <code>protected-mode no</code> in this same file,</li>
-<li>Allowed all traffic to port <code>6379</code> using <code>ufw allow 6379</code> and <code>ufw allow 6379/tcp</code></li>
-</ul>
-<h3 id="secure-redis"><a href="#secure-redis" class="headerlink" title="secure redis"></a>secure redis</h3><p>By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </p>
-<p>linux command</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># yum install epel-release -y</span><br></pre></td></tr></table></figure>
+<p>客户端启动时    redis-cli -p xxxx</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### Enable remote Redis connection</span><br><span class="line"></span><br><span class="line">- Replaced `bind 127.0.0.1` with `bind 0.0.0.0` in the `/etc/redis/redis.conf` file, the line does not have a leading `#` nor space,</span><br><span class="line">- Replaced `protected-mode yes` with `protected-mode no` in this same file,</span><br><span class="line">- Allowed all traffic to port `6379` using `ufw allow 6379` and `ufw allow 6379/tcp`</span><br><span class="line"></span><br><span class="line">### secure redis</span><br><span class="line"></span><br><span class="line">By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
 
-<p>Once the EPEL repository is installed, you can install UFW by just running the following linux command:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># yum install --enablerepo=&quot;epel&quot; ufw -y</span><br></pre></td></tr></table></figure>
+<h1 id="yum-install-epel-release-y"><a href="#yum-install-epel-release-y" class="headerlink" title="yum install epel-release -y"></a>yum install epel-release -y</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Once the EPEL repository is installed, you can install UFW by just running the following linux command:</span><br></pre></td></tr></table></figure>
 
-<p>After installing UFW, start UFW service and enable it to start on boot time by running the following </p>
-<p>linux command</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ufw enable </span><br></pre></td></tr></table></figure>
+<h1 id="yum-install-–enablerepo-”epel”-ufw-y"><a href="#yum-install-–enablerepo-”epel”-ufw-y" class="headerlink" title="yum install –enablerepo=”epel” ufw -y"></a>yum install –enablerepo=”epel” ufw -y</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">After installing UFW, start UFW service and enable it to start on boot time by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
 
-<p>Next, check the status of UFW with the following linux command. You should see the following output:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ufw status </span><br><span class="line">Status: active </span><br></pre></td></tr></table></figure>
+<h1 id="ufw-enable"><a href="#ufw-enable" class="headerlink" title="ufw enable"></a>ufw enable</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Next, check the status of UFW with the following linux command. You should see the following output:</span><br></pre></td></tr></table></figure>
 
-<p>You can also disable UFW firewall by running the following linux command:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ufw disable </span><br></pre></td></tr></table></figure>
+<h1 id="ufw-status"><a href="#ufw-status" class="headerlink" title="ufw status"></a>ufw status</h1><p>Status: active </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">You can also disable UFW firewall by running the following linux command:</span><br></pre></td></tr></table></figure>
+
+<h1 id="ufw-disable"><a href="#ufw-disable" class="headerlink" title="ufw disable"></a>ufw disable</h1><p>```</p>
 <h3 id="中文乱码"><a href="#中文乱码" class="headerlink" title="中文乱码"></a>中文乱码</h3><p>在启动命令中添加 –raw即可</p>
 ]]></content>
       <categories>
@@ -6150,10 +6136,10 @@
     <title>spring snippet</title>
     <url>/2016/10/16/spring%20snippet/</url>
     <content><![CDATA[<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><h4 id="传JSON字符串-RequestBody接收"><a href="#传JSON字符串-RequestBody接收" class="headerlink" title="传JSON字符串+@RequestBody接收"></a>传JSON字符串+@RequestBody接收</h4><ul>
-<li>前端<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">function <span class="title">icheckDelete</span><span class="params">(url)</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parms = &#123;</span><br><span class="line">        list : array <span class="comment">//这是个数组</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        dataType: <span class="string">&quot;JSON&quot;</span>,</span><br><span class="line">        contentType:<span class="string">&#x27;application/json;charset=UTF-8&#x27;</span>,<span class="comment">//关键是要加上这行</span></span><br><span class="line">        traditional:<span class="keyword">true</span>,<span class="comment">//这使json格式的字符不会被转码</span></span><br><span class="line">        data: JSON.stringify(parms),</span><br><span class="line">        type: <span class="string">&quot;DELETE&quot;</span>, </span><br><span class="line">        timeout: <span class="number">20000</span>,</span><br><span class="line">        url: url,</span><br><span class="line">        success : function () &#123;</span><br><span class="line">            alert(<span class="string">&quot;删除成功！&quot;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        error : function (data)&#123;</span><br><span class="line">            alert(data.responseText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>后端<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Controller:</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;deleteList&quot;, method = RequestMethod.DELETE)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(<span class="meta">@RequestBody</span> DeleteListRequest request)</span> <span class="keyword">throws</span> WebTransException</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 逻辑代码 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>前端<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">function <span class="title">icheckDelete</span><span class="params">(url)</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> parms = &#123;</span><br><span class="line">      list : array <span class="comment">//这是个数组</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">      dataType: <span class="string">&quot;JSON&quot;</span>,</span><br><span class="line">      contentType:<span class="string">&#x27;application/json;charset=UTF-8&#x27;</span>,<span class="comment">//关键是要加上这行</span></span><br><span class="line">      traditional:<span class="keyword">true</span>,<span class="comment">//这使json格式的字符不会被转码</span></span><br><span class="line">      data: JSON.stringify(parms),</span><br><span class="line">      type: <span class="string">&quot;DELETE&quot;</span>, </span><br><span class="line">      timeout: <span class="number">20000</span>,</span><br><span class="line">      url: url,</span><br><span class="line">      success : function () &#123;</span><br><span class="line">          alert(<span class="string">&quot;删除成功！&quot;</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      error : function (data)&#123;</span><br><span class="line">          alert(data.responseText);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></li>
 </ul>
-]]></content>
+<p>}</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 后端</span><br><span class="line">```java</span><br><span class="line">Controller:</span><br><span class="line"></span><br><span class="line">@RequestMapping(value = &quot;deleteList&quot;, method = RequestMethod.DELETE)</span><br><span class="line">@ResponseBody</span><br><span class="line">public String delete(@RequestBody DeleteListRequest request) throws WebTransException&#123;</span><br><span class="line"></span><br><span class="line">    /* 逻辑代码 */</span><br><span class="line"></span><br><span class="line">    return &quot;success&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>spring</category>
       </categories>
@@ -6274,9 +6260,7 @@
 <li>mysql连接异常<code>java.sql.SQLException: Value &#39;0000-00-00&#39; can not be represented as java.sql.Date</code></li>
 </ol>
 <ul>
-<li><p>解决办法</p>
-<p><code>jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull </code></p>
-</li>
+<li>解决办法<code>jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull </code></li>
 </ul>
 ]]></content>
       <categories>
@@ -7785,13 +7769,17 @@
     <content><![CDATA[<h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
 <h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
 <h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul>
-<li>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</li>
-<li>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</li>
-<li>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；<blockquote>
+<li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p>
+</li>
+<li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p>
+</li>
+<li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p>
+<blockquote>
 <p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
 </blockquote>
 </li>
-<li>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</li>
+<li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p>
+</li>
 </ul>
 <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p>
 <ul>
@@ -8070,5 +8058,24 @@
       <tags>
         <tag>snippet</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/01/24/fabric8(docker-maven-plugin)/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/01/25/mysql%20backup%20plan/</url>
+    <content><![CDATA[<h1 id="mysql数据库备份"><a href="#mysql数据库备份" class="headerlink" title="mysql数据库备份"></a>mysql数据库备份</h1><h2 id="方案一：定期备份数据库数据文件"><a href="#方案一：定期备份数据库数据文件" class="headerlink" title="方案一：定期备份数据库数据文件"></a>方案一：定期备份数据库数据文件</h2><h3 id="一、编写shell脚本"><a href="#一、编写shell脚本" class="headerlink" title="一、编写shell脚本"></a>一、编写shell脚本</h3><p>脚本文件<strong>backup_mysql.sh</strong>信息如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">username=root</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=填写密码</span><br><span class="line"><span class="meta">#</span><span class="bash">将要备份的数据库</span></span><br><span class="line">database_name=填写需要备份的数据库</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">保存备份文件最多个数</span></span><br><span class="line">count=30</span><br><span class="line"><span class="meta">#</span><span class="bash">备份保存路径</span></span><br><span class="line">backup_path=/data/mysql_backup</span><br><span class="line"><span class="meta">#</span><span class="bash">日期</span></span><br><span class="line">date_time=`date +%Y-%m-%d-%H-%M`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果文件夹不存在则创建</span></span><br><span class="line">if [ ! -d $backup_path ]; </span><br><span class="line">then     </span><br><span class="line">    mkdir -p $backup_path; </span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash">开始备份</span></span><br><span class="line">mysqldump -u $username -p$password $database_name &gt; $backup_path/$database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">开始压缩</span></span><br><span class="line">cd $backup_path</span><br><span class="line">tar -zcvf $database_name-$date_time.tar.gz $database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">删除源文件</span></span><br><span class="line">rm -rf $backup_path/$database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">更新备份日志</span></span><br><span class="line">echo &quot;create $backup_path/$database_name-$date_time.tar.gz&quot; &gt;&gt; $backup_path/dump.log</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">找出需要删除的备份</span></span><br><span class="line">delfile=`ls -l -crt $backup_path/*.tar.gz | awk &#x27;&#123;print $9 &#125;&#x27; | head -1`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">判断现在的备份数量是否大于阈值</span></span><br><span class="line">number=`ls -l -crt  $backup_path/*.tar.gz | awk &#x27;&#123;print $9 &#125;&#x27; | wc -l`</span><br><span class="line"></span><br><span class="line">if [ $number -gt $count ]</span><br><span class="line">then</span><br><span class="line"><span class="meta">  #</span><span class="bash">删除最早生成的备份，只保留count数量的备份</span></span><br><span class="line">  rm $delfile</span><br><span class="line"><span class="meta">  #</span><span class="bash">更新删除文件日志</span></span><br><span class="line">  echo &quot;delete $delfile&quot; &gt;&gt; $backup_path/dump.log</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>该脚本实现的功能：备份指定数据库的数据信息到指定目录，并只保存指定数量的最新文件。</p>
+<p>注意：脚本中需要补全脚本中的<strong>password</strong>和<strong>database_name</strong>信息，可修改备份保存路径<strong>backup_path</strong>，以及最多保存的备份文件数量<strong>count</strong>。</p>
+<p>编写完脚本信息之后，需要给脚本赋予可执行权限 <code>chmod +x backup_mysql.sh</code></p>
+<h3 id="二、设定定时任务crontab"><a href="#二、设定定时任务crontab" class="headerlink" title="二、设定定时任务crontab"></a>二、设定定时任务crontab</h3><p>运行crontab -e命令，打开一个可编辑的文本，输入<code>0 1 * * * /path/to/backup_mysql.sh</code>  保本并退出即添加完成。</p>
+<p>注意：其中<code>0 1 * * *</code>，表示每天凌晨1点进行备份操作，可自行修改1的值（范围0～23）</p>
+<p>其中路径信息<code>/path/to/backup_mysql.sh</code>需要修改为实际的脚本路径。</p>
+]]></content>
   </entry>
 </search>
