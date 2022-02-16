@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-02-11T09:40:38.413Z</updated>
+  <updated>2022-02-16T07:11:46.943Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>flink module</title>
+    <link href="http://yoursite.com/2022/02/16/flink%20module/"/>
+    <id>http://yoursite.com/2022/02/16/flink%20module/</id>
+    <published>2022-02-15T16:59:01.425Z</published>
+    <updated>2022-02-16T07:11:46.943Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><ul><li>flink-annotations: Flink自定义的一些注解，用于配置、控制编译等功能。</li><li>flink-clients: Flink客户端，用于向Flink集群提交任务、查询状态等。其中org.apache.flink.client.cli.CliFrontend就是执行./flink run的入口。</li><li>flink-connectors: Flink连接器，相当于Flink读写外部系统的客户端。这些连接器指定了外部存储如何作为Flink的source或sink。例如对于kafka来说，flink-connector-kafka-xx定义了FlinkKafkaConsumer和FlinkKafkaProducer类分别作为Flink的source和sink，实现了对kafka消费和生产的功能。从图二可以看出，flink 1.9目前支持的外部存储有Cassandra、ES、Kafka、Hive等一些开源外部存储。</li><li>flink-container: Flink对docker和kubernetes的支持。</li><li>flink-contrib: 社区开发者提供的一些新特性。</li><li>flink-core: Flink核心的API、类型的定义，包括底层的算子、状态、时间的实现，是Flink最重要的部分。Flink内部的各种参数配置也都定义在这个模块的configuration中。（这部分代码还没怎么看过，就不细讲了）。</li><li>flink-dist: Flink编译好之后的jar包会放在这个文件夹下，也就是网上下载的可执行的版本。其中也包括集群启动、终止的脚本，集群的配置文件等。</li><li>flink-docs: 这个模块并不是Flink的文档，而是Flink文档生成的代码。其中org.apache.flink.docs.configuration.ConfigOptionsDocGenerator是配置文档的生成器，修改相关配置的key或者默认值，重新运行这个类就会更新doc文件夹下的html文件。同样org.apache.flink.docs.rest.RestAPIDocGenerator是Flink RestAPI文档的生成器。</li><li>flink-fliesystems: Flink对各种文件系统的支持，包括HDFS、Azure、AWS S3、阿里云OSS等分布式文件系统。</li><li>flink-formats: Flink对各种格式的数据输入输出的支持。包括Json、CSV、Avro等常用的格式。</li><li>flink-java: Flink java的API，就是写flink应用时用到的map、window、keyBy、State等类或函数的实现。</li><li>flink-jepsen: 对Flink分布式系统正确性的测试，主要验证Flink的容错机制。</li><li>flink-libraries: Flink的高级API，包括CEP（复杂事件处理）、Gelly图处理库等。</li><li>flink-mesos: Flink对mesos集群管理的支持。</li><li>flink-metrics: Flink监控上报。支持上报到influxdb、prometheus等监控系统。具体的使用配置可以在flink-core模块的org.apache.flink.configuration.MetricOptions中找到。</li><li>flink-python: Flink对python的支持，目前还比较弱。</li><li>flink-queryable-state: Flink对可查询状态的支持，其中flink-queryable-state-runtime子模块实现了StateClientProxy和StateServer。这两部分都运行在TaskManager上，StateClientProxy负责接收外部请求，StateServe负责管理内部的queryable state。flink-queryable-state-client-java子模块实现了QueryableStateClient，作为外部系统访问queryable state的客户端。</li><li>flink-runtime: flink运行时核心代码，在第二节细说。</li><li>flink-runtime-web: Flink Web Dashboard的实现。默认启动standalone集群后，访问<a href="http://localhost:8081/">http://localhost:8081</a> 出现的界面。</li><li>flink-scala: Flink scala的API。</li><li>flink-scala-shell: Flink提供的scala命令行交互接口。</li><li>flink-state-backends: flink状态存储的方式，目前这个模块中只有RocksDBStateBackend，未来可能会支持更多种的状态存储，以适应不同的业务场景。MemoryStateBackend和FsStateBackend的实现并不在这个目录下，而是在flink-runtime目录下。</li><li>flink-streaming-java: Flink Streaming的java API。</li><li>flink-streaming-scala: Flink Streaming的scala API。</li><li>flink-table: Flink Table API，在第三小节中细说。</li><li>flink-yarn: Flink对yarn集群管理的支持。</li></ul><hr><ul><li><p>flink-runtime模块是Flink最核心的模块之一，实现了Flink的运行时框架，如JobManager、TaskManager、ResourceManager、Scheduler、Checkpoint Coordinator</p></li><li><p>flink-table模块属于Flink的上层API，包括java和scala版本的table-api，以及SQL的解析和SQL的执行。</p><blockquote><p>随着Flink SQL越来越受重视，flink-table从flink-libraries中移了出来，成为了独立的一级目录。Flink 1.9中，阿里把blink-planner开源了出来，这样整个flink-table中就有了2个planner。从长期来看，流批的统一是一个趋势，因此blink-planner只使用了StreamTableEnvironment中相关的API，而没有使用BatchTableEnvironment，将批当做一个有限的流来处理，希望通过这种方式实现流和批的统一。由于blink-table-planner更好的支持流批统一，且性能更好，在未来的版本中，很有可能完全替代flink-table-planner的功能，而flink-table-planner可能将会被移除。</p></blockquote></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;目录结构&quot;&gt;&lt;a href=&quot;#目录结构&quot; class=&quot;headerlink&quot; title=&quot;目录结构&quot;&gt;&lt;/a&gt;目录结构&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;flink-annotations: Flink自定义的一些注解，用于配置、控制编译等功能。&lt;/li&gt;
+&lt;li&gt;</summary>
+      
+    
+    
+    
+    <category term="flink" scheme="http://yoursite.com/categories/flink/"/>
+    
+    
+    <category term="point" scheme="http://yoursite.com/tags/point/"/>
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -469,35 +495,6 @@
     
     
     <category term="DSA" scheme="http://yoursite.com/categories/DSA/"/>
-    
-    
-    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实时数仓</title>
-    <link href="http://yoursite.com/2021/12/30/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/"/>
-    <id>http://yoursite.com/2021/12/30/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/</id>
-    <published>2021-12-30T01:52:19.000Z</published>
-    <updated>2022-01-24T02:17:53.841Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>当设计一款产品或者平台的时候，可以划分为两层，即底层实现和上层抽象。</p></blockquote><p>实时数仓和传统数仓的对比主要可以从四个方面考虑：</p><ul><li>第一个是<strong>分层方式</strong>，离线数仓为了考虑到效率问题，一般会采取空间换时间的方式，层级划分会比较多；则实时数仓考虑到实时性问题，一般分层会比较少，另外也减少了中间流程出错的可能性。</li><li>第二个是<strong>事实数据</strong>存储方面，离线数仓会基于 HDFS，实时数仓则会基于消息队列（如 Kafka）。</li><li>第三个是<strong>维度数据</strong>存储，实时数仓会将数据放在 KV 存储上面。</li><li>第四个是<strong>数据加工</strong>过程，离线数仓一般以 Hive、Spark 等批处理为主，而实时数仓则是基于实时计算引擎如 Storm、Flink 等，以流处理为主。</li></ul><p>实时数仓主要有两个要点。首先是分层设计上，一般也是参考离线数仓的设计，通常会分为ODS操作数据层、DWD明细层、DWS汇总层以及ADS应用层，可能还会分出一层DIM维度数据层。另外分层设计上也有不同的思路，比如可以将DWS和ADS归为DM数据集市层</p><hr><p>reference：</p><p><a href="https://cloud.tencent.com/developer/article/1618182">实时数仓 | 你想要的数仓分层设计与技术选型 - 云+社区 - 腾讯云</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;当设计一款产品或者平台的时候，可以划分为两层，即底层实现和上层抽象。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;实时数仓和传统数仓的对比主要可以从四个方面考虑：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第一个是&lt;strong&gt;分层方式&lt;/strong&gt;，离线数仓</summary>
-      
-    
-    
-    
-    <category term="实时数仓" scheme="http://yoursite.com/categories/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/"/>
     
     
     <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
