@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-02-16T07:11:46.943Z</updated>
+  <updated>2022-03-02T08:22:42.707Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2022/03/02/hbase%20point/"/>
+    <id>http://yoursite.com/2022/03/02/hbase%20point/</id>
+    <published>2022-03-02T08:22:30.707Z</published>
+    <updated>2022-03-02T08:22:42.707Z</updated>
+    
+    <content type="html"><![CDATA[<hr><hr><table><thead><tr><th>节点</th><th>端口号</th><th>协议</th><th>使用</th><th>说明</th></tr></thead><tbody><tr><td>zookeeper</td><td>2181</td><td></td><td>zkCli.sh -server zookeeper1:2181</td><td>客户端接入</td></tr><tr><td>2888,3888</td><td></td><td>N/A</td><td>集群内部通讯</td><td></td></tr><tr><td>HDFS Namenode</td><td>9000</td><td>HDFS</td><td>hdfs dfs -ls hdfs://namenode1:9000/</td><td>客户端接入</td></tr><tr><td>50070</td><td>HTTP</td><td><a href="http://namenode1:50070/">http://namenode1:50070/</a></td><td>集群监控</td><td></td></tr><tr><td>HDFS SecondaryNamenode</td><td>50090</td><td>HTTP</td><td><a href="http://namenode1:50090/">http://namenode1:50090/</a></td><td>secondary监控</td></tr><tr><td>HDFS Datanode</td><td>50010</td><td></td><td>N/A</td><td>客户端接入/其他节点接入</td></tr><tr><td>50020</td><td></td><td>N/A</td><td></td><td></td></tr><tr><td>50075</td><td>HTTP</td><td><a href="http://datanode1:50075/">http://datanode1:50075/</a></td><td>节点监控</td><td></td></tr><tr><td>HBase Master</td><td>16000</td><td></td><td>hbase-client-1.x.x.jar</td><td>RegionServer接入</td></tr><tr><td>16010</td><td>HTTP</td><td><a href="http://namenode1:16010/">http://namenode1:16010/</a></td><td>集群监控</td><td></td></tr><tr><td>HBase RegionServer</td><td>16020</td><td></td><td>N/A</td><td>客户端接入</td></tr><tr><td>16030</td><td>HTTP</td><td><a href="http://datanode1:16030/">http://datanode1:16030/</a></td><td>节点监控</td><td></td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;hr&gt;
+&lt;hr&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;节点&lt;/th&gt;
+&lt;th&gt;端口号&lt;/th&gt;
+&lt;th&gt;协议&lt;/th&gt;
+&lt;th&gt;使用&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;zookeeper&lt;/td&gt;
+&lt;t</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>flink module</title>
@@ -203,7 +237,7 @@
     <link href="http://yoursite.com/2022/01/11/flink%20state/"/>
     <id>http://yoursite.com/2022/01/11/flink%20state/</id>
     <published>2022-01-11T06:32:39.000Z</published>
-    <updated>2022-02-11T06:16:32.909Z</updated>
+    <updated>2022-02-19T05:47:13.406Z</updated>
     
     <content type="html"><![CDATA[<h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p><h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p><h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul><li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p></li><li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p></li><li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p><blockquote><p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p></blockquote></li><li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p></li></ul><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p><ul><li><p>算子类state</p><p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p></li><li><p>数据类state</p><p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p></li></ul><h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><p>checkpoint是使Flink 能从故障恢复的一种内部机制。检查点是 Flink 应用状态的一个一致性副本，包括了输入的读取位点。在发生故障时，Flink 通过从检查点加载应用程序状态来恢复，并从恢复的读取位点继续处理，就好像什么事情都没发生一样。Flink的状态存储在Flink的内部,这样做的好处就是不再依赖外部系统,降低了对外部系统的依赖,在Flink的内部,通过自身的进程去访问状态变量.同时会定期的做checkpoint持久化,把checkpoint存储在一个分布式的持久化系统中,如果发生故障,就会从最近的一次checkpoint中将整个流的状态进行恢复.</p>]]></content>
     
@@ -473,31 +507,6 @@
     
     
     <category term="point" scheme="http://yoursite.com/tags/point/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据湖</title>
-    <link href="http://yoursite.com/2021/12/30/%E6%95%B0%E6%8D%AE%E6%B9%96/"/>
-    <id>http://yoursite.com/2021/12/30/%E6%95%B0%E6%8D%AE%E6%B9%96/</id>
-    <published>2021-12-30T01:52:19.000Z</published>
-    <updated>2022-01-24T16:57:51.415Z</updated>
-    
-    <content type="html"><![CDATA[<p>数据湖，目前关注度比较高的有 Databricks 推出的 Delta Lake、Uber 的 Hudi 以及 Netflix 的 Iceberg</p><p>reference <a href="https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew">https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;数据湖，目前关注度比较高的有 Databricks 推出的 Delta Lake、Uber 的 Hudi 以及 Netflix 的 Iceberg&lt;/p&gt;
-&lt;p&gt;reference &lt;a href=&quot;https://mp.weixin.qq.com/s/m8-iFg-eky</summary>
-      
-    
-    
-    
-    <category term="DSA" scheme="http://yoursite.com/categories/DSA/"/>
-    
-    
-    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
     
   </entry>
   

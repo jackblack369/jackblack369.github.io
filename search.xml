@@ -2969,7 +2969,6 @@
 <li>编译问题</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">问题：Failed to parse plugin descriptor for org.apache.hadoop:hadoop-maven-plugins</span><br><span class="line"></span><br><span class="line">解决：cd到hadoop-maven-plugins，执行mvn clean 然后 install 一下，再执行编译通过</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>java</category>
@@ -5021,9 +5020,7 @@
 </ul>
 </li>
 <li><p>通过端口查看进程</p>
-<p><code>netstat -nap | grep 端口号 </code>或<code>netstat -apn | grep 端口号</code></p>
-<p><code>netstat -tln | grep 8080</code> 查看端口8080的使用情况</p>
-</li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><ul>
 <li><p>c – Creates a new .tar archive file.</p>
@@ -5157,7 +5154,9 @@
 <h3 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
 
 <h3 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h3><ul>
-<li>替换字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+<li>替换字符linux环境：<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
+
+mac环境（需要设置备份，以防文件损坏）<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h3><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
@@ -5346,6 +5345,18 @@
 <li><p>在将项目用Maven打包是需要在 <plugin> 标签中加入:</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includeSystemScope</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeSystemScope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="init-project"><a href="#init-project" class="headerlink" title="init project"></a>init project</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="命令启动springboot"><a href="#命令启动springboot" class="headerlink" title="命令启动springboot"></a>命令启动springboot</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
 <h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><ul>
 <li><p><a href="https://www.cnblogs.com/baixiaoshuai/p/8939989.html">idea中的maven模块变成灰色的可能原因</a></p>
 </li>
@@ -6139,7 +6150,7 @@
 <li>前端<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">function <span class="title">icheckDelete</span><span class="params">(url)</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> parms = &#123;</span><br><span class="line">      list : array <span class="comment">//这是个数组</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">      dataType: <span class="string">&quot;JSON&quot;</span>,</span><br><span class="line">      contentType:<span class="string">&#x27;application/json;charset=UTF-8&#x27;</span>,<span class="comment">//关键是要加上这行</span></span><br><span class="line">      traditional:<span class="keyword">true</span>,<span class="comment">//这使json格式的字符不会被转码</span></span><br><span class="line">      data: JSON.stringify(parms),</span><br><span class="line">      type: <span class="string">&quot;DELETE&quot;</span>, </span><br><span class="line">      timeout: <span class="number">20000</span>,</span><br><span class="line">      url: url,</span><br><span class="line">      success : function () &#123;</span><br><span class="line">          alert(<span class="string">&quot;删除成功！&quot;</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      error : function (data)&#123;</span><br><span class="line">          alert(data.responseText);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>}</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 后端</span><br><span class="line">```java</span><br><span class="line">Controller:</span><br><span class="line"></span><br><span class="line">@RequestMapping(value = &quot;deleteList&quot;, method = RequestMethod.DELETE)</span><br><span class="line">@ResponseBody</span><br><span class="line">public String delete(@RequestBody DeleteListRequest request) throws WebTransException&#123;</span><br><span class="line"></span><br><span class="line">    /* 逻辑代码 */</span><br><span class="line"></span><br><span class="line">    return &quot;success&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">- 后端</span><br><span class="line">Controller:</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;deleteList&quot;, method = RequestMethod.DELETE)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(<span class="meta">@RequestBody</span> DeleteListRequest request)</span> <span class="keyword">throws</span> WebTransException</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 逻辑代码 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>spring</category>
       </categories>
@@ -7384,14 +7395,11 @@
     <url>/2020/10/08/zookeeper%20learn/</url>
     <content><![CDATA[<h3 id="新増节点"><a href="#新増节点" class="headerlink" title="新増节点"></a>新増节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create [-s] [-e] path data #其中-s 为有序节点，-e临时节点。不写 -s/-e 默认为创建持久化节点</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="查看节点"><a href="#查看节点" class="headerlink" title="查看节点"></a>查看节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">get path</span><br></pre></td></tr></table></figure>
 
 <p><img src="./img/zkInfo.png"></p>
 <ul>
-<li><p>查看节点状态</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stat path  #返回结果和get命令类似，但不会返回节点数据内容。</span><br></pre></td></tr></table></figure></li>
+<li>查看节点状态<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stat path  #返回结果和get命令类似，但不会返回节点数据内容。</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="修改节点"><a href="#修改节点" class="headerlink" title="修改节点"></a>修改节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set path data [dataVersion]</span><br></pre></td></tr></table></figure>
 
@@ -7399,14 +7407,11 @@
 <p><img src="./img/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9.png"></p>
 <h3 id="返回节点列表"><a href="#返回节点列表" class="headerlink" title="返回节点列表"></a>返回节点列表</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls   path</span><br><span class="line">ls2  path</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">delete path [dataVersion]</span><br></pre></td></tr></table></figure>
 
 <p> 与更新节点类似，删除也可以传入版本号，当传入的dataVersion与当前版本号不一致时，zookeeper会拒绝删除。</p>
 <ul>
-<li><p>要想删除某个节点及其后代节点，可以使用递归删除</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rmr path</span><br></pre></td></tr></table></figure></li>
+<li>要想删除某个节点及其后代节点，可以使用递归删除<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rmr path</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -8129,5 +8134,107 @@
       <tags>
         <tag>point</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/03/02/hbase%20point/</url>
+    <content><![CDATA[<hr>
+<hr>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>端口号</th>
+<th>协议</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>zookeeper</td>
+<td>2181</td>
+<td></td>
+<td>zkCli.sh -server zookeeper1:2181</td>
+<td>客户端接入</td>
+</tr>
+<tr>
+<td>2888,3888</td>
+<td></td>
+<td>N/A</td>
+<td>集群内部通讯</td>
+<td></td>
+</tr>
+<tr>
+<td>HDFS Namenode</td>
+<td>9000</td>
+<td>HDFS</td>
+<td>hdfs dfs -ls hdfs://namenode1:9000/</td>
+<td>客户端接入</td>
+</tr>
+<tr>
+<td>50070</td>
+<td>HTTP</td>
+<td><a href="http://namenode1:50070/">http://namenode1:50070/</a></td>
+<td>集群监控</td>
+<td></td>
+</tr>
+<tr>
+<td>HDFS SecondaryNamenode</td>
+<td>50090</td>
+<td>HTTP</td>
+<td><a href="http://namenode1:50090/">http://namenode1:50090/</a></td>
+<td>secondary监控</td>
+</tr>
+<tr>
+<td>HDFS Datanode</td>
+<td>50010</td>
+<td></td>
+<td>N/A</td>
+<td>客户端接入/其他节点接入</td>
+</tr>
+<tr>
+<td>50020</td>
+<td></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>50075</td>
+<td>HTTP</td>
+<td><a href="http://datanode1:50075/">http://datanode1:50075/</a></td>
+<td>节点监控</td>
+<td></td>
+</tr>
+<tr>
+<td>HBase Master</td>
+<td>16000</td>
+<td></td>
+<td>hbase-client-1.x.x.jar</td>
+<td>RegionServer接入</td>
+</tr>
+<tr>
+<td>16010</td>
+<td>HTTP</td>
+<td><a href="http://namenode1:16010/">http://namenode1:16010/</a></td>
+<td>集群监控</td>
+<td></td>
+</tr>
+<tr>
+<td>HBase RegionServer</td>
+<td>16020</td>
+<td></td>
+<td>N/A</td>
+<td>客户端接入</td>
+</tr>
+<tr>
+<td>16030</td>
+<td>HTTP</td>
+<td><a href="http://datanode1:16030/">http://datanode1:16030/</a></td>
+<td>节点监控</td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
   </entry>
 </search>
