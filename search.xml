@@ -4813,8 +4813,6 @@
 <p>Try starting another consumer in a different terminal window:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server localhost:9093 \</span><br><span class="line">--topic my-kafka-topic \</span><br><span class="line">--from-beginning \</span><br><span class="line">--group group2</span><br></pre></td></tr></table></figure>
 
-
-
 <h2 id="Kafka-as-a-Messaging-System"><a href="#Kafka-as-a-Messaging-System" class="headerlink" title="Kafka as a Messaging System"></a>Kafka as a Messaging System</h2><ul>
 <li><p>As with a queue the consumer group allows you to divide up processing over a collection of processes (the members of the consumer group). As with publish-subscribe, Kafka allows you to broadcast messages to multiple consumer groups.</p>
 <p><img src="https://kafka.apache.org/22/images/consumer-groups.png"></p>
@@ -5117,6 +5115,9 @@
 <h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
 
+<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>用zip命令对文件加密压缩和解压</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
+
 <h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
 
 <h3 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h3><ul>
@@ -5197,7 +5198,10 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unset http_proxy </span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="查看指定服务的运行情况"><a href="#查看指定服务的运行情况" class="headerlink" title="查看指定服务的运行情况"></a>查看指定服务的运行情况</h3><p><code>journalctl -u xxx.service</code></p>
-]]></content>
+<h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]</span><br><span class="line">–version 显示版本信息</span><br><span class="line">– 或者-l,指定每多少行切割一次，用于文本文件分割</span><br><span class="line">-b 指定切割文件大小,单位 m 或 k</span><br><span class="line">-C 与-b类似，但尽量维持每行完整性</span><br><span class="line">-d 使用数字而不是字母作为后缀名</span><br><span class="line">-a 指定后缀名的长度，默认为2位</span><br></pre></td></tr></table></figure>
+
+<p>将多个分割的文件进行合并</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat files_name_1 files_name_2 files_name_3 &gt; files_name</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -5347,15 +5351,7 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </ol>
 <h2 id="init-project"><a href="#init-project" class="headerlink" title="init project"></a>init project</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false</span><br></pre></td></tr></table></figure>
 
-
-
 <h2 id="命令启动springboot"><a href="#命令启动springboot" class="headerlink" title="命令启动springboot"></a>命令启动springboot</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
 
 <h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><ul>
 <li><p><a href="https://www.cnblogs.com/baixiaoshuai/p/8939989.html">idea中的maven模块变成灰色的可能原因</a></p>
@@ -5446,6 +5442,11 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li><p>导出所有数据库</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt; backup_filename.sql</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="新增主键"><a href="#新增主键" class="headerlink" title="新增主键"></a>新增主键</h3><p>suppose you don’t have column for auto increment like id, no, then you can add using following query:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> id <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT <span class="keyword">primary</span> key <span class="keyword">FIRST</span></span><br></pre></td></tr></table></figure>
+
+<p>If you’ve column, then alter to auto increment using following query:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name MODIFY column_name datatype(length) AUTO_INCREMENT <span class="keyword">PRIMARY</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>database</category>
@@ -7690,8 +7691,6 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li>解压带有中文名称的zip包</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ditto -V -x -k --sequesterRsrc filename.zip destination</span><br></pre></td></tr></table></figure>
-
-
 ]]></content>
       <categories>
         <category>macos</category>
