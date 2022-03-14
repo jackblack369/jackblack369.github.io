@@ -280,6 +280,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/09/linux%20network/" class="post-title-link" itemprop="url">linux snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-14 18:05:44" itemprop="dateModified" datetime="2022-03-14T18:05:44+08:00">2022-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PORT"><a href="#PORT" class="headerlink" title="PORT"></a>PORT</h2><ul>
+<li><p>Check the listening ports</p>
+<p>Run any one of the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure></li>
+<li><p>checking remote system tcp 80 port status</p>
+<ol>
+<li><p>Telnet</p>
+</li>
+<li><p>nc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<ol start="3">
+<li>nmap<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>通过进程名查看占用端口</p>
+<ul>
+<li>先查看进程pid    <code>ps -ef | grep 进程名 </code></li>
+<li>再通过pid查看占用端口    <code>netstat -nap | grep 进程pid </code></li>
+</ul>
+</li>
+<li><p>通过端口查看进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h2><ul>
+<li><p>查看本地网络代理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export | grep -i proxy</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭代理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset http_proxy </span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/07/cache%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1336,98 +1441,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/16/mybatis%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/16/mybatis%20snippet/" class="post-title-link" itemprop="url">mybatis snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-10-16T12:01:30+08:00">2016-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
-<li><p>about date jdbcType</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#&#123;beginDate,jdbcType=DATE&#125; (no time of the day), or</span><br><span class="line">#&#123;beginDate,jdbcType=TIMESTAMP&#125; (if you need to include the time of the day).</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>And the Java parameter you want to apply should be of type:<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.sql.Date (date without time)</span><br><span class="line">java.sql.Timestamp (timestamp)</span><br><span class="line">java.util.Date (date and time).</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>the Greater Than/Equal Operator and the Less Than/Equal Operators:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ROWNUM &amp;gt;= 20</span><br><span class="line">ROWNUM &amp;lt;= 20</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>使用SpringMVC+Mybatis框架写项目的时候，在mapper里面的sql语句</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;updateTime != null&quot;</span>&gt;</span></span><br><span class="line">	and update_time <span class="symbol">&amp;gt;</span> #&#123;updateTime,jdbcType=TIMESTAMP&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>出错：<code>There is no getter for property named &#39;updateTime&#39; in &#39;class java.util.Date&#39;</code></p>
-<p>原因是：<br>如果将and语句中的#｛属性｝写在if语句中，mybatis会去对象中从它的get方法中取值，而我之前是直接传递的值，并没有封装对象。<br>解决办法：</p>
-<pre><code> 1. 把updateTime需改为date
-2. 把updateTime代表的参数封装到一个对象中
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1493,7 +1510,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

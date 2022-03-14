@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="delete1. To delete all files in a directory except filename, type the command below: 1rm -v !(&quot;filename&quot;)  2. To delete all files with the exception of filename1 and filename2: 1rm -v !(&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux file command">
+<meta property="og:url" content="http://yoursite.com/2015/10/16/linux%20file/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="delete1. To delete all files in a directory except filename, type the command below: 1rm -v !(&quot;filename&quot;)  2. To delete all files with the exception of filename1 and filename2: 1rm -v !(&amp;quo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-10-16T04:01:30.000Z">
+<meta property="article:modified_time" content="2022-03-14T10:06:51.978Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="command">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2015/10/16/linux%20file/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>linux file command | source is the essence</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">source is the essence</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux file command
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-14 18:06:51" itemprop="dateModified" datetime="2022-03-14T18:06:51+08:00">2022-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename1&quot;|&quot;filename2&quot;) </span><br></pre></td></tr></table></figure>
+
+<p><strong>3.</strong> The example below shows how to remove all files other than all <code>.zip</code> files interactively:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i !(*.zip)</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
+
+<h2 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h2><ul>
+<li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
+<p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
+<p>awk ‘{ $5=””; print }’ file</p>
+</li>
+</ul>
+<h2 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h2><p>语法：wc [选项] 文件…</p>
+<p>说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。</p>
+<p>该命令各选项含义如下：</p>
+<p>　　- c 统计字节数。</p>
+<p>　　- l 统计行数。</p>
+<p>　　- w 统计字数。</p>
+<p>这些选项可以组合使用。</p>
+<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>使文件可以直接执行的命令：chmod +x filename</p>
+<p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
+<h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]</span><br><span class="line">–version 显示版本信息</span><br><span class="line">– 或者-l,指定每多少行切割一次，用于文本文件分割</span><br><span class="line">-b 指定切割文件大小,单位 m 或 k</span><br><span class="line">-C 与-b类似，但尽量维持每行完整性</span><br><span class="line">-d 使用数字而不是字母作为后缀名</span><br><span class="line">-a 指定后缀名的长度，默认为2位</span><br></pre></td></tr></table></figure>
+
+<p>将多个分割的文件进行合并</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat files_name_1 files_name_2 files_name_3 &gt; files_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h2><ul>
+<li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找具体文件    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
+<h2 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
+
+<h2 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h2><ul>
+<li>替换字符linux环境：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
+
+mac环境（需要设置备份，以防文件损坏）<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
+
+<p>输出可能是这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
+<p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iconv -f gb18030 -t UTF-8 input.file -o output.file</span><br><span class="line"></span><br><span class="line">gb18030</span><br></pre></td></tr></table></figure>
+
+<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><ul>
+<li><p>c – Creates a new .tar archive file.</p>
+</li>
+<li><p>x — to untar or extract a tar file</p>
+</li>
+<li><p>v – Verbosely show the .tar file progress.</p>
+</li>
+<li><p>f – File name type of the archive file.</p>
+</li>
+<li><p>z — gzip archive file</p>
+</li>
+<li><p>j —  bz2 feature compress and create archive file</p>
+</li>
+<li><p>t — to list the contents of tar archive file</p>
+</li>
+</ul>
+<h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>用zip命令对文件加密压缩和解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/command/" rel="tag"># command</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/10/16/linux%20systemInfo/" rel="prev" title="linux systemInfo command">
+      <i class="fa fa-chevron-left"></i> linux systemInfo command
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/10/16/linux%20command/" rel="next" title="linux command">
+      linux command <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MzIxNy8xOTc2Mw=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">1.</span> <span class="nav-text">delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK"><span class="nav-number">2.</span> <span class="nav-text">AWK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">统计文件行数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90"><span class="nav-number">4.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="nav-number">5.</span> <span class="nav-text">文件分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markdown"><span class="nav-number">6.</span> <span class="nav-text">markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">7.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls"><span class="nav-number">8.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="nav-number">9.</span> <span class="nav-text">格式化json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SED"><span class="nav-number">10.</span> <span class="nav-text">SED</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">转换文件编码格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar"><span class="nav-number">12.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">13.</span> <span class="nav-text">加密</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brook</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brook</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
