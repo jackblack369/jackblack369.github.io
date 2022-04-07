@@ -174,6 +174,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/java%20thread%20code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/01/java%20thread%20code/" class="post-title-link" itemprop="url">java thread code</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-06-01T10:01:30+08:00">2018-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-05 14:09:27" itemprop="dateModified" datetime="2019-03-05T14:09:27+08:00">2019-03-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Future-and-FutureTask"><a href="#Future-and-FutureTask" class="headerlink" title="Future and FutureTask"></a>Future and FutureTask</h3><blockquote>
+<ul>
+<li>A <strong>Future</strong> interface provides methods <strong>to check if the computation is complete, to wait for its completion and to retrieve the results of the computation</strong>. The result is retrieved using Future’s get() method when the computation has completed, and it blocks until it is completed.</li>
+<li><strong>FutureTask</strong><pre><code> 1. FutureTask implementation Future interface and RunnableFuture Interface, means one can use FutureTask as Runnable and can be submitted to ExecutorService for execution.
+ 2. When one call Future.submit() Callable or Runnable objects then most of time ExecutorService creates FutureTask, and one can create it manually also.
+ 3. FutureTask acts like a latch.
+ 4. Computation represent by FutureTask is implemented with Callable interface.
+ 5. It implements Future or Callable interface.
+ 6. Behaviour of get() method depends on the state of the task. If tasks are not completed get() method waits or blocks till the task is completed. Once task completed, it returns the result or throws an ExecutionException.
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://cdncontribute.geeksforgeeks.org/wp-content/uploads/pool2.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java program do two FutureTask </span></span><br><span class="line"><span class="comment">// using Runnable Interface </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.*; </span><br><span class="line"><span class="keyword">import</span> java.util.logging.Level; </span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> waitTime; </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyRunnable</span><span class="params">(<span class="keyword">int</span> timeInMillis)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">this</span>.waitTime = timeInMillis; </span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">try</span> &#123; </span><br><span class="line">			<span class="comment">// sleep for user given millisecond </span></span><br><span class="line">			<span class="comment">// before checking again </span></span><br><span class="line">			Thread.sleep(waitTime); </span><br><span class="line"></span><br><span class="line">			<span class="comment">// return current thread name </span></span><br><span class="line">			System.out.println(Thread </span><br><span class="line">								.currentThread() </span><br><span class="line">								.getName()); </span><br><span class="line">		&#125; </span><br><span class="line"></span><br><span class="line">		<span class="keyword">catch</span> (InterruptedException ex) &#123; </span><br><span class="line">			Logger </span><br><span class="line">				.getLogger(MyRunnable.class.getName()) </span><br><span class="line">				.log(Level.SEVERE, <span class="keyword">null</span>, ex); </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Class FutureTaskExample excute two future task </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FutureTaskExample</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="comment">// create two object of MyRunnable class </span></span><br><span class="line">		<span class="comment">// for FutureTask and sleep 1000, 2000 </span></span><br><span class="line">		<span class="comment">// millisecond before checking again </span></span><br><span class="line">		MyRunnable myrunnableobject1 = <span class="keyword">new</span> MyRunnable(<span class="number">1000</span>); </span><br><span class="line">		MyRunnable myrunnableobject2 = <span class="keyword">new</span> MyRunnable(<span class="number">2000</span>); </span><br><span class="line"></span><br><span class="line">		FutureTask&lt;String&gt; </span><br><span class="line">			futureTask1 = <span class="keyword">new</span> FutureTask&lt;&gt;(myrunnableobject1, </span><br><span class="line">										<span class="string">&quot;FutureTask1 is complete&quot;</span>); </span><br><span class="line">		FutureTask&lt;String&gt; </span><br><span class="line">			futureTask2 = <span class="keyword">new</span> FutureTask&lt;&gt;(myrunnableobject2, </span><br><span class="line">										<span class="string">&quot;FutureTask2 is complete&quot;</span>); </span><br><span class="line"></span><br><span class="line">		<span class="comment">// create thread pool of 2 size for ExecutorService </span></span><br><span class="line">		ExecutorService executor = Executors.newFixedThreadPool(<span class="number">2</span>); </span><br><span class="line"></span><br><span class="line">		<span class="comment">// submit futureTask1 to ExecutorService </span></span><br><span class="line">		executor.submit(futureTask1); </span><br><span class="line"></span><br><span class="line">		<span class="comment">// submit futureTask2 to ExecutorService </span></span><br><span class="line">		executor.submit(futureTask2); </span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>) &#123; </span><br><span class="line">			<span class="keyword">try</span> &#123; </span><br><span class="line"></span><br><span class="line">				<span class="comment">// if both future task complete </span></span><br><span class="line">				<span class="keyword">if</span> (futureTask1.isDone() &amp;&amp; futureTask2.isDone()) &#123; </span><br><span class="line"></span><br><span class="line">					System.out.println(<span class="string">&quot;Both FutureTask Complete&quot;</span>); </span><br><span class="line"></span><br><span class="line">					<span class="comment">// shut down executor service </span></span><br><span class="line">					executor.shutdown(); </span><br><span class="line">					<span class="keyword">return</span>; </span><br><span class="line">				&#125; </span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (!futureTask1.isDone()) &#123; </span><br><span class="line"></span><br><span class="line">					<span class="comment">// wait indefinitely for future </span></span><br><span class="line">					<span class="comment">// task to complete </span></span><br><span class="line">					System.out.println(<span class="string">&quot;FutureTask1 output = &quot;</span></span><br><span class="line">									+ futureTask1.get()); </span><br><span class="line">				&#125; </span><br><span class="line"></span><br><span class="line">				System.out.println(<span class="string">&quot;Waiting for FutureTask2 to complete&quot;</span>); </span><br><span class="line"></span><br><span class="line">				<span class="comment">// Wait if necessary for the computation to complete, </span></span><br><span class="line">				<span class="comment">// and then retrieves its result </span></span><br><span class="line">				String s = futureTask2.get(<span class="number">250</span>, TimeUnit.MILLISECONDS); </span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (s != <span class="keyword">null</span>) &#123; </span><br><span class="line">					System.out.println(<span class="string">&quot;FutureTask2 output=&quot;</span> + s); </span><br><span class="line">				&#125; </span><br><span class="line">			&#125; </span><br><span class="line"></span><br><span class="line">			<span class="keyword">catch</span> (Exception e) &#123; </span><br><span class="line">				Sysmtem.out.println(<span class="string">&quot;Exception: &quot;</span> + e); </span><br><span class="line">			&#125; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Output:</span><br><span class="line"></span><br><span class="line">FutureTask1 output=FutureTask1 is complete</span><br><span class="line">Waiting for FutureTask2 to complete</span><br><span class="line">Waiting for FutureTask2 to complete</span><br><span class="line">Waiting for FutureTask2 to complete</span><br><span class="line">Waiting for FutureTask2 to complete</span><br><span class="line">FutureTask2 output=FutureTask2 is complete</span><br><span class="line">Both FutureTask Complete</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/windows%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1419,143 +1510,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/spring%20aop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/18/spring%20aop/" class="post-title-link" itemprop="url">spring aop</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-18 20:50:30" itemprop="dateCreated datePublished" datetime="2017-12-18T20:50:30+08:00">2017-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-22 09:20:29" itemprop="dateModified" datetime="2019-03-22T09:20:29+08:00">2019-03-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Architectural"><a href="#Architectural" class="headerlink" title="Architectural"></a>Architectural</h3><p><img src="https://www.baeldung.com/wp-content/uploads/2017/11/Program_Execution.jpg"></p>
-<h3 id="Business-Object"><a href="#Business-Object" class="headerlink" title="Business Object"></a>Business Object</h3><blockquote>
-<p><strong>A business object is a normal class which has a normal business logic.</strong></p>
-</blockquote>
-<h3 id="Aspect"><a href="#Aspect" class="headerlink" title="Aspect"></a>Aspect</h3><blockquote>
-<p><strong>An aspect is a modularization of a concern that cuts across multiple classes.</strong></p>
-</blockquote>
-<h3 id="JoinPoint"><a href="#JoinPoint" class="headerlink" title="JoinPoint"></a>JoinPoint</h3><blockquote>
-<p><strong>A Joinpoint is a point during the execution of a program, such as execution of a method or the handling of an exception.</strong></p>
-</blockquote>
-<p>In Spring AOP, a <em>JoinPoint</em> always represents a method execution.</p>
-<h3 id="Pointcut"><a href="#Pointcut" class="headerlink" title="Pointcut"></a>Pointcut</h3><blockquote>
-<p><strong>A Pointcut is a predicate that helps match an <em>Advice</em> to be applied by an <em>Aspect</em> at a particular <em>JoinPoint</em>.</strong></p>
-</blockquote>
-<p>The Advice is often associated with a <em>Pointcut</em> expression and runs at any <em>Joinpoint</em> matched by the Pointcut.</p>
-<h3 id="Advice"><a href="#Advice" class="headerlink" title="Advice"></a>Advice</h3><blockquote>
-<p><strong>An advice is an action taken by an aspect at a particular <em>Joinpoint</em>. Different types of advice include <em>“around,” “before”</em> and <em>“after”</em> advice.</strong></p>
-</blockquote>
-<p>In Spring, an <em>Advice</em> is modeled as an interceptor, maintaining a chain of interceptors around the <em>Joinpoint</em>.</p>
-<hr>
-<h3 id="Example-Wiring-Business-Object-and-Aspect"><a href="#Example-Wiring-Business-Object-and-Aspect" class="headerlink" title="Example:Wiring Business Object and Aspect"></a>Example:Wiring Business Object and Aspect</h3><ul>
-<li><p>Business Object</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleAdder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>a simple Aspect</p>
-<p>Unified logging can be an example of such cross-cutting concern:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdderAfterReturnAspect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturn</span><span class="params">(Object returnValue)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;value return was &#123;&#125;&quot;</span>,  returnValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>config excerpt</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sampleAdder&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.xxx.SampleAdder&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;doAfterReturningAspect&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">&quot;org.xxx.AdderAfterReturnAspect&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">&quot;aspects&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;doAfterReturningAspect&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;pointCutAfterReturning&quot;</span> <span class="attr">expression</span>=</span></span><br><span class="line"><span class="tag">         <span class="string">&quot;execution(* org.xxx.SampleAdder+.*(..))&quot;</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;afterReturn&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">returning</span>=<span class="string">&quot;returnValue&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutAfterReturning&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<blockquote>
-<p>依赖注入DI有助于应用对象之间的解耦，而AOP可以实现横切关注点与它们所影响的对象之间的解耦</p>
-</blockquote>
-<ul>
-<li><p>通知Advice</p>
-<blockquote>
-<p>切面的工作被称为通知，通知定义了切面是什么以及何时使用。</p>
-</blockquote>
-<ul>
-<li>前置通知（Before）：在目标方法被调用之前调用通知功能</li>
-<li>后置通知（After）：在目标方法完成之后调用通知，此时不会关心方法的输出</li>
-<li>返回通知（After-returning）：在目标方法成功执行之后调用通知</li>
-<li>异常通知（After-throwing）：在目标方法抛出异常后调用通知</li>
-<li>环绕通知（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为。</li>
-</ul>
-</li>
-<li><p>连接点Join point</p>
-<blockquote>
-<p>连接点是应用程序的点，可供插入切面</p>
-<p>我理解的是程序的某处，或者任意一处都可以称作为连接点</p>
-</blockquote>
-</li>
-<li><p>切点Pointcut</p>
-<blockquote>
-<p>切点有助于缩小切面所通知的连接点的范围</p>
-<p>如果Advice定义了切面的what和when,那么pointcut就定义了where</p>
-</blockquote>
-</li>
-<li><p>切面Aspect</p>
-<blockquote>
-<p>Aspect是Advice和Pointcut的结合</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1625,7 +1579,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

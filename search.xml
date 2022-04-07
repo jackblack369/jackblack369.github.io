@@ -5020,8 +5020,6 @@
 <h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
 <h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
-
 <h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
 
@@ -5929,9 +5927,7 @@
 <hr>
 <h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 </p>
 <ul>
-<li><p>授权方式</p>
-<p>编程式、注解式、jsp/gsp标签式</p>
-</li>
+<li>授权方式编程式、注解式、jsp/gsp标签式</li>
 </ul>
 ]]></content>
       <categories>
@@ -8169,6 +8165,8 @@
 <p>这些选项可以组合使用。</p>
 <h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>使文件可以直接执行的命令：chmod +x filename</p>
 <p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
+
 <h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]</span><br><span class="line">–version 显示版本信息</span><br><span class="line">– 或者-l,指定每多少行切割一次，用于文本文件分割</span><br><span class="line">-b 指定切割文件大小,单位 m 或 k</span><br><span class="line">-C 与-b类似，但尽量维持每行完整性</span><br><span class="line">-d 使用数字而不是字母作为后缀名</span><br><span class="line">-a 指定后缀名的长度，默认为2位</span><br></pre></td></tr></table></figure>
 
 <p>将多个分割的文件进行合并</p>
@@ -8221,6 +8219,8 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </ul>
 <h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>用zip命令对文件加密压缩和解压</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
+
+<h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -8271,6 +8271,23 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
       </categories>
       <tags>
         <tag>command</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java dynamic compile</title>
+    <url>/2022/04/07/java%20dynamic%20compile/</url>
+    <content><![CDATA[<p>静态编译：编译时就把所有用到的Java代码全都编译成字节码，是一次性编译。</p>
+<p>动态编译：在Java程序运行时才把需要的Java代码的编译成字节码，是按需编译。</p>
+<p>从JDK1.6开始，引入了Java代码重写过的编译器接口，使得我们可以在运行时编译Java源代码，然后再通过类加载器将编译好的类加载进JVM,这种在运行时编译代码的操作就叫做动态编译。</p>
+<hr>
+<p><a href="https://blog.nowcoder.net/n/d2a7554ea2ec4e4b978cf4a74c3c41b2">【Java动态编译】动态编译的应用_牛客博客</a></p>
+<p><a href="https://segmentfault.com/a/1190000016842546">Java动态性(1) - 动态编译(DynamicCompile)</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
       </tags>
   </entry>
 </search>
