@@ -174,186 +174,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/03/top%20command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/03/top%20command/" class="post-title-link" itemprop="url">TOP command</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-03 17:18:01 / Modified: 18:28:12" itemprop="dateCreated datePublished" datetime="2022-01-03T17:18:01+08:00">2022-01-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h3><p>us：用户态使用的cpu时间比<br>sy：系统态使用的cpu时间比<br>ni：用做nice加权的进程分配的用户态cpu时间比<br>id：空闲的cpu时间比<br>wa：cpu等待磁盘写入完成时间<br>hi：硬中断消耗时间<br>si：软中断消耗时间<br>st：虚拟机偷取时间</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/31/yarn%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/31/yarn%20snippet/" class="post-title-link" itemprop="url">yarn point</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-31 02:01:13" itemprop="dateCreated datePublished" datetime="2021-12-31T02:01:13+08:00">2021-12-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 00:17:18" itemprop="dateModified" datetime="2022-01-04T00:17:18+08:00">2022-01-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yarn/" itemprop="url" rel="index"><span itemprop="name">yarn</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Yet Another Resource Negotiator</strong></p>
-<p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>
-<p><img src="/images/yarn/yarn_construct.gif"></p>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="contrainer"><a href="#contrainer" class="headerlink" title="contrainer"></a>contrainer</h4><blockquote>
-<p>容器（Container）这个东西是 Yarn 对资源做的一层抽象。就像我们平时开发过程中，经常需要对底层一些东西进行封装，只提供给上层一个调用接口一样，Yarn 对资源的管理也是用到了这种思想。</p>
-</blockquote>
-<p><img src="/images/yarn/contrainer.jpeg"></p>
-<blockquote>
-<p>Yarn 将CPU核数，内存这些计算资源都封装成为一个个的容器（Container）。    </p>
-</blockquote>
-<ul>
-<li>容器由 NodeManager 启动和管理，并被它所监控。</li>
-<li>容器被 ResourceManager 进行调度。</li>
-</ul>
-<h4 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h4><blockquote>
-<p>负责资源管理的，整个系统有且只有一个 RM ，来负责资源的调度。它也包含了两个主要的组件：定时调用器(Scheduler)以及应用管理器(ApplicationManager)。</p>
-</blockquote>
-<ol>
-<li>定时调度器(Scheduler)：从本质上来说，定时调度器就是一种策略，或者说一种算法。当 Client 提交一个任务的时候，它会根据所需要的资源以及当前集群的资源状况进行分配。注意，它只负责向应用程序分配资源，并不做监控以及应用程序的状态跟踪。</li>
-<li>应用管理器(ApplicationManager)：同样，听名字就能大概知道它是干嘛的。应用管理器就是负责管理 Client 用户提交的应用。上面不是说到定时调度器（Scheduler）不对用户提交的程序监控嘛，其实啊，监控应用的工作正是由应用管理器（ApplicationManager）完成的。</li>
-</ol>
-<h4 id="ApplicationMaster"><a href="#ApplicationMaster" class="headerlink" title="ApplicationMaster"></a>ApplicationMaster</h4><blockquote>
-<p>每当 Client 提交一个 Application 时候，就会新建一个 ApplicationMaster 。由这个 ApplicationMaster 去与 ResourceManager 申请容器资源，获得资源后会将要运行的程序发送到容器上启动，然后进行分布式计算。</p>
-<p>ps: 大数据分布式计算的思想，大数据难以移动（海量数据移动成本太大，时间太长），那就把容易移动的应用程序发布到各个节点进行计算。</p>
-</blockquote>
-<h4 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h4><blockquote>
-<p>NodeManager 是 ResourceManager 在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager/Scheduler 提供这些资源使用报告。</p>
-</blockquote>
-<h2 id="submit-application-to-yarn"><a href="#submit-application-to-yarn" class="headerlink" title="submit application to yarn"></a>submit application to yarn</h2><p><img src="/images/yarn/submit_app_flow.jpeg"></p>
-<ol>
-<li>Client 向 Yarn 提交 Application，这里我们假设是一个 MapReduce 作业。</li>
-<li>ResourceManager 向 NodeManager 通信，为该 Application 分配第一个容器。并在这个容器中运行这个应用程序对应的 ApplicationMaster。</li>
-<li>ApplicationMaster 启动以后，对 作业（也就是 Application） 进行拆分，拆分 task 出来，这些 task 可以运行在一个或多个容器中。然后向 ResourceManager 申请要运行程序的容器，并定时向 ResourceManager 发送心跳。</li>
-<li>申请到容器后，ApplicationMaster 会去和容器对应的 NodeManager 通信，而后将作业分发到对应的 NodeManager 中的容器去运行，这里会将拆分后的 MapReduce 进行分发，对应容器中运行的可能是 Map 任务，也可能是 Reduce 任务。</li>
-<li>容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。</li>
-</ol>
-<hr>
-<p>reference:</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54192454">https://zhuanlan.zhihu.com/p/54192454</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/30/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -539,10 +359,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-12-29 19:11:30 / Modified: 19:16:57" itemprop="dateCreated datePublished" datetime="2021-12-29T19:11:30+08:00">2021-12-29</time>
+              <time title="Created: 2021-12-29 19:11:30" itemprop="dateCreated datePublished" datetime="2021-12-29T19:11:30+08:00">2021-12-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-20 11:01:32" itemprop="dateModified" datetime="2022-04-20T11:01:32+08:00">2022-04-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1197,6 +1023,271 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20image%20mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20image%20mysql/" class="post-title-link" itemprop="url">docker image mysql</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 18:57:57 / Modified: 18:59:12" itemprop="dateCreated datePublished" datetime="2021-12-17T18:57:57+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="mysql镜像制作"><a href="#mysql镜像制作" class="headerlink" title="mysql镜像制作"></a>mysql镜像制作</h2><ol>
+<li><p>需要备份当前需要同步的全量数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it dlabel_mysql mysqldump -uroot -p123456 dls &gt; /path/to/backup.sql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意事项：</p>
+<p>其中dlabel_mysql，是在第二步中设置的name的名称</p>
+<p>/path/to/backup.sql是导出sql的地址路径，根据操作系统不同，需要自行更改</p>
+<p>假定以下操作是在/path/to的目录下</p>
+</blockquote>
+</li>
+</ol>
+<ol start="2">
+<li><p>在/path/to目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Derived from official mysql image (our base image)</span></span><br><span class="line">FROM mysql:5.7.30</span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the content of the sql-scripts/ directory to your image</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> All scripts <span class="keyword">in</span> docker-entrypoint-initdb.d/ are automatically</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> executed during container startup</span></span><br><span class="line">COPY ./backup.sql /docker-entrypoint-initdb.d/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意COPY指令中，backup.sql需要和操作1中的导出文件名保持一致</p>
+</blockquote>
+</li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:mysql20211216 .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:mysql20211216是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:mysql20211216 hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:mysql20211216和操作3中保持一致</p>
+<p>hostAddress/dlabel/service:mysql20211216，格式为hostAddress/library/REPOSITORY:TAG，其中可自行修改service:mysql20211216名称</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure></li>
+<li><p>登录<strong><a target="_blank" rel="noopener" href="http://hostaddress/">http://hostAddress</a></strong>查看镜像上传情况</p>
+</li>
+<li><p>在镜像详情界面，点击“拉取命名”按钮进行命令复制，在终端执行命令即可拉取该镜像</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20image%20es/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20image%20es/" class="post-title-link" itemprop="url">docker es</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 18:51:56 / Modified: 19:01:02" itemprop="dateCreated datePublished" datetime="2021-12-17T18:51:56+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文中hostAddress需要替换具体的ip地址</p>
+</blockquote>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><blockquote>
+<p>查看现有环境相关参数ulimit -a</p>
+</blockquote>
+<ul>
+<li><p>设置文件句柄数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># End of file</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nofile 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>修改max user processes进程数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nproc 65536</span><br><span class="line">* hard nproc 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>调整vm.max_map_count的大小，该参数会限制一个进程可以拥有的VMA(虚拟内存区域)的数量</p>
+<p>通过修改**/etc/sysctl.conf**参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br></pre></td></tr></table></figure>
+
+<p>然后执行<code>sysctl -p</code></p>
+</li>
+<li><p>调整stack size的大小（可选），在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft stack 1024</span><br><span class="line">* hard stack 1024</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="manual-init-data"><a href="#manual-init-data" class="headerlink" title="manual init data"></a>manual init data</h3><ul>
+<li><p>create index</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://localhost:9200/indexName&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>import data</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://localhost:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>拉取远程仓库镜像文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+<li><p>启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name es_origin -e ES_JAVA_POTS=&quot;-Xms6g -Xmx6g&quot; -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.16.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="制作elasticsearch镜像"><a href="#制作elasticsearch镜像" class="headerlink" title="制作elasticsearch镜像"></a>制作elasticsearch镜像</h3><ol>
+<li>导出ES的已有索引和数据</li>
+</ol>
+<ul>
+<li><p>环境准备</p>
+<ul>
+<li>安装nodejs，安装文件地址<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">nodejs</a></li>
+<li>安装elasticdump，安装命令<code>npm install -g elasticdump</code></li>
+</ul>
+</li>
+<li><p>导出es索引文件<strong>es_mapping.json</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \               --input=http://127.0.0.1:9200/indexName \</span></span><br><span class="line"><span class="bash">  --output=/data/es_mapping.json \</span></span><br><span class="line"><span class="bash">  --<span class="built_in">type</span>=mapping</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：$nodejs_home代表nodejs的安装目录</p>
+</blockquote>
+</li>
+<li><p>导出es数据<strong>es_init_data.txt</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \ </span>          </span><br><span class="line">  --input=http://127.0.0.1:9200/indexName \</span><br><span class="line">  --output=/data/es_init_data.txt \</span><br><span class="line">  --searchBody &#x27;&#123;&quot;query&quot;:&#123;&quot;match_all&quot;:&#123; &#125;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><p>编写es数据初始化脚本 <strong>initEs.sh</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">create index</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://127.0.0.1:9200/indexName&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">import data</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://127.0.0.1:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>initEs.sh文件同1,2操作中的文件存放路径保持一致，均放在/data目录下</p>
+</blockquote>
+</li>
+<li><p>在/data目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM elasticsearch:7.16.1</span><br><span class="line">COPY ./data/* /data/</span><br><span class="line">RUN chown -R elasticsearch:root /data </span><br><span class="line">USER elasticsearch</span><br><span class="line">RUN elasticsearch -E discovery.type=single-node -p /tmp/epid &amp; /bin/bash /data/wait-for-it.sh -t 0 localhost:9200 -- /data/initEs.sh; kill $(cat /tmp/epid) &amp;&amp; wait $(cat /tmp/epid); exit 0;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:elasticsearch .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:es是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:elasticsearch hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:elasticsearch和操作3中保持一致</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1266,18 +1357,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
