@@ -776,7 +776,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-21 11:03:34" itemprop="dateModified" datetime="2022-03-21T11:03:34+08:00">2022-03-21</time>
+                <time title="Modified: 2022-05-11 10:45:38" itemprop="dateModified" datetime="2022-05-11T10:45:38+08:00">2022-05-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -853,6 +853,15 @@
 <p><code>git branch -m old_name new_name</code></p>
 </li>
 </ul>
+<h4 id="推送新分支到远程"><a href="#推送新分支到远程" class="headerlink" title="推送新分支到远程"></a>推送新分支到远程</h4><p>在新建分支完成的前提下</p>
+<ol>
+<li><p>将develop分支推送到远程</p>
+<p><code>git push origin new_branch:new_branch</code></p>
+</li>
+<li><p>建立本地至上游（远程）分支的链接</p>
+<p><code>git branch --set-upstream-to=orgin/new_branch new_branch</code></p>
+</li>
+</ol>
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 
 <h4 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h4><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>

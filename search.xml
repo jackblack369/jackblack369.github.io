@@ -3445,6 +3445,15 @@
 <p><code>git branch -m old_name new_name</code></p>
 </li>
 </ul>
+<h4 id="推送新分支到远程"><a href="#推送新分支到远程" class="headerlink" title="推送新分支到远程"></a>推送新分支到远程</h4><p>在新建分支完成的前提下</p>
+<ol>
+<li><p>将develop分支推送到远程</p>
+<p><code>git push origin new_branch:new_branch</code></p>
+</li>
+<li><p>建立本地至上游（远程）分支的链接</p>
+<p><code>git branch --set-upstream-to=orgin/new_branch new_branch</code></p>
+</li>
+</ol>
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 
 <h4 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h4><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
@@ -5656,8 +5665,6 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
 
 <h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
-
-<h2 id="查找目录下的所有文件中是否含有某个字符串"><a href="#查找目录下的所有文件中是否含有某个字符串" class="headerlink" title="查找目录下的所有文件中是否含有某个字符串"></a>查找目录下的所有文件中是否含有某个字符串</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">[root@wuseyukui]#</span><span class="bash"> grep -rn <span class="string">&quot;someinfo&quot;</span> *</span></span><br><span class="line">说明：</span><br><span class="line">-r 是递归查找</span><br><span class="line">-n 是显示行号</span><br><span class="line">* : 表示当前目录所有文件，也可以是某个文件名</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>linux</category>
