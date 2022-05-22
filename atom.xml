@@ -232,7 +232,7 @@
     <link href="http://yoursite.com/2022/01/11/flink%20watermark/"/>
     <id>http://yoursite.com/2022/01/11/flink%20watermark/</id>
     <published>2022-01-11T10:42:32.000Z</published>
-    <updated>2022-01-11T10:44:03.586Z</updated>
+    <updated>2022-05-16T05:22:21.991Z</updated>
     
     <content type="html"><![CDATA[<p>Watermark是Apache Flink为了处理EventTime 窗口计算提出的一种机制,本质上也是一种时间戳。</p><p>由Apache Flink Source或者自定义的Watermark生成器按照需求Punctuated或者Periodic两种方式生成的一种系统Event，与普通数据流Event一样流转到对应的下游算子，接收到Watermark Event的算子以此不断调整自己管理的EventTime clock。</p><p>Apache Flink 框架保证Watermark单调递增，算子接收到一个Watermark时候，框架知道不会再有任何小于该Watermark的时间戳的数据元素到来了，所以Watermark可以看做是告诉Apache Flink框架数据流已经处理到什么位置(时间维度)的方式。</p><p>Watermark的产生和Apache Flink内部处理逻辑如下图所示:</p><p><img src="/images/flink/flink_watermark.png"></p><h3 id="产生方式"><a href="#产生方式" class="headerlink" title="产生方式"></a>产生方式</h3><ul><li><p>Punctuated - 数据流中每一个递增的EventTime都会产生一个Watermark。 在实际的生产中Punctuated方式在TPS很高的场景下会产生大量的Watermark在一定程度上对下游算子造成压力，所以只有在实时性要求非常高的场景才会选择Punctuated的方式进行Watermark的生成。</p></li><li><p>Periodic - 周期性的（一定时间间隔或者达到一定的记录条数）产生一个Watermark。在实际的生产中Periodic的方式必须结合时间和积累条数两个维度继续周期性产生Watermark，否则在极端情况下会有很大的延时。</p></li></ul>]]></content>
     
@@ -306,9 +306,9 @@
     <link href="http://yoursite.com/2022/01/07/mac%20command/"/>
     <id>http://yoursite.com/2022/01/07/mac%20command/</id>
     <published>2022-01-07T06:03:15.000Z</published>
-    <updated>2022-04-19T01:26:52.262Z</updated>
+    <updated>2022-05-16T03:56:23.524Z</updated>
     
-    <content type="html"><![CDATA[<ul><li>解压带有中文名称的zip包</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ditto -V -x -k --sequesterRsrc filename.zip destination</span><br></pre></td></tr></table></figure><ul><li>查看目录下文件夹大小<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h    命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    <content type="html"><![CDATA[<ul><li>解压带有中文名称的zip包</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ditto -V -x -k --sequesterRsrc filename.zip destination</span><br></pre></td></tr></table></figure><ul><li>查看目录下文件夹大小<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h    命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值</span><br><span class="line">或</span><br><span class="line">du -hd1</span><br></pre></td></tr></table></figure></li></ul>]]></content>
     
     
       

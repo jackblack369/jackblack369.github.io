@@ -2679,7 +2679,6 @@
 </ul>
 <h4 id="the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured"><a href="#the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured" class="headerlink" title="the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured"></a>the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured</h4><p>in short, if you are running Elasticsearch locally(single node) or just with a single node on the cloud then just use below config in your <code>elasticsearch.yml</code> to avoid the production check, and to make it work, more info about this config in <a href="https://stackoverflow.com/a/60426167/4039431">this SO</a> answer:</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">discovery.type:</span> <span class="string">single-node</span></span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>Elasticsearch</category>
@@ -4237,9 +4236,8 @@
     <title>ignite snippet</title>
     <url>/2019/11/01/ignite_snippet/</url>
     <content><![CDATA[<h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
-<li> 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误</li>
+<li>编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></li>
 </ul>
-<p>  原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></p>
 <h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
 <li>Ignite的原生持久化会在磁盘上存储一个数据的超集，以及根据容量在内存中存储一个子集。比如，如果有100个条目，然后内存只能存储20条，那么磁盘上会存储所有的100条，然后为了提高性能在内存中缓存20条。</li>
 <li>和纯内存的使用场景一样，当打开持久化时，每个独立的节点只会持久化数据的一个子集，不管是主还是备节点，都是只包括节点所属的分区的数据，总的来说，整个集群包括了完整的数据集。</li>
@@ -4284,7 +4282,22 @@
 </ul>
 </li>
 </ul>
-<hr>
+<h3 id="Ignite-and-ZooKeeper-Configuration-Considerations"><a href="#Ignite-and-ZooKeeper-Configuration-Considerations" class="headerlink" title="Ignite and ZooKeeper Configuration Considerations"></a>Ignite and ZooKeeper Configuration Considerations</h3><ul>
+<li>zookeeper中 tickTime和syncLimit参数的定义</li>
+</ul>
+<p>When using ZooKeeper Discovery, you need to make sure that the configuration parameters of the ZooKeeper cluster and Ignite cluster match each other.</p>
+<p>Consider a sample ZooKeeper configuration, as follows:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"># The number of ticks that can pass between sending a request and getting an acknowledgement</span><br><span class="line">syncLimit=5</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在zookeeper中 tickTime和syncLimit参数的作用</li>
+</ul>
+<p>Configured this way, ZooKeeper server detects its own segmentation from the rest of the ZooKeeper cluster only after <code>tickTime * syncLimit</code> elapses. Until this event is detected at ZooKeeper level, all Ignite nodes connected to the segmented ZooKeeper server do not try to reconnect to the other ZooKeeper servers.</p>
+<ul>
+<li>在ignite中 sessionTimeout参数与zookeeper的tickTime和syncLimit参数的关联</li>
+</ul>
+<p>On the other hand, there is a <code>sessionTimeout</code> parameter on the Ignite side that defines how soon ZooKeeper closes an Ignite node’s session if the node gets disconnected from the ZooKeeper cluster. If <code>sessionTimeout</code> is smaller than <code>tickTime * syncLimit</code> , then the Ignite node is notified by the segmented ZooKeeper server too late — its session expires before it tries to reconnect to other ZooKeeper servers.</p>
+<p>To avoid this situation, <code>sessionTimeout</code> should be bigger than <code>tickTime * syncLimit</code>.</p>
 ]]></content>
       <categories>
         <category>ignite</category>
@@ -5661,6 +5674,8 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
 
 <h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
+
+<h2 id="查找指定目录下的文件内容"><a href="#查找指定目录下的文件内容" class="headerlink" title="查找指定目录下的文件内容"></a>查找指定目录下的文件内容</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rn &quot;info&quot; *</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -6042,7 +6057,7 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ditto -V -x -k --sequesterRsrc filename.zip destination</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>查看目录下文件夹大小<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -d 1 -h    命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值</span><br></pre></td></tr></table></figure></li>
+<li>查看目录下文件夹大小<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -d 1 -h    命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值</span><br><span class="line">或</span><br><span class="line">du -hd1</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -8254,7 +8269,31 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
   <entry>
     <title>zookeeper learn</title>
     <url>/2020/10/08/zookeeper%20learn/</url>
-    <content><![CDATA[<h3 id="新増节点"><a href="#新増节点" class="headerlink" title="新増节点"></a>新増节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create [-s] [-e] path data #其中-s 为有序节点，-e临时节点。不写 -s/-e 默认为创建持久化节点</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h2><ul>
+<li>tickTime</li>
+</ul>
+<p>Length of a single tick, in milliseconds. ZooKeeper uses tick as the basic time unit to regulate timeouts. Default is 2000.</p>
+<ul>
+<li>initLimit</li>
+</ul>
+<p>Number of ticks after which the ZooKeeper server times out during the synchronization process. Default is 10.</p>
+<ul>
+<li>syncLimit</li>
+</ul>
+<p>Maximum number of ticks for the followers to wait to synchronize with the leader before the followers time out. Default is 5.</p>
+<ul>
+<li>dataDir</li>
+</ul>
+<p>Absolute path for the ZooKeeper to store the in-memory snapshots of the data and the transactional log of updates to the database.</p>
+<ul>
+<li>clientPort</li>
+</ul>
+<p>Port on which the ZooKeeper server listens for client connections.</p>
+<ul>
+<li>maxClientCnxns</li>
+</ul>
+<p>Maximum number of concurrent connections that a single client can make to a single member of the ZooKeeper ensemble. Default is 10.</p>
+<h2 id="终端操作"><a href="#终端操作" class="headerlink" title="终端操作"></a>终端操作</h2><h3 id="新増节点"><a href="#新増节点" class="headerlink" title="新増节点"></a>新増节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create [-s] [-e] path data #其中-s 为有序节点，-e临时节点。不写 -s/-e 默认为创建持久化节点</span><br></pre></td></tr></table></figure>
 
 <h3 id="查看节点"><a href="#查看节点" class="headerlink" title="查看节点"></a>查看节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">get path</span><br></pre></td></tr></table></figure>
 
