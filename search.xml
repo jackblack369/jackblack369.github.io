@@ -5631,7 +5631,15 @@
 <li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找具体文件    </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
+
+<p>查找指定用户的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find ./* -user 用户名</span><br></pre></td></tr></table></figure>
+
+<p>查找指定用户组的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find ./* -group 用户组</span><br></pre></td></tr></table></figure>
+
+
 
 <h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
 <h2 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
@@ -5678,6 +5686,14 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
 
 <h2 id="查找指定目录下的文件内容"><a href="#查找指定目录下的文件内容" class="headerlink" title="查找指定目录下的文件内容"></a>查找指定目录下的文件内容</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rn &quot;info&quot; *</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询大文件里面的内容"><a href="#查询大文件里面的内容" class="headerlink" title="查询大文件里面的内容"></a>查询大文件里面的内容</h2><p>格式：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 使用管道符可以实现过滤既满足时间又满足ip的行。</span><br><span class="line">grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3</span><br></pre></td></tr></table></figure>
+
+<p>参数解释：<br>-n 参数的作用是显示查找结果的所在行号<br>-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数<br>prometheus.log 表示待搜索的大日志文件<br>head -n 3 表示显示前面查询结果的前三条记录</p>
+<h2 id="排除指定内容"><a href="#排除指定内容" class="headerlink" title="排除指定内容"></a>排除指定内容</h2><p>要仅打印与搜索模式不匹配的行，可以使用grep的<code>-v</code>或<code>--invert-match</code>选项。进行反转的匹配。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -v xxx</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>linux</category>
@@ -8361,6 +8377,26 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
       </categories>
       <tags>
         <tag>snippet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>problems</title>
+    <url>/2022/09/27/problems/</url>
+    <content><![CDATA[<h1 id="DB2"><a href="#DB2" class="headerlink" title="DB2"></a>DB2</h1><h2 id="DB2-SQL-Error-SQLCODE-805-SQLSTATE-51002-SQLERRMC-NULLID-SYSLH2DA-0X5359534C564C3031"><a href="#DB2-SQL-Error-SQLCODE-805-SQLSTATE-51002-SQLERRMC-NULLID-SYSLH2DA-0X5359534C564C3031" class="headerlink" title="DB2 SQL Error: SQLCODE=-805, SQLSTATE=51002, SQLERRMC=NULLID.SYSLH2DA 0X5359534C564C3031"></a>DB2 SQL Error: SQLCODE=-805, SQLSTATE=51002, SQLERRMC=NULLID.SYSLH2DA 0X5359534C564C3031</h2><ul>
+<li><p>分析</p>
+<p>the problem was a list of operations made with the same PreparedStatement, which was never closed.</p>
+<p>许多操作使用同一个PreparedStatement，但是重来没有关闭</p>
+</li>
+<li><p>参考</p>
+<p><a href="https://cloud.tencent.com/developer/article/1837198">https://cloud.tencent.com/developer/article/1837198</a></p>
+</li>
+</ul>
+<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><h2 id="lambda是否可打日志"><a href="#lambda是否可打日志" class="headerlink" title="lambda是否可打日志"></a>lambda是否可打日志</h2>]]></content>
+      <categories>
+        <category>problems</category>
+      </categories>
+      <tags>
+        <tag>points</tag>
       </tags>
   </entry>
 </search>
