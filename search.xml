@@ -3931,7 +3931,7 @@
     <content><![CDATA[<blockquote>
 <p>Hive-site里面的配置！！！</p>
 </blockquote>
-<h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="level-1"><a href="#level-1" class="headerlink" title="level-1"></a>level-1</h2><h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
 
 <h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
 <p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
@@ -3946,7 +3946,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
 
-<h1 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h1><p><strong>分隔符</strong></p>
+<h3 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h3><p><strong>分隔符</strong></p>
 <p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
 <p><strong>用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符</strong></p>
 <p>1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符</p>
@@ -4029,6 +4029,25 @@
 </ul>
 <h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>查看hive进程</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jps -ml  | grep Hive</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="level-2"><a href="#level-2" class="headerlink" title="level-2"></a>level-2</h2><h3 id="内部表vs外部表"><a href="#内部表vs外部表" class="headerlink" title="内部表vs外部表"></a>内部表vs外部表</h3><p><strong>内部表</strong></p>
+<ol>
+<li>按照表数据的生命周期，可以将表分为内部表和外部表两类；</li>
+<li>内部表也叫管理表或临时表，该类型表的生命周期时由hive控制的，默认情况下数据都存放在/user/hive/warehouse/下面；</li>
+<li>删除表时数据会被删除；</li>
+<li>以下命令创建的就是内部表，可见前面两篇文章中创建的表都是内部表</li>
+</ol>
+<p><strong>外部表</strong></p>
+<ul>
+<li>创建表的SQL语句中加上external，创建的就是外部表了；</li>
+<li>外部表的数据生命周期不受Hive控制；</li>
+<li>删除外部表的时候不会删除数据；</li>
+<li>外部表的数据，可以同时作为多个外部表的数据源共享使用；</li>
+<li>接下来开始实践，下面是建表语句：</li>
+<li>在实际生产业务系统开发中，外部表是我们主要应用的表类型</li>
+</ul>
 ]]></content>
       <categories>
         <category>hive</category>
@@ -5969,6 +5988,11 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export | grep -i proxy</span><br></pre></td></tr></table></figure></li>
 <li><p>关闭代理</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unset http_proxy </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><ul>
+<li><p>pretty json </p>
+<p>curl ‘address:port’ | json_pp</p>
+</li>
 </ul>
 ]]></content>
       <categories>
