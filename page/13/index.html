@@ -1078,7 +1078,7 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 17:48:35" itemprop="dateModified" datetime="2022-03-14T17:48:35+08:00">2022-03-14</time>
+                <time title="Modified: 2022-12-30 13:20:05" itemprop="dateModified" datetime="2022-12-30T13:20:05+08:00">2022-12-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1125,12 +1125,33 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </blockquote>
 <ul>
 <li><p>查看物理CPU个数</p>
+<ol>
+<li>top命令，然后输入数字1查看，各项参数如下<ul>
+<li><code>us</code>：用户空间占用 CPU 的百分比。</li>
+<li><code>sy</code>：内核空间占用 CPU 的百分比。</li>
+<li><code>ni</code>：调整过优先级的进程占用 CPU 的百分比。</li>
+<li><code>id</code>：空闲 CPU 的百分比。</li>
+<li><code>wa</code>：等待 I/O 的 CPU 时间的百分比。</li>
+<li><code>hi</code>：硬中断（hardware interrupt）占用 CPU 的时间的百分比。</li>
+<li><code>si</code>：软中断（software interrupt）占用 CPU 的时间的百分比。</li>
+<li><code>st</code>：虚拟机或者运行在它上面的虚拟 CPU 占用 CPU 的时间的百分比。</li>
+</ul>
+</li>
+<li>输入mpstat查看</li>
+<li>输入以下命令</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
 <li><p>查看每个物理CPU中core的个数(即核数)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
 <li><p>查看逻辑CPU的总数</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
 </ul>
+</li>
+</ul>
+<h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><ul>
+<li><p>进程CPU占用率</p>
+<p>top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。</p>
+<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
 </li>
 </ul>
 <h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
@@ -1426,7 +1447,7 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

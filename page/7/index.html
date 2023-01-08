@@ -444,7 +444,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-28 21:35:58" itemprop="dateModified" datetime="2022-12-28T21:35:58+08:00">2022-12-28</time>
+                <time title="Modified: 2023-01-08 12:10:18" itemprop="dateModified" datetime="2023-01-08T12:10:18+08:00">2023-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -689,7 +689,7 @@
 <td>一个促进管道传输请求的ZooKeeper客户端</td>
 </tr>
 </tbody></table>
-<h2 id="主题分区"><a href="#主题分区" class="headerlink" title="主题分区"></a>主题分区</h2><ul>
+<h1 id="主题分区"><a href="#主题分区" class="headerlink" title="主题分区"></a>主题分区</h1><ul>
 <li>调整分区</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics --zookeeper localhost:2181 --alter --topic my-topic --partitions 10</span><br></pre></td></tr></table></figure>
@@ -699,6 +699,22 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics --zookeeper localhost:2181 --describe --topic my-topic</span><br></pre></td></tr></table></figure>
 
+
+
+<h1 id="Restful-API"><a href="#Restful-API" class="headerlink" title="Restful API"></a>Restful API</h1><h2 id="AVRO主题相关"><a href="#AVRO主题相关" class="headerlink" title="AVRO主题相关"></a>AVRO主题相关</h2><blockquote>
+<p>一般schema registry 默认端口是8081（有时候避免与flink-jobmanager端口冲突，改为别的端口号 8091）</p>
+</blockquote>
+<ul>
+<li><p>获取所有主题信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>根据schema id查下相关信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;http://&lt;schema-registry-url&gt;:&lt;port&gt;/schemas/ids/&lt;schema-id&gt;&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>获取指定主题key/value相关schema信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects/&lt;topic-name&gt;-value/versions/latest</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects/&lt;topic-name&gt;-key/versions/latest</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -1617,7 +1633,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

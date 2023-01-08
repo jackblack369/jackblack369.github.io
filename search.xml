@@ -5846,12 +5846,33 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </blockquote>
 <ul>
 <li><p>查看物理CPU个数</p>
+<ol>
+<li>top命令，然后输入数字1查看，各项参数如下<ul>
+<li><code>us</code>：用户空间占用 CPU 的百分比。</li>
+<li><code>sy</code>：内核空间占用 CPU 的百分比。</li>
+<li><code>ni</code>：调整过优先级的进程占用 CPU 的百分比。</li>
+<li><code>id</code>：空闲 CPU 的百分比。</li>
+<li><code>wa</code>：等待 I/O 的 CPU 时间的百分比。</li>
+<li><code>hi</code>：硬中断（hardware interrupt）占用 CPU 的时间的百分比。</li>
+<li><code>si</code>：软中断（software interrupt）占用 CPU 的时间的百分比。</li>
+<li><code>st</code>：虚拟机或者运行在它上面的虚拟 CPU 占用 CPU 的时间的百分比。</li>
+</ul>
+</li>
+<li>输入mpstat查看</li>
+<li>输入以下命令</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
 <li><p>查看每个物理CPU中core的个数(即核数)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
 <li><p>查看逻辑CPU的总数</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
 </ul>
+</li>
+</ul>
+<h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><ul>
+<li><p>进程CPU占用率</p>
+<p>top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。</p>
+<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
 </li>
 </ul>
 <h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
@@ -8421,7 +8442,7 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <td>一个促进管道传输请求的ZooKeeper客户端</td>
 </tr>
 </tbody></table>
-<h2 id="主题分区"><a href="#主题分区" class="headerlink" title="主题分区"></a>主题分区</h2><ul>
+<h1 id="主题分区"><a href="#主题分区" class="headerlink" title="主题分区"></a>主题分区</h1><ul>
 <li>调整分区</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kafka-topics --zookeeper localhost:2181 --alter --topic my-topic --partitions 10</span><br></pre></td></tr></table></figure>
@@ -8431,6 +8452,22 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kafka-topics --zookeeper localhost:2181 --describe --topic my-topic</span><br></pre></td></tr></table></figure>
 
+
+
+<h1 id="Restful-API"><a href="#Restful-API" class="headerlink" title="Restful API"></a>Restful API</h1><h2 id="AVRO主题相关"><a href="#AVRO主题相关" class="headerlink" title="AVRO主题相关"></a>AVRO主题相关</h2><blockquote>
+<p>一般schema registry 默认端口是8081（有时候避免与flink-jobmanager端口冲突，改为别的端口号 8091）</p>
+</blockquote>
+<ul>
+<li><p>获取所有主题信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -X GET &quot;http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>根据schema id查下相关信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -X GET &quot;http://&lt;schema-registry-url&gt;:&lt;port&gt;/schemas/ids/&lt;schema-id&gt;&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>获取指定主题key/value相关schema信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GET http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects/&lt;topic-name&gt;-value/versions/latest</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GET http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects/&lt;topic-name&gt;-key/versions/latest</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>kafka</category>
