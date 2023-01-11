@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://kafka.apache.org/22/images/kafka-apis.png">
 <meta property="og:image" content="https://kafka.apache.org/22/images/consumer-groups.png">
 <meta property="article:published_time" content="2019-06-11T06:01:30.000Z">
-<meta property="article:modified_time" content="2023-01-08T04:10:18.041Z">
+<meta property="article:modified_time" content="2023-01-08T07:03:51.825Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -215,7 +215,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-08 12:10:18" itemprop="dateModified" datetime="2023-01-08T12:10:18+08:00">2023-01-08</time>
+                <time title="Modified: 2023-01-08 15:03:51" itemprop="dateModified" datetime="2023-01-08T15:03:51+08:00">2023-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -486,6 +486,10 @@
 <p>or</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://&lt;schema-registry-url&gt;:&lt;port&gt;/subjects/&lt;topic-name&gt;-key/versions/latest</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="参数调优"><a href="#参数调优" class="headerlink" title="参数调优"></a>参数调优</h1><h1 id="producer"><a href="#producer" class="headerlink" title="producer"></a>producer</h1><ul>
+<li>batch.size 默认16384</li>
+<li>request.time.ms 默认30000（30秒）</li>
+</ul>
 
     </div>
 
@@ -574,7 +578,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#port%EF%BC%88confluent-reference%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">port（confluent reference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Architecture"><span class="nav-number">2.</span> <span class="nav-text">System Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-a-topic"><span class="nav-number">2.1.</span> <span class="nav-text">Creating a topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Producer"><span class="nav-number">2.2.</span> <span class="nav-text">Producer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consumers"><span class="nav-number">2.3.</span> <span class="nav-text">Consumers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Messaging-System"><span class="nav-number">3.</span> <span class="nav-text">Kafka as a Messaging System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Storage-System"><span class="nav-number">4.</span> <span class="nav-text">Kafka as a Storage System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-Stream-Processing"><span class="nav-number">5.</span> <span class="nav-text">Kafka as Stream Processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#source-code"><span class="nav-number">6.</span> <span class="nav-text">source code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.</span> <span class="nav-text">源码文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.</span> <span class="nav-text">核心模块结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E5%88%86%E5%8C%BA"><span class="nav-number"></span> <span class="nav-text">主题分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Restful-API"><span class="nav-number"></span> <span class="nav-text">Restful API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRO%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">AVRO主题相关</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#port%EF%BC%88confluent-reference%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">port（confluent reference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Architecture"><span class="nav-number">2.</span> <span class="nav-text">System Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-a-topic"><span class="nav-number">2.1.</span> <span class="nav-text">Creating a topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Producer"><span class="nav-number">2.2.</span> <span class="nav-text">Producer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consumers"><span class="nav-number">2.3.</span> <span class="nav-text">Consumers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Messaging-System"><span class="nav-number">3.</span> <span class="nav-text">Kafka as a Messaging System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Storage-System"><span class="nav-number">4.</span> <span class="nav-text">Kafka as a Storage System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-Stream-Processing"><span class="nav-number">5.</span> <span class="nav-text">Kafka as Stream Processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#source-code"><span class="nav-number">6.</span> <span class="nav-text">source code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.</span> <span class="nav-text">源码文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.</span> <span class="nav-text">核心模块结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E5%88%86%E5%8C%BA"><span class="nav-number"></span> <span class="nav-text">主题分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Restful-API"><span class="nav-number"></span> <span class="nav-text">Restful API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRO%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">AVRO主题相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="nav-number"></span> <span class="nav-text">参数调优</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#producer"><span class="nav-number"></span> <span class="nav-text">producer</span></a></div>
       </div>
       <!--/noindex-->
 

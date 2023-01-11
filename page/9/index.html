@@ -1147,7 +1147,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-25 00:57:54" itemprop="dateModified" datetime="2022-01-25T00:57:54+08:00">2022-01-25</time>
+                <time title="Modified: 2023-01-08 18:12:19" itemprop="dateModified" datetime="2023-01-08T18:12:19+08:00">2023-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1381,6 +1381,21 @@
 </blockquote>
 <h3 id="内存大小设置"><a href="#内存大小设置" class="headerlink" title="内存大小设置"></a>内存大小设置</h3><ul>
 <li>在命令行下用  java -Xmx1200m -XX:Max Perm Size=60m -version 命令来进行测试，然后逐渐的增大XXXX的值，如果执行正常就表示指定的内存大小可用，否则会打印错误信息。<br>最后得到的虚拟机实际分配到的<br>总内存大小=堆内存+非堆内存<br>1200m：为堆内存大小，如果不指定后者参数则有最大数限制，网上很多文章认为这就是JVM内存， -Xmx为设置最大堆内存<br>60m： 为非堆内存大小， -XX: Max PermSize实为 永久域内存，在堆内存之外，属于非堆内存部分，jdk1.5我测了好像默认为62m，即得到非堆部分默认内存）</li>
+</ul>
+<h1 id="进程内存"><a href="#进程内存" class="headerlink" title="进程内存"></a>进程内存</h1><h2 id="查看进程对象大小"><a href="#查看进程对象大小" class="headerlink" title="查看进程对象大小"></a>查看进程对象大小</h2><ul>
+<li><p><strong>jmap -histo 进程id</strong>  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmap -histo 123456 | head -n15</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="查看内存分布及回收情况"><a href="#查看内存分布及回收情况" class="headerlink" title="查看内存分布及回收情况"></a>查看内存分布及回收情况</h2><ul>
+<li><p><strong>jstat -gc 进程id 毫秒</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -gc 1692 5000</span><br></pre></td></tr></table></figure>
+
+<p>S0C: Young Generation第一个survivor space的内存大小 (kB).<br>S1C: Young Generation第二个survivor space的内存大小 (kB).<br>S0U: Young Generation第一个Survivor space当前已使用的内存大小 (kB).<br>S1U: Young Generation第二个Survivor space当前已经使用的内存大小 (kB).<br>EC: Young Generation中eden space的内存大小 (kB).<br>EU: Young Generation中Eden space当前已使用的内存大小 (kB).<br>OC: Old Generation的内存大小 (kB).<br>OU: Old Generation当前已使用的内存大小 (kB).<br>MC: Permanent Generation的内存大小 (kB)<br>MU: Permanent Generation当前已使用的内存大小 (kB).<br>YGC: 从启动到采样时Young Generation GC的次数<br>YGCT: 从启动到采样时Young Generation GC所用的时间 (s).<br>FGC: 从启动到采样时Old Generation GC的次数.<br>FGCT: 从启动到采样时Old Generation GC所用的时间 (s).<br>GCT: 从启动到采样时GC所用的总时间 (s).</p>
+</li>
+</ul>
+<h2 id="查看堆栈占用"><a href="#查看堆栈占用" class="headerlink" title="查看堆栈占用"></a>查看堆栈占用</h2><ul>
+<li><p><strong>jmap -heap 进程id</strong>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">S0： 新生代中Survivor space 0区已使用空间的百分比</span><br><span class="line">S1： 新生代中Survivor space 1区已使用空间的百分比</span><br><span class="line">E ：新生代已使用空间的百分比 Eden space</span><br><span class="line">O： 老年代已使用空间的百分比（P:  永久带已使用空间的百分比）</span><br><span class="line"></span><br><span class="line">M： 元空间使用百分比</span><br><span class="line">CCS： 压缩类空间利用率为百分比</span><br><span class="line">YGC： YGC次数</span><br><span class="line">YGCT： 年轻一代垃圾收集时间</span><br><span class="line">FGC： FGC次数.</span><br><span class="line">FGCT： 完全垃圾收集时间</span><br><span class="line">GCT： 垃圾回收总时间</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
