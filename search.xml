@@ -5288,7 +5288,13 @@
 <h3 id="查看指定服务的运行情况"><a href="#查看指定服务的运行情况" class="headerlink" title="查看指定服务的运行情况"></a>查看指定服务的运行情况</h3><ul>
 <li><code>journalctl -u xxx.service</code></li>
 </ul>
-<h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+<h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="清理缓存"><a href="#清理缓存" class="headerlink" title="清理缓存"></a>清理缓存</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -5734,6 +5740,15 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li>下载指定目录</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="软连接"><a href="#软连接" class="headerlink" title="软连接"></a>软连接</h2><ul>
+<li><p>创建软连接</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ln  -s  [源文件或目录]  [目标文件或目录]</span><br></pre></td></tr></table></figure></li>
+<li><p>查找指定目录的软连接文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -5891,6 +5906,8 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </li>
 </ul>
 <h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
+<h2 id="清理内存"><a href="#清理内存" class="headerlink" title="清理内存"></a>清理内存</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>linux</category>
