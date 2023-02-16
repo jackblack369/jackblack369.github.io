@@ -1048,6 +1048,16 @@
 <blockquote>
 <p>之前查看ignite，12秒回收了71G</p>
 </blockquote>
+<h1 id="Garbage-Collectors"><a href="#Garbage-Collectors" class="headerlink" title="Garbage Collectors"></a>Garbage Collectors</h1><p>The JVM (Java Virtual Machine) has several different garbage collectors, including the <strong>Parallel Scavenge collector</strong> and the <strong>G1 (Garbage-First) collector</strong>. Both collectors have a “young generation” that is responsible for storing newly created objects, but they work in different ways.</p>
+<ul>
+<li>Parallel Scavenge collector</li>
+</ul>
+<p>The Parallel Scavenge collector’s young generation, also known as the “PS young generation”, is divided into two regions called “Eden” and “Survivor”. The Eden region is where newly created objects are initially allocated, while the Survivor regions are used to store objects that have survived one or more garbage collection cycles. The idea is to quickly identify and collect objects that are no longer needed, while promoting long-lived objects to the older generation.</p>
+<ul>
+<li>G1 collector</li>
+</ul>
+<p>The G1 collector also has a young generation, which is referred to as the “G1 young generation”. Unlike the PS young generation, the G1 young generation does not have fixed regions like Eden and Survivor. Instead, the G1 collector divides the heap into equal-sized “regions” that can be used for both young and old objects, depending on their age and usage patterns. The G1 collector also uses a “remembered set” to keep track of references between regions, which allows it to more efficiently identify and collect objects that are no longer needed.</p>
+<p>Overall, both the PS and G1 collectors have their own strengths and weaknesses, and the best choice depends on the specific requirements and characteristics of the application. The G1 collector is generally considered to be more flexible and adaptive to different usage patterns, but the PS collector may be better suited for applications with short-lived objects and high object creation rates.</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -3251,7 +3261,13 @@
   <entry>
     <title>flink sql</title>
     <url>/2022/01/04/flink%20sql/</url>
-    <content><![CDATA[<ul>
+    <content><![CDATA[<h1 id="table-vs-view"><a href="#table-vs-view" class="headerlink" title="table vs view"></a>table vs view</h1><blockquote>
+<p>Temporary tables are always stored in memory and only exist for the duration of the Flink session they are created within. These tables are not visible to other sessions. They are not bound to any catalog or database but can be created in the namespace of one. Temporary tables are not dropped if their corresponding database is removed.</p>
+</blockquote>
+<blockquote>
+<p>Tables can be either virtual (VIEWS) or regular (TABLES). VIEWS can be created from an existing Table object, usually the result of a Table API or SQL query. TABLES describe external data, such as a file, database table, or message queue.</p>
+</blockquote>
+<h1 id="grammer"><a href="#grammer" class="headerlink" title="grammer"></a>grammer</h1><ul>
 <li>NOT ENFORCED</li>
 </ul>
 <blockquote>
@@ -3549,6 +3565,31 @@
 <li>编译问题</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">问题：Failed to parse plugin descriptor for org.apache.hadoop:hadoop-maven-plugins</span><br><span class="line"></span><br><span class="line">解决：cd到hadoop-maven-plugins，执行mvn clean 然后 install 一下，再执行编译通过</span><br></pre></td></tr></table></figure>
+
+<h1 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h1><h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h2><pre><code> 50010  dfs.datanode.address   datanode服务端口，用于数据传输
+50075  dfs.datanode.http.address  http服务的端口
+50475  dfs.datanode.https.address  https服务的端口
+50020  dfs.datanode.ipc.address   ipc服务的端口
+</code></pre>
+<h2 id="NameNode-1"><a href="#NameNode-1" class="headerlink" title="NameNode"></a>NameNode</h2><p>​     50070  dfs.namenode.http-address  http服务的端口 （<strong>访问hadoop的管理页面</strong>）<br>​    50470  dfs.namenode.https-address  https服务的端口<br>​    8020   fs.defaultFS   接收Client连接的RPC端口，用于获取文件系统metadata信息。</p>
+<h2 id="journalnode"><a href="#journalnode" class="headerlink" title="journalnode"></a>journalnode</h2><pre><code> 8485   dfs.journalnode.rpc-address   RPC服务
+ 8480   dfs.journalnode.http-address   HTTP服务
+</code></pre>
+<h2 id="ZKFC"><a href="#ZKFC" class="headerlink" title="ZKFC"></a>ZKFC</h2><pre><code> 8019   dfs.ha.zkfc.port   ZooKeeper FailoverController，用于NN HA
+</code></pre>
+<h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><h2 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h2><pre><code> 8032  yarn.resourcemanager.address   RM的applications manager(ASM)端口
+8030  yarn.resourcemanager.scheduler.address  scheduler组件的IPC端口
+8031  yarn.resourcemanager.resource-tracker.address  IPC
+8033  yarn.resourcemanager.admin.address  IPC
+8088  yarn.resourcemanager.webapp.address   http服务端口（**访问yarn的管理页面**）
+</code></pre>
+<h2 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h2><p>​     8040  yarn.nodemanager.localizer.address  localizer IPC<br>​    8042  yarn.nodemanager.webapp.address   http服务端口（<strong>从节点node管理界面，可查看节点的任务处理信息</strong>）<br>​    8041  yarn.nodemanager.address   NM中container manager的端口</p>
+<h2 id="JobHistory-Server"><a href="#JobHistory-Server" class="headerlink" title="JobHistory Server"></a>JobHistory Server</h2><pre><code> 10020   mapreduce.jobhistory.address   IPC
+19888   mapreduce.jobhistory.webapp.address   http服务端口
+</code></pre>
+<h1 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h1><p>   Master<br>     60000   hbase.master.port  IPC<br>     60010   hbase.master.info.port  http服务端口<br>   RegionServer<br>     60020   hbase.regionserver.port   IPC<br>     60030   hbase.regionserver.info.port   http服务端口<br>   HQuorumPeer<br>     2181  hbase.zookeeper.property.clientPort   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。<br>     2888  hbase.zookeeper.peerport   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。<br>     3888  hbase.zookeeper.leaderport  HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。</p>
+<h1 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h1><p>   Metastore<br>     9083  /etc/default/hive-metastore中export PORT=<port>来更新默认端口<br>   HiveServer<br>     10000   /etc/hive/conf/hive-env.sh中export HIVE_SERVER2_THRIFT_PORT=<port>来更新默认端口   </p>
+<h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1><p>   Server<br>     2181  /etc/zookeeper/conf/zoo.cfg中clientPort=<port>  对客户端提供服务的端口<br>     2888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  follower用来连接到leader，只在leader上监听该端口。<br>     3888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  用于leader选举的。只在electionAlg是1,2或3(默认)时需要。</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -8216,6 +8257,19 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <hr>
 <p>reference：</p>
 <p><a href="https://cloud.tencent.com/developer/article/1618182">实时数仓 | 你想要的数仓分层设计与技术选型 - 云+社区 - 腾讯云</a></p>
+<ul>
+<li>实时数仓是指在数据仓库的基础上，增加了实时数据处理和分析功能，可以在数据生成后立即进行处理和分析，并及时反馈给业务用户。实时数仓的建设需要关注以下几个问题：</li>
+</ul>
+<ol>
+<li>数据源接入：实时数仓需要及时地处理和分析数据，因此数据源的接入必须实时或近实时，需要考虑数据源的多样性和高并发性。</li>
+<li>数据质量：数据的准确性和完整性对于实时数仓的建设尤为重要，需要对数据进行清洗、过滤、校验等操作，保证数据的质量。</li>
+<li>数据集成：实时数仓需要整合多个数据源的数据，因此需要进行数据集成和融合，确保数据的一致性和准确性。</li>
+<li>数据模型设计：数据模型是实时数仓建设的核心，需要设计合理的数据模型，确保数据的可扩展性和灵活性。</li>
+<li>实时计算和分析：实时数仓需要具备实时计算和分析能力，需要使用实时计算引擎和分析工具，对数据进行实时处理和分析。</li>
+<li>数据安全：实时数仓中的数据可能涉及敏感信息，需要采取一定的安全措施，保证数据的安全性和隐私性。</li>
+<li>系统运维：实时数仓需要进行系统运维和监控，包括数据备份和恢复、系统调优、故障处理等方面，确保系统的稳定性和可靠性。</li>
+</ol>
+<p>综上所述，实时数仓的建设需要关注数据源接入、数据质量、数据集成、数据模型设计、实时计算和分析、数据安全以及系统运维等多个方面，需要根据实际需求和场景进行综合考虑和规划。</p>
 ]]></content>
       <categories>
         <category>实时数仓</category>
@@ -8519,5 +8573,10 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
       <tags>
         <tag>learn</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/02/16/Untitled/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>

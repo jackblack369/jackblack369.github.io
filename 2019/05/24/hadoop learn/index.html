@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/24/hadoop%20learn/img/Hadoop-Multi-node-Cluster.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/24/hadoop%20learn/img/hdfsarchitecture.gif">
 <meta property="article:published_time" content="2019-05-24T04:01:30.000Z">
-<meta property="article:modified_time" content="2022-02-19T05:47:13.406Z">
+<meta property="article:modified_time" content="2023-02-16T02:39:14.721Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-19 13:47:13" itemprop="dateModified" datetime="2022-02-19T13:47:13+08:00">2022-02-19</time>
+                <time title="Modified: 2023-02-16 10:39:14" itemprop="dateModified" datetime="2023-02-16T10:39:14+08:00">2023-02-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,6 +264,31 @@
 <li>编译问题</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">问题：Failed to parse plugin descriptor for org.apache.hadoop:hadoop-maven-plugins</span><br><span class="line"></span><br><span class="line">解决：cd到hadoop-maven-plugins，执行mvn clean 然后 install 一下，再执行编译通过</span><br></pre></td></tr></table></figure>
+
+<h1 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h1><h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h2><pre><code> 50010  dfs.datanode.address   datanode服务端口，用于数据传输
+50075  dfs.datanode.http.address  http服务的端口
+50475  dfs.datanode.https.address  https服务的端口
+50020  dfs.datanode.ipc.address   ipc服务的端口
+</code></pre>
+<h2 id="NameNode-1"><a href="#NameNode-1" class="headerlink" title="NameNode"></a>NameNode</h2><p>​     50070  dfs.namenode.http-address  http服务的端口 （<strong>访问hadoop的管理页面</strong>）<br>​    50470  dfs.namenode.https-address  https服务的端口<br>​    8020   fs.defaultFS   接收Client连接的RPC端口，用于获取文件系统metadata信息。</p>
+<h2 id="journalnode"><a href="#journalnode" class="headerlink" title="journalnode"></a>journalnode</h2><pre><code> 8485   dfs.journalnode.rpc-address   RPC服务
+ 8480   dfs.journalnode.http-address   HTTP服务
+</code></pre>
+<h2 id="ZKFC"><a href="#ZKFC" class="headerlink" title="ZKFC"></a>ZKFC</h2><pre><code> 8019   dfs.ha.zkfc.port   ZooKeeper FailoverController，用于NN HA
+</code></pre>
+<h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><h2 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h2><pre><code> 8032  yarn.resourcemanager.address   RM的applications manager(ASM)端口
+8030  yarn.resourcemanager.scheduler.address  scheduler组件的IPC端口
+8031  yarn.resourcemanager.resource-tracker.address  IPC
+8033  yarn.resourcemanager.admin.address  IPC
+8088  yarn.resourcemanager.webapp.address   http服务端口（**访问yarn的管理页面**）
+</code></pre>
+<h2 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h2><p>​     8040  yarn.nodemanager.localizer.address  localizer IPC<br>​    8042  yarn.nodemanager.webapp.address   http服务端口（<strong>从节点node管理界面，可查看节点的任务处理信息</strong>）<br>​    8041  yarn.nodemanager.address   NM中container manager的端口</p>
+<h2 id="JobHistory-Server"><a href="#JobHistory-Server" class="headerlink" title="JobHistory Server"></a>JobHistory Server</h2><pre><code> 10020   mapreduce.jobhistory.address   IPC
+19888   mapreduce.jobhistory.webapp.address   http服务端口
+</code></pre>
+<h1 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h1><p>   Master<br>     60000   hbase.master.port  IPC<br>     60010   hbase.master.info.port  http服务端口<br>   RegionServer<br>     60020   hbase.regionserver.port   IPC<br>     60030   hbase.regionserver.info.port   http服务端口<br>   HQuorumPeer<br>     2181  hbase.zookeeper.property.clientPort   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。<br>     2888  hbase.zookeeper.peerport   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。<br>     3888  hbase.zookeeper.leaderport  HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。</p>
+<h1 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h1><p>   Metastore<br>     9083  /etc/default/hive-metastore中export PORT=<port>来更新默认端口<br>   HiveServer<br>     10000   /etc/hive/conf/hive-env.sh中export HIVE_SERVER2_THRIFT_PORT=<port>来更新默认端口   </p>
+<h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1><p>   Server<br>     2181  /etc/zookeeper/conf/zoo.cfg中clientPort=<port>  对客户端提供服务的端口<br>     2888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  follower用来连接到leader，只在leader上监听该端口。<br>     3888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  用于leader选举的。只在electionAlg是1,2或3(默认)时需要。</p>
 
     </div>
 
@@ -352,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NameNode"><span class="nav-number">1.</span> <span class="nav-text">NameNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataNodes"><span class="nav-number">2.</span> <span class="nav-text">DataNodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File"><span class="nav-number">3.</span> <span class="nav-text">File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Persistence-of-File-System-Metadata"><span class="nav-number">4.</span> <span class="nav-text">The Persistence of File System Metadata</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">源码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NameNode"><span class="nav-number">1.</span> <span class="nav-text">NameNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataNodes"><span class="nav-number">2.</span> <span class="nav-text">DataNodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File"><span class="nav-number">3.</span> <span class="nav-text">File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Persistence-of-File-System-Metadata"><span class="nav-number">4.</span> <span class="nav-text">The Persistence of File System Metadata</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">源码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3"><span class="nav-number"></span> <span class="nav-text">端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS"><span class="nav-number"></span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DataNode"><span class="nav-number"></span> <span class="nav-text">DataNode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NameNode-1"><span class="nav-number"></span> <span class="nav-text">NameNode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#journalnode"><span class="nav-number"></span> <span class="nav-text">journalnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZKFC"><span class="nav-number"></span> <span class="nav-text">ZKFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YARN"><span class="nav-number"></span> <span class="nav-text">YARN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResourceManager"><span class="nav-number"></span> <span class="nav-text">ResourceManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeManager"><span class="nav-number"></span> <span class="nav-text">NodeManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JobHistory-Server"><span class="nav-number"></span> <span class="nav-text">JobHistory Server</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HBase"><span class="nav-number"></span> <span class="nav-text">HBase</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive"><span class="nav-number"></span> <span class="nav-text">Hive</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper"><span class="nav-number"></span> <span class="nav-text">ZooKeeper</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -366,7 +391,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
