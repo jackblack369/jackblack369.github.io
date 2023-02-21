@@ -465,7 +465,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-19 12:25:17" itemprop="dateModified" datetime="2023-02-19T12:25:17+08:00">2023-02-19</time>
+                <time title="Modified: 2023-02-19 12:28:05" itemprop="dateModified" datetime="2023-02-19T12:28:05+08:00">2023-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -488,9 +488,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="运行时框架"><a href="#运行时框架" class="headerlink" title="运行时框架"></a>运行时框架</h3><p><img src="/images/flink/flink_runtime_architecture.png"></p>
-<h3 id="作业调度框架"><a href="#作业调度框架" class="headerlink" title="作业调度框架"></a>作业调度框架</h3><p><img src="/images/flink/flink_schedule_architecture.png"></p>
-<h3 id="table模块架构"><a href="#table模块架构" class="headerlink" title="table模块架构"></a>table模块架构</h3><p><img src="/images/flink/flink_table_architecture.png"></p>
+          <h1 id="运行时框架"><a href="#运行时框架" class="headerlink" title="运行时框架"></a>运行时框架</h1><p><img src="/images/flink/flink_runtime_architecture.png"></p>
+<h1 id="作业调度框架"><a href="#作业调度框架" class="headerlink" title="作业调度框架"></a>作业调度框架</h1><p><img src="/images/flink/flink_schedule_architecture.png"></p>
+<h1 id="table模块架构"><a href="#table模块架构" class="headerlink" title="table模块架构"></a>table模块架构</h1><p><img src="/images/flink/flink_table_architecture.png"></p>
+<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><h2 id="TaskExecutor"><a href="#TaskExecutor" class="headerlink" title="TaskExecutor"></a>TaskExecutor</h2><ol>
+<li><code>taskmanager.numberOfTaskSlots</code>：指定每个TaskExecutor的任务槽数量。默认情况下，该属性设置为1，表示每个TaskExecutor只能执行一个任务。如果需要在同一节点上并行执行多个任务，则需要将该属性设置为大于1的值。</li>
+<li><code>taskmanager.memory.process.size</code>：指定TaskExecutor进程的内存大小。默认情况下，该属性设置为1GB。可以根据节点的资源情况和作业的内存需求进行适当调整。</li>
+<li><code>taskmanager.cpu.cores</code>：指定TaskExecutor可以使用的CPU核心数量。默认情况下，该属性设置为所有可用的CPU核心数。可以根据节点的CPU资源情况和作业的CPU需求进行适当调整。</li>
+<li><code>taskmanager.tmp.dirs</code>：指定TaskExecutor使用的临时文件目录。默认情况下，该属性设置为系统的临时目录。可以根据节点的磁盘空间情况和作业的磁盘需求进行适当调整。</li>
+</ol>
 
       
     </div>
