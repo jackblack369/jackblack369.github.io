@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Flink提供了两种在yarn上运行的模式，分别为Session-Cluster和Per-Job-Cluster模式，本文分析两种模式及启动流程。 interaction  two way to submit job on yarn first way：yarn session (Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提">
+  <meta name="description" content="Flink on YARN模式在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flink on yarn">
 <meta property="og:url" content="http://yoursite.com/2022/01/04/flink%20on%20yarn/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="Flink提供了两种在yarn上运行的模式，分别为Session-Cluster和Per-Job-Cluster模式，本文分析两种模式及启动流程。 interaction  two way to submit job on yarn first way：yarn session (Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提">
+<meta property="og:description" content="Flink on YARN模式在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/flinkOnYarn/flink_on_yarn.png">
 <meta property="og:image" content="http://yoursite.com/images/flinkOnYarn/submit_job.png">
 <meta property="article:published_time" content="2022-01-03T16:27:40.000Z">
-<meta property="article:modified_time" content="2022-04-20T02:58:53.733Z">
+<meta property="article:modified_time" content="2023-02-27T08:04:52.394Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="point">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-20 10:58:53" itemprop="dateModified" datetime="2022-04-20T10:58:53+08:00">2022-04-20</time>
+                <time title="Modified: 2023-02-27 16:04:52" itemprop="dateModified" datetime="2023-02-27T16:04:52+08:00">2023-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,7 +236,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>Flink提供了两种在yarn上运行的模式，分别为Session-Cluster和Per-Job-Cluster模式，本文分析两种模式及启动流程。</strong></p>
+        <h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p>
+<h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p>
+<h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p>
+<h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p>
 <h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
 <h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
 <h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
@@ -375,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#interaction"><span class="nav-number">1.</span> <span class="nav-text">interaction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#two-way-to-submit-job-on-yarn"><span class="nav-number">2.</span> <span class="nav-text">two way to submit job on yarn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#first-way%EF%BC%9Ayarn-session"><span class="nav-number">2.1.</span> <span class="nav-text">first way：yarn session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mode-one-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text">mode one: 客户端模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mode-two-%E5%88%86%E7%A6%BB%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.2.</span> <span class="nav-text">mode two: 分离式模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#second-way-flink-run"><span class="nav-number">2.2.</span> <span class="nav-text">second way: flink run</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-on-YARN%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Flink on YARN模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Session-Mode"><span class="nav-number">1.1.</span> <span class="nav-text">Session Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Per-Job-Mode"><span class="nav-number">1.2.</span> <span class="nav-text">Per-Job Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Mode"><span class="nav-number">1.3.</span> <span class="nav-text">Application Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interaction"><span class="nav-number">1.4.</span> <span class="nav-text">interaction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#two-way-to-submit-job-on-yarn"><span class="nav-number">1.5.</span> <span class="nav-text">two way to submit job on yarn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#first-way%EF%BC%9Ayarn-session"><span class="nav-number">1.5.1.</span> <span class="nav-text">first way：yarn session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mode-one-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">mode one: 客户端模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mode-two-%E5%88%86%E7%A6%BB%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">mode two: 分离式模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#second-way-flink-run"><span class="nav-number">1.5.2.</span> <span class="nav-text">second way: flink run</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
