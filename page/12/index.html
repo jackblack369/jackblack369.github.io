@@ -934,7 +934,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-28 14:46:34" itemprop="dateModified" datetime="2023-01-28T14:46:34+08:00">2023-01-28</time>
+                <time title="Modified: 2023-03-01 00:50:47" itemprop="dateModified" datetime="2023-03-01T00:50:47+08:00">2023-03-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1035,6 +1035,24 @@
 
 <h4 id="列出文件的所有修改记录"><a href="#列出文件的所有修改记录" class="headerlink" title="列出文件的所有修改记录"></a>列出文件的所有修改记录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -p filename</span><br></pre></td></tr></table></figure>
 
+<h1 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h1><blockquote>
+<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
+</blockquote>
+<ol>
+<li><p>查看当前Git项目的远程地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
+</li>
+<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
+<li><p>然后使用以下命令进行Git push操作</p>
+</li>
+</ol>
+<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
 
       
     </div>

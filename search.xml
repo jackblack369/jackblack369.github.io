@@ -3508,6 +3508,24 @@
 
 <h4 id="列出文件的所有修改记录"><a href="#列出文件的所有修改记录" class="headerlink" title="列出文件的所有修改记录"></a>列出文件的所有修改记录</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log -p filename</span><br></pre></td></tr></table></figure>
 
+<h1 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h1><blockquote>
+<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
+</blockquote>
+<ol>
+<li><p>查看当前Git项目的远程地址</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
+</li>
+<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
+<li><p>然后使用以下命令进行Git push操作</p>
+</li>
+</ol>
+<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
 ]]></content>
       <categories>
         <category>git</category>
@@ -5292,7 +5310,7 @@
 </li>
 <li><p>查看目录下文件大小        <code>du -sh</code></p>
 </li>
-<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -lh --max-depth=1 </code></p>
+<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -h --max-depth=1 </code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看当前目录下user目录的大小，并不想看其他目录以及其子目录：</span><br><span class="line">du -sh user</span><br><span class="line">-s表示总结的意思，即只列出一个总结的值</span><br><span class="line">du -h --max-depth=0 user</span><br><span class="line">--max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。</span><br></pre></td></tr></table></figure></li>
 <li><p>总结du常用命令</p>
 <p><strong>du -h –max-depth=1 |grep ‘G’ |sort   #查看上G目录并排序</strong></p>
