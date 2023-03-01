@@ -934,7 +934,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-01 00:50:47" itemprop="dateModified" datetime="2023-03-01T00:50:47+08:00">2023-03-01</time>
+                <time title="Modified: 2023-03-01 09:45:51" itemprop="dateModified" datetime="2023-03-01T09:45:51+08:00">2023-03-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1053,6 +1053,36 @@
 </li>
 </ol>
 <p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
+<h1 id="stash命令"><a href="#stash命令" class="headerlink" title="stash命令"></a>stash命令</h1><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
+<p>以下是<code>stash</code>命令的使用方式：</p>
+<ol>
+<li><p>暂存当前修改：(这个命令将当前的修改暂存起来，让你的工作目录变成干净的状态。)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure></li>
+<li><p>恢复暂存的修改：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply</span><br></pre></td></tr></table></figure>
+
+<p>这个命令将之前暂存的修改应用到当前分支上。如果你有多个stash，可以使用<code>git stash apply stash@&#123;n&#125;</code>来指定恢复某个特定的stash。</p>
+</li>
+<li><p>删除stash：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash drop</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会删除最近的一个stash。</p>
+</li>
+<li><p>列出所有stash：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure></li>
+<li><p>应用并删除stash：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+
+<p>这个命令相当于<code>git stash apply</code>和<code>git stash drop</code>的组合，它会将最近的一个stash应用到当前分支，并将其删除。</p>
+</li>
+<li><p>暂存特定的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash push path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>这个命令可以将指定的文件暂存起来，而不是暂存整个工作目录。</p>
+</li>
+<li><p>给stash添加描述：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save <span class="string">&quot;stash message&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>

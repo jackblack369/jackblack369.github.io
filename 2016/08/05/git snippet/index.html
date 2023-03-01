@@ -28,7 +28,7 @@
 <meta property="og:description" content="Git修改.gitignore不生效 在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件 但有时候把某些目录或者文件加入忽略规则，发现并未生效  未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的  解决方案：先把本地缓存删除（改变成未track状">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2016-08-05T14:00:30.000Z">
-<meta property="article:modified_time" content="2023-02-28T16:50:47.999Z">
+<meta property="article:modified_time" content="2023-03-01T01:45:51.140Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="skill">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-01 00:50:47" itemprop="dateModified" datetime="2023-03-01T00:50:47+08:00">2023-03-01</time>
+                <time title="Modified: 2023-03-01 09:45:51" itemprop="dateModified" datetime="2023-03-01T09:45:51+08:00">2023-03-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -329,6 +329,36 @@
 </li>
 </ol>
 <p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
+<h1 id="stash命令"><a href="#stash命令" class="headerlink" title="stash命令"></a>stash命令</h1><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
+<p>以下是<code>stash</code>命令的使用方式：</p>
+<ol>
+<li><p>暂存当前修改：(这个命令将当前的修改暂存起来，让你的工作目录变成干净的状态。)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure></li>
+<li><p>恢复暂存的修改：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply</span><br></pre></td></tr></table></figure>
+
+<p>这个命令将之前暂存的修改应用到当前分支上。如果你有多个stash，可以使用<code>git stash apply stash@&#123;n&#125;</code>来指定恢复某个特定的stash。</p>
+</li>
+<li><p>删除stash：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash drop</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会删除最近的一个stash。</p>
+</li>
+<li><p>列出所有stash：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure></li>
+<li><p>应用并删除stash：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+
+<p>这个命令相当于<code>git stash apply</code>和<code>git stash drop</code>的组合，它会将最近的一个stash应用到当前分支，并将其删除。</p>
+</li>
+<li><p>暂存特定的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash push path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>这个命令可以将指定的文件暂存起来，而不是暂存整个工作目录。</p>
+</li>
+<li><p>给stash添加描述：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save <span class="string">&quot;stash message&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
 
     </div>
 
@@ -417,7 +447,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git%E4%BF%AE%E6%94%B9-gitignore%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">Git修改.gitignore不生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4"><span class="nav-number">2.</span> <span class="nav-text">文件提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-fork%E5%90%8E%E7%9A%84%E5%88%86%E6%94%AF%EF%BC%8C%E6%9B%B4%E6%96%B0%E6%9C%80%E6%96%B0%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">Git fork后的分支，更新最新的源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">比较文件，在不同版本的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E6%BB%9A%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">5.</span> <span class="nav-text">回滚远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">6.</span> <span class="nav-text">拉取远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF"><span class="nav-number">7.</span> <span class="nav-text">新建分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%96%B0%E5%88%86%E6%94%AF%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">推送新分支到远程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="nav-number">9.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="nav-number">10.</span> <span class="nav-text">重命名分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5"><span class="nav-number">11.</span> <span class="nav-text">合并策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E7%A6%BB%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%88%B0%E8%BF%9C%E7%A8%8Bgithub"><span class="nav-number">12.</span> <span class="nav-text">推送本地离线项目到远程github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E7%9A%84%E5%85%B3%E8%81%94"><span class="nav-number">13.</span> <span class="nav-text">查看本地分支与远程分支的关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%AF%8F%E4%B8%80%E8%A1%8C%E6%98%AF%E5%93%AA%E6%AC%A1%E6%8F%90%E4%BA%A4%E6%9C%80%E5%90%8E%E4%BF%AE%E6%94%B9%E7%9A%84"><span class="nav-number">14.</span> <span class="nav-text">查看每一行是哪次提交最后修改的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">15.</span> <span class="nav-text">列出文件的所有修改记录</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9https%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E6%8E%A8%E9%80%81"><span class="nav-number"></span> <span class="nav-text">更改https协议进行推送</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git%E4%BF%AE%E6%94%B9-gitignore%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">Git修改.gitignore不生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%90%E4%BA%A4"><span class="nav-number">2.</span> <span class="nav-text">文件提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-fork%E5%90%8E%E7%9A%84%E5%88%86%E6%94%AF%EF%BC%8C%E6%9B%B4%E6%96%B0%E6%9C%80%E6%96%B0%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">Git fork后的分支，更新最新的源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">比较文件，在不同版本的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E6%BB%9A%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">5.</span> <span class="nav-text">回滚远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">6.</span> <span class="nav-text">拉取远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF"><span class="nav-number">7.</span> <span class="nav-text">新建分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%96%B0%E5%88%86%E6%94%AF%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">推送新分支到远程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="nav-number">9.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="nav-number">10.</span> <span class="nav-text">重命名分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5"><span class="nav-number">11.</span> <span class="nav-text">合并策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E7%A6%BB%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%88%B0%E8%BF%9C%E7%A8%8Bgithub"><span class="nav-number">12.</span> <span class="nav-text">推送本地离线项目到远程github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E7%9A%84%E5%85%B3%E8%81%94"><span class="nav-number">13.</span> <span class="nav-text">查看本地分支与远程分支的关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%AF%8F%E4%B8%80%E8%A1%8C%E6%98%AF%E5%93%AA%E6%AC%A1%E6%8F%90%E4%BA%A4%E6%9C%80%E5%90%8E%E4%BF%AE%E6%94%B9%E7%9A%84"><span class="nav-number">14.</span> <span class="nav-text">查看每一行是哪次提交最后修改的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">15.</span> <span class="nav-text">列出文件的所有修改记录</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9https%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E6%8E%A8%E9%80%81"><span class="nav-number"></span> <span class="nav-text">更改https协议进行推送</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stash%E5%91%BD%E4%BB%A4"><span class="nav-number"></span> <span class="nav-text">stash命令</span></a></div>
       </div>
       <!--/noindex-->
 
