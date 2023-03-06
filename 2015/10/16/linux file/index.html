@@ -28,7 +28,7 @@
 <meta property="og:description" content="delete1. To delete all files in a directory except filename, type the command below: 1rm -v !(&quot;filename&quot;)  2. To delete all files with the exception of filename1 and filename2: 1rm -v !(&amp;quo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2015-10-16T04:01:30.000Z">
-<meta property="article:modified_time" content="2023-01-13T03:44:42.126Z">
+<meta property="article:modified_time" content="2023-03-06T08:26:56.084Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-13 11:44:42" itemprop="dateModified" datetime="2023-01-13T11:44:42+08:00">2023-01-13</time>
+                <time title="Modified: 2023-03-06 16:26:56" itemprop="dateModified" datetime="2023-03-06T16:26:56+08:00">2023-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,17 +272,27 @@
 <h2 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h2><ul>
 <li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找具体文件    </p>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
+<li>查找具体文件    </li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
 
-<p>查找指定用户的文件</p>
+<ul>
+<li>查找指定用户的文件</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -user 用户名</span><br></pre></td></tr></table></figure>
 
-<p>查找指定用户组的文件</p>
+<ul>
+<li>查找指定用户组的文件</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -group 用户组</span><br></pre></td></tr></table></figure>
 
-
-
+<ul>
+<li><p>匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 <code>rm</code> 命令进行删除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! -name &quot;*.txt&quot; -delete</span><br></pre></td></tr></table></figure></li>
+<li><p>匹配多个</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! \( -name &quot;log4j*&quot; -o -name &quot;flink*&quot; \)</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
 <h2 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
 
