@@ -174,6 +174,134 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/vmware/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/20/vmware/" class="post-title-link" itemprop="url">vmware snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-20 16:15:30" itemprop="dateCreated datePublished" datetime="2019-04-20T16:15:30+08:00">2019-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-07-24 17:34:53" itemprop="dateModified" datetime="2019-07-24T17:34:53+08:00">2019-07-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vmware/" itemprop="url" rel="index"><span itemprop="name">vmware</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>新增用户</p>
+<p><code>adduser username</code></p>
+<p><code>passwd username</code></p>
+<p><code>usermod -aG wheel username</code></p>
+<p><code>su - username</code></p>
+</li>
+</ul>
+<h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><ul>
+<li><p>安装完毕之后，需要设置IP分配</p>
+<ol>
+<li><p><code>cd /etc/sysconfig/network-scripts/</code></p>
+</li>
+<li><p>再进入编辑<code>ifcfg-e**</code> 文件 执行命令<br><code>vi ifcfg-e**</code></p>
+</li>
+<li><p>修改ONBOOT项</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其中部分内容如下： </span><br><span class="line">DEVICE=eth0 #设备名称，可根据ifcofnig命令查看到。 </span><br><span class="line">BOOTPROTO=dhcp #连接方式，dhcp会自动分配地址，此时不需要在下面设置ip和网关 </span><br><span class="line">ONBOOT=yes #yes表示启动就执行该配置，需要改为yes</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>修改完后需要重启网络设置，执行</p>
+<p><code>service network restart</code></p>
+</li>
+</ol>
+</li>
+<li><p>设置静态IP</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/clevercode/article/details/50574695">虚拟机设置</a></p>
+</li>
+<li><p>宿主机器设置</p>
+<p>需要设置vmnet8的ip为同一网段的配置</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h3><ul>
+<li><p>安装jdk</p>
+<p><code>sudo yum install java-1.8.0-openjdk-devel</code></p>
+<ul>
+<li>find path</li>
+</ul>
+<p><code>update-alternatives --config java</code></p>
+<ul>
+<li>config .bashrc</li>
+</ul>
+<p><code>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64/jre</code></p>
+</li>
+</ul>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<li><p>授权所有机器可以从外界访问mysql</p>
+<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;will&#39;;</code></p>
+<p><code>FLUSH PRIVILEGES;</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/vscode%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1997,137 +2125,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/words%20fragment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/28/words%20fragment/" class="post-title-link" itemprop="url">words fragment</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-08-28 17:01:30" itemprop="dateCreated datePublished" datetime="2018-08-28T17:01:30+08:00">2018-08-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-12 11:13:30" itemprop="dateModified" datetime="2021-05-12T11:13:30+08:00">2021-05-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/words/" itemprop="url" rel="index"><span itemprop="name">words</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="英文碎片"><a href="#英文碎片" class="headerlink" title="英文碎片"></a>英文碎片</h3><ul>
-<li>Life is measured by thought and action, not by time.</li>
-<li>Books and friends should be few but good.</li>
-<li>Don’t give your past the power to define your future.</li>
-<li>People will forget what you said, people will forget what you did, but people will never forget how you made them feel.</li>
-<li>Success isn’t about being the best. It’s about always getting better.</li>
-<li>Be yourself. Everyone else is already taken.</li>
-<li>It’s kind of fun to do the impossible.</li>
-<li>“Simplicity is the ultimate sophistication.”Leonardo da Vinci</li>
-<li>Build a dream and the dream will build you.</li>
-<li>Always make a total effort, even when the odds are against you.</li>
-<li>You can, you should, and if you’re brave enough to start, you will.</li>
-<li>Never give up, for that is just the place and time that the tide will turn.</li>
-<li>Awareness is the greatest agent for change.</li>
-<li>Nothing can dim the light which shines from within.</li>
-<li>Our dreams can come true if we have the courage to pursue them.</li>
-<li>Patience and perseverance have a magical effect before which difficulties disappear and obstacles vanish.</li>
-<li>What you do makes a difference, and you have to decide what kind of difference you want to make.</li>
-<li>The thing that is really hard, and really amazing, is giving up on being perfect and beginning the work of becoming yourself.</li>
-<li>You are what you do, not what you say you’ll do.</li>
-<li>This is the real secret to life—to be completely engaged with what you are doing in the here and now. And instead of calling it work, realize it is play.</li>
-<li>I am strong because I’ve been weak. I am fearless because I’ve been afraid. I am wise because I’ve been foolish.</li>
-<li>Every moment you live in the past is a moment you waste in the present.</li>
-<li>Some changes look negative on the surface, but you will soon realize that space is being created in your life for something new to emerge.</li>
-<li>The world breaks everyone and afterward many are strong at the broken places.</li>
-<li>Don’t bury your failures. Let them inspire you.</li>
-<li>Whether you think you can or you think you can’t, you are right.</li>
-<li>“An investment in knowledge pays the best interest.”Benjamin Franklin</li>
-<li>Be brave. Take risks. Nothing can substitute experience.</li>
-<li>Learn to walk before run</li>
-<li>This is love, deep in the trenches, worthy of respect, admiration and gratitude.</li>
-<li>You will learn more in three days of acting than in six months of researching.</li>
-</ul>
-<h3 id="中文碎片"><a href="#中文碎片" class="headerlink" title="中文碎片"></a>中文碎片</h3><ul>
-<li>虽千万人，吾往矣。</li>
-<li>在一个跪下去才能活着的时代，请给站着的人一点掌声！</li>
-<li>一个人一旦接触到真相，便无法再回头去相信谎言！</li>
-<li>码农不问出处，大佬不看岁数</li>
-<li>英雄不问出处，流氓不看岁数</li>
-<li>长多大屁股，穿多大裤衩</li>
-<li>没有最好的开发语言，只有最好的开发者</li>
-<li>能干的人，不在情绪上计较，只在做事上认真；无能的人！不在做事上认真，只在情绪上计较。</li>
-<li>把每一次练习都当成一次考试</li>
-</ul>
-<h3 id="名人碎片"><a href="#名人碎片" class="headerlink" title="名人碎片"></a>名人碎片</h3><ul>
-<li>极深的暴力当中隐藏着极致的温柔    (北野武)</li>
-</ul>
-<h3 id="其它碎片"><a href="#其它碎片" class="headerlink" title="其它碎片"></a>其它碎片</h3><ul>
-<li>arithmetic<ul>
-<li>addition, subtraction, multiplication and division calculations</li>
-</ul>
-</li>
-<li>Promise(承诺)、Earnest(诚挚)、Respect(尊重)、Forgiveness(宽容)、Enioy(享受)、Cherish(珍惜)、Trust(信任)</li>
-<li>In any case, measure, don’t guess! Only a measurement will tell you if the parallelism is worth it or not.(from stack overflow’s someone)</li>
-</ul>
-<h3 id="技术碎片"><a href="#技术碎片" class="headerlink" title="技术碎片"></a>技术碎片</h3><ul>
-<li>compare two things at different points, this not only makes them easy to compare but also makes it easy to remember differences.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2197,13 +2194,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-count">76</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

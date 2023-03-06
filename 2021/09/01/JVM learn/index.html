@@ -28,7 +28,7 @@
 <meta property="og:description" content="堆内与堆外堆 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。  堆的特点：   由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。 对象存储到GC中无需进行序列化、反序列化的。    堆外 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-01T00:35:47.000Z">
-<meta property="article:modified_time" content="2023-02-16T16:15:58.722Z">
+<meta property="article:modified_time" content="2023-03-06T03:23:48.430Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-17 00:15:58" itemprop="dateModified" datetime="2023-02-17T00:15:58+08:00">2023-02-17</time>
+                <time title="Modified: 2023-03-06 11:23:48" itemprop="dateModified" datetime="2023-03-06T11:23:48+08:00">2023-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -683,20 +683,6 @@
 <td>设置对象在新生代中最大的存活次数,最大值15,并行回收机制默认为15,CMS默认为4</td>
 </tr>
 </tbody></table>
-<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><blockquote>
-<p>查看服务设置的jvm</p>
-<p>jps -v</p>
-<p>查看服务jvm的默认参数</p>
-<p>jinfo -flags PID</p>
-</blockquote>
-<ul>
-<li>参考kafka服务的运行参数<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-server</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:MaxGCPauseMillis=20</span><br><span class="line">-XX:InitiatingHeapOccupancyPercent=35</span><br><span class="line">-XX:+ExplicitGCInvokesConcurrent</span><br></pre></td></tr></table></figure>
-
-<strong>-XX:MaxGCPauseMillis=200</strong>为所需的最长暂停时间设置目标值。默认值是 200 毫秒。这个数值是一个软目标，也就是说JVM会尽一切能力满足这个暂停要求，但是不能保证每次暂停一定在这个要求之内。根据测试发现，如果我们将这个值设定成50毫秒或者更低的话，JVM为了达到这个要求会将年轻代内存空间设定的非常小，从而导致youngGC的频率大大增高。所以我们并不设定这个参数。<strong>-XX:InitiatingHeapOccupancyPercent=45</strong>设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。就是说当使用内存占到堆总大小的45%的时候，G1将开始<strong>并发标记阶段。</strong>为混合GC做准备，这个数值在测试的时候我想让混合GC晚一些处理所以设定成了70%，经过观察发现如果这个数值设定过大会导致JVM无法启动并发标记，直接进行FullGC处理。G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%</li>
-</ul>
-<blockquote>
-<p>之前查看ignite，12秒回收了71G</p>
-</blockquote>
 <h1 id="Garbage-Collectors"><a href="#Garbage-Collectors" class="headerlink" title="Garbage Collectors"></a>Garbage Collectors</h1><p>The JVM (Java Virtual Machine) has several different garbage collectors, including the <strong>Parallel Scavenge collector</strong> and the <strong>G1 (Garbage-First) collector</strong>. Both collectors have a “young generation” that is responsible for storing newly created objects, but they work in different ways.</p>
 <ul>
 <li>Parallel Scavenge collector</li>
@@ -795,7 +781,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E4%B8%8E%E5%A0%86%E5%A4%96"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">1.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%A4%96"><span class="nav-number">1.2.</span> <span class="nav-text">堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E5%B8%B8%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8System-GC"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆外内存常配合使用System GC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-gc%E5%B8%B8%E8%AF%86"><span class="nav-number">1.3.</span> <span class="nav-text">System.gc常识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E7%9A%84%E8%AE%BE%E7%BD%AE%E5%92%8C%E5%90%AB%E4%B9%89"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">0.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Garbage-Collectors"><span class="nav-number"></span> <span class="nav-text">Garbage Collectors</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E4%B8%8E%E5%A0%86%E5%A4%96"><span class="nav-number">1.</span> <span class="nav-text">堆内与堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">1.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%A4%96"><span class="nav-number">1.2.</span> <span class="nav-text">堆外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E5%B8%B8%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8System-GC"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆外内存常配合使用System GC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-gc%E5%B8%B8%E8%AF%86"><span class="nav-number">1.3.</span> <span class="nav-text">System.gc常识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E7%9A%84%E8%AE%BE%E7%BD%AE%E5%92%8C%E5%90%AB%E4%B9%89"><span class="nav-number"></span> <span class="nav-text">jvm常用参数的设置和含义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Garbage-Collectors"><span class="nav-number"></span> <span class="nav-text">Garbage Collectors</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -809,13 +795,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-count">76</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
