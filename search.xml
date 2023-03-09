@@ -8306,7 +8306,12 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li>第三个是<strong>维度数据</strong>存储，实时数仓会将数据放在 KV 存储上面。</li>
 <li>第四个是<strong>数据加工</strong>过程，离线数仓一般以 Hive、Spark 等批处理为主，而实时数仓则是基于实时计算引擎如 Storm、Flink 等，以流处理为主。</li>
 </ul>
-<p>实时数仓主要有两个要点。首先是分层设计上，一般也是参考离线数仓的设计，通常会分为ODS操作数据层、DWD明细层、DWS汇总层以及ADS应用层，可能还会分出一层DIM维度数据层。另外分层设计上也有不同的思路，比如可以将DWS和ADS归为DM数据集市层</p>
+<p>实时数仓主要有两个要点。首先是分层设计上，一般也是参考离线数仓的设计，通常会分为</p>
+<p>ODS操作数据层</p>
+<p>DWD明细层</p>
+<p>DWS汇总层（轻度汇总/高度汇总）</p>
+<p>ADS应用层</p>
+<p>可能还会分出一层DIM维度数据层。另外分层设计上也有不同的思路，比如可以将DWS和ADS归为DM数据集市层</p>
 <hr>
 <p>reference：</p>
 <p><a href="https://cloud.tencent.com/developer/article/1618182">实时数仓 | 你想要的数仓分层设计与技术选型 - 云+社区 - 腾讯云</a></p>
