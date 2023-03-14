@@ -3620,19 +3620,27 @@
 </code></pre>
 <h2 id="ZKFC"><a href="#ZKFC" class="headerlink" title="ZKFC"></a>ZKFC</h2><pre><code> 8019   dfs.ha.zkfc.port   ZooKeeper FailoverController，用于NN HA
 </code></pre>
-<h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><h2 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h2><pre><code> 8032  yarn.resourcemanager.address   RM的applications manager(ASM)端口
+<h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><h2 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h2><pre><code>8032  yarn.resourcemanager.address   RM的applications manager(ASM)端口
 8030  yarn.resourcemanager.scheduler.address  scheduler组件的IPC端口
 8031  yarn.resourcemanager.resource-tracker.address  IPC
 8033  yarn.resourcemanager.admin.address  IPC
 8088  yarn.resourcemanager.webapp.address   http服务端口（**访问yarn的管理页面**）
 </code></pre>
-<h2 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h2><p>​     8040  yarn.nodemanager.localizer.address  localizer IPC<br>​    8042  yarn.nodemanager.webapp.address   http服务端口（<strong>从节点node管理界面，可查看节点的任务处理信息</strong>）<br>​    8041  yarn.nodemanager.address   NM中container manager的端口</p>
-<h2 id="JobHistory-Server"><a href="#JobHistory-Server" class="headerlink" title="JobHistory Server"></a>JobHistory Server</h2><pre><code> 10020   mapreduce.jobhistory.address   IPC
+<h2 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h2> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">8040  yarn.nodemanager.localizer.address  localizer IPC</span><br><span class="line">8042  yarn.nodemanager.webapp.address   http服务端口（**从节点node管理界面，可查看节点的任务处理信息**）</span><br><span class="line">8041  yarn.nodemanager.address   NM中container manager的端口</span><br></pre></td></tr></table></figure>
+
+<h2 id="JobHistory-Server"><a href="#JobHistory-Server" class="headerlink" title="JobHistory Server"></a>JobHistory Server</h2><pre><code>10020   mapreduce.jobhistory.address   IPC
 19888   mapreduce.jobhistory.webapp.address   http服务端口
 </code></pre>
-<h1 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h1><p>   Master<br>     60000   hbase.master.port  IPC<br>     60010   hbase.master.info.port  http服务端口<br>   RegionServer<br>     60020   hbase.regionserver.port   IPC<br>     60030   hbase.regionserver.info.port   http服务端口<br>   HQuorumPeer<br>     2181  hbase.zookeeper.property.clientPort   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。<br>     2888  hbase.zookeeper.peerport   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。<br>     3888  hbase.zookeeper.leaderport  HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。</p>
-<h1 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h1><p>   Metastore<br>     9083  /etc/default/hive-metastore中export PORT=<port>来更新默认端口<br>   HiveServer<br>     10000   /etc/hive/conf/hive-env.sh中export HIVE_SERVER2_THRIFT_PORT=<port>来更新默认端口   </p>
-<h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1><p>   Server<br>     2181  /etc/zookeeper/conf/zoo.cfg中clientPort=<port>  对客户端提供服务的端口<br>     2888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  follower用来连接到leader，只在leader上监听该端口。<br>     3888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  用于leader选举的。只在electionAlg是1,2或3(默认)时需要。</p>
+<h1 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h1>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Master</span><br><span class="line">    60000   hbase.master.port  IPC</span><br><span class="line">    60010   hbase.master.info.port  http服务端口</span><br><span class="line">RegionServer</span><br><span class="line">    60020   hbase.regionserver.port   IPC</span><br><span class="line">    60030   hbase.regionserver.info.port   http服务端口</span><br><span class="line">HQuorumPeer</span><br><span class="line">    2181  hbase.zookeeper.property.clientPort   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。</span><br><span class="line">    2888  hbase.zookeeper.peerport   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。</span><br><span class="line">    3888  hbase.zookeeper.leaderport  HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Metastore</span><br><span class="line">     9083  /etc/default/hive-metastore中export PORT=&lt;port&gt;来更新默认端口   </span><br><span class="line">HiveServer</span><br><span class="line">     10000   /etc/hive/conf/hive-env.sh中export HIVE_SERVER2_THRIFT_PORT=&lt;port&gt;来更新默认端口   </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Server</span><br><span class="line">     2181  /etc/zookeeper/conf/zoo.cfg中clientPort=&lt;port&gt;  对客户端提供服务的端口</span><br><span class="line">     2888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  follower用来连接到leader，只在leader上监听该端口。</span><br><span class="line">     3888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  用于leader选举的。只在electionAlg是1,2或3(默认)时需要。</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>java</category>
