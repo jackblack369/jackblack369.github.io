@@ -7676,21 +7676,29 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <p>如果是想推出当前的光盘，则可以执行:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo eject /cdrom</span><br></pre></td></tr></table></figure>
 
-<h3 id="postgre"><a href="#postgre" class="headerlink" title="postgre"></a>postgre</h3><p>在本机安装，非docker，user: postgres     pw:postgres </p>
+<h2 id="postgre"><a href="#postgre" class="headerlink" title="postgre"></a>postgre</h2><p>在本机安装，非docker，user: postgres     pw:postgres </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
 
-
-
-<h4 id="更改-Ubuntu-18-04-登陆背景"><a href="#更改-Ubuntu-18-04-登陆背景" class="headerlink" title="更改 Ubuntu 18.04 登陆背景"></a>更改 Ubuntu 18.04 登陆背景</h4><ol>
+<h2 id="更改-Ubuntu-18-04-登陆背景"><a href="#更改-Ubuntu-18-04-登陆背景" class="headerlink" title="更改 Ubuntu 18.04 登陆背景"></a>更改 Ubuntu 18.04 登陆背景</h2><ol>
 <li><p><code>sudo vi /etc/alternatives/gdm3.css</code></p>
 </li>
 <li><p>修改 CSS 文件内容</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#lockDialogGroup</span> &#123;</span><br><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">/*自己喜欢的图片的路径。注意，不需要resource://开头*/</span>);</span><br><span class="line"><span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line"><span class="attribute">background-size</span>: cover;</span><br><span class="line"><span class="attribute">background-position</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="配合electron-ssr进行终端外网访问"><a href="#配合electron-ssr进行终端外网访问" class="headerlink" title="配合electron-ssr进行终端外网访问"></a>配合electron-ssr进行终端外网访问</h4><p>在<code>/etc/profile</code>中添加配置</p>
+<h2 id="配合electron-ssr进行终端外网访问"><a href="#配合electron-ssr进行终端外网访问" class="headerlink" title="配合electron-ssr进行终端外网访问"></a>配合electron-ssr进行终端外网访问</h2><p>在<code>/etc/profile</code>中添加配置</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=&quot;http://127.0.0.1:12333&quot;</span><br><span class="line">export https_proxy=&quot;http://127.0.0.1:12333&quot;</span><br></pre></td></tr></table></figure>
 
 <p>然后<code>source /etc/profile</code>即可</p>
+<h2 id="升级到2204版本中文输入法只在终端可用解决"><a href="#升级到2204版本中文输入法只在终端可用解决" class="headerlink" title="升级到2204版本中文输入法只在终端可用解决"></a>升级到2204版本中文输入法只在终端可用解决</h2><ul>
+<li>/etc/profile 添加</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export XMODIFIERS=@im=fcitx</span><br><span class="line">export GTK_IM_MODULE=fcitx</span><br><span class="line">export QT_IM_MODULE=fcitx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>~/.pam_environment 添加以下几行：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE DEFAULT=fcitx</span><br><span class="line">XMODIFIERS DEFAULT=@im=fcitx</span><br><span class="line">SDL_IM_MODULE DEFAULT=fcitx</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>ubuntu</category>
