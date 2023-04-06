@@ -574,7 +574,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-06 11:58:54" itemprop="dateModified" datetime="2022-12-06T11:58:54+08:00">2022-12-06</time>
+                <time title="Modified: 2023-04-06 11:22:26" itemprop="dateModified" datetime="2023-04-06T11:22:26+08:00">2023-04-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -634,6 +634,23 @@
 <p>curl ‘address:port’ | json_pp</p>
 </li>
 </ul>
+<h2 id="端口远程访问"><a href="#端口远程访问" class="headerlink" title="端口远程访问"></a>端口远程访问</h2><p>检测端口是否允许远程访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;port&gt;</span><br><span class="line"></span><br><span class="line">查看输出结果。如果输出结果中有 0.0.0.0:&lt;port&gt; 或者 :::&lt;port&gt;，表示该端口允许远程访问；</span><br><span class="line">如果输出结果中只有 127.0.0.1:&lt;port&gt; 或者 ::1:&lt;port&gt;，表示该端口只允许本地访问</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 Ubuntu 中，要开启指定端口的远程访问，需要进行以下步骤：</li>
+</ul>
+<ol>
+<li><p>确认端口是否已经开启：使用 <code>netstat</code> 命令检查要开启的端口是否已经在监听状态。如果已经在监听状态，则可以直接进行下一步操作；如果没有在监听状态，则需要先启动对应的服务程序。</p>
+</li>
+<li><p>修改防火墙规则：使用 <code>ufw</code> 命令修改防火墙规则，开放指定端口。例如，要开放端口号为 80 的端口，可以使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 80/tcp</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会将端口号为 80 的端口加入到防火墙规则中，并允许 TCP 协议通过该端口进行访问。</p>
+</li>
+<li><p>重启防火墙服务：在修改防火墙规则后，需要重启防火墙服务才能使修改生效。可以使用以下命令重启防火墙服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ufw restart</span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
