@@ -5743,6 +5743,9 @@
 <p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
 
+<p><strong>5.</strong> 删除指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
 <h2 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h2><ul>
 <li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
 <p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
@@ -5923,6 +5926,8 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 </li>
 <li><p>重启防火墙服务：在修改防火墙规则后，需要重启防火墙服务才能使修改生效。可以使用以下命令重启防火墙服务：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo service ufw restart</span><br></pre></td></tr></table></figure></li>
+<li><p>确认防火墙规则是否正确：使用以下命令查看当前的防火墙规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ufw status numbered</span><br></pre></td></tr></table></figure></li>
 </ol>
 ]]></content>
       <categories>
