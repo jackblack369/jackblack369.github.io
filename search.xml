@@ -5743,7 +5743,7 @@
 <p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
 
-<p><strong>5.</strong> 删除指定</p>
+<p><strong>5.</strong> 删除指定目录下指定日期的目录，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的目录</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
 
 <h2 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h2><ul>
@@ -5770,6 +5770,15 @@
 <p>将多个分割的文件进行合并</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat files_name_1 files_name_2 files_name_3 &gt; files_name</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>按行数分割</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">split -l 10000 bigfile.txt smallfile</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分割之后的文件不影响读取</p>
+</blockquote>
+</li>
+</ul>
 <h2 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h2><ul>
 <li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
 </ul>
