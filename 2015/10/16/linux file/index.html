@@ -28,7 +28,7 @@
 <meta property="og:description" content="delete1. To delete all files in a directory except filename, type the command below: 1rm -v !(&quot;filename&quot;)  2. To delete all files with the exception of filename1 and filename2: 1rm -v !(&amp;quo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2015-10-16T04:01:30.000Z">
-<meta property="article:modified_time" content="2023-04-22T06:59:43.688Z">
+<meta property="article:modified_time" content="2023-04-26T01:41:31.576Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-22 14:59:43" itemprop="dateModified" datetime="2023-04-22T14:59:43+08:00">2023-04-22</time>
+                <time title="Modified: 2023-04-26 09:41:31" itemprop="dateModified" datetime="2023-04-26T09:41:31+08:00">2023-04-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,6 +280,18 @@
 <p>分割之后的文件不影响读取</p>
 </blockquote>
 </li>
+<li><p>统计某个文件中的字符数，需要注意的是，如果文件中包含多字节字符（如中文），则每个字符将被视为多个字符来计算。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -c /path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>在这基础上，统计内容所占KB</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -c /path/to/file | awk &#x27;&#123;print $1/1024&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>awk对文件按照指定多列的内容进行排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;&#123;print $0&#125;&#x27; head_100.csv | sort -t &#x27;,&#x27; -k2,3 &gt; head_100_sort.csv</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>并用<code>sort</code>命令根据指定列的内容进行排序。<code>-t</code>选项表示使用制表符作为字段分隔符，<code>[列数]</code>是你要排序的那一列，“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
+</blockquote>
+</li>
 </ul>
 <h2 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h2><ul>
 <li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
@@ -309,9 +321,14 @@
 <h2 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
 
 <h2 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h2><ul>
-<li>替换字符linux环境：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
+<li><p>替换字符</p>
+<p>linux环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
 
-mac环境（需要设置备份，以防文件损坏）<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+<p>mac环境（需要设置备份，以防文件损坏）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+<li><p>删除指定多行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;1,5d&#x27; example.txt</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
@@ -373,6 +390,12 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li><p>查找指定目录的软连接文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了<code>-T /data</code>选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。</p>
+<p>“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
+</blockquote>
 
     </div>
 
@@ -461,7 +484,7 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">1.</span> <span class="nav-text">delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK"><span class="nav-number">2.</span> <span class="nav-text">AWK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">统计文件行数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90"><span class="nav-number">4.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="nav-number">5.</span> <span class="nav-text">文件分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markdown"><span class="nav-number">6.</span> <span class="nav-text">markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">7.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls"><span class="nav-number">8.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="nav-number">9.</span> <span class="nav-text">格式化json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SED"><span class="nav-number">10.</span> <span class="nav-text">SED</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">转换文件编码格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar"><span class="nav-number">12.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">13.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">14.</span> <span class="nav-text">批量替换文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">15.</span> <span class="nav-text">查找指定目录下的文件内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%A7%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">16.</span> <span class="nav-text">查询大文件里面的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E9%99%A4%E6%8C%87%E5%AE%9A%E5%86%85%E5%AE%B9"><span class="nav-number">17.</span> <span class="nav-text">排除指定内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wget"><span class="nav-number">18.</span> <span class="nav-text">wget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E8%BF%9E%E6%8E%A5"><span class="nav-number">19.</span> <span class="nav-text">软连接</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">1.</span> <span class="nav-text">delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK"><span class="nav-number">2.</span> <span class="nav-text">AWK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">统计文件行数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90"><span class="nav-number">4.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="nav-number">5.</span> <span class="nav-text">文件分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markdown"><span class="nav-number">6.</span> <span class="nav-text">markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">7.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls"><span class="nav-number">8.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="nav-number">9.</span> <span class="nav-text">格式化json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SED"><span class="nav-number">10.</span> <span class="nav-text">SED</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">转换文件编码格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar"><span class="nav-number">12.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">13.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">14.</span> <span class="nav-text">批量替换文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">15.</span> <span class="nav-text">查找指定目录下的文件内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%A7%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">16.</span> <span class="nav-text">查询大文件里面的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E9%99%A4%E6%8C%87%E5%AE%9A%E5%86%85%E5%AE%B9"><span class="nav-number">17.</span> <span class="nav-text">排除指定内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wget"><span class="nav-number">18.</span> <span class="nav-text">wget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E8%BF%9E%E6%8E%A5"><span class="nav-number">19.</span> <span class="nav-text">软连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sort"><span class="nav-number"></span> <span class="nav-text">sort</span></a></div>
       </div>
       <!--/noindex-->
 

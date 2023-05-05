@@ -5778,6 +5778,18 @@
 <p>分割之后的文件不影响读取</p>
 </blockquote>
 </li>
+<li><p>统计某个文件中的字符数，需要注意的是，如果文件中包含多字节字符（如中文），则每个字符将被视为多个字符来计算。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wc -c /path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>在这基础上，统计内容所占KB</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wc -c /path/to/file | awk &#x27;&#123;print $1/1024&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>awk对文件按照指定多列的内容进行排序</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">awk &#x27;&#123;print $0&#125;&#x27; head_100.csv | sort -t &#x27;,&#x27; -k2,3 &gt; head_100_sort.csv</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>并用<code>sort</code>命令根据指定列的内容进行排序。<code>-t</code>选项表示使用制表符作为字段分隔符，<code>[列数]</code>是你要排序的那一列，“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
+</blockquote>
+</li>
 </ul>
 <h2 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h2><ul>
 <li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
@@ -5807,9 +5819,14 @@
 <h2 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
 
 <h2 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h2><ul>
-<li>替换字符linux环境：<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
+<li><p>替换字符</p>
+<p>linux环境：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
 
-mac环境（需要设置备份，以防文件损坏）<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+<p>mac环境（需要设置备份，以防文件损坏）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
+<li><p>删除指定多行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;1,5d&#x27; example.txt</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
@@ -5871,6 +5888,12 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li><p>查找指定目录的软连接文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了<code>-T /data</code>选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。</p>
+<p>“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -8674,6 +8697,16 @@ mac环境（需要设置备份，以防文件损坏）<figure class="highlight s
 <li>batch.size 默认16384</li>
 <li>request.time.ms 默认30000（30秒）</li>
 </ul>
+<h2 id="分区和副本"><a href="#分区和副本" class="headerlink" title="分区和副本"></a>分区和副本</h2><p>Kafka中的分区（Partition）和副本（Replica）是两个不同的概念，它们在消息传输和存储方面起到不同的作用。</p>
+<ol>
+<li>分区（Partition）</li>
+</ol>
+<p>Kafka的每个Topic都可以被分成多个Partition，每个Partition只会被一个Consumer Group中的一个Consumer消费。在一个分布式系统中，通过将数据分散到多个Partition中，可以使得各个节点负载均衡，并且可以处理更大量级的数据。每个Partition内部维护了一个递增的offset（偏移量），通过offset来标识Consumer在该Partition中已经消费的消息位置。</p>
+<ol>
+<li>副本（Replica）</li>
+</ol>
+<p>Kafka中的副本是指每个Partition的备份，一个Partition可以有多个副本，每个副本都保存着完整的数据副本。副本之间有一个Leader-Follower的关系，其中一个副本作为Leader，其他副本作为Follower。客户端只能向Leader发送读写请求，而Follower只用于备份和同步数据，不能直接处理客户端请求。当Leader出现故障时，Kafka会自动将Follower升级为新的Leader，保证服务的可用性。</p>
+<p><strong>总结：分区实现了数据的水平切分和负载均衡，而副本则提供了数据的冗余备份和高可用性，确保数据安全和业务连续性。在实际应用中，需要根据具体的业务需求和技术规划来设置分区和副本的数量，以提高Kafka服务的可靠性和性能。</strong></p>
 ]]></content>
       <categories>
         <category>kafka</category>

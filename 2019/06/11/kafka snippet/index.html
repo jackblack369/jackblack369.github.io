@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://kafka.apache.org/22/images/kafka-apis.png">
 <meta property="og:image" content="https://kafka.apache.org/22/images/consumer-groups.png">
 <meta property="article:published_time" content="2019-06-11T06:01:30.000Z">
-<meta property="article:modified_time" content="2023-01-08T07:03:51.825Z">
+<meta property="article:modified_time" content="2023-05-05T06:35:40.506Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -215,7 +215,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-08 15:03:51" itemprop="dateModified" datetime="2023-01-08T15:03:51+08:00">2023-01-08</time>
+                <time title="Modified: 2023-05-05 14:35:40" itemprop="dateModified" datetime="2023-05-05T14:35:40+08:00">2023-05-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -490,6 +490,16 @@
 <li>batch.size 默认16384</li>
 <li>request.time.ms 默认30000（30秒）</li>
 </ul>
+<h2 id="分区和副本"><a href="#分区和副本" class="headerlink" title="分区和副本"></a>分区和副本</h2><p>Kafka中的分区（Partition）和副本（Replica）是两个不同的概念，它们在消息传输和存储方面起到不同的作用。</p>
+<ol>
+<li>分区（Partition）</li>
+</ol>
+<p>Kafka的每个Topic都可以被分成多个Partition，每个Partition只会被一个Consumer Group中的一个Consumer消费。在一个分布式系统中，通过将数据分散到多个Partition中，可以使得各个节点负载均衡，并且可以处理更大量级的数据。每个Partition内部维护了一个递增的offset（偏移量），通过offset来标识Consumer在该Partition中已经消费的消息位置。</p>
+<ol>
+<li>副本（Replica）</li>
+</ol>
+<p>Kafka中的副本是指每个Partition的备份，一个Partition可以有多个副本，每个副本都保存着完整的数据副本。副本之间有一个Leader-Follower的关系，其中一个副本作为Leader，其他副本作为Follower。客户端只能向Leader发送读写请求，而Follower只用于备份和同步数据，不能直接处理客户端请求。当Leader出现故障时，Kafka会自动将Follower升级为新的Leader，保证服务的可用性。</p>
+<p><strong>总结：分区实现了数据的水平切分和负载均衡，而副本则提供了数据的冗余备份和高可用性，确保数据安全和业务连续性。在实际应用中，需要根据具体的业务需求和技术规划来设置分区和副本的数量，以提高Kafka服务的可靠性和性能。</strong></p>
 
     </div>
 
@@ -578,7 +588,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#port%EF%BC%88confluent-reference%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">port（confluent reference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Architecture"><span class="nav-number">2.</span> <span class="nav-text">System Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-a-topic"><span class="nav-number">2.1.</span> <span class="nav-text">Creating a topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Producer"><span class="nav-number">2.2.</span> <span class="nav-text">Producer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consumers"><span class="nav-number">2.3.</span> <span class="nav-text">Consumers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Messaging-System"><span class="nav-number">3.</span> <span class="nav-text">Kafka as a Messaging System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Storage-System"><span class="nav-number">4.</span> <span class="nav-text">Kafka as a Storage System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-Stream-Processing"><span class="nav-number">5.</span> <span class="nav-text">Kafka as Stream Processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#source-code"><span class="nav-number">6.</span> <span class="nav-text">source code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.</span> <span class="nav-text">源码文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.</span> <span class="nav-text">核心模块结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E5%88%86%E5%8C%BA"><span class="nav-number"></span> <span class="nav-text">主题分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Restful-API"><span class="nav-number"></span> <span class="nav-text">Restful API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRO%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">AVRO主题相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="nav-number"></span> <span class="nav-text">参数调优</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#producer"><span class="nav-number"></span> <span class="nav-text">producer</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#port%EF%BC%88confluent-reference%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">port（confluent reference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Architecture"><span class="nav-number">2.</span> <span class="nav-text">System Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-a-topic"><span class="nav-number">2.1.</span> <span class="nav-text">Creating a topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Producer"><span class="nav-number">2.2.</span> <span class="nav-text">Producer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consumers"><span class="nav-number">2.3.</span> <span class="nav-text">Consumers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Messaging-System"><span class="nav-number">3.</span> <span class="nav-text">Kafka as a Messaging System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-a-Storage-System"><span class="nav-number">4.</span> <span class="nav-text">Kafka as a Storage System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-as-Stream-Processing"><span class="nav-number">5.</span> <span class="nav-text">Kafka as Stream Processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#source-code"><span class="nav-number">6.</span> <span class="nav-text">source code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.</span> <span class="nav-text">源码文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.</span> <span class="nav-text">核心模块结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E5%88%86%E5%8C%BA"><span class="nav-number"></span> <span class="nav-text">主题分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Restful-API"><span class="nav-number"></span> <span class="nav-text">Restful API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVRO%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">AVRO主题相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="nav-number"></span> <span class="nav-text">参数调优</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#producer"><span class="nav-number"></span> <span class="nav-text">producer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%92%8C%E5%89%AF%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">分区和副本</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
