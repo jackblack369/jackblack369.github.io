@@ -1122,7 +1122,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-26 09:41:31" itemprop="dateModified" datetime="2023-04-26T09:41:31+08:00">2023-04-26</time>
+                <time title="Modified: 2023-05-08 13:31:42" itemprop="dateModified" datetime="2023-05-08T13:31:42+08:00">2023-05-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1158,7 +1158,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
 
 <p><strong>5.</strong> 删除指定目录下指定日期的目录，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的目录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p><strong>6</strong>. 删除指定目录下前一个星期的文件，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+
 
 <h2 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h2><ul>
 <li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
