@@ -5898,12 +5898,24 @@
 <li><p>查找指定目录的软连接文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
+<h2 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了<code>-T /data</code>选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。</p>
 <p>“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
 </blockquote>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><ul>
+<li><p>Base64</p>
+<ul>
+<li><p>解码</p>
+<p><code>echo [base64-encoded-string] | base64 --decode</code></p>
+</li>
+<li><p>编码</p>
+<p><code>echo &quot;your string&quot; | base64</code></p>
+</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>linux</category>
