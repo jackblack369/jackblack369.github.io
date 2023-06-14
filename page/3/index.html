@@ -578,7 +578,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-09 09:45:03" itemprop="dateModified" datetime="2023-03-09T09:45:03+08:00">2023-03-09</time>
+                <time title="Modified: 2023-06-14 00:03:27" itemprop="dateModified" datetime="2023-06-14T00:03:27+08:00">2023-06-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -617,6 +617,23 @@
 <p>DWS汇总层（轻度汇总/高度汇总）</p>
 <p>ADS应用层</p>
 <p>可能还会分出一层DIM维度数据层。另外分层设计上也有不同的思路，比如可以将DWS和ADS归为DM数据集市层</p>
+<ul>
+<li><p><strong>ODS(Operational Data Store): 贴源层</strong></p>
+<p>这一层又叫做贴源层,最为接近数据源的一层,需要存储的数据量是最大的,存储的数据也是最原始。对众多数据源而言，他们的数据格式基本不一致，经过统一规格化后可以得到规整的数据，将数据源中的数据经过抽取、清洗、传输后装入ODS层。</p>
+</li>
+<li><p><strong>DWD(Data Warehouse Detail)：数据明细层</strong></p>
+<p>业务层与数据仓库的隔离层，主要对ODS层做一些数据清洗和规范化的操作，并且可以按照不同的行为维度对数据进行划分，例如本文对数据源就进行了划分，主要分为浏览、曝光、点击、交易等不同的维度，这些不同的维度能够对上层调用方提供更细粒度的数据服务。</p>
+</li>
+<li><p><strong>DWS(Data WareHouse Servce)：数据服务层</strong></p>
+<p>对各个域进行了适度汇总，主要以数据域+业务域的理念建设公共汇总层，与离线数仓不同的是，实时数仓的汇总层分为轻度汇总层和高度汇总层，例如将轻度汇总层数据写入 ADS，用于前端产品复杂的OLAP查询场景，满足自助分析和产出报表的需求。</p>
+</li>
+<li><p><strong>ADS(Application Data Store)：应用数据服务层</strong></p>
+<p>主要是为了具体需求而构建的应用层，通过 RPC 框架对外提供服务，例如本文中提到的数据报表分析与展示、监控告警、流量调控、开放平台等应用。</p>
+</li>
+<li><p><strong>DIM(Dimension)：维表</strong></p>
+<p>在实时计算中非常重要，也是重点维护的部分，维表需要实时更新，且下游基于最新的维表进行计算</p>
+</li>
+</ul>
 <hr>
 <p>reference：</p>
 <p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1618182">实时数仓 | 你想要的数仓分层设计与技术选型 - 云+社区 - 腾讯云</a></p>
