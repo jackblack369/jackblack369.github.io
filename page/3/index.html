@@ -466,7 +466,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-04 00:17:18" itemprop="dateModified" datetime="2022-01-04T00:17:18+08:00">2022-01-04</time>
+                <time title="Modified: 2023-06-19 18:47:53" itemprop="dateModified" datetime="2023-06-19T18:47:53+08:00">2023-06-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -517,7 +517,7 @@
 <h4 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h4><blockquote>
 <p>NodeManager 是 ResourceManager 在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager/Scheduler 提供这些资源使用报告。</p>
 </blockquote>
-<h2 id="submit-application-to-yarn"><a href="#submit-application-to-yarn" class="headerlink" title="submit application to yarn"></a>submit application to yarn</h2><p><img src="/images/yarn/submit_app_flow.jpeg"></p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="submit-application-to-yarn"><a href="#submit-application-to-yarn" class="headerlink" title="submit application to yarn"></a>submit application to yarn</h3><p><img src="/images/yarn/submit_app_flow.jpeg"></p>
 <ol>
 <li>Client 向 Yarn 提交 Application，这里我们假设是一个 MapReduce 作业。</li>
 <li>ResourceManager 向 NodeManager 通信，为该 Application 分配第一个容器。并在这个容器中运行这个应用程序对应的 ApplicationMaster。</li>
@@ -525,6 +525,32 @@
 <li>申请到容器后，ApplicationMaster 会去和容器对应的 NodeManager 通信，而后将作业分发到对应的 NodeManager 中的容器去运行，这里会将拆分后的 MapReduce 进行分发，对应容器中运行的可能是 Map 任务，也可能是 Reduce 任务。</li>
 <li>容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。</li>
 </ol>
+<h3 id="停止应用"><a href="#停止应用" class="headerlink" title="停止应用"></a>停止应用</h3><p><code>yarn application -kill appID</code></p>
+<h2 id="yarn资源参数配置"><a href="#yarn资源参数配置" class="headerlink" title="yarn资源参数配置"></a>yarn资源参数配置</h2><p>每个job提交到yarn上执行时，都会分配Container容器去运行，而这个容器需要资源才能运行，这个资源就是Cpu和内存。</p>
+<p>1、CPU资源调度</p>
+<p>目前的CPU被Yarn划分为虚拟CPU，这是yarn自己引入的概念，因为每个服务器的Cpu计算能力不一样，有的机器可能是 其他机器的计算能力的2倍，然后可以通过多配置几个虚拟内存弥补差异。在yarn中，cpu的相关配置如下。</p>
+<p>yarn.nodemanager.resource.cpu-vcores</p>
+<p>表示该节点服务器上yarn可以使用的虚拟的CPU个数，默认是8，推荐配置与核心个数相同，如果节点CPU的核心个数不足8个，需要调小这个值，yarn不会智能的去检测物理核数。如果机器性能较好，可以配置为物理核数的2倍。</p>
+<p>yarn.scheduler.minimum-allocation-vcores</p>
+<p>表示单个任务最小可以申请的虚拟核心数，默认为1</p>
+<p>yarn.sheduler.maximum-allocation-vcores</p>
+<p>表示单个任务最大可以申请的虚拟核数，默认为4；如果申请资源时，超过这个配置，会抛出 InvalidResourceRequestException</p>
+<p>2、Memory资源调度</p>
+<p>yarn一般允许用户配置每个节点上可用的物理资源，可用指的是将机器上内存减去hdfs的，hbase的等等剩下的可用的内存。</p>
+<p>yarn.nodemanager.resource.memory-mb</p>
+<p>设置该节点上yarn可使用的内存，默认为8G，如果节点内存不足8G，要减少这个值，yarn不会智能的去检测内存资源，一般这个值式yarn的可用内存资源。</p>
+<p>yarn.scheduler.minmum-allocation-mb</p>
+<p>单个任务最小申请物理内存量，默认是1024M，根据自己业务设定</p>
+<p>yarn.scheduler.maximum-allocation-mb</p>
+<p>单个任务最大可以申请的物理内存量，默认为8291M</p>
+<p>二、如果设置这几个参数<br>如果一个服务器是32核，虚拟后为64核，128G内存，我们该如何设置上面的6个参数呢？即如何做到资源最大化利用</p>
+<p>生产上我们一般要预留15-20%的内存，那么可用内存就是128*0.8=102.4G，去除其他组件的使用，我们设置成90G就可以了。</p>
+<p>1、yarn.sheduler.maximum-allocation-vcores<br>1.<br>一般就设置成4个，cloudera公司做过性能测试，如果CPU大于等于5之后，CPU的利用率反而不是很好。这个参数可以根据生成服务器决定，比如公司服务器很富裕，那就直接设置成1:1；设置成32，如果不是很富裕，可以直接设置成1:2。我们以1:2来计算。</p>
+<p>2、yarn.scheduler.minimum-allocation-vcores<br>1.<br>如果设置vcoure = 1，那么最大可以跑64/1=64个container，如果设置成这样，最小container是64/4=16个。</p>
+<p>3、yarn.scheduler.minmum-allocation-mb</p>
+<p>如果设置成2G，那么90/2=45最多可以跑45个container，如果设置成4G，那么最多可以跑24个；vcore有些浪费。</p>
+<p>4、yarn.scheduler.maximum-allocation-mb</p>
+<p>这个要根据自己公司的业务设定，如果有大任务，需要5-6G内存，那就设置为8G，那么最大可以跑11个container。</p>
 <hr>
 <p>reference:</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54192454">https://zhuanlan.zhihu.com/p/54192454</a></p>
