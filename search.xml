@@ -3654,7 +3654,7 @@
   <entry>
     <title>hadoop snippet</title>
     <url>/2019/05/24/hadoop%20snippt/</url>
-    <content><![CDATA[<h2 id="1-Create-a-directory-in-HDFS-at-given-path-s"><a href="#1-Create-a-directory-in-HDFS-at-given-path-s" class="headerlink" title="1. Create a directory in HDFS at given path(s)."></a>1. Create a directory in HDFS at given path(s).</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h1><h2 id="1-Create-a-directory-in-HDFS-at-given-path-s"><a href="#1-Create-a-directory-in-HDFS-at-given-path-s" class="headerlink" title="1. Create a directory in HDFS at given path(s)."></a>1. Create a directory in HDFS at given path(s).</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hdfs dfs -mkdir &lt;paths&gt;</span><br></pre></td></tr></table></figure>
 
@@ -3769,6 +3769,24 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Example:</span><br><span class="line">hdfs dfs -du /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
 
 <p>Please comment which of these commands you found most useful while dealing with Hadoop /HDFS.</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><h2 id="Hadoop-Operation-category-READ-is-not-supported-in-state-standby"><a href="#Hadoop-Operation-category-READ-is-not-supported-in-state-standby" class="headerlink" title="Hadoop Operation category READ is not supported in state standby"></a>Hadoop Operation category READ is not supported in state standby</h2><ul>
+<li><p>报错原因<br>hadoop集群中的两个NameNode均为standby状态。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hdfs haadmin -getServiceState nn1</span><br><span class="line">hdfs haadmin -getServiceState nn2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>​        如果两个NameNode均为standby状态，那么很有可能是DFSZKFailoverController出现了问题。</p>
+<ul>
+<li><p>报错解决</p>
+<ul>
+<li><p>手动改变其中一个NameNode的状态</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hdfs haadmin -transitionToActive -forcemanual nn1</span><br></pre></td></tr></table></figure></li>
+<li><p>如果手动改变状态不能解决问题，那就重启dfs</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">stop-dfs.sh</span><br><span class="line">start-dfs.sh</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>再检查NameNode状态</p>
+<p>此时正常状态是nn1为active，nn2为standby</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>hadoop</category>
