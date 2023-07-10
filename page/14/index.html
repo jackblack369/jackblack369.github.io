@@ -174,6 +174,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20systemInfo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/10/16/linux%20systemInfo/" class="post-title-link" itemprop="url">linux systemInfo command</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-13 11:45:08" itemprop="dateModified" datetime="2023-01-13T11:45:08+08:00">2023-01-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h2><ul>
+<li><p>查看系统</p>
+<ul>
+<li><code>cat /etc/os-release</code></li>
+</ul>
+</li>
+<li><p>查看内核</p>
+<ul>
+<li><code>cat /proc/version</code></li>
+<li><code>uname -a</code></li>
+</ul>
+</li>
+<li><p>查看linux版本</p>
+<ul>
+<li><code>lsb_release -a</code></li>
+<li><code>cat /etc/issue</code></li>
+</ul>
+</li>
+<li><blockquote>
+<p>总核数 = 物理CPU个数 X 每颗物理CPU的核数 </p>
+<p>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</p>
+</blockquote>
+<ul>
+<li><p>查看物理CPU个数</p>
+<ol>
+<li>top命令，然后输入数字1查看，各项参数如下<ul>
+<li><code>us</code>：用户空间占用 CPU 的百分比。</li>
+<li><code>sy</code>：内核空间占用 CPU 的百分比。</li>
+<li><code>ni</code>：调整过优先级的进程占用 CPU 的百分比。</li>
+<li><code>id</code>：空闲 CPU 的百分比。</li>
+<li><code>wa</code>：等待 I/O 的 CPU 时间的百分比。</li>
+<li><code>hi</code>：硬中断（hardware interrupt）占用 CPU 的时间的百分比。</li>
+<li><code>si</code>：软中断（software interrupt）占用 CPU 的时间的百分比。</li>
+<li><code>st</code>：虚拟机或者运行在它上面的虚拟 CPU 占用 CPU 的时间的百分比。</li>
+</ul>
+</li>
+<li>输入mpstat查看</li>
+<li>输入以下命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
+<li><p>查看每个物理CPU中core的个数(即核数)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
+<li><p>查看逻辑CPU的总数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><ul>
+<li><p>进程CPU占用率</p>
+<p>top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。</p>
+<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
+</li>
+</ul>
+<h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
+<h2 id="清理内存"><a href="#清理内存" class="headerlink" title="清理内存"></a>清理内存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/01/java%208%20feature/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -839,13 +968,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">78</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2023-03-13T08:34:12.630Z</updated>
+  <updated>2023-07-10T06:36:25.372Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>starrocks point</title>
+    <link href="http://yoursite.com/2023/07/07/starrocks%20points/"/>
+    <id>http://yoursite.com/2023/07/07/starrocks%20points/</id>
+    <published>2023-07-07T06:52:04.000Z</published>
+    <updated>2023-07-10T06:36:25.372Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><h2 id="注意项"><a href="#注意项" class="headerlink" title="注意项"></a>注意项</h2><ul><li><p>安装前配置环境变量</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export STARROCKS_HOME=xxx</span><br></pre></td></tr></table></figure></li><li><p>启动mysql客户端</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可</span><br></pre></td></tr></table></figure></li><li><p>启动FE时</p><ul><li><p>启动FE为LEADER节点</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./fe/bin/start_fe.sh --daemon</span><br></pre></td></tr></table></figure></li></ul></li><li><p>添加新FE</p><ul><li><p>在mysql command先将实例添加进集群，然后逐个启动实例</p></li><li><p>各个节点的时间一定要同步，不然FE的心跳超过5s时差，就会报错</p></li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;安装部署&quot;&gt;&lt;a href=&quot;#安装部署&quot; class=&quot;headerlink&quot; title=&quot;安装部署&quot;&gt;&lt;/a&gt;安装部署&lt;/h1&gt;&lt;h2 id=&quot;注意项&quot;&gt;&lt;a href=&quot;#注意项&quot; class=&quot;headerlink&quot; title=&quot;注意项&quot;&gt;&lt;/a&gt;注意</summary>
+      
+    
+    
+    
+    <category term="olap" scheme="http://yoursite.com/categories/olap/"/>
+    
+    
+    <category term="point" scheme="http://yoursite.com/tags/point/"/>
+    
+  </entry>
   
   <entry>
     <title>XC point</title>
@@ -495,30 +519,6 @@
       
     <summary type="html">&lt;h1 id=&quot;table-vs-view&quot;&gt;&lt;a href=&quot;#table-vs-view&quot; class=&quot;headerlink&quot; title=&quot;table vs view&quot;&gt;&lt;/a&gt;table vs view&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;Temporary tab</summary>
-      
-    
-    
-    
-    <category term="flink" scheme="http://yoursite.com/categories/flink/"/>
-    
-    
-    <category term="point" scheme="http://yoursite.com/tags/point/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>flink on yarn</title>
-    <link href="http://yoursite.com/2022/01/04/flink%20on%20yarn/"/>
-    <id>http://yoursite.com/2022/01/04/flink%20on%20yarn/</id>
-    <published>2022-01-03T16:27:40.000Z</published>
-    <updated>2023-06-19T09:13:58.845Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p><h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p><h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p><h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p><h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p><h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p><h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote><p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p><p>ps:所有作业共享Dispatcher和ResourceManager；共享资源；适合规模小执行时间短的作业.适用于本地测试或者开发</p></blockquote><h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote><p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure><ul><li><p>YarnSessionClusterEntrypoint进程</p><p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p><ul><li><p>本节点提交任务</p><p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p></li><li><p>如果需要在其他主机节点提交任务</p><p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p></li></ul></li><li><p>FlinkYarnSessionCli进程</p><p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p></li></ul><h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote><p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure><blockquote><p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p></blockquote><h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote><p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p><p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure><p>注意使用参数-m yarn-cluster提交到yarn集群。</p><ul><li>运行到指定的yarn session可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</li></ul><hr><p>reference</p><p><a href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p><p><a href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p><p><a href="https://blog.csdn.net/u013411339/article/details/95421500?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164455981216780357293300%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164455981216780357293300&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-21-95421500.nonecase&utm_term=%E2%80%9Cflink+cep%E2%80%9D&spm=1018.2226.3001.4450">Flink-On-Yarn的部署模式</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Flink-on-YARN模式&quot;&gt;&lt;a href=&quot;#Flink-on-YARN模式&quot; class=&quot;headerlink&quot; title=&quot;Flink on YARN模式&quot;&gt;&lt;/a&gt;Flink on YARN模式&lt;/h1&gt;&lt;p&gt;在这种模式下Flink的资源由YAR</summary>
       
     
     

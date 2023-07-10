@@ -8865,4 +8865,35 @@
         <tag>XC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>starrocks point</title>
+    <url>/2023/07/07/starrocks%20points/</url>
+    <content><![CDATA[<h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><h2 id="注意项"><a href="#注意项" class="headerlink" title="注意项"></a>注意项</h2><ul>
+<li><p>安装前配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export STARROCKS_HOME=xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>启动mysql客户端</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可</span><br></pre></td></tr></table></figure></li>
+<li><p>启动FE时</p>
+<ul>
+<li><p>启动FE为LEADER节点</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./fe/bin/start_fe.sh --daemon</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>添加新FE</p>
+<ul>
+<li><p>在mysql command先将实例添加进集群，然后逐个启动实例</p>
+</li>
+<li><p>各个节点的时间一定要同步，不然FE的心跳超过5s时差，就会报错</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>olap</category>
+      </categories>
+      <tags>
+        <tag>point</tag>
+      </tags>
+  </entry>
 </search>
