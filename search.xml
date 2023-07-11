@@ -6005,6 +6005,11 @@
 </ol>
 <h2 id="根据PID查看子进程"><a href="#根据PID查看子进程" class="headerlink" title="根据PID查看子进程"></a>根据PID查看子进程</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -lntp |grep PID</span><br></pre></td></tr></table></figure>
 
+<h2 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h2><p>xx.xx.xx.xx/24</p>
+<p>在网络中，IP地址由两个部分组成：网络地址和主机地址。IP地址的网络部分用于标识网络，而主机部分用于标识特定的设备或主机。</p>
+<p>CIDR（无类别域间路由）表示法通常用于指定IP地址的子网掩码，以确定网络地址和主机地址的边界。CIDR表示法使用斜线后面的数字来表示网络地址中前多少位是固定的，即网络前缀长度。例如，/24 表示前 24 位是网络地址，剩下的 8 位则是主机地址。</p>
+<p>对于 IPv4 地址，每个 IP 地址都由 32 位二进制数表示。通过将前 24 位作为网络地址并保留最后 8 位作为主机地址，可以创建一个包含 256 个可能主机地址的网络。这被称为 “24 位网络” 或 “24 位子网”，它的子网掩码是 255.255.255.0。</p>
+<p>因此，当你配置一个 IP 地址并添加 /24 后缀时，你正在指定该地址所属的网络和子网掩码。这样可以帮助确定该地址所在的网络，并确保与其他设备进行通信时，数据包能够正确地路由到目标设备。</p>
 ]]></content>
       <categories>
         <category>linux</category>
