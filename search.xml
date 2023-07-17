@@ -3544,6 +3544,23 @@
 <li><p>给stash添加描述：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git stash save <span class="string">&quot;stash message&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
+<h1 id="合并多个commit"><a href="#合并多个commit" class="headerlink" title="合并多个commit"></a>合并多个commit</h1><ol>
+<li><p>merge the last 3 commits into a single commit.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rebase -i HEAD~3</span><br></pre></td></tr></table></figure></li>
+<li><p>replace all those <code>pick</code> with <code>squash</code> (or simply <code>s</code>) apart from the first one.</p>
+<p><img src="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.28.12.png"></p>
+<p><strong>Note:</strong> <code>pick</code> or <code>p</code> will only use those commits, but <code>squash</code> or <code>s</code> will use them and combine them all together.</p>
+<p>The first commit is the one you will combine them into without losing your changes.</p>
+</li>
+<li><p>After doing that, save the file and close it. Git will open up another editor where you can see the new commit message it generates for you.</p>
+<p><img src="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.36.02.png"></p>
+<p>You can get rid of all of them and add your custom message:</p>
+<p><img src="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.37.45.png"></p>
+<p> Or you can leave it as is. If you add a new commit message, save the file and close it.</p>
+</li>
+<li><p>Pushing changes, You should run git push to add a new commit to the remote origin. If you have already pushed your commits, then you should force push them using the git push command with — force flag (suppose, the name of remote is origin, which is by default)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push --force origin HEAD</span><br></pre></td></tr></table></figure></li>
+</ol>
 ]]></content>
       <categories>
         <category>git</category>
@@ -7838,6 +7855,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set list</span><br></pre></td></tr></table></figure></li>
 <li><p>统计字符出现次数</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:%s/字符串//ng</span><br></pre></td></tr></table></figure></li>
+<li><p>多行操作</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">按下 Ctrl + v 进入可视块模式。</span><br><span class="line">使用上下箭头键或 j 和 k 键选择要编辑的行。</span><br><span class="line">按下 Shift + i 进入插入模式。</span><br><span class="line">输入要插入的文本。</span><br><span class="line">按下 Esc 键退出插入模式，所有选定的行都将被修改。</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
