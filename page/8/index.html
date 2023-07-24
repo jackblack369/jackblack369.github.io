@@ -174,6 +174,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/http%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/14/http%20learn/" class="post-title-link" itemprop="url">http learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-14 10:07:30" itemprop="dateCreated datePublished" datetime="2019-05-14T10:07:30+08:00">2019-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-08 16:31:19" itemprop="dateModified" datetime="2019-08-08T16:31:19+08:00">2019-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="http-1-0-http-1-1"><a href="#http-1-0-http-1-1" class="headerlink" title="http 1.0 http 1.1"></a>http 1.0 http 1.1</h2><ul>
+<li><p>HTTP1.0最早在网页中使用是1996年，那个时候只是使用一些较为简单的网页和网络的请求，每次请求都需要建立一个单独的连接，上一次和下一次请求完全分离。这种做法，即使每次的请求量都很小，但是客户端和服务端每次建立TCP连接和关闭TCP连接都是相对比较费时的过程，严重影响客户端和服务端的性能。</p>
+</li>
+<li><p>基于以上的问题，HTTP1.1在1999年广泛应用于现在的各大浏览器网络请求中，同时HTTP1.1也是当前使用最为广泛的HTTP协议（2015年诞生了HTTP2，但是还未大规模应用），这里不详细对比HTTP1.1针对HTTP1.0改进了什么，只是在连接这块，HTTP1.1支持在一个TCP连接上传送多个HTTP请求和响应，减少了建立和关闭连接的消耗延迟，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点，这就是长连接，HTTP1.1默认使用长连接。</p>
+</li>
+<li><p>那么，长连接是如何工作的呢？首先，我们要明确一下，长短连接是通信层（TCP）的概念，HTTP是应用层协议，它只能说告诉通信层我打算一段时间内复用TCP通道而没有自己去建立、释放TCP通道的能力。</p>
+</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eZzl4LXykQwdKAeT5rjMFfDXeITCDnbwnNXWrFDaIIhBibAk4N83H5dKXAkMNleqewC53Y8WQ6cOhRjA7k4SuMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<ul>
+<li>http的keep-alive和tcp的keep-alive的区别<ul>
+<li>http的keep-alive是为了复用已有连接</li>
+<li>tcp的keep-alive是为了保活，即保证对端还存活，不然对端已经不在了我这边还占着和对端的这个连接，浪费服务器资源，做法是隔一段时间发送一个心跳包到对端服务器，一旦长时间没有接收到应答，就主动关闭连接</li>
+</ul>
+</li>
+</ul>
+<h2 id="WebSockets"><a href="#WebSockets" class="headerlink" title="WebSockets"></a>WebSockets</h2><p>WebSockets provide a persistent connection between a client and server that both parties can use to start sending data at any time.**</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Create a new WebSocket.</span><br><span class="line">var socket = new WebSocket(&#x27;ws://echo.websocket.org&#x27;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Once the connection has been established the <code>open</code> event will be fired on your WebSocket instance.</p>
+</li>
+<li><p>请求</p>
+<p><code>ws://localhost:9095/webSocket/d72b3660-29a8-4276-9eb1-3373e82fdd92</code></p>
+</li>
+<li><p>后台请求的结果传入websocket是通过session建立关联的</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/bigdata/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1936,197 +2037,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/Algorithms%20+%20Data%20Structures%20=%20Programs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/18/Algorithms%20+%20Data%20Structures%20=%20Programs/" class="post-title-link" itemprop="url">Algorithms + Data Structures = Programs</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-18 22:00:30" itemprop="dateCreated datePublished" datetime="2018-12-18T22:00:30+08:00">2018-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-11 11:58:39" itemprop="dateModified" datetime="2022-01-11T11:58:39+08:00">2022-01-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DSA/" itemprop="url" rel="index"><span itemprop="name">DSA</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="What-is-a-Data-Structure"><a href="#What-is-a-Data-Structure" class="headerlink" title="What is a Data Structure"></a>What is a Data Structure</h3><blockquote>
-<p>a data structure is a container that stores data in a specific layout. </p>
-</blockquote>
-<h3 id="Why-do-we-need-Data-Structure"><a href="#Why-do-we-need-Data-Structure" class="headerlink" title="Why do we need Data Structure"></a>Why do we need Data Structure</h3><blockquote>
-<p>As data structures are used to store data in an organized form, and since data is the most crucial entity in computer science.</p>
-<p>Based on different scenarios, data needs to be stored in a specific format. We have a handful of data structures that cover our need to store data in different formats.</p>
-</blockquote>
-<h3 id="Commonly-used-Data-Structure"><a href="#Commonly-used-Data-Structure" class="headerlink" title="Commonly used Data Structure"></a>Commonly used Data Structure</h3><h4 id="1-Arrays"><a href="#1-Arrays" class="headerlink" title="1. Arrays"></a>1. Arrays</h4><blockquote>
-<p>An array is the simplest and most widely used data structure. Other data structures like stacks and queues are derived from arrays.</p>
-</blockquote>
-<ul>
-<li>the two types of arrays:<ul>
-<li>One-dimensional arrays</li>
-<li>Multi-dimensional arrays</li>
-</ul>
-</li>
-<li>basic operations<ul>
-<li>Inserts an element at given index</li>
-<li>Get — Returns the element at given index</li>
-<li>Delete — Deletes an element at given index</li>
-<li>Size — Get the total number of elements in array</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-Stacks"><a href="#2-Stacks" class="headerlink" title="2. Stacks"></a>2. Stacks</h4><blockquote>
-<p>LIFO (Last In First Out)</p>
-</blockquote>
-<ul>
-<li>basic operations<ul>
-<li>Push — Inserts an element at the top</li>
-<li>Pop — Returns the top element after removing from the stack</li>
-<li>isEmpty — Returns true if the stack is empty</li>
-<li>Top — Returns the top element without removing from the stack</li>
-</ul>
-</li>
-</ul>
-<h4 id="3-Queues"><a href="#3-Queues" class="headerlink" title="3. Queues"></a>3. Queues</h4><blockquote>
-<p>Similar to Stack, Queue is another linear data structure that stores the element in a sequential manner. The only significant difference between Stack and Queue is that instead of using the LIFO method, Queue implements the FIFO method, which is short for First in First Out.</p>
-</blockquote>
-<ul>
-<li>basic operations<ul>
-<li>Enqueue() — Inserts element to the end of the queue</li>
-<li>Dequeue() — Removes an element from the start of the queue</li>
-<li>isEmpty() — Returns true if queue is empty</li>
-<li>Top() — Returns the first element of the queue</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-Linked-List"><a href="#4-Linked-List" class="headerlink" title="4. Linked List"></a>4. Linked List</h4><blockquote>
-<p>A linked list is like a chain of nodes, where each node contains information like data and a pointer to the succeeding node in the chain.</p>
-</blockquote>
-<ul>
-<li>the types of linked lists<ul>
-<li>Singly Linked List (Unidirectional)</li>
-<li>Doubly Linked List (Bi-directional)</li>
-</ul>
-</li>
-<li>basic operations<ul>
-<li><em>InsertAtEnd</em> — Inserts given element at the end of the linked list</li>
-<li><em>InsertAtHead</em> — Inserts given element at the start/head of the linked list</li>
-<li><em>Delete</em> — Deletes given element from the linked list</li>
-<li><em>DeleteAtHead</em> — Deletes first element of the linked list</li>
-<li><em>Search</em> — Returns the given element from a linked list</li>
-<li><em>isEmpty</em> — Returns true if the linked list is empty</li>
-</ul>
-</li>
-</ul>
-<h4 id="5-Graphs"><a href="#5-Graphs" class="headerlink" title="5. Graphs"></a>5. Graphs</h4><blockquote>
-<p>A graph is a set of nodes that are connected to each other in the form of a network. Nodes are also called vertices. A <strong>pair(x,y)</strong> is called an <strong>edge</strong><em>,</em> which indicates that vertex <strong>x</strong> is connected to vertex <strong>y</strong>. An edge may contain weight/cost, showing how much cost is required to traverse from vertex x to y*.*</p>
-</blockquote>
-<p><img src="https://i.imgur.com/9sHq0Ek.png"></p>
-<ul>
-<li>types of Graphs<ul>
-<li>Undirected Graph</li>
-<li>Directed Graph</li>
-</ul>
-</li>
-</ul>
-<h4 id="6-Trees"><a href="#6-Trees" class="headerlink" title="6. Trees"></a>6. Trees</h4><blockquote>
-<p>A tree is a hierarchical data structure consisting of vertices (nodes) and edges that connect them. Trees are similar to graphs, but the key point that differentiates a tree from the graph is that a cycle cannot exist in a tree.</p>
-</blockquote>
-<p><img src="https://i.imgur.com/R6zwf9U.png"></p>
-<ul>
-<li>the types of trees<ul>
-<li>N-ary Tree</li>
-<li>Balanced Tree</li>
-<li>Binary Tree</li>
-<li>Binary Search Tree</li>
-<li>AVL Tree</li>
-<li>Red Black Tree</li>
-<li>2–3 Tree</li>
-</ul>
-<blockquote>
-<p>Out of the above, Binary Tree and Binary Search Tree are the most commonly used trees.</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="7-Trie"><a href="#7-Trie" class="headerlink" title="7. Trie"></a>7. Trie</h4><blockquote>
-<p>Trie, which is also known as “Prefix Trees”, is a tree-like data structure which proves to be quite efficient for solving problems related to strings. It provides fast retrieval, and is mostly used for searching words in a dictionary, providing auto suggestions in a search engine, and even for IP routing.</p>
-</blockquote>
-<h4 id="8-Hash-Table"><a href="#8-Hash-Table" class="headerlink" title="8. Hash Table"></a>8. Hash Table</h4><blockquote>
-<p>Hashing is a process used to uniquely identify objects and store each object at some pre-calculated unique index called its “key.”</p>
-<p>Hash tables are generally implemented using arrays.</p>
-</blockquote>
-<ul>
-<li>The performance of hashing data structure depends upon these three factors:<ul>
-<li>Hash Function</li>
-<li>Size of the Hash Table</li>
-<li>Collision Handling Method</li>
-</ul>
-</li>
-</ul>
-<p>Here’s an illustration of how the hash is mapped in an array. The index of this array is calculated through a Hash Function.</p>
-<p><img src="https://i.imgur.com/fkxWuxr.png"></p>
-<p>reference:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xdecode/p/9321848.html">图解Java常用数据结构</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2196,13 +2106,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-count">79</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
