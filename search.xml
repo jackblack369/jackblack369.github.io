@@ -8951,4 +8951,22 @@
         <tag>points</tag>
       </tags>
   </entry>
+  <entry>
+    <title>flink duduplication</title>
+    <url>/2023/08/02/flink%20deduplication/</url>
+    <content><![CDATA[<p>在 Deduplication 关于是否会出现回撤流</p>
+<ol>
+<li>⭐ Order by 事件时间 DESC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前事件时间还大的数据</li>
+<li>⭐ Order by 事件时间 ASC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前事件时间还小的数据</li>
+<li>⭐ Order by 处理时间 DESC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前处理时间还大的数据</li>
+<li>⭐ Order by 处理时间 ASC：不会出现回撤流，因为当前 key 下 <code>不可能会有</code> 比当前处理时间还小的数据</li>
+</ol>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>去重</tag>
+      </tags>
+  </entry>
 </search>

@@ -174,6 +174,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/28/flink%20overview/" class="post-title-link" itemprop="url">flink overview</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-28 18:43:00" itemprop="dateCreated datePublished" datetime="2021-12-28T18:43:00+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-11 14:31:00" itemprop="dateModified" datetime="2022-01-11T14:31:00+08:00">2022-01-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20points/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1378,87 +1508,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/11/jconsole%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/11/jconsole%20snippet/" class="post-title-link" itemprop="url">jconsole snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-11 21:05:29" itemprop="dateCreated datePublished" datetime="2021-12-11T21:05:29+08:00">2021-12-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-25 00:59:14" itemprop="dateModified" datetime="2022-01-25T00:59:14+08:00">2022-01-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="jconsole配置远程监控"><a href="#jconsole配置远程监控" class="headerlink" title="jconsole配置远程监控"></a>jconsole配置远程监控</h3><ul>
-<li>远程jvm进程需配置<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">env.java.opts: </span><br><span class="line">-Dcom.sun.management.jmxremote </span><br><span class="line">-Dcom.sun.management.jmxremote.port=9999</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false </span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其中9999为指定监控端口</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1528,7 +1577,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1539,7 +1588,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
