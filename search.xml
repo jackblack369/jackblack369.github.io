@@ -3268,6 +3268,40 @@
 <li>Reduce space requirements that are associated with enforcing a primary key or unique constraint</li>
 </ul>
 </blockquote>
+<h1 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h1><h3 id="字符串类型："><a href="#字符串类型：" class="headerlink" title="字符串类型："></a>字符串类型：</h3><ul>
+<li>⭐ CHAR、CHAR(n)：定长字符串，就和 Java 中的 Char 一样，n 代表字符的定长，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。</li>
+<li>⭐ VARCHAR、VARCHAR(n)、STRING：可变长字符串，就和 Java 中的 String 一样，n 代表字符的最大长度，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。STRING 等同于 VARCHAR(2147483647)。</li>
+</ul>
+<h3 id="二进制字符串类型："><a href="#二进制字符串类型：" class="headerlink" title="二进制字符串类型："></a>二进制字符串类型：</h3><ul>
+<li>⭐ BINARY、BINARY(n)：定长二进制字符串，n 代表定长，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。</li>
+<li>⭐ VARBINARY、VARBINARY(n)、BYTES：可变长二进制字符串，n 代表字符的最大长度，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。BYTES 等同于 VARBINARY(2147483647)。</li>
+</ul>
+<h3 id="精确数值类型："><a href="#精确数值类型：" class="headerlink" title="精确数值类型："></a>精确数值类型：</h3><ul>
+<li>⭐ DECIMAL、DECIMAL(p)、DECIMAL(p, s)、DEC、DEC(p)、DEC(p, s)、NUMERIC、NUMERIC(p)、NUMERIC(p, s)：固定长度和精度的数值类型，就和 Java 中的 BigDecimal 一样，p 代表数值位数（长度），取值范围 [1, 38]；s 代表小数点后的位数（精度），取值范围 [0, p]。如果不指定，p 默认为 10，s 默认为 0。</li>
+<li>⭐ TINYINT：-128 到 127 的 1 字节大小的有符号整数，就和 Java 中的 byte 一样。</li>
+<li>⭐ SMALLINT：-32,768 to 32,767 的 2 字节大小的有符号整数，就和 Java 中的 short 一样。</li>
+<li>⭐ INT、INTEGER：-2,147,483,648 to 2,147,483,647 的 4 字节大小的有符号整数，就和 Java 中的 int 一样。</li>
+<li>⭐ BIGINT：-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 的 8 字节大小的有符号整数，就和 Java 中的 long 一样。</li>
+</ul>
+<h3 id="有损精度数值类型："><a href="#有损精度数值类型：" class="headerlink" title="有损精度数值类型："></a>有损精度数值类型：</h3><ul>
+<li>⭐ FLOAT：4 字节大小的单精度浮点数值，就和 Java 中的 float 一样。</li>
+<li>⭐ DOUBLE、DOUBLE PRECISION：8 字节大小的双精度浮点数值，就和 Java 中的 double 一样。</li>
+<li>⭐ 关于 FLOAT 和 DOUBLE 的区别可见 <a href="https://www.runoob.com/w3cnote/float-and-double-different.html">https://www.runoob.com/w3cnote/float-and-double-different.html</a></li>
+</ul>
+<h3 id="日期、时间类型："><a href="#日期、时间类型：" class="headerlink" title="日期、时间类型："></a>日期、时间类型：</h3><ul>
+<li>⭐ DATE：由 <code>年-月-日</code> 组成的 <code>不带时区含义</code> 的日期类型，取值范围 [0000-01-01, 9999-12-31]</li>
+<li>⭐ TIME、TIME(p)：由 <code>小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的的时间的数据类型，精度高达纳秒，取值范围 [00:00:00.000000000到23:59:59.9999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 0。</li>
+<li>⭐ TIMESTAMP、TIMESTAMP(p)、TIMESTAMP WITHOUT TIME ZONE、TIMESTAMP(p) WITHOUT TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000, 9999-12-31 23:59:59.999999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</li>
+<li>⭐ TIMESTAMP WITH TIME ZONE、TIMESTAMP(p) WITH TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</li>
+<li>⭐ TIMESTAMP_LTZ、TIMESTAMP_LTZ(p)：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</li>
+<li>⭐ TIMESTAMP_LTZ 与 TIMESTAMP WITH TIME ZONE 的区别在于：TIMESTAMP WITH TIME ZONE 的时区信息是携带在数据中的，举例：其输入数据应该是 2022-01-01 00:00:00.000000000 +08:00；TIMESTAMP_LTZ 的时区信息不是携带在数据中的，而是由 Flink SQL 任务的全局配置决定的，我们可以由 <code>table.local-time-zone</code> 参数来设置时区。</li>
+<li>⭐ INTERVAL YEAR TO MONTH、 INTERVAL DAY TO SECOND：interval 的涉及到的种类比较多。INTERVAL 主要是用于给 TIMESTAMP、TIMESTAMP_LTZ 添加偏移量的。举例，比如给 TIMESTAMP 加、减几天、几个月、几年。INTERVAL 子句总共涉及到的语法种类如下 Flink SQL 案例所示。</li>
+</ul>
+<h3 id="其它类型"><a href="#其它类型" class="headerlink" title="其它类型"></a>其它类型</h3><ol>
+<li>布尔类型：BOOLEAN</li>
+<li>⭐ NULL 类型：NULL</li>
+<li>⭐ Raw 类型：RAW(‘class’, ‘snapshot’) 。只会在数据发生网络传输时进行序列化，反序列化操作，可以保留其原始数据。以 Java 举例，<code>class</code> 参数代表具体对应的 Java 类型，<code>snapshot</code> 代表类型在发生网络传输时的序列化器</li>
+</ol>
 ]]></content>
       <categories>
         <category>flink</category>
@@ -8954,13 +8988,50 @@
   <entry>
     <title>flink duduplication</title>
     <url>/2023/08/02/flink%20deduplication/</url>
-    <content><![CDATA[<p>在 Deduplication 关于是否会出现回撤流</p>
+    <content><![CDATA[<ul>
+<li><p>语法</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [column_list]</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line"></span><br><span class="line">   <span class="keyword">SELECT</span> [column_list],</span><br><span class="line"></span><br><span class="line">     <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> ([<span class="keyword">PARTITION</span> <span class="keyword">BY</span> col1[, col2...]]</span><br><span class="line"></span><br><span class="line">       <span class="keyword">ORDER</span> <span class="keyword">BY</span> col1 [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>][, col2 [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>]...]) <span class="keyword">AS</span> rownum</span><br><span class="line"></span><br><span class="line">   <span class="keyword">FROM</span> table_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> rownum <span class="operator">&lt;=</span> N [<span class="keyword">AND</span> conditions]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ROW_NUMBER()</td>
+<td>计算行号的OVER窗口函数。行号从1开始计算。</td>
+</tr>
+<tr>
+<td>PARTITION BY col1[, col2..]</td>
+<td>可选。指定分区的列，即去重的KEYS。</td>
+</tr>
+<tr>
+<td>ORDER BY timeAttributeCol asc desc</td>
+<td>指定排序的列，必须是一个的字段（即Proctime或Rowtime）。可以指定顺序（Keep FirstRow）或者倒序 （Keep LastRow）。</td>
+</tr>
+<tr>
+<td>rownum</td>
+<td>外层查询中对排名进行过滤，只取前N条</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Deduplicate Keep FirstRow保留首行的去重策略：保留KEY下第一条出现的数据，之后出现该KEY下的数据会被丢弃掉。因为STATE中只存储了KEY数据，所以性能较优。</li>
+<li>Deduplicate Keep LastRow保留末行的去重策略：保留KEY下最后一条出现的数据。因此过程中会产生变更的记录，会向下游发送变更的消息。因此，sink表需要支持retract操作。</li>
+</ul>
+</li>
+</ul>
+<p>在 Deduplication 关于是否会出现回撤流</p>
 <ol>
 <li>⭐ Order by 事件时间 DESC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前事件时间还大的数据</li>
 <li>⭐ Order by 事件时间 ASC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前事件时间还小的数据</li>
 <li>⭐ Order by 处理时间 DESC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前处理时间还大的数据</li>
 <li>⭐ Order by 处理时间 ASC：不会出现回撤流，因为当前 key 下 <code>不可能会有</code> 比当前处理时间还小的数据</li>
 </ol>
+<hr>
+<p>reference</p>
+<p><a href="https://www.modb.pro/db/232004">https://www.modb.pro/db/232004</a></p>
 ]]></content>
       <categories>
         <category>flink</category>
