@@ -3297,6 +3297,7 @@
 <li>⭐ TIMESTAMP_LTZ 与 TIMESTAMP WITH TIME ZONE 的区别在于：TIMESTAMP WITH TIME ZONE 的时区信息是携带在数据中的，举例：其输入数据应该是 2022-01-01 00:00:00.000000000 +08:00；TIMESTAMP_LTZ 的时区信息不是携带在数据中的，而是由 Flink SQL 任务的全局配置决定的，我们可以由 <code>table.local-time-zone</code> 参数来设置时区。</li>
 <li>⭐ INTERVAL YEAR TO MONTH、 INTERVAL DAY TO SECOND：interval 的涉及到的种类比较多。INTERVAL 主要是用于给 TIMESTAMP、TIMESTAMP_LTZ 添加偏移量的。举例，比如给 TIMESTAMP 加、减几天、几个月、几年。INTERVAL 子句总共涉及到的语法种类如下 Flink SQL 案例所示。</li>
 </ul>
+<p>​    <strong>注意：但是在 Flink SQL 中，无法直接去掉时间字段的小数秒部分而保留时间类型。</strong></p>
 <h3 id="其它类型"><a href="#其它类型" class="headerlink" title="其它类型"></a>其它类型</h3><ol>
 <li>布尔类型：BOOLEAN</li>
 <li>⭐ NULL 类型：NULL</li>
