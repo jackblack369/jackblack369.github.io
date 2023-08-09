@@ -2951,6 +2951,9 @@
 <ul>
 <li>语法<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> columns</span><br><span class="line"><span class="keyword">FROM</span> t1  [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias1<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">LEFT</span>] <span class="keyword">JOIN</span> t2 <span class="keyword">FOR</span> <span class="built_in">SYSTEM_TIME</span> <span class="keyword">AS</span> <span class="keyword">OF</span> t1.proctime [<span class="keyword">AS</span> <span class="operator">&lt;</span>alias2<span class="operator">&gt;</span>]</span><br><span class="line"><span class="keyword">ON</span> t1.column1 <span class="operator">=</span> t2.key<span class="operator">-</span>name1</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="lookup-join"><a href="#lookup-join" class="headerlink" title="lookup join"></a>lookup join</h3><ul>
+<li>维表必须指定主键。维表JOIN时，ON的条件必须包含所有主键的等值条件</li>
+</ul>
 <hr>
 <p>reference:</p>
 <p><a href="https://developer.aliyun.com/article/780048?accounttraceid=dd5fdbf3eed04f6185ed6461d8a33012zihq">Flink SQL 实战：双流 join 场景应用-阿里云开发者社区</a></p>
