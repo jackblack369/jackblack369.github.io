@@ -174,6 +174,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/16/mysql%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/12/16/mysql%20snippet/" class="post-title-link" itemprop="url">mysql snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-16 20:01:30" itemprop="dateCreated datePublished" datetime="2015-12-16T20:01:30+08:00">2015-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-11 22:18:09" itemprop="dateModified" datetime="2022-03-11T22:18:09+08:00">2022-03-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/database/" itemprop="url" rel="index"><span itemprop="name">database</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<li><p>the size of blob column</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  A BLOB can be 65535 bytes (64 KB) maximum.</span><br><span class="line">If you need more consider using:</span><br><span class="line">a MEDIUMBLOB for 16777215 bytes (16 MB)</span><br><span class="line">a LONGBLOB for 4294967295 bytes (4 GB).</span><br></pre></td></tr></table></figure></li>
+<li><p>join sql<br><img src="https://i.stack.imgur.com/VQ5XP.png"></p>
+</li>
+<li><p>string convert to timstamp</p>
+<p><code>SELECT STR_TO_DATE(&#39;2014-05-28 11:30:10&#39;,&#39;%Y-%m-%d %H:%i:%s&#39;);</code></p>
+</li>
+</ul>
+<h3 id="sql语句"><a href="#sql语句" class="headerlink" title="sql语句"></a>sql语句</h3><ul>
+<li>IN</li>
+</ul>
+<p>确定给定的值是否与子查询或列表中的值相匹配。in在查询的时候，首先查询子查询的表，然后将内表和外表做一个笛卡尔积，然后按照条件进行筛选。所以相对内表比较小的时候，in的速度较快。 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    `<span class="keyword">user</span>`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    `<span class="keyword">user</span>`.id <span class="keyword">IN</span> (</span><br><span class="line">        <span class="keyword">SELECT</span></span><br><span class="line">            `<span class="keyword">order</span>`.user_id</span><br><span class="line">        <span class="keyword">FROM</span></span><br><span class="line">            `<span class="keyword">order</span>`</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<p>以上查询使用了in语句,in()只执行一次,它查出B表中的所有id字段并缓存起来.之后,检查A表的id是否与B表中的id相等,如果相等则将A表的记录加入结果集中,直到遍历完A表的所有记录。</p>
+<p>可以看出,当B表数据较大时不适合使用in(),因为它会B表数据全部遍历一次. 如:A表有10000条记录,B表有1000000条记录,那么最多有可能遍历10000<code>*</code>1000000次,效率很差. 再如:A表有10000条记录,B表有100条记录,那么最多有可能遍历10000*100次,遍历次数大大减少,效率大大提升。</p>
+<ul>
+<li>exists</li>
+</ul>
+<p>指定一个子查询，检测行的存在。遍历循环外表，然后看外表中的记录有没有和内表的数据一样的。匹配上就将结果放入结果集中。 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.<span class="operator">*</span> <span class="keyword">from</span> A a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> B b <span class="keyword">where</span> a.id<span class="operator">=</span>b.id)</span><br></pre></td></tr></table></figure>
+
+<p>以上查询使用了exists语句,exists()会执行A.length次,它并不缓存exists()结果集,因为exists()结果集的内容并不重要,重要的是结果集中是否有记录,如果有则返回true,没有则返回false。</p>
+<p>当B表比A表数据大时适合使用exists(),因为它没有那么遍历操作,只需要再执行一次查询就行. 如:A表有10000条记录,B表有1000000条记录,那么exists()会执行10000次去判断A表中的id是否与B表中的id相等. 如:A表有10000条记录,B表有100000000条记录,那么exists()还是执行10000次,因为它只执行A.length次,可见B表数据越多,越适合exists()发挥效果. 再如:A表有10000条记录,B表有100条记录,那么exists()还是执行10000次,还不如使用in()遍历10000*100次,因为in()是在内存里遍历比较,而exists()需要查询数据库,我们都知道查询数据库所消耗的性能更高,而内存比较很快. </p>
+<ul>
+<li>where</li>
+</ul>
+<p>sql查询条件中<code>where 1=1,1=2和1=0</code>，这种写法，主要是为了拼凑动态的sql语句，如果使用不好会起到副作用的，是根据个人的一些习惯，是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误，是为了后面附加and …方便程序逻辑处理用的。 </p>
+<ul>
+<li>select count(*)和select count(1)的区别<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般情况下，Select Count(*)和Select Count(1)两着返回结果是一样的，假如表没有主键(Primary key), 那么count(1)比count(*)快，如果有主键的话，那主键作为count的条件时候count(主键)最快，如果你的表只有一个字段的话那count(*)就是最快的。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="事物隔离级别"><a href="#事物隔离级别" class="headerlink" title="事物隔离级别"></a>事物隔离级别</h3><ul>
+<li><p>read uncommitted（读取未提交数据）</p>
+<blockquote>
+<p>我们将事务隔离级别设置为read uncommitted，即便是事务没有commit，但是我们仍然能读到未提交的数据，这是所有隔离级别中最低的一种。</p>
+<p>脏读</p>
+</blockquote>
+</li>
+<li><p>read committed（可以读取其他事务提交的数据）</p>
+<blockquote>
+<p>大多数数据库默认的隔离级别;</p>
+<p>当我们将当前会话的隔离级别设置为read committed的时候，当前会话只能读取到其他事务提交的数据，未提交的数据读不到。</p>
+</blockquote>
+</li>
+<li><p>repeatable read（可重读）</p>
+<blockquote>
+<p>MySQL默认的隔离级别</p>
+<p>当我们将当前会话的隔离级别设置为repeatable read的时候，当前会话可以重复读，就是每次读取的结果集都相同，而不管其他事务有没有提交。</p>
+<p>幻读</p>
+</blockquote>
+</li>
+<li><p>serializable（串行化）</p>
+<blockquote>
+<p>当我们将当前会话的隔离级别设置为serializable的时候，其他会话对该表的写操作将被挂起。可以看到，这是隔离级别中最严格的，但是这样做势必对性能造成影响。所以在实际的选用上，我们要根据当前具体的情况选用合适的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="DDL-VS-DML"><a href="#DDL-VS-DML" class="headerlink" title="DDL VS DML"></a>DDL VS DML</h3><p>DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.</p>
+<p>Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.</p>
+<h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
+<li><p>导出数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p database &gt; file.sql</span><br><span class="line">其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称</span><br></pre></td></tr></table></figure></li>
+<li><p>导出数据表数据（根据sql的where条件）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p database --tables tablename --where=&quot;id&gt;8&quot; &gt; result.sql </span><br></pre></td></tr></table></figure></li>
+<li><p>执行sql文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/files/filename.sql</span></span><br></pre></td></tr></table></figure></li>
+<li><p>导出所有数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt; backup_filename.sql</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="新增主键"><a href="#新增主键" class="headerlink" title="新增主键"></a>新增主键</h3><p>suppose you don’t have column for auto increment like id, no, then you can add using following query:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> id <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT <span class="keyword">primary</span> key <span class="keyword">FIRST</span></span><br></pre></td></tr></table></figure>
+
+<p>If you’ve column, then alter to auto increment using following query:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name MODIFY column_name datatype(length) AUTO_INCREMENT <span class="keyword">PRIMARY</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20command/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1391,7 +1539,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

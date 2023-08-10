@@ -174,6 +174,218 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/24/hadoop%20snippt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/24/hadoop%20snippt/" class="post-title-link" itemprop="url">hadoop snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-24 12:01:30" itemprop="dateCreated datePublished" datetime="2019-05-24T12:01:30+08:00">2019-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-20 08:59:55" itemprop="dateModified" datetime="2023-07-20T08:59:55+08:00">2023-07-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h1><h2 id="1-Create-a-directory-in-HDFS-at-given-path-s"><a href="#1-Create-a-directory-in-HDFS-at-given-path-s" class="headerlink" title="1. Create a directory in HDFS at given path(s)."></a>1. Create a directory in HDFS at given path(s).</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir &lt;paths&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfs -mkdir /user/saurzcode/dir1 /user/saurzcode/dir2</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-List-the-contents-of-a-directory"><a href="#2-List-the-contents-of-a-directory" class="headerlink" title="2.  List the contents of a directory."></a>2.  List the contents of a directory.</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -ls &lt;args&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -ls /user/saurzcode</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Upload-and-download-a-file-in-HDFS"><a href="#3-Upload-and-download-a-file-in-HDFS" class="headerlink" title="3. Upload and download a file in HDFS."></a>3. Upload and download a file in HDFS.</h2><p><strong>Upload:</strong></p>
+<p><strong>hdfs fs -put:</strong></p>
+<p>Copy single src file, or multiple src files from local file system to the hdfs data file system</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put &lt;localsrc&gt; ... &lt;HDFS_dest_Path&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put /home/saurzcode/Samplefile.txt  /user/saurzcode/dir3/</span><br></pre></td></tr></table></figure>
+
+<p><strong>*Download:</strong>*</p>
+<p><strong>hdfs fs -get:</strong></p>
+<p>Copies/Downloads files to the local file system</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -get &lt;hdfs_src&gt; &lt;localdst&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -get /user/saurzcode/dir3/Samplefile.txt /home/</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-See-contents-of-a-file"><a href="#4-See-contents-of-a-file" class="headerlink" title="4. See contents of a file"></a>4. See contents of a file</h2><p>Same as unix cat command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cat &lt;path[filename]&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cat /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Copy-a-file-from-source-to-destination"><a href="#5-Copy-a-file-from-source-to-destination" class="headerlink" title="5. Copy a file from source to destination"></a>5. Copy a file from source to destination</h2><p>This command allows multiple sources as well in which case the destination must be a directory.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cp &lt;source&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cp /user/saurzcode/dir1/abc.txt /user/saurzcode/dir2</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Copy-a-file-from-To-Local-file-system-to-HDFS"><a href="#6-Copy-a-file-from-To-Local-file-system-to-HDFS" class="headerlink" title="6. Copy a file from/To Local file system to HDFS"></a>6. Copy a file from/To Local file system to HDFS</h2><p><strong>copyFromLocal</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -copyFromLocal &lt;localsrc&gt; URI</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -copyFromLocal /home/saurzcode/abc.txt  /user/saurzcode/abc.txt</span><br></pre></td></tr></table></figure>
+
+<p>Similar to put command, except that the source is restricted to a local file reference.</p>
+<p><strong>copyToLocal</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -copyToLocal [-ignorecrc] [-crc] URI &lt;localdst&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Similar to get command, except that the destination is restricted to a local file reference.</p>
+<h2 id="7-Move-file-from-source-to-destination"><a href="#7-Move-file-from-source-to-destination" class="headerlink" title="7. Move file from source to destination."></a>7. Move file from source to destination.</h2><p>Note:- Moving files across filesystem is not permitted.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mv &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mv /user/saurzcode/dir1/abc.txt /user/saurzcode/dir2</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-Remove-a-file-or-directory-in-HDFS"><a href="#8-Remove-a-file-or-directory-in-HDFS" class="headerlink" title="8. Remove a file or directory in HDFS."></a>8. Remove a file or directory in HDFS.</h2><p>Remove files specified as argument. Deletes directory only when it is empty</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rm &lt;arg&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rm /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>*Recursive version of delete.</strong>*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rmr &lt;arg&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rmr /user/saurzcode/</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-Display-last-few-lines-of-a-file"><a href="#9-Display-last-few-lines-of-a-file" class="headerlink" title="9. Display last few lines of a file."></a>9. Display last few lines of a file.</h2><p>Similar to tail command in Unix.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -tail &lt;path[filename]&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -tail /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-Display-the-aggregate-length-of-a-file"><a href="#10-Display-the-aggregate-length-of-a-file" class="headerlink" title="10. Display the aggregate length of a file."></a>10. Display the aggregate length of a file.</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -du &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">hdfs dfs -du /user/saurzcode/dir1/abc.txt</span><br></pre></td></tr></table></figure>
+
+<p>Please comment which of these commands you found most useful while dealing with Hadoop /HDFS.</p>
+<h2 id="11-查看指定目录下的所有文件"><a href="#11-查看指定目录下的所有文件" class="headerlink" title="11. 查看指定目录下的所有文件"></a>11. 查看指定目录下的所有文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -lsr /your/hdfs/directory</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><h2 id="Hadoop-Operation-category-READ-is-not-supported-in-state-standby"><a href="#Hadoop-Operation-category-READ-is-not-supported-in-state-standby" class="headerlink" title="Hadoop Operation category READ is not supported in state standby"></a>Hadoop Operation category READ is not supported in state standby</h2><ul>
+<li><p>报错原因<br>hadoop集群中的两个NameNode均为standby状态。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hdfs haadmin -getServiceState nn1</span><br><span class="line">hdfs haadmin -getServiceState nn2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>​        如果两个NameNode均为standby状态，那么很有可能是DFSZKFailoverController出现了问题。</p>
+<ul>
+<li><p>报错解决</p>
+<ul>
+<li><p>手动改变其中一个NameNode的状态</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs haadmin -transitionToActive -forcemanual nn1</span><br></pre></td></tr></table></figure></li>
+<li><p>如果手动改变状态不能解决问题，那就重启dfs</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stop-dfs.sh</span><br><span class="line">start-dfs.sh</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>再检查NameNode状态</p>
+<p>此时正常状态是nn1为active，nn2为standby</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/rabbitmq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1701,196 +1913,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/reactjs%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/29/reactjs%20learn/" class="post-title-link" itemprop="url">reactjs learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-03-29 13:53:30" itemprop="dateCreated datePublished" datetime="2019-03-29T13:53:30+08:00">2019-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-07-26 09:37:41" itemprop="dateModified" datetime="2019-07-26T09:37:41+08:00">2019-07-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Like any unfamiliar technology, React does have a learning curve. With practice and some patience, you <em>will</em> get the hang of it.</p>
-</blockquote>
-<ul>
-<li>React also streamlines how data is stored and handled, using <strong>state</strong> and <strong>props</strong>.</li>
-</ul>
-<h3 id="create-react-app"><a href="#create-react-app" class="headerlink" title="create react app"></a>create react app</h3><ul>
-<li><code>npm install -g create-react-app</code></li>
-<li><code>npx create-react-app my-app</code> or <code>npm init react-app my-app</code></li>
-</ul>
-<h2 id="JSX-JavaScript-XML"><a href="#JSX-JavaScript-XML" class="headerlink" title="JSX: JavaScript + XML"></a>JSX: JavaScript + XML</h2><blockquote>
-<p>Babel compiles JSX down to <code>React.createElement()</code> calls.</p>
-</blockquote>
-<p>jsx</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> heading = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;site-heading&quot;</span>&gt;</span>Hello, React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>non-jsx</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const heading = React.createElement(&#x27;h1&#x27;, &#123; className: &#x27;site-heading&#x27; &#125;, &#x27;Hello, React!&#x27;)</span><br></pre></td></tr></table></figure>
-
-<p>the feature of jsx:</p>
-<ul>
-<li><code>className</code> is used instead of <code>class</code> for adding CSS classes, as <code>class</code> is a reserved keyword in JavaScript.</li>
-<li>Properties and methods in JSX are camelCase - <code>onclick</code> will become <code>onClick</code>.</li>
-<li>Self-closing tags <em>must</em> end in a slash - e.g. <code>&lt;img /&gt;</code></li>
-</ul>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><blockquote>
-<p>Whether you declare a component <a target="_blank" rel="noopener" href="https://reactjs.org/docs/components-and-props.html#function-and-class-components">as a function or a class</a>, it must never modify its own props. </p>
-</blockquote>
-<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><p>The simplest way to define a component is to write a JavaScript function:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Welcome</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Class-Components"><a href="#Class-Components" class="headerlink" title="Class Components"></a>Class Components</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Table</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>Job<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Charlie<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Janitor<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Table</span><br></pre></td></tr></table></figure>
-
-<h3 id="Simple-Components"><a href="#Simple-Components" class="headerlink" title="Simple Components"></a>Simple Components</h3><blockquote>
-<p>The other type of component in React is the <strong>simple component</strong>, which is a function. This component doesn’t use the <code>class</code> keyword. Let’s take our <code>Table</code> and make two simple components for it - a table header, and a table body.</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TableHeader = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">thead</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>Job<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TableBody = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>Charlie<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>Janitor<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Table</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">TableHeader</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">TableBody</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>Everything should appear as it did before. As you can see, components can be nested in other components, and simple and class components can be mixed.</p>
-<p><strong>A class component must include <code>render()</code>, and the <code>return</code> can only return one parent element.</strong></p>
-<h3 id="Converting-a-Function-to-a-Class"><a href="#Converting-a-Function-to-a-Class" class="headerlink" title="Converting a Function to a Class"></a>Converting a Function to a Class</h3><p>convert a function component to a class in five steps:</p>
-<ol>
-<li>Create an <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes">ES6 class</a>, with the same name, that extends <code>React.Component</code>.</li>
-<li>Add a single empty method to it called <code>render()</code>.</li>
-<li>Move the body of the function into the <code>render()</code> method.</li>
-<li>Replace <code>props</code> with <code>this.props</code> in the <code>render()</code> body.</li>
-<li>Delete the remaining empty function declaration.</li>
-</ol>
-<h2 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h2><blockquote>
-<p>Props are an effective way to pass existing data to a React component, however the component cannot change the props - they’re read-only. </p>
-</blockquote>
-<ul>
-<li><em>props</em> are a way of passing data from parent to child.</li>
-</ul>
-<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><p>State is similar to props, but it is private and fully controlled by the component.</p>
-<p>State is reserved only for interactivity, that is, data that changes over time. </p>
-<blockquote>
-<p>You can think of state as any data that should be saved and modified without necessarily being added to a database - for example, adding and removing items from a shopping cart before confirming your purchase.</p>
-</blockquote>
-<ul>
-<li><p>You must use <code>this.setState()</code> to modify an array. Simply applying a new value to <code>this.state.property</code> will not work.</p>
-<p> ie.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Wrong</span></span><br><span class="line"><span class="built_in">this</span>.state.comment = <span class="string">&#x27;Hello&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Correct</span></span><br><span class="line"><span class="built_in">this</span>.setState(&#123;<span class="attr">comment</span>: <span class="string">&#x27;Hello&#x27;</span>&#125;);</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>tips:</p>
-<p>Because <code>this.props</code> and <code>this.state</code> may be updated asynchronously, you should not rely on their values for calculating the next state.</p>
-<p>ie.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Wrong</span></span><br><span class="line"><span class="built_in">this</span>.setState(&#123;</span><br><span class="line">  <span class="attr">counter</span>: <span class="built_in">this</span>.state.counter + <span class="built_in">this</span>.props.increment,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>use a second form of <code>setState()</code> that accepts a function rather than an object. That function will receive the previous state as the first argument, and the props at the time the update is applied as the second argument:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Correct</span></span><br><span class="line"><span class="built_in">this</span>.setState(<span class="function">(<span class="params">state, props</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">counter</span>: state.counter + props.increment</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<h3 id="The-Data-Flows-Down"><a href="#The-Data-Flows-Down" class="headerlink" title="The Data Flows Down"></a>The Data Flows Down</h3><blockquote>
-<p>If you imagine a component tree as a waterfall of props, each component’s state is like an additional water source that joins it at an arbitrary point but also flows down.</p>
-</blockquote>
-<p>Neither parent nor child components can know if a certain component is stateful or stateless, and they shouldn’t care whether it is defined as a function or a class.</p>
-<p>This is why state is often called local or encapsulated. It is not accessible to any component other than the one that owns and sets it.</p>
-<p>This is commonly called a “top-down” or “unidirectional” data flow. Any state is always owned by some specific component, and any data or UI derived from that state can only affect components “below” them in the tree.</p>
-<h2 id="Lifecycle-methods"><a href="#Lifecycle-methods" class="headerlink" title="Lifecycle methods"></a>Lifecycle methods</h2><h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h3><blockquote>
-<p>The <code>componentDidMount()</code> method runs after the component output has been rendered to the DOM. </p>
-</blockquote>
-<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;<span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.timerID = <span class="built_in">setInterval</span>(</span><br><span class="line">      <span class="function">() =&gt;</span> <span class="built_in">this</span>.tick(),</span><br><span class="line">      <span class="number">1000</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentWillUnmount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">clearInterval</span>(<span class="built_in">this</span>.timerID);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">tick</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>It is &#123;this.state.date.toLocaleTimeString()&#125;.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Clock</span> /&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>Let’s quickly recap what’s going on and the order in which the methods are called:</p>
-<ol>
-<li>When <code>&lt;Clock /&gt;</code> is passed to <code>ReactDOM.render()</code>, React calls the constructor of the <code>Clock</code>component. Since <code>Clock</code> needs to display the current time, it initializes <code>this.state</code> with an object including the current time. We will later update this state.</li>
-<li>React then calls the <code>Clock</code> component’s <code>render()</code> method. This is how React learns what should be displayed on the screen. React then updates the DOM to match the <code>Clock</code>’s render output.</li>
-<li>When the <code>Clock</code> output is inserted in the DOM, React calls the <code>componentDidMount()</code> lifecycle method. Inside it, the <code>Clock</code> component asks the browser to set up a timer to call the component’s <code>tick()</code> method once a second.</li>
-<li>Every second the browser calls the <code>tick()</code> method. Inside it, the <code>Clock</code> component schedules a UI update by calling <code>setState()</code> with an object containing the current time. Thanks to the <code>setState()</code> call, React knows the state has changed, and calls the <code>render()</code> method again to learn what should be on the screen. This time, <code>this.state.date</code> in the <code>render()</code> method will be different, and so the render output will include the updated time. React updates the DOM accordingly.</li>
-<li>If the <code>Clock</code> component is ever removed from the DOM, React calls the <code>componentWillUnmount()</code> lifecycle method so the timer is stopped.</li>
-</ol>
-<p>总结：constructor-&gt;render()-&gt;componentDidMount()</p>
-<p>state改变-&gt;render()</p>
-<h3 id="componentWillReceiveProps"><a href="#componentWillReceiveProps" class="headerlink" title="componentWillReceiveProps"></a>componentWillReceiveProps</h3><p>componentWillReceiveProps在初始化render的时候不会执行，它会在Component接受到新的状态(Props)时被触发，一般用于父组件状态更新时子组件的重新渲染。</p>
-<p>在componentWillReceiveProps中想作任何变更最好都将两个状态进行比较，假如状态有异才执行下一步。不然容易造成组件的多次渲染，并且这些渲染都是没有意义的。</p>
-<h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><h2 id="Conditional-Rendering"><a href="#Conditional-Rendering" class="headerlink" title="Conditional Rendering"></a>Conditional Rendering</h2><blockquote>
-<p>Also remember that whenever conditions become too complex, it might be a good time to <a target="_blank" rel="noopener" href="https://reactjs.org/docs/components-and-props.html#extracting-components">extract a component</a>.</p>
-</blockquote>
-<ul>
-<li>Returning <code>null</code> from a component’s <code>render</code> method does not affect the firing of the component’s lifecycle methods. For instance <code>componentDidUpdate</code> will still be called.</li>
-</ul>
-<h2 id="Lists-and-Keys"><a href="#Lists-and-Keys" class="headerlink" title="Lists and Keys"></a>Lists and Keys</h2><blockquote>
-<p>Keep in mind that if the <code>map()</code> body is too nested, it might be a good time to <a target="_blank" rel="noopener" href="https://reactjs.org/docs/components-and-props.html#extracting-components">extract a component</a>.</p>
-</blockquote>
-<h2 id="Forms"><a href="#Forms" class="headerlink" title="Forms"></a>Forms</h2><h2 id="Lifting-State-Up"><a href="#Lifting-State-Up" class="headerlink" title="Lifting State Up"></a>Lifting State Up</h2><h2 id="Composition-vs-Inheritance"><a href="#Composition-vs-Inheritance" class="headerlink" title="Composition vs Inheritance"></a>Composition vs Inheritance</h2><ul>
-<li>Remember that components may accept arbitrary props, including primitive values, React elements, or functions.</li>
-</ul>
-<h2 id="Thinking-in-React"><a href="#Thinking-in-React" class="headerlink" title="Thinking in React"></a>Thinking in React</h2><ul>
-<li>You can build top-down or bottom-up. That is, you can either start with building the components higher up in the hierarchy or with the ones lower in it. In simpler examples, it’s usually easier to go top-down, and on larger projects, it’s easier to go bottom-up and write tests as you build.</li>
-<li><strong>Remember</strong>: React is all about one-way data flow down the component hierarchy. </li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1960,7 +1982,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2023-08-02T06:47:54.512Z</updated>
+  <updated>2023-08-10T02:48:22.961Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>flink upsert stream</title>
+    <link href="http://yoursite.com/2023/08/10/flink%20upsert%20stream/"/>
+    <id>http://yoursite.com/2023/08/10/flink%20upsert%20stream/</id>
+    <published>2023-08-10T02:47:36.000Z</published>
+    <updated>2023-08-10T02:48:22.961Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="upsert-kafka"><a href="#upsert-kafka" class="headerlink" title="upsert kafka"></a>upsert kafka</h1><p>The Kafka connector in Flink SQL can work in two streaming modes. </p><p><strong>Upsert mode</strong> allows us to get the latest value for a specific entity automatically without any manual deduplication. One of the typical scenarios where you can leverage this mode is a SQL join of two tables, where one of the tables is keeping history of changes per some entity id. Once you join on such an entity id which is non-unique by design, you get unwanted rows, but you usually want to see the latest value of that entity. With upsert mode, Flink automatically normalizes before the tables are joined. Eventually it allows you to easily answer typical business questions on getting a real-time view of the shared resources like cars, planes, workers, etc.</p><p><strong>Append mode</strong> is still an option to go with, if a business query does not need to filter out all historical events, but rather show the history of changes at the end. In this scenario, query may run faster with append mode, as Flink does not need to do any changelog normalization.</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;upsert-kafka&quot;&gt;&lt;a href=&quot;#upsert-kafka&quot; class=&quot;headerlink&quot; title=&quot;upsert kafka&quot;&gt;&lt;/a&gt;upsert kafka&lt;/h1&gt;&lt;p&gt;The Kafka connector in Flink S</summary>
+      
+    
+    
+    
+    <category term="flink" scheme="http://yoursite.com/categories/flink/"/>
+    
+    
+    <category term="learn" scheme="http://yoursite.com/tags/learn/"/>
+    
+  </entry>
   
   <entry>
     <title>flink duduplication</title>
@@ -504,30 +528,6 @@
     
     
     <category term="plugin" scheme="http://yoursite.com/tags/plugin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>file system</title>
-    <link href="http://yoursite.com/2022/01/07/file%20system/"/>
-    <id>http://yoursite.com/2022/01/07/file%20system/</id>
-    <published>2022-01-07T05:59:21.000Z</published>
-    <updated>2022-01-07T06:23:11.573Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><img src="/images/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p><ul><li><p>Mac 默认可以读 Windows 的 NTFS 格式，但不能写。</p></li><li><p>Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。</p></li><li><p>Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式</p></li><li><p>linux</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）</span><br><span class="line"></span><br><span class="line">不同文件系统采用不同的方法来管理磁盘空间，各有优劣；文件系统是具体到分区的，所以格式化针对的是分区，分区格式化是指采用指定的文件系统类型对分区空间进行登记、索引并建立相应的管理表格的过程。</span><br><span class="line"></span><br><span class="line">ext2具有极快的速度和极小的CPU占用率，可用于硬盘和移动存储设备</span><br><span class="line">ext3增加日志功能，可回溯追踪</span><br><span class="line">ext4日志式文件系统，支持1EB（1024*1024TB），最大单文件16TB，支持连续写入可减少文件碎片。rhel6默认文件系统</span><br><span class="line">xfs可以管理500T的硬盘。rhel7默认文件系统</span><br><span class="line">brtfs文件系统针对固态盘做优化，</span><br></pre></td></tr></table></figure></li><li><p>windows</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低</span><br><span class="line">FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB</span><br><span class="line">NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。</span><br></pre></td></tr></table></figure></li></ul><hr><p>reference</p><p><a href="https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613">https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;文件系统&quot;&gt;&lt;a href=&quot;#文件系统&quot; class=&quot;headerlink&quot; title=&quot;文件系统&quot;&gt;&lt;/a&gt;文件系统&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/images/fileSystemType.jpeg&quot; alt=&quot;fileSystemType.jpe</summary>
-      
-    
-    
-    
-    <category term="file system" scheme="http://yoursite.com/categories/file-system/"/>
-    
-    
-    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
     
   </entry>
   

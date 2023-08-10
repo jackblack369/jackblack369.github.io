@@ -9044,4 +9044,18 @@
         <tag>去重</tag>
       </tags>
   </entry>
+  <entry>
+    <title>flink upsert stream</title>
+    <url>/2023/08/10/flink%20upsert%20stream/</url>
+    <content><![CDATA[<h1 id="upsert-kafka"><a href="#upsert-kafka" class="headerlink" title="upsert kafka"></a>upsert kafka</h1><p>The Kafka connector in Flink SQL can work in two streaming modes. </p>
+<p><strong>Upsert mode</strong> allows us to get the latest value for a specific entity automatically without any manual deduplication. One of the typical scenarios where you can leverage this mode is a SQL join of two tables, where one of the tables is keeping history of changes per some entity id. Once you join on such an entity id which is non-unique by design, you get unwanted rows, but you usually want to see the latest value of that entity. With upsert mode, Flink automatically normalizes before the tables are joined. Eventually it allows you to easily answer typical business questions on getting a real-time view of the shared resources like cars, planes, workers, etc.</p>
+<p><strong>Append mode</strong> is still an option to go with, if a business query does not need to filter out all historical events, but rather show the history of changes at the end. In this scenario, query may run faster with append mode, as Flink does not need to do any changelog normalization.</p>
+]]></content>
+      <categories>
+        <category>flink</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
 </search>
