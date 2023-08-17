@@ -398,7 +398,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-07 16:32:43" itemprop="dateModified" datetime="2023-08-07T16:32:43+08:00">2023-08-07</time>
+                <time title="Modified: 2023-08-17 14:04:38" itemprop="dateModified" datetime="2023-08-17T14:04:38+08:00">2023-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -458,13 +458,21 @@
 <li>⭐ 关于 FLOAT 和 DOUBLE 的区别可见 <a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/float-and-double-different.html">https://www.runoob.com/w3cnote/float-and-double-different.html</a></li>
 </ul>
 <h3 id="日期、时间类型："><a href="#日期、时间类型：" class="headerlink" title="日期、时间类型："></a>日期、时间类型：</h3><ul>
-<li>⭐ DATE：由 <code>年-月-日</code> 组成的 <code>不带时区含义</code> 的日期类型，取值范围 [0000-01-01, 9999-12-31]</li>
-<li>⭐ TIME、TIME(p)：由 <code>小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的的时间的数据类型，精度高达纳秒，取值范围 [00:00:00.000000000到23:59:59.9999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 0。</li>
-<li>⭐ TIMESTAMP、TIMESTAMP(p)、TIMESTAMP WITHOUT TIME ZONE、TIMESTAMP(p) WITHOUT TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000, 9999-12-31 23:59:59.999999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</li>
-<li>⭐ TIMESTAMP WITH TIME ZONE、TIMESTAMP(p) WITH TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</li>
-<li>⭐ TIMESTAMP_LTZ、TIMESTAMP_LTZ(p)：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</li>
-<li>⭐ TIMESTAMP_LTZ 与 TIMESTAMP WITH TIME ZONE 的区别在于：TIMESTAMP WITH TIME ZONE 的时区信息是携带在数据中的，举例：其输入数据应该是 2022-01-01 00:00:00.000000000 +08:00；TIMESTAMP_LTZ 的时区信息不是携带在数据中的，而是由 Flink SQL 任务的全局配置决定的，我们可以由 <code>table.local-time-zone</code> 参数来设置时区。</li>
-<li>⭐ INTERVAL YEAR TO MONTH、 INTERVAL DAY TO SECOND：interval 的涉及到的种类比较多。INTERVAL 主要是用于给 TIMESTAMP、TIMESTAMP_LTZ 添加偏移量的。举例，比如给 TIMESTAMP 加、减几天、几个月、几年。INTERVAL 子句总共涉及到的语法种类如下 Flink SQL 案例所示。</li>
+<li><p>⭐ DATE：由 <code>年-月-日</code> 组成的 <code>不带时区含义</code> 的日期类型，取值范围 [0000-01-01, 9999-12-31]</p>
+</li>
+<li><p>⭐ TIME、TIME(p)：由 <code>小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的的时间的数据类型，精度高达纳秒，取值范围 [00:00:00.000000000到23:59:59.9999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 0。</p>
+</li>
+<li><p>⭐ TIMESTAMP、TIMESTAMP(p)、TIMESTAMP WITHOUT TIME ZONE、TIMESTAMP(p) WITHOUT TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000, 9999-12-31 23:59:59.999999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
+<p>Timestamp precision can range from 0 (seconds) to 9 (nanoseconds). The default precision is 6.</p>
+</li>
+<li><p>⭐ TIMESTAMP WITH TIME ZONE、TIMESTAMP(p) WITH TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
+</li>
+<li><p>⭐ TIMESTAMP_LTZ、TIMESTAMP_LTZ(p)：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
+</li>
+<li><p>⭐ TIMESTAMP_LTZ 与 TIMESTAMP WITH TIME ZONE 的区别在于：TIMESTAMP WITH TIME ZONE 的时区信息是携带在数据中的，举例：其输入数据应该是 2022-01-01 00:00:00.000000000 +08:00；TIMESTAMP_LTZ 的时区信息不是携带在数据中的，而是由 Flink SQL 任务的全局配置决定的，我们可以由 <code>table.local-time-zone</code> 参数来设置时区。</p>
+</li>
+<li><p>⭐ INTERVAL YEAR TO MONTH、 INTERVAL DAY TO SECOND：interval 的涉及到的种类比较多。INTERVAL 主要是用于给 TIMESTAMP、TIMESTAMP_LTZ 添加偏移量的。举例，比如给 TIMESTAMP 加、减几天、几个月、几年。INTERVAL 子句总共涉及到的语法种类如下 Flink SQL 案例所示。</p>
+</li>
 </ul>
 <p>​    <strong>注意：但是在 Flink SQL 中，无法直接去掉时间字段的小数秒部分而保留时间类型。</strong></p>
 <h3 id="其它类型"><a href="#其它类型" class="headerlink" title="其它类型"></a>其它类型</h3><ol>
