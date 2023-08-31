@@ -6545,9 +6545,11 @@
 <li><p>导出数据表数据（根据sql的where条件）</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -p database --tables tablename --where=&quot;id&gt;8&quot; &gt; result.sql </span><br></pre></td></tr></table></figure></li>
 <li><p>执行sql文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/files/filename.sql</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/files/file.sql</span></span><br></pre></td></tr></table></figure></li>
 <li><p>导出所有数据库</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt; backup_filename.sql</span><br></pre></td></tr></table></figure></li>
+<li><p>只导出建表语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysqldump <span class="operator">-</span>u your_username <span class="operator">-</span>p <span class="comment">--no-data your_database &gt; backup.sql</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="新增主键"><a href="#新增主键" class="headerlink" title="新增主键"></a>新增主键</h3><p>suppose you don’t have column for auto increment like id, no, then you can add using following query:</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> id <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT <span class="keyword">primary</span> key <span class="keyword">FIRST</span></span><br></pre></td></tr></table></figure>
@@ -6883,8 +6885,9 @@
 
 <h3 id="自定义配置redis-server"><a href="#自定义配置redis-server" class="headerlink" title="自定义配置redis server"></a>自定义配置redis server</h3><p>涉及到的目录或文件有</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.配置文件    /etc/redis/xxxx.conf</span><br><span class="line">2.日志、数据文件    /data/redis/xxxx</span><br><span class="line">3.启动脚本    /etc/init.d/redis_xxxx</span><br></pre></td></tr></table></figure></li>
+<li><p>客户端启动时    redis-cli -p xxxx</p>
+</li>
 </ul>
-<p>客户端启动时    redis-cli -p xxxx</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### Enable remote Redis connection</span><br><span class="line"></span><br><span class="line">- Replaced `bind 127.0.0.1` with `bind 0.0.0.0` in the `/etc/redis/redis.conf` file, the line does not have a leading `#` nor space,</span><br><span class="line">- Replaced `protected-mode yes` with `protected-mode no` in this same file,</span><br><span class="line">- Allowed all traffic to port `6379` using `ufw allow 6379` and `ufw allow 6379/tcp`</span><br><span class="line"></span><br><span class="line">### secure redis</span><br><span class="line"></span><br><span class="line">By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
 
 <h1 id="yum-install-epel-release-y"><a href="#yum-install-epel-release-y" class="headerlink" title="yum install epel-release -y"></a>yum install epel-release -y</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Once the EPEL repository is installed, you can install UFW by just running the following linux command:</span><br></pre></td></tr></table></figure>
@@ -9070,6 +9073,36 @@
       </categories>
       <tags>
         <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dameng snippet</title>
+    <url>/2023/08/21/dameng%20snippet/</url>
+    <content><![CDATA[<ul>
+<li>连接url带上schema信息</li>
+</ul>
+]]></content>
+      <categories>
+        <category>snippet</category>
+      </categories>
+      <tags>
+        <tag>dameng</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM class loader</title>
+    <url>/2023/08/31/JVM%20classLoader/</url>
+    <content><![CDATA[<h2 id="class冲突"><a href="#class冲突" class="headerlink" title="class冲突"></a>class冲突</h2><p>可以打印出类的加载顺序，可以用来排查 class 的冲突问题：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-XX:+TraceClassLoading</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>jvm</category>
+      </categories>
+      <tags>
+        <tag>command</tag>
       </tags>
   </entry>
 </search>

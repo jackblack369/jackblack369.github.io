@@ -174,6 +174,182 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/16/mybatis%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/10/16/mybatis%20snippet/" class="post-title-link" itemprop="url">mybatis snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-10-16T12:01:30+08:00">2016-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<li><p>about date jdbcType</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#&#123;beginDate,jdbcType=DATE&#125; (no time of the day), or</span><br><span class="line">#&#123;beginDate,jdbcType=TIMESTAMP&#125; (if you need to include the time of the day).</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>And the Java parameter you want to apply should be of type:<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.sql.Date (date without time)</span><br><span class="line">java.sql.Timestamp (timestamp)</span><br><span class="line">java.util.Date (date and time).</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>the Greater Than/Equal Operator and the Less Than/Equal Operators:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ROWNUM &amp;gt;= 20</span><br><span class="line">ROWNUM &amp;lt;= 20</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>使用SpringMVC+Mybatis框架写项目的时候，在mapper里面的sql语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;updateTime != null&quot;</span>&gt;</span></span><br><span class="line">	and update_time <span class="symbol">&amp;gt;</span> #&#123;updateTime,jdbcType=TIMESTAMP&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>出错：<code>There is no getter for property named &#39;updateTime&#39; in &#39;class java.util.Date&#39;</code></p>
+<p>原因是：<br>如果将and语句中的#｛属性｝写在if语句中，mybatis会去对象中从它的get方法中取值，而我之前是直接传递的值，并没有封装对象。<br>解决办法：</p>
+<pre><code> 1. 把updateTime需改为date
+2. 把updateTime代表的参数封装到一个对象中
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/14/springboot%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/14/springboot%20snippet/" class="post-title-link" itemprop="url">springboot snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-08-14 18:38:22" itemprop="dateCreated datePublished" datetime="2016-08-14T18:38:22+08:00">2016-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-25 00:53:40" itemprop="dateModified" datetime="2022-01-25T00:53:40+08:00">2022-01-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题随记"><a href="#问题随记" class="headerlink" title="问题随记"></a>问题随记</h2><ol>
+<li>Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库</li>
+</ol>
+<ul>
+<li><p>首先在配置文件application.properties</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/test</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#mybatis.typeAliasesPackage：为实体对象所在的包，跟数据库表一一对应</span></span><br><span class="line"><span class="comment">#mybatis.mapperLocations：mapper文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="meta">mybatis.typeAliasesPackage</span>=<span class="string">com.xxx.model</span></span><br><span class="line"><span class="meta">mybatis.mapperLocations</span>=<span class="string">classpath:mybatis/mapper/*Mapper.xml</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在启动类Application.java中写上配置信息 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.xxx.dao&quot;)</span> <span class="comment">// mybatis扫描路径，针对的是接口Mapper类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyreportApplication</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DailyreportApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>mysql连接异常<code>java.sql.SQLException: Value &#39;0000-00-00&#39; can not be represented as java.sql.Date</code></li>
+</ol>
+<ul>
+<li>解决办法<code>jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull </code></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/05/git%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1072,211 +1248,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/16/css%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/16/css%20snippet/" class="post-title-link" itemprop="url">css snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-01-16 20:30:00" itemprop="dateCreated datePublished" datetime="2016-01-16T20:30:00+08:00">2016-01-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-02 10:55:44" itemprop="dateModified" datetime="2019-08-02T10:55:44+08:00">2019-08-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>每个元素都有一个默认的 display 类型<br>不过你可以随时随地的重写它！如常见的例子是：把 li 元素修改成 inline，制作成水平菜单。</p>
-<p>p标签是块级元素，span元素是行内元素。内元素可以写在块级元素里面  比如<code>&lt;p&gt;&lt;span&gt;内容&lt;/span&gt;&lt;/p&gt;</code></p>
-<ul>
-<li>block</li>
-</ul>
-<p>值为block的为块级元素， 如：p、form、header、footer、section</p>
-<ul>
-<li>inline</li>
-</ul>
-<p>值为inline的为行内元素</p>
-<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><ul>
-<li>static</li>
-</ul>
-<p>static是默认值，一个static元素表示它不会被”positioned”,一个position属性被设置为其它值得元素表示它会被”positioned”</p>
-<ul>
-<li>relative</li>
-</ul>
-<p>relative,在一个相对定位（position属性的值为relative）的元素上设置 top 、 right 、 bottom 和 left 属性会使其偏离其正常位置。<br>其他的元素的位置则不会受该元素的影响发生位置改变来弥补它偏离后剩下的空隙。</p>
-<ul>
-<li>fixed</li>
-</ul>
-<p>fixed,一个固定定位（position属性的值为fixed）元素会相对于视窗来定位，这意味着即便页面滚动，它还是会停留在相同的位置。<br>和 relative 一样， top 、 right 、 bottom 和 left 属性都可用。</p>
-<ul>
-<li>absolute</li>
-</ul>
-<p>absolute, 它与 fixed 的表现类似，但是它不是相对于视窗而是相对于最近的“positioned”祖先元素。<br>如果绝对定位（position属性的值为absolute）的元素没有“positioned”祖先元素，那么它是相对于文档的 body 元素，并且它会随着页面滚动而移动。<br>记住一个“positioned”元素是指 position 值不是 static 的元素。</p>
-<h3 id="mbp"><a href="#mbp" class="headerlink" title="mbp"></a>mbp</h3><p><img src="https://mdn.mozillademos.org/files/13647/box-model-standard-small.png"></p>
-<ul>
-<li><p>margin</p>
-<blockquote>
-<p>是设置两个标签的间隔，也就是距离</p>
-</blockquote>
-</li>
-<li><p>padding</p>
-<blockquote>
-<p>比如一个p标签，它是100px*100px,我们使用的时候p标签的文字是贴着p标签的最左侧的，想要它的文字距离边界远一点，好看一点，就是需要做一个样式的调整，我们可以用到padding这个属性，假如说设置是10px，就是说这个p标签的大小依然是100px*100px，但是它的内容是变成了90px*90px；</p>
-</blockquote>
-</li>
-<li><p>border</p>
-<blockquote>
-<p>boarder是设置边框的意思，他和padding的区别在于，padding是在标签边缘往里缩减，而border是在标签的边缘往外扩展，也就是说是一个100px*100px的标签，我设置他的border为20px，我们就可以看到整个标签的大小是变成了120px*120px，也就是说多出来了120px，其标签的内容也还是100px*100px的</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/18/websocket%20snippit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/12/18/websocket%20snippit/" class="post-title-link" itemprop="url">websocket tracking</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-12-18 18:01:30" itemprop="dateCreated datePublished" datetime="2015-12-18T18:01:30+08:00">2015-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 14:23:05" itemprop="dateModified" datetime="2019-03-14T14:23:05+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/websocket/" itemprop="url" rel="index"><span itemprop="name">websocket</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LOVELONG8808/article/details/52235132">https://blog.csdn.net/LOVELONG8808/article/details/52235132</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/w1992wishes/article/details/79583543">https://blog.csdn.net/w1992wishes/article/details/79583543</a></p>
-<hr>
-<p>WebSocket API是下一代客户端-服务器的异步通信方法。<br>WebSocket API最伟大之处在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息。<br>WebSocket并不限于以Ajax(或XHR)方式通信，因为Ajax技术需要客户端发起请求，而WebSocket服务器和客户端可以彼此相互推送信息；<br>​    XHR受到域的限制，而WebSocket允许跨域通信。<br>​    Ajax技术很聪明的一点是没有设计要使用的方式。WebSocket为指定目标创建，用于双向推送消息。</p>
-<hr>
-<p>activemq是消息中间件，主要实现是队列。用于处理消息。<br>websocket是 html5的一种传议实现前台向后台，后台向前台发出请求。</p>
-<hr>
-<p>websocket是HTML5协议，实时，全双工通信，长连接。WebSocket的服务端可以将数据推送到客户端，<br>​    如实时将证券信息反馈到客户端，实时天气数据，比http请求响应模式更灵活，代替了以往一些需要轮训的业务。</p>
-<p>STOMP协议的前身是TTMP协议（一个简单的基于文本的协议），专为消息中间件设计。</p>
-<p>这两个协议的介绍来看设计的目的不同。目前一些消息队列都是基于STOMP协议的比如ActiveMQ，RabbitMQ，消息队列一般用于一些需要异步处理的服务器任务或者一些通知类的任务。</p>
-<p>websocket更多的使用场景是需要服务端主动通知客户端的实时通讯业务。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1342,18 +1317,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">142</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">80</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

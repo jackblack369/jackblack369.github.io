@@ -174,6 +174,248 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/09/linux%20network/" class="post-title-link" itemprop="url">linux network</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-11 11:01:32" itemprop="dateModified" datetime="2023-07-11T11:01:32+08:00">2023-07-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PORT"><a href="#PORT" class="headerlink" title="PORT"></a>PORT</h2><ul>
+<li><p>Check the listening ports</p>
+<p>Run any one of the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure></li>
+<li><p>checking <strong>remote system</strong> tcp 80 port status</p>
+<ol>
+<li><p>Telnet</p>
+</li>
+<li><p>nc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<ol start="3">
+<li>nmap<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>通过进程名查看占用端口</p>
+<ul>
+<li>先查看进程pid    <code>ps -ef | grep 进程名 </code></li>
+<li>再通过pid查看占用端口    <code>netstat -nap | grep 进程pid </code></li>
+</ul>
+</li>
+<li><p>通过端口查看进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h2><ul>
+<li><p>查看本地网络代理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export | grep -i proxy</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭代理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset http_proxy </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><ul>
+<li><p>pretty json </p>
+<p>curl ‘address:port’ | json_pp</p>
+</li>
+</ul>
+<h2 id="端口远程访问"><a href="#端口远程访问" class="headerlink" title="端口远程访问"></a>端口远程访问</h2><p>检测端口是否允许远程访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;port&gt;</span><br><span class="line"></span><br><span class="line">查看输出结果。如果输出结果中有 0.0.0.0:&lt;port&gt; 或者 :::&lt;port&gt;，表示该端口允许远程访问；</span><br><span class="line">如果输出结果中只有 127.0.0.1:&lt;port&gt; 或者 ::1:&lt;port&gt;，表示该端口只允许本地访问</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 Ubuntu 中，要开启指定端口的远程访问，需要进行以下步骤：</li>
+</ul>
+<ol>
+<li><p>确认端口是否已经开启：使用 <code>netstat</code> 命令检查要开启的端口是否已经在监听状态。如果已经在监听状态，则可以直接进行下一步操作；如果没有在监听状态，则需要先启动对应的服务程序。</p>
+</li>
+<li><p>修改防火墙规则：使用 <code>ufw</code> 命令修改防火墙规则，开放指定端口。例如，要开放端口号为 80 的端口，可以使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 80/tcp</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会将端口号为 80 的端口加入到防火墙规则中，并允许 TCP 协议通过该端口进行访问。</p>
+</li>
+<li><p>重启防火墙服务：在修改防火墙规则后，需要重启防火墙服务才能使修改生效。可以使用以下命令重启防火墙服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ufw restart</span><br></pre></td></tr></table></figure></li>
+<li><p>确认防火墙规则是否正确：使用以下命令查看当前的防火墙规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw status numbered</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="根据PID查看子进程"><a href="#根据PID查看子进程" class="headerlink" title="根据PID查看子进程"></a>根据PID查看子进程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -lntp |grep PID</span><br></pre></td></tr></table></figure>
+
+<h2 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h2><p>xx.xx.xx.xx/24</p>
+<p>在网络中，IP地址由两个部分组成：网络地址和主机地址。IP地址的网络部分用于标识网络，而主机部分用于标识特定的设备或主机。</p>
+<p>CIDR（无类别域间路由）表示法通常用于指定IP地址的子网掩码，以确定网络地址和主机地址的边界。CIDR表示法使用斜线后面的数字来表示网络地址中前多少位是固定的，即网络前缀长度。例如，/24 表示前 24 位是网络地址，剩下的 8 位则是主机地址。</p>
+<p>对于 IPv4 地址，每个 IP 地址都由 32 位二进制数表示。通过将前 24 位作为网络地址并保留最后 8 位作为主机地址，可以创建一个包含 256 个可能主机地址的网络。这被称为 “24 位网络” 或 “24 位子网”，它的子网掩码是 255.255.255.0。</p>
+<p>因此，当你配置一个 IP 地址并添加 /24 后缀时，你正在指定该地址所属的网络和子网掩码。这样可以帮助确定该地址所在的网络，并确保与其他设备进行通信时，数据包能够正确地路由到目标设备。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/09/linux%20snippet/" class="post-title-link" itemprop="url">linux snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-14 18:07:25" itemprop="dateModified" datetime="2022-03-14T18:07:25+08:00">2022-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。</li>
+<li>/sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。</li>
+<li>/root/    超级用户，即根用户的主目录。</li>
+<li>/home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。</li>
+<li>/boot/    存放Ubuntu内核和系统启动文件。</li>
+<li>/mnt/     通常包括系统引导后被挂载的文件系统的挂载点。</li>
+<li>/dev/    存储设备文件，包括计算机的所有外部设备，如硬盘、是、键盘、鼠标等。</li>
+<li>/etc/    存放文件管理配置文件和目录。</li>
+<li>/lib/    存储各种程序所需要的共享库文件。</li>
+<li>/lost+found/    一般为空，当非法关机时，会存放一些零散的文件。</li>
+<li>/var/    用于存放很多不断变化的文件，例如日志文件等。</li>
+<li>/usr/    包括与系统用户直接有关的文件和目录</li>
+<li>/media/    存放Ubuntu系统自动挂载的设备文件。</li>
+<li>/proc/    这是一个虚拟目录，它是内存的映射，包括系统信息和进程信息。</li>
+<li>/tmp/    存储系统和用户的临时信息。</li>
+<li>/initrd/    用来加载启动时临时挂载的initrd.img映像文件，以及载入所要的设备模块目录。</li>
+<li>/opt/    作为可选文件和程序的存放目录，否则将无法引导计算机进入操作系统。</li>
+<li>/srv/    存储系统提供的服务数据。</li>
+<li>/sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。</li>
+</ul>
+<h2 id="装机问题"><a href="#装机问题" class="headerlink" title="装机问题"></a>装机问题</h2><h3 id="Wifi-Not-Enabled-Acer-Aspire-4750"><a href="#Wifi-Not-Enabled-Acer-Aspire-4750" class="headerlink" title="Wifi Not Enabled Acer Aspire 4750"></a>Wifi Not Enabled Acer Aspire 4750</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: yes</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">~$</span><span class="bash"> sudo rmmod acer-wmi</span></span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">add below line at the end of the file : /etc/modprobe.d/blacklist.conf</span><br><span class="line">blacklist acer-wmi</span><br><span class="line"></span><br><span class="line">Then restart the system.</span><br><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: no</span><br></pre></td></tr></table></figure>
+
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><ul>
+<li>防火墙 firewalld.service</li>
+</ul>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p><strong>shell与export命令</strong></p>
+<p>用户登录到Linux系统后，系统将启动一个用户shell。在这个shell中，可以使用shell命令或声明变量，也可以创建并运行 shell脚本程序。运行shell脚本程序时，系统将创建一个子shell。此时，系统中将有两个shell，一个是登录时系统启动的shell，另一 个是系统为运行脚本程序创建的shell。当一个脚本程序运行完毕，它的脚本shell将终止，可以返回到执行该脚本之前的shell。从这种意义上来 说，用户可以有许多 shell，每个shell都是由某个shell（称为父shell）派生的。</p>
+<p>在子 shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内 的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用export命令对已定义的变量进行输出。 export命令将使系统在创建每一个新的shell时定义这个变量的一个拷贝。这个过程称之为变量输出。</p>
+<h3 id="操作文件名中含有“-”的文件"><a href="#操作文件名中含有“-”的文件" class="headerlink" title="操作文件名中含有“-”的文件"></a>操作文件名中含有“-”的文件</h3><ul>
+<li>使用转移字符 “–”， 比如查看文件“-abc.txt“，命令为 <code>vim -- -abc.txt</code></li>
+</ul>
+<h3 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h3><p>KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是一个基于 Linux 内核的虚拟化管理系统。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/07/cache%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1230,186 +1472,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/16/mybatis%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/16/mybatis%20snippet/" class="post-title-link" itemprop="url">mybatis snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-10-16T12:01:30+08:00">2016-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mybatis/" itemprop="url" rel="index"><span itemprop="name">mybatis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
-<li><p>about date jdbcType</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#&#123;beginDate,jdbcType=DATE&#125; (no time of the day), or</span><br><span class="line">#&#123;beginDate,jdbcType=TIMESTAMP&#125; (if you need to include the time of the day).</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>And the Java parameter you want to apply should be of type:<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.sql.Date (date without time)</span><br><span class="line">java.sql.Timestamp (timestamp)</span><br><span class="line">java.util.Date (date and time).</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>the Greater Than/Equal Operator and the Less Than/Equal Operators:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ROWNUM &amp;gt;= 20</span><br><span class="line">ROWNUM &amp;lt;= 20</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>使用SpringMVC+Mybatis框架写项目的时候，在mapper里面的sql语句</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;updateTime != null&quot;</span>&gt;</span></span><br><span class="line">	and update_time <span class="symbol">&amp;gt;</span> #&#123;updateTime,jdbcType=TIMESTAMP&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>出错：<code>There is no getter for property named &#39;updateTime&#39; in &#39;class java.util.Date&#39;</code></p>
-<p>原因是：<br>如果将and语句中的#｛属性｝写在if语句中，mybatis会去对象中从它的get方法中取值，而我之前是直接传递的值，并没有封装对象。<br>解决办法：</p>
-<pre><code> 1. 把updateTime需改为date
-2. 把updateTime代表的参数封装到一个对象中
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/14/springboot%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/14/springboot%20snippet/" class="post-title-link" itemprop="url">springboot snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-08-14 18:38:22" itemprop="dateCreated datePublished" datetime="2016-08-14T18:38:22+08:00">2016-08-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-25 00:53:40" itemprop="dateModified" datetime="2022-01-25T00:53:40+08:00">2022-01-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/springboot/" itemprop="url" rel="index"><span itemprop="name">springboot</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题随记"><a href="#问题随记" class="headerlink" title="问题随记"></a>问题随记</h2><ol>
-<li>Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库</li>
-</ol>
-<ul>
-<li><p>首先在配置文件application.properties</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/test</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">***</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#mybatis.typeAliasesPackage：为实体对象所在的包，跟数据库表一一对应</span></span><br><span class="line"><span class="comment">#mybatis.mapperLocations：mapper文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="meta">mybatis.typeAliasesPackage</span>=<span class="string">com.xxx.model</span></span><br><span class="line"><span class="meta">mybatis.mapperLocations</span>=<span class="string">classpath:mybatis/mapper/*Mapper.xml</span></span><br></pre></td></tr></table></figure></li>
-<li><p>在启动类Application.java中写上配置信息 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.xxx.dao&quot;)</span> <span class="comment">// mybatis扫描路径，针对的是接口Mapper类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyreportApplication</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DailyreportApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="2">
-<li>mysql连接异常<code>java.sql.SQLException: Value &#39;0000-00-00&#39; can not be represented as java.sql.Date</code></li>
-</ol>
-<ul>
-<li>解决办法<code>jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull </code></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1475,18 +1541,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">142</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">80</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
