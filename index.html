@@ -197,10 +197,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-09-01 11:29:50 / Modified: 11:29:58" itemprop="dateCreated datePublished" datetime="2023-09-01T11:29:50+08:00">2023-09-01</time>
+              <time title="Created: 2023-09-01 11:29:50" itemprop="dateCreated datePublished" datetime="2023-09-01T11:29:50+08:00">2023-09-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-06 15:25:21" itemprop="dateModified" datetime="2023-09-06T15:25:21+08:00">2023-09-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -223,6 +229,18 @@
 
       
           <h2 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h2><p><a target="_blank" rel="noopener" href="https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x">https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x</a></p>
+<p><a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading">https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading</a></p>
+<p>排查办法</p>
+<ul>
+<li>使用arthas定位依赖类所在jar包</li>
+</ul>
+<p>解决办法</p>
+<ul>
+<li><p>对冲突jar包使用maven shaded 的exclude或relocation 进行操作</p>
+</li>
+<li><p>使用7zip等解压软件对jar文件解压删除（人工shaded）</p>
+</li>
+</ul>
 
       
     </div>
