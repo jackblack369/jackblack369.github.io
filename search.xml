@@ -9238,7 +9238,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-configs.sh --zookeeper 172.20.58.93:22181 --alter --add-config &#x27;SCRAM-SHA-256=[password=datacanvas],SCRAM-SHA-512=[password=datacanvas]&#x27; --entity-type users --entity-name admin</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>会在 zookeeper生产目录 config</p>
+<p>会在 zookeeper生产目录 config，上面zookeeper参数值与kafka server.properties的zookeeper connect配置一致，也和offsetExplorer的chroot path一致</p>
 </blockquote>
 </li>
 <li><p>列出用户已有证书</p>
@@ -9277,10 +9277,11 @@
 <li><p> ACLs相关配置</p>
 </li>
 </ul>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer 旧版本配置</span></span><br><span class="line"><span class="meta">authorizer.class.name</span>=<span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line"><span class="meta">super.users</span>=<span class="string">User:admin</span></span><br><span class="line"><span class="meta">allow.everyone.if.no.acl.found</span>=<span class="string">false</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer 旧版本配置</span></span><br><span class="line"><span class="meta">authorizer.class.name</span>=<span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line"><span class="comment"># 这里添加ANONYMOUS为超级用户，主要为了listener for plain(如何只用sasl，可以不配置ANONYMOUS)</span></span><br><span class="line"><span class="meta">super.users</span>=<span class="string">User:admin;User:ANONYMOUS </span></span><br><span class="line"><span class="meta">allow.everyone.if.no.acl.found</span>=<span class="string">false </span></span><br></pre></td></tr></table></figure>
 
-
-
+<blockquote>
+<p> 默认为true,默认情况只通过用户密码认证管控用户，acl只会对–deny-principal起效（所以默认同时使用 plain和scram，需要保持默认true。如果单独使用scram，则需要设置为false）</p>
+</blockquote>
 <h2 id="第四步：设置acl-config-properties"><a href="#第四步：设置acl-config-properties" class="headerlink" title="第四步：设置acl-config.properties"></a>第四步：设置acl-config.properties</h2><p>在config目录新增acl-config.properties设置 admin信息</p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">sasl.jaas.config</span>=<span class="string">org.apache.kafka.common.security.scram.ScramLoginModule required username=&quot;admin&quot; password=&quot;datacanvas&quot;;</span></span><br><span class="line"><span class="meta">security.protocol</span>=<span class="string">SASL_PLAINTEXT</span></span><br><span class="line"><span class="meta">sasl.mechanism</span>=<span class="string">SCRAM-SHA-256</span></span><br></pre></td></tr></table></figure>
 
@@ -9292,14 +9293,18 @@
 
 <h2 id="第六步：配置ACL授权"><a href="#第六步：配置ACL授权" class="headerlink" title="第六步：配置ACL授权"></a>第六步：配置ACL授权</h2><ul>
 <li><p>授权bigdata用户可以访问主题前缀为ODS的数据，且限制消费组 GROUP-BIGDATA</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --allow-principal User:bigdata --operation Read --group GROUP-BIGDATA --group &#x27;GROUP-BIGDATA&#x27; --topic ODS --resource-pattern-type prefixed</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /path/to/config/acl-config.properties --add --allow-principal User:bigdata --operation Read --group GROUP-BIGDATA --topic ODS --resource-pattern-type prefixed</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>–resource-pattern-type prefixed 指定ODS前缀</li>
 </ul>
 </li>
 <li><p>移除权限</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server localhost:9092 --remove --allow-principal User:Bob --allow-principal User:Alice --allow-host 198.51.100.0 --allow-host 198.51.100.1 --operation Read --operation Write --topic Test-topic </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server localhost:9092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --remove --allow-principal User:Bob --allow-principal User:Alice --allow-host 198.51.100.0 --allow-host 198.51.100.1 --operation Read --operation Write --topic Test-topic </span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>禁止删除指定主题的权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --deny-principal User:bigdata --operation Write --operation Delete --topic ODS --resource-pattern-type prefixed</span><br></pre></td></tr></table></figure></li>
 </ul>
 <hr>
 <h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><ul>
