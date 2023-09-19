@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-12 17:03:04" itemprop="dateModified" datetime="2023-09-12T17:03:04+08:00">2023-09-12</time>
+                <time title="Modified: 2023-09-12 21:30:21" itemprop="dateModified" datetime="2023-09-12T21:30:21+08:00">2023-09-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,6 +229,7 @@
 
       
           <blockquote>
+<p>已验证 kafka 2.3.1</p>
 <p>此方案可以动态创建用户，或修改用户账号信息</p>
 </blockquote>
 <blockquote>
@@ -366,10 +367,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-09-11 19:57:52 / Modified: 19:58:27" itemprop="dateCreated datePublished" datetime="2023-09-11T19:57:52+08:00">2023-09-11</time>
+              <time title="Created: 2023-09-11 19:57:52" itemprop="dateCreated datePublished" datetime="2023-09-11T19:57:52+08:00">2023-09-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-18 17:32:44" itemprop="dateModified" datetime="2023-09-18T17:32:44+08:00">2023-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -392,7 +399,9 @@
 
       
           <blockquote>
+<p>已验证Kafka 3.3.2</p>
 <p>此方案的缺点，在sasl_plaintext模式下，不能动态创建用户，或修改用户账号信息</p>
+<p>优点是，无需在zookeeper上配置jaas</p>
 </blockquote>
 <h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="第一步：准备kafka-server-jaas-conf文件"><a href="#第一步：准备kafka-server-jaas-conf文件" class="headerlink" title="第一步：准备kafka_server_jaas.conf文件"></a>第一步：准备kafka_server_jaas.conf文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">KafkaServer &#123;</span><br><span class="line">    org.apache.kafka.common.security.plain.PlainLoginModule required</span><br><span class="line">    username=&quot;admin&quot;</span><br><span class="line">    password=&quot;datacanvas&quot;</span><br><span class="line">    user_admin=&quot;datacanvas&quot;</span><br><span class="line">    user_qlb=&quot;qlbrtdsp&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -418,7 +427,7 @@
 <li><p>测试使用<code>log.dirs=/home/sasl/data/kafka-logs</code></p>
 </li>
 </ul>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer 旧版本配置</span></span><br><span class="line"><span class="meta">authorizer.class.name</span>=<span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line"><span class="meta">super.users</span>=<span class="string">User:admin</span></span><br><span class="line"><span class="meta">allow.everyone.if.no.acl.found</span>=<span class="string">false</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer 旧版本配置</span></span><br><span class="line"><span class="meta">authorizer.class.name</span>=<span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line"><span class="meta">super.users</span>=<span class="string">User:admin;User:ANONYMOUS</span></span><br><span class="line"><span class="meta">allow.everyone.if.no.acl.found</span>=<span class="string">false</span></span><br></pre></td></tr></table></figure>
 
 
 
