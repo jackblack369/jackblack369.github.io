@@ -4429,7 +4429,7 @@
   <entry>
     <title>ignite issue</title>
     <url>/2021/12/09/ignite%20issue/</url>
-    <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="BinaryObjectException-Conflicting-enum-values"><a href="#BinaryObjectException-Conflicting-enum-values" class="headerlink" title="BinaryObjectException: Conflicting enum values"></a>BinaryObjectException: Conflicting enum values</h3><ul>
+    <content><![CDATA[<h3 id="BinaryObjectException-Conflicting-enum-values"><a href="#BinaryObjectException-Conflicting-enum-values" class="headerlink" title="BinaryObjectException: Conflicting enum values"></a>BinaryObjectException: Conflicting enum values</h3><ul>
 <li><p>原因</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">存入ignite的数据格式</span><br><span class="line">key: String , value: Map&lt;Enum, BigDecimal&gt;</span><br><span class="line">Enum类型包含</span><br><span class="line">&#123;A,B,C&#125;</span><br><span class="line"></span><br><span class="line">在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间</span><br><span class="line">&#123;A,D,B,C&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>分析</p>
@@ -9329,6 +9329,29 @@
       </categories>
       <tags>
         <tag>config</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ignite sqlline</title>
+    <url>/2023/09/25/ignite%20sqlline/</url>
+    <content><![CDATA[<blockquote>
+<p>TIPS:</p>
+<ol>
+<li><p>Keep in mind that, in Ignite, the concepts of a SQL table and a key-value cache are two equivalent representations of the same (internal) data structure. You can access your data using either the key-value API or SQL statements, or both.</p>
+</li>
+<li><p>A cache is a collection of key-value pairs that can be accessed through the key-value API. A SQL table in Ignite corresponds to the notion of tables in traditional RDBMSs with some additional constraints; for example, each SQL table must have a primary key.</p>
+<p>A table with a primary key can be presented as a key-value cache, in which the primary key column serves as the key, and the rest of the table columns represent the fields of the object (the value).</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">IGNITE_HOME/bin/sqlline.sh --verbose=<span class="literal">true</span> -u jdbc:ignite:thin://ip地址/PUBLIC</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>ignite</category>
+      </categories>
+      <tags>
+        <tag>command</tag>
       </tags>
   </entry>
 </search>
