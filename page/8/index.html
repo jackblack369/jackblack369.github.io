@@ -866,7 +866,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-14 09:50:04" itemprop="dateModified" datetime="2023-09-14T09:50:04+08:00">2023-09-14</time>
+                <time title="Modified: 2023-10-11 11:27:49" itemprop="dateModified" datetime="2023-10-11T11:27:49+08:00">2023-10-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1151,11 +1151,20 @@
 </ol>
 <p>Kafka中的副本是指每个Partition的备份，一个Partition可以有多个副本，每个副本都保存着完整的数据副本。副本之间有一个Leader-Follower的关系，其中一个副本作为Leader，其他副本作为Follower。客户端只能向Leader发送读写请求，而Follower只用于备份和同步数据，不能直接处理客户端请求。当Leader出现故障时，Kafka会自动将Follower升级为新的Leader，保证服务的可用性。</p>
 <p><strong>总结：分区实现了数据的水平切分和负载均衡，而副本则提供了数据的冗余备份和高可用性，确保数据安全和业务连续性。在实际应用中，需要根据具体的业务需求和技术规划来设置分区和副本的数量，以提高Kafka服务的可靠性和性能。</strong></p>
+<h2 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h2><ul>
+<li><p>消费sasl_plaintext scram-sha-256认证的主题</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.sh --bootstrap-server your_kafka_bootstrap_servers --topic your_topic --group your_consumer_group --consumer.config client-sasl.properties --from-beginning</span><br></pre></td></tr></table></figure>
+
+<p>其中client-sasl.properties信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">security.protocol=SASL_PLAINTEXT</span><br><span class="line">sasl.mechanism=SCRAM-SHA-256</span><br><span class="line">sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username=&quot;your_username&quot; password=&quot;your_password&quot;;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="消费者组"><a href="#消费者组" class="headerlink" title="消费者组"></a>消费者组</h2><ul>
 <li><p>查询消费者组的偏移量</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-consumer-groups.sh --bootstrap-server &lt;bootstrap-server&gt; --group &lt;consumer-group&gt; --describe</span><br></pre></td></tr></table></figure></li>
 <li><p>指定消费者组的偏移量</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-consumer-groups.sh --bootstrap-server &lt;bootstrap-server&gt; --group &lt;consumer-group&gt; --topic &lt;topic&gt; --reset-offsets --to-offset &lt;new-offset&gt; --execute</span><br></pre></td></tr></table></figure></li>
+<li><p>指定消费组偏移量到最早</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-consumer-groups.sh --bootstrap-server &lt;bootstrap-server&gt; --group &lt;consumer-group&gt; --reset-offsets --to-earliest --execute --topic your_topic</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
