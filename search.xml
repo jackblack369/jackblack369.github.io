@@ -8921,6 +8921,13 @@
 <li><p>指定消费组偏移量到最早</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kafka-consumer-groups.sh --bootstrap-server &lt;bootstrap-server&gt; --group &lt;consumer-group&gt; --reset-offsets --to-earliest --execute --topic your_topic</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><ul>
+<li><p>使为特定主题（topic）配置数据的保留时间。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./kafka-configs.sh --bootstrap-server &lt;KAFKA_BROKER_ADDRESS&gt; --alter --entity-type topics --entity-name &lt;TOPIC_NAME&gt; --add-config retention.ms=&lt;RETENTION_TIME_IN_MILLISECONDS&gt;</span><br></pre></td></tr></table></figure>
+
+<p>eg:(设置my-topic主题保留一天数据)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./kafka-configs.sh --bootstrap-server localhost:9092 --alter --entity-type topics --entity-name my-topic --add-config retention.ms=86400000</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>kafka</category>
