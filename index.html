@@ -809,7 +809,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-15 17:12:41" itemprop="dateModified" datetime="2023-10-15T17:12:41+08:00">2023-10-15</time>
+                <time title="Modified: 2023-10-24 14:02:33" itemprop="dateModified" datetime="2023-10-24T14:02:33+08:00">2023-10-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -840,6 +840,11 @@
 </li>
 <li><p>如果kafka中key没有值，是不符合upsert-kafka的格式的，flink sql引用此类topic为upsert-kafka，则不会触发计算</p>
 </li>
+</ul>
+<h2 id="deduplication"><a href="#deduplication" class="headerlink" title="deduplication"></a>deduplication</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [column_list]</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">   <span class="keyword">SELECT</span> [column_list],</span><br><span class="line">     <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> ([<span class="keyword">PARTITION</span> <span class="keyword">BY</span> col1[, col2...]]</span><br><span class="line">       <span class="keyword">ORDER</span> <span class="keyword">BY</span> time_attr [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>]) <span class="keyword">AS</span> rownum</span><br><span class="line">   <span class="keyword">FROM</span> table_name)</span><br><span class="line"><span class="keyword">WHERE</span> rownum <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意 在内嵌的 select语句中，建议使用 column_list 查询指定的字段，不要使用 * 代指所有指标。否则查询upsert-kafka会，一直从最新的记录读取。</li>
 </ul>
 
       
