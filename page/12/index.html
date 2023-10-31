@@ -174,6 +174,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/java%20stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/16/java%20stream/" class="post-title-link" itemprop="url">java stream</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-16 20:00:30" itemprop="dateCreated datePublished" datetime="2017-10-16T20:00:30+08:00">2017-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Creating-Java-Streams"><a href="#Creating-Java-Streams" class="headerlink" title="Creating Java Streams"></a>Creating Java Streams</h3><ol>
+<li>We can use Stream.of() to create a stream from similar type of data. For example, we can create Java Stream of integers from a group of int or Integer objects.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; stream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure></li>
+<li>We can use Stream.of() with an array of Objects to return the stream. Note that it doesn’t support autoboxing, so we can’t pass primitive type array.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; stream = Stream.of(<span class="keyword">new</span> Integer[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;); </span><br><span class="line"><span class="comment">//works fine</span></span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; stream1 = Stream.of(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;); </span><br><span class="line"><span class="comment">//Compile time error, Type mismatch: cannot convert from Stream&lt;int[]&gt; to Stream&lt;Integer&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>We can use Collection stream() to create sequential stream and parallelStream() to create parallel stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; myList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) myList.add(i);</span><br><span class="line">		</span><br><span class="line"><span class="comment">//sequential stream</span></span><br><span class="line">Stream&lt;Integer&gt; sequentialStream = myList.stream();</span><br><span class="line">		</span><br><span class="line"><span class="comment">//parallel stream</span></span><br><span class="line">Stream&lt;Integer&gt; parallelStream = myList.parallelStream();</span><br></pre></td></tr></table></figure></li>
+<li>We can use Stream.generate() and Stream.iterate() methods to create Stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream1 = Stream.generate(() -&gt; &#123;<span class="keyword">return</span> <span class="string">&quot;abc&quot;</span>;&#125;);</span><br><span class="line">Stream&lt;String&gt; stream2 = Stream.iterate(<span class="string">&quot;abc&quot;</span>, (i) -&gt; i);</span><br></pre></td></tr></table></figure></li>
+<li>Using Arrays.stream() and String.chars() methods.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LongStream is = Arrays.stream(<span class="keyword">new</span> <span class="keyword">long</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);</span><br><span class="line">IntStream is2 = <span class="string">&quot;abc&quot;</span>.chars();</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Converting-Java-Stream-to-Collection-or-Array"><a href="#Converting-Java-Stream-to-Collection-or-Array" class="headerlink" title="Converting Java Stream to Collection or Array"></a>Converting Java Stream to Collection or Array</h3><ol>
+<li>We can use java Stream collect() method to get List, Map or Set from stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; intStream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">List&lt;Integer&gt; intList = intStream.collect(Collectors.toList());</span><br><span class="line">System.out.println(intList); <span class="comment">//prints [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line">intStream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>); <span class="comment">//stream is closed, so we need to create it again</span></span><br><span class="line">Map&lt;Integer,Integer&gt; intMap = intStream.collect(Collectors.toMap(i -&gt; i, i -&gt; i+<span class="number">10</span>));</span><br><span class="line">System.out.println(intMap); <span class="comment">//prints &#123;1=11, 2=12, 3=13, 4=14&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>We can use stream toArray() method to create an array from the stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; intStream = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">Integer[] intArray = intStream.toArray(Integer[]::<span class="keyword">new</span>);</span><br><span class="line">System.out.println(Arrays.toString(intArray)); <span class="comment">//prints [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Java-Stream-Intermediate-Operations"><a href="#Java-Stream-Intermediate-Operations" class="headerlink" title="Java Stream Intermediate Operations"></a>Java Stream Intermediate Operations</h3><ol>
+<li>Stream filter() : We can use filter() method to test stream elements for a condition and generate filtered list.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; myList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) myList.add(i);</span><br><span class="line">Stream&lt;Integer&gt; sequentialStream = myList.stream();</span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; highNums = sequentialStream.filter(p -&gt; p &gt; <span class="number">90</span>); <span class="comment">//filter numbers greater than 90</span></span><br><span class="line">System.out.print(<span class="string">&quot;High Nums greater than 90=&quot;</span>);</span><br><span class="line">highNums.forEach(p -&gt; System.out.print(p+<span class="string">&quot; &quot;</span>));</span><br><span class="line"><span class="comment">//prints &quot;High Nums greater than 90=91 92 93 94 95 96 97 98 99 &quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream map() : We can use map() to apply functions to an stream. Let’s see how we can use it to apply upper case function to a list of Strings.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; names = Stream.of(<span class="string">&quot;aBc&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;ef&quot;</span>);</span><br><span class="line">System.out.println(names.map(s -&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> s.toUpperCase();</span><br><span class="line">	&#125;).collect(Collectors.toList()));</span><br><span class="line"><span class="comment">//prints [ABC, D, EF]</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream sorted() : We can use sorted() to sort the stream elements by passing Comparator argument.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; names2 = Stream.of(<span class="string">&quot;aBc&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;ef&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">List&lt;String&gt; reverseSorted = names2.sorted(Comparator.reverseOrder()).collect(Collectors.toList());</span><br><span class="line">System.out.println(reverseSorted); <span class="comment">// [ef, d, aBc, 123456]</span></span><br><span class="line"></span><br><span class="line">Stream&lt;String&gt; names3 = Stream.of(<span class="string">&quot;aBc&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;ef&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">List&lt;String&gt; naturalSorted = names3.sorted().collect(Collectors.toList());</span><br><span class="line">System.out.println(naturalSorted); <span class="comment">//[123456, aBc, d, ef]</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream flatMap() : We can use flatMap() to create a stream from the stream of list. Let’s see a simple example to clear this doubt.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;List&lt;String&gt;&gt; namesOriginalList = Stream.of(</span><br><span class="line">	Arrays.asList(<span class="string">&quot;Pankaj&quot;</span>), </span><br><span class="line">	Arrays.asList(<span class="string">&quot;David&quot;</span>, <span class="string">&quot;Lisa&quot;</span>),</span><br><span class="line">	Arrays.asList(<span class="string">&quot;Amit&quot;</span>));</span><br><span class="line"><span class="comment">//flat the stream from List&lt;String&gt; to String stream</span></span><br><span class="line">Stream&lt;String&gt; flatStream = namesOriginalList</span><br><span class="line">	.flatMap(strList -&gt; strList.stream());</span><br><span class="line"></span><br><span class="line">flatStream.forEach(System.out::println);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Java-Stream-Terminal-Operations"><a href="#Java-Stream-Terminal-Operations" class="headerlink" title="Java Stream Terminal Operations"></a>Java Stream Terminal Operations</h3><ol>
+<li>Stream reduce() example: We can use reduce() to perform a reduction on the elements of the stream, using an associative accumulation function, and return an Optional. Let’s see how we can use it multiply the integers in a stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">		</span><br><span class="line">Optional&lt;Integer&gt; intOptional = numbers.reduce((i,j) -&gt; &#123;<span class="keyword">return</span> i*j;&#125;);</span><br><span class="line"><span class="keyword">if</span>(intOptional.isPresent()) System.out.println(<span class="string">&quot;Multiplication = &quot;</span>+intOptional.get()); <span class="comment">//120</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream count() example: We can use this terminal operation to count the number of items in the stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers1 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Number of elements in stream=&quot;</span>+numbers1.count()); <span class="comment">//5</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream forEach() example: This can be used for iterating over the stream. We can use this in place of iterator. Let’s see how to use it for printing all the elements of the stream.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers2 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">numbers2.forEach(i -&gt; System.out.print(i+<span class="string">&quot;,&quot;</span>)); <span class="comment">//1,2,3,4,5,</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream match() examples: Let’s see some of the examples for matching methods in Stream API.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; numbers3 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Stream contains 4? &quot;</span>+numbers3.anyMatch(i -&gt; i==<span class="number">4</span>));</span><br><span class="line"><span class="comment">//Stream contains 4? true</span></span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; numbers4 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Stream contains all elements less than 10? &quot;</span>+numbers4.allMatch(i -&gt; i&lt;<span class="number">10</span>));</span><br><span class="line"><span class="comment">//Stream contains all elements less than 10? true</span></span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; numbers5 = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Stream doesn&#x27;t contain 10? &quot;</span>+numbers5.noneMatch(i -&gt; i==<span class="number">10</span>));</span><br><span class="line"><span class="comment">//Stream doesn&#x27;t contain 10? true</span></span><br></pre></td></tr></table></figure></li>
+<li>Stream findFirst() :This is a short circuiting terminal operation, let’s see how we can use it to find the first string from a stream starting with D.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; names4 = Stream.of(<span class="string">&quot;Pankaj&quot;</span>,<span class="string">&quot;Amit&quot;</span>,<span class="string">&quot;David&quot;</span>, <span class="string">&quot;Lisa&quot;</span>);</span><br><span class="line">Optional&lt;String&gt; firstNameWithD = names4.filter(i -&gt; i.startsWith(<span class="string">&quot;D&quot;</span>)).findFirst();</span><br><span class="line"><span class="keyword">if</span>(firstNameWithD.isPresent())&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;First Name starting with D=&quot;</span>+firstNameWithD.get()); <span class="comment">//David</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="some-example"><a href="#some-example" class="headerlink" title="some example"></a>some example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//merge collection</span></span><br><span class="line">List&lt;String&gt; resultPersonnos = Stream.of(list1, list2)</span><br><span class="line">                .flatMap(Collection::stream)</span><br><span class="line">                .distinct()</span><br><span class="line">                .sorted()</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/sublime%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1072,113 +1169,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/16/idea%20skill/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/16/idea%20skill/" class="post-title-link" itemprop="url">idea skill</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-12-16 23:10:30" itemprop="dateCreated datePublished" datetime="2016-12-16T23:10:30+08:00">2016-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-11 17:40:58" itemprop="dateModified" datetime="2022-02-11T17:40:58+08:00">2022-02-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><ul>
-<li><p>参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/q547550831/article/details/79129311">一大坨插件</a></p>
-</li>
-<li><p>现在已安装的插件：</p>
-<ul>
-<li>Translation(翻译工具)</li>
-<li>CheckStyle-IDEA（代码规范）</li>
-<li>FindBugs-IDEA(静态分析工具)</li>
-<li>BashSupport（Linux Bash支持，对bash语法的高亮支持）</li>
-<li>CodeGlance（类似SublimeText的Mini Map插件 ）</li>
-<li>Key promoter（提示功能快捷键）</li>
-<li>GsonFormat（暂未安装，其功能为把json格式的内容转成Object）</li>
-<li>jRebel（暂未安装，热部署插件）</li>
-</ul>
-</li>
-<li><p><strong>scratches草稿功能</strong></p>
-<ul>
-<li><p>参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/theape/article/details/70194185">强大的草稿功能</a></p>
-</li>
-<li><p>scratch中文乱码解决办法</p>
-<p>需要在<code>C:\Users\Administrator\.IntelliJIdea2019.1\config</code>中修改文件<code>idea64.exe.vmoptions</code>,在后面加上设置<code>-Dfile.encoding=UTF-8</code></p>
-</li>
-</ul>
-</li>
-<li><p>**Lombok **插件</p>
-<p>提高编码效率</p>
-</li>
-</ul>
-<h2 id="中文编码配置"><a href="#中文编码配置" class="headerlink" title="中文编码配置"></a>中文编码配置</h2><ul>
-<li>有关Properties文件中的中文unicode转码问题在IDEA中创建了properties文件，发现默认中文不会自动进行unicode转码，需要配置<img src="https://i.imgur.com/W2a0nMR.jpg"></li>
-</ul>
-<h2 id="grep-console"><a href="#grep-console" class="headerlink" title="grep console"></a>grep console</h2><ul>
-<li>去掉指定日志级别显示<img src=""></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1248,7 +1238,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

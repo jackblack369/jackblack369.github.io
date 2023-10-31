@@ -174,6 +174,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/elasticstatic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/03/elasticstatic/" class="post-title-link" itemprop="url">Elastic Stack learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-03 09:26:30" itemprop="dateCreated datePublished" datetime="2021-12-03T09:26:30+08:00">2021-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-17 21:14:05" itemprop="dateModified" datetime="2022-05-17T21:14:05+08:00">2022-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>ELK</strong></p>
+<blockquote>
+<p>Elasticsearch 是一个搜索和分析引擎。Logstash 是服务器端数据处理管道，能够同时从多个来源采集数据，转换数据，然后将数据发送到诸如 Elasticsearch 等“存储库”中。Kibana 则可以让用户在 Elasticsearch 中使用图形和图表对数据进行可视化。</p>
+</blockquote>
+<p>Elasticsearch is the living heart of what is today’s the most popular log analytics platform — the ELK Stack (Elasticsearch, Logstash and Kibana). Elasticsearch’s role is so central that it has become synonymous with the name of the stack itself.</p>
+<p>Elasticsearch behaves like a REST API, so you can use either the <code>POST</code> or the <code>PUT</code> method to add data to it. You use <code>PUT</code> when you know the or want to specify the <code>id</code> of the data item, or <code>POST</code> if you want Elasticsearch to generate an <code>id</code> for the data item:</p>
+<h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><h4 id="max-file-descriptors-4096-for-elasticsearch-process-is-too-low-increase-to-at-least-65535"><a href="#max-file-descriptors-4096-for-elasticsearch-process-is-too-low-increase-to-at-least-65535" class="headerlink" title="max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]"></a>max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]</h4><p>If you want to increase the limit shown by <code>ulimit -n</code>, you should:</p>
+<ul>
+<li><p>Modify <code>/etc/systemd/user.conf</code> and <code>/etc/systemd/system.conf</code> with the following line (this takes care of graphical login):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DefaultLimitNOFILE=65535</span><br></pre></td></tr></table></figure></li>
+<li><p>Modify <code>/etc/security/limits.conf</code> with the following lines (this takes care of non-GUI login):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* hard nofile 65535</span><br><span class="line">* soft nofile 65535</span><br></pre></td></tr></table></figure></li>
+<li><p>Reboot your computer for changes to take effect.</p>
+</li>
+<li><p>check</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -Hn</span><br><span class="line">ulimit -Sn</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-increase-to-at-least-262144"><a href="#max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-increase-to-at-least-262144" class="headerlink" title="max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]"></a>max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</h4><ul>
+<li><p><code>vim /etc/sysctl.conf </code></p>
+<p>新增<strong>vm.max_map_count=655360</strong></p>
+</li>
+<li><p><code>sysctl -p</code></p>
+</li>
+</ul>
+<h4 id="the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured"><a href="#the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured" class="headerlink" title="the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured"></a>the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured</h4><p>in short, if you are running Elasticsearch locally(single node) or just with a single node on the cloud then just use below config in your <code>elasticsearch.yml</code> to avoid the production check, and to make it work, more info about this config in <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/60426167/4039431">this SO</a> answer:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">discovery.type:</span> <span class="string">single-node</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/encrypt-decrpt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1397,264 +1496,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/16/$%E6%89%93%E5%8D%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/16/$%E6%89%93%E5%8D%A1/" class="post-title-link" itemprop="url">打卡</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-04-16 10:37:26" itemprop="dateCreated datePublished" datetime="2021-04-16T10:37:26+08:00">2021-04-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-20 14:05:08" itemprop="dateModified" datetime="2022-04-20T14:05:08+08:00">2022-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/will/" itemprop="url" rel="index"><span itemprop="name">will</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>金钱换不来的东西才算珍贵，比如时间、健康、知识</p>
-</blockquote>
-<p>✔️ </p>
-<h3 id="身体是本钱"><a href="#身体是本钱" class="headerlink" title="身体是本钱"></a>身体是本钱</h3><h3 id="英语是编程语言的基础语言"><a href="#英语是编程语言的基础语言" class="headerlink" title="英语是编程语言的基础语言"></a>英语是编程语言的基础语言</h3><pre><code>    April   2021
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Sun</th>
-<th>Mon</th>
-<th>Tue</th>
-<th>Wed</th>
-<th>Thu</th>
-<th>Fri</th>
-<th>Sat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href="#41">1</a></td>
-<td><a href="#42">2</a></td>
-<td><a href="#43">3</a></td>
-</tr>
-<tr>
-<td><a href="#44">4</a></td>
-<td><a href="#45">5</a></td>
-<td><a href="#46">6</a></td>
-<td><a href="#47">7</a></td>
-<td><a href="#48">8</a></td>
-<td><a href="#49">9</a></td>
-<td><a href="#410">10</a></td>
-</tr>
-<tr>
-<td><a href="#411">11</a></td>
-<td><a href="#412">12</a></td>
-<td><a href="#413">13</a></td>
-<td><a href="#414">14</a></td>
-<td><a href="#415">15</a></td>
-<td><a href="#416">16</a> ✔️</td>
-<td><a href="#417">17</a></td>
-</tr>
-<tr>
-<td><a href="#418">18</a></td>
-<td><a href="#419">19</a></td>
-<td><a href="#420">20</a></td>
-<td><a href="#421">21</a></td>
-<td><a href="#422">22</a></td>
-<td><a href="#423">23</a></td>
-<td><a href="#424">24</a></td>
-</tr>
-<tr>
-<td><a href="#425">25</a></td>
-<td><a href="#426">26</a></td>
-<td><a href="#427">27</a></td>
-<td><a href="#428">28</a></td>
-<td><a href="#429">29</a></td>
-<td><a href="#430">30</a></td>
-<td></td>
-</tr>
-</tbody></table>
-<pre><code>     June   2021          
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Sun</th>
-<th>Mon</th>
-<th>Tue</th>
-<th>Wed</th>
-<th>Thu</th>
-<th>Fri</th>
-<th>Sat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td><a href="#61">1</a></td>
-<td><a href="#62">2</a></td>
-<td><a href="#63">3</a></td>
-<td><a href="#64">4</a></td>
-<td><a href="#65">5</a></td>
-</tr>
-<tr>
-<td><a href="#66">6</a></td>
-<td><a href="#67">7</a></td>
-<td><a href="#68">8</a></td>
-<td><a href="#69">9</a></td>
-<td><a href="#610">10</a></td>
-<td><a href="#611">11</a></td>
-<td><a href="#612">12</a></td>
-</tr>
-<tr>
-<td><a href="#613">13</a></td>
-<td><a href="#614">14</a></td>
-<td><a href="#615">15</a></td>
-<td><a href="#616">16</a></td>
-<td><a href="#617">17</a></td>
-<td><a href="#618">18</a></td>
-<td><a href="#619">19</a></td>
-</tr>
-<tr>
-<td><a href="#620">20</a></td>
-<td><a href="#621">21</a></td>
-<td><a href="#622">22</a></td>
-<td><a href="#623">23</a></td>
-<td><a href="#624">24</a></td>
-<td><a href="#625">25</a></td>
-<td><a href="#626">26</a></td>
-</tr>
-<tr>
-<td><a href="#627">27</a></td>
-<td><a href="#628">28</a></td>
-<td><a href="#629">29</a>✔️</td>
-<td><a href="#630">30</a>✔️</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<pre><code>     July   2021          
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Sun</th>
-<th>Mon</th>
-<th>Tue</th>
-<th>Wed</th>
-<th>Thu</th>
-<th>Fri</th>
-<th>Sat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href="#2021%E5%B9%B407%E6%9C%8801%E6%97%A5">1</a></td>
-<td><a href="#72">2</a></td>
-<td><a href="#73">3</a></td>
-</tr>
-<tr>
-<td><a href="#74">4</a></td>
-<td><a href="#75">5</a></td>
-<td><a href="#76">6</a></td>
-<td><a href="#77">7</a></td>
-<td><a href="#78">8</a></td>
-<td><a href="#79">9</a></td>
-<td><a href="#710">10</a></td>
-</tr>
-<tr>
-<td><a href="#711">11</a></td>
-<td><a href="#712">12</a></td>
-<td><a href="#713">13</a></td>
-<td><a href="#714">14</a></td>
-<td><a href="#715">15</a></td>
-<td><a href="#716">16</a></td>
-<td><a href="#717">17</a></td>
-</tr>
-<tr>
-<td><a href="#718">18</a></td>
-<td><a href="#719">19</a></td>
-<td><a href="#720">20</a></td>
-<td><a href="#721">21</a></td>
-<td><a href="#722">22</a></td>
-<td><a href="#723">23</a></td>
-<td><a href="#724">24</a></td>
-</tr>
-<tr>
-<td><a href="#725">25</a></td>
-<td><a href="#726">26</a></td>
-<td><a href="#727">27</a></td>
-<td><a href="#728">28</a></td>
-<td><a href="#729">29</a></td>
-<td><a href="#730">30</a></td>
-<td><a href="#731">31</a></td>
-</tr>
-</tbody></table>
-<h1 id="2021年07月01日"><a href="#2021年07月01日" class="headerlink" title="2021年07月01日"></a>2021年07月01日</h1><p>测试链接<br>后面可以修改连接处标题由71改为2021年07月01日</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1724,7 +1565,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
