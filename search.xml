@@ -3628,6 +3628,37 @@
 <li><p>Pushing changes, You should run git push to add a new commit to the remote origin. If you have already pushed your commits, then you should force push them using the git push command with — force flag (suppose, the name of remote is origin, which is by default)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push --force origin HEAD</span><br></pre></td></tr></table></figure></li>
 </ol>
+<h1 id="在fork项目中配置源项目地址"><a href="#在fork项目中配置源项目地址" class="headerlink" title="在fork项目中配置源项目地址"></a>在fork项目中配置源项目地址</h1><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
+<ul>
+<li>初始化仓库</li>
+</ul>
+<ol>
+<li><p>List the current configured remote repository for your fork.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Specify a new remote <em>upstream</em> repository that will be synced with the fork.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</span><br></pre></td></tr></table></figure></li>
+<li><p>Verify the new upstream repository you’ve specified for your fork.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>同步代码</li>
+</ul>
+<ol>
+<li><p>Change the current working directory to your local project.</p>
+</li>
+<li><p>Fetch the branches and their respective commits from the upstream repository. Commits to <code>BRANCHNAME</code> will be stored in the local branch <code>upstream/BRANCHNAME</code>.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git fetch upstream</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> remote: Counting objects: 75, <span class="keyword">done</span>.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> remote: Compressing objects: 100% (53/53), <span class="keyword">done</span>.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> remote: Total 62 (delta 27), reused 44 (delta 9)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Unpacking objects: 100% (62/62), <span class="keyword">done</span>.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  * [new branch]      main     -&gt; upstream/main</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Check out your fork’s local default branch - in this case, we use <code>main</code>.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Switched to branch <span class="string">&#x27;main&#x27;</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>Merge the changes from the upstream default branch - in this case, <code>upstream/main</code> - into your local default branch. This brings your fork’s default branch into sync with the upstream repository, without losing your local changes.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge upstream/main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Updating a422352..5fdff0f</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Fast-forward</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  README                    |    9 -------</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  README.md                 |    7 ++++++</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  2 files changed, 7 insertions(+), 9 deletions(-)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  delete mode 100644 README</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  create mode 100644 README.md</span></span><br></pre></td></tr></table></figure>
+
+<p>If your local branch didn’t have any unique commits, Git will perform a fast-forward. For more information, see <a href="https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">Basic Branching and Merging</a> in the Git documentation.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge upstream/main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Updating 34e91da..16c56ad</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Fast-forward</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  README.md                 |    5 +++--</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  1 file changed, 3 insertions(+), 2 deletions(-)</span></span><br></pre></td></tr></table></figure>
+
+<p>If your local branch had unique commits, you may need to resolve conflicts. For more information, see “<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts">Addressing merge conflicts</a>.”</p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>git</category>
@@ -9385,6 +9416,56 @@
     <title>python learn</title>
     <url>/2023/10/31/python%20learn/</url>
     <content><![CDATA[<p><img src="/images/python/python%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1.png"></p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul>
+<li><p>列表list和元组tuple</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">l = [<span class="number">1</span>, <span class="number">2</span>, <span class="string">&#x27;hello&#x27;</span>, <span class="string">&#x27;world&#x27;</span>] <span class="comment"># 列表中同时含有 int 和 string 类型的元素</span></span><br><span class="line">l</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="string">&#x27;hello&#x27;</span>, <span class="string">&#x27;world&#x27;</span>]</span><br><span class="line"> </span><br><span class="line">tup = (<span class="string">&#x27;jason&#x27;</span>, <span class="number">22</span>) <span class="comment"># 元组中同时含有 int 和 string 类型的元素</span></span><br><span class="line">tup</span><br><span class="line">(<span class="string">&#x27;jason&#x27;</span>, <span class="number">22</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列表是动态的，长度可变，可以随意的增加、删减或改变元素。列表的存储空间略大于元组，性能略逊于元组。</li>
+<li>元组是静态的，长度大小固定，不可以对元素进行增加、删减或者改变操作。元组相对于列表更加轻量级，性能稍优。</li>
+</ul>
+</li>
+<li><p>字典和集合</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d1 = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;jason&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;</span><br><span class="line">d2 = <span class="built_in">dict</span>(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;jason&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;)</span><br><span class="line">d3 = <span class="built_in">dict</span>([(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;jason&#x27;</span>), (<span class="string">&#x27;age&#x27;</span>, <span class="number">20</span>), (<span class="string">&#x27;gender&#x27;</span>, <span class="string">&#x27;male&#x27;</span>)])</span><br><span class="line">d4 = <span class="built_in">dict</span>(name=<span class="string">&#x27;jason&#x27;</span>, age=<span class="number">20</span>, gender=<span class="string">&#x27;male&#x27;</span>) </span><br><span class="line">d1 == d2 == d3 ==d4</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"> </span><br><span class="line">s1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">s2 = <span class="built_in">set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">s1 == s2</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字典在 Python3.7+ 是有序的数据结构，而集合是无序的，其内部的哈希表存储结构，保证了其查找、插入、删除操作的高效性。所以，字典和集合通常运用在对元素的高效查找、去重等场景。</li>
+</ul>
+</li>
+<li><p>字符串</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s1 = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">s2 = <span class="string">&quot;hello&quot;</span></span><br><span class="line">s3 = <span class="string">&quot;&quot;&quot;hello&quot;&quot;&quot;</span></span><br><span class="line">s1 == s2 == s3</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>转义字符</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">&#x27;a\nb\tc&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line">a</span><br><span class="line">b	c</span><br><span class="line"></span><br><span class="line"><span class="built_in">len</span>(s)</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>常用方法</p>
+<ul>
+<li><p>和其他数据结构，如列表、元组一样，字符串的索引同样从 0 开始，index=0 表示第一个元素（字符），[index:index+2] 则表示第 index 个元素到 index+1 个元素组成的子字符串。</p>
+</li>
+<li><p>字符串是不可变的（immutable）</p>
+</li>
+<li><p>字符串格式化</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;no data available for person with id: &#123;&#125;, name: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">id</span>, name)) <span class="string">&#x27;&#x27;&#x27;最新规范&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;no data available for person with id: %s, name: %s&#x27;</span> % (<span class="built_in">id</span>, name))<span class="string">&#x27;&#x27;&#x27;以往规范，%s 表示字符串型，%d 表示整型&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>json</p>
+<ul>
+<li>json.dumps() 这个函数，接受 基本数据类型，然后将其序列化为 string</li>
+<li>json.loads() 这个函数，接受一个合法字符串，然后将其反序列化为基本数据类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="条件与循环"><a href="#条件与循环" class="headerlink" title="条件与循环"></a>条件与循环</h2><ul>
+<li><p>条件</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># y = |x|</span></span><br><span class="line"><span class="keyword">if</span> x &lt; <span class="number">0</span>:</span><br><span class="line">    y = -x</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    y = x</span><br><span class="line"><span class="comment"># 场景二</span></span><br><span class="line"><span class="keyword">if</span> condition_1:</span><br><span class="line">    statement_1</span><br><span class="line"><span class="keyword">elif</span> condition_2:</span><br><span class="line">    statement_2</span><br><span class="line">...</span><br><span class="line"><span class="keyword">elif</span> condition_i:</span><br><span class="line">    statement_i</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    statement_n</span><br></pre></td></tr></table></figure></li>
+<li><p>循环</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">l = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> l:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>python</category>
