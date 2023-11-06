@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2023-11-03T01:28:41.717Z</updated>
+  <updated>2023-11-05T11:37:03.298Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gateway snippet</title>
+    <link href="http://yoursite.com/2023/11/05/gateway%20snippet/"/>
+    <id>http://yoursite.com/2023/11/05/gateway%20snippet/</id>
+    <published>2023-11-05T08:44:45.000Z</published>
+    <updated>2023-11-05T11:37:03.298Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><ul><li>使用spring cloud gateway通过代码方式或配置文件方式实现</li></ul><h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h1><h2 id="spring-cloud-gateway-与-nacos结合实现"><a href="#spring-cloud-gateway-与-nacos结合实现" class="headerlink" title="spring cloud gateway 与 nacos结合实现"></a>spring cloud gateway 与 nacos结合实现</h2><blockquote><p>实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。</p></blockquote><hr><p>参考</p><ul><li>CSDN博客专家程序员欣宸 <a href="https://blog.csdn.net/boling_cavalry/category_9278131.html">https://blog.csdn.net/boling_cavalry/category_9278131.html</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;静态路由&quot;&gt;&lt;a href=&quot;#静态路由&quot; class=&quot;headerlink&quot; title=&quot;静态路由&quot;&gt;&lt;/a&gt;静态路由&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;使用spring cloud gateway通过代码方式或配置文件方式实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=</summary>
+      
+    
+    
+    
+    <category term="gateway" scheme="http://yoursite.com/categories/gateway/"/>
+    
+    
+    <category term="snippet" scheme="http://yoursite.com/tags/snippet/"/>
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -506,42 +533,6 @@
     
     
     <category term="java" scheme="http://yoursite.com/categories/java/"/>
-    
-    
-    <category term="point" scheme="http://yoursite.com/tags/point/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hbase point</title>
-    <link href="http://yoursite.com/2022/04/01/hbase%20point/"/>
-    <id>http://yoursite.com/2022/04/01/hbase%20point/</id>
-    <published>2022-04-01T02:01:30.000Z</published>
-    <updated>2022-04-20T02:50:55.101Z</updated>
-    
-    <content type="html"><![CDATA[<table><thead><tr><th>节点</th><th>端口号</th><th>协议</th><th>使用</th><th>说明</th></tr></thead><tbody><tr><td>zookeeper</td><td>2181</td><td></td><td>zkCli.sh -server zookeeper1:2181</td><td>客户端接入</td></tr><tr><td>2888,3888</td><td></td><td>N/A</td><td>集群内部通讯</td><td></td></tr><tr><td>HDFS Namenode</td><td>9000</td><td>HDFS</td><td>hdfs dfs -ls hdfs://namenode1:9000/</td><td>客户端接入</td></tr><tr><td>50070</td><td>HTTP</td><td><a href="http://namenode1:50070/">http://namenode1:50070/</a></td><td>集群监控</td><td></td></tr><tr><td>HDFS SecondaryNamenode</td><td>50090</td><td>HTTP</td><td><a href="http://namenode1:50090/">http://namenode1:50090/</a></td><td>secondary监控</td></tr><tr><td>HDFS Datanode</td><td>50010</td><td></td><td>N/A</td><td>客户端接入/其他节点接入</td></tr><tr><td>50020</td><td></td><td>N/A</td><td></td><td></td></tr><tr><td>50075</td><td>HTTP</td><td><a href="http://datanode1:50075/">http://datanode1:50075/</a></td><td>节点监控</td><td></td></tr><tr><td>HBase Master</td><td>16000</td><td></td><td>hbase-client-1.x.x.jar</td><td>RegionServer接入</td></tr><tr><td>16010</td><td>HTTP</td><td><a href="http://namenode1:16010/">http://namenode1:16010/</a></td><td>集群监控</td><td></td></tr><tr><td>HBase RegionServer</td><td>16020</td><td></td><td>N/A</td><td>客户端接入</td></tr><tr><td>16030</td><td>HTTP</td><td><a href="http://datanode1:16030/">http://datanode1:16030/</a></td><td>节点监控</td><td></td></tr></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;节点&lt;/th&gt;
-&lt;th&gt;端口号&lt;/th&gt;
-&lt;th&gt;协议&lt;/th&gt;
-&lt;th&gt;使用&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;zookeeper&lt;/td&gt;
-&lt;td&gt;2181&lt;/td</summary>
-      
-    
-    
-    
-    <category term="hbase" scheme="http://yoursite.com/categories/hbase/"/>
     
     
     <category term="point" scheme="http://yoursite.com/tags/point/"/>

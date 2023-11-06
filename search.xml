@@ -6365,7 +6365,7 @@
   <entry>
     <title>macos snippet</title>
     <url>/2021/12/20/macos%20snippet/</url>
-    <content><![CDATA[<h3 id="Installing-pkg"><a href="#Installing-pkg" class="headerlink" title="Installing .pkg"></a>Installing .pkg</h3><p>a.</p>
+    <content><![CDATA[<h2 id="Install-pkg"><a href="#Install-pkg" class="headerlink" title="Install .pkg"></a>Install .pkg</h2><p>a.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo installer -pkg /path/to/package.pkg -target /</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -6378,9 +6378,27 @@
 <blockquote>
 <p>will install the package in ~/Applications.</p>
 </blockquote>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ul>
 <li><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
 </ul>
+<h2 id="jevn"><a href="#jevn" class="headerlink" title="jevn"></a>jevn</h2><h3 id="列出已安装的Java版本："><a href="#列出已安装的Java版本：" class="headerlink" title="列出已安装的Java版本："></a><strong>列出已安装的Java版本：</strong></h3><p>运行以下命令列出已安装的Java版本：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
+
+<p>这会显示所有已安装的Java版本。</p>
+<h3 id="5-设置全局Java版本："><a href="#5-设置全局Java版本：" class="headerlink" title="5. 设置全局Java版本："></a>5. <strong>设置全局Java版本：</strong></h3><p>你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">jenv global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将 <code>&lt;jdk_version&gt;</code> 替换为你想要设置为默认的Java版本。</p>
+<h3 id="6-设置项目特定的Java版本："><a href="#6-设置项目特定的Java版本：" class="headerlink" title="6. 设置项目特定的Java版本："></a>6. <strong>设置项目特定的Java版本：</strong></h3><p>如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这会在项目目录下创建一个 <code>.java-version</code> 文件，指定项目特定的Java版本。</p>
+<h3 id="7-验证Java版本："><a href="#7-验证Java版本：" class="headerlink" title="7. 验证Java版本："></a>7. <strong>验证Java版本：</strong></h3><p>在终端中运行以下命令验证当前系统使用的Java版本：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p>确保输出显示的是你所期望的Java版本信息。</p>
+<p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
+<p>Regenerate</p>
 ]]></content>
       <categories>
         <category>macos</category>
@@ -9579,6 +9597,28 @@
       </categories>
       <tags>
         <tag>sinppet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gateway snippet</title>
+    <url>/2023/11/05/gateway%20snippet/</url>
+    <content><![CDATA[<h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><ul>
+<li>使用spring cloud gateway通过代码方式或配置文件方式实现</li>
+</ul>
+<h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h1><h2 id="spring-cloud-gateway-与-nacos结合实现"><a href="#spring-cloud-gateway-与-nacos结合实现" class="headerlink" title="spring cloud gateway 与 nacos结合实现"></a>spring cloud gateway 与 nacos结合实现</h2><blockquote>
+<p>实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。</p>
+</blockquote>
+<hr>
+<p>参考</p>
+<ul>
+<li>CSDN博客专家程序员欣宸 <a href="https://blog.csdn.net/boling_cavalry/category_9278131.html">https://blog.csdn.net/boling_cavalry/category_9278131.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>gateway</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
       </tags>
   </entry>
 </search>
