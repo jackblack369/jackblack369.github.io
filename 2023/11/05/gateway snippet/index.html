@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="静态路由 使用spring cloud gateway通过代码方式或配置文件方式实现  动态路由spring cloud gateway 与 nacos结合实现 实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。   参考  CSDN博客专家程序员欣宸 https:&#x2F;&#x2F;blog.csdn.net&#x2F;b">
+  <meta name="description" content="概念 LB， “Load Balancing”（负载均衡）的缩写。负载均衡是一种分布式系统中常见的策略，用于将请求均匀地分发到多个服务实例上，以避免某个实例负载过重，提高整体系统的性能、可靠性和可用性。 restful header中的所有key，对应的值其实都是集合，只是大多数情况下集合里面只有一个元素  静态路由 使用spring cloud gateway通过代码方式或配置文件方式实现  动">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gateway snippet">
 <meta property="og:url" content="http://yoursite.com/2023/11/05/gateway%20snippet/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="静态路由 使用spring cloud gateway通过代码方式或配置文件方式实现  动态路由spring cloud gateway 与 nacos结合实现 实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。   参考  CSDN博客专家程序员欣宸 https:&#x2F;&#x2F;blog.csdn.net&#x2F;b">
+<meta property="og:description" content="概念 LB， “Load Balancing”（负载均衡）的缩写。负载均衡是一种分布式系统中常见的策略，用于将请求均匀地分发到多个服务实例上，以避免某个实例负载过重，提高整体系统的性能、可靠性和可用性。 restful header中的所有key，对应的值其实都是集合，只是大多数情况下集合里面只有一个元素  静态路由 使用spring cloud gateway通过代码方式或配置文件方式实现  动">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-05T08:44:45.000Z">
-<meta property="article:modified_time" content="2023-11-05T11:37:03.298Z">
+<meta property="article:modified_time" content="2023-11-07T00:59:01.512Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -202,10 +202,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-11-05 16:44:45 / Modified: 19:37:03" itemprop="dateCreated datePublished" datetime="2023-11-05T16:44:45+08:00">2023-11-05</time>
+              <time title="Created: 2023-11-05 16:44:45" itemprop="dateCreated datePublished" datetime="2023-11-05T16:44:45+08:00">2023-11-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-07 08:59:01" itemprop="dateModified" datetime="2023-11-07T08:59:01+08:00">2023-11-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -227,12 +233,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><ul>
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><ul>
+<li>LB， “Load Balancing”（负载均衡）的缩写。负载均衡是一种分布式系统中常见的策略，用于将请求均匀地分发到多个服务实例上，以避免某个实例负载过重，提高整体系统的性能、可靠性和可用性。</li>
+<li>restful header中的所有key，对应的值其实都是集合，只是大多数情况下集合里面只有一个元素</li>
+</ul>
+<h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><ul>
 <li>使用spring cloud gateway通过代码方式或配置文件方式实现</li>
 </ul>
 <h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h1><h2 id="spring-cloud-gateway-与-nacos结合实现"><a href="#spring-cloud-gateway-与-nacos结合实现" class="headerlink" title="spring cloud gateway 与 nacos结合实现"></a>spring cloud gateway 与 nacos结合实现</h2><blockquote>
 <p>实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。</p>
 </blockquote>
+<ul>
+<li><p>场景一（基础）</p>
+<p>可以先在nacos的配置管理中，添加微服务的配置信息（端口、路由等），然后启动微服务程序（不用配置相关端口配置）</p>
+</li>
+<li><p>场景二（predicate）</p>
+<p>可以控制请求的cookie、header、host、method、path、query、RemoteAddr、Weight（按照权重将请求分发到不同节点服务）</p>
+</li>
+<li><p>场景三（filters）</p>
+<p>可以控制请求的AddRequestHeader、AddResponseHeader、DedupeResponseHeader、DedupeResponseHeader、CircuitBreaker（断路器）、FallbackHeaders、PrefixPath、PreserveHostHeader（加上请求者的ip信息）、RequestRateLimiter（限流）、RedirectTo、RemoveRequestHeader、RemoveResponseHeader、RewritePath（将请求参数中的路径做变换）、RewriteLocationResponseHeader、RewriteResponseHeader、SecureHeaders、SetPath、SetRequestHeader、SetResponseHeader、SetStatus、StripPrefix、Retry、RequestSize、SetRequestHostHeader、ModifyRequestBody、ModifyResponseBody、TokenRelay（配合鉴权）</p>
+</li>
+<li><p>场景四（限流）</p>
+<ul>
+<li>请求同一目标地址</li>
+</ul>
+</li>
+<li><p>场景五（修改请求和响应body）</p>
+</li>
+<li><p>场景六（地址分发）</p>
+<ul>
+<li>有多个后端应用服务</li>
+</ul>
+</li>
+</ul>
 <hr>
 <p>参考</p>
 <ul>
@@ -323,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">静态路由</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">2.</span> <span class="nav-text">动态路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-cloud-gateway-%E4%B8%8E-nacos%E7%BB%93%E5%90%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.1.</span> <span class="nav-text">spring cloud gateway 与 nacos结合实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">2.</span> <span class="nav-text">静态路由</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">3.</span> <span class="nav-text">动态路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-cloud-gateway-%E4%B8%8E-nacos%E7%BB%93%E5%90%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.1.</span> <span class="nav-text">spring cloud gateway 与 nacos结合实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
