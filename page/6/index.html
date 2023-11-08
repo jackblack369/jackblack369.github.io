@@ -987,7 +987,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-18 17:26:03" itemprop="dateModified" datetime="2022-01-18T17:26:03+08:00">2022-01-18</time>
+                <time title="Modified: 2023-11-08 09:44:30" itemprop="dateModified" datetime="2023-11-08T09:44:30+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1011,7 +1011,12 @@
 
       
           <h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
-<li>2.0.3版本启动，需要添加 -m属性<code>./startup.sh -m standalone</code></li>
+<li>2.x版本启动，需要添加 -m属性<code>./startup.sh -m standalone</code></li>
+</ul>
+<h2 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h2><h3 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a>健康检查</h3><p>服务端接受到客户端的服务注册请求后，在创建空的Service后，就会开启健康检查任务</p>
+<ul>
+<li>在超过15秒没收到客户端心跳时，就会把注册表中实例的健康状态改为false</li>
+<li>超时30秒没有收到客户端心跳时，就会从注册表表剔除该实例，会使用HTTP DELETE方式调用/v1/ns/instance地址</li>
 </ul>
 
       

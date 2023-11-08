@@ -573,7 +573,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-18 02:51:20" itemprop="dateModified" datetime="2023-08-18T02:51:20+08:00">2023-08-18</time>
+                <time title="Modified: 2023-11-08 11:49:14" itemprop="dateModified" datetime="2023-11-08T11:49:14+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -617,12 +617,16 @@
 </ul>
 </li>
 </ul>
-<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><ul>
 <li><p>show all keys</p>
 <p><code>KEYS *</code></p>
 </li>
 <li><p>Delete All Keys In Redis</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  Delete all keys from all Redis databases:</span><br><span class="line">`$ redis-cli FLUSHALL`</span><br><span class="line">Delete all keys of the currently selected Redis database:</span><br><span class="line">`$ redis-cli FLUSHDB`</span><br><span class="line">Delete all keys of the specified Redis database:</span><br><span class="line">`$ redis-cli -n &lt;database_number&gt; FLUSHDB`</span><br></pre></td></tr></table></figure></li>
+<li><p>删除指定前缀的数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除指定CCR866前缀的redis数据</span></span><br><span class="line">path/to/redis-cli -p 16379 -a Redis6379  -n 1 keys &#x27;CCR866*&#x27; | xargs ./redis-cli -p 16379 -a Redis6379 -n 1 del</span><br></pre></td></tr></table></figure></li>
+<li><p>在启动命令中添加 –raw,可以查看value的中文信息</p>
+</li>
 </ul>
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><ul>
 <li><p>RedisConnectionFailureException</p>
@@ -637,19 +641,6 @@
 <li><p>客户端启动时    redis-cli -p xxxx</p>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">### Enable remote Redis connection</span><br><span class="line"></span><br><span class="line">- Replaced `bind 127.0.0.1` with `bind 0.0.0.0` in the `/etc/redis/redis.conf` file, the line does not have a leading `#` nor space,</span><br><span class="line">- Replaced `protected-mode yes` with `protected-mode no` in this same file,</span><br><span class="line">- Allowed all traffic to port `6379` using `ufw allow 6379` and `ufw allow 6379/tcp`</span><br><span class="line"></span><br><span class="line">### secure redis</span><br><span class="line"></span><br><span class="line">By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
-
-<h1 id="yum-install-epel-release-y"><a href="#yum-install-epel-release-y" class="headerlink" title="yum install epel-release -y"></a>yum install epel-release -y</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Once the EPEL repository is installed, you can install UFW by just running the following linux command:</span><br></pre></td></tr></table></figure>
-
-<h1 id="yum-install-–enablerepo-”epel”-ufw-y"><a href="#yum-install-–enablerepo-”epel”-ufw-y" class="headerlink" title="yum install –enablerepo=”epel” ufw -y"></a>yum install –enablerepo=”epel” ufw -y</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">After installing UFW, start UFW service and enable it to start on boot time by running the following </span><br><span class="line"></span><br><span class="line">linux command</span><br></pre></td></tr></table></figure>
-
-<h1 id="ufw-enable"><a href="#ufw-enable" class="headerlink" title="ufw enable"></a>ufw enable</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Next, check the status of UFW with the following linux command. You should see the following output:</span><br></pre></td></tr></table></figure>
-
-<h1 id="ufw-status"><a href="#ufw-status" class="headerlink" title="ufw status"></a>ufw status</h1><p>Status: active </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You can also disable UFW firewall by running the following linux command:</span><br></pre></td></tr></table></figure>
-
-<h1 id="ufw-disable"><a href="#ufw-disable" class="headerlink" title="ufw disable"></a>ufw disable</h1><p>```</p>
-<h3 id="中文乱码"><a href="#中文乱码" class="headerlink" title="中文乱码"></a>中文乱码</h3><p>在启动命令中添加 –raw即可</p>
 
       
     </div>
