@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-07 16:12:22" itemprop="dateModified" datetime="2023-11-07T16:12:22+08:00">2023-11-07</time>
+                <time title="Modified: 2023-11-09 16:03:01" itemprop="dateModified" datetime="2023-11-09T16:03:01+08:00">2023-11-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,6 +234,7 @@
 </ul>
 <h3 id="spring-cloud-gateway"><a href="#spring-cloud-gateway" class="headerlink" title="spring cloud gateway"></a>spring cloud gateway</h3><ul>
 <li><code>DefaultErrorWebExceptionHandler</code> 是 Spring Web 的默认实现类，实现了 <code>ErrorWebExceptionHandler</code> 接口。它提供了默认的错误处理行为，当没有自定义的 <code>ErrorWebExceptionHandler</code> 实现时，Spring Boot 将使用 <code>DefaultErrorWebExceptionHandler</code> 来处理错误。</li>
+<li><strong>原生的spring cloud gateway进行请求转发，所有的微服务实例与gateway服务实例在nacos中必须是同一个namesapce和同一个group。</strong></li>
 </ul>
 <h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><ul>
 <li>使用spring cloud gateway通过代码方式或配置文件方式实现</li>
@@ -265,9 +266,14 @@
 </li>
 </ul>
 <hr>
-<p>参考</p>
-<ul>
-<li>CSDN博客专家程序员欣宸 <a target="_blank" rel="noopener" href="https://blog.csdn.net/boling_cavalry/category_9278131.html">https://blog.csdn.net/boling_cavalry/category_9278131.html</a></li>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>spring cloud gateway中如果配置文件使用lb访问服务，那需要引入lb相关依赖包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-loadbalancer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.spring.io/spring-cloud-gateway/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories">官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/boling_cavalry/category_9278131.html">程序员欣宸</a></li>
 </ul>
 
       
