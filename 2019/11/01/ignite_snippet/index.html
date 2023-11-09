@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="ignite-2.7.0 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的Class&lt;?&gt; cls &#x3D; Class.forName(pkgName + &quot;.misc.Sha">
+  <meta name="description" content="命令 清空数据 cache -clear -c&#x3D;xxxxx  lostPart 12cache -rebalance -c&#x3D;xxxxcache -rebalance 命令不需要依赖于 cache -stop 的操作。启动或重新启动分区重平衡可以在缓存运行期间进行，不需要停止缓存。 停止多个缓存表   ​    cache -stop --caches&#x3D;myCache_*  重新平衡多个缓存表  ​">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ignite snippet">
 <meta property="og:url" content="http://yoursite.com/2019/11/01/ignite_snippet/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="ignite-2.7.0 编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的Class&lt;?&gt; cls &#x3D; Class.forName(pkgName + &quot;.misc.Sha">
+<meta property="og:description" content="命令 清空数据 cache -clear -c&#x3D;xxxxx  lostPart 12cache -rebalance -c&#x3D;xxxxcache -rebalance 命令不需要依赖于 cache -stop 的操作。启动或重新启动分区重平衡可以在缓存运行期间进行，不需要停止缓存。 停止多个缓存表   ​    cache -stop --caches&#x3D;myCache_*  重新平衡多个缓存表  ​">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-11-01T04:01:30.000Z">
-<meta property="article:modified_time" content="2022-05-16T01:48:51.587Z">
+<meta property="article:modified_time" content="2023-11-08T11:12:32.879Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-16 09:48:51" itemprop="dateModified" datetime="2022-05-16T09:48:51+08:00">2022-05-16</time>
+                <time title="Modified: 2023-11-08 19:12:32" itemprop="dateModified" datetime="2023-11-08T19:12:32+08:00">2023-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,7 +233,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
+        <h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
+<li><p>清空数据</p>
+<p><code>cache -clear -c=xxxxx</code></p>
+</li>
+<li><p>lostPart</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cache -rebalance -c=xxxx</span><br><span class="line">cache -rebalance 命令不需要依赖于 cache -stop 的操作。启动或重新启动分区重平衡可以在缓存运行期间进行，不需要停止缓存。</span><br></pre></td></tr></table></figure></li>
+<li><p>停止多个缓存表</p>
+</li>
+</ul>
+<p>​    <code>cache -stop --caches=myCache_*</code></p>
+<ul>
+<li>重新平衡多个缓存表</li>
+</ul>
+<p>​    <code>cache -rebalance --caches=myCache1,myCache2,myCache3</code></p>
+<ul>
+<li><p>停止所有缓存表，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cache -stop --all </span><br><span class="line">cache -start --all</span><br></pre></td></tr></table></figure></li>
+<li><p>重新加载所有缓存表并重新平衡</p>
+<p>``cache -l -r –all`</p>
+<p><code>cache -clear</code> 命令只是清空缓存中的数据，但是缓存仍然处于活动状态，可以继续使用；而<code>cache -stop</code> 命令则停止了缓存，并且清空了所有数据，需要使用 <code>cache -start</code> 命令重新启动缓存，并重新加载数据。</p>
+</li>
+</ul>
+<p>​    ``cache -start<code>命令用于启动一个已经停止的缓存。如果缓存之前已经存在并被停止，使用</code>cache -start` 命令可以重新启动该缓存，并开始加载数据。如果该缓存之前不存在，则会创建一个新的缓存并开始加载数据。</p>
+<ul>
+<li>查看表的状态</li>
+</ul>
+<p>使用 <code>cache -state</code> 命令查看指定缓存表的状态，包括缓存大小、分区数量、复制和备份数等信息。</p>
+<hr>
+<p>设置复制和备份数量：<br>cache -rebalance -r <replicas> -b <backups><br>其中<replicas>是要设置的复制数量，<backups>是要设置的备份数量。</p>
+<p>设置备份数量为1，即每个分区都在一个不同的节点上保留1个备份数量<br>设置复制数量为2，即每个缓存表的分区都会在集群中的两个节点上复制</p>
+<p>复制和备份都是为了提高数据可用性和可靠性，但复制是将同一份数据存储在多个节点上，而备份是将数据副本存储在集群中的不同节点上。在配置Ignite缓存表时，可以同时设置复制和备份的数量来确保数据的高可用性和可靠性。</p>
+<hr>
+<p>如果有三个Ignite节点，可以按照以下建议设置缓存表的复制和备份数量：</p>
+<p>复制因子建议设置为2，这样每个分区的数据都会在两个节点上进行备份，当一个节点故障时，可以保证数据的可靠性。<br>例如，使用ignitevisorcmd.sh命令可以这样设置：cache -set-replicas myCache 2<br>备份数量建议设置为1，这样每个分区的数据都会在一个节点上进行备份，当一个节点故障时，可以保证数据的可靠性，并且减少额外的网络开销。<br>例如，使用ignitevisorcmd.sh命令可以这样设置：cache -set-backups myCache 1</p>
+<p>需要注意的是，设置复制和备份数量会增加网络和存储开销，因此需要根据具体场景进行权衡和调整。<br>此外，还需要根据数据大小、访问模式、节点配置等因素进行性能测试和优化。</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
 <li>编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></li>
 </ul>
 <h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
@@ -384,7 +419,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ignite-2-7-0"><span class="nav-number">1.</span> <span class="nav-text">ignite-2.7.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper-Discovery"><span class="nav-number">3.</span> <span class="nav-text">ZooKeeper Discovery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ignite-and-ZooKeeper-Configuration-Considerations"><span class="nav-number">5.</span> <span class="nav-text">Ignite and ZooKeeper Configuration Considerations</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ignite-2-7-0"><span class="nav-number">2.1.</span> <span class="nav-text">ignite-2.7.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper-Discovery"><span class="nav-number">2.3.</span> <span class="nav-text">ZooKeeper Discovery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ignite-and-ZooKeeper-Configuration-Considerations"><span class="nav-number">2.5.</span> <span class="nav-text">Ignite and ZooKeeper Configuration Considerations</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

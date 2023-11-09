@@ -4502,7 +4502,42 @@
   <entry>
     <title>ignite snippet</title>
     <url>/2019/11/01/ignite_snippet/</url>
-    <content><![CDATA[<h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
+    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
+<li><p>清空数据</p>
+<p><code>cache -clear -c=xxxxx</code></p>
+</li>
+<li><p>lostPart</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cache -rebalance -c=xxxx</span><br><span class="line">cache -rebalance 命令不需要依赖于 cache -stop 的操作。启动或重新启动分区重平衡可以在缓存运行期间进行，不需要停止缓存。</span><br></pre></td></tr></table></figure></li>
+<li><p>停止多个缓存表</p>
+</li>
+</ul>
+<p>​    <code>cache -stop --caches=myCache_*</code></p>
+<ul>
+<li>重新平衡多个缓存表</li>
+</ul>
+<p>​    <code>cache -rebalance --caches=myCache1,myCache2,myCache3</code></p>
+<ul>
+<li><p>停止所有缓存表，</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cache -stop --all </span><br><span class="line">cache -start --all</span><br></pre></td></tr></table></figure></li>
+<li><p>重新加载所有缓存表并重新平衡</p>
+<p>``cache -l -r –all`</p>
+<p><code>cache -clear</code> 命令只是清空缓存中的数据，但是缓存仍然处于活动状态，可以继续使用；而<code>cache -stop</code> 命令则停止了缓存，并且清空了所有数据，需要使用 <code>cache -start</code> 命令重新启动缓存，并重新加载数据。</p>
+</li>
+</ul>
+<p>​    ``cache -start<code>命令用于启动一个已经停止的缓存。如果缓存之前已经存在并被停止，使用</code>cache -start` 命令可以重新启动该缓存，并开始加载数据。如果该缓存之前不存在，则会创建一个新的缓存并开始加载数据。</p>
+<ul>
+<li>查看表的状态</li>
+</ul>
+<p>使用 <code>cache -state</code> 命令查看指定缓存表的状态，包括缓存大小、分区数量、复制和备份数等信息。</p>
+<hr>
+<p>设置复制和备份数量：<br>cache -rebalance -r <replicas> -b <backups><br>其中<replicas>是要设置的复制数量，<backups>是要设置的备份数量。</p>
+<p>设置备份数量为1，即每个分区都在一个不同的节点上保留1个备份数量<br>设置复制数量为2，即每个缓存表的分区都会在集群中的两个节点上复制</p>
+<p>复制和备份都是为了提高数据可用性和可靠性，但复制是将同一份数据存储在多个节点上，而备份是将数据副本存储在集群中的不同节点上。在配置Ignite缓存表时，可以同时设置复制和备份的数量来确保数据的高可用性和可靠性。</p>
+<hr>
+<p>如果有三个Ignite节点，可以按照以下建议设置缓存表的复制和备份数量：</p>
+<p>复制因子建议设置为2，这样每个分区的数据都会在两个节点上进行备份，当一个节点故障时，可以保证数据的可靠性。<br>例如，使用ignitevisorcmd.sh命令可以这样设置：cache -set-replicas myCache 2<br>备份数量建议设置为1，这样每个分区的数据都会在一个节点上进行备份，当一个节点故障时，可以保证数据的可靠性，并且减少额外的网络开销。<br>例如，使用ignitevisorcmd.sh命令可以这样设置：cache -set-backups myCache 1</p>
+<p>需要注意的是，设置复制和备份数量会增加网络和存储开销，因此需要根据具体场景进行权衡和调整。<br>此外，还需要根据数据大小、访问模式、节点配置等因素进行性能测试和优化。</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
 <li>编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></li>
 </ul>
 <h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
@@ -6101,6 +6136,9 @@
 <h2 id="进程号"><a href="#进程号" class="headerlink" title="进程号"></a>进程号</h2><ul>
 <li><p>根据进程号查看启动文件所在位置</p>
 <p><code>readlink /proc/&lt;线程ID&gt;/exe</code></p>
+</li>
+<li><p>查看进程的启动命令</p>
+<p><code>cat /proc/&lt;线程ID&gt;/cmdline</code></p>
 </li>
 </ul>
 <h2 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h2><ul>
@@ -9544,8 +9582,9 @@
 <li><p>抽象类就是这么一种存在，它是一种自上而下的设计风范，你只需要用少量的代码描述清楚要做的事情，定义好接口，然后就可以交给不同开发人员去开发和对接。</p>
 </li>
 </ul>
-<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
+<h2 id="用法tips"><a href="#用法tips" class="headerlink" title="用法tips"></a>用法tips</h2><ul>
 <li>引用规范 <code>from your_file import function_name, class_name</code></li>
+<li>每个Python文件都有一个特殊的变量<code>__name__</code>。当一个Python文件被直接运行时，<code>__name__</code>的值被设置为<code>&#39;__main__&#39;</code>。当一个Python文件被导入到另一个文件中时，<code>__name__</code>的值被设置为该文件的名字，所以用<code>if __name__ == &#39;__main__&#39;</code>来避开 import 时执行。</li>
 </ul>
 ]]></content>
       <categories>
