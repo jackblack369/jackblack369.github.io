@@ -3485,18 +3485,7 @@
   <entry>
     <title>git skill</title>
     <url>/2016/08/05/git%20snippet/</url>
-    <content><![CDATA[<h4 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h4><ul>
-<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
-<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
-</li>
-<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
-</li>
-<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="文件提交"><a href="#文件提交" class="headerlink" title="文件提交"></a>文件提交</h4><ul>
+    <content><![CDATA[<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
 <li><p>提交单个文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
 <li><p>提交多个文件，但是需要排除指定的文件</p>
@@ -3506,7 +3495,14 @@
 
 <h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to HEAD</span></span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to before last commit</span></span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">last commit to before last commit</span></span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">difference between HEAD and n-th grandparent</span></span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">Another cool feature is whatchanged <span class="built_in">command</span></span></span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
+<h4 id="查看本地分支与远程分支的关联"><a href="#查看本地分支与远程分支的关联" class="headerlink" title="查看本地分支与远程分支的关联"></a>查看本地分支与远程分支的关联</h4><p><code>git branch -vv</code></p>
+<h4 id="查看每一行是哪次提交最后修改的"><a href="#查看每一行是哪次提交最后修改的" class="headerlink" title="查看每一行是哪次提交最后修改的"></a>查看每一行是哪次提交最后修改的</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git blame filename </span><br></pre></td></tr></table></figure>
+
+<h4 id="列出文件的所有修改记录"><a href="#列出文件的所有修改记录" class="headerlink" title="列出文件的所有修改记录"></a>列出文件的所有修改记录</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log -p filename</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
 <blockquote>
 <p>git reset –hard HEAD~1</p>
 </blockquote>
@@ -3552,18 +3548,13 @@
 
 <h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -m new-branch-name</span><br></pre></td></tr></table></figure>
 
-<h4 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h4><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
 
 <p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
-<h4 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 
-<h4 id="查看本地分支与远程分支的关联"><a href="#查看本地分支与远程分支的关联" class="headerlink" title="查看本地分支与远程分支的关联"></a>查看本地分支与远程分支的关联</h4><p><code>git branch -vv</code></p>
-<h4 id="查看每一行是哪次提交最后修改的"><a href="#查看每一行是哪次提交最后修改的" class="headerlink" title="查看每一行是哪次提交最后修改的"></a>查看每一行是哪次提交最后修改的</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git blame filename </span><br></pre></td></tr></table></figure>
-
-<h4 id="列出文件的所有修改记录"><a href="#列出文件的所有修改记录" class="headerlink" title="列出文件的所有修改记录"></a>列出文件的所有修改记录</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log -p filename</span><br></pre></td></tr></table></figure>
-
-<h1 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h1><blockquote>
+<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
 <p>如果之前是使用ssh协议进行推送，现改为http协议</p>
 </blockquote>
 <ol>
@@ -3581,7 +3572,18 @@
 </li>
 </ol>
 <p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
-<h1 id="stash命令"><a href="#stash命令" class="headerlink" title="stash命令"></a>stash命令</h1><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
+<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
+<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
+<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
+</li>
+<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
+</li>
+<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
 <p>以下是<code>stash</code>命令的使用方式：</p>
 <ol>
 <li><p>暂存当前修改：(这个命令将当前的修改暂存起来，让你的工作目录变成干净的状态。)</p>
@@ -3611,7 +3613,7 @@
 <li><p>给stash添加描述：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git stash save <span class="string">&quot;stash message&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="合并多个commit"><a href="#合并多个commit" class="headerlink" title="合并多个commit"></a>合并多个commit</h1><ol>
+<h2 id="merge-commit"><a href="#merge-commit" class="headerlink" title="merge commit"></a>merge commit</h2><ol>
 <li><p>merge the last 3 commits into a single commit.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rebase -i HEAD~3</span><br></pre></td></tr></table></figure></li>
 <li><p>replace all those <code>pick</code> with <code>squash</code> (or simply <code>s</code>) apart from the first one.</p>
@@ -3628,8 +3630,8 @@
 <li><p>Pushing changes, You should run git push to add a new commit to the remote origin. If you have already pushed your commits, then you should force push them using the git push command with — force flag (suppose, the name of remote is origin, which is by default)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push --force origin HEAD</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="在fork项目中配置源项目地址"><a href="#在fork项目中配置源项目地址" class="headerlink" title="在fork项目中配置源项目地址"></a>在fork项目中配置源项目地址</h1><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
-<h3 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h3><ol>
+<h2 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h2><h3 id="fork-remote"><a href="#fork-remote" class="headerlink" title="fork remote"></a>fork remote</h3><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
+<h4 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><ol>
 <li><p>List the current configured remote repository for your fork.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</span></span><br></pre></td></tr></table></figure></li>
 <li><p>Specify a new remote <em>upstream</em> repository that will be synced with the fork.</p>
@@ -3637,7 +3639,7 @@
 <li><p>Verify the new upstream repository you’ve specified for your fork.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="同步代码"><a href="#同步代码" class="headerlink" title="同步代码"></a>同步代码</h3><ol>
+<h4 id="同步代码"><a href="#同步代码" class="headerlink" title="同步代码"></a>同步代码</h4><ol>
 <li><p>Change the current working directory to your local project.</p>
 </li>
 <li><p>Fetch the branches and their respective commits from the upstream repository. Commits to <code>BRANCHNAME</code> will be stored in the local branch <code>upstream/BRANCHNAME</code>.</p>
@@ -3653,7 +3655,7 @@
 <p>If your local branch had unique commits, you may need to resolve conflicts. For more information, see “<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts">Addressing merge conflicts</a>.”</p>
 </li>
 </ol>
-<h1 id="嵌套子模块"><a href="#嵌套子模块" class="headerlink" title="嵌套子模块"></a>嵌套子模块</h1><blockquote>
+<h3 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h3><blockquote>
 <p>对于项目中包含子项目的git项目</p>
 <p>reference <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
 </blockquote>
