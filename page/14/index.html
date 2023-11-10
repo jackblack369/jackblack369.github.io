@@ -293,7 +293,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-02 16:23:00" itemprop="dateModified" datetime="2023-11-02T16:23:00+08:00">2023-11-02</time>
+                <time title="Modified: 2023-11-10 14:56:46" itemprop="dateModified" datetime="2023-11-10T14:56:46+08:00">2023-11-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -484,6 +484,27 @@
 <p>If your local branch had unique commits, you may need to resolve conflicts. For more information, see “<a target="_blank" rel="noopener" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts">Addressing merge conflicts</a>.”</p>
 </li>
 </ol>
+<h1 id="嵌套子模块"><a href="#嵌套子模块" class="headerlink" title="嵌套子模块"></a>嵌套子模块</h1><blockquote>
+<p>对于项目中包含子项目的git项目</p>
+<p>reference <a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
+</blockquote>
+<ul>
+<li><p>如何是首次克隆，初始化代码需要</p>
+<p><code>git clone --recurse-submodules https://github.com/chaconinc/MainProject</code></p>
+</li>
+</ul>
+<p>​        或如果首次没有使用<code>--recurse-submodules</code>，那后面可以通过</p>
+<p>​        <code>git submodule init</code>和<code>git submodule update</code>，进行子模块的拉取更新</p>
+<ul>
+<li><p>如何要对子模块的代码也用克隆地址</p>
+<ol>
+<li><p><code>git config -f .gitmodules -e    # opens editor, update URLs for your forks</code></p>
+</li>
+<li><p><code>git submodule sync</code></p>
+</li>
+</ol>
+</li>
+</ul>
 
       
     </div>

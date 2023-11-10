@@ -3653,6 +3653,27 @@
 <p>If your local branch had unique commits, you may need to resolve conflicts. For more information, see “<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts">Addressing merge conflicts</a>.”</p>
 </li>
 </ol>
+<h1 id="嵌套子模块"><a href="#嵌套子模块" class="headerlink" title="嵌套子模块"></a>嵌套子模块</h1><blockquote>
+<p>对于项目中包含子项目的git项目</p>
+<p>reference <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
+</blockquote>
+<ul>
+<li><p>如何是首次克隆，初始化代码需要</p>
+<p><code>git clone --recurse-submodules https://github.com/chaconinc/MainProject</code></p>
+</li>
+</ul>
+<p>​        或如果首次没有使用<code>--recurse-submodules</code>，那后面可以通过</p>
+<p>​        <code>git submodule init</code>和<code>git submodule update</code>，进行子模块的拉取更新</p>
+<ul>
+<li><p>如何要对子模块的代码也用克隆地址</p>
+<ol>
+<li><p><code>git config -f .gitmodules -e    # opens editor, update URLs for your forks</code></p>
+</li>
+<li><p><code>git submodule sync</code></p>
+</li>
+</ol>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>git</category>
@@ -6682,6 +6703,19 @@
 <li>在超过15秒没收到客户端心跳时，就会把注册表中实例的健康状态改为false</li>
 <li>超时30秒没有收到客户端心跳时，就会从注册表表剔除该实例，会使用HTTP DELETE方式调用/v1/ns/instance地址</li>
 </ul>
+<h2 id="open-API"><a href="#open-API" class="headerlink" title="open API"></a>open API</h2><ul>
+<li>获取心跳</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -X PUT &#x27;127.0.0.1:8848/nacos/v2/ns/instance/beat&#x27; \</span><br><span class="line">-d &#x27;&#123;</span><br><span class="line">      &quot;namespaceId&quot;: &quot;jarvex_space&quot;,</span><br><span class="line">      &quot;serviceName&quot;: &quot;jarvex-common-group@@entity-server&quot;,</span><br><span class="line">      &quot;ip&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;port&quot;: &quot;5333&quot;</span><br><span class="line">&#125;&#x27;</span><br><span class="line">或</span><br><span class="line">curl -X PUT &#x27;127.0.0.1:8848/nacos/v2/ns/instance/beat&#x27; \</span><br><span class="line">      -d &#x27;namespaceId=jarvex_space&#x27; \</span><br><span class="line">      -d &#x27;serviceName=jarvex-common-group@@entity-server&#x27; \</span><br><span class="line">      -d &#x27;ip=127.0.0.1&#x27; \</span><br><span class="line">      -d &#x27;port=5333&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>创建命令空间</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -d &#x27;namespaceId=jarvex_space&#x27; \</span><br><span class="line">  -d &#x27;namespaceName=jarvex&#x27; \</span><br><span class="line">  -X POS</span><br></pre></td></tr></table></figure></li>
+<li><p>删除持久化实例</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -X DELETE &quot;http://127.0.0.1:8848/nacos/v2/ns/instance?serviceName=jarvex-gateway&amp;ip=192.168.1.148&amp;port=8085&amp;namespaceId=jarvex_space&amp;groupName=jarvex-common-group&amp;ephemeral=false&quot;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>spring cloud</category>
@@ -9583,8 +9617,21 @@
 </li>
 </ul>
 <h2 id="用法tips"><a href="#用法tips" class="headerlink" title="用法tips"></a>用法tips</h2><ul>
-<li>引用规范 <code>from your_file import function_name, class_name</code></li>
-<li>每个Python文件都有一个特殊的变量<code>__name__</code>。当一个Python文件被直接运行时，<code>__name__</code>的值被设置为<code>&#39;__main__&#39;</code>。当一个Python文件被导入到另一个文件中时，<code>__name__</code>的值被设置为该文件的名字，所以用<code>if __name__ == &#39;__main__&#39;</code>来避开 import 时执行。</li>
+<li><p>引用规范 <code>from your_file import function_name, class_name</code></p>
+</li>
+<li><p>每个Python文件都有一个特殊的变量<code>__name__</code>。当一个Python文件被直接运行时，<code>__name__</code>的值被设置为<code>&#39;__main__&#39;</code>。当一个Python文件被导入到另一个文件中时，<code>__name__</code>的值被设置为该文件的名字，所以用<code>if __name__ == &#39;__main__&#39;</code>来避开 import 时执行。</p>
+</li>
+<li><p>比较和拷贝</p>
+<ul>
+<li><p><code>&#39;==&#39;</code>操作符比较对象之间的值是否相等</p>
+</li>
+<li><p><code>&#39;is&#39;</code>操作符，相当于比较对象之间的 ID 是否相等</p>
+<blockquote>
+<p>对于整型数字来说，以上<code>a is b</code>为 True 的结论，只适用于 -5 到 256 范围内的数字</p>
+</blockquote>
+</li>
+</ul>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -9689,8 +9736,15 @@
 </ul>
 <hr>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories">官网</a></li>
-<li><a href="https://blog.csdn.net/boling_cavalry/category_9278131.html">程序员欣宸</a></li>
+<li><p><a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories">官网</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/boling_cavalry/category_9278131.html">程序员欣宸</a></p>
+</li>
+<li><p>其它</p>
+<ul>
+<li><a href="https://blog.csdn.net/abu935009066/article/details/112245330">https://blog.csdn.net/abu935009066/article/details/112245330</a></li>
+</ul>
+</li>
 </ul>
 ]]></content>
       <categories>
