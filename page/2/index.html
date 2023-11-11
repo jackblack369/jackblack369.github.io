@@ -550,7 +550,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-10 14:36:25" itemprop="dateModified" datetime="2023-07-10T14:36:25+08:00">2023-07-10</time>
+                <time title="Modified: 2023-11-11 17:20:38" itemprop="dateModified" datetime="2023-11-11T17:20:38+08:00">2023-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -578,20 +578,60 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export STARROCKS_HOME=xxx</span><br></pre></td></tr></table></figure></li>
 <li><p>启动mysql客户端</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可</span><br></pre></td></tr></table></figure></li>
-<li><p>启动FE时</p>
-<ul>
-<li><p>启动FE为LEADER节点</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./fe/bin/start_fe.sh --daemon</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li><p>添加新FE</p>
+<hr>
+<h2 id="FE"><a href="#FE" class="headerlink" title="FE"></a>FE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 18030</span><br><span class="line">netstat -tunlp | grep 19010</span><br><span class="line">netstat -tunlp | grep 19020</span><br><span class="line">netstat -tunlp | grep 19030</span><br><span class="line"></span><br><span class="line">http_port = 18030</span><br><span class="line">rpc_port = 19020</span><br><span class="line">query_port = 19030</span><br><span class="line">edit_log_port = 19010</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p>在mysql command先将实例添加进集群，然后逐个启动实例</p>
+<li><p>启动fe<br><code>start_fe.sh --daemon</code></p>
+</li>
+<li><p>查看FE状态+<br><code>SHOW PROC &#39;/frontends&#39;\G</code></p>
+</li>
+<li><p>添加新FE节点（follow和observer)<br><code>./start_fe.sh --helper 172.18.244.74:19010 --daemon</code></p>
+<p>注意：</p>
+<ul>
+<li><p>在mysql command先将实例添加进集群，然后逐个启动实例。（只在首次新增节点时操作）</p>
 </li>
 <li><p>各个节点的时间一定要同步，不然FE的心跳超过5s时差，就会报错</p>
 </li>
 </ul>
 </li>
+<li><p>扩容FE<br><code>ALTER SYSTEM ADD FOLLOWER &#39;ip:19010&#39;;</code><br><code>ALTER SYSTEM ADD observer &#39;ip:19010&#39;;</code></p>
+</li>
+<li><p>缩容FE<br><code>ALTER SYSTEM DROP follower &quot;ip:19010&quot;;</code><br><code>ALTER SYSTEM DROP observer &quot;ip:19010&quot;;</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="BE"><a href="#BE" class="headerlink" title="BE"></a>BE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 19060</span><br><span class="line">netstat -tunlp | grep 18040</span><br><span class="line">netstat -tunlp | grep 19050</span><br><span class="line">netstat -tunlp | grep 18060</span><br><span class="line"></span><br><span class="line">be_port = 19060</span><br><span class="line">be_http_port = 18040</span><br><span class="line">heartbeat_service_port = 19050</span><br><span class="line">brpc_port = 18060</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查看BE状态<br><code>SHOW PROC &#39;/backends&#39;\G</code></p>
+</li>
+<li><p>启动BE<br><code>./start_be.sh --daemon</code></p>
+</li>
+<li><p>添加BE节点<br><code>ALTER SYSTEM ADD BACKEND &quot;172.18.244.74:19050&quot;;</code></p>
+</li>
+<li><p>缩容BE节点<br><code>ALTER SYSTEM DECOMMISSION BACKEND &quot;172.18.244.74:19050&quot;;</code><br>等待该节点BE从列表中消失（查看命令SHOW PROC ‘/backends’;），即可使用./stop_be.sh停掉服务</p>
+</li>
+<li><p>崩溃排查日志<code>be.out</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><ul>
+<li>FE修改端口信息，需要清理meta</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 重建meta目录</span><br><span class="line">2. 重启主节点FE</span><br><span class="line">3. 登录mysql command，添加新FE节点（follow和observer），添加BE节点</span><br><span class="line">4. 启动follower和observer节点</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BE修改端口信息，需要清理storage</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 重建storage目录（是否可以修改cluster_id进行集群处理）</span><br><span class="line">2. 逐个启动BE服务</span><br><span class="line">3. 登录mysql command，添加新BE节点（ALTER SYSTEM ADD BACKEND &quot;ip:19050&quot;;）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改密码<br><code>SET PASSWORD = PASSWORD(&#39;datacanvas&#39;)</code></li>
+</ul>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>节点时间需要同步（延迟需要在5秒内），不然starrocks无法扩容FE节点</li>
 </ul>
 
       

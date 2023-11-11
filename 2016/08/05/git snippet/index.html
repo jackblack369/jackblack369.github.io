@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.36.02.png">
 <meta property="og:image" content="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.37.45.png">
 <meta property="article:published_time" content="2016-08-05T14:00:30.000Z">
-<meta property="article:modified_time" content="2023-11-10T07:36:49.623Z">
+<meta property="article:modified_time" content="2023-11-10T07:40:06.491Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="skill">
 <meta name="twitter:card" content="summary">
@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-10 15:36:49" itemprop="dateModified" datetime="2023-11-10T15:36:49+08:00">2023-11-10</time>
+                <time title="Modified: 2023-11-10 15:40:06" itemprop="dateModified" datetime="2023-11-10T15:40:06+08:00">2023-11-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,41 +299,6 @@
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 
 <h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m new-branch-name</span><br></pre></td></tr></table></figure>
-
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
-
-<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
-<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
-<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
-</blockquote>
-<ol>
-<li><p>查看当前Git项目的远程地址</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-
-<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
-
-<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
-</li>
-<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
-<li><p>然后使用以下命令进行Git push操作</p>
-</li>
-</ol>
-<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
-<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
-<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
-<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
-</li>
-<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
-</li>
-<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 
 <h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
 <p>以下是<code>stash</code>命令的使用方式：</p>
@@ -428,6 +393,40 @@
 </ol>
 </li>
 </ul>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
+
+<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
+<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
+<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
+</blockquote>
+<ol>
+<li><p>查看当前Git项目的远程地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
+</li>
+<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
+<li><p>然后使用以下命令进行Git push操作</p>
+</li>
+</ol>
+<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
+<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
+<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
+<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
+</li>
+<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
+</li>
+<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -516,7 +515,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-fork%E5%90%8E%E7%9A%84%E5%88%86%E6%94%AF%EF%BC%8C%E6%9B%B4%E6%96%B0%E6%9C%80%E6%96%B0%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.1.</span> <span class="nav-text">Git fork后的分支，更新最新的源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.2.</span> <span class="nav-text">比较文件，在不同版本的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E7%9A%84%E5%85%B3%E8%81%94"><span class="nav-number">1.0.3.</span> <span class="nav-text">查看本地分支与远程分支的关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%AF%8F%E4%B8%80%E8%A1%8C%E6%98%AF%E5%93%AA%E6%AC%A1%E6%8F%90%E4%BA%A4%E6%9C%80%E5%90%8E%E4%BF%AE%E6%94%B9%E7%9A%84"><span class="nav-number">1.0.4.</span> <span class="nav-text">查看每一行是哪次提交最后修改的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">1.0.5.</span> <span class="nav-text">列出文件的所有修改记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF"><span class="nav-number">2.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E6%BB%9A%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">2.0.1.</span> <span class="nav-text">回滚远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">2.0.2.</span> <span class="nav-text">拉取远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF"><span class="nav-number">2.0.3.</span> <span class="nav-text">新建分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%96%B0%E5%88%86%E6%94%AF%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">2.0.4.</span> <span class="nav-text">推送新分支到远程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="nav-number">2.0.5.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="nav-number">2.0.6.</span> <span class="nav-text">重命名分支</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5"><span class="nav-number">3.1.</span> <span class="nav-text">合并策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E7%A6%BB%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%88%B0%E8%BF%9C%E7%A8%8Bgithub"><span class="nav-number">3.2.</span> <span class="nav-text">推送本地离线项目到远程github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9https%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E6%8E%A8%E9%80%81"><span class="nav-number">3.3.</span> <span class="nav-text">更改https协议进行推送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E4%BF%AE%E6%94%B9-gitignore%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-number">3.4.</span> <span class="nav-text">Git修改.gitignore不生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stash"><span class="nav-number">4.</span> <span class="nav-text">stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge-commit"><span class="nav-number">5.</span> <span class="nav-text">merge commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remote"><span class="nav-number">6.</span> <span class="nav-text">remote</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-remote"><span class="nav-number">6.1.</span> <span class="nav-text">fork remote</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.1.</span> <span class="nav-text">初始化仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81"><span class="nav-number">6.1.2.</span> <span class="nav-text">同步代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#submodule"><span class="nav-number">6.2.</span> <span class="nav-text">submodule</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-fork%E5%90%8E%E7%9A%84%E5%88%86%E6%94%AF%EF%BC%8C%E6%9B%B4%E6%96%B0%E6%9C%80%E6%96%B0%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.1.</span> <span class="nav-text">Git fork后的分支，更新最新的源代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.2.</span> <span class="nav-text">比较文件，在不同版本的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E7%9A%84%E5%85%B3%E8%81%94"><span class="nav-number">1.0.3.</span> <span class="nav-text">查看本地分支与远程分支的关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%AF%8F%E4%B8%80%E8%A1%8C%E6%98%AF%E5%93%AA%E6%AC%A1%E6%8F%90%E4%BA%A4%E6%9C%80%E5%90%8E%E4%BF%AE%E6%94%B9%E7%9A%84"><span class="nav-number">1.0.4.</span> <span class="nav-text">查看每一行是哪次提交最后修改的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E4%BF%AE%E6%94%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">1.0.5.</span> <span class="nav-text">列出文件的所有修改记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF"><span class="nav-number">2.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E6%BB%9A%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">2.0.1.</span> <span class="nav-text">回滚远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">2.0.2.</span> <span class="nav-text">拉取远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF"><span class="nav-number">2.0.3.</span> <span class="nav-text">新建分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%96%B0%E5%88%86%E6%94%AF%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">2.0.4.</span> <span class="nav-text">推送新分支到远程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="nav-number">2.0.5.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="nav-number">2.0.6.</span> <span class="nav-text">重命名分支</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stash"><span class="nav-number">3.</span> <span class="nav-text">stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge-commit"><span class="nav-number">4.</span> <span class="nav-text">merge commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remote"><span class="nav-number">5.</span> <span class="nav-text">remote</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-remote"><span class="nav-number">5.1.</span> <span class="nav-text">fork remote</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93"><span class="nav-number">5.1.1.</span> <span class="nav-text">初始化仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81"><span class="nav-number">5.1.2.</span> <span class="nav-text">同步代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#submodule"><span class="nav-number">5.2.</span> <span class="nav-text">submodule</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">6.</span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5"><span class="nav-number">6.1.</span> <span class="nav-text">合并策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E7%A6%BB%E7%BA%BF%E9%A1%B9%E7%9B%AE%E5%88%B0%E8%BF%9C%E7%A8%8Bgithub"><span class="nav-number">6.2.</span> <span class="nav-text">推送本地离线项目到远程github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9https%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E6%8E%A8%E9%80%81"><span class="nav-number">6.3.</span> <span class="nav-text">更改https协议进行推送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E4%BF%AE%E6%94%B9-gitignore%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-number">6.4.</span> <span class="nav-text">Git修改.gitignore不生效</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

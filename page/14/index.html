@@ -293,7 +293,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-10 15:36:49" itemprop="dateModified" datetime="2023-11-10T15:36:49+08:00">2023-11-10</time>
+                <time title="Modified: 2023-11-10 15:40:06" itemprop="dateModified" datetime="2023-11-10T15:40:06+08:00">2023-11-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -378,41 +378,6 @@
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// delete branch locally</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 
 <h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m new-branch-name</span><br></pre></td></tr></table></figure>
-
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
-
-<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
-<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
-<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
-</blockquote>
-<ol>
-<li><p>查看当前Git项目的远程地址</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-
-<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
-
-<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
-</li>
-<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
-<li><p>然后使用以下命令进行Git push操作</p>
-</li>
-</ol>
-<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
-<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
-<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
-<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
-</li>
-<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
-</li>
-<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 
 <h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
 <p>以下是<code>stash</code>命令的使用方式：</p>
@@ -507,6 +472,40 @@
 </ol>
 </li>
 </ul>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
+
+<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
+<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
+<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
+</blockquote>
+<ol>
+<li><p>查看当前Git项目的远程地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
+</li>
+<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
+<li><p>然后使用以下命令进行Git push操作</p>
+</li>
+</ol>
+<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
+<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
+<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
+<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
+</li>
+<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
+</li>
+<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 
       
     </div>

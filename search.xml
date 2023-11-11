@@ -3548,41 +3548,6 @@
 
 <h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -m new-branch-name</span><br></pre></td></tr></table></figure>
 
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
-
-<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
-<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
-<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
-</blockquote>
-<ol>
-<li><p>查看当前Git项目的远程地址</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-
-<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
-
-<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
-</li>
-<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
-<li><p>然后使用以下命令进行Git push操作</p>
-</li>
-</ol>
-<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
-<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
-<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
-<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
-</li>
-<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
-</li>
-<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
-
 <h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
 <p>以下是<code>stash</code>命令的使用方式：</p>
 <ol>
@@ -3676,6 +3641,40 @@
 </ol>
 </li>
 </ul>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
+
+<p>您可以将 “git config” 替换为 “git config –global” 以便为所有仓库设置<br>缺省的配置项。您也可以在每次执行 pull 命令时添加 –rebase、–no-rebase，<br>或者 –ff-only 参数覆盖缺省设置。</p>
+<h3 id="推送本地离线项目到远程github"><a href="#推送本地离线项目到远程github" class="headerlink" title="推送本地离线项目到远程github"></a>推送本地离线项目到远程github</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir my_project</span><br><span class="line">cd my_project</span><br><span class="line">touch .gitignore</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git remote add origin youruser@yourserver.com:/path/to/my_project.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改https协议进行推送"><a href="#更改https协议进行推送" class="headerlink" title="更改https协议进行推送"></a>更改https协议进行推送</h3><blockquote>
+<p>如果之前是使用ssh协议进行推送，现改为http协议</p>
+</blockquote>
+<ol>
+<li><p>查看当前Git项目的远程地址</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">origin  https://github.com/username/repository.git (fetch)</span><br><span class="line">origin  https://github.com/username/repository.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>origin</code>是远程仓库的名称，<code>https://github.com/username/repository.git</code>是远程仓库的地址，<code>(fetch)</code>和<code>(push)</code>分别表示读取和写入访问URL。</p>
+</li>
+<li><p>将Git仓库的URL替换为HTTP协议的URL</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure></li>
+<li><p>然后使用以下命令进行Git push操作</p>
+</li>
+</ol>
+<p>后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。</p>
+<h3 id="Git修改-gitignore不生效"><a href="#Git修改-gitignore不生效" class="headerlink" title="Git修改.gitignore不生效"></a>Git修改.gitignore不生效</h3><ul>
+<li><p>在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件</p>
+<p>但有时候把某些目录或者文件加入忽略规则，发现并未生效</p>
+</li>
+<li><p>未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的</p>
+</li>
+<li><p>解决方案：先把本地缓存删除（改变成未track状态），然后提交。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>git</category>
@@ -6312,6 +6311,9 @@
 <h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
 <h2 id="清理内存"><a href="#清理内存" class="headerlink" title="清理内存"></a>清理内存</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
 
+<h2 id="查看buff-cache"><a href="#查看buff-cache" class="headerlink" title="查看buff/cache"></a>查看buff/cache</h2><ul>
+<li>工具推荐 <a href="https://github.com/silenceshell/hcache">https://github.com/silenceshell/hcache</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -8544,7 +8546,7 @@
     <content><![CDATA[<p><strong>Yet Another Resource Negotiator</strong></p>
 <p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>
 <p><img src="/images/yarn/yarn_construct.gif"></p>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="contrainer"><a href="#contrainer" class="headerlink" title="contrainer"></a>contrainer</h4><blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h4 id="contrainer"><a href="#contrainer" class="headerlink" title="contrainer"></a>contrainer</h4><blockquote>
 <p>容器（Container）这个东西是 Yarn 对资源做的一层抽象。就像我们平时开发过程中，经常需要对底层一些东西进行封装，只提供给上层一个调用接口一样，Yarn 对资源的管理也是用到了这种思想。</p>
 </blockquote>
 <p><img src="/images/yarn/contrainer.jpeg"></p>
@@ -8578,17 +8580,15 @@
 <li>容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。</li>
 </ol>
 <h3 id="停止应用"><a href="#停止应用" class="headerlink" title="停止应用"></a>停止应用</h3><p><code>yarn application -kill appID</code></p>
-<h2 id="yarn资源参数配置"><a href="#yarn资源参数配置" class="headerlink" title="yarn资源参数配置"></a>yarn资源参数配置</h2><p>每个job提交到yarn上执行时，都会分配Container容器去运行，而这个容器需要资源才能运行，这个资源就是Cpu和内存。</p>
-<p>1、CPU资源调度</p>
-<p>目前的CPU被Yarn划分为虚拟CPU，这是yarn自己引入的概念，因为每个服务器的Cpu计算能力不一样，有的机器可能是 其他机器的计算能力的2倍，然后可以通过多配置几个虚拟内存弥补差异。在yarn中，cpu的相关配置如下。</p>
+<h2 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h2><p>每个job提交到yarn上执行时，都会分配Container容器去运行，而这个容器需要资源才能运行，这个资源就是Cpu和内存。</p>
+<h3 id="CPU资源调度"><a href="#CPU资源调度" class="headerlink" title="CPU资源调度"></a>CPU资源调度</h3><p>目前的CPU被Yarn划分为虚拟CPU，这是yarn自己引入的概念，因为每个服务器的Cpu计算能力不一样，有的机器可能是 其他机器的计算能力的2倍，然后可以通过多配置几个虚拟内存弥补差异。在yarn中，cpu的相关配置如下。</p>
 <p>yarn.nodemanager.resource.cpu-vcores</p>
 <p>表示该节点服务器上yarn可以使用的虚拟的CPU个数，默认是8，推荐配置与核心个数相同，如果节点CPU的核心个数不足8个，需要调小这个值，yarn不会智能的去检测物理核数。如果机器性能较好，可以配置为物理核数的2倍。</p>
 <p>yarn.scheduler.minimum-allocation-vcores</p>
 <p>表示单个任务最小可以申请的虚拟核心数，默认为1</p>
 <p>yarn.sheduler.maximum-allocation-vcores</p>
 <p>表示单个任务最大可以申请的虚拟核数，默认为4；如果申请资源时，超过这个配置，会抛出 InvalidResourceRequestException</p>
-<p>2、Memory资源调度</p>
-<p>yarn一般允许用户配置每个节点上可用的物理资源，可用指的是将机器上内存减去hdfs的，hbase的等等剩下的可用的内存。</p>
+<h3 id="Memory资源调度"><a href="#Memory资源调度" class="headerlink" title="Memory资源调度"></a>Memory资源调度</h3><p>yarn一般允许用户配置每个节点上可用的物理资源，可用指的是将机器上内存减去hdfs的，hbase的等等剩下的可用的内存。</p>
 <p>yarn.nodemanager.resource.memory-mb</p>
 <p>设置该节点上yarn可使用的内存，默认为8G，如果节点内存不足8G，要减少这个值，yarn不会智能的去检测内存资源，一般这个值式yarn的可用内存资源。</p>
 <p>yarn.scheduler.minmum-allocation-mb</p>
@@ -8603,6 +8603,11 @@
 <p>如果设置成2G，那么90/2=45最多可以跑45个container，如果设置成4G，那么最多可以跑24个；vcore有些浪费。</p>
 <p>4、yarn.scheduler.maximum-allocation-mb</p>
 <p>这个要根据自己公司的业务设定，如果有大任务，需要5-6G内存，那就设置为8G，那么最大可以跑11个container。</p>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><h3 id="配置指定用户启停"><a href="#配置指定用户启停" class="headerlink" title="配置指定用户启停"></a>配置指定用户启停</h3><p><code>start-yarn.sh</code>和<code>stop-yarn.sh</code>添加如下配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">YARN_RESOURCEMANAGER_USER=xxx</span><br><span class="line">YARN_NODEMANAGER_USER=xxx</span><br></pre></td></tr></table></figure>
+
+<p>ps: 如果某个节点nodemanager没有拉起，需要执行<code>./yarn --daemon start nodemanager</code></p>
+<h3 id="在资源够用的情况，无法发布新的应用"><a href="#在资源够用的情况，无法发布新的应用" class="headerlink" title="在资源够用的情况，无法发布新的应用"></a>在资源够用的情况，无法发布新的应用</h3><p>修改<code>capacity-scheduler.xml</code><br> <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.capacity.maximum-am-resource-percent<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!--&lt;value&gt;0.1&lt;/value&gt;--&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>0.8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">   Maximum percent of resources in the cluster which can be used to run</span><br><span class="line">   application masters i.e. controls number of concurrent running</span><br><span class="line">   applications.</span><br><span class="line"> <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <hr>
 <p>reference:</p>
 <p><a href="https://zhuanlan.zhihu.com/p/54192454">https://zhuanlan.zhihu.com/p/54192454</a></p>
@@ -9130,20 +9135,60 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export STARROCKS_HOME=xxx</span><br></pre></td></tr></table></figure></li>
 <li><p>启动mysql客户端</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可</span><br></pre></td></tr></table></figure></li>
-<li><p>启动FE时</p>
-<ul>
-<li><p>启动FE为LEADER节点</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./fe/bin/start_fe.sh --daemon</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li><p>添加新FE</p>
+<hr>
+<h2 id="FE"><a href="#FE" class="headerlink" title="FE"></a>FE</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tunlp | grep 18030</span><br><span class="line">netstat -tunlp | grep 19010</span><br><span class="line">netstat -tunlp | grep 19020</span><br><span class="line">netstat -tunlp | grep 19030</span><br><span class="line"></span><br><span class="line">http_port = 18030</span><br><span class="line">rpc_port = 19020</span><br><span class="line">query_port = 19030</span><br><span class="line">edit_log_port = 19010</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p>在mysql command先将实例添加进集群，然后逐个启动实例</p>
+<li><p>启动fe<br><code>start_fe.sh --daemon</code></p>
+</li>
+<li><p>查看FE状态+<br><code>SHOW PROC &#39;/frontends&#39;\G</code></p>
+</li>
+<li><p>添加新FE节点（follow和observer)<br><code>./start_fe.sh --helper 172.18.244.74:19010 --daemon</code></p>
+<p>注意：</p>
+<ul>
+<li><p>在mysql command先将实例添加进集群，然后逐个启动实例。（只在首次新增节点时操作）</p>
 </li>
 <li><p>各个节点的时间一定要同步，不然FE的心跳超过5s时差，就会报错</p>
 </li>
 </ul>
 </li>
+<li><p>扩容FE<br><code>ALTER SYSTEM ADD FOLLOWER &#39;ip:19010&#39;;</code><br><code>ALTER SYSTEM ADD observer &#39;ip:19010&#39;;</code></p>
+</li>
+<li><p>缩容FE<br><code>ALTER SYSTEM DROP follower &quot;ip:19010&quot;;</code><br><code>ALTER SYSTEM DROP observer &quot;ip:19010&quot;;</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="BE"><a href="#BE" class="headerlink" title="BE"></a>BE</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tunlp | grep 19060</span><br><span class="line">netstat -tunlp | grep 18040</span><br><span class="line">netstat -tunlp | grep 19050</span><br><span class="line">netstat -tunlp | grep 18060</span><br><span class="line"></span><br><span class="line">be_port = 19060</span><br><span class="line">be_http_port = 18040</span><br><span class="line">heartbeat_service_port = 19050</span><br><span class="line">brpc_port = 18060</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查看BE状态<br><code>SHOW PROC &#39;/backends&#39;\G</code></p>
+</li>
+<li><p>启动BE<br><code>./start_be.sh --daemon</code></p>
+</li>
+<li><p>添加BE节点<br><code>ALTER SYSTEM ADD BACKEND &quot;172.18.244.74:19050&quot;;</code></p>
+</li>
+<li><p>缩容BE节点<br><code>ALTER SYSTEM DECOMMISSION BACKEND &quot;172.18.244.74:19050&quot;;</code><br>等待该节点BE从列表中消失（查看命令SHOW PROC ‘/backends’;），即可使用./stop_be.sh停掉服务</p>
+</li>
+<li><p>崩溃排查日志<code>be.out</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><ul>
+<li>FE修改端口信息，需要清理meta</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 重建meta目录</span><br><span class="line">2. 重启主节点FE</span><br><span class="line">3. 登录mysql command，添加新FE节点（follow和observer），添加BE节点</span><br><span class="line">4. 启动follower和observer节点</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BE修改端口信息，需要清理storage</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 重建storage目录（是否可以修改cluster_id进行集群处理）</span><br><span class="line">2. 逐个启动BE服务</span><br><span class="line">3. 登录mysql command，添加新BE节点（ALTER SYSTEM ADD BACKEND &quot;ip:19050&quot;;）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改密码<br><code>SET PASSWORD = PASSWORD(&#39;datacanvas&#39;)</code></li>
+</ul>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>节点时间需要同步（延迟需要在5秒内），不然starrocks无法扩容FE节点</li>
 </ul>
 ]]></content>
       <categories>
