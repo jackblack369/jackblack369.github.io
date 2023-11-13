@@ -987,7 +987,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-10 10:20:55" itemprop="dateModified" datetime="2023-11-10T10:20:55+08:00">2023-11-10</time>
+                <time title="Modified: 2023-11-13 00:08:05" itemprop="dateModified" datetime="2023-11-13T00:08:05+08:00">2023-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1031,6 +1031,23 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE &quot;http://127.0.0.1:8848/nacos/v2/ns/instance?serviceName=jarvex-gateway&amp;ip=192.168.1.148&amp;port=8085&amp;namespaceId=jarvex_space&amp;groupName=jarvex-common-group&amp;ephemeral=false&quot;</span><br></pre></td></tr></table></figure>
 
+<h2 id="动态配置"><a href="#动态配置" class="headerlink" title="动态配置"></a>动态配置</h2><h3 id="方案一-nacos-config配置中心获取"><a href="#方案一-nacos-config配置中心获取" class="headerlink" title="方案一: nacos config配置中心获取"></a>方案一: nacos config配置中心获取</h3><ul>
+<li><p>通过配置nacos config和 controller获取</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">config</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line">  <span class="meta">server-addr</span>: <span class="string">$&#123;spring.cloud.nacos.server-addr&#125;</span></span><br><span class="line">  <span class="meta">file-extension</span>: <span class="string">yaml</span></span><br><span class="line">  <span class="attr">namespace</span>: <span class="string">public</span></span><br></pre></td></tr></table></figure>
+
+<p>controller类使用 @Refresh，刷新动态配置</p>
+</li>
+</ul>
+<h3 id="方案二：nacos-client-监听指定配置文件（recommended）"><a href="#方案二：nacos-client-监听指定配置文件（recommended）" class="headerlink" title="方案二：nacos client 监听指定配置文件（recommended）"></a>方案二：nacos client 监听指定配置文件（recommended）</h3><ul>
+<li>编写监听类</li>
+<li>手动刷新配置</li>
+</ul>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.lijunyi.xyz/docs/SpringCloud/SpringCloud.html#%E6%95%B4%E4%BD%93%E5%A4%A7%E7%BA%B2%F0%9F%92%A8">https://www.lijunyi.xyz/docs/SpringCloud/SpringCloud.html#%E6%95%B4%E4%BD%93%E5%A4%A7%E7%BA%B2%F0%9F%92%A8</a></li>
+<li><a target="_blank" rel="noopener" href="http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#1-Nacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#1-Nacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2096938">https://cloud.tencent.com/developer/article/2096938</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/taojietaoge/p/16638226.html">https://www.cnblogs.com/taojietaoge/p/16638226.html</a></li>
+</ul>
 
       
     </div>
