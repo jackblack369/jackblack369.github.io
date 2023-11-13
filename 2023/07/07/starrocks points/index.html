@@ -28,7 +28,7 @@
 <meta property="og:description" content="安装部署注意项 安装前配置环境变量 1export STARROCKS_HOME&#x3D;xxx 启动mysql客户端 1mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可   FE123456789netstat -tunlp | grep 18030netstat -tunlp | grep 19010netst">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-07-07T06:52:04.000Z">
-<meta property="article:modified_time" content="2023-11-11T09:20:38.203Z">
+<meta property="article:modified_time" content="2023-11-13T02:53:14.290Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="point">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-11 17:20:38" itemprop="dateModified" datetime="2023-11-11T17:20:38+08:00">2023-11-11</time>
+                <time title="Modified: 2023-11-13 10:53:14" itemprop="dateModified" datetime="2023-11-13T10:53:14+08:00">2023-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,7 +243,7 @@
 <h2 id="FE"><a href="#FE" class="headerlink" title="FE"></a>FE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 18030</span><br><span class="line">netstat -tunlp | grep 19010</span><br><span class="line">netstat -tunlp | grep 19020</span><br><span class="line">netstat -tunlp | grep 19030</span><br><span class="line"></span><br><span class="line">http_port = 18030</span><br><span class="line">rpc_port = 19020</span><br><span class="line">query_port = 19030</span><br><span class="line">edit_log_port = 19010</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>启动fe<br><code>start_fe.sh --daemon</code></p>
+<li><p>启动FE<br><code>start_fe.sh --daemon</code></p>
 </li>
 <li><p>查看FE状态+<br><code>SHOW PROC &#39;/frontends&#39;\G</code></p>
 </li>

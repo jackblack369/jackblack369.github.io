@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-10 15:40:33" itemprop="dateModified" datetime="2023-11-10T15:40:33+08:00">2023-11-10</time>
+                <time title="Modified: 2023-11-13 10:54:48" itemprop="dateModified" datetime="2023-11-13T10:54:48+08:00">2023-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,6 +280,8 @@
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/abu935009066/article/details/112245330">https://blog.csdn.net/abu935009066/article/details/112245330</a></li>
 </ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#3-Gateway%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3">http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#3-Gateway%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3</a></p>
 </li>
 </ul>
 
@@ -545,7 +547,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-10 10:01:42" itemprop="dateModified" datetime="2023-11-10T10:01:42+08:00">2023-11-10</time>
+                <time title="Modified: 2023-11-14 01:29:50" itemprop="dateModified" datetime="2023-11-14T01:29:50+08:00">2023-11-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -679,7 +681,23 @@
 <li><p>抽象类就是这么一种存在，它是一种自上而下的设计风范，你只需要用少量的代码描述清楚要做的事情，定义好接口，然后就可以交给不同开发人员去开发和对接。</p>
 </li>
 </ul>
-<h2 id="用法tips"><a href="#用法tips" class="headerlink" title="用法tips"></a>用法tips</h2><ul>
+<h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><blockquote>
+<p><strong>所谓的装饰器，其实就是通过装饰器函数，来修改原函数的一些功能，使得原函数不需要修改。</strong></p>
+<p>Decorators is to modify the behavior of the function through a wrapper so we don’t have to actually modify the function.</p>
+</blockquote>
+<h4 id="函数装饰器"><a href="#函数装饰器" class="headerlink" title="函数装饰器"></a>函数装饰器</h4><ul>
+<li><p>通常情况下，我们会把<code>*args</code>和<code>**kwargs</code>，作为装饰器内部函数 wrapper() 的参数。<code>*args</code>和<code>**kwargs</code>，表示接受任意数量和类型的参数，因此装饰器就可以写成下面的形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">my_decorator</span>(<span class="params">func</span>):</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">          <span class="built_in">print</span>(<span class="string">&#x27;wrapper of decorator&#x27;</span>)</span><br><span class="line">          func(*args, **kwargs)</span><br><span class="line">      <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line">- 装饰器可以接受原函数任意类型和数量的参数，除此之外，它还可以接受自己定义的参数。</span><br><span class="line"></span><br><span class="line">  ```python</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">repeat</span>(<span class="params">num</span>):</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">my_decorator</span>(<span class="params">func</span>):</span></span><br><span class="line">          <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">              <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num):</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;wrapper of decorator&#x27;</span>)</span><br><span class="line">                  func(*args, **kwargs)</span><br><span class="line">          <span class="keyword">return</span> wrapper</span><br><span class="line">      <span class="keyword">return</span> my_decorator</span><br><span class="line">   </span><br><span class="line"><span class="meta">  @repeat(<span class="params"><span class="number">4</span></span>)</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">greet</span>(<span class="params">message</span>):</span></span><br><span class="line">      <span class="built_in">print</span>(message)</span><br><span class="line">   </span><br><span class="line">  greet(<span class="string">&#x27;hello world&#x27;</span>)</span><br><span class="line">   </span><br><span class="line">  <span class="comment"># 输出：</span></span><br><span class="line">  wrapper of decorator</span><br><span class="line">  hello world</span><br><span class="line">  wrapper of decorator</span><br><span class="line">  hello world</span><br><span class="line">  wrapper of decorator</span><br><span class="line">  hello world</span><br><span class="line">  wrapper of decorator</span><br><span class="line">  hello world</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h4><ul>
+<li><p>类装饰器主要依赖于函数<code>__call_()</code>，每当你调用一个类的示例时，函数<code>__call__()</code>就会被执行一次。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Count</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func</span>):</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.num_calls = <span class="number">0</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self, *args, **kwargs</span>):</span></span><br><span class="line">        self.num_calls += <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;num of calls is: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(self.num_calls))</span><br><span class="line">        <span class="keyword">return</span> self.func(*args, **kwargs)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Count</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">example</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line"> </span><br><span class="line">example()</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">num of calls <span class="keyword">is</span>: <span class="number">1</span></span><br><span class="line">hello world</span><br><span class="line"> </span><br><span class="line">example()</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">num of calls <span class="keyword">is</span>: <span class="number">2</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="装饰器的嵌套"><a href="#装饰器的嵌套" class="headerlink" title="装饰器的嵌套"></a>装饰器的嵌套</h4><ul>
+<li><p>执行顺序从里到外</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="meta">@decorator3</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    ...</span><br><span class="line"><span class="comment"># 等同于</span></span><br><span class="line">decorator1(decorator2(decorator3(func)))</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="用法-tips"><a href="#用法-tips" class="headerlink" title="用法 tips"></a>用法 tips</h2><ul>
 <li><p>引用规范 <code>from your_file import function_name, class_name</code></p>
 </li>
 <li><p>每个Python文件都有一个特殊的变量<code>__name__</code>。当一个Python文件被直接运行时，<code>__name__</code>的值被设置为<code>&#39;__main__&#39;</code>。当一个Python文件被导入到另一个文件中时，<code>__name__</code>的值被设置为该文件的名字，所以用<code>if __name__ == &#39;__main__&#39;</code>来避开 import 时执行。</p>
@@ -693,6 +711,14 @@
 <p>对于整型数字来说，以上<code>a is b</code>为 True 的结论，只适用于 -5 到 256 范围内的数字</p>
 </blockquote>
 </li>
+</ul>
+</li>
+<li><p>值传递、引用传递</p>
+<ul>
+<li>变量的赋值，只是表示让变量指向了某个对象，并不表示拷贝对象给变量；而一个对象，可以被多个变量所指向。</li>
+<li>可变对象（列表，字典，集合等等）的改变，会影响所有指向该对象的变量。</li>
+<li>对于不可变对象（字符串，整型，元祖等等），所有指向该对象的变量的值总是一样的，也不会改变。但是通过某些操作（+= 等等）更新不可变对象的值时，会返回一个新的对象。</li>
+<li>变量可以被删除，但是对象无法被删除。</li>
 </ul>
 </li>
 </ul>
