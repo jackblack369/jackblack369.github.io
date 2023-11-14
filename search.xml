@@ -9696,7 +9696,7 @@
 <li><p>执行顺序从里到外</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="meta">@decorator3</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    ...</span><br><span class="line"><span class="comment"># 等同于</span></span><br><span class="line">decorator1(decorator2(decorator3(func)))</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="用法-tips"><a href="#用法-tips" class="headerlink" title="用法 tips"></a>用法 tips</h2><ul>
+<h3 id="metaclass"><a href="#metaclass" class="headerlink" title="metaclass"></a>metaclass</h3><h2 id="用法-tips"><a href="#用法-tips" class="headerlink" title="用法 tips"></a>用法 tips</h2><ul>
 <li><p>引用规范 <code>from your_file import function_name, class_name</code></p>
 </li>
 <li><p>每个Python文件都有一个特殊的变量<code>__name__</code>。当一个Python文件被直接运行时，<code>__name__</code>的值被设置为<code>&#39;__main__&#39;</code>。当一个Python文件被导入到另一个文件中时，<code>__name__</code>的值被设置为该文件的名字，所以用<code>if __name__ == &#39;__main__&#39;</code>来避开 import 时执行。</p>
@@ -9719,6 +9719,10 @@
 <li>对于不可变对象（字符串，整型，元祖等等），所有指向该对象的变量的值总是一样的，也不会改变。但是通过某些操作（+= 等等）更新不可变对象的值时，会返回一个新的对象。</li>
 <li>变量可以被删除，但是对象无法被删除。</li>
 </ul>
+</li>
+<li><p>容器是可迭代对象，可迭代对象调用 iter() 函数，可以得到一个迭代器。迭代器可以通过 next() 函数来得到下一个元素，从而支持遍历。</p>
+</li>
+<li><p>生成器是一种特殊的迭代器（注意这个逻辑关系反之不成立）。使用生成器，你可以写出来更加清晰的代码；合理使用生成器，可以降低内存占用、优化程序结构、提高程序速度。</p>
 </li>
 </ul>
 ]]></content>
