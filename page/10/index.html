@@ -174,6 +174,237 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/ES6%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/04/ES6%20learn/" class="post-title-link" itemprop="url">ES6 learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-04 11:35:30" itemprop="dateCreated datePublished" datetime="2019-04-04T11:35:30+08:00">2019-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-07-30 16:53:21" itemprop="dateModified" datetime="2019-07-30T16:53:21+08:00">2019-07-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Let"><a href="#Let" class="headerlink" title="Let"></a>Let</h3><p>let is similar to var but let has scope. let is only accessible in the block level it is defined.</p>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"> <span class="keyword">let</span> a = <span class="number">40</span>;</span><br><span class="line"> <span class="built_in">console</span>.log(a); <span class="comment">//40</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>and</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">50</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"> <span class="keyword">let</span> a = <span class="number">60</span>;</span><br><span class="line"> <span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line"> <span class="built_in">console</span>.log(a/c); <span class="comment">// 6</span></span><br><span class="line"> <span class="built_in">console</span>.log(b/c); <span class="comment">// 10</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(c); <span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 50</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Const"><a href="#Const" class="headerlink" title="Const"></a>Const</h3><p>Const is used to assign a constant value to the variable. And the value cannot be changed. Its fixed.</p>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">50</span>;</span><br><span class="line">a = <span class="number">60</span>; <span class="comment">// shows error. You cannot change the value of const.</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="string">&quot;Constant variable&quot;</span>;</span><br><span class="line">b = <span class="string">&quot;Assigning new value&quot;</span>; <span class="comment">// shows error.</span></span><br></pre></td></tr></table></figure>
+
+<p>Whenever you define a const variable, Javascript references the address of the value to the variable.</p>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> LANGUAGES = [<span class="string">&#x27;Js&#x27;</span>, <span class="string">&#x27;Ruby&#x27;</span>, <span class="string">&#x27;Python&#x27;</span>, <span class="string">&#x27;Go&#x27;</span>];</span><br><span class="line">LANGUAGES = <span class="string">&quot;Javascript&quot;</span>; <span class="comment">// shows error.</span></span><br><span class="line">LANGUAGES.push(<span class="string">&#x27;Java&#x27;</span>); <span class="comment">// Works fine.</span></span><br><span class="line"><span class="built_in">console</span>.log(LANGUAGES); <span class="comment">// [&#x27;Js&#x27;, &#x27;Ruby&#x27;, &#x27;Python&#x27;, &#x27;Go&#x27;, &#x27;Java&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>the variable ‘LANGUAGES’ actually references to the memory allocated to the array. So you cannot change the variable to reference some other memory location later. Throughout the program it only references to the array.</p>
+<h3 id="Arrow-Function"><a href="#Arrow-Function" class="headerlink" title="Arrow Function"></a>Arrow Function</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Old Syntax</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">oldOne</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Hello World..!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// New Syntax</span></span><br><span class="line"><span class="keyword">var</span> newOne = <span class="function">() =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Hello World..!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>and</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> NewOneWithParameters = <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(a+b); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line">NewOneWithParameters(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<p>There are two things to explain here.</p>
+<ol>
+<li>If you have a function with single parameter, you don’t need (). In our case <strong>element</strong> is the parameter.</li>
+<li>And If you have single line as the body of the function you don’t need {} and also JS will implicitly returns the value after executing the function. You don’t have to use <strong>return</strong> keyword.</li>
+<li>Arrow functions shine best with anything that requires <code>this</code> to be bound to the context, and not the function itself.</li>
+</ol>
+<h3 id="For-of-loop"><a href="#For-of-loop" class="headerlink" title="For of loop"></a>For of loop</h3><p>for..of iterates through list of elements (i.e) like Array and returns the elements (not their index) one by one.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> arr) &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>and</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> string = <span class="string">&quot;Javascript&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> char <span class="keyword">of</span> string) &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(char);</span><br><span class="line">&#125;</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">J</span><br><span class="line">a</span><br><span class="line">v</span><br><span class="line">a</span><br><span class="line">s</span><br><span class="line">c</span><br><span class="line">r</span><br><span class="line">i</span><br><span class="line">p</span><br><span class="line">t</span><br></pre></td></tr></table></figure>
+
+<h3 id="Spread-attributes"><a href="#Spread-attributes" class="headerlink" title="Spread attributes"></a>Spread attributes</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> SumElements = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line"> 	<span class="built_in">console</span>.log(arr); <span class="comment">// [10, 20, 40, 60, 90]</span></span><br><span class="line"> 	</span><br><span class="line">	<span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line"> 	<span class="keyword">for</span> (<span class="keyword">let</span> element <span class="keyword">of</span> arr) &#123;</span><br><span class="line"> 		sum += element;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="built_in">console</span>.log(sum); <span class="comment">// 220. </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SumElements([<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">60</span>, <span class="number">90</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>consider the same example with spread attributes:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> SumElements = <span class="function">(<span class="params">...arr</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(arr); <span class="comment">// [10, 20, 40, 60, 90]</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">let</span> element <span class="keyword">of</span> arr) &#123;</span><br><span class="line"> sum += element;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">console</span>.log(sum); <span class="comment">// 220. </span></span><br><span class="line">&#125;</span><br><span class="line">SumElements(<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">60</span>, <span class="number">90</span>); <span class="comment">// Note we are not passing array here. Instead we are passing the elements as arguments.</span></span><br></pre></td></tr></table></figure>
+
+<p>Math.max is a simple method that returns the maximum element from given list. It doesn’t accept an array.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">60</span>];</span><br><span class="line"><span class="built_in">Math</span>.max(arr); <span class="comment">// Shows error. Doesn&#x27;t accept an array.</span></span><br></pre></td></tr></table></figure>
+
+<p>So lets use our savior:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">60</span>];</span><br><span class="line"><span class="built_in">Math</span>.max(...arr); <span class="comment">// 60</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h3><p>Map holds key-value pairs. It’s similar to an array but we can define our own index. And indexes are unique in maps.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">map.set(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;John&#x27;</span>);</span><br><span class="line">map.set(<span class="string">&#x27;id&#x27;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">map.get(<span class="string">&#x27;name&#x27;</span>); <span class="comment">// John</span></span><br><span class="line">map.get(<span class="string">&#x27;id&#x27;</span>); <span class="comment">// 10</span></span><br><span class="line"></span><br><span class="line">map.size; <span class="comment">// 2. Returns the size of the map.</span></span><br><span class="line">map.keys(); <span class="comment">// outputs only the keys. </span></span><br><span class="line">map.values(); <span class="comment">// outputs only the values.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> map.keys()) &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">name</span><br><span class="line">id</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> map) &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(key+<span class="string">&quot; - &quot;</span>+value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">name - John</span><br><span class="line">id - <span class="number">10</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h3><p>Sets are used to store the unique values of any type.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sets = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">sets.add(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">sets.add(<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">sets.add(<span class="string">&#x27;a&#x27;</span>); <span class="comment">// We are adding duplicate value.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> element <span class="keyword">of</span> sets) &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(element);</span><br><span class="line">&#125;</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">sets.size; <span class="comment">// returns 2. Size of the set.</span></span><br><span class="line">sets.has(<span class="string">&#x27;a&#x27;</span>); <span class="comment">// returns true. </span></span><br><span class="line">sets.has(<span class="string">&#x27;c&#x27;</span>); <span class="comment">// returns false.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Static-methods"><a href="#Static-methods" class="headerlink" title="Static methods"></a>Static methods</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line"> <span class="keyword">static</span> <span class="function"><span class="title">Callme</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Static method&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">Example.Callme();</span><br><span class="line">Output:</span><br><span class="line">Static method</span><br></pre></td></tr></table></figure>
+
+<p> you can call the function without creating any instance for the class.</p>
+<h3 id="Getters-and-Setters"><a href="#Getters-and-Setters" class="headerlink" title="Getters and Setters"></a>Getters and Setters</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line"> <span class="built_in">this</span>.name = name;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="title">getName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="title">setName</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line"> <span class="built_in">this</span>.name = name;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> People(<span class="string">&quot;Jon Snow&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person.getName());</span><br><span class="line">person.setName(<span class="string">&quot;Dany&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person.getName());</span><br><span class="line">Output:</span><br><span class="line">Jon Snow</span><br><span class="line">Dany</span><br></pre></td></tr></table></figure>
+
+<h3 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h3><p> They are used to make <strong>async</strong> operations such as API request, file handling, downloading images, etc.</p>
+<p>Before promises, programmers used to define <strong>callbacks.</strong> Callbacks are normal functions in Javascript which executes when the async operation is complete.</p>
+<ul>
+<li><p>three states in promises</p>
+<ol>
+<li><strong>Pending</strong>: In this state the promise is just executing the async operation. For example, It’s making some API request to the server or downloading some images from cdn.  from this state promise can move to either to <strong>Fulfilled</strong> or to <strong>Rejected</strong></li>
+<li><strong>Fulfilled</strong>: If the promise has reached this state, then it means that the async operation is complete and we have the output. For example, we have the response from the API.</li>
+<li><strong>Rejected:</strong> If the promise has reached this state, it means that the async operation is not successful and we have the error which caused the operation to fail.</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> apiCall = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> ( API request to get some data ) &#123;</span><br><span class="line">  resolve(<span class="string">&quot;The request is successful and the response is &quot;</span>+ response);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line">  reject(<span class="string">&quot;The request is not successful. The error is &quot;</span>+error);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Then the <strong>resolve</strong> function is called if we get the response from the server. And if there is some error <strong>reject</strong> function is called with the error message.</p>
+</li>
+<li><p>We use <strong>handlers</strong> to get the output from the promise.</p>
+<blockquote>
+<p>Handlers are just functions which executes when some event occurs such as clicking a button, moving the cursor, etc.</p>
+<p>So we can use handlers to handle when the <strong>resolve</strong> function is called or **reject **function is called.</p>
+</blockquote>
+<ul>
+<li>The handler <strong>then</strong> executes its <strong>function parameter</strong> when the <strong>resolve</strong> function is called inside the promise.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// calling the promise with some handlers.</span></span><br><span class="line">apiCall.then(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;<span class="built_in">console</span>.log(x); &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output</span></span><br><span class="line">The request is successful and the response is &#123;<span class="attr">name</span>: <span class="string">&quot;Jon Snow&quot;</span>&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Catch</strong> handler looks out for <strong>reject</strong> function.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apiCall</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(x); </span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;) </span><br><span class="line"></span><br><span class="line"><span class="comment">// Assuming the request is not successful ( reject function is called in the promise. )</span></span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">The request is not successful</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Async-Await"><a href="#Async-Await" class="headerlink" title="Async / Await"></a>Async / Await</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;Hello Promise..!&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The above code is equivalent to the below code:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line"> <span class="comment">// executor function body.</span></span><br><span class="line"> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (a &lt; b) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;Greater&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;Not Greater&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">hello(<span class="number">14</span>, <span class="number">10</span>)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Good..! &quot;</span> + x); </span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Oops..! &quot;</span> + x); </span><br><span class="line">&#125;)</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">Oops..! Not Greater. </span><br><span class="line"><span class="comment">// if you call hello(4, 10) you get &quot;Good..! Greater&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Don’t forget that async function will return a promise. So of course, you can call <strong>resolve</strong> and <strong>reject</strong> function inside <strong>async</strong> function too. </p>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">Max</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (a &gt; b) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="string">&quot;Success&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">Max(<span class="number">4</span>, <span class="number">10</span>)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Good &quot;</span> + x); </span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&quot;Oops &quot;</span> + x); </span><br><span class="line">&#125;);</span><br><span class="line">Output:</span><br><span class="line">Oops <span class="built_in">Error</span></span><br><span class="line"><span class="comment">// If we pass Max(14, 10) then we should get &quot;Good Success&quot; :)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p> It makes the Javascript to wait until you get the response from the endpoint. And then it resumes the execution.</p>
+<p><strong>await can be used only inside async function. It doesn’t work outside async function</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(<span class="string">&#x27;https://api.github.com/&#x27;</span>);</span><br><span class="line"> <span class="comment">// above line fetches the response from the given API endpoint.</span></span><br><span class="line"> <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line">hello()</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(x); </span><br><span class="line">&#125;);</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">Response <span class="keyword">from</span> the API.</span><br></pre></td></tr></table></figure>
+
+<h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><h4 id="Array-Map"><a href="#Array-Map" class="headerlink" title="Array Map"></a>Array Map</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> modifiedArr = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">element, index, arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> element * <span class="number">10</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(modifiedArr);</span><br><span class="line">Output:</span><br><span class="line">[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>]</span><br></pre></td></tr></table></figure>
+
+<p>And also note we have to return some value in the end. Which will be the modified value of that element. If you didn’t return anything then the particular element will be undefined.</p>
+<p>One more thing I like to add is the second and third parameter is only optional. Only the first parameter is mandatory. for example :</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> modifiedArr = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">element</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> element * <span class="number">10</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>write the map operator with arrow functions:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> modifiedArr = arr.map(<span class="function">(<span class="params">element, index</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;index &quot;</span>+index);</span><br><span class="line">  <span class="keyword">return</span> element * <span class="number">10</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(modifiedArr);</span><br><span class="line">Output:</span><br><span class="line">index <span class="number">0</span></span><br><span class="line">index <span class="number">1</span></span><br><span class="line">index <span class="number">2</span></span><br><span class="line">index <span class="number">3</span></span><br><span class="line">index <span class="number">4</span></span><br><span class="line">[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>]</span><br></pre></td></tr></table></figure>
+
+<p>better:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> modifiedArr = arr.map(<span class="function"><span class="params">element</span> =&gt;</span> element * <span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(modifiedArr);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-Filter"><a href="#Array-Filter" class="headerlink" title="Array Filter"></a>Array Filter</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="keyword">let</span> modifiedArr = arr.filter(<span class="function"><span class="keyword">function</span>(<span class="params">element, index, array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> element % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(modifiedArr);</span><br><span class="line">Output:</span><br><span class="line">[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+
+<p>try by arrow function:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> modifiedAarr = arr.filter(<span class="function">(<span class="params">element, index</span>) =&gt;</span> element%<span class="number">2</span> == <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>we have to return a boolean value for each element of the array. If you won’t return any boolean value at the end then the filter takes it as <strong>false</strong> and deletes the element.</p>
+<h4 id="Array-Reduce"><a href="#Array-Reduce" class="headerlink" title="Array Reduce"></a>Array Reduce</h4><p>Array reduce is used to aggregate all the elements of an array and return a single value.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">let</span> total= arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">sum, element, index, array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> sum + element;</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;total is &quot;</span>+total);</span><br><span class="line">Output:</span><br><span class="line">total is <span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+<p>Unlike filter and map, reduce takes a function with four parameters and also a additional element. Unlike filter and map, the first two parameters are mandatory. Other two are optional.</p>
+<p>The first parameter is the aggregator element.In our case it’s 0. </p>
+<p>Like filter and map you have to return the end result.</p>
+<p>write the same code with arrow functions:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> totalSum = arr.reduce(<span class="function">(<span class="params">sum, element</span>) =&gt;</span> element+sum, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Template-Literals"><a href="#Template-Literals" class="headerlink" title="Template Literals"></a>Template Literals</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&quot;Srebalaji&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> languages = <span class="function">() =&gt;</span> &#123;<span class="keyword">return</span> <span class="string">&quot;Ruby, Js, Java, Python&quot;</span>&#125;</span><br><span class="line"><span class="keyword">let</span> msg = <span class="string">`My name is <span class="subst">$&#123;name&#125;</span></span></span><br><span class="line"><span class="string">My age is <span class="subst">$&#123;<span class="number">20</span>+<span class="number">3</span>&#125;</span></span></span><br><span class="line"><span class="string">And I code in <span class="subst">$&#123;languages()&#125;</span>`</span></span><br><span class="line"><span class="attr">Output</span>:</span><br><span class="line">My name is Srebalaji</span><br><span class="line">My age is <span class="number">23</span></span><br><span class="line">And I code <span class="keyword">in</span> Ruby, Js, Java, Python</span><br></pre></td></tr></table></figure>
+
+<h3 id="Imports-and-Exports"><a href="#Imports-and-Exports" class="headerlink" title="Imports and Exports"></a>Imports and Exports</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//app.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> name = <span class="string">&quot;Jon&quot;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> age = <span class="number">23</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;name, age&#125; <span class="keyword">from</span> <span class="string">&#x27;./app&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.html</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">Jon</span><br><span class="line"><span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>and:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//app.js</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">() =&gt;</span> a+b;</span><br><span class="line"><span class="keyword">export</span> &#123;a,b&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> sum</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> variables <span class="keyword">from</span> <span class="string">&#x27;./app&#x27;</span></span><br><span class="line"><span class="keyword">import</span> addition <span class="keyword">from</span> <span class="string">&#x27;./app&#x27;</span> <span class="comment">// default value</span></span><br><span class="line"><span class="built_in">console</span>.log(variables.a);</span><br><span class="line"><span class="built_in">console</span>.log(variables.b);</span><br><span class="line"><span class="built_in">console</span>.log(addition());</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">12</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>If you are using * to import values then you have to use <strong>alias</strong> (i.e) names that will refer to imported values. In our example we have used <strong>variables</strong> as alias.</p>
+</li>
+<li><p>Using * to import values doesn’t import default value. You have to import it separately.</p>
+<p>for example:<code>import addition, * as variables from &#39;./app&#39;</code></p>
+</li>
+</ol>
+<h3 id="Destructuring-objects-and-arrays"><a href="#Destructuring-objects-and-arrays" class="headerlink" title="Destructuring objects and arrays"></a>Destructuring objects and arrays</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;<span class="attr">firstName</span>: <span class="string">&quot;Jon&quot;</span>, <span class="attr">lastName</span>: <span class="string">&quot;Snow&quot;</span>, <span class="attr">age</span>: <span class="number">23</span>&#125;</span><br><span class="line"><span class="keyword">const</span> &#123;firstName, lastName, age&#125; = person</span><br><span class="line"><span class="built_in">console</span>.log(firstName);</span><br><span class="line"><span class="built_in">console</span>.log(lastName);</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line">Output:</span><br><span class="line">Jon</span><br><span class="line">Snow</span><br><span class="line"><span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Extend-and-Super"><a href="#Extend-and-Super" class="headerlink" title="Extend and Super"></a>Extend and Super</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line"> <span class="function"><span class="title">constructor</span>(<span class="params">firstName, lastName, age</span>)</span> &#123;</span><br><span class="line">   <span class="built_in">this</span>.firstName = firstName;</span><br><span class="line">   <span class="built_in">this</span>.lastName = lastName;</span><br><span class="line">   <span class="built_in">this</span>.age = age;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="title">displayName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.firstName&#125;</span> - <span class="subst">$&#123;<span class="built_in">this</span>.lastName&#125;</span>`</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="title">constructor</span>(<span class="params">firstName, lastName, age, salary</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">super</span>(firstName, lastName, age);</span><br><span class="line">  <span class="built_in">this</span>.salary = salary;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="title">displaySalary</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.salary&#125;</span>`</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="title">displayName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">super</span>.displayName();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="title">displayAge</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.age;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> manager = <span class="keyword">new</span> Employee(<span class="string">&quot;Jon&quot;</span>, <span class="string">&quot;Snow&quot;</span>, <span class="number">23</span>, <span class="number">100</span>);</span><br><span class="line"><span class="built_in">console</span>.log(manager.displaySalary());</span><br><span class="line"><span class="built_in">console</span>.log(manager.displayName());</span><br><span class="line"><span class="built_in">console</span>.log(manager.displayAge());</span><br><span class="line">Output:</span><br><span class="line"><span class="number">100</span></span><br><span class="line">Jon Snow</span><br><span class="line"><span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>And then we have used <strong>super</strong> keyword to call the constructor of the parent class. And we also have called the method declared in the parent class using <strong>super</strong>.</p>
+<h3 id="Generator-functions"><a href="#Generator-functions" class="headerlink" title="Generator functions"></a>Generator functions</h3><ul>
+<li>Generator functions are written using the <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*"><code>function*</code></a> syntax. When called initially, generator functions do not execute any of their code, instead returning a type of iterator called a Generator. </li>
+<li>When a value is consumed by calling the generator’s <strong>next</strong> method, the Generator function executes until it encounters the <strong>yield</strong> keyword.<ul>
+<li>Each <code>yield</code> in a generator basically represents an asynchronous step in a more synchronous/sequential process — somewhat like <code>await</code> in an <code>async</code>function.</li>
+</ul>
+</li>
+<li>The function can be called as many times as desired and returns a new Generator each time, however each Generator may only be iterated once.</li>
+</ul>
+<h3 id="some-method"><a href="#some-method" class="headerlink" title="some method"></a>some method</h3><ul>
+<li><p>includes</p>
+<p>construct an array of the items, and use <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"><code>includes</code></a>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>].includes(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/regex%20learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1881,92 +2112,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/windows%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/22/windows%20snippet/" class="post-title-link" itemprop="url">windows snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-22 16:44:00" itemprop="dateCreated datePublished" datetime="2018-05-22T16:44:00+08:00">2018-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-23 10:56:15" itemprop="dateModified" datetime="2022-05-23T10:56:15+08:00">2022-05-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/windows/" itemprop="url" rel="index"><span itemprop="name">windows</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="进程操作"><a href="#进程操作" class="headerlink" title="进程操作"></a>进程操作</h2><ul>
-<li>netstat -aon|findstr “8080” </li>
-</ul>
-<p>TCP     127.0.0.1:80       0.0.0.0:0             LISTENING    2448<br>端口被进程号为2448的进程占用，继续执行下面命令：</p>
-<ul>
-<li>tasklist|findstr “2448” </li>
-</ul>
-<p>thread.exe                   2016 Console                 0     16,064 K</p>
-<p>很清楚，thread占用了你的端口,Kill it</p>
-<ul>
-<li>taskkill -F -PID 2448</li>
-</ul>
-<p>如果第二步查不到，那就开任务管理器，进程—查看—选择列—pid（进程位标识符）打个勾就可以了</p>
-<h2 id="查看文件md5值"><a href="#查看文件md5值" class="headerlink" title="查看文件md5值"></a>查看文件md5值</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">certutil -hashfile filename MD5</span><br><span class="line">certutil -hashfile filename SHA1</span><br><span class="line">certutil -hashfile filename SHA256</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2036,18 +2181,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">151</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">82</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
