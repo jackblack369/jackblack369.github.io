@@ -174,6 +174,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/30/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/30/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/" class="post-title-link" itemprop="url">实时数仓</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-30 09:52:19" itemprop="dateCreated datePublished" datetime="2021-12-30T09:52:19+08:00">2021-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-06-14 00:03:27" itemprop="dateModified" datetime="2023-06-14T00:03:27+08:00">2023-06-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93/" itemprop="url" rel="index"><span itemprop="name">实时数仓</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>当设计一款产品或者平台的时候，可以划分为两层，即底层实现和上层抽象。</p>
+</blockquote>
+<p>实时数仓和传统数仓的对比主要可以从四个方面考虑：</p>
+<ul>
+<li>第一个是<strong>分层方式</strong>，离线数仓为了考虑到效率问题，一般会采取空间换时间的方式，层级划分会比较多；则实时数仓考虑到实时性问题，一般分层会比较少，另外也减少了中间流程出错的可能性。</li>
+<li>第二个是<strong>事实数据</strong>存储方面，离线数仓会基于 HDFS，实时数仓则会基于消息队列（如 Kafka）。</li>
+<li>第三个是<strong>维度数据</strong>存储，实时数仓会将数据放在 KV 存储上面。</li>
+<li>第四个是<strong>数据加工</strong>过程，离线数仓一般以 Hive、Spark 等批处理为主，而实时数仓则是基于实时计算引擎如 Storm、Flink 等，以流处理为主。</li>
+</ul>
+<p>实时数仓主要有两个要点。首先是分层设计上，一般也是参考离线数仓的设计，通常会分为</p>
+<p>ODS操作数据层</p>
+<p>DWD明细层</p>
+<p>DWS汇总层（轻度汇总/高度汇总）</p>
+<p>ADS应用层</p>
+<p>可能还会分出一层DIM维度数据层。另外分层设计上也有不同的思路，比如可以将DWS和ADS归为DM数据集市层</p>
+<ul>
+<li><p><strong>ODS(Operational Data Store): 贴源层</strong></p>
+<p>这一层又叫做贴源层,最为接近数据源的一层,需要存储的数据量是最大的,存储的数据也是最原始。对众多数据源而言，他们的数据格式基本不一致，经过统一规格化后可以得到规整的数据，将数据源中的数据经过抽取、清洗、传输后装入ODS层。</p>
+</li>
+<li><p><strong>DWD(Data Warehouse Detail)：数据明细层</strong></p>
+<p>业务层与数据仓库的隔离层，主要对ODS层做一些数据清洗和规范化的操作，并且可以按照不同的行为维度对数据进行划分，例如本文对数据源就进行了划分，主要分为浏览、曝光、点击、交易等不同的维度，这些不同的维度能够对上层调用方提供更细粒度的数据服务。</p>
+</li>
+<li><p><strong>DWS(Data WareHouse Servce)：数据服务层</strong></p>
+<p>对各个域进行了适度汇总，主要以数据域+业务域的理念建设公共汇总层，与离线数仓不同的是，实时数仓的汇总层分为轻度汇总层和高度汇总层，例如将轻度汇总层数据写入 ADS，用于前端产品复杂的OLAP查询场景，满足自助分析和产出报表的需求。</p>
+</li>
+<li><p><strong>ADS(Application Data Store)：应用数据服务层</strong></p>
+<p>主要是为了具体需求而构建的应用层，通过 RPC 框架对外提供服务，例如本文中提到的数据报表分析与展示、监控告警、流量调控、开放平台等应用。</p>
+</li>
+<li><p><strong>DIM(Dimension)：维表</strong></p>
+<p>在实时计算中非常重要，也是重点维护的部分，维表需要实时更新，且下游基于最新的维表进行计算</p>
+</li>
+</ul>
+<hr>
+<p>reference：</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1618182">实时数仓 | 你想要的数仓分层设计与技术选型 - 云+社区 - 腾讯云</a></p>
+<ul>
+<li>实时数仓是指在数据仓库的基础上，增加了实时数据处理和分析功能，可以在数据生成后立即进行处理和分析，并及时反馈给业务用户。实时数仓的建设需要关注以下几个问题：</li>
+</ul>
+<ol>
+<li>数据源接入：实时数仓需要及时地处理和分析数据，因此数据源的接入必须实时或近实时，需要考虑数据源的多样性和高并发性。</li>
+<li>数据质量：数据的准确性和完整性对于实时数仓的建设尤为重要，需要对数据进行清洗、过滤、校验等操作，保证数据的质量。</li>
+<li>数据集成：实时数仓需要整合多个数据源的数据，因此需要进行数据集成和融合，确保数据的一致性和准确性。</li>
+<li>数据模型设计：数据模型是实时数仓建设的核心，需要设计合理的数据模型，确保数据的可扩展性和灵活性。</li>
+<li>实时计算和分析：实时数仓需要具备实时计算和分析能力，需要使用实时计算引擎和分析工具，对数据进行实时处理和分析。</li>
+<li>数据安全：实时数仓中的数据可能涉及敏感信息，需要采取一定的安全措施，保证数据的安全性和隐私性。</li>
+<li>系统运维：实时数仓需要进行系统运维和监控，包括数据备份和恢复、系统调优、故障处理等方面，确保系统的稳定性和可靠性。</li>
+</ol>
+<p>综上所述，实时数仓的建设需要关注数据源接入、数据质量、数据集成、数据模型设计、实时计算和分析、数据安全以及系统运维等多个方面，需要根据实际需求和场景进行综合考虑和规划。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/30/%E6%95%B0%E6%8D%AE%E6%B9%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1221,189 +1343,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20compose/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/17/docker%20compose/" class="post-title-link" itemprop="url">docker compose</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-17 11:21:10 / Modified: 14:52:28" itemprop="dateCreated datePublished" datetime="2021-12-17T11:21:10+08:00">2021-12-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Docker-File-vs-Docker-Compose"><a href="#Docker-File-vs-Docker-Compose" class="headerlink" title="Docker File vs Docker Compose"></a>Docker File vs Docker Compose</h3><p>Dockerfile is what’s used to create a container image, and a Compose file is what’s used to deploy an instance of that image as a container.</p>
-<blockquote>
-<p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>
-</blockquote>
-<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><p>Dockerfile the predecessor of a container image. You build an image from a Dockerfile. A typical Dockerfile contains special build instructions, commands like <code>RUN</code>, <code>ADD</code>, <code>COPY</code>, <code>ENTRYPOINT</code>, etc.</p>
-<h4 id="Compose-file"><a href="#Compose-file" class="headerlink" title="Compose file"></a>Compose file</h4><p>Compose files are used in two types of deployments: in the non-cluster deployment with <code>docker-compose</code> and a cluster deployment with <code>docker swarm</code>.</p>
-<p>Compose files are used in two types of deployments: in the non-cluster deployment with <code>docker-compose</code> and a cluster deployment with <code>docker swarm</code>.</p>
-<p>To distinguish the two types, I’m going to address the compose file responsible for cluster deployment as stack files. I’ll talk about stack files in a moment.</p>
-<p>Compose files are part of a tool called <code>docker-compose</code>. It’s a client application to the docker daemon server, kind of like the <code>docker</code> CLI client, but instead of typing the whole <code>run</code> commands every time, with <code>docker-compose</code> you can re-use the same YAML file over and over again, and deploy the same container with the same configuration as you did in the first time.</p>
-<p>It’s more readable, more maintainable, more intuitive. A single compose file can contain multiple container deployment configurations.</p>
-<ul>
-<li><p>执行<code>docker-compose up</code>，报错</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Couldn’t connect to Docker daemon at http+docker:<span class="comment">//localhost - is it running?</span></span><br></pre></td></tr></table></figure>
-
-<p>其中<code>docker-compose.yml</code>信息如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.7&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5000:5000&quot;</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>解决，使用sudo权限</p>
-<ol>
-<li><p>Add user to docker group (if not already added)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure></li>
-<li><p>create a symbolic link to /usr/bin using the following command</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br></pre></td></tr></table></figure></li>
-<li><p>Restart docker service</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></li>
-<li><p>execute</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker-compose up</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p>运行docker compose up或docker compose up -d(后台运行)运行您的整个应用程序。 <code>注意：每次修改任一配置文件后，都要使用 docker-compose up --build 重新构建</code></p>
-<blockquote>
-<p>有了docker-compose，当我们想启动多个服务时，无需再一个一个进行docker run操作，而只需要编写docker-compose.yml配置文件，即可一次运行你的全部服务。</p>
-</blockquote>
-<hr>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>docker-compose build</td>
-<td>(构建yml中某个服务的镜像)</td>
-</tr>
-<tr>
-<td>docker-compose ps</td>
-<td>(查看已经启动的服务状态）</td>
-</tr>
-<tr>
-<td>docker-compose kill</td>
-<td>(停止某个服务）</td>
-</tr>
-<tr>
-<td>docker-compose logs</td>
-<td>(可以查看某个服务的log）</td>
-</tr>
-<tr>
-<td>docker-compose port</td>
-<td>(打印绑定的public port）</td>
-</tr>
-<tr>
-<td>docker-compose pull</td>
-<td>(pull服务镜像)</td>
-</tr>
-<tr>
-<td>docker-compose up</td>
-<td>(启动yml定义的所有服务）</td>
-</tr>
-<tr>
-<td>docker-compose stop</td>
-<td>(停止yml中定义的所有服务）</td>
-</tr>
-<tr>
-<td>docker-compose start</td>
-<td>(启动被停止的yml中的所有服务）</td>
-</tr>
-<tr>
-<td>docker-compose kill</td>
-<td>(强行停止yml中定义的所有服务）</td>
-</tr>
-<tr>
-<td>docker-compose rm</td>
-<td>（删除yml中定义的所有服务）</td>
-</tr>
-<tr>
-<td>docker-compose restart</td>
-<td>(重启yml中定义的所有服务）</td>
-</tr>
-<tr>
-<td>docker-compose scale</td>
-<td>(扩展某个服务的个数，可以向上或向下）</td>
-</tr>
-<tr>
-<td>docker-compose version</td>
-<td>（查看compose的版本）</td>
-</tr>
-</tbody></table>
-<p>日志输出  </p>
-<p>终端输出：<code>docker-compose --verbose up $service_name</code></p>
-<p>或者docker-compose.yml配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stdin_open: true</span><br><span class="line">tty: true</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="镜像重新编译"><a href="#镜像重新编译" class="headerlink" title="镜像重新编译"></a>镜像重新编译</h3><p>如果修改了 Dockerfile内容里面相关的信息，需要重新编译镜像，如果使用docker compose，则需要使用命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up --build</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1473,7 +1412,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1484,7 +1423,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

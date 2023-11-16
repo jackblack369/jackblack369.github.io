@@ -174,6 +174,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/redux%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/07/redux%20learn/" class="post-title-link" itemprop="url">redux learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-07 23:50:30" itemprop="dateCreated datePublished" datetime="2019-04-07T23:50:30+08:00">2019-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-04-11 01:22:18" itemprop="dateModified" datetime="2019-04-11T01:22:18+08:00">2019-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redux/" itemprop="url" rel="index"><span itemprop="name">redux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Passing-Data-Between-Adjacent-Components"><a href="#Passing-Data-Between-Adjacent-Components" class="headerlink" title="Passing Data Between Adjacent Components"></a>Passing Data Between Adjacent Components</h3><p>If you have components that are siblings and need to share data, the way to do that in React is to pull that data up into a parent component and pass it down with props.</p>
+<p>That can be cumbersome though. Redux can help by giving you one global “parent” where you can store the data, and then you can <code>connect</code> the sibling components to the data with React-Redux.</p>
+<h3 id="redux-vs-react-redux"><a href="#redux-vs-react-redux" class="headerlink" title="redux vs react-redux"></a>redux vs react-redux</h3><p><code>redux</code> knows nothing about React <em>at all</em>. (The <code>redux</code> library can be used outside of a React app too. It’ll work with Vue, Angular, and even backend Node/Express apps.)</p>
+<p><code>react-redux</code> lets you connect pieces of the state to React components.</p>
+<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><p>in charge for orchestrating all the interactions</p>
+<p>the <strong>state</strong> is the data, and the <strong>store</strong> is where it’s kept.</p>
+<h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3><p>the producer to make the state</p>
+<blockquote>
+<p>(state, action) =&gt; newState</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> letters = [<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;x&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// `reduce` takes 2 arguments:</span></span><br><span class="line"><span class="comment">//   - a function to do the reducing (you might say, a &quot;reducer&quot;)</span></span><br><span class="line"><span class="comment">//   - an initial value for accumulatedResult</span></span><br><span class="line"><span class="keyword">var</span> word = letters.reduce(</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">accumulatedResult, arrayItem</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accumulatedResult + arrayItem;</span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;&#x27;</span>); <span class="comment">// &lt;-- notice this empty string argument: it&#x27;s the initial value</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(word) <span class="comment">// =&gt; &quot;redux&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>**Important Rule of Reducers **:</p>
+<ul>
+<li>Never return undefined from a reducer.</li>
+<li>Reducers must be pure functions.(This means that they can’t modify their arguments, and they can’t have side effects.)</li>
+</ul>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>plain JavaScript objects with a property named type. </p>
+<blockquote>
+<p>An action object describes a change you want to make (like “please increment the counter”) or an event that happenend (like “the request to the server failed with this error”).</p>
+<p>action don’t really <em>do</em> anything. Not on their own, anyway.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;add an item&quot;</span>,</span><br><span class="line">  <span class="attr">item</span>: <span class="string">&quot;Apple&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="number">7008</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;INCREMENT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In order to make an action DO something, you need to <strong>dispatch</strong> it.</p>
+<hr>
+<h3 id="redux-tips"><a href="#redux-tips" class="headerlink" title="redux tips"></a>redux tips</h3><h4 id="Redux-avoids-these-problems-with-some-simple-rules"><a href="#Redux-avoids-these-problems-with-some-simple-rules" class="headerlink" title="Redux avoids these problems with some simple rules."></a>Redux avoids these problems with some simple rules.</h4><ul>
+<li>State is read-only, and actions are the only way to modify it.</li>
+<li>Changes happen one way, and one way only: dispatch(action) -&gt; reducer -&gt; new state.</li>
+<li>The reducer function must be “pure” – it cannot modify its arguments, and it can’t have side effects.</li>
+</ul>
+<h4 id="The-most-important-methods"><a href="#The-most-important-methods" class="headerlink" title="The most important methods."></a>The most important methods.</h4><ul>
+<li>getState for <strong>accessing the current state</strong> of the application</li>
+<li>dispatch for <strong>dispatching an action</strong></li>
+<li>subscribe for <strong>listening on state changes</strong></li>
+</ul>
+<h3 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h3><h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>By wrapping the entire app with the <code>Provider</code> component, <em>every component</em> in the app tree will be able to access the Redux store if it wants to.</p>
+<h4 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h4><p>all of components can access the Redux store, but not automatically , We’ll need to use the <code>connect</code> function on our components to access the store.</p>
+<h4 id="connects-a-React-component-with-the-Redux-store"><a href="#connects-a-React-component-with-the-Redux-store" class="headerlink" title="connects a React component with the Redux store."></a>connects a React component with the Redux store.</h4><ul>
+<li>the mapStateToProps function</li>
+<li>the mapDispatchToProps function</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">&quot;./logo.svg&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./App.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; fetching, dog, onRequestDog, error &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        ......</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">fetching</span>: state.fetching,</span><br><span class="line">    <span class="attr">dog</span>: state.dog,</span><br><span class="line">    <span class="attr">error</span>: state.error</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">onRequestDog</span>: <span class="function">() =&gt;</span> dispatch(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_REQUEST&quot;</span> &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(App);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h3><p>It is a <strong>middleware</strong>, basically a plugin for Redux, that enables Redux to deal with actions like <code>getUser()</code>, ie.<code>dispatch(getUser())</code></p>
+<p>thunk: it’s an action creator that returns a function instead of a plain action object, like this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doStuff</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">dispatch, getState</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// dispatch actions here</span></span><br><span class="line">    <span class="comment">// or fetch data</span></span><br><span class="line">    <span class="comment">// or whatever</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>the 2 agruments in return function,Most of the time you’ll only need <code>dispatch</code>, but sometimes you want to do something conditionally, based on some value in the Redux state. In that case, call <code>getState()</code> and you’ll have the entire state to read as needed.</p>
+<h4 id="setup-redux-thunk"><a href="#setup-redux-thunk" class="headerlink" title="setup redux thunk"></a>setup redux thunk</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">  reducer,</span><br><span class="line">  applyMiddleware(thunk)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h3><p><code>redux-saga</code> relies on generators, but does a decent amount of the work for us, so (in my fairly limited experience) a deep understanding of them for this use-case isn’t necessary.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeLatest, call, put &#125; <span class="keyword">from</span> <span class="string">&quot;redux-saga/effects&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// watcher saga: watches for actions dispatched to the store, starts worker saga</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">watcherSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> takeLatest(<span class="string">&quot;API_CALL_REQUEST&quot;</span>, workerSaga);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function that makes the api request and returns a Promise for response</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchDog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;https://dog.ceo/api/breeds/image/random&quot;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// worker saga: makes the api call when watcher saga sees the action</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">workerSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">yield</span> call(fetchDog);</span><br><span class="line">    <span class="keyword">const</span> dog = response.data.message;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dispatch a success action to the store with the new dog</span></span><br><span class="line">    <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_SUCCESS&quot;</span>, dog &#125;);</span><br><span class="line">  </span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="comment">// dispatch a failure action to the store with the error</span></span><br><span class="line">    <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_FAILURE&quot;</span>, error &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/ES6%20learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1922,196 +2051,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/java%20thread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/06/01/java%20thread/" class="post-title-link" itemprop="url">java thread</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-06-01T10:01:30+08:00">2018-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-14 16:34:12" itemprop="dateModified" datetime="2019-08-14T16:34:12+08:00">2019-08-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。</p>
-<h3 id="how-to-avoid-deadlock"><a href="#how-to-avoid-deadlock" class="headerlink" title="how to avoid deadlock"></a>how to avoid deadlock</h3><p><img src="https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg"></p>
-<h3 id="ConcurrentHashMap-faster-than-Hashtable"><a href="#ConcurrentHashMap-faster-than-Hashtable" class="headerlink" title="ConcurrentHashMap faster than Hashtable"></a>ConcurrentHashMap faster than Hashtable</h3><blockquote>
-<p> ConcurrentHashMap is introduced as an alternative of Hashtable in Java 5, it is faster because of its design. ConcurrentHashMap divides the whole map into different segments and only lock a particular segment during the update operation, instead of <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/01/java-hashtable-example-tutorial-code.html">Hashtable</a>, which locks whole Map.</p>
-</blockquote>
-<p><img src="https://1.bp.blogspot.com/-s28yqJthVWo/V10_G31sSCI/AAAAAAAAGNY/8oJE5cDD5BUa5VBiCI8Bx-UdpD8_MoeSwCLcB/s400/Internal%2Bimplementation%2Bof%2BConcurrentHashMap%2Bin%2BJava.png"></p>
-<h3 id="submit-and-execute-method-of-Executor-and-ExecutorService"><a href="#submit-and-execute-method-of-Executor-and-ExecutorService" class="headerlink" title="submit() and execute() method of Executor and ExecutorService"></a>submit() and execute() method of Executor and ExecutorService</h3><blockquote>
-<p> The main difference between submit and execute method from ExecutorService interface is that former return a result in the form of a Future object, while later doesn’t return a result. By the way, both are used to submit a task to thread pool in Java but one is defined in Executor interface,while other is added into ExecutorService interface.</p>
-</blockquote>
-<p><img src="https://2.bp.blogspot.com/-ybewy1bWbFs/VxZFewRdKbI/AAAAAAAAFt4/fuAHJBE1r_8nlfUz34YTKI1j70UdqaMiQCLcB/s640/Difference%2Bbetween%2Bsubmit%2Bvs%2Bexecute%2Bmethod%2Bin%2BJava.png"></p>
-<h4 id="when-to-use"><a href="#when-to-use" class="headerlink" title="when to use"></a>when to use</h4><blockquote>
-<ul>
-<li>In general, if you are doing computational task e.g. calculating some risk stats, <a target="_blank" rel="noopener" href="http://java67.blogspot.com/2015/09/how-to-use-biginteger-class-in-java.html">calculating factorial of large numbers</a> or doing some time-consuming computation e which results in some value then use the submit() method. It immediately returns a Future object, which can be later queried to get the value of computation by calling get() method.</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Remember, get() is a <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/02/what-is-blocking-methods-in-java-and.html">blocking call</a> so always call the version which accepts a timeout. While you can use the execute() method if you just want your code to be run in parallel by worker threads of the thread pool.</li>
-</ul>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous task&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">future.get();  <span class="comment">//returns null if the task has finished correctly.</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Future future = executorService.submit(<span class="keyword">new</span> Callable()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Asynchronous Callable&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Callable Result&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;future.get() = &quot;</span> + future.get());</span><br></pre></td></tr></table></figure>
-
-<h3 id="ReentrantLock-vs-synchronized"><a href="#ReentrantLock-vs-synchronized" class="headerlink" title="ReentrantLock vs synchronized"></a>ReentrantLock vs synchronized</h3><h4 id="the-advantages-of-ReentrantLock"><a href="#the-advantages-of-ReentrantLock" class="headerlink" title="the advantages of ReentrantLock"></a>the advantages of ReentrantLock</h4><ol>
-<li><p>Ability to lock interruptibly.</p>
-</li>
-<li><p>Ability to timeout while waiting for lock.</p>
-</li>
-<li><p>Power to create fair lock.</p>
-</li>
-<li><p>API to get list of waiting thread for lock.</p>
-</li>
-<li><p>Flexibility to try for lock without blocking.</p>
-</li>
-</ol>
-<h4 id="the-disadvantages-of-ReentrantLock"><a href="#the-disadvantages-of-ReentrantLock" class="headerlink" title="the disadvantages of ReentrantLock"></a>the disadvantages of ReentrantLock</h4><ol>
-<li><p>  Major drawback of using ReentrantLock in Java is wrapping method body inside <a target="_blank" rel="noopener" href="http://javarevisited.blogspot.com/2012/11/difference-between-final-finally-and-finalize-java.html">try-finally block</a>, which makes code unreadable and hides business logic. </p>
-</li>
-<li><p>programmer is responsible for acquiring and releasing lock, which is a power but also opens gate for new subtle bugs, when programmer forget to release the lock in finally block.</p>
-</li>
-</ol>
-<h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><p><img src="https://4.bp.blogspot.com/-yYqp8m0BGdk/V11A-s0qwVI/AAAAAAAAGNw/LL_qGX5_qD4dHTFMe3kklI4jYWyDHzIyQCLcB/s400/ReadWriteLock%2Bin%2BJava.jpg"></p>
-<h3 id="stop-thread"><a href="#stop-thread" class="headerlink" title="stop thread"></a>stop thread</h3><blockquote>
-<ul>
-<li>There was some control methods in JDK 1.0 e.g. stop(), suspend() and resume() which was deprecated in later releases due to potential deadlock threats, from then Java API designers has not made any effort to provide a consistent, thread-safe and elegant way to stop threads.</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Programmers mainly rely on the fact that thread stops automatically as soon as they finish execution of run() or call() method. To manually stop, programmers either take advantage of volatile boolean variable and check in every iteration if run method has loops or interrupt threads to abruptly cancel tasks.</li>
-</ul>
-</blockquote>
-<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><blockquote>
-<ul>
-<li>The <code>ThreadLocal</code> class in Java enables you to create variables that can only be read and written by the same thread. Thus, even if two threads are executing the same code, and the code has a reference to a<code>ThreadLocal</code> variable, then the two threads cannot see each other’s <code>ThreadLocal</code> variables.</li>
-<li>Each thread holds an exclusive copy of ThreadLocal variable which becomes eligible to Garbage collection after thread finished or died, normally or due to any Exception, Given those ThreadLocal variable doesn’t have any other live references.</li>
-<li>ThreadLocal variables in Java are generally private static fields in Classes and maintain its state inside Thread.</li>
-</ul>
-</blockquote>
-<h3 id="synchronized-vs-concurrent-collection"><a href="#synchronized-vs-concurrent-collection" class="headerlink" title="synchronized vs concurrent collection"></a>synchronized vs concurrent collection</h3><blockquote>
-<p>later is more scalable than former</p>
-<p> synchronized collections locks the whole collection e.g. whole Map or List while concurrent collection never locks the whole Map or List. They achieve thread safety by using advanced and sophisticated techniques like lock stripping. For example, the ConcurrentHashMap divides the whole map into several segments and locks only the relevant segments, which allows multiple threads to access other segments of same ConcurrentHashMap without locking.</p>
-</blockquote>
-<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><blockquote>
-<p> CopyOnWriteArrayList allows multiple reader threads to read without synchronization and when a write happens it copies the whole ArrayList and swap with a newer one.</p>
-</blockquote>
-<h3 id="Stack-and-Heap"><a href="#Stack-and-Heap" class="headerlink" title="Stack and Heap"></a>Stack and Heap</h3><blockquote>
-<ul>
-<li>Each thread has their own stack, which is used to store local variables, method parameters and call stack. Variable stored in one Thread’s stack is not visible to other.</li>
-<li>heap is a common memory area which is shared by all threads.Objects whether local or at any level is created inside heap.</li>
-</ul>
-</blockquote>
-<ul>
-<li>To improve performance thread tends to cache values from heap into their stack, which can create problems if that variable is modified by more than one thread, this is where volatile variables comes in picture. volatile suggest threads to read value of variable always from main memory. </li>
-<li>If there is no memory left in the stack for storing function call or local variable, JVM will throw java.lang.StackOverFlowError, while if there is no more heap space for creating an object, JVM will throw java.lang.OutOfMemoryError: Java Heap Space</li>
-<li>Variables stored in stacks are only visible to the owner Thread while objects created in the heap are visible to all thread. In other words, stack memory is kind of private memory of Java Threads while heap memory is shared among all threads.</li>
-</ul>
-<h3 id="thread-pool"><a href="#thread-pool" class="headerlink" title="thread pool"></a>thread pool</h3><blockquote>
-<p>Java API provides Executor framework, which allows you to create different types of thread pools e.g. single thread pool, which process one task at a time, fixed thread pool (a pool of fixed number of thread) or cached thread pool (an expandable thread pool suitable for applications with many short lived tasks).</p>
-</blockquote>
-<h4 id="the-benefits"><a href="#the-benefits" class="headerlink" title="the benefits"></a>the benefits</h4><ul>
-<li><p>Use of Thread Pool reduces response time by avoiding thread creation during request or task processing.</p>
-</li>
-<li><p>Use of Thread Pool allows you to change your execution policy as you need. you can go from single thread to multiple threads by just replacing ExecutorService implementation.</p>
-</li>
-<li><p>Thread Pool in Java application increases the stability of the system by creating a configured number of threads decided based on system load and available resource.</p>
-</li>
-<li><p>Thread Pool frees application developer from thread management stuff and allows to focus on business logic.</p>
-</li>
-</ul>
-<h3 id="volatile-vs-atomic-variable"><a href="#volatile-vs-atomic-variable" class="headerlink" title="volatile vs atomic variable"></a>volatile vs atomic variable</h3><blockquote>
-<p>Volatile variable provides you happens-before guarantee that a write will happen before any subsequent write, it doesn’t guarantee atomicity. For example count++ operation will not become atomic just by declaring count variable as volatile. On the other hand AtomicInteger class provides atomic method to perform such compound operation atomically.</p>
-</blockquote>
-<h3 id="3-multi-threading-best-practice"><a href="#3-multi-threading-best-practice" class="headerlink" title="3 multi-threading best practice"></a>3 multi-threading best practice</h3><ul>
-<li><p>Always give meaningful name to your thread</p>
-</li>
-<li><p>Avoid locking or Reduce scope of Synchronization</p>
-</li>
-<li><p>Prefer Synchronizers over wait and notify</p>
-</li>
-<li><p>Prefer Concurrent Collection over Synchronized Collection</p>
-</li>
-</ul>
-<h3 id="Wait、Sleep、Yield"><a href="#Wait、Sleep、Yield" class="headerlink" title="Wait、Sleep、Yield"></a>Wait、Sleep、Yield</h3><ul>
-<li><p>sleep() and yield() methods are defined in thread class while wait() is defined in the Object class</p>
-</li>
-<li><p>The key difference between wait() and sleep() is that former is used for inter-thread communication while later is used to introduced to pause the current thread for a short duration. </p>
-</li>
-<li><p>This difference is more obvious from the fact that, when a thread calls the wait() method, it releases the monitor or lock it was holding on that object, but when a thread calls the sleep() method, it never releases the monitor even if it is holding. </p>
-</li>
-<li><p>yield() just releases the CPU hold by Thread to give another thread an opportunity to run though it’s not guaranteed who will get the CPU. It totally depends upon thread scheduler and <strong>it’s even possible that the thread which calls the yield() method gets the CPU again</strong>(有可能自己会再次获取到cpu执行时间). Hence, it’s not reliable to depend upon yield() method, it’s just on best effort basis.</p>
-<ul>
-<li>If there is no waiting thread or all the waiting threads have a lower priority then the same thread will continue its execution.</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2181,7 +2120,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2192,7 +2131,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -3676,6 +3676,9 @@
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>git</category>
@@ -9731,17 +9734,64 @@
 <li><p>执行顺序从里到外</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="meta">@decorator3</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    ...</span><br><span class="line"><span class="comment"># 等同于</span></span><br><span class="line">decorator1(decorator2(decorator3(func)))</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="metaclass"><a href="#metaclass" class="headerlink" title="metaclass"></a>metaclass</h3><h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"> </span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">crawl_page</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;crawling &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(url))</span><br><span class="line">    sleep_time = <span class="built_in">int</span>(url.split(<span class="string">&#x27;_&#x27;</span>)[-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(sleep_time)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;OK &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(url))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span>(<span class="params">urls</span>):</span></span><br><span class="line">    tasks = [asyncio.create_task(crawl_page(url)) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">    <span class="keyword">for</span> task <span class="keyword">in</span> tasks:</span><br><span class="line">        <span class="keyword">await</span> task</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    task遍历的另一种写法</span></span><br><span class="line"><span class="string">    await asyncio.gather(*tasks)</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"> </span><br><span class="line">%time asyncio.run(main([<span class="string">&#x27;url_1&#x27;</span>, <span class="string">&#x27;url_2&#x27;</span>, <span class="string">&#x27;url_3&#x27;</span>, <span class="string">&#x27;url_4&#x27;</span>]))</span><br><span class="line"> </span><br><span class="line"><span class="comment">########## 输出 ##########</span></span><br><span class="line"> </span><br><span class="line">crawling url_1</span><br><span class="line">crawling url_2</span><br><span class="line">crawling url_3</span><br><span class="line">crawling url_4</span><br><span class="line">OK url_1</span><br><span class="line">OK url_2</span><br><span class="line">OK url_3</span><br><span class="line">OK url_4</span><br><span class="line">Wall time: <span class="number">3.99</span> s</span><br></pre></td></tr></table></figure>
+<h3 id="metaclass"><a href="#metaclass" class="headerlink" title="metaclass"></a>metaclass</h3><h2 id="协程（Asyncio）"><a href="#协程（Asyncio）" class="headerlink" title="协程（Asyncio）"></a>协程（Asyncio）</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"> </span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">crawl_page</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;crawling &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(url))</span><br><span class="line">    sleep_time = <span class="built_in">int</span>(url.split(<span class="string">&#x27;_&#x27;</span>)[-<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(sleep_time)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;OK &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(url))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span>(<span class="params">urls</span>):</span></span><br><span class="line">    tasks = [asyncio.create_task(crawl_page(url)) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">    <span class="keyword">for</span> task <span class="keyword">in</span> tasks:</span><br><span class="line">        <span class="keyword">await</span> task</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    task遍历的另一种写法</span></span><br><span class="line"><span class="string">    await asyncio.gather(*tasks)</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"> </span><br><span class="line">%time asyncio.run(main([<span class="string">&#x27;url_1&#x27;</span>, <span class="string">&#x27;url_2&#x27;</span>, <span class="string">&#x27;url_3&#x27;</span>, <span class="string">&#x27;url_4&#x27;</span>]))</span><br><span class="line"> </span><br><span class="line"><span class="comment">########## 输出 ##########</span></span><br><span class="line"> </span><br><span class="line">crawling url_1</span><br><span class="line">crawling url_2</span><br><span class="line">crawling url_3</span><br><span class="line">crawling url_4</span><br><span class="line">OK url_1</span><br><span class="line">OK url_2</span><br><span class="line">OK url_3</span><br><span class="line">OK url_4</span><br><span class="line">Wall time: <span class="number">3.99</span> s</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>协程和多线程的区别，主要在于两点，一是协程为单线程；二是协程由用户决定，在哪些地方交出控制权，切换到下一个任务。</li>
 <li>协程的写法更加简洁清晰，把 async / await 语法和 create_task 结合来用，对于中小级别的并发需求已经毫无压力。</li>
 <li>写协程程序的时候，你的脑海中要有清晰的事件循环概念，知道程序在什么时候需要暂停、等待 I/O，什么时候需要一并执行到底。</li>
 </ul>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><blockquote>
+<h2 id="concurrency"><a href="#concurrency" class="headerlink" title="concurrency"></a>concurrency</h2><blockquote>
+<p>并发通常用于 I/O 操作频繁的场景，而并行则适用于 CPU heavy 的场景。</p>
+</blockquote>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><blockquote>
 <p> 在 Python 中，并发并不是指同一时刻有多个操作（thread、task）同时进行。相反，某个特定的时刻，它只允许有一个操作发生，只不过线程 / 任务之间会互相切换，直到完成</p>
 </blockquote>
 <p><img src="/images/python/concurrency.png" alt="concurrency"></p>
+<blockquote>
+<p>图中出现了 thread 和 task 两种切换顺序的不同方式，分别对应 Python 中并发的两种形式——threading 和 asyncio。</p>
+</blockquote>
+<p><strong>futures实现并发</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_all</span>(<span class="params">sites</span>):</span></span><br><span class="line">    <span class="keyword">with</span> concurrent.futures.ThreadPoolExecutor(max_workers=<span class="number">5</span>) <span class="keyword">as</span> executor:</span><br><span class="line">        executor.<span class="built_in">map</span>(download_one, sites)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然线程的数量可以自己定义，但是线程数并不是越多越好，因为线程的创建、维护和删除也会有一定的开销。所以如果你设置的很大，反而可能会导致速度变慢。我们往往需要根据实际的需求做一些测试，来寻找最优的线程数量。</p>
+</blockquote>
+<p><strong>多线程每次只能有一个线程执行的原因</strong></p>
+<blockquote>
+<p>事实上，Python 的解释器并不是线程安全的，为了解决由此带来的 race condition 等问题，Python 便引入了全局解释器锁，也就是同一时刻，只允许一个线程执行。当然，在执行 I/O 操作时，如果一个线程被 block 了，全局解释器锁便会被释放，从而让另一个线程能够继续执行。</p>
+</blockquote>
+<h3 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h3><blockquote>
+<p> 所谓的并行，指的是同一时刻、同时发生。Python 中的 multi-processing 便是这个意思</p>
+</blockquote>
+<p><img src="/images/python/multi-processing.png"></p>
+<ul>
+<li>并发通常应用于 I/O 操作频繁的场景，比如你要从网站上下载多个文件，I/O 操作的时间可能会比 CPU 运行处理的时间长得多。</li>
+<li>而并行则更多应用于 CPU heavy 的场景，比如 MapReduce 中的并行计算，为了加快运行速度，一般会用多台机器、多个处理器来完成。</li>
+</ul>
+<p><strong>futures实现并行</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_all</span>(<span class="params">sites</span>):</span></span><br><span class="line">    <span class="keyword">with</span> concurrent.futures.ThreadPoolExecutor(max_workers=<span class="number">5</span>) <span class="keyword">as</span> executor:</span><br><span class="line">        to_do = []</span><br><span class="line">        <span class="keyword">for</span> site <span class="keyword">in</span> sites:</span><br><span class="line">            future = executor.submit(download_one, site)</span><br><span class="line">            to_do.append(future)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> future <span class="keyword">in</span> concurrent.futures.as_completed(to_do):</span><br><span class="line">            future.result()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>函数 ProcessPoolExecutor() 表示创建进程池，使用多个进程并行的执行程序。不过，这里我们通常省略参数 workers，因为系统会自动返回 CPU 的数量作为可以调用的进程数。</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 伪代码</span></span><br><span class="line"><span class="keyword">if</span> io_bound:</span><br><span class="line">    <span class="keyword">if</span> io_slow:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Use Asyncio&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Use multi-threading&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> cpu_bound:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Use multi-processing&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="GIL"><a href="#GIL" class="headerlink" title="GIL"></a>GIL</h2><blockquote>
+<p> Global Interpreter Lock，即全局解释器锁</p>
+</blockquote>
+<p><strong>python引进GIL的原因</strong></p>
+<ul>
+<li>一是设计者为了规避类似于内存管理这样的复杂的竞争风险问题（race condition）；</li>
+<li>二是因为 CPython 大量使用 C 语言库，但大部分 C 语言库都不是原生线程安全的（线程安全会降低性能和增加复杂度）</li>
+</ul>
+<p><strong>工作机制</strong></p>
+<p><img src="/images/python/GIL.png"></p>
+<p><strong>check interval</strong></p>
+<blockquote>
+<p>CPython 中还有另一个机制，叫做 check_interval，意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况。每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会。</p>
+</blockquote>
+<p><img src="/images/python/check-interval.png"></p>
 <h2 id="用法-tips"><a href="#用法-tips" class="headerlink" title="用法 tips"></a>用法 tips</h2><ul>
 <li><p>引用规范 <code>from your_file import function_name, class_name</code></p>
 </li>
@@ -9908,12 +9958,80 @@
   <entry>
     <title>tmux snippet</title>
     <url>/2023/11/15/tmux%20snippet/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调整窗格大小</td>
+<td>Ctrl + b, Esc + 方向键</td>
+<td>Ctrl + b, Ctrl + 方向键</td>
+</tr>
+<tr>
+<td>窗格内容翻页</td>
+<td>Ctrl + b, Fn + 上下键</td>
+<td>Ctrl + b, Ctrl + 上下键</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
       <categories>
         <category>tmux</category>
       </categories>
       <tags>
         <tag>snippet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python security</title>
+    <url>/2023/10/31/python%20auth/</url>
+    <content><![CDATA[<blockquote>
+<p>Security is always excessive until it’s not enough.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>auth</tag>
       </tags>
   </entry>
 </search>
