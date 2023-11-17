@@ -174,6 +174,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/11/flink%20state/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/11/flink%20state/" class="post-title-link" itemprop="url">flink state</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-11 14:32:39" itemprop="dateCreated datePublished" datetime="2022-01-11T14:32:39+08:00">2022-01-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-07 01:50:25" itemprop="dateModified" datetime="2023-09-07T01:50:25+08:00">2023-09-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
+<h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
+<h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul>
+<li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p>
+</li>
+<li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p>
+</li>
+<li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p>
+<blockquote>
+<p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
+</blockquote>
+</li>
+<li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p>
+</li>
+</ul>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p>
+<ul>
+<li><p>算子类state</p>
+<p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p>
+</li>
+<li><p>数据类state</p>
+<p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p>
+</li>
+</ul>
+<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><p>checkpoint是使Flink 能从故障恢复的一种内部机制。检查点是 Flink 应用状态的一个一致性副本，包括了输入的读取位点。在发生故障时，Flink 通过从检查点加载应用程序状态来恢复，并从恢复的读取位点继续处理，就好像什么事情都没发生一样。Flink的状态存储在Flink的内部,这样做的好处就是不再依赖外部系统,降低了对外部系统的依赖,在Flink的内部,通过自身的进程去访问状态变量.同时会定期的做checkpoint持久化,把checkpoint存储在一个分布式的持久化系统中,如果发生故障,就会从最近的一次checkpoint中将整个流的状态进行恢复.</p>
+<h2 id="MemoryStateBackend"><a href="#MemoryStateBackend" class="headerlink" title="MemoryStateBackend"></a>MemoryStateBackend</h2><p>1 基于内存的状态管理器，聚合类算子的状态会存储在JobManager的内存中</p>
+<p>2 单次状态大小默认最大被限制为5MB，可以通过构造函数来指定状态初始化内存大小。无论单次状态大小最大被限制为多少，都不可大于akka的frame大小（1.5MB，JobManager和TaskManager之间传输数据的最大消息容量）。状态的总大小不能超过 JobManager 的内存。</p>
+<p>3 是Flink默认的后端状态管理器，默认是异步的</p>
+<p>4 主机内存中的数据可能会丢失，任务可能无法恢复</p>
+<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在JobManager的内存中</p>
+<p>适用：本地开发和调试、状态比较少的作业</p>
+<h2 id="FsStateBackend"><a href="#FsStateBackend" class="headerlink" title="FsStateBackend"></a>FsStateBackend</h2><p>1 基于文件系统的状态管理器（这里的文件系统可以是本地<strong>共享</strong>文件系统，也可以是hdfs分布式文件系统。）</p>
+<p>2 如果使用，默认是异步</p>
+<p>3 比较稳定，3个副本，比较安全。不会出现任务无法恢复等问题</p>
+<p>4 状态大小受磁盘容量限制</p>
+<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在文件系统中</p>
+<p>适用：状态比较大，窗口比较长，大的KV状态</p>
+<h2 id="RocksDBStateBackend"><a href="#RocksDBStateBackend" class="headerlink" title="RocksDBStateBackend"></a>RocksDBStateBackend</h2><ol>
+<li><p>RocksDBStateBackend 采用异步的方式进行状态数据的 Snapshot， 任务中的状态数据首先被写人 RocksDB 中，然后再异步地将状态数据写人文件系统中，这样在rocksDB中仅会存储正在进行计算的热数据，对于长时间才更新的数据则写人磁盘中进行存储。而对于体量比较小的元数据状态，则直接存储在 JobManager 的内存中。</p>
+</li>
+<li><p>与 FsStateBackend 相比，RocksDBState Backend 在性能上要比 FsStateBackend 高一些，主要是因为借助于 RocksDB 存储了最新热数据，然后通过异步的方式再同步到文件系统中，但 RocksDBState Backend 和 Memory State Backend 相比性能就会较弱一些。</p>
+</li>
+<li><p>需要注意的是ROCksDB通过JNI的方式进行数据的交互，而JNI构建在byte[]数据结构之上，因此每次能够传输的最大数据量为2^31字节，也就是说每次在RocksDBState Backend 合并的状态数据量大小不能超过 2^31 字节限制，否则将会导致状态数据无法同步，这是RocksDB 采用JNI 方式的限制，用户在使用过程中应当注意。</p>
+</li>
+</ol>
+<p>综上可以看出，RocksDBState Backend 和 FsState Backend 一样，适合于任务状态数据非常大的场景。在Flink 最新版本中，已经提供了基于 RocksDBState Backend 实现的增量 Checkpoints 功能，极大地提高了状态数据同步到介质中的效率和性能，在后续的社区发展中，RocksDBStateBackend 也会作为状态管理器重点使用的方式之一。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/11/flink%20streaming%20warehouse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1113,147 +1232,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/31/yarn%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/31/yarn%20snippet/" class="post-title-link" itemprop="url">yarn point</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-31 02:01:13" itemprop="dateCreated datePublished" datetime="2021-12-31T02:01:13+08:00">2021-12-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-11 17:00:23" itemprop="dateModified" datetime="2023-11-11T17:00:23+08:00">2023-11-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/yarn/" itemprop="url" rel="index"><span itemprop="name">yarn</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Yet Another Resource Negotiator</strong></p>
-<p>YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMaster（相当于主线程），然后再由 ApplicationMaster 负责数据切分、任务分配、 启动和监控等工作，而由 ApplicationMaster 启动的各个 Task（相当于子线程）仅负责自己的计 算任务。当所有任务计算完成后，ApplicationMaster 认为应用程序运行完成，然后退出。</p>
-<p><img src="/images/yarn/yarn_construct.gif"></p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h4 id="contrainer"><a href="#contrainer" class="headerlink" title="contrainer"></a>contrainer</h4><blockquote>
-<p>容器（Container）这个东西是 Yarn 对资源做的一层抽象。就像我们平时开发过程中，经常需要对底层一些东西进行封装，只提供给上层一个调用接口一样，Yarn 对资源的管理也是用到了这种思想。</p>
-</blockquote>
-<p><img src="/images/yarn/contrainer.jpeg"></p>
-<blockquote>
-<p>Yarn 将CPU核数，内存这些计算资源都封装成为一个个的容器（Container）。    </p>
-</blockquote>
-<ul>
-<li>容器由 NodeManager 启动和管理，并被它所监控。</li>
-<li>容器被 ResourceManager 进行调度。</li>
-</ul>
-<h4 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h4><blockquote>
-<p>负责资源管理的，整个系统有且只有一个 RM ，来负责资源的调度。它也包含了两个主要的组件：定时调用器(Scheduler)以及应用管理器(ApplicationManager)。</p>
-</blockquote>
-<ol>
-<li>定时调度器(Scheduler)：从本质上来说，定时调度器就是一种策略，或者说一种算法。当 Client 提交一个任务的时候，它会根据所需要的资源以及当前集群的资源状况进行分配。注意，它只负责向应用程序分配资源，并不做监控以及应用程序的状态跟踪。</li>
-<li>应用管理器(ApplicationManager)：同样，听名字就能大概知道它是干嘛的。应用管理器就是负责管理 Client 用户提交的应用。上面不是说到定时调度器（Scheduler）不对用户提交的程序监控嘛，其实啊，监控应用的工作正是由应用管理器（ApplicationManager）完成的。</li>
-</ol>
-<h4 id="ApplicationMaster"><a href="#ApplicationMaster" class="headerlink" title="ApplicationMaster"></a>ApplicationMaster</h4><blockquote>
-<p>每当 Client 提交一个 Application 时候，就会新建一个 ApplicationMaster 。由这个 ApplicationMaster 去与 ResourceManager 申请容器资源，获得资源后会将要运行的程序发送到容器上启动，然后进行分布式计算。</p>
-<p>ps: 大数据分布式计算的思想，大数据难以移动（海量数据移动成本太大，时间太长），那就把容易移动的应用程序发布到各个节点进行计算。</p>
-</blockquote>
-<h4 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h4><blockquote>
-<p>NodeManager 是 ResourceManager 在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager/Scheduler 提供这些资源使用报告。</p>
-</blockquote>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="submit-application-to-yarn"><a href="#submit-application-to-yarn" class="headerlink" title="submit application to yarn"></a>submit application to yarn</h3><p><img src="/images/yarn/submit_app_flow.jpeg"></p>
-<ol>
-<li>Client 向 Yarn 提交 Application，这里我们假设是一个 MapReduce 作业。</li>
-<li>ResourceManager 向 NodeManager 通信，为该 Application 分配第一个容器。并在这个容器中运行这个应用程序对应的 ApplicationMaster。</li>
-<li>ApplicationMaster 启动以后，对 作业（也就是 Application） 进行拆分，拆分 task 出来，这些 task 可以运行在一个或多个容器中。然后向 ResourceManager 申请要运行程序的容器，并定时向 ResourceManager 发送心跳。</li>
-<li>申请到容器后，ApplicationMaster 会去和容器对应的 NodeManager 通信，而后将作业分发到对应的 NodeManager 中的容器去运行，这里会将拆分后的 MapReduce 进行分发，对应容器中运行的可能是 Map 任务，也可能是 Reduce 任务。</li>
-<li>容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。</li>
-</ol>
-<h3 id="停止应用"><a href="#停止应用" class="headerlink" title="停止应用"></a>停止应用</h3><p><code>yarn application -kill appID</code></p>
-<h2 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h2><p>每个job提交到yarn上执行时，都会分配Container容器去运行，而这个容器需要资源才能运行，这个资源就是Cpu和内存。</p>
-<h3 id="CPU资源调度"><a href="#CPU资源调度" class="headerlink" title="CPU资源调度"></a>CPU资源调度</h3><p>目前的CPU被Yarn划分为虚拟CPU，这是yarn自己引入的概念，因为每个服务器的Cpu计算能力不一样，有的机器可能是 其他机器的计算能力的2倍，然后可以通过多配置几个虚拟内存弥补差异。在yarn中，cpu的相关配置如下。</p>
-<p>yarn.nodemanager.resource.cpu-vcores</p>
-<p>表示该节点服务器上yarn可以使用的虚拟的CPU个数，默认是8，推荐配置与核心个数相同，如果节点CPU的核心个数不足8个，需要调小这个值，yarn不会智能的去检测物理核数。如果机器性能较好，可以配置为物理核数的2倍。</p>
-<p>yarn.scheduler.minimum-allocation-vcores</p>
-<p>表示单个任务最小可以申请的虚拟核心数，默认为1</p>
-<p>yarn.sheduler.maximum-allocation-vcores</p>
-<p>表示单个任务最大可以申请的虚拟核数，默认为4；如果申请资源时，超过这个配置，会抛出 InvalidResourceRequestException</p>
-<h3 id="Memory资源调度"><a href="#Memory资源调度" class="headerlink" title="Memory资源调度"></a>Memory资源调度</h3><p>yarn一般允许用户配置每个节点上可用的物理资源，可用指的是将机器上内存减去hdfs的，hbase的等等剩下的可用的内存。</p>
-<p>yarn.nodemanager.resource.memory-mb</p>
-<p>设置该节点上yarn可使用的内存，默认为8G，如果节点内存不足8G，要减少这个值，yarn不会智能的去检测内存资源，一般这个值式yarn的可用内存资源。</p>
-<p>yarn.scheduler.minmum-allocation-mb</p>
-<p>单个任务最小申请物理内存量，默认是1024M，根据自己业务设定</p>
-<p>yarn.scheduler.maximum-allocation-mb</p>
-<p>单个任务最大可以申请的物理内存量，默认为8291M</p>
-<p>二、如果设置这几个参数<br>如果一个服务器是32核，虚拟后为64核，128G内存，我们该如何设置上面的6个参数呢？即如何做到资源最大化利用</p>
-<p>生产上我们一般要预留15-20%的内存，那么可用内存就是128*0.8=102.4G，去除其他组件的使用，我们设置成90G就可以了。</p>
-<p>1、yarn.sheduler.maximum-allocation-vcores<br>1.<br>一般就设置成4个，cloudera公司做过性能测试，如果CPU大于等于5之后，CPU的利用率反而不是很好。这个参数可以根据生成服务器决定，比如公司服务器很富裕，那就直接设置成1:1；设置成32，如果不是很富裕，可以直接设置成1:2。我们以1:2来计算。</p>
-<p>2、yarn.scheduler.minimum-allocation-vcores<br>1.<br>如果设置vcoure = 1，那么最大可以跑64/1=64个container，如果设置成这样，最小container是64/4=16个。</p>
-<p>3、yarn.scheduler.minmum-allocation-mb</p>
-<p>如果设置成2G，那么90/2=45最多可以跑45个container，如果设置成4G，那么最多可以跑24个；vcore有些浪费。</p>
-<p>4、yarn.scheduler.maximum-allocation-mb</p>
-<p>这个要根据自己公司的业务设定，如果有大任务，需要5-6G内存，那就设置为8G，那么最大可以跑11个container。</p>
-<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><h3 id="配置指定用户启停"><a href="#配置指定用户启停" class="headerlink" title="配置指定用户启停"></a>配置指定用户启停</h3><p><code>start-yarn.sh</code>和<code>stop-yarn.sh</code>添加如下配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">YARN_RESOURCEMANAGER_USER=xxx</span><br><span class="line">YARN_NODEMANAGER_USER=xxx</span><br></pre></td></tr></table></figure>
-
-<p>ps: 如果某个节点nodemanager没有拉起，需要执行<code>./yarn --daemon start nodemanager</code></p>
-<h3 id="在资源够用的情况，无法发布新的应用"><a href="#在资源够用的情况，无法发布新的应用" class="headerlink" title="在资源够用的情况，无法发布新的应用"></a>在资源够用的情况，无法发布新的应用</h3><p>修改<code>capacity-scheduler.xml</code><br> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.capacity.maximum-am-resource-percent<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!--&lt;value&gt;0.1&lt;/value&gt;--&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>0.8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">   Maximum percent of resources in the cluster which can be used to run</span><br><span class="line">   application masters i.e. controls number of concurrent running</span><br><span class="line">   applications.</span><br><span class="line"> <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>reference:</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54192454">https://zhuanlan.zhihu.com/p/54192454</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1323,7 +1301,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
