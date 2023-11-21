@@ -174,6 +174,239 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/19/mysql%20backup%20A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/19/mysql%20backup%20A/" class="post-title-link" itemprop="url">mysql backup plan</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-19 14:54:47" itemprop="dateCreated datePublished" datetime="2022-01-19T14:54:47+08:00">2022-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-20 10:54:42" itemprop="dateModified" datetime="2022-04-20T10:54:42+08:00">2022-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="mysql数据备份"><a href="#mysql数据备份" class="headerlink" title="mysql数据备份"></a>mysql数据备份</h1><h2 id="方案一：定期备份数据库数据文件"><a href="#方案一：定期备份数据库数据文件" class="headerlink" title="方案一：定期备份数据库数据文件"></a>方案一：定期备份数据库数据文件</h2><h3 id="一、编写shell脚本"><a href="#一、编写shell脚本" class="headerlink" title="一、编写shell脚本"></a>一、编写shell脚本</h3><p>脚本文件<strong>backup_mysql.sh</strong>信息如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">用户名</span></span><br><span class="line">username=root</span><br><span class="line"><span class="meta">#</span><span class="bash">密码</span></span><br><span class="line">password=填写密码</span><br><span class="line"><span class="meta">#</span><span class="bash">将要备份的数据库</span></span><br><span class="line">database_name=填写需要备份的数据库</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">保存备份文件最多个数</span></span><br><span class="line">count=30</span><br><span class="line"><span class="meta">#</span><span class="bash">备份保存路径</span></span><br><span class="line">backup_path=/data/mysql_backup</span><br><span class="line"><span class="meta">#</span><span class="bash">日期</span></span><br><span class="line">date_time=`date +%Y-%m-%d-%H-%M`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果文件夹不存在则创建</span></span><br><span class="line">if [ ! -d $backup_path ]; </span><br><span class="line">then     </span><br><span class="line">    mkdir -p $backup_path; </span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash">开始备份</span></span><br><span class="line">mysqldump -u $username -p$password $database_name &gt; $backup_path/$database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">开始压缩</span></span><br><span class="line">cd $backup_path</span><br><span class="line">tar -zcvf $database_name-$date_time.tar.gz $database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">删除源文件</span></span><br><span class="line">rm -rf $backup_path/$database_name-$date_time.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">更新备份日志</span></span><br><span class="line">echo &quot;create $backup_path/$database_name-$date_time.tar.gz&quot; &gt;&gt; $backup_path/dump.log</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">找出需要删除的备份</span></span><br><span class="line">delfile=`ls -l -crt $backup_path/*.tar.gz | awk &#x27;&#123;print $9 &#125;&#x27; | head -1`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">判断现在的备份数量是否大于阈值</span></span><br><span class="line">number=`ls -l -crt  $backup_path/*.tar.gz | awk &#x27;&#123;print $9 &#125;&#x27; | wc -l`</span><br><span class="line"></span><br><span class="line">if [ $number -gt $count ]</span><br><span class="line">then</span><br><span class="line"><span class="meta">  #</span><span class="bash">删除最早生成的备份，只保留count数量的备份</span></span><br><span class="line">  rm $delfile</span><br><span class="line"><span class="meta">  #</span><span class="bash">更新删除文件日志</span></span><br><span class="line">  echo &quot;delete $delfile&quot; &gt;&gt; $backup_path/dump.log</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>该脚本实现的功能：备份指定数据库的数据信息到指定目录，并只保存指定数量的最新文件。</p>
+<p>注意：脚本中需要补全脚本中的<strong>password</strong>和<strong>database_name</strong>信息，可修改备份保存路径<strong>backup_path</strong>，以及最多保存的备份文件数量<strong>count</strong>。</p>
+<p>编写完脚本信息之后，需要给脚本赋予可执行权限 <code>chmod +x backup_mysql.sh</code></p>
+<h3 id="二、设定定时任务crontab"><a href="#二、设定定时任务crontab" class="headerlink" title="二、设定定时任务crontab"></a>二、设定定时任务crontab</h3><p>运行crontab -e命令，打开一个可编辑的文本，输入<code>0 1 * * * /path/to/backup_mysql.sh</code>  保本并退出即添加完成。</p>
+<p>注意：其中<code>0 1 * * *</code>，表示每天凌晨1点进行备份操作，可自行修改1的值（范围0～23）</p>
+<p>其中路径信息<code>/path/to/backup_mysql.sh</code>需要修改为实际的脚本路径。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/15/flink%20cdc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/15/flink%20cdc/" class="post-title-link" itemprop="url">flink cdc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-15 16:24:07" itemprop="dateCreated datePublished" datetime="2022-01-15T16:24:07+08:00">2022-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-20 10:59:22" itemprop="dateModified" datetime="2022-04-20T10:59:22+08:00">2022-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418">Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/14/flink%20cep/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/14/flink%20cep/" class="post-title-link" itemprop="url">flink cep</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-14 16:24:07" itemprop="dateCreated datePublished" datetime="2022-01-14T16:24:07+08:00">2022-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-11 14:45:12" itemprop="dateModified" datetime="2022-02-11T14:45:12+08:00">2022-02-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>风险控制<br>对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。</p>
+<p>策略营销<br>用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。</p>
+<p>运维监控<br>灵活配置多指标、多依赖来实现更复杂的监控模式。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/11/flink%20watermark/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -796,458 +1029,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/flink%20sql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/04/flink%20sql/" class="post-title-link" itemprop="url">flink sql</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 17:55:24" itemprop="dateCreated datePublished" datetime="2022-01-04T17:55:24+08:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-17 14:04:38" itemprop="dateModified" datetime="2023-08-17T14:04:38+08:00">2023-08-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="table-vs-view"><a href="#table-vs-view" class="headerlink" title="table vs view"></a>table vs view</h1><blockquote>
-<p>Temporary tables are always stored in memory and only exist for the duration of the Flink session they are created within. These tables are not visible to other sessions. They are not bound to any catalog or database but can be created in the namespace of one. Temporary tables are not dropped if their corresponding database is removed.</p>
-</blockquote>
-<blockquote>
-<p>Tables can be either virtual (VIEWS) or regular (TABLES). VIEWS can be created from an existing Table object, usually the result of a Table API or SQL query. TABLES describe external data, such as a file, database table, or message queue.</p>
-</blockquote>
-<h1 id="grammer"><a href="#grammer" class="headerlink" title="grammer"></a>grammer</h1><ul>
-<li>NOT ENFORCED</li>
-</ul>
-<blockquote>
-<p>If you know that the data conforms to these constraints, you can use the NOT ENFORCED capability to help achieve two goals:</p>
-<ul>
-<li>Improve performance, primarily in insert, update, and delete operations on the table</li>
-<li>Reduce space requirements that are associated with enforcing a primary key or unique constraint</li>
-</ul>
-</blockquote>
-<h1 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h1><h3 id="字符串类型："><a href="#字符串类型：" class="headerlink" title="字符串类型："></a>字符串类型：</h3><ul>
-<li>⭐ CHAR、CHAR(n)：定长字符串，就和 Java 中的 Char 一样，n 代表字符的定长，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。</li>
-<li>⭐ VARCHAR、VARCHAR(n)、STRING：可变长字符串，就和 Java 中的 String 一样，n 代表字符的最大长度，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。STRING 等同于 VARCHAR(2147483647)。</li>
-</ul>
-<h3 id="二进制字符串类型："><a href="#二进制字符串类型：" class="headerlink" title="二进制字符串类型："></a>二进制字符串类型：</h3><ul>
-<li>⭐ BINARY、BINARY(n)：定长二进制字符串，n 代表定长，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。</li>
-<li>⭐ VARBINARY、VARBINARY(n)、BYTES：可变长二进制字符串，n 代表字符的最大长度，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。BYTES 等同于 VARBINARY(2147483647)。</li>
-</ul>
-<h3 id="精确数值类型："><a href="#精确数值类型：" class="headerlink" title="精确数值类型："></a>精确数值类型：</h3><ul>
-<li>⭐ DECIMAL、DECIMAL(p)、DECIMAL(p, s)、DEC、DEC(p)、DEC(p, s)、NUMERIC、NUMERIC(p)、NUMERIC(p, s)：固定长度和精度的数值类型，就和 Java 中的 BigDecimal 一样，p 代表数值位数（长度），取值范围 [1, 38]；s 代表小数点后的位数（精度），取值范围 [0, p]。如果不指定，p 默认为 10，s 默认为 0。</li>
-<li>⭐ TINYINT：-128 到 127 的 1 字节大小的有符号整数，就和 Java 中的 byte 一样。</li>
-<li>⭐ SMALLINT：-32,768 to 32,767 的 2 字节大小的有符号整数，就和 Java 中的 short 一样。</li>
-<li>⭐ INT、INTEGER：-2,147,483,648 to 2,147,483,647 的 4 字节大小的有符号整数，就和 Java 中的 int 一样。</li>
-<li>⭐ BIGINT：-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 的 8 字节大小的有符号整数，就和 Java 中的 long 一样。</li>
-</ul>
-<h3 id="有损精度数值类型："><a href="#有损精度数值类型：" class="headerlink" title="有损精度数值类型："></a>有损精度数值类型：</h3><ul>
-<li>⭐ FLOAT：4 字节大小的单精度浮点数值，就和 Java 中的 float 一样。</li>
-<li>⭐ DOUBLE、DOUBLE PRECISION：8 字节大小的双精度浮点数值，就和 Java 中的 double 一样。</li>
-<li>⭐ 关于 FLOAT 和 DOUBLE 的区别可见 <a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/float-and-double-different.html">https://www.runoob.com/w3cnote/float-and-double-different.html</a></li>
-</ul>
-<h3 id="日期、时间类型："><a href="#日期、时间类型：" class="headerlink" title="日期、时间类型："></a>日期、时间类型：</h3><ul>
-<li><p>⭐ DATE：由 <code>年-月-日</code> 组成的 <code>不带时区含义</code> 的日期类型，取值范围 [0000-01-01, 9999-12-31]</p>
-</li>
-<li><p>⭐ TIME、TIME(p)：由 <code>小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的的时间的数据类型，精度高达纳秒，取值范围 [00:00:00.000000000到23:59:59.9999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 0。</p>
-</li>
-<li><p>⭐ TIMESTAMP、TIMESTAMP(p)、TIMESTAMP WITHOUT TIME ZONE、TIMESTAMP(p) WITHOUT TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000, 9999-12-31 23:59:59.999999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
-<p>Timestamp precision can range from 0 (seconds) to 9 (nanoseconds). The default precision is 6.</p>
-</li>
-<li><p>⭐ TIMESTAMP WITH TIME ZONE、TIMESTAMP(p) WITH TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
-</li>
-<li><p>⭐ TIMESTAMP_LTZ、TIMESTAMP_LTZ(p)：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
-</li>
-<li><p>⭐ TIMESTAMP_LTZ 与 TIMESTAMP WITH TIME ZONE 的区别在于：TIMESTAMP WITH TIME ZONE 的时区信息是携带在数据中的，举例：其输入数据应该是 2022-01-01 00:00:00.000000000 +08:00；TIMESTAMP_LTZ 的时区信息不是携带在数据中的，而是由 Flink SQL 任务的全局配置决定的，我们可以由 <code>table.local-time-zone</code> 参数来设置时区。</p>
-</li>
-<li><p>⭐ INTERVAL YEAR TO MONTH、 INTERVAL DAY TO SECOND：interval 的涉及到的种类比较多。INTERVAL 主要是用于给 TIMESTAMP、TIMESTAMP_LTZ 添加偏移量的。举例，比如给 TIMESTAMP 加、减几天、几个月、几年。INTERVAL 子句总共涉及到的语法种类如下 Flink SQL 案例所示。</p>
-</li>
-</ul>
-<p>​    <strong>注意：但是在 Flink SQL 中，无法直接去掉时间字段的小数秒部分而保留时间类型。</strong></p>
-<h3 id="其它类型"><a href="#其它类型" class="headerlink" title="其它类型"></a>其它类型</h3><ol>
-<li>布尔类型：BOOLEAN</li>
-<li>⭐ NULL 类型：NULL</li>
-<li>⭐ Raw 类型：RAW(‘class’, ‘snapshot’) 。只会在数据发生网络传输时进行序列化，反序列化操作，可以保留其原始数据。以 Java 举例，<code>class</code> 参数代表具体对应的 Java 类型，<code>snapshot</code> 代表类型在发生网络传输时的序列化器</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/flink%20on%20yarn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/04/flink%20on%20yarn/" class="post-title-link" itemprop="url">flink on yarn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 00:27:40" itemprop="dateCreated datePublished" datetime="2022-01-04T00:27:40+08:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-19 17:13:58" itemprop="dateModified" datetime="2023-06-19T17:13:58+08:00">2023-06-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p>
-<h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p>
-<h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p>
-<h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p>
-<h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
-<h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
-<h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
-<p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p>
-<p>ps:所有作业共享Dispatcher和ResourceManager；共享资源；适合规模小执行时间短的作业.适用于本地测试或者开发</p>
-</blockquote>
-<h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote>
-<p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>YarnSessionClusterEntrypoint进程</p>
-<p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p>
-<ul>
-<li><p>本节点提交任务</p>
-<p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p>
-</li>
-<li><p>如果需要在其他主机节点提交任务</p>
-<p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p>
-</li>
-</ul>
-</li>
-<li><p>FlinkYarnSessionCli进程</p>
-<p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p>
-</li>
-</ul>
-<h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote>
-<p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p>
-</blockquote>
-<h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote>
-<p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p>
-<p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
-
-<p>注意使用参数-m yarn-cluster提交到yarn集群。</p>
-<ul>
-<li>运行到指定的yarn session可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</li>
-</ul>
-<hr>
-<p>reference</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013411339/article/details/95421500?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164455981216780357293300%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164455981216780357293300&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-21-95421500.nonecase&utm_term=%E2%80%9Cflink+cep%E2%80%9D&spm=1018.2226.3001.4450">Flink-On-Yarn的部署模式</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/hive%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/04/hive%20snippet/" class="post-title-link" itemprop="url">hive snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 00:10:30" itemprop="dateCreated datePublished" datetime="2022-01-04T00:10:30+08:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-13 16:51:38" itemprop="dateModified" datetime="2022-10-13T16:51:38+08:00">2022-10-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Hive-site里面的配置！！！</p>
-</blockquote>
-<h2 id="level-1"><a href="#level-1" class="headerlink" title="level-1"></a>level-1</h2><h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
-
-<h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
-<p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
-<p>（3）hiveserver2：hive服务端。提供hive服务。客户端可以通过beeline，jdbc（即用java代码链接）等多种方式链接到hive。</p>
-<p>（4）beeline：hive客户端链接到hive的一个工具。可以理解成mysql的客户端。如：navite cat 等。</p>
-<p><img src="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70"></p>
-<p>2 连接hive：<br>（1）./bin/hive<br>通过 ./bin/hive 启动的hive服务，第一步会先启动metastore服务，然后在启动一个客户端连接到metastore。此时metastore服务端和客户端都在一台机器上，别的机器无法连接到metastore，所以也无法连接到hive。这种方式不常用，一直只用于调试环节。</p>
-<p>（2） ./bin/hive  –service metastore<br><strong>通过hive –service metastore 会启动一个 hive metastore服务默认的端口号为：9083。metastore服务里面配置metadata相关的配置。此时可以有多个hive客户端在hive-site.xml配置hive.metastore.uris=thrift://ipxxx:9083  的方式链接到hive。motestore 虽然能使hive服务端和客户端分别部署到不同的节点，客户端不需要关注metadata的相关配置。但是metastore只能通过只能通过配置hive.metastore.uris的方式连接，无法通过jdbc的方式访问。</strong></p>
-<p>（3）./bin/hiveserver2<br>hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过beeline，jdbc，odbc的方式链接到hive。<strong>hiveserver2启动的时候会先检查有没有配置hive.metastore.uris，如果没有会先启动一个metastore服务，然后在启动hiveserver2。如果有配置hive.metastore.uris。会连接到远程的metastore服务。这种方式是最常用的。</strong>部署在图如下：</p>
-<ul>
-<li>登录bin/beeline，可以启动客户端链接到hiveserver2。执行beeline后在控制输入 !connect jdbc:hive2://localhost:10000/default root 123 就可以链接到 hiveserver2了；default表示链接到default database， root 和123 分别为密码。注意这里的密码不是mysql的密码，是hive中的用户</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
-
-<h3 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h3><p><strong>分隔符</strong></p>
-<p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
-<p><strong>用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符</strong></p>
-<p>1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符</p>
-<p>2，把hive表格导出到本地时，系统默认的分隔符是^A，这个是特殊字符，直接cat或者vim是看不到的</p>
-<p><strong>分隔符在HIVE中的用途</strong></p>
-<table>
-<thead>
-<tr>
-<th>分隔符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\n</td>
-<td>对于文本文件来说，每行都是一条记录，因此换行符可以分隔记录</td>
-</tr>
-<tr>
-<td>^A(Ctrl+A)</td>
-<td>用于分隔字段(列)。在CREATE TABLE语句中可以使用八进制编码\001表示</td>
-</tr>
-<tr>
-<td>^B(Ctrl+B)</td>
-<td>用于分隔ARRAY或者STRUCT中的元素，或用于MAP中键-值对之间的分隔。在CREATE TABLE语句中可以使用八进制编码\002表示</td>
-</tr>
-<tr>
-<td>^C(Ctrl+C)</td>
-<td>用于MAP中键和值之间的分隔。在CREATE TABLE语句中可以使用八进制编码\003表示</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>Hive 中没有定义专门的数据格式，数据格式可以由用户指定，用户定义数据格式需要指定三个属性：列分隔符（通常为空格、”\t”、”\x001″）、行分隔符（”\n”）以及读取文件数据的方法。由于在加载数据的过程中，不需要从用户数据格式到 Hive 定义的数据格式的转换，因此，Hive 在加载的过程中不会对数据本身进行任何修改，而只是将数据内容复制或者移动到相应的 HDFS 目录中。</p>
-</blockquote>
-<p>我们可以在create表格的时候，选择如下，表格加载input的文件的时候就会按照下面格式匹配</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row format delimited </span><br><span class="line">fields terminated by &#x27;\001&#x27; </span><br><span class="line">collection items terminated by &#x27;\002&#x27; </span><br><span class="line">map keys terminated by &#x27;\003&#x27;</span><br><span class="line">lines terminated by &#x27;\n&#x27; </span><br><span class="line">stored as textfile;</span><br></pre></td></tr></table></figure>
-
-<h3 id="如何查看和修改分割符，特殊符号"><a href="#如何查看和修改分割符，特殊符号" class="headerlink" title="如何查看和修改分割符，特殊符号"></a>如何查看和修改分割符，特殊符号</h3><ol>
-<li>查看隐藏字符的方法</li>
-</ol>
-<p>1.1，cat -A filename</p>
-<p><img src="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png" alt="img"></p>
-<p>1.2，vim filename后 命令模式下输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set list显示特殊符号</span><br><span class="line">set nolist 取消显示特殊符号</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>修改隐藏字符的方法</li>
-</ol>
-<p>首先按照1.2打开显示特殊符号。进入INSERT模式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrl + V 可以输入 ^符号</span><br><span class="line">ctrl + a 可以输入A---&#x27;\001&#x27;</span><br><span class="line">ctrl + b 可以输入A---&#x27;\002&#x27;</span><br><span class="line">ctrl + c 可以输入A---&#x27;\003&#x27;</span><br></pre></td></tr></table></figure>
-
-<p> 注意：虽然键盘上你能找到^和A但直接输入时不行的，必须按照上面的方法输入。</p>
-<p>第一行是特殊符号颜色蓝色，第二行直接输入不是特殊符号。</p>
-<p><img src="http://image.okcode.net/DD9ED976ABB6F4313B8F0F7C2DD5C33E.png" alt="img"></p>
-<p>特殊号直接cat是不可以看见的，但是第二行是可见的，所以不是特殊符号。</p>
-<p><img src="http://image.okcode.net/75D96F800A1815F7A84A8CF543BD7063.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ROW FORMAT DELIMITED </span><br><span class="line">FIELDS TERMINATED BY &#x27;\u0001&#x27; </span><br><span class="line">COLLECTION ITEMS TERMINATED BY &#x27;\u0002&#x27; </span><br><span class="line">MAP KEYS TERMINATED BY &#x27;\u0003&#x27;</span><br><span class="line">\u0001是ASCII编码值，对应java代码中的&quot;\001&quot;</span><br></pre></td></tr></table></figure>
-
-<p>意义如下：</p>
-<p>（1）FIELDS，字段之间的分隔符是’\u0001’</p>
-<p>（2）COLLECTION ITEMS，多个集合之间的分隔符是’\u0002’，例如（kv1，kv2，kv3）这种多个键值对之间的分隔符就是’\u0002’</p>
-<p>（3）MAP KEYS，单个map的k和v之间的分隔符是\u0003\，例如kv1里，k \u0003 v</p>
-<h3 id="查看orc文件"><a href="#查看orc文件" class="headerlink" title="查看orc文件"></a>查看orc文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --orcfiledump &lt;hdfs-location-of-orc-file&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改字段类型"><a href="#修改字段类型" class="headerlink" title="修改字段类型"></a>修改字段类型</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span><span class="keyword">table</span><span class="operator">-</span>name<span class="operator">&gt;</span> CHANGE <span class="operator">&lt;</span><span class="keyword">old</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">new</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span>data<span class="operator">-</span>type<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employee CHANGE e_id e_id <span class="type">INT</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><ul>
-<li><p>Create ORC table</p>
-</li>
-<li><p>Login to the web console</p>
-</li>
-<li><p>Launch Hive by typing <code>hive</code> in the web console. Run the below commands in Hive.</p>
-</li>
-<li><p>Use your database by using the below command. <code>$&#123;env:USER&#125;</code> gets replaced by your username automatically:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use $&#123;env:USER&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><p>To create an ORC file format:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE orc_table (</span><br><span class="line">    first_name STRING, </span><br><span class="line">    last_name STRING</span><br><span class="line"> ) </span><br><span class="line"> STORED AS ORC;</span><br></pre></td></tr></table></figure></li>
-<li><p>To insert values in the table:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO orc_table VALUES (&#x27;John&#x27;,&#x27;Gill&#x27;);</span><br></pre></td></tr></table></figure></li>
-<li><p>To retrieve all the values in the table:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM orc_table;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>查看hive进程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps -ml  | grep Hive</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="level-2"><a href="#level-2" class="headerlink" title="level-2"></a>level-2</h2><h3 id="内部表vs外部表"><a href="#内部表vs外部表" class="headerlink" title="内部表vs外部表"></a>内部表vs外部表</h3><p><strong>内部表</strong></p>
-<ol>
-<li>按照表数据的生命周期，可以将表分为内部表和外部表两类；</li>
-<li>内部表也叫管理表或临时表，该类型表的生命周期时由hive控制的，默认情况下数据都存放在/user/hive/warehouse/下面；</li>
-<li>删除表时数据会被删除；</li>
-<li>以下命令创建的就是内部表，可见前面两篇文章中创建的表都是内部表</li>
-</ol>
-<p><strong>外部表</strong></p>
-<ul>
-<li>创建表的SQL语句中加上external，创建的就是外部表了；</li>
-<li>外部表的数据生命周期不受Hive控制；</li>
-<li>删除外部表的时候不会删除数据；</li>
-<li>外部表的数据，可以同时作为多个外部表的数据源共享使用；</li>
-<li>接下来开始实践，下面是建表语句：</li>
-<li>在实际生产业务系统开发中，外部表是我们主要应用的表类型</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1317,18 +1098,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

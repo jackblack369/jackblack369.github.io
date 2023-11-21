@@ -174,6 +174,292 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/09/ignite%20issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/09/ignite%20issue/" class="post-title-link" itemprop="url">ignite issue</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-09 15:22:02" itemprop="dateCreated datePublished" datetime="2021-12-09T15:22:02+08:00">2021-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-25 19:00:19" itemprop="dateModified" datetime="2023-09-25T19:00:19+08:00">2023-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="BinaryObjectException-Conflicting-enum-values"><a href="#BinaryObjectException-Conflicting-enum-values" class="headerlink" title="BinaryObjectException: Conflicting enum values"></a>BinaryObjectException: Conflicting enum values</h3><ul>
+<li><p>原因</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">存入ignite的数据格式</span><br><span class="line">key: String , value: Map&lt;Enum, BigDecimal&gt;</span><br><span class="line">Enum类型包含</span><br><span class="line">&#123;A,B,C&#125;</span><br><span class="line"></span><br><span class="line">在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间</span><br><span class="line">&#123;A,D,B,C&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于在数据存入ignite之后，ignite会保存数据相关的schema信息,此时在enum项目之间修改item，会打乱之前的index</span><br></pre></td></tr></table></figure></li>
+<li><p>解决 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">更改enum类的名称，不再使用原有的schema信息</span><br><span class="line">方法二：</span><br><span class="line">enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引</span><br><span class="line">方法三（未验证）：</span><br><span class="line">删除 $IGNITE_HOME/work/binary_meta/Nodex里面的文件</span><br></pre></td></tr></table></figure></li>
+<li><p>官方说明</p>
+<blockquote>
+<ul>
+<li>You cannot change the types of existing fields.</li>
+<li>You cannot change the order of enum values or add new constants at the beginning or in the middle of the list of enum’s values. You can add new constants to the end of the list though.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>处理conflict enum values, 需要清除数据</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>需要清理 $IGNITE_HOME/work/db目录下的 binary_meta、marshaller</p>
+<p>需要验证是否清理 storagePath、walPath、walArchivePath</p>
+</blockquote>
+<h3 id="gc"><a href="#gc" class="headerlink" title="gc"></a>gc</h3><p><img src="/images/ignite/gc_collect.png"></p>
+<blockquote>
+<p>3s进行gc  (110060-52672)/1024=56.04G</p>
+</blockquote>
+<p><img src="/images/ignite/gc_2.png"></p>
+<blockquote>
+<p>17s进行gc (109952-52658)/1024=55.95G</p>
+</blockquote>
+<h3 id="IgniteCacheException"><a href="#IgniteCacheException" class="headerlink" title="IgniteCacheException"></a>IgniteCacheException</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ERROR org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.spi</span><span class="variable">.communication</span><span class="variable">.tcp</span><span class="variable">.TcpCommunicationSpi</span>  [] - Failed to send message to remote node [node=ZookeeperClusterNode [id=<span class="number">1</span>c8a032d-<span class="number">042</span>e-<span class="number">4386</span>-<span class="number">9</span>ce8-<span class="number">2605</span>c0699304, addrs=[<span class="number">17</span><span class="variable">.9</span><span class="variable">.11</span><span class="variable">.11</span>], order=<span class="number">1</span>, loc=false, client=false], msg=GridIoMessage [plc=<span class="number">2</span>, topic=TOPIC_CACHE, topicOrd=<span class="number">8</span>, ordered=false, timeout=<span class="number">0</span>, skipOnTimeout=false, msg=GridNearLockRequest [topVer=AffinityTopologyVersion [topVer=<span class="number">358</span>, minorTopVer=<span class="number">0</span>], miniId=<span class="number">1</span>, dhtVers=GridCacheVersion[] [<span class="literal">null</span>], subjId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, taskNameHash=<span class="number">0</span>, createTtl=-<span class="number">1</span>, accessTtl=-<span class="number">1</span>, flags=<span class="number">3</span>, txLbl=<span class="literal">null</span>, filter=<span class="literal">null</span>, <span class="keyword">super</span>=GridDistributedLockRequest [nodeId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, nearXidVer=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], threadId=<span class="number">11960694</span>, futId=<span class="number">96</span>c1bf42d71-<span class="number">90702925</span>-<span class="number">3</span>ef9-<span class="number">4</span>c70-b7a7-<span class="number">4</span>be2fb6d75ba, timeout=<span class="number">0</span>, isInTx=true, isInvalidate=false, isRead=true, isolation=REPEATABLE_READ, retVals=[true], txSize=<span class="number">0</span>, flags=<span class="number">0</span>, keysCnt=<span class="number">1</span>, <span class="keyword">super</span>=GridDistributedBaseMessage [ver=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], committedVers=<span class="literal">null</span>, rolledbackVers=<span class="literal">null</span>, cnt=<span class="number">1</span>, <span class="keyword">super</span>=GridCacheIdMessage [cacheId=-<span class="number">182240380</span>, <span class="keyword">super</span>=GridCacheMessage [msgId=<span class="number">1360862</span>, depInfo=<span class="literal">null</span>, lastAffChangedTopVer=AffinityTopologyVersion [topVer=<span class="number">336</span>, minorTopVer=<span class="number">0</span>], err=<span class="literal">null</span>, skipPrepare=false]]]]]]]</span><br><span class="line"></span><br><span class="line">org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Failed to connect to node due to unrecoverable exception (is node still alive?). Make sure that each ComputeTask <span class="keyword">and</span> cache Transaction has a timeout set in order to prevent parties from waiting <span class="keyword">forever</span> in <span class="keyword">case</span> of network issues [nodeId=d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895, addrs=[x/x<span class="variable">.x</span><span class="variable">.x</span><span class="variable">.x</span>:<span class="number">47100</span>], err= <span class="keyword">class</span> org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895]</span><br><span class="line"></span><br><span class="line">Caused by: org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>gc的策略</li>
+<li>ignite client的异常捕获</li>
+<li></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/elasticstatic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/03/elasticstatic/" class="post-title-link" itemprop="url">Elastic Stack learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-03 09:26:30" itemprop="dateCreated datePublished" datetime="2021-12-03T09:26:30+08:00">2021-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-17 21:14:05" itemprop="dateModified" datetime="2022-05-17T21:14:05+08:00">2022-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>ELK</strong></p>
+<blockquote>
+<p>Elasticsearch 是一个搜索和分析引擎。Logstash 是服务器端数据处理管道，能够同时从多个来源采集数据，转换数据，然后将数据发送到诸如 Elasticsearch 等“存储库”中。Kibana 则可以让用户在 Elasticsearch 中使用图形和图表对数据进行可视化。</p>
+</blockquote>
+<p>Elasticsearch is the living heart of what is today’s the most popular log analytics platform — the ELK Stack (Elasticsearch, Logstash and Kibana). Elasticsearch’s role is so central that it has become synonymous with the name of the stack itself.</p>
+<p>Elasticsearch behaves like a REST API, so you can use either the <code>POST</code> or the <code>PUT</code> method to add data to it. You use <code>PUT</code> when you know the or want to specify the <code>id</code> of the data item, or <code>POST</code> if you want Elasticsearch to generate an <code>id</code> for the data item:</p>
+<h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><h4 id="max-file-descriptors-4096-for-elasticsearch-process-is-too-low-increase-to-at-least-65535"><a href="#max-file-descriptors-4096-for-elasticsearch-process-is-too-low-increase-to-at-least-65535" class="headerlink" title="max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]"></a>max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]</h4><p>If you want to increase the limit shown by <code>ulimit -n</code>, you should:</p>
+<ul>
+<li><p>Modify <code>/etc/systemd/user.conf</code> and <code>/etc/systemd/system.conf</code> with the following line (this takes care of graphical login):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DefaultLimitNOFILE=65535</span><br></pre></td></tr></table></figure></li>
+<li><p>Modify <code>/etc/security/limits.conf</code> with the following lines (this takes care of non-GUI login):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* hard nofile 65535</span><br><span class="line">* soft nofile 65535</span><br></pre></td></tr></table></figure></li>
+<li><p>Reboot your computer for changes to take effect.</p>
+</li>
+<li><p>check</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -Hn</span><br><span class="line">ulimit -Sn</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-increase-to-at-least-262144"><a href="#max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-increase-to-at-least-262144" class="headerlink" title="max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]"></a>max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</h4><ul>
+<li><p><code>vim /etc/sysctl.conf </code></p>
+<p>新增<strong>vm.max_map_count=655360</strong></p>
+</li>
+<li><p><code>sysctl -p</code></p>
+</li>
+</ul>
+<h4 id="the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured"><a href="#the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured" class="headerlink" title="the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured"></a>the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured</h4><p>in short, if you are running Elasticsearch locally(single node) or just with a single node on the cloud then just use below config in your <code>elasticsearch.yml</code> to avoid the production check, and to make it work, more info about this config in <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/60426167/4039431">this SO</a> answer:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">discovery.type:</span> <span class="string">single-node</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/encrypt-decrpt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/03/encrypt-decrpt/" class="post-title-link" itemprop="url">encrypt-decrpt</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-03 09:26:30" itemprop="dateCreated datePublished" datetime="2021-12-03T09:26:30+08:00">2021-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-20 11:04:13" itemprop="dateModified" datetime="2022-04-20T11:04:13+08:00">2022-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/encrypt-decrpt/" itemprop="url" rel="index"><span itemprop="name">encrypt-decrpt</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://opensource.com/article/21/7/linux-age">https://opensource.com/article/21/7/linux-age</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/FiloSottile/age">https://github.com/FiloSottile/age</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/02/Kubernetes%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,871 +1108,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/01/JVM%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/01/JVM%20learn/" class="post-title-link" itemprop="url">JVM Learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-01 08:35:47" itemprop="dateCreated datePublished" datetime="2021-09-01T08:35:47+08:00">2021-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-06 11:23:48" itemprop="dateModified" datetime="2023-03-06T11:23:48+08:00">2023-03-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="堆内与堆外"><a href="#堆内与堆外" class="headerlink" title="堆内与堆外"></a>堆内与堆外</h2><h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><ul>
-<li><p>常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。</p>
-</li>
-<li><p>堆的特点：</p>
-</li>
-<li><ul>
-<li>由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。</li>
-<li>对象存储到GC中无需进行序列化、反序列化的。</li>
-</ul>
-</li>
-</ul>
-<h3 id="堆外"><a href="#堆外" class="headerlink" title="堆外"></a>堆外</h3><ul>
-<li><p>堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程开辟的一块内存空间。只不过，GC不会「光顾」这里。</p>
-</li>
-<li><p>堆外的特点：</p>
-</li>
-<li><ul>
-<li>由操作系统直接管理。别的进程能够直接访问。</li>
-<li>特别适合分配次数少，读写非常频繁的场景。</li>
-<li>可以避免在分配GB级别的内存而造成GC开销。</li>
-</ul>
-</li>
-<li><p>堆外的缺点：</p>
-</li>
-<li><ul>
-<li>容易出现内存泄漏，难以排查。</li>
-<li>对象的存储需要序列化、和反序列化。</li>
-</ul>
-</li>
-</ul>
-<p>因为堆外内存由此特点，很多高性能的应用组件基于off-heap来提高性能。</p>
-<h4 id="堆外内存常配合使用System-GC"><a href="#堆外内存常配合使用System-GC" class="headerlink" title="堆外内存常配合使用System GC"></a>堆外内存常配合使用System GC</h4><blockquote>
-<p>堆外内存主要针对java.nio.DirectByteBuffer，这些对象的创建过程会通过Unsafe接口直接通过os::malloc来分配内存，然后将内存的起始地址和大小存到java.nio.DirectByteBuffer对象里，这样就可以直接操作这些内存。这些内存只有在DirectByteBuffer回收掉之后才有机会被回收，因此如果这些对象大部分都移到了old，但是一直没有触发CMS GC或者Full GC，那么悲剧将会发生，因为你的物理内存被他们耗尽了，因此为了避免这种悲剧的发生，通过-XX:MaxDirectMemorySize来指定最大的堆外内存大小，当使用达到了阈值的时候将调用System.gc来做一次full gc，以此来回收掉没有被使用的堆外内存。</p>
-</blockquote>
-<h3 id="System-gc常识"><a href="#System-gc常识" class="headerlink" title="System.gc常识"></a>System.gc常识</h3><ul>
-<li>system.gc其实是做一次full gc</li>
-<li>system.gc会暂停整个进程</li>
-<li>system.gc一般情况下我们要禁掉，使用-XX:+DisableExplicitGC</li>
-<li>system.gc在cms gc下我们通过-XX:+ExplicitGCInvokesConcurrent来做一次稍微高效点的GC(效果比Full GC要好些)</li>
-<li>system.gc最常见的场景是RMI/NIO下的堆外内存分配等</li>
-</ul>
-<h1 id="jvm常用参数的设置和含义"><a href="#jvm常用参数的设置和含义" class="headerlink" title="jvm常用参数的设置和含义"></a>jvm常用参数的设置和含义</h1><p><strong>1.设置堆的最大和最小值</strong><br> -Xmx20M(最大值) ,-Xms20M(最小值)。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms和-Xmx实际上是 -XX:InitialHeapSize 和-XX:MaxHeapSize 的缩写</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.设置栈的大小</strong><br> -Xss128k： 设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内 存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
-<p>功能开关:</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>默认值或限制</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-XX:-AllowUserSignalHandlers</td>
-<td>限于Linux和Solaris，默认不启用</td>
-<td>允许为java进程安装信号处理器,信号处理参见类:sun.misc.Signal, sun.misc.SignalHandler</td>
-</tr>
-<tr>
-<td>-XX:+DisableExplicitGC</td>
-<td>默认启用</td>
-<td>禁止在运行期显式地调用System.gc()</td>
-</tr>
-<tr>
-<td>-XX:+FailOverToOldVerifier</td>
-<td>Java6新引入选项，默认启用</td>
-<td>如果新的Class校验器检查失败，则使用老的校验器(失败原因:因为JDK6最高向下兼容到JDK1.2，而JDK1.2的class info 与JDK6的info存在较大的差异，所以新校验器可能会出现校验失败的情况)</td>
-</tr>
-<tr>
-<td>-XX:+HandlePromotionFailure</td>
-<td>java5以前是默认不启用，java6默认启用</td>
-<td>关闭新生代收集担保</td>
-</tr>
-<tr>
-<td>-XX:+MaxFDLimit</td>
-<td>限于Solaris，默认启用</td>
-<td>设置java进程可用文件描述符为操作系统允许的最大值。</td>
-</tr>
-<tr>
-<td>-XX:PreBlockSpin=10</td>
-<td>-XX:+UseSpinning 必须先启用，对于java6来说已经默认启用了，这里默认自旋10次</td>
-<td>控制多线程自旋锁优化的自旋次数</td>
-</tr>
-<tr>
-<td>-XX:-RelaxAccessControlCheck</td>
-<td>默认不启用</td>
-<td>在Class校验器中，放松对访问控制的检查,作用与reflection里的setAccessible类似</td>
-</tr>
-<tr>
-<td>-XX:+ScavengeBeforeFullGC</td>
-<td>默认启用</td>
-<td>在Full GC前触发一次Minor GC</td>
-</tr>
-<tr>
-<td>-XX:+UseAltSigs</td>
-<td>限于Solaris，默认启用</td>
-<td>为了防止与其他发送信号的应用程序冲突，允许使用候补信号替代 SIGUSR1和SIGUSR2</td>
-</tr>
-<tr>
-<td>-XX:+UseBoundThreads</td>
-<td>限于Solaris, 默认启用</td>
-<td>绑定所有的用户线程到内核线程, 减少线程进入饥饿状态（得不到任何cpu time）的次数</td>
-</tr>
-<tr>
-<td>-XX:-UseConcMarkSweepGC</td>
-<td>默认不启用</td>
-<td>启用CMS低停顿垃圾收集器,减少FGC的暂停时间</td>
-</tr>
-<tr>
-<td>-XX:+UseGCOverheadLimit</td>
-<td>默认启用</td>
-<td>限制GC的运行时间。如果GC耗时过长，就抛OOM</td>
-</tr>
-<tr>
-<td>-XX:+UseLWPSynchronization</td>
-<td>限于solaris，默认启用</td>
-<td>使用轻量级进程（内核线程）替换线程同步</td>
-</tr>
-<tr>
-<td>-XX:-UseParallelGC</td>
-<td>-server时启用,其他情况下，默认不启用</td>
-<td>策略为新生代使用并行清除，年老代使用单线程Mark-Sweep-Compact的垃圾收集器</td>
-</tr>
-<tr>
-<td>-XX:-UseParallelOldGC</td>
-<td>默认不启用</td>
-<td>策略为老年代和新生代都使用并行清除的垃圾收集器</td>
-</tr>
-<tr>
-<td>-XX:-UseSerialGC</td>
-<td>-client时启用,其他情况下，默认不启用</td>
-<td>使用串行垃圾收集器</td>
-</tr>
-<tr>
-<td>-XX:-UseSpinning</td>
-<td>java1.4.2和1.5需要手动启用, java6默认已启用</td>
-<td>启用多线程自旋锁优化</td>
-</tr>
-<tr>
-<td>-XX:+UseTLAB</td>
-<td>1.4.2以前和使用-client选项时，默认不启用，其余版本默认启用</td>
-<td>启用线程本地缓存区</td>
-</tr>
-<tr>
-<td>-XX:+UseSplitVerifier</td>
-<td>java5默认不启用, java6默认启用</td>
-<td>使用新的Class类型校验器</td>
-</tr>
-<tr>
-<td>-XX:+UseThreadPriorities</td>
-<td>默认启用</td>
-<td>使用本地线程的优先级</td>
-</tr>
-<tr>
-<td>-XX:+UseVMInterruptibleIO</td>
-<td>限于solaris，默认启用</td>
-<td>在solaris中，允许运行时中断线程</td>
-</tr>
-</tbody></table>
-<p>性能参数:</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>默认值或限制</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-XX:+AggressiveOpts</td>
-<td>JDK 5 update 6后引入，但需要手动启用, JDK6默认启用</td>
-<td>启用JVM开发团队最新的调优成果。例如编译优化，偏向锁，并行年老代收集等</td>
-</tr>
-<tr>
-<td>-XX:CompileThreshold=10000</td>
-<td>1000</td>
-<td>通过JIT编译器，将方法编译成机器码的触发阀值，可以理解为调用方法的次数，例如调1000次，将方法编译为机器码</td>
-</tr>
-<tr>
-<td>-XX:LargePageSizeInBytes=4m</td>
-<td>默认4m, amd64位：2m</td>
-<td>设置堆内存的内存页大小</td>
-</tr>
-<tr>
-<td>-XX:MaxHeapFreeRatio=70</td>
-<td>70</td>
-<td>GC后，如果发现空闲堆内存占到整个预估上限值的70%，则收缩预估上限值</td>
-</tr>
-<tr>
-<td>-XX:MaxNewSize=size</td>
-<td>1.3.1 Sparc: 32m, 1.3.1 x86: 2.5m</td>
-<td>新生代占整个堆内存的最大值</td>
-</tr>
-<tr>
-<td>-XX:MaxPermSize=64m</td>
-<td>5.0以后: 64 bit VMs会增大预设值的30%, 1.4 amd64: 96m, 1.3.1 -client: 32m, 其他默认 64m</td>
-<td>Perm（俗称方法区）占整个堆内存的最大值</td>
-</tr>
-<tr>
-<td>-XX:MinHeapFreeRatio=40</td>
-<td>40</td>
-<td>GC后，如果发现空闲堆内存占到整个预估上限值的40%，则增大上限值</td>
-</tr>
-<tr>
-<td>-XX:NewRatio=2</td>
-<td>Sparc -client: 8, x86 -server: 8, x86 -client: 12, -client: 4 (1.3), 8 (1.3.1+), x86: 12, 其他默认 2</td>
-<td>新生代和年老代的堆内存占用比例, 例如2表示新生代占年老代的1/2，占整个堆内存的1/3</td>
-</tr>
-<tr>
-<td>-XX:NewSize=2.125m</td>
-<td>5.0以后: 64 bit Vms 会增大预设值的30%, x86: 1m, x86, 5.0以后: 640k, 其他默认 2.125m</td>
-<td>新生代预估上限的默认值</td>
-</tr>
-<tr>
-<td>-XX:ReservedCodeCacheSize=32m</td>
-<td>Solaris 64-bit, amd64, -server x86: 48m, 1.5.0_06之前, Solaris 64-bit amd64: 1024m, 其他默认 32m</td>
-<td>设置代码缓存的最大值，编译时用</td>
-</tr>
-<tr>
-<td>-XX:SurvivorRatio=8</td>
-<td>Solaris amd64: 6, Sparc in 1.3.1: 25, Solaris platforms 5.0以前: 32, 其他默认 8</td>
-<td>Eden与Survivor的占用比例。例如8表示，一个survivor区占用 1/8 的Eden内存，即1/10的新生代内存，为什么不是1/9？ 因为我们的新生代有2个survivor，即S0和S1。所以survivor总共是占用新生代内存的 2/10，Eden与新生代的占比则为 8/10</td>
-</tr>
-<tr>
-<td>-XX:TargetSurvivorRatio=50</td>
-<td>50</td>
-<td>实际使用的survivor空间大小占比。默认是50%，最高90%</td>
-</tr>
-<tr>
-<td>-XX:ThreadStackSize=512</td>
-<td>Sparc: 512, Solaris x86: 320 (5.0以前 256), Sparc 64 bit: 1024, Linux amd64: 1024 (5.0 以前 0), 其他默认 512.</td>
-<td>线程堆栈大小</td>
-</tr>
-<tr>
-<td>-XX:+UseBiasedLocking</td>
-<td>JDK 5 update 6后引入，但需要手动启用, JDK6默认启用</td>
-<td>启用偏向锁</td>
-</tr>
-<tr>
-<td>-XX:+UseFastAccessorMethods</td>
-<td>默认启用</td>
-<td>优化原始类型的getter方法性能(get/set:Primitive Type)</td>
-</tr>
-<tr>
-<td>-XX:-UseISM</td>
-<td>默认启用</td>
-<td>启用solaris的ISM</td>
-</tr>
-<tr>
-<td>-XX:+UseLargePages</td>
-<td>JDK 5 update 5后引入，但需要手动启用, JDK6默认启用</td>
-<td>启用大内存分页</td>
-</tr>
-<tr>
-<td>-XX:+UseMPSS</td>
-<td>1.4.1 之前: 不启用, 其余版本默认启用</td>
-<td>启用solaris的MPSS，不能与ISM同时使用</td>
-</tr>
-<tr>
-<td>-XX:+UseStringCache</td>
-<td>默认开启</td>
-<td>启用缓存常用的字符串。</td>
-</tr>
-<tr>
-<td>-XX:AllocatePrefetchLines=1</td>
-<td>1</td>
-<td>Number of cache lines to load after the last object allocation using prefetch instructions generated in JIT compiled code. Default values are 1 if the last allocated object was an instance and 3 if it was an array.</td>
-</tr>
-<tr>
-<td>-XX:AllocatePrefetchStyle=1</td>
-<td>1</td>
-<td>Generated code style for prefetch instructions. 0 – no prefetch instructions are generate<em>d</em>, 1 – execute prefetch instructions after each allocation, 2 – use TLAB allocation watermark pointer to gate when prefetch instructions are executed.</td>
-</tr>
-<tr>
-<td>-XX:+UseCompressedStrings</td>
-<td>Java 6 update 21有一选项</td>
-<td>其中，对于不需要16位字符的字符串，可以使用byte[] 而非char[]。对于许多应用，这可以节省内存，但速度较慢（5％-10％）</td>
-</tr>
-<tr>
-<td>-XX:+OptimizeStringConcat</td>
-<td>在Java 6更新20中引入</td>
-<td>优化字符串连接操作在可能的情况下</td>
-</tr>
-</tbody></table>
-<p>调试参数:</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>默认值或限制</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-XX:-CITime</td>
-<td></td>
-<td>打印发费在JIT编译上的时间</td>
-</tr>
-<tr>
-<td>-XX:ErrorFile=./hs_err_pid<pid>.log</td>
-<td>JDK6中引入</td>
-<td>错误文件</td>
-</tr>
-<tr>
-<td>-XX:-ExtendedDTraceProbes</td>
-<td>JDK6中引入仅在Solaris</td>
-<td>启用性能的影响DTrace探测器</td>
-</tr>
-<tr>
-<td>-XX:HeapDumpPath=./java_pid<pid>.hprof</td>
-<td>1.4.2 update 12, 5.0 update 7</td>
-<td>指定HeapDump的文件路径或目录</td>
-</tr>
-<tr>
-<td>-XX:-HeapDumpOnOutOfMemoryError</td>
-<td>1.4.2 update 12, 5.0 update 7</td>
-<td>当抛出OOM时进行HeapDump</td>
-</tr>
-<tr>
-<td>-XX:OnError=”<cmd args>;<cmd args>”</td>
-<td>1.4.2 update 9</td>
-<td>当发生错误时执行用户指定的命令</td>
-</tr>
-<tr>
-<td>-XX:OnOutOfMemoryError=”<cmd args>; <cmd args>”</td>
-<td>1.4.2 update 12, 6</td>
-<td>当发生OOM时执行用户指定的命令</td>
-</tr>
-<tr>
-<td>-XX:-PrintClassHistogram</td>
-<td>1.4.2</td>
-<td>当Ctrl+Break发生时打印Class实例信息,与jmap -histo相同</td>
-</tr>
-<tr>
-<td>-XX:-PrintConcurrentLocks</td>
-<td>6</td>
-<td>当Ctrl+Break发生时打印java.util.concurrent的锁信息, 与jstack -l相同</td>
-</tr>
-<tr>
-<td>-XX:-PrintCommandLineFlags</td>
-<td>5</td>
-<td>打印命令行上的标记</td>
-</tr>
-<tr>
-<td>-XX:-PrintCompilation</td>
-<td></td>
-<td>当方法被编译时打印信息</td>
-</tr>
-<tr>
-<td>-XX:-PrintGC</td>
-<td></td>
-<td>当GC发生时打印信息</td>
-</tr>
-<tr>
-<td>-XX:-PrintGCDetails</td>
-<td>1.4.0</td>
-<td>打印GC详细信息</td>
-</tr>
-<tr>
-<td>-XX:-PrintGCTimeStamps</td>
-<td>1.4.0</td>
-<td>打印GC用时</td>
-</tr>
-<tr>
-<td>-XX:-PrintTenuringDistribution</td>
-<td></td>
-<td>打印Tenuring年龄信息</td>
-</tr>
-<tr>
-<td>-XX:-TraceClassLoading</td>
-<td></td>
-<td>跟踪类加载</td>
-</tr>
-<tr>
-<td>-XX:-TraceClassLoadingPreorder</td>
-<td>1.4.2</td>
-<td>跟踪所有加载的引用类</td>
-</tr>
-<tr>
-<td>-XX:-TraceClassResolution</td>
-<td>1.4.2</td>
-<td>跟踪常量池的变化</td>
-</tr>
-<tr>
-<td>-XX:-TraceClassUnloading</td>
-<td></td>
-<td>跟踪类的卸载</td>
-</tr>
-<tr>
-<td>-XX:-TraceLoaderConstraints</td>
-<td>6</td>
-<td>Trace recording of loader constraints</td>
-</tr>
-<tr>
-<td>-XX:+PerfSaveDataToFile</td>
-<td></td>
-<td>退出时保存jvmstat二进制文件</td>
-</tr>
-<tr>
-<td>-XX:ParallelGCThreads=</td>
-<td></td>
-<td>设置新生代与老年代并行垃圾回收器的线程数</td>
-</tr>
-<tr>
-<td>-XX:+UseCompressedOops</td>
-<td></td>
-<td>Enables the use of compressed pointers (object references represented as 32 bit offsets instead of 64-bit pointers) for optimized 64-bit performance with Java heap sizes less than 32gb.</td>
-</tr>
-<tr>
-<td>-XX:+AlwaysPreTouch</td>
-<td></td>
-<td>Pre-touch the Java heap during JVM initialization. Every page of the heap is thus demand-zeroed during initialization rather than incrementally during application execution.</td>
-</tr>
-<tr>
-<td>-XX:AllocatePrefetchDistance=</td>
-<td></td>
-<td>Sets the prefetch distance for object allocation. Memory about to be written with the value of new objects is prefetched into cache at this distance (in bytes) beyond the address of the last allocated object. Each Java thread has its own allocation point. The default value varies with the platform on which the JVM is running.</td>
-</tr>
-<tr>
-<td>-XX:InlineSmallCode=</td>
-<td></td>
-<td>当编译的代码小于指定的值时,内联编译的代码</td>
-</tr>
-<tr>
-<td>-XX:MaxInlineSize=35</td>
-<td></td>
-<td>内联方法的最大字节数</td>
-</tr>
-<tr>
-<td>-XX:FreqInlineSize=</td>
-<td></td>
-<td>内联频繁执行的方法的最大字节码大小</td>
-</tr>
-<tr>
-<td>-XX:LoopUnrollLimit=</td>
-<td></td>
-<td>Unroll loop bodies with server compiler intermediate representation node count less than this value. The limit used by the server compiler is a function of this value, not the actual value. The default value varies with the platform on which the JVM is running.</td>
-</tr>
-<tr>
-<td>-XX:InitialTenuringThreshold=7</td>
-<td></td>
-<td>设置初始的对象在新生代中最大存活次数</td>
-</tr>
-<tr>
-<td>-XX:MaxTenuringThreshold=</td>
-<td></td>
-<td>设置对象在新生代中最大的存活次数,最大值15,并行回收机制默认为15,CMS默认为4</td>
-</tr>
-</tbody></table>
-<h1 id="Garbage-Collectors"><a href="#Garbage-Collectors" class="headerlink" title="Garbage Collectors"></a>Garbage Collectors</h1><p>The JVM (Java Virtual Machine) has several different garbage collectors, including the <strong>Parallel Scavenge collector</strong> and the <strong>G1 (Garbage-First) collector</strong>. Both collectors have a “young generation” that is responsible for storing newly created objects, but they work in different ways.</p>
-<ul>
-<li>Parallel Scavenge collector</li>
-</ul>
-<p>The Parallel Scavenge collector’s young generation, also known as the “PS young generation”, is divided into two regions called “Eden” and “Survivor”. The Eden region is where newly created objects are initially allocated, while the Survivor regions are used to store objects that have survived one or more garbage collection cycles. The idea is to quickly identify and collect objects that are no longer needed, while promoting long-lived objects to the older generation.</p>
-<ul>
-<li>G1 collector</li>
-</ul>
-<p>The G1 collector also has a young generation, which is referred to as the “G1 young generation”. Unlike the PS young generation, the G1 young generation does not have fixed regions like Eden and Survivor. Instead, the G1 collector divides the heap into equal-sized “regions” that can be used for both young and old objects, depending on their age and usage patterns. The G1 collector also uses a “remembered set” to keep track of references between regions, which allows it to more efficiently identify and collect objects that are no longer needed.</p>
-<p>Overall, both the PS and G1 collectors have their own strengths and weaknesses, and the best choice depends on the specific requirements and characteristics of the application. The G1 collector is generally considered to be more flexible and adaptive to different usage patterns, but the PS collector may be better suited for applications with short-lived objects and high object creation rates.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/16/$%E6%89%93%E5%8D%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/16/$%E6%89%93%E5%8D%A1/" class="post-title-link" itemprop="url">打卡</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-04-16 10:37:26" itemprop="dateCreated datePublished" datetime="2021-04-16T10:37:26+08:00">2021-04-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-20 14:05:08" itemprop="dateModified" datetime="2022-04-20T14:05:08+08:00">2022-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/will/" itemprop="url" rel="index"><span itemprop="name">will</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>金钱换不来的东西才算珍贵，比如时间、健康、知识</p>
-</blockquote>
-<p>✔️ </p>
-<h3 id="身体是本钱"><a href="#身体是本钱" class="headerlink" title="身体是本钱"></a>身体是本钱</h3><h3 id="英语是编程语言的基础语言"><a href="#英语是编程语言的基础语言" class="headerlink" title="英语是编程语言的基础语言"></a>英语是编程语言的基础语言</h3><pre><code>    April   2021
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Sun</th>
-<th>Mon</th>
-<th>Tue</th>
-<th>Wed</th>
-<th>Thu</th>
-<th>Fri</th>
-<th>Sat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href="#41">1</a></td>
-<td><a href="#42">2</a></td>
-<td><a href="#43">3</a></td>
-</tr>
-<tr>
-<td><a href="#44">4</a></td>
-<td><a href="#45">5</a></td>
-<td><a href="#46">6</a></td>
-<td><a href="#47">7</a></td>
-<td><a href="#48">8</a></td>
-<td><a href="#49">9</a></td>
-<td><a href="#410">10</a></td>
-</tr>
-<tr>
-<td><a href="#411">11</a></td>
-<td><a href="#412">12</a></td>
-<td><a href="#413">13</a></td>
-<td><a href="#414">14</a></td>
-<td><a href="#415">15</a></td>
-<td><a href="#416">16</a> ✔️</td>
-<td><a href="#417">17</a></td>
-</tr>
-<tr>
-<td><a href="#418">18</a></td>
-<td><a href="#419">19</a></td>
-<td><a href="#420">20</a></td>
-<td><a href="#421">21</a></td>
-<td><a href="#422">22</a></td>
-<td><a href="#423">23</a></td>
-<td><a href="#424">24</a></td>
-</tr>
-<tr>
-<td><a href="#425">25</a></td>
-<td><a href="#426">26</a></td>
-<td><a href="#427">27</a></td>
-<td><a href="#428">28</a></td>
-<td><a href="#429">29</a></td>
-<td><a href="#430">30</a></td>
-<td></td>
-</tr>
-</tbody></table>
-<pre><code>     June   2021          
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Sun</th>
-<th>Mon</th>
-<th>Tue</th>
-<th>Wed</th>
-<th>Thu</th>
-<th>Fri</th>
-<th>Sat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td><a href="#61">1</a></td>
-<td><a href="#62">2</a></td>
-<td><a href="#63">3</a></td>
-<td><a href="#64">4</a></td>
-<td><a href="#65">5</a></td>
-</tr>
-<tr>
-<td><a href="#66">6</a></td>
-<td><a href="#67">7</a></td>
-<td><a href="#68">8</a></td>
-<td><a href="#69">9</a></td>
-<td><a href="#610">10</a></td>
-<td><a href="#611">11</a></td>
-<td><a href="#612">12</a></td>
-</tr>
-<tr>
-<td><a href="#613">13</a></td>
-<td><a href="#614">14</a></td>
-<td><a href="#615">15</a></td>
-<td><a href="#616">16</a></td>
-<td><a href="#617">17</a></td>
-<td><a href="#618">18</a></td>
-<td><a href="#619">19</a></td>
-</tr>
-<tr>
-<td><a href="#620">20</a></td>
-<td><a href="#621">21</a></td>
-<td><a href="#622">22</a></td>
-<td><a href="#623">23</a></td>
-<td><a href="#624">24</a></td>
-<td><a href="#625">25</a></td>
-<td><a href="#626">26</a></td>
-</tr>
-<tr>
-<td><a href="#627">27</a></td>
-<td><a href="#628">28</a></td>
-<td><a href="#629">29</a>✔️</td>
-<td><a href="#630">30</a>✔️</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<pre><code>     July   2021          
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Sun</th>
-<th>Mon</th>
-<th>Tue</th>
-<th>Wed</th>
-<th>Thu</th>
-<th>Fri</th>
-<th>Sat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href="#2021%E5%B9%B407%E6%9C%8801%E6%97%A5">1</a></td>
-<td><a href="#72">2</a></td>
-<td><a href="#73">3</a></td>
-</tr>
-<tr>
-<td><a href="#74">4</a></td>
-<td><a href="#75">5</a></td>
-<td><a href="#76">6</a></td>
-<td><a href="#77">7</a></td>
-<td><a href="#78">8</a></td>
-<td><a href="#79">9</a></td>
-<td><a href="#710">10</a></td>
-</tr>
-<tr>
-<td><a href="#711">11</a></td>
-<td><a href="#712">12</a></td>
-<td><a href="#713">13</a></td>
-<td><a href="#714">14</a></td>
-<td><a href="#715">15</a></td>
-<td><a href="#716">16</a></td>
-<td><a href="#717">17</a></td>
-</tr>
-<tr>
-<td><a href="#718">18</a></td>
-<td><a href="#719">19</a></td>
-<td><a href="#720">20</a></td>
-<td><a href="#721">21</a></td>
-<td><a href="#722">22</a></td>
-<td><a href="#723">23</a></td>
-<td><a href="#724">24</a></td>
-</tr>
-<tr>
-<td><a href="#725">25</a></td>
-<td><a href="#726">26</a></td>
-<td><a href="#727">27</a></td>
-<td><a href="#728">28</a></td>
-<td><a href="#729">29</a></td>
-<td><a href="#730">30</a></td>
-<td><a href="#731">31</a></td>
-</tr>
-</tbody></table>
-<h1 id="2021年07月01日"><a href="#2021年07月01日" class="headerlink" title="2021年07月01日"></a>2021年07月01日</h1><p>测试链接<br>后面可以修改连接处标题由71改为2021年07月01日</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/14/$Daily/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/14/$Daily/" class="post-title-link" itemprop="url">Daily_Flag</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-04-14 15:05:37" itemprop="dateCreated datePublished" datetime="2021-04-14T15:05:37+08:00">2021-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-20 10:45:16" itemprop="dateModified" datetime="2022-04-20T10:45:16+08:00">2022-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/will/" itemprop="url" rel="index"><span itemprop="name">will</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="2021-04-14"><a href="#2021-04-14" class="headerlink" title="2021-04-14"></a>2021-04-14</h3><p>今天记录了一个ignite问题，并更新于post，提交到github，打开github发现2020年只有四个绿点。<br>2021年以后的时间，争取一个周可以有一个绿点吧</p>
-<h3 id="2021-04-16"><a href="#2021-04-16" class="headerlink" title="2021-04-16"></a>2021-04-16</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1756,18 +1177,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

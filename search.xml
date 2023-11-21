@@ -2039,7 +2039,7 @@
 <li><p>创建容器</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br><span class="line">注意：</span><br><span class="line">-d:让容器在后台运行</span><br><span class="line">-P(大写):是容器内部端口随机映射到主机的高端口</span><br><span class="line">-p(小写):是容器内部端口绑定到指定的主机端口</span><br></pre></td></tr></table></figure></li>
 <li><p>进入容器</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it mysql-server /bin/bash</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it mysql-server /bin/bash</span><br><span class="line">或</span><br><span class="line">docker exec -it mysql-server /bin/sh</span><br></pre></td></tr></table></figure></li>
 <li><p>访问</p>
 <p><code>docker exec -it mysql-server mysql -uroot -p</code></p>
 </li>
@@ -2430,10 +2430,18 @@
 </ul>
 </li>
 </ul>
-<h3 id="把jar包程序制作成镜像"><a href="#把jar包程序制作成镜像" class="headerlink" title="把jar包程序制作成镜像"></a>把jar包程序制作成镜像</h3><p>编辑dockerfile</p>
+<h3 id="把jar包程序制作成镜像"><a href="#把jar包程序制作成镜像" class="headerlink" title="把jar包程序制作成镜像"></a>把jar包程序制作成镜像</h3><ul>
+<li><p>step1: </p>
+<p>编辑dockerfile</p>
+</li>
+</ul>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span>  openjdk:<span class="number">8</span>-jre</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定路径</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /data/justMicroservice/learning-cloudalibaba</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=nacos-provider/target/nacos-provider-<span class="number">0.0</span>.<span class="number">1</span>-SNAPSHOT.jar</span><br><span class="line"><span class="comment"># 复制jar文件到路径</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> nacos-provider.jar</span></span><br><span class="line"><span class="comment"># 启动网关服务</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;nacos-provider.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>Step2: </p>
 <p>在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）</p>
+</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build -t $repository -f $path/dockerfile .</span><br></pre></td></tr></table></figure>
 
 
@@ -9235,37 +9243,6 @@
 <li><p>安装python3-devel</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dnf install python3-devel</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><p>在 Linux 中配置 Python 项目的运行虚拟环境通常使用 <code>venv</code>（虚拟环境）模块。以下是一般的步骤：</p>
-<ol>
-<li><p><strong>安装 venv 模块（如果尚未安装）：</strong></p>
-<p>检查你的 Python 版本并确保安装了 <code>venv</code> 模块。</p>
-</li>
-<li><p><strong>创建虚拟环境：</strong></p>
-<p>在项目目录中，运行以下命令创建一个名为 <code>myenv</code> 的虚拟环境：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 -m venv myenv</span><br></pre></td></tr></table></figure>
-
-<p>这将在当前目录创建一个名为 <code>myenv</code> 的虚拟环境文件夹。</p>
-</li>
-<li><p><strong>激活虚拟环境：</strong></p>
-<p>激活虚拟环境可通过以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source myenv/bin/activate</span><br></pre></td></tr></table></figure>
-
-<p>这将激活名为 <code>myenv</code> 的虚拟环境。激活后，你的终端提示符可能会显示虚拟环境的名称。</p>
-</li>
-<li><p><strong>安装项目依赖：</strong></p>
-<p>在激活的虚拟环境中，使用 <code>pip</code> 安装项目所需的依赖：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-
-<p>其中 <code>requirements.txt</code> 是包含项目依赖项的文件。</p>
-</li>
-<li><p><strong>退出虚拟环境：</strong></p>
-<p>当你完成项目工作后，可以通过以下方式退出虚拟环境：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
-
-<p>这将使虚拟环境退出，并恢复到系统默认环境。</p>
-</li>
-</ol>
-<p>使用虚拟环境有助于隔离项目的依赖，避免与系统其他项目的依赖冲突，并提供更干净的开发环境。</p>
 <h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><ul>
 <li><p><strong>请选择四个空格的缩进，不要使用 Tab，更不要 Tab 和空格混着用。</strong></p>
 </li>
@@ -9818,6 +9795,19 @@
 <p>CPython 中还有另一个机制，叫做 check_interval，意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况。每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会。</p>
 </blockquote>
 <p><img src="/images/python/check-interval.png"></p>
+<h2 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h2><blockquote>
+<p>assert 语句，可以说是一个 debug 的好工具，主要用于测试一个条件是否满足。如果测试的条件满足，则什么也不做，相当于执行了 pass 语句；如果测试条件不满足，便会抛出异常 AssertionError，并返回具体的错误信息（optional）</p>
+</blockquote>
+<p>语法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">assert_stmt ::=  <span class="string">&quot;assert&quot;</span> expression [<span class="string">&quot;,&quot;</span> expression]</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">例子<span class="number">1</span>：</span><br><span class="line"><span class="keyword">assert</span> <span class="number">1</span> == <span class="number">2</span></span><br><span class="line">相当于</span><br><span class="line"><span class="keyword">if</span> <span class="literal">__debug__</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> expression: <span class="keyword">raise</span> AssertionError</span><br><span class="line"></span><br><span class="line">例子<span class="number">2</span>：</span><br><span class="line"><span class="keyword">assert</span> <span class="number">1</span> == <span class="number">2</span>,  <span class="string">&#x27;assertion is wrong&#x27;</span></span><br><span class="line">相当于</span><br><span class="line"><span class="keyword">if</span> <span class="literal">__debug__</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> expression1: <span class="keyword">raise</span> AssertionError(expression2)</span><br><span class="line">    </span><br><span class="line">例子<span class="number">3</span>（促销价格大于<span class="number">0</span>元）：</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apply_discount</span>(<span class="params">price, discount</span>):</span></span><br><span class="line">    updated_price = price * (<span class="number">1</span> - discount)</span><br><span class="line">    <span class="keyword">assert</span> <span class="number">0</span> &lt;= updated_price &lt;= price, <span class="string">&#x27;price should be greater or equal to 0 and less or equal to original price&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> updated_price</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不要在使用 assert 时加入括号，否则无论表达式对与错，assert 检查永远不会 fail</li>
+</ul>
+<hr>
 <h2 id="用法-tips"><a href="#用法-tips" class="headerlink" title="用法 tips"></a>用法 tips</h2><ul>
 <li><p>引用规范 <code>from your_file import function_name, class_name</code></p>
 </li>
@@ -9882,12 +9872,31 @@
   <entry>
     <title>python poetry</title>
     <url>/2023/11/03/python%20poetry/</url>
-    <content><![CDATA[<blockquote>
+    <content><![CDATA[<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li><input disabled="" type="checkbox"> build backend : use hatch <ul>
+<li><a href="https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec">https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="POINT"><a href="#POINT" class="headerlink" title="POINT"></a>POINT</h2><blockquote>
 <p>每个使用 Poetry 的项目都会有自己的虚拟环境，这样可以避免不同项目之间的依赖冲突。因此，每个项目的依赖项都会独立存放在各自的虚拟环境中。</p>
 </blockquote>
 <ul>
 <li><p>查看安装依赖目录</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry env info --path</span><br></pre></td></tr></table></figure></li>
+<li><p>列出所有虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry env list</span><br></pre></td></tr></table></figure></li>
+<li><p>删除指定虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry env remove &lt;虚拟环境名称&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>进入 Poetry 创建的虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">poetry shell</span><br></pre></td></tr></table></figure></li>
+<li><p>通过<code>requirement</code>添加依赖</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry add $( cat requirements.txt )</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="https://drivendata.co/blog/python-packaging-2023">THE BASICS OF PYTHON PACKAGING IN EARLY</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -10059,8 +10068,90 @@
 ]]></content>
   </entry>
   <entry>
+    <title>python security - authlib</title>
+    <url>/2023/10/31/python%20authlib/</url>
+    <content><![CDATA[<blockquote>
+<p>Security is always excessive until it’s not enough.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>auth</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>fastapi learn</title>
+    <url>/2023/11/21/fastapi%20learn/</url>
+    <content><![CDATA[<p><a href="https://project-awesome.org/mjhea0/awesome-fastapi">Awesome FastAPI</a></p>
+<p><a href="https://github.com/zhanymkanov/fastapi-best-practices">FastAPI Best Practices</a></p>
+]]></content>
+      <categories>
+        <category>fastapi</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python pyenv</title>
+    <url>/2023/11/21/python%20pyenv/</url>
+    <content><![CDATA[<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看当前版本</span></span><br><span class="line">pyenv version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有版本</span></span><br><span class="line">pyenv versions</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有可安装的版本</span></span><br><span class="line">pyenv install --list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装指定版本</span></span><br><span class="line">pyenv install 3.6.5</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装新版本后<span class="built_in">rehash</span>一下</span></span><br><span class="line">pyenv rehash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除指定版本</span></span><br><span class="line">pyenv uninstall 3.5.2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定版本</span></span><br><span class="line">pyenv shell &lt;version&gt; -- select just for current shell session</span><br><span class="line">pyenv local &lt;version&gt; -- automatically select whenever you are in the current directory (or its subdirectories)</span><br><span class="line">pyenv global &lt;version&gt; -- select globally for your user account</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定多个全局版本, 3版本优先</span></span><br><span class="line">pyenv global 3.6.5 2.7.14</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上当你切换版本后, 相应的pip和包仓库都是会自动切换过去的</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>pyenv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python venv</title>
+    <url>/2023/11/21/python%20venv/</url>
+    <content><![CDATA[<h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><p>在 Linux 中配置 Python 项目的运行虚拟环境通常使用 <code>venv</code>（虚拟环境）模块。以下是一般的步骤：</p>
+<ol>
+<li><p><strong>安装 venv 模块（如果尚未安装）：</strong></p>
+<p>检查你的 Python 版本并确保安装了 <code>venv</code> 模块。</p>
+</li>
+<li><p><strong>创建虚拟环境：</strong></p>
+<p>在项目目录中，运行以下命令创建一个名为 <code>myenv</code> 的虚拟环境：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 -m venv myenv</span><br></pre></td></tr></table></figure>
+
+<p>这将在当前目录创建一个名为 <code>myenv</code> 的虚拟环境文件夹。</p>
+</li>
+<li><p><strong>激活虚拟环境：</strong></p>
+<p>激活虚拟环境可通过以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source myenv/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>这将激活名为 <code>myenv</code> 的虚拟环境。激活后，你的终端提示符可能会显示虚拟环境的名称。</p>
+</li>
+<li><p><strong>安装项目依赖：</strong></p>
+<p>在激活的虚拟环境中，使用 <code>pip</code> 安装项目所需的依赖：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>requirements.txt</code> 是包含项目依赖项的文件。</p>
+</li>
+<li><p><strong>退出虚拟环境：</strong></p>
+<p>当你完成项目工作后，可以通过以下方式退出虚拟环境：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+<p>这将使虚拟环境退出，并恢复到系统默认环境。</p>
+</li>
+</ol>
+<p>使用虚拟环境有助于隔离项目的依赖，避免与系统其他项目的依赖冲突，并提供更干净的开发环境。</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>venv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>computer security model</title>
-    <url>/2023/11/20/computer%20security%20model/</url>
+    <url>/2023/11/20/security%20model/</url>
     <content><![CDATA[<ul>
 <li><a href="https://en.wikipedia.org/wiki/Access_control_list">Access control list</a> (ACL)</li>
 <li><a href="https://en.wikipedia.org/wiki/Attribute-based_access_control">Attribute-based access control</a> (ABAC)</li>
@@ -10089,20 +10180,6 @@
       </categories>
       <tags>
         <tag>model</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python security - authlib</title>
-    <url>/2023/10/31/python%20authlib/</url>
-    <content><![CDATA[<blockquote>
-<p>Security is always excessive until it’s not enough.</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>auth</tag>
       </tags>
   </entry>
 </search>
