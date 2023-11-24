@@ -9229,11 +9229,16 @@
   <entry>
     <title>python points</title>
     <url>/2023/07/24/python%20points/</url>
-    <content><![CDATA[<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><ul>
+    <content><![CDATA[<h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><p>项目粒度：python -m venv venv<br>                    poetry<br>系统粒度：pyenv<br>                    conda</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><ul>
 <li><p>安装tar.gz，解压之后，执行</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><ul>
+<li><p>安装子模块</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install &#x27;fastapi_amis_admin[cli]&#x27;  # 注意引号</span><br></pre></td></tr></table></figure></li>
 <li><p>查看指定依赖版本</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 show package_name</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip show package_name</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ul>
 <li><p>把项目的依赖放入指定文件</p>
@@ -9807,6 +9812,30 @@
 <ul>
 <li>不要在使用 assert 时加入括号，否则无论表达式对与错，assert 检查永远不会 fail</li>
 </ul>
+<h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><blockquote>
+<p>在 Python 中，解决资源泄露的方式是上下文管理器（context manager）。上下文管理器，能够帮助你自动分配并且释放资源，其中最典型的应用便是 with 语句</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">示例一：</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10000000</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">等同于</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f.write(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line">示例二：</span><br><span class="line">some_lock = threading.Lock()</span><br><span class="line"><span class="keyword">with</span> somelock:</span><br><span class="line">    ...</span><br><span class="line">等同于</span><br><span class="line">some_lock = threading.Lock()</span><br><span class="line">some_lock.acquire()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    some_lock.release()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>基于类的上下文管理器</p>
+<blockquote>
+<p>当我们用类来创建上下文管理器时，必须保证这个类包括方法<code>”__enter__()”</code>和方法<code>“__exit__()”</code>。其中，方法<code>“__enter__()”</code>返回需要被管理的资源，方法<code>“__exit__()”</code>里通常会存在一些释放、清理资源的操作，比如这个例子中的关闭文件等等。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileManager</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, mode</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;calling __init__ method&#x27;</span>)</span><br><span class="line">        self.name = name</span><br><span class="line">        self.mode = mode </span><br><span class="line">        self.file = <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;calling __enter__ method&#x27;</span>)</span><br><span class="line">        self.file = <span class="built_in">open</span>(self.name, self.mode)</span><br><span class="line">        <span class="keyword">return</span> self.file</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span>(<span class="params">self, exc_type, exc_val, exc_tb</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;calling __exit__ method&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> self.file:</span><br><span class="line">            self.file.close()</span><br><span class="line"><span class="comment"># 使用       </span></span><br><span class="line"><span class="keyword">with</span> FileManager(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;ready to write to file&#x27;</span>)</span><br><span class="line">    f.write(<span class="string">&#x27;hello world&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>基于生成器的上下文管理器</li>
+</ul>
+<blockquote>
+<p>使用装饰器 contextlib.contextmanager，来定义自己所需的基于生成器的上下文管理器，用以支持 with 语句</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> contextlib <span class="keyword">import</span> contextmanager</span><br><span class="line"> </span><br><span class="line"><span class="meta">@contextmanager</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file_manager</span>(<span class="params">name, mode</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        f = <span class="built_in">open</span>(name, mode)</span><br><span class="line">        <span class="keyword">yield</span> f</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        f.close()</span><br><span class="line">        </span><br><span class="line"><span class="keyword">with</span> file_manager(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(<span class="string">&#x27;hello world&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
 <hr>
 <h2 id="用法-tips"><a href="#用法-tips" class="headerlink" title="用法 tips"></a>用法 tips</h2><ul>
 <li><p>引用规范 <code>from your_file import function_name, class_name</code></p>
@@ -9873,9 +9902,14 @@
     <title>python poetry</title>
     <url>/2023/11/03/python%20poetry/</url>
     <content><![CDATA[<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
-<li><input disabled="" type="checkbox"> build backend : use hatch <ul>
+<li><p><input disabled="" type="checkbox">  build backend : use hatch </p>
+<ul>
 <li><a href="https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec">https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec</a></li>
 </ul>
+</li>
+<li><p><a href="https://peps.python.org/pep-0621/">PEP 621 </a></p>
+</li>
+<li><p><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">Packaging Python Projects</a></p>
 </li>
 </ul>
 <h2 id="POINT"><a href="#POINT" class="headerlink" title="POINT"></a>POINT</h2><blockquote>
@@ -9892,11 +9926,40 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">poetry shell</span><br></pre></td></tr></table></figure></li>
 <li><p>通过<code>requirement</code>添加依赖</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry add $( cat requirements.txt )</span><br></pre></td></tr></table></figure></li>
+<li><p>build编译</p>
+<p>如果使用build backend非默认的poetry core，则直接使用其他编译工具命令执行编译</p>
+</li>
+</ul>
+<h2 id="HATCH"><a href="#HATCH" class="headerlink" title="HATCH"></a>HATCH</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li><p>虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -m venv venv</span><br><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure></li>
+<li><p>创建hatch虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hatch env create</span><br><span class="line">hatch shell </span><br></pre></td></tr></table></figure></li>
+<li><p>pycharm配置</p>
+<p>虚拟环境需配置成 <code>hatch shell</code>提示的目录</p>
+</li>
+<li><p>更新依赖</p>
+<ul>
+<li>运行 <code>hatch shell</code>命令</li>
+</ul>
+</li>
+<li><p>查看环境信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hatch env show --ascii</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li><p>方式一：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -m pip install --upgrade build</span><br><span class="line">python3 -m build</span><br><span class="line"><span class="meta">#</span><span class="bash"> 一旦完成应该在 dist 目录下产生两个文件：</span></span><br></pre></td></tr></table></figure>
+
+<p>方式二：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hatch build</span><br></pre></td></tr></table></figure></li>
 </ul>
 <hr>
 <p><strong>Reference</strong></p>
 <ul>
-<li><a href="https://drivendata.co/blog/python-packaging-2023">THE BASICS OF PYTHON PACKAGING IN EARLY</a></li>
+<li><p><a href="https://drivendata.co/blog/python-packaging-2023">THE BASICS OF PYTHON PACKAGING IN EARLY</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/666166082">https://zhuanlan.zhihu.com/p/666166082</a></p>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -10099,6 +10162,17 @@
     <url>/2023/11/21/python%20pyenv/</url>
     <content><![CDATA[<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看当前版本</span></span><br><span class="line">pyenv version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有版本</span></span><br><span class="line">pyenv versions</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有可安装的版本</span></span><br><span class="line">pyenv install --list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装指定版本</span></span><br><span class="line">pyenv install 3.6.5</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装新版本后<span class="built_in">rehash</span>一下</span></span><br><span class="line">pyenv rehash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除指定版本</span></span><br><span class="line">pyenv uninstall 3.5.2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定版本</span></span><br><span class="line">pyenv shell &lt;version&gt; -- select just for current shell session</span><br><span class="line">pyenv local &lt;version&gt; -- automatically select whenever you are in the current directory (or its subdirectories)</span><br><span class="line">pyenv global &lt;version&gt; -- select globally for your user account</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定多个全局版本, 3版本优先</span></span><br><span class="line">pyenv global 3.6.5 2.7.14</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上当你切换版本后, 相应的pip和包仓库都是会自动切换过去的</span></span><br></pre></td></tr></table></figure>
 
+
+
+
+
+
+
+<hr>
+<p>reference</p>
+<ul>
+<li><a href="https://realpython.com/intro-to-pyenv/#specifying-your-python-version">specifying-your-python-version</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>python</category>
