@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-23 09:11:25" itemprop="dateModified" datetime="2023-11-23T09:11:25+08:00">2023-11-23</time>
+                <time title="Modified: 2023-11-27 17:23:44" itemprop="dateModified" datetime="2023-11-27T17:23:44+08:00">2023-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,7 +254,7 @@
 <li><p>通过<code>requirement</code>添加依赖</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry add $( cat requirements.txt )</span><br></pre></td></tr></table></figure></li>
 <li><p>build编译</p>
-<p>如果使用build backend非默认的poetry core，则直接使用其他编译工具命令执行编译</p>
+<p>如果使用<code>build backend</code>非默认的<code>poetry core</code>，则直接使用其他编译工具命令执行编译</p>
 </li>
 </ul>
 <h2 id="HATCH"><a href="#HATCH" class="headerlink" title="HATCH"></a>HATCH</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
@@ -279,6 +279,14 @@
 
 <p>方式二：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hatch build</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a>代码格式化</h3><ul>
+<li>配置</li>
+</ul>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[tool.hatch.envs.lint.scripts]</span></span><br><span class="line"><span class="attr">typing</span> = <span class="string">&quot;mypy --install-types --non-interactive &#123;args:src/jarvex_auth tests&#125;&quot;</span></span><br><span class="line"><span class="attr">style</span> = [</span><br><span class="line">  <span class="string">&quot;ruff &#123;args:.&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;black --check --diff &#123;args:.&#125;&quot;</span>,</span><br><span class="line">]</span><br><span class="line"><span class="attr">fmt</span> = [</span><br><span class="line">  <span class="string">&quot;black &#123;args:.&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;ruff --fix &#123;args:.&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;style&quot;</span>,</span><br><span class="line">]</span><br><span class="line"><span class="attr">all</span> = [</span><br><span class="line">  <span class="string">&quot;style&quot;</span>,</span><br><span class="line">  <span class="string">&quot;typing&quot;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行命令<code>hatch run lint:fmt</code></li>
 </ul>
 <hr>
 <p><strong>Reference</strong></p>
