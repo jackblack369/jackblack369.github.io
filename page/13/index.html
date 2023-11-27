@@ -174,6 +174,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/21/neo4j%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/21/neo4j%20snippet/" class="post-title-link" itemprop="url">neo4j snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-21 17:17:00" itemprop="dateCreated datePublished" datetime="2017-11-21T17:17:00+08:00">2017-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-13 01:36:45" itemprop="dateModified" datetime="2022-01-13T01:36:45+08:00">2022-01-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/neo4j/" itemprop="url" rel="index"><span itemprop="name">neo4j</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>cypher语法对大小写敏感，注意属性的大小写</li>
+<li>导入csv出现乱码时，需要通过记事本更改编码格式，如果文本过大，需要一段一段的复制粘贴到新文本中，且以UTF-8格式编码</li>
+<li>MERGE命令是CREATE命令和MATCH命令的组合。<code>MERGE = CREATE + MATCH</code></li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>1.<br>​    <strong>现象</strong>： 在外部处理csv数据，导入服务器，然后load csv到neo4j中，可能由于文件所属问题，不能成功导入csv，提示<code>Couldn&#39;t load the external resource</code>的错误。<br>​    <strong>解决</strong>：复制可以导入的csv文件为副本，把待导入的数据粘贴到副本中，load csv副本即可</p>
+<p>2.<br>​    <strong>现象</strong>： 在外部处理csv数据，进行merge操作的时候，提示<code>cannot merge using null property value for uid</code>的错误。<br>​    <strong>解决</strong>：经发现，是由于指令中的属性拼写错误，导致<code>Neo.ClientError.Statement.SemanticError</code>的错误，例如把<code>sfzh</code>拼写成<code>sfhm</code>。</p>
+<p>3.<br>​    <strong>现象</strong>： 大量数据的导入问题。<br>​    <strong>解决</strong>：需使用<a target="_blank" rel="noopener" href="https://neo4j.com/docs/operations-manual/current/tools/import/" title="大量数据的导入">https://neo4j.com/docs/operations-manual/current/tools/import/</a><br>​    <strong>注意</strong>：<code>Import tool is only for newly created databases.</code><br>​        <code>You can use LOAD CSV cypher command to load into an existing database.</code>也就是说neo4j-admin import只会在新建数据库的时候会用到</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/jpa%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1115,92 +1196,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/other%20tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/16/other%20tips/" class="post-title-link" itemprop="url">other snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-02-16 12:01:30" itemprop="dateCreated datePublished" datetime="2017-02-16T12:01:30+08:00">2017-02-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/fragment/" itemprop="url" rel="index"><span itemprop="name">fragment</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="other-snippet"><a href="#other-snippet" class="headerlink" title="other snippet"></a>other snippet</h2><h3 id="generate-code-based-proto-file"><a href="#generate-code-based-proto-file" class="headerlink" title="generate code based proto file"></a>generate code based proto file</h3><p><code>protoc --proto_path=扫描目录 --java_out=代码生成目录 proto文件目录</code></p>
-<blockquote>
-<p>protoc –proto_path=src –java_out=build/gen src/foo.proto</p>
-</blockquote>
-<h3 id="Spring-provides-three-way-of-scheduling"><a href="#Spring-provides-three-way-of-scheduling" class="headerlink" title="Spring provides three way of scheduling:"></a>Spring provides three way of scheduling:</h3><ul>
-<li>@Scheduled</li>
-<li>Via Quartz</li>
-<li>Via JDK Timer</li>
-</ul>
-<hr>
-<h3 id="one-word"><a href="#one-word" class="headerlink" title="one word"></a>one word</h3><ul>
-<li>\x对应的是UTF-8编码的数据</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1270,18 +1265,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

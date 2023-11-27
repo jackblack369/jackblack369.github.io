@@ -174,6 +174,167 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/10/16/linux%20command/" class="post-title-link" itemprop="url">linux command</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-24 15:22:45" itemprop="dateModified" datetime="2023-07-24T15:22:45+08:00">2023-07-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
+<h3 id="Bash-Shell-Scripting-Definition"><a href="#Bash-Shell-Scripting-Definition" class="headerlink" title="Bash Shell Scripting Definition"></a>Bash Shell Scripting Definition</h3><ul>
+<li>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. <h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
+<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><ul>
+<li>kill seesion <code>screen -X -S [session # you want to kill] quit</code></li>
+<li>新建screen会话           screen -S xxx</li>
+<li>恢复指定会话               screen -r xxx</li>
+<li>查看所有会话                screen -ls</li>
+<li>删除指定会话                screen -S xxx -X quit</li>
+<li>回到终端                        Ctrl-a d</li>
+</ul>
+<h3 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h3><ul>
+<li><p>check status : <code>sudo ufw status</code></p>
+</li>
+<li><p>enable firewall: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">Command may disrupt existing ssh connections. Proceed with operation (y|n)? y</span><br><span class="line">Firewall is active and enabled on system startup</span><br></pre></td></tr></table></figure></li>
+<li><p>disable firewall</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="磁盘相关"><a href="#磁盘相关" class="headerlink" title="磁盘相关"></a>磁盘相关</h3><ul>
+<li><p>查看系统磁盘占用情况    <code> df -h</code></p>
+</li>
+<li><p>查看目录下文件大小        <code>du -sh</code></p>
+</li>
+<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -h --max-depth=1 </code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看当前目录下user目录的大小，并不想看其他目录以及其子目录：</span><br><span class="line">du -sh user</span><br><span class="line">-s表示总结的意思，即只列出一个总结的值</span><br><span class="line">du -h --max-depth=0 user</span><br><span class="line">--max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。</span><br></pre></td></tr></table></figure></li>
+<li><p>总结du常用命令</p>
+<p><strong>du -h –max-depth=1 |grep ‘G’ |sort   #查看上G目录并排序</strong></p>
+<p>du -h –max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序<br>du -sh –max-depth=1  #查看当前目录下所有一级子目录文件夹大小</p>
+</li>
+<li><p>清理指定目录下的文件</p>
+<p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
+<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
+
+<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>限定查询结果之后的前几行 <code>grep -m 10 &lt;pattern&gt; &lt;file&gt; </code></p>
+<p>限定查询结果倒数的几行 <code>grep &lt;pattern&gt; &lt;file&gt; | tail -10</code></p>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><ul>
+<li><p>判断　day of year     </p>
+<p><code>doy=$(date +%j)</code></p>
+</li>
+<li><p>制定日期减一天</p>
+<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
+</li>
+<li><p>当前时间戳（秒）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date +%s</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
+<p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
+<h3 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载服务器文件    sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
+
+<h3 id="tr命令"><a href="#tr命令" class="headerlink" title="tr命令"></a>tr命令</h3><p>tr – translate or delete characters </p>
+<ul>
+<li>大小写转换<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
+<li><p>“1”</p>
+<p>查看所有CPU核的使用情况</p>
+</li>
+<li><p>“c”</p>
+<p>查看具体进程的路径</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line"></span><br><span class="line">　　t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line"></span><br><span class="line">　　m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line"></span><br><span class="line">　　N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line"></span><br><span class="line">　　P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　h - 显示帮助</span><br><span class="line"></span><br><span class="line">　　n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line"></span><br><span class="line">　　q - 退出 top</span><br><span class="line"></span><br><span class="line">　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看指定服务的运行情况"><a href="#查看指定服务的运行情况" class="headerlink" title="查看指定服务的运行情况"></a>查看指定服务的运行情况</h3><ul>
+<li><code>journalctl -u xxx.service</code></li>
+</ul>
+<h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="清理缓存"><a href="#清理缓存" class="headerlink" title="清理缓存"></a>清理缓存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="centos安装离线依赖"><a href="#centos安装离线依赖" class="headerlink" title="centos安装离线依赖"></a>centos安装离线依赖</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh name.rpm</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20file/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1239,18 +1400,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
