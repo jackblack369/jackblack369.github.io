@@ -4385,10 +4385,17 @@
 </li>
 </ul>
 <h2 id="SSE（Server-Sent-Events）"><a href="#SSE（Server-Sent-Events）" class="headerlink" title="SSE（Server-Sent Events）"></a>SSE（Server-Sent Events）</h2><p><img src="/images/http/overview-sse.webp"></p>
-<ul>
-<li></li>
-<li></li>
-<li><a href="https://juejin.cn/post/7221125237500330039">https://juejin.cn/post/7221125237500330039</a></li>
+<h3 id="client"><a href="#client" class="headerlink" title="client"></a>client</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GET/POST /api/v1/live-scores </span><br><span class="line">Accept: text/event-stream</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>Accept: text/event-stream</code> indicates the client waiting for event stream from the server, <code>Cache-Control: no-cache</code> indicates that disabling the caching and <code>Connection: keep-alive</code> indicates the persistent connection. This request will give us an open connection which we are going to use to fetch updates. After the connection, the server can send messages when the events are ready to send by the server. The important thing is that events are text messages in <code>UTF-8</code> encoding.</p>
+</blockquote>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><h3 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h3><ul>
+<li>One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.</li>
+<li>When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)</li>
+</ul>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a href="https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73">https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -9263,6 +9270,8 @@
 <ul>
 <li><p>把项目的依赖放入指定文件</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt</span><br></pre></td></tr></table></figure></li>
+<li><p>清除缓存</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -m pip cache purge</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="信创"><a href="#信创" class="headerlink" title="信创"></a>信创</h2><ul>
 <li><p>安装python3-devel</p>
@@ -9930,7 +9939,7 @@
 <li><p><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">Packaging Python Projects</a></p>
 </li>
 </ul>
-<h2 id="POINT"><a href="#POINT" class="headerlink" title="POINT"></a>POINT</h2><blockquote>
+<h2 id="POETRY"><a href="#POETRY" class="headerlink" title="POETRY"></a>POETRY</h2><blockquote>
 <p>每个使用 Poetry 的项目都会有自己的虚拟环境，这样可以避免不同项目之间的依赖冲突。因此，每个项目的依赖项都会独立存放在各自的虚拟环境中。</p>
 </blockquote>
 <ul>
@@ -9979,6 +9988,16 @@
 <ul>
 <li>执行命令<code>hatch run lint:fmt</code></li>
 </ul>
+<h2 id="Flit"><a href="#Flit" class="headerlink" title="Flit"></a>Flit</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flit install</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
 <hr>
 <p><strong>Reference</strong></p>
 <ul>

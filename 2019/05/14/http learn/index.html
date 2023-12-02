@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/eZzl4LXykQwdKAeT5rjMFfDXeITCDnbwnNXWrFDaIIhBibAk4N83H5dKXAkMNleqewC53Y8WQ6cOhRjA7k4SuMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 <meta property="og:image" content="http://yoursite.com/images/http/overview-sse.webp">
 <meta property="article:published_time" content="2019-05-14T02:07:30.000Z">
-<meta property="article:modified_time" content="2023-11-29T17:29:05.182Z">
+<meta property="article:modified_time" content="2023-11-29T17:39:08.058Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-30 01:29:05" itemprop="dateModified" datetime="2023-11-30T01:29:05+08:00">2023-11-30</time>
+                <time title="Modified: 2023-11-30 01:39:08" itemprop="dateModified" datetime="2023-11-30T01:39:08+08:00">2023-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,10 +265,17 @@
 </li>
 </ul>
 <h2 id="SSE（Server-Sent-Events）"><a href="#SSE（Server-Sent-Events）" class="headerlink" title="SSE（Server-Sent Events）"></a>SSE（Server-Sent Events）</h2><p><img src="/images/http/overview-sse.webp"></p>
-<ul>
-<li></li>
-<li></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7221125237500330039">https://juejin.cn/post/7221125237500330039</a></li>
+<h3 id="client"><a href="#client" class="headerlink" title="client"></a>client</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET/POST /api/v1/live-scores </span><br><span class="line">Accept: text/event-stream</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>Accept: text/event-stream</code> indicates the client waiting for event stream from the server, <code>Cache-Control: no-cache</code> indicates that disabling the caching and <code>Connection: keep-alive</code> indicates the persistent connection. This request will give us an open connection which we are going to use to fetch updates. After the connection, the server can send messages when the events are ready to send by the server. The important thing is that events are text messages in <code>UTF-8</code> encoding.</p>
+</blockquote>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><h3 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h3><ul>
+<li>One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.</li>
+<li>When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)</li>
+</ul>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73">https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73</a></li>
 </ul>
 
     </div>
@@ -358,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#http-1-0-http-1-1"><span class="nav-number">1.</span> <span class="nav-text">http 1.0 http 1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSockets"><span class="nav-number">2.</span> <span class="nav-text">WebSockets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSE%EF%BC%88Server-Sent-Events%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">SSE（Server-Sent Events）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#http-1-0-http-1-1"><span class="nav-number">1.</span> <span class="nav-text">http 1.0 http 1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSockets"><span class="nav-number">2.</span> <span class="nav-text">WebSockets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSE%EF%BC%88Server-Sent-Events%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">SSE（Server-Sent Events）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#client"><span class="nav-number">3.1.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server"><span class="nav-number">3.2.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disadvantages"><span class="nav-number">3.3.</span> <span class="nav-text">Disadvantages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ref"><span class="nav-number">3.4.</span> <span class="nav-text">ref</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
