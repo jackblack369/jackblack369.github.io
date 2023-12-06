@@ -1319,7 +1319,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-16 15:42:46" itemprop="dateModified" datetime="2023-11-16T15:42:46+08:00">2023-11-16</time>
+                <time title="Modified: 2023-12-06 11:25:50" itemprop="dateModified" datetime="2023-12-06T11:25:50+08:00">2023-12-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1435,6 +1435,28 @@
 </li>
 <li><p>给stash添加描述：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save <span class="string">&quot;stash message&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h2><p><a target="_blank" rel="noopener" href="https://waynerv.com/posts/git-rebase-intro/">git rebase 用法详解与工作原理</a></p>
+<ol>
+<li><p><strong>更新本地主分支（通常是 master 或 main）:</strong> 获取原始仓库的最新更改并合并到你的本地主分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master  # 切换到你的本地主分支</span><br><span class="line">git pull upstream master  # 从原始仓库拉取最新更改到本地主分支</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>切换到你的新分支并进行 rebase:</strong> 切换到你的新分支并将其 rebase 到主分支上：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;你的新分支&gt;</span><br><span class="line">git rebase master  # 将新分支 rebase 到你的本地主分支</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>解决冲突（如果有）:</strong> 如果在 rebase 过程中出现冲突，你需要手动解决冲突，然后使用 <code>git add</code> 标记为已解决。</p>
+</li>
+<li><p><strong>推送更改到远程仓库:</strong> 推送你的更改到远程仓库：</p>
+<ul>
+<li>如果是新分支</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;你的新分支&gt; --force  # 强制推送到你的 fork 仓库的新分支上</span><br></pre></td></tr></table></figure>
+
+<p>请注意：使用 <code>--force</code> 参数进行强制推送时，请确保你了解它的影响。它可能会覆盖远程分支的历史记录，因此务必小心操作。</p>
+<ul>
+<li>如果是已有分支</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>创建 Pull Request:</strong> 在你的 fork 仓库中，从新分支创建一个 Pull Request（PR），将你的更改合并到原始仓库的目标分支</p>
+</li>
 </ol>
 <h2 id="merge-commit"><a href="#merge-commit" class="headerlink" title="merge commit"></a>merge commit</h2><ol>
 <li><p>merge the last 3 commits into a single commit.</p>
