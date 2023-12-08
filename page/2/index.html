@@ -174,6 +174,212 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/05/gateway%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/05/gateway%20snippet/" class="post-title-link" itemprop="url">gateway snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-11-05 16:44:45" itemprop="dateCreated datePublished" datetime="2023-11-05T16:44:45+08:00">2023-11-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-29 22:24:31" itemprop="dateModified" datetime="2023-11-29T22:24:31+08:00">2023-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gateway/" itemprop="url" rel="index"><span itemprop="name">gateway</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://www.baeldung.com/wp-content/uploads/2020/05/spring-cloud-gateway-webfilters-2.jpg"></p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><ul>
+<li>LB， “Load Balancing”（负载均衡）的缩写。负载均衡是一种分布式系统中常见的策略，用于将请求均匀地分发到多个服务实例上，以避免某个实例负载过重，提高整体系统的性能、可靠性和可用性。</li>
+<li>restful header中的所有key，对应的值其实都是集合，只是大多数情况下集合里面只有一个元素</li>
+</ul>
+<h3 id="spring-cloud-gateway"><a href="#spring-cloud-gateway" class="headerlink" title="spring cloud gateway"></a>spring cloud gateway</h3><ul>
+<li><code>DefaultErrorWebExceptionHandler</code> 是 Spring Web 的默认实现类，实现了 <code>ErrorWebExceptionHandler</code> 接口。它提供了默认的错误处理行为，当没有自定义的 <code>ErrorWebExceptionHandler</code> 实现时，Spring Boot 将使用 <code>DefaultErrorWebExceptionHandler</code> 来处理错误。</li>
+<li><strong>原生的spring cloud gateway进行请求转发，所有的微服务实例与gateway服务实例在nacos中必须是同一个namesapce和同一个group。</strong></li>
+</ul>
+<h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><ul>
+<li>使用spring cloud gateway通过代码方式或配置文件方式实现</li>
+</ul>
+<h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h1><h2 id="spring-cloud-gateway-与-nacos结合实现"><a href="#spring-cloud-gateway-与-nacos结合实现" class="headerlink" title="spring cloud gateway 与 nacos结合实现"></a>spring cloud gateway 与 nacos结合实现</h2><blockquote>
+<p>实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。</p>
+</blockquote>
+<ul>
+<li><p>场景一（基础）</p>
+<p>可以先在nacos的配置管理中，添加微服务的配置信息（端口、路由等），然后启动微服务程序（不用配置相关端口配置）</p>
+</li>
+<li><p>场景二（predicate）</p>
+<p>可以控制请求的cookie、header、host、method、path、query、RemoteAddr、Weight（按照权重将请求分发到不同节点服务）</p>
+</li>
+<li><p>场景三（filters）</p>
+<p>可以控制请求的AddRequestHeader、AddResponseHeader、DedupeResponseHeader、DedupeResponseHeader、CircuitBreaker（断路器）、FallbackHeaders、PrefixPath、PreserveHostHeader（加上请求者的ip信息）、RequestRateLimiter（限流）、RedirectTo、RemoveRequestHeader、RemoveResponseHeader、RewritePath（将请求参数中的路径做变换）、RewriteLocationResponseHeader、RewriteResponseHeader、SecureHeaders、SetPath、SetRequestHeader、SetResponseHeader、SetStatus、StripPrefix、Retry、RequestSize、SetRequestHostHeader、ModifyRequestBody、ModifyResponseBody、TokenRelay（配合鉴权）</p>
+</li>
+<li><p>场景四（限流）</p>
+<ul>
+<li>请求同一目标地址</li>
+</ul>
+</li>
+<li><p>场景五（修改请求和响应body）</p>
+</li>
+<li><p>场景六（地址分发）</p>
+<ul>
+<li>有多个后端应用服务</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>spring cloud gateway中如果配置文件使用lb访问服务，那需要引入lb相关依赖包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-loadbalancer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gateway:</span></span><br><span class="line">  <span class="comment"># 跨域配置</span></span><br><span class="line">  <span class="attr">globalcors:</span></span><br><span class="line">    <span class="attr">corsConfigurations:</span></span><br><span class="line">      <span class="string">&#x27;[/**]&#x27;</span><span class="string">:</span></span><br><span class="line">        <span class="attr">allowedOrigins:</span> <span class="string">&quot;*&quot;</span></span><br><span class="line">        <span class="attr">allowedMethods:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">GET</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">POST</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">PUT</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">DELETE</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">OPTIONS</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">HEAD</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.spring.io/spring-cloud-gateway/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories">官网</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/boling_cavalry/category_9278131.html">程序员欣宸</a></p>
+</li>
+<li><p>其它</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/abu935009066/article/details/112245330">https://blog.csdn.net/abu935009066/article/details/112245330</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#3-Gateway%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3">http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#3-Gateway%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/logstash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/03/logstash/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-03 09:28:27 / Modified: 09:28:41" itemprop="dateCreated datePublished" datetime="2023-11-03T09:28:27+08:00">2023-11-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/logstash/" itemprop="url" rel="index"><span itemprop="name">logstash</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p>Logstash Forwarder/Beats负责在源服务器上收集日志数据，然后将数据发送到集中式的Logstash或Kafka服务器。</p>
+</li>
+<li><p>Logstash是一个灵活的数据收集引擎，它可以从多个来源（包括日志文件、标准输入、Beats等）采集数据，进行转换、过滤和解析，最后将数据发送到各种目的地，比如Elasticsearch、Kafka等。在日志处理中，Logstash常被用作数据的转换和预处理工具。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/python%20poetry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1261,167 +1467,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/21/dameng%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/21/dameng%20snippet/" class="post-title-link" itemprop="url">dameng snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-08-21 14:45:05 / Modified: 14:45:27" itemprop="dateCreated datePublished" datetime="2023-08-21T14:45:05+08:00">2023-08-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/snippet/" itemprop="url" rel="index"><span itemprop="name">snippet</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>连接url带上schema信息</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/10/flink%20upsert%20stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/10/flink%20upsert%20stream/" class="post-title-link" itemprop="url">flink upsert stream</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-08-10 10:47:36" itemprop="dateCreated datePublished" datetime="2023-08-10T10:47:36+08:00">2023-08-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-24 14:02:33" itemprop="dateModified" datetime="2023-10-24T14:02:33+08:00">2023-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="upsert-kafka"><a href="#upsert-kafka" class="headerlink" title="upsert kafka"></a>upsert kafka</h1><p>The Kafka connector in Flink SQL can work in two streaming modes. </p>
-<p><strong>Upsert mode</strong> allows us to get the latest value for a specific entity automatically without any manual deduplication. One of the typical scenarios where you can leverage this mode is a SQL join of two tables, where one of the tables is keeping history of changes per some entity id. Once you join on such an entity id which is non-unique by design, you get unwanted rows, but you usually want to see the latest value of that entity. With upsert mode, Flink automatically normalizes before the tables are joined. Eventually it allows you to easily answer typical business questions on getting a real-time view of the shared resources like cars, planes, workers, etc.</p>
-<p><strong>Append mode</strong> is still an option to go with, if a business query does not need to filter out all historical events, but rather show the history of changes at the end. In this scenario, query may run faster with append mode, as Flink does not need to do any changelog normalization.</p>
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
-<li><p>upsert-kafka 可以配合 checkpoint使用，这样不需要再从头消费之前的数据</p>
-</li>
-<li><p>如果kafka中key没有值，是不符合upsert-kafka的格式的，flink sql引用此类topic为upsert-kafka，则不会触发计算</p>
-</li>
-</ul>
-<h2 id="deduplication"><a href="#deduplication" class="headerlink" title="deduplication"></a>deduplication</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [column_list]</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">   <span class="keyword">SELECT</span> [column_list],</span><br><span class="line">     <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> ([<span class="keyword">PARTITION</span> <span class="keyword">BY</span> col1[, col2...]]</span><br><span class="line">       <span class="keyword">ORDER</span> <span class="keyword">BY</span> time_attr [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>]) <span class="keyword">AS</span> rownum</span><br><span class="line">   <span class="keyword">FROM</span> table_name)</span><br><span class="line"><span class="keyword">WHERE</span> rownum <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>注意 在内嵌的 select语句中，建议使用 column_list 查询指定的字段，不要使用 * 代指所有指标。否则查询upsert-kafka会，一直从最新的记录读取。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1487,18 +1536,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

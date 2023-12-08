@@ -174,6 +174,162 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/07/fabric8(docker-maven-plugin)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/07/fabric8(docker-maven-plugin)/" class="post-title-link" itemprop="url">fabric8 & docker-maven-plugin</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-07 13:59:21" itemprop="dateCreated datePublished" datetime="2022-01-07T13:59:21+08:00">2022-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-20 11:01:02" itemprop="dateModified" datetime="2022-04-20T11:01:02+08:00">2022-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/07/file%20system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/07/file%20system/" class="post-title-link" itemprop="url">file system</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-07 13:59:21 / Modified: 14:23:11" itemprop="dateCreated datePublished" datetime="2022-01-07T13:59:21+08:00">2022-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/file-system/" itemprop="url" rel="index"><span itemprop="name">file system</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><img src="/images/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
+<ul>
+<li><p>Mac 默认可以读 Windows 的 NTFS 格式，但不能写。</p>
+</li>
+<li><p>Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。</p>
+</li>
+<li><p>Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式</p>
+</li>
+<li><p>linux</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）</span><br><span class="line"></span><br><span class="line">不同文件系统采用不同的方法来管理磁盘空间，各有优劣；文件系统是具体到分区的，所以格式化针对的是分区，分区格式化是指采用指定的文件系统类型对分区空间进行登记、索引并建立相应的管理表格的过程。</span><br><span class="line"></span><br><span class="line">ext2具有极快的速度和极小的CPU占用率，可用于硬盘和移动存储设备</span><br><span class="line">ext3增加日志功能，可回溯追踪</span><br><span class="line">ext4日志式文件系统，支持1EB（1024*1024TB），最大单文件16TB，支持连续写入可减少文件碎片。rhel6默认文件系统</span><br><span class="line">xfs可以管理500T的硬盘。rhel7默认文件系统</span><br><span class="line">brtfs文件系统针对固态盘做优化，</span><br></pre></td></tr></table></figure></li>
+<li><p>windows</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低</span><br><span class="line">FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB</span><br><span class="line">NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613">https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/05/flink%20join/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1138,209 +1294,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/29/clickhouse/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/29/clickhouse/" class="post-title-link" itemprop="url">clickhouse points</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-29 19:11:30" itemprop="dateCreated datePublished" datetime="2021-12-29T19:11:30+08:00">2021-12-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-06 19:06:46" itemprop="dateModified" datetime="2023-07-06T19:06:46+08:00">2023-07-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/clickhouse/" itemprop="url" rel="index"><span itemprop="name">clickhouse</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="存储架构"><a href="#存储架构" class="headerlink" title="存储架构"></a>存储架构</h2><blockquote>
-<p>Clickhouse 存储中的最小单位是 DataPart，写入链路为了提升吞吐，放弃了部分写入实时可见性，即数据攒批写入，一次批量写入的数据会落盘成一个 DataPart.</p>
-<p>它不像 Druid 那样一条一条实时摄入。但 ClickHouse 把数据延迟攒批写入的工作交给来客户端实现，比如达到 10 条记录或每过 5s 间隔写入，换句话说就是可以在用户侧平衡吞吐量和时延，如果在业务高峰期流量不是太大，可以结合实际场景将参数调小，以达到极致的实时效果。</p>
-</blockquote>
-<h2 id="查询架构"><a href="#查询架构" class="headerlink" title="查询架构"></a>查询架构</h2><h3 id="计算能力方面"><a href="#计算能力方面" class="headerlink" title="计算能力方面"></a>计算能力方面</h3><p>Clickhouse 采用向量化函数和 aggregator 算子极大地提升了聚合计算性能，配合完备的 SQL 能力使得数据分析变得更加简单、灵活。</p>
-<h3 id="数据扫描方面"><a href="#数据扫描方面" class="headerlink" title="数据扫描方面"></a>数据扫描方面</h3><p>ClickHouse 是完全列式的存储计算引擎，而且是以有序存储为核心，在查询扫描数据的过程中，首先会根据存储的有序性、列存块统计信息、分区键等信息推断出需要扫描的列存块，然后进行并行的数据扫描，像表达式计算、聚合算子都是在正规的计算引擎中处理。从计算引擎到数据扫描，数据流转都是以列存块为单位，高度向量化的。</p>
-<h3 id="高并发服务方面"><a href="#高并发服务方面" class="headerlink" title="高并发服务方面"></a>高并发服务方面</h3><p>Clickhouse 的并发能力其实是与并行计算量和机器资源决定的。如果查询需要扫描的数据量和计算复杂度很大，并发度就会降低，但是如果保证单个 query 的 latency 足够低（增加内存和 cpu 资源），部分场景下用户可以通过设置合适的系统参数来提升并发能力，比如 max_threads 等。其他分析型系统（例如 Elasticsearch）的并发能力为什么很好，从 Cache 设计层面来看，ES 的 Cache 包括 Query Cache, Request Cache，Data Cache，Index Cache，从查询结果到索引扫描结果层层的 Cache 加速，因为 Elasticsearch 认为它的场景下存在热点数据，可能被反复查询。反观 ClickHouse，只有一个面向 IO 的 UnCompressedBlockCache 和系统的 PageCache，为了实现更优秀的并发，我们很容易想到在 Clickhouse 外面加一层 Cache，比如 redis，但是分析场景下的数据和查询都是多变的，查询结果等 Cache 都不容易命中，而且在广投业务中实时查询的数据是基于 T 之后不断更新的数据，如果外挂缓存将降低数据查询的时效性。</p>
-<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="唯一键约束"><a href="#唯一键约束" class="headerlink" title="唯一键约束"></a>唯一键约束</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> qilu.t_01(</span><br><span class="line">	C1 String,</span><br><span class="line">	C2 String,</span><br><span class="line">	C3 String,</span><br><span class="line">	C4 <span class="type">Date</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (C1) # 要设置主键</span><br><span class="line">) engine<span class="operator">=</span>ReplacingMergeTree() # 引擎要用ReplacingMergeTree</span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> C1; # 要设置排序</span><br><span class="line"></span><br><span class="line">optimize <span class="keyword">table</span> t_01 <span class="keyword">FINAL</span>; # 要强制合并分区</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/29/cdc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/29/cdc/" class="post-title-link" itemprop="url">cdc & 实时数仓 points</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-29 17:42:30" itemprop="dateCreated datePublished" datetime="2021-12-29T17:42:30+08:00">2021-12-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-05 11:02:31" itemprop="dateModified" datetime="2022-01-05T11:02:31+08:00">2022-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cdc/" itemprop="url" rel="index"><span itemprop="name">cdc</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Change Data Capture（变更数据获取）</strong></p>
-<p>核心思想是，监测并捕获数据库的变动（包括数据或数据表的插入、更新以及删除等），将这些变更按发生的顺序完整记录下来，写入到消息中间件中以供其他服务进行订阅及消费。</p>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
-<li><strong>数据同步</strong>，用于备份，容灾；</li>
-<li><strong>数据分发</strong>，一个数据源分发给多个下游；</li>
-<li><strong>数据采集</strong>(E)，面向数据仓库/数据湖的 ETL 数据集成。</li>
-</ul>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>主要分为<strong>基于查询</strong>和<strong>基于 Binlog</strong> 两种方式</p>
-<h3 id="传统-CDC-ETL"><a href="#传统-CDC-ETL" class="headerlink" title="传统 CDC ETL"></a>传统 CDC ETL</h3><p><img src="/images/cdc/cdc_etl.png"></p>
-<h3 id="基于-Flink-CDC-的-ETL-分析"><a href="#基于-Flink-CDC-的-ETL-分析" class="headerlink" title="基于 Flink CDC 的 ETL 分析"></a>基于 Flink CDC 的 ETL 分析</h3><p><img src="/images/cdc/flink_cdc_etl.png"></p>
-<h3 id="基于-Flink-CDC-的聚合分析"><a href="#基于-Flink-CDC-的聚合分析" class="headerlink" title="基于 Flink CDC 的聚合分析"></a>基于 Flink CDC 的聚合分析</h3><p><img src="/images/cdc/flink_cdc_aggregate.png"></p>
-<h3 id="基于-Flink-CDC-的数据打宽"><a href="#基于-Flink-CDC-的数据打宽" class="headerlink" title="基于 Flink CDC 的数据打宽"></a>基于 Flink CDC 的数据打宽</h3><p><img src="/images/cdc/flink_cdc_merge.png"></p>
-<h2 id="性能点"><a href="#性能点" class="headerlink" title="性能点"></a>性能点</h2><p>大数据领域的 4 类场景：</p>
-<p><strong>B</strong>    batch    离线计算</p>
-<p><strong>A</strong>    Analytical    交互式分析</p>
-<p><strong>S</strong>    Servering    高并发的在线服务</p>
-<p><strong>T</strong>    Transaction    事务隔离机制</p>
-<blockquote>
-<p>离线计算通常在计算层，所以应该重点考虑 A、S 和 T</p>
-</blockquote>
-<h2 id="考虑点"><a href="#考虑点" class="headerlink" title="考虑点"></a>考虑点</h2><ul>
-<li><p>保证端到端的数据一致性，包括维度一致性以及全流程数据一致性;</p>
-</li>
-<li><p>实时流处理过程中数据到达顺序无法预知时，如何保证双流 join 时数据能及时关联同时不造成数据堵塞；</p>
-</li>
-<li><p>Oracle</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.Oracle 是第三方厂商维护的，不允许对线上系统有过多的侵入，容易造成监听故障甚至系统瘫痪，</span><br><span class="line">2.归档日志是在开启那一刻起才开始生成的，之前的存量数据难以进入 kafka，但是后来实时数据又必须依赖前面的计算结果</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="实时数仓方案"><a href="#实时数仓方案" class="headerlink" title="实时数仓方案"></a>实时数仓方案</h2><h3 id="Lambda-架构"><a href="#Lambda-架构" class="headerlink" title="Lambda 架构"></a>Lambda 架构</h3><blockquote>
-<p>目前主流的一套实时数仓架构，存在离线和实时两条链路。实时部分以消息队列的方式实时增量消费，一般以 Flink+Kafka 的组合实现，维度表存在关系型数据库或者 HBase；离线部分一般采用 T+1 周期调度分析历史存量数据，每天凌晨产出，更新覆盖前一天的结果数据，计算引擎通常会选择 Hive 或者 Spark。</p>
-</blockquote>
-<p><img src="/images/cdc/structure_lambda.png"></p>
-<h3 id="Kappa-架构"><a href="#Kappa-架构" class="headerlink" title="Kappa 架构"></a>Kappa 架构</h3><blockquote>
-<p>相较于 Lambda 架构，它移除了离线生产链路，思路是通过传递任意想要的 offset(偏移量)来达到重新消费处理历史数据的目的。优点是架构相对简化，数据来源单一，共用一套代码，开发效率高；缺点是必须要求消息队列中保存了存量数据，而且主要业务逻辑在计算层，比较消耗内存资源。</p>
-</blockquote>
-<p><img src="/images/cdc/structure_kappa.png"></p>
-<h3 id="OLAP-变体架构"><a href="#OLAP-变体架构" class="headerlink" title="OLAP 变体架构"></a>OLAP 变体架构</h3><blockquote>
-<p>是 Kappa 架构的进一步演化，它的思路是将聚合分析计算由 OLAP 引擎承担，减轻实时计算部分的聚合处理压力。优点是自由度高，可以满足数据分析师的实时自助分析需求，减轻了计算引擎的处理压力；缺点是必须要求消息队列中保存存量数据，且因为是将计算部分的压力转移到了查询层，对查询引擎的吞吐和实时摄入性能要求较高。</p>
-</blockquote>
-<p><img src="/images/cdc/structure_olap.png"></p>
-<h3 id="数据湖架构"><a href="#数据湖架构" class="headerlink" title="数据湖架构"></a>数据湖架构</h3><blockquote>
-<p>存储、计算和查询，分别由三个独立产品负责，分别是数据湖、Flink 和 Clickhouse。数仓分层存储和维度表管理均由数据湖承担，Flink SQL 负责批流任务的 SQL 化协同开发，Clickhouse 实现变体的事务机制，为用户提供离线分析和交互查询。CDC 到消息队列这一链路将来是完全可以去掉的，只需要 Flink CDC 家族中再添加 Oracle CDC 一员。未来，实时数仓架构将得到极致的简化并且性能有质的提升。</p>
-</blockquote>
-<p><img src="/images/cdc/structure_rtdb.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1406,18 +1363,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -174,6 +174,339 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/restful%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/08/restful%20snippet/" class="post-title-link" itemprop="url">restful snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-08 12:01:30" itemprop="dateCreated datePublished" datetime="2017-12-08T12:01:30+08:00">2017-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-07 16:28:23" itemprop="dateModified" datetime="2023-12-07T16:28:23+08:00">2023-12-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/restful/" itemprop="url" rel="index"><span itemprop="name">restful</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><strong>GET</strong>: A safe read-only method that reads a single or a list of resources.</li>
+<li><strong>POST</strong>: Creates a new resource.</li>
+<li><strong>PUT</strong>: Completely replaces the resource(s) at the given location with the new data.</li>
+<li><strong>PATCH</strong>: Merges the resource(s) at the given location with the new data.</li>
+<li><strong>DELETE</strong>: Deletes the resource(s) at a location.</li>
+<li><strong>HEAD</strong>: Same as GET but only returns the header and no data.</li>
+</ul>
+<p><strong>用 URL 表示要操作的资源，用不同的 HTTP 请求（GET，POST，PUT，DELETE）描述对资源的操作，通过 HTTP 的状态码来判断此次对资源操作的结果</strong>，这就是 Restful风格。 </p>
+<ol>
+<li>GET 用来获取资源</li>
+<li>POST 用来新增资源</li>
+<li>PUT 用来更新资源</li>
+<li>DELETE 用来删除资源</li>
+</ol>
+<ul>
+<li>put和delete虽然是http协议的规范 ,但是遗憾的是,所有的无论是html4还是h5都不支持,所以我们在实际开开发过程当中要模拟这两种状态。 </li>
+</ul>
+<h3 id="Restful有什么意义"><a href="#Restful有什么意义" class="headerlink" title="Restful有什么意义"></a>Restful有什么意义</h3><ul>
+<li>网络上的所有的信息体都看作一种资源，对网络资源的某种操作，都是通过 method 来确定的。 </li>
+<li>对于现在的数据或者资源提供方，对外透露的接口一般是 restful 风格的，有利于不同系统之间的资源共享,而且只需要遵守规范不需要做另外的配置就能达到资源共享。 </li>
+</ul>
+<p><strong>restful 是用来外提供接口的，主要用于在不同的系统之间进行数据的交互。</strong></p>
+<p><strong>ps：其实在做内部系统的时候并不会使用 restful 风格的 url 请求，只用普通的 @RequestMapping 来匹配请求就行了。</strong></p>
+<h2 id="返回码"><a href="#返回码" class="headerlink" title="返回码"></a>返回码</h2><p>RESTful API 中的标准返回码通常遵循 HTTP 状态码，并根据不同的操作和结果返回不同的状态码。以下是一些常见的 HTTP 状态码及其通常的含义：</p>
+<ul>
+<li><strong>200 OK</strong>: 表示请求成功。通常用于 GET 请求。</li>
+<li><strong>201 Created</strong>: 表示成功创建了新的资源。通常用于 POST 请求。</li>
+<li><strong>204 No Content</strong>: 表示请求成功处理，但没有返回内容。通常用于 DELETE 请求。</li>
+<li><strong>400 Bad Request</strong>: 表示客户端发送的请求有错误，服务器无法理解。</li>
+<li><strong>401 Unauthorized</strong>: 表示请求需要用户认证，用户没有提供有效的认证信息。</li>
+<li><strong>403 Forbidden</strong>: 表示服务器理解请求，但拒绝执行，通常因为权限问题。</li>
+<li><strong>404 Not Found</strong>: 表示请求的资源不存在。</li>
+<li><strong>405 Method Not Allowed</strong>: 表示请求方法不被允许。</li>
+<li><strong>409 Conflict</strong>: 表示请求可能引发冲突，例如更新资源时的版本冲突。</li>
+<li><strong>500 Internal Server Error</strong>: 表示服务器在处理请求时发生了错误。</li>
+<li>502 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502">Bad Gateway</a> - This indicates an invalid response from an upstream server.</li>
+<li>503 Service Unavailable - This indicates that something unexpected happened on server side (It can be anything like server overload, some parts of the system failed, etc.).</li>
+</ul>
+<p>RESTful API 的返回码可以根据实际情况进行适当扩展和调整，但通常遵循以上基本的 HTTP 状态码标准。</p>
+<hr>
+<ul>
+<li>reference <a target="_blank" rel="noopener" href="https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/">Best practices for REST API design</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/07/vue%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/07/vue%20snippet/" class="post-title-link" itemprop="url">vue snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-07 21:50:30" itemprop="dateCreated datePublished" datetime="2017-12-07T21:50:30+08:00">2017-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 15:17:45" itemprop="dateModified" datetime="2019-03-14T15:17:45+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p>vue实例初始化过程：</p>
+<ul>
+<li>设置数据监听</li>
+<li>编译模板</li>
+<li>将实例挂载到DOM并在数据变化时更新DOM等</li>
+</ul>
+</li>
+<li><p>生命周期钩子：提供用户在不同阶段添加自己的代码的机会</p>
+<ul>
+<li>created，用来实例被创建之后执行代码</li>
+<li>mounted,</li>
+<li>updated,</li>
+<li>destoryed</li>
+</ul>
+</li>
+<li><p>指令（Directives）是带有<code>v-</code>前缀的特殊特性。指令特性的值预期是单个JavaScript表达式（<code>v-for</code>是例外情况），指令的职责是：当表达式的值改变时，将其产生的连带影响，响应式地作用于DOM。</p>
+<ul>
+<li><p><code>v-bind</code>，可以接受一个参数，用于响应式地更新HTML特性。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 完整语法 --&gt;</span><br><span class="line">&lt;a v-bind:href=&quot;url&quot;&gt;...&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;a :href=&quot;url&quot;&gt;...&lt;/a&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>v-on</code>，用于监听DOM事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 完整语法 --&gt;</span><br><span class="line">&lt;a v-on:click=&quot;doSomething&quot;&gt;...&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;a @click=&quot;doSomething&quot;&gt;...&lt;/a&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>修饰符<code>v-on:submit.prevent</code>,<code>.prevent</code> 修饰符告诉 <code>v-on</code> 指令对于触发的事件调用 <code>event.preventDefault()</code>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>计算属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;example&quot;&gt;</span><br><span class="line">  &lt;p&gt;Original message: &quot;&#123;&#123; message &#125;&#125;&quot;&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;Computed reversed message: &quot;&#123;&#123; reversedMessage &#125;&#125;&quot;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: &#x27;#example&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &#x27;Hello&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    // 计算属性的 getter</span><br><span class="line">    reversedMessage: function () &#123;</span><br><span class="line">      // `this` 指向 vm 实例</span><br><span class="line">      return this.message.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>计算属性缓存vs方法</p>
+<p>在方法中实现同计算属性同样的效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;Reversed message: &quot;&#123;&#123; reversedMessage() &#125;&#125;&quot;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 在组件中</span><br><span class="line">methods: &#123;</span><br><span class="line">  reversedMessage: function () &#123;</span><br><span class="line">    return this.message.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>计算属性是基于它们的依赖进行缓存的</strong>。只在相关依赖发生改变时它们才会重新求值。 </p>
+</li>
+<li><p>计算属性vs侦听属性</p>
+<p>侦听属性的用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;demo&quot;&gt;&#123;&#123; fullName &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: &#x27;#demo&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: &#x27;Foo&#x27;,</span><br><span class="line">    lastName: &#x27;Bar&#x27;,</span><br><span class="line">    fullName: &#x27;Foo Bar&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    firstName: function (val) &#123;</span><br><span class="line">      this.fullName = val + &#x27; &#x27; + this.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    lastName: function (val) &#123;</span><br><span class="line">      this.fullName = this.firstName + &#x27; &#x27; + val</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>与计算属性的版本进行对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: &#x27;#demo&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: &#x27;Foo&#x27;,</span><br><span class="line">    lastName: &#x27;Bar&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    fullName: function () &#123;</span><br><span class="line">      return this.firstName + &#x27; &#x27; + this.lastName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>计算属性的setter</p>
+<p>计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter ： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// ...</span><br><span class="line">computed: &#123;</span><br><span class="line">  fullName: &#123;</span><br><span class="line">    // getter</span><br><span class="line">    get: function () &#123;</span><br><span class="line">      return this.firstName + &#x27; &#x27; + this.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    // setter</span><br><span class="line">    set: function (newValue) &#123;</span><br><span class="line">      var names = newValue.split(&#x27; &#x27;)</span><br><span class="line">      this.firstName = names[0]</span><br><span class="line">      this.lastName = names[names.length - 1]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// ...</span><br></pre></td></tr></table></figure>
+
+<p>现在再运行 <code>vm.fullName = &#39;John Doe&#39;</code> 时，setter 会被调用，<code>vm.firstName</code> 和 <code>vm.lastName</code> 也会相应地被更新。 </p>
+</li>
+</ul>
+</li>
+<li><p>侦听器</p>
+<p>使用场景：当需要在数据变化时执行异步或开销较大的操作时 </p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>条件渲染</p>
+<p><code>v-if</code></p>
+</li>
+<li><p>展示元素</p>
+<p><code>v-show</code>，它只是简单地切换元素的css属性<code>display</code></p>
+<p>**<em>注意</em>：<code>v-show</code> 不支持 <code>&lt;template&gt;</code> 元素，也不支持 <code>v-else</code>。 </p>
+<ul>
+<li><p><code>v-if</code>vs<code>v-show</code></p>
+<p>一般来说，<code>v-if</code> 有更高的切换开销，而 <code>v-show</code> 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 <code>v-show</code> 较好；如果在运行时条件很少改变，则使用 <code>v-if</code> 较好。 </p>
+</li>
+</ul>
+</li>
+<li><p>列表渲染</p>
+<p><code>v-for</code></p>
+<ul>
+<li><p>实例一</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;example-1&quot;&gt;</span><br><span class="line">  &lt;li v-for=&quot;item in items&quot;&gt;</span><br><span class="line">    &#123;&#123; item.message &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var example1 = new Vue(&#123;</span><br><span class="line">  el: &#x27;#example-1&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    items: [</span><br><span class="line">      &#123; message: &#x27;Foo&#x27; &#125;,</span><br><span class="line">      &#123; message: &#x27;Bar&#x27; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>实例二</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;example-2&quot;&gt;</span><br><span class="line">  &lt;li v-for=&quot;(item, index) in items&quot;&gt;</span><br><span class="line">    &#123;&#123; parentMessage &#125;&#125; - &#123;&#123; index &#125;&#125; - &#123;&#123; item.message &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var example2 = new Vue(&#123;</span><br><span class="line">  el: &#x27;#example-2&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parentMessage: &#x27;Parent&#x27;,</span><br><span class="line">    items: [</span><br><span class="line">      &#123; message: &#x27;Foo&#x27; &#125;,</span><br><span class="line">      &#123; message: &#x27;Bar&#x27; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>可以用 of 替代 in 作为分隔符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-for=&quot;item of items&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>实例三</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#x27;#v-for-object&#x27;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    object: &#123;</span><br><span class="line">      firstName: &#x27;John&#x27;,</span><br><span class="line">      lastName: &#x27;Doe&#x27;,</span><br><span class="line">      age: 30</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;v-for-object&quot; class=&quot;demo&quot;&gt;</span><br><span class="line">  &lt;li v-for=&quot;value in object&quot;&gt;</span><br><span class="line">    &#123;&#123; value &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-for=&quot;(value, key) in object&quot;&gt;</span><br><span class="line">  &#123;&#123; key &#125;&#125;: &#123;&#123; value &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-for=&quot;(value, key, index) in object&quot;&gt;</span><br><span class="line">  &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125;: &#123;&#123; value &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>数组更新检测</p>
+<ul>
+<li>变异方法，会改变被这些方法调用的原始数组 <ul>
+<li><code>push()</code></li>
+<li><code>pop()</code></li>
+<li><code>shift()</code></li>
+<li><code>unshift()</code></li>
+<li><code>splice()</code></li>
+<li><code>sort()</code></li>
+<li><code>reverse()</code></li>
+</ul>
+</li>
+<li>也有非变异 (non-mutating method) 方法，例如：<code>filter()</code>, <code>concat()</code> 和 <code>slice()</code> 。这些不会改变原始数组，但<strong>总是返回一个新数组</strong>。</li>
+</ul>
+<hr>
+</li>
+<li><p>vue组件实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个名为 button-counter 的新组件</span><br><span class="line">Vue.component(&#x27;button-counter&#x27;, &#123;</span><br><span class="line">  data: function () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      count: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: &#x27;&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;/button&gt;&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>prop可以在组件上注册的一些自定义特性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&#x27;blog-post&#x27;, &#123;</span><br><span class="line">  props: [&#x27;title&#x27;],</span><br><span class="line">  template: &#x27;&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;/h3&gt;&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;blog-post title=&quot;My journey with Vue&quot;&gt;&lt;/blog-post&gt;</span><br><span class="line">&lt;blog-post title=&quot;Blogging with Vue&quot;&gt;&lt;/blog-post&gt;</span><br><span class="line">&lt;blog-post title=&quot;Why Vue is so fun&quot;&gt;&lt;/blog-post&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>调用内建的 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#vm-emit"><strong>$emit</strong> 方法</a>并传入事件的名字，来向父级组件触发一个事件： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click=&quot;$emit(&#x27;enlarge-text&#x27;)&quot;&gt;</span><br><span class="line">  Enlarge text</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<p>然后我们可以用 <code>v-on</code> 在博文组件上监听这个事件，就像监听一个原生 DOM 事件一样 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">...</span><br><span class="line">v-on:enlarge-text=&quot;postFontSize += 0.1&quot;</span><br><span class="line">&gt;&lt;/blog-post&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="组件注册"><a href="#组件注册" class="headerlink" title="组件注册"></a>组件注册</h3><ul>
+<li><p>全局注册</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&#x27;my-component-name&#x27;, &#123;</span><br><span class="line">  // ... 选项 ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>局部注册</p>
+<p>定义组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var ComponentA = &#123; /* ... */ &#125;</span><br><span class="line">var ComponentB = &#123; /* ... */ &#125;</span><br><span class="line">var ComponentC = &#123; /* ... */ &#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">el: &#x27;#app&#x27;,</span><br><span class="line">components: &#123;</span><br><span class="line">  &#x27;component-a&#x27;: ComponentA,</span><br><span class="line">  &#x27;component-b&#x27;: ComponentB</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>全局注册的行为必须在根 Vue 实例 (通过 new Vue) 创建之前发生</strong> </p>
+<hr>
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/21/neo4j%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -964,242 +1297,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/05/09/linux%20snippet/" class="post-title-link" itemprop="url">linux snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 18:07:25" itemprop="dateModified" datetime="2022-03-14T18:07:25+08:00">2022-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。</li>
-<li>/sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。</li>
-<li>/root/    超级用户，即根用户的主目录。</li>
-<li>/home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。</li>
-<li>/boot/    存放Ubuntu内核和系统启动文件。</li>
-<li>/mnt/     通常包括系统引导后被挂载的文件系统的挂载点。</li>
-<li>/dev/    存储设备文件，包括计算机的所有外部设备，如硬盘、是、键盘、鼠标等。</li>
-<li>/etc/    存放文件管理配置文件和目录。</li>
-<li>/lib/    存储各种程序所需要的共享库文件。</li>
-<li>/lost+found/    一般为空，当非法关机时，会存放一些零散的文件。</li>
-<li>/var/    用于存放很多不断变化的文件，例如日志文件等。</li>
-<li>/usr/    包括与系统用户直接有关的文件和目录</li>
-<li>/media/    存放Ubuntu系统自动挂载的设备文件。</li>
-<li>/proc/    这是一个虚拟目录，它是内存的映射，包括系统信息和进程信息。</li>
-<li>/tmp/    存储系统和用户的临时信息。</li>
-<li>/initrd/    用来加载启动时临时挂载的initrd.img映像文件，以及载入所要的设备模块目录。</li>
-<li>/opt/    作为可选文件和程序的存放目录，否则将无法引导计算机进入操作系统。</li>
-<li>/srv/    存储系统提供的服务数据。</li>
-<li>/sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。</li>
-</ul>
-<h2 id="装机问题"><a href="#装机问题" class="headerlink" title="装机问题"></a>装机问题</h2><h3 id="Wifi-Not-Enabled-Acer-Aspire-4750"><a href="#Wifi-Not-Enabled-Acer-Aspire-4750" class="headerlink" title="Wifi Not Enabled Acer Aspire 4750"></a>Wifi Not Enabled Acer Aspire 4750</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: yes</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">~$</span><span class="bash"> sudo rmmod acer-wmi</span></span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">add below line at the end of the file : /etc/modprobe.d/blacklist.conf</span><br><span class="line">blacklist acer-wmi</span><br><span class="line"></span><br><span class="line">Then restart the system.</span><br><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: no</span><br></pre></td></tr></table></figure>
-
-<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><ul>
-<li>防火墙 firewalld.service</li>
-</ul>
-<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p><strong>shell与export命令</strong></p>
-<p>用户登录到Linux系统后，系统将启动一个用户shell。在这个shell中，可以使用shell命令或声明变量，也可以创建并运行 shell脚本程序。运行shell脚本程序时，系统将创建一个子shell。此时，系统中将有两个shell，一个是登录时系统启动的shell，另一 个是系统为运行脚本程序创建的shell。当一个脚本程序运行完毕，它的脚本shell将终止，可以返回到执行该脚本之前的shell。从这种意义上来 说，用户可以有许多 shell，每个shell都是由某个shell（称为父shell）派生的。</p>
-<p>在子 shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内 的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用export命令对已定义的变量进行输出。 export命令将使系统在创建每一个新的shell时定义这个变量的一个拷贝。这个过程称之为变量输出。</p>
-<h3 id="操作文件名中含有“-”的文件"><a href="#操作文件名中含有“-”的文件" class="headerlink" title="操作文件名中含有“-”的文件"></a>操作文件名中含有“-”的文件</h3><ul>
-<li>使用转移字符 “–”， 比如查看文件“-abc.txt“，命令为 <code>vim -- -abc.txt</code></li>
-</ul>
-<h3 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h3><p>KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是一个基于 Linux 内核的虚拟化管理系统。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/07/cache%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/07/cache%20snippet/" class="post-title-link" itemprop="url">cache snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-03-07 21:50:30" itemprop="dateCreated datePublished" datetime="2017-03-07T21:50:30+08:00">2017-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-14 14:41:04" itemprop="dateModified" datetime="2019-03-14T14:41:04+08:00">2019-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cache/" itemprop="url" rel="index"><span itemprop="name">cache</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>what is cache ?    why use cache ?<ol>
-<li>Cache是高速缓冲存储器 一种特殊的存储器子系统，其中复制了频繁使用的数据以利于快速访问</li>
-<li>凡是位于速度相差较大的两种硬件/软件之间的，用于协调两者数据传输速度差异的结构，均可称之为 Cache </li>
-</ol>
-</li>
-<li>缓存的分类<ul>
-<li>操作系统磁盘缓存-&gt;减少磁盘机械操作</li>
-<li>数据库缓存-&gt;减少文件系统I/O</li>
-<li>应用程序缓存-&gt;减少对数据库的查询 </li>
-<li>Web服务器缓存-&gt;减少应用服务器请求</li>
-<li>客户端浏览器缓存-&gt;减少对网站的访问</li>
-</ul>
-</li>
-</ul>
-<h3 id="技术框架"><a href="#技术框架" class="headerlink" title="技术框架"></a>技术框架</h3><ul>
-<li><strong>Encache</strong><ul>
-<li>设计于提高在数据从RDBMS中取出来的高花费、高延迟采取的一种缓存方案 </li>
-<li>java编写，直接在jvm虚拟机中缓存，速度快，效率高；但是缓存共享麻烦，集群分布式应用不方便。</li>
-<li>特点：<ul>
-<li>快</li>
-<li>简单</li>
-<li>袖珍</li>
-<li>轻量</li>
-<li>扩展</li>
-<li>监听器</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>memcache</strong><ul>
-<li>一种高性能、分布式对象缓存系统，最初设计于缓解动态网站数据库加载数据的延迟性，你可以把它想象成一个大的内存HashTable，就是一个key-value键值缓存。</li>
-<li>C语言编写</li>
-<li>特点：<ul>
-<li>依赖</li>
-<li>多线程支持</li>
-<li>高性能</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>redis</strong><ul>
-<li>通过socket访问到缓存服务，效率比encache低，比数据库要快很多，处理集群和分布式缓存方便，有成熟的方案。</li>
-<li>特性：<ul>
-<li>支持持久化</li>
-<li>丰富的数据类型</li>
-<li>高性能</li>
-<li>主从复制</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1265,18 +1366,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
