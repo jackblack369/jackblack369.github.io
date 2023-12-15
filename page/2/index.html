@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-13 20:00:39" itemprop="dateModified" datetime="2023-12-13T20:00:39+08:00">2023-12-13</time>
+                <time title="Modified: 2023-12-14 17:59:22" itemprop="dateModified" datetime="2023-12-14T17:59:22+08:00">2023-12-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,6 +233,13 @@
 <blockquote>
 <p>使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。<code>exclude_unset=True</code> 参数是用来控制是否排除未设置的属性字段。当设置为 <code>True</code> 时，将排除那些未设置值的字段，即只包含已经设置值的字段。</p>
 </blockquote>
+<ul>
+<li>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_group_data.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>, exclude=&#123;<span class="string">&quot;team_roles&quot;</span>&#125;).items():</span><br><span class="line">	<span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">	<span class="built_in">setattr</span>(user_group, key, value)</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="单个实体与实体转换"><a href="#单个实体与实体转换" class="headerlink" title="单个实体与实体转换"></a>单个实体与实体转换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">role_update: RoleUpdate</span><br><span class="line">...</span><br><span class="line">role = Role.from_orm(role_update)</span><br></pre></td></tr></table></figure>
 
 <h2 id="列表实体转换为字典列表"><a href="#列表实体转换为字典列表" class="headerlink" title="列表实体转换为字典列表"></a>列表实体转换为字典列表</h2><ul>

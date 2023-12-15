@@ -7736,6 +7736,9 @@
 <li>503 Service Unavailable - This indicates that something unexpected happened on server side (It can be anything like server overload, some parts of the system failed, etc.).</li>
 </ul>
 <p>RESTful API 的返回码可以根据实际情况进行适当扩展和调整，但通常遵循以上基本的 HTTP 状态码标准。</p>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>url中包含传参时，例如delete  /auth/user/{参数}，那此时其他delete方法 /auth/user/other，会发生冲突，需要在路径侯后面添加“/”，变成/auth/user/other/</li>
+</ul>
 <hr>
 <ul>
 <li>reference <a href="https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/">Best practices for REST API design</a></li>
@@ -10476,6 +10479,13 @@
 <blockquote>
 <p>使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。<code>exclude_unset=True</code> 参数是用来控制是否排除未设置的属性字段。当设置为 <code>True</code> 时，将排除那些未设置值的字段，即只包含已经设置值的字段。</p>
 </blockquote>
+<ul>
+<li>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_group_data.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>, exclude=&#123;<span class="string">&quot;team_roles&quot;</span>&#125;).items():</span><br><span class="line">	<span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">	<span class="built_in">setattr</span>(user_group, key, value)</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="单个实体与实体转换"><a href="#单个实体与实体转换" class="headerlink" title="单个实体与实体转换"></a>单个实体与实体转换</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">role_update: RoleUpdate</span><br><span class="line">...</span><br><span class="line">role = Role.from_orm(role_update)</span><br></pre></td></tr></table></figure>
 
 <h2 id="列表实体转换为字典列表"><a href="#列表实体转换为字典列表" class="headerlink" title="列表实体转换为字典列表"></a>列表实体转换为字典列表</h2><ul>
