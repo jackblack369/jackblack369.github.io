@@ -174,6 +174,199 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/16/java%20code%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/02/16/java%20code%20snippet/" class="post-title-link" itemprop="url">java code snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-02-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-02-16T12:01:30+08:00">2016-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 16:12:01" itemprop="dateModified" datetime="2019-03-04T16:12:01+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="base64ToByte"><a href="#base64ToByte" class="headerlink" title="base64ToByte"></a>base64ToByte</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String string = <span class="string">&quot;SmF2YWNvZGVnZWVrcw==&quot;</span>;</span><br><span class="line"><span class="comment">// Get bytes from string</span></span><br><span class="line"><span class="keyword">byte</span>[] byteArray = Base64.decodeBase64(string.getBytes());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Print the decoded array</span></span><br><span class="line">System.out.println(Arrays.toString(byteArray));	</span><br><span class="line"><span class="comment">// Print the decoded string </span></span><br><span class="line">String decodedString = <span class="keyword">new</span> String(byteArray);</span><br><span class="line">System.out.println(string + <span class="string">&quot; = &quot;</span> + decodedString);</span><br></pre></td></tr></table></figure>
+
+<h2 id="TimeConvert"><a href="#TimeConvert" class="headerlink" title="TimeConvert"></a>TimeConvert</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//date format</span></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.time.DateFormatUtils;</span><br><span class="line">String timeStr = DateFormatUtils.format(dateDate,<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">Date dateTime = DateUtils.parseDate(dateTimeStr,<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">Date dateWithoutTime = sdf.parse(sdf.format(<span class="keyword">new</span> Date()));</span><br><span class="line"></span><br><span class="line"><span class="comment">//capitalize the first letter of word</span></span><br><span class="line">String output = input.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + input.substring(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//measure the time cost</span></span><br><span class="line"><span class="keyword">long</span> start = System.nanoTime();</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line"><span class="keyword">long</span> used = end-start;</span><br><span class="line">System.out.println(<span class="string">&quot;used:&quot;</span>+TimeUnit.NANOSECONDS.toMillis(used)+<span class="string">&quot; ms&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//stream read database   </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStreamRead</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        oracleSqlSessionTemplate.select(<span class="string">&quot;xxxx.OracleMapper.getPersonInfos&quot;</span>, <span class="keyword">new</span> ResultHandler() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleResult</span><span class="params">(ResultContext resultContext)</span> </span>&#123;</span><br><span class="line">                PersonInfo personInfo = (PersonInfo) resultContext.getResultObject();</span><br><span class="line">                LOG.debug(<span class="string">&quot;result count:[&#123;&#125;],result info:[&#123;&#125;]&quot;</span>, resultContext.getResultCount(), personInfo.getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStreamRead2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        oracleSqlSessionTemplate.select(<span class="string">&quot;xxxx.OracleMapper.getPersonInfos&quot;</span>,</span><br><span class="line">                resultContext -&gt; &#123;</span><br><span class="line">                    PersonInfo personInfo = (PersonInfo) resultContext.getResultObject();</span><br><span class="line">                    LOG.debug(<span class="string">&quot;result count:[&#123;&#125;],result info:[&#123;&#125;]&quot;</span>, resultContext.getResultCount(), personInfo.getName());</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//iterate list</span></span><br><span class="line">myFinalList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">myListToParse.stream()</span><br><span class="line">        .filter(elt -&gt; elt != <span class="keyword">null</span>)</span><br><span class="line">        .forEach(elt -&gt; myFinalList.add(doSomething(elt)));</span><br><span class="line"><span class="comment">//prefer</span></span><br><span class="line">myFinalList = myListToParse.stream()</span><br><span class="line">        .filter(elt -&gt; elt != <span class="keyword">null</span>)</span><br><span class="line">        .map(elt -&gt; doSomething(elt))</span><br><span class="line">        .collect(Collectors.toList()); </span><br></pre></td></tr></table></figure>
+
+<h2 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h2><h3 id="notify-thread"><a href="#notify-thread" class="headerlink" title="notify thread"></a>notify thread</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shared</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">waitMethod</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">         </span><br><span class="line">        System.out.println(t.getName()+<span class="string">&quot; is releasing the lock and going to wait&quot;</span>);</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            wait();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        System.out.println(t.getName()+<span class="string">&quot; has been notified and acquired the lock back&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">notifyOneThread</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">         </span><br><span class="line">        notify();</span><br><span class="line">         </span><br><span class="line">        System.out.println(t.getName()+<span class="string">&quot; has notified one thread waiting for this object lock&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Shared s = <span class="keyword">new</span> Shared();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t1 will be waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.waitMethod();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">         </span><br><span class="line">        t1.start();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t2 will be waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.waitMethod();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"> </span><br><span class="line">        t2.start();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t3 will be waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t3 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.waitMethod();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">         </span><br><span class="line">        t3.start();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Thread t4 will notify only one thread which is waiting for lock of object &#x27;s&#x27;</span></span><br><span class="line">         </span><br><span class="line">        Thread t4 = <span class="keyword">new</span> Thread() </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                s.notifyOneThread();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">         </span><br><span class="line">        t4.start(); </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="stop-thread"><a href="#stop-thread" class="headerlink" title="stop thread"></a>stop thread</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//Initially setting the flag as true</span></span><br><span class="line">     </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">//This method will set flag as false</span></span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopRunning</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        flag = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//Keep the task in while loop</span></span><br><span class="line">         </span><br><span class="line">        <span class="comment">//This will make thread continue to run until flag becomes false</span></span><br><span class="line">         </span><br><span class="line">        <span class="keyword">while</span> (flag)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;I am running....&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        System.out.println(<span class="string">&quot;Stopped Running....&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        MyThread thread = <span class="keyword">new</span> MyThread();</span><br><span class="line">         </span><br><span class="line">        thread.start();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Thread.sleep(<span class="number">100</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//call stopRunning() method whenever you want to stop a thread</span></span><br><span class="line">         </span><br><span class="line">        thread.stopRunning();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!Thread.interrupted())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;I am running....&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        System.out.println(<span class="string">&quot;Stopped Running.....&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        MyThread thread = <span class="keyword">new</span> MyThread();</span><br><span class="line">         </span><br><span class="line">        thread.start();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Thread.sleep(<span class="number">100</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (InterruptedException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//interrupting the thread</span></span><br><span class="line">         </span><br><span class="line">        thread.interrupt();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try-catch-finally"></a>try-catch-finally</h3><ol>
+<li>不管有木有出现异常，finally块中代码都会执行** </li>
+<li><strong>当try和catch中有return时，finally仍然会执行</strong> </li>
+<li><strong>finally是在return后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，仍然是之前保存的值），所以函数返回值是在finally执行前确定的；</strong> </li>
+<li><strong>finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值。</strong> </li>
+<li>任何执行try 或者catch中的return语句之前，都会先执行finally语句，如果finally中有return语句，那么程序就return了，所以finally中的return是一定会被return的。</li>
+</ol>
+<h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Level;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Java program to show, how to use ReentrantLock in Java.</span></span><br><span class="line"><span class="comment"> * Reentrant lock is an alternative way of locking</span></span><br><span class="line"><span class="comment"> * apart from implicit locking provided by synchronized keyword in Java.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>  Javin Paul</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockHowto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//Locking using Lock and ReentrantLock</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; gets Count: &quot;</span> + count);</span><br><span class="line">            <span class="keyword">return</span> count++;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//Implicit locking using synchronized keyword</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">getCountTwo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> count++;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ThreadTest counter = <span class="keyword">new</span> ThreadTest();</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (counter.getCount() &amp;lt; <span class="number">6</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                        ex.printStackTrace();                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      </span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (counter.getCount() &amp;lt; <span class="number">6</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                        ex.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      </span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Output:</span><br><span class="line">Thread-0 gets Count: 0</span><br><span class="line">Thread-1 gets Count: 1</span><br><span class="line">Thread-1 gets Count: 2</span><br><span class="line">Thread-0 gets Count: 3</span><br><span class="line">Thread-1 gets Count: 4</span><br><span class="line">Thread-0 gets Count: 5</span><br><span class="line">Thread-0 gets Count: 6</span><br><span class="line">Thread-1 gets Count: 7</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/18/webservice%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/18/webservice%20snippet/" class="post-title-link" itemprop="url">websocket tracking</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-01-18 19:20:30" itemprop="dateCreated datePublished" datetime="2016-01-18T19:20:30+08:00">2016-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:24:15" itemprop="dateModified" datetime="2019-03-14T14:24:15+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webservice/" itemprop="url" rel="index"><span itemprop="name">webservice</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/49d7997ad3b7">https://www.jianshu.com/p/49d7997ad3b7</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33546747/article/details/53304097">https://blog.csdn.net/qq_33546747/article/details/53304097</a></p>
+<hr>
+<h2 id="WebService是一种跨编程语言和跨操作系统平台的远程调用技术。"><a href="#WebService是一种跨编程语言和跨操作系统平台的远程调用技术。" class="headerlink" title="WebService是一种跨编程语言和跨操作系统平台的远程调用技术。"></a>WebService是一种跨编程语言和跨操作系统平台的远程调用技术。</h2><p>多个角度来理解WebService<br>​    从表面上看，WebService就是一个应用程序向外界暴露出一个能通过Web进行调用的API，也就是说能用编程的方法通过Web来调用这个应用程序。<br>​    我们把调用这个WebService的应用程序叫做客户端，而把提供这个WebService的应用程序叫做服务端<br>​    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从深层次看，WebService是建立可互操作的分布式应用程序的新平台，是一个平台，是一套标准。</span><br><span class="line">它定义了应用程序如何在Web上实现互操作性，你可以用任何你喜欢的语言，在任何你喜欢的平台上写Web service ，只要我们可以通过Web service标准对这些服务进行查询和访问。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>构成WebService平台的三大技术：<br>​    XML+XSD,SOAP和WSDL<br>​<br>WebService采用HTTP协议传输数据，采用XML格式封装数据（即XML中说明调用远程服务对象的哪个方法，传递的参数是什么，以及服务对象的返回结果是什么）<br>WebService用XSD来作为其数据类型系统<br>HTTP消息头和XML内容格式就是SOAP协议。SOAP提供了标准的RPC方法来调用Web Service。</p>
+<p>SOAP协议 = HTTP协议 + XML数据格式</p>
+<p>比喻：HTTP就是普通公路，XML就是中间的绿色隔离带和两边的防护栏，SOAP就是普通公路经过加隔离带和防护栏改造过的高速公路。</p>
+<p>WSDL(Web Services Description Language)是基于XML的语言，用于描述Web Service及其函数、参数和返回值。</p>
+<p>WSDL文件保存在Web服务器上，通过一个url地址就可以访问到它。客户端要调用一个WebService服务之前，要知道该服务的WSDL文件的地址。<br>WebService服务提供商可以通过两种方式来暴露它的WSDL文件地址：1.注册到UDDI服务器，以便被人查找；2.直接告诉给客户端调用者。</p>
+<p>======================================================================================<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/snake-hand/archive/2013/06/09/3129915.html">https://www.cnblogs.com/snake-hand/archive/2013/06/09/3129915.html</a></p>
+<hr>
+<p>Axis和CXF，这两个产品都是Apache孵化器下面的Web Service开源开发工具</p>
+<p>CXF支持 WS-Addressing，WS-Policy， WS-RM， WS-Security和WS-I Basic Profile<br>Axis2不支持WS-Policy</p>
+<p>CXF可以很好支持Spring<br>Axis2不能很好支持Spring</p>
+<p> CXF只支持JAXB和Aegis。<br> AXIS2支持更广泛的数据并对，如XMLBeans，JiBX，JaxMe和JaxBRI和它自定义的数据绑定ADB。注意JaxME和JaxBRI都还是试验性的。AXIS2支持更广泛的数据并对，如XMLBeans，JiBX，JaxMe和JaxBRI和它自定义的数据绑定ADB。注意JaxME和JaxBRI都还是试验性的。</p>
+<hr>
+<p> 如何抉择：<br>1、如果应用程序需要多语言的支持，Axis2 应当是首选了；<br>2、如果应用程序是遵循Spring 哲学路线的话，Apache CXF 是一种更好的选择，特别对嵌入式的Web Services 来说；<br>3、如果应用程序没有新的特性需要的话，就仍是用原来项目所用的框架，比如Axis1，XFire，Celtrix或 BEA等等厂家自己的 WebServices 实现，就别劳民伤财了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/16/css%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -406,7 +599,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-29 10:34:28" itemprop="dateModified" datetime="2023-08-29T10:34:28+08:00">2023-08-29</time>
+                <time title="Modified: 2023-12-16 11:43:28" itemprop="dateModified" datetime="2023-12-16T11:43:28+08:00">2023-12-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -489,6 +682,10 @@
 </ul>
 <h3 id="DDL-VS-DML"><a href="#DDL-VS-DML" class="headerlink" title="DDL VS DML"></a>DDL VS DML</h3><p>DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.</p>
 <p>Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.</p>
+<h3 id="设置远程登录"><a href="#设置远程登录" class="headerlink" title="设置远程登录"></a>设置远程登录</h3><ul>
+<li><p>mysql 8版本设置可用root远程访问服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
 <li><p>导出数据库</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p database &gt; file.sql</span><br><span class="line">其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称</span><br></pre></td></tr></table></figure></li>
@@ -1252,240 +1449,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/02/18/session%20tracking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/02/18/session%20tracking/" class="post-title-link" itemprop="url">session tracking</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-02-18 18:01:30" itemprop="dateCreated datePublished" datetime="2015-02-18T18:01:30+08:00">2015-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><blockquote>
-<p>Session simply means a particular interval of time.<br>Session Tracking is a way to maintain state (data) of an user. It is also known as session management in servlet.</p>
-</blockquote>
-<ul>
-<li><p>HTTP is stateless that means each request is considered as the new request. It is shown in the figure given below:<br><img src="https://www.javatpoint.com/images/newrequest.JPG"></p>
-</li>
-<li><p>There are four techniques used in Session tracking:</p>
-<ul>
-<li>Cookies</li>
-<li>Hidden Form Field</li>
-<li>URL Rewriting</li>
-<li>HttpSession</li>
-</ul>
-</li>
-</ul>
-<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><blockquote>
-<p>A cookie is a small piece of information that is persisted between the multiple client requests.<br>A cookie has a name, a single value, and optional attributes such as a comment, path and domain qualifiers, a maximum age, and a version number.</p>
-</blockquote>
-<h3 id="how-cookie-work"><a href="#how-cookie-work" class="headerlink" title="how cookie work"></a>how cookie work</h3><p><img src="https://www.javatpoint.com/phppages/images/cookie.png"></p>
-<h3 id="type-of-cookie"><a href="#type-of-cookie" class="headerlink" title="type of cookie"></a>type of cookie</h3><ul>
-<li><p>Non-persistent cookie</p>
-<blockquote>
-<p>It is valid for single session only. It is removed each time when user closes the browser.</p>
-</blockquote>
-</li>
-<li><p>Persistent cookie</p>
-<blockquote>
-<p>It is valid for multiple session . It is not removed each time when user closes the browser. It is removed only if user logout or signout.</p>
-</blockquote>
-</li>
-<li><p>Advantage </p>
-<ul>
-<li>Simplest technique of maintaining the state.</li>
-<li>Cookies are maintained at client side.</li>
-</ul>
-</li>
-<li><p>Disadvantage</p>
-<ul>
-<li>It will not work if cookie is disabled from the browser.</li>
-<li>Only textual information can be set in Cookie object.</li>
-</ul>
-</li>
-</ul>
-<h2 id="HttpSession-Interface"><a href="#HttpSession-Interface" class="headerlink" title="HttpSession Interface"></a>HttpSession Interface</h2><ul>
-<li>An object of HttpSession can be used to perform two tasks:<ul>
-<li>bind objects</li>
-<li>view and manipulate information about a session, such as the session identifier, creation time, and last accessed time.<br><img src="https://www.javatpoint.com/images/httpsession.JPG"></li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/02/16/java%20servlet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/02/16/java%20servlet/" class="post-title-link" itemprop="url">java servlet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-02-16 10:01:30" itemprop="dateCreated datePublished" datetime="2015-02-16T10:01:30+08:00">2015-02-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Web-Application"><a href="#Web-Application" class="headerlink" title="Web Application"></a>Web Application</h2><h3 id="HTML-and-HTTP"><a href="#HTML-and-HTTP" class="headerlink" title="HTML and HTTP"></a>HTML and HTTP</h3><ul>
-<li>HTML:HyperText Markup Language.</li>
-<li>HTTP:HyperText Transfer Protocol<ul>
-<li>HTTP is the communication protocol between server and client. HTTP runs on top of TCP/IP communication protocol.</li>
-<li>Port numbers 0 to 1023 are reserved ports for well known services, for example 80 for HTTP, 443 for HTTPS, 21 for FTP etc.</li>
-</ul>
-</li>
-<li>Java Servlet and JSPs are server side technologies to extend the capability of web servers by providing support for dynamic response and data persistence.</li>
-</ul>
-<h3 id="Web-Container"><a href="#Web-Container" class="headerlink" title="Web Container"></a>Web Container</h3><ul>
-<li>When web container gets the request and if it’s for servlet then container creates two Objects HTTPServletRequest and HTTPServletResponse. Then it finds the correct servlet based on the URL and creates a thread for the request. Then it invokes the servlet service() method and based on the HTTP method service() method invokes doGet() or doPost() methods. Servlet methods generate the dynamic page and write it to response. Once servlet thread is complete, container converts the response to HTTP response and send it back to client.</li>
-<li>Some of the important work done by web container are:<ul>
-<li>Communication Support – Container provides easy way of communication between web server and the servlets and JSPs. Because of container, we don’t need to build a server socket to listen for any request from web server, parse the request and generate response. All these important and complex tasks are done by container and all we need to focus is on our business logic for our applications.<ul>
-<li>Lifecycle and Resource Management – Container takes care of managing the life cycle of servlet. Container takes care of loading the servlets into memory, initializing servlets, invoking servlet methods and destroying them. Container also provides utility like JNDI for resource pooling and management.</li>
-<li>Multithreading Support – Container creates new thread for every request to the servlet and when it’s processed the thread dies. So servlets are not initialized for each request and saves time and memory.</li>
-<li>JSP Support – JSPs doesn’t look like normal java classes and web container provides support for JSP. Every JSP in the application is compiled by container and converted to Servlet and then container manages them like other servlets.</li>
-<li>Miscellaneous Task – Web container manages the resource pool, does memory optimizations, run garbage collector, provides security configurations, support for multiple applications, hot deployment and several other tasks behind the scene that makes our life easier.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Java Web Applications are packaged as Web Archive (WAR) and it has a defined structure.<br><img src="https://cdn.journaldev.com/wp-content/uploads/2013/08/WAR-directory-structure.png"></li>
-</ul>
-<h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><ul>
-<li>Servlet API Hierarchy<br><img src="https://cdn.journaldev.com/wp-content/uploads/2013/08/Servlet-Hierarchy.png"></li>
-</ul>
-<h2 id="Session-Management"><a href="#Session-Management" class="headerlink" title="Session Management"></a>Session Management</h2><h3 id="What-is-a-Session"><a href="#What-is-a-Session" class="headerlink" title="What is a Session?"></a>What is a Session?</h3><ul>
-<li>HTTP protocol and Web Servers are stateless, what it means is that for web server every request is a new request to process and they can’t identify if it’s coming from client that has been sending request previously.</li>
-<li>Session is a conversional state between client and server and it can consists of multiple request and response between client and server. Since HTTP and Web Server both are stateless, the only way to maintain a session is when some unique information about the session (session id) is passed between server and client in every request and response.</li>
-</ul>
-<h3 id="JSESSIONID-Cookie"><a href="#JSESSIONID-Cookie" class="headerlink" title="JSESSIONID Cookie"></a>JSESSIONID Cookie</h3><ul>
-<li>When we use HttpServletRequest getSession() method and it creates a new request, it creates the new HttpSession object and also add a Cookie to the response object with name JSESSIONID and value as session id. This cookie is used to identify the HttpSession object in further requests from client. If the cookies are disabled at client side and we are using URL rewriting then this method uses the jsessionid value from the request URL to find the corresponding session. JSESSIONID cookie is used for session tracking, so we should not use it for our application purposes to avoid any session related issues.</li>
-<li>When a JSP resource is used, container automatically creates a session for it, so we can’t check if session is null to make sure if user has come through login page, so we are using session attribute to validate request.</li>
-<li>As we saw in last section that we can manage a session with HttpSession but if we disable the cookies in browser, it won’t work because server will not receive the JSESSIONID cookie from client. </li>
-</ul>
-<h4 id="Cookie-Basics"><a href="#Cookie-Basics" class="headerlink" title="Cookie Basics"></a>Cookie Basics</h4><ul>
-<li>a cookie is a small piece of data stored on the client-side which servers use when communicating with clients.They’re used to identify a client when sending a subsequent request. They can also be used for passing some data from one servlet to another.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1555,13 +1518,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">164</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

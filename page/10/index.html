@@ -174,6 +174,245 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/coin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/31/coin/" class="post-title-link" itemprop="url">挖矿程序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-31 10:00:30" itemprop="dateCreated datePublished" datetime="2019-07-31T10:00:30+08:00">2019-07-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-28 13:59:44" itemprop="dateModified" datetime="2021-12-28T13:59:44+08:00">2021-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config.json （挖矿配置）、</span><br><span class="line">sysupdate （XMR 挖矿软件）、</span><br><span class="line">update.sh （本脚本）、</span><br><span class="line">networkservice(scanner扫描并入侵其他的主机)、</span><br><span class="line">sysguard(watchdog 用于监控并保证病毒的正常运行以及更新) 并保证他们以 root 权限运行。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>查看病毒的 PID 号</p>
+</li>
+<li><p>获取绝对路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /proc/&#123;pid 号&#125;/exe</span><br></pre></td></tr></table></figure></li>
+<li><p>删除/tmp文件夹的所有文件</p>
+</li>
+<li><p>检查下定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l 或者 cat /var/spool/cron/will</span><br></pre></td></tr></table></figure>
+
+<p>上面的will为当前用户名</p>
+<p>查看定时任务的日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more /var/<span class="built_in">log</span>/cron <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>删除定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm /var/spool/cron/root 或者 crontab -r 删除定时任务</span><br></pre></td></tr></table></figure></li>
+<li><p>kill 命令将相关进程干掉</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sysupdate</span><br><span class="line">networkservice</span><br><span class="line">sysguard</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/java%20io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/10/java%20io/" class="post-title-link" itemprop="url">java io</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-07-10 14:25:30 / Modified: 15:58:46" itemprop="dateCreated datePublished" datetime="2019-07-10T14:25:30+08:00">2019-07-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">流包括字符流和字节流，流从概念上来说是一个连续的数据流。当程序需要读数据的时候就需要使用输入流读取数据，当需要往外写数据的时候就需要输出流</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>字节流：字节流主要用来处理字节或二进制对象<code>InputStream、OutputStream，</code></p>
+<blockquote>
+<p>在使用字节流的时候，InputStream和OutputStream都是抽象类，我们实例化的都是他们的子类，每一个子类都有自己的作用范围</p>
+</blockquote>
+<p><img src="https://i.imgur.com/s39Xj3r.png"></p>
+</li>
+<li><p>字符流：字符流用来处理字符文本或字符串<code>Reader、Writer</code></p>
+<blockquote>
+<p>在使用字符流的时候也是，Reader和Writer都是抽象类，我们实例化的都是他们的子类，每一个子类都有自己的作用范围</p>
+</blockquote>
+<p><img src="https://i.imgur.com/RMD0koG.png"></p>
+</li>
+<li><p>字节流转换为字符流</p>
+<blockquote>
+<p>使用<code>InputStreamReader、OutputStreamWriter</code>可以将输入字节流转化为输入字符流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Reader reader  =  <span class="keyword">new</span> InputStreamReader(inputStream);</span><br><span class="line">Writer writer = <span class="keyword">new</span> OutputStreamWriter(outputStream)</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>输入字节流：<strong>InputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/a.txt&quot;</span>);</span><br><span class="line">    InputStream inputStream = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>) file.length()];</span><br><span class="line">    inputStream.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    inputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入字符流：<strong>Reader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/a.txt&quot;</span>);</span><br><span class="line">    Reader reader = <span class="keyword">new</span> FileReader(file);</span><br><span class="line">    <span class="keyword">char</span>[] bytes = <span class="keyword">new</span> <span class="keyword">char</span>[(<span class="keyword">int</span>) file.length()];</span><br><span class="line">    reader.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    reader.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出字节流：<strong>OutputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String <span class="keyword">var</span> = <span class="string">&quot;hai this is a test&quot;</span>;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/b.txt&quot;</span>);</span><br><span class="line">    OutputStream outputStream = <span class="keyword">new</span> FileOutputStream(file);</span><br><span class="line">    outputStream.write(<span class="keyword">var</span>.getBytes());</span><br><span class="line">    outputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出字符流：<strong>Writer</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String <span class="keyword">var</span> = <span class="string">&quot;hai this is a test&quot;</span>;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/b.txt&quot;</span>);</span><br><span class="line">    Writer writer = <span class="keyword">new</span> FileWriter(file);</span><br><span class="line">    writer.write(<span class="keyword">var</span>);</span><br><span class="line">    writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedInputStream</strong></p>
+<blockquote>
+<p>在使用InputStream的时候，都是一个字节一个字节的读或写，而BufferedInputStream为输入字节流提供了缓冲区，读数据的时候会一次读取一块数据放到缓冲区里，当缓冲区里的数据被读完之后，输入流会再次填充数据缓冲区，直到输入流被读完，有了缓冲区就能够提高很多io速度</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * inputStream 输入流</span></span><br><span class="line"><span class="comment"> * 1024 内部缓冲区大小为1024byte</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BufferedInputStream bufferedInputStream = <span class="keyword">new</span> BufferedInputStream(inputStream,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedOutputStream</strong></p>
+<blockquote>
+<p>BufferedOutputStream可以为输出字节流提供缓冲区，作用与BufferedInputStream类似，使用方式将输出流包装到BufferedOutputStream中</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * outputStream 输出流</span></span><br><span class="line"><span class="comment"> * 1024 内部缓冲区大小为1024byte</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BufferedOutputStream bufferedOutputStream = <span class="keyword">new</span> BufferedOutputStream(outputStream,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedReader</strong></p>
+<blockquote>
+<p>为输入字符流提供缓冲区</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(reader,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedWriter</strong></p>
+<blockquote>
+<p>为输出字符流提供缓冲区</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(writer,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="io模型"><a href="#io模型" class="headerlink" title="io模型"></a>io模型</h2><h3 id="bio"><a href="#bio" class="headerlink" title="bio"></a>bio</h3><blockquote>
+<p>同步阻塞IO模型</p>
+<p>JDK 1.4版本以前</p>
+</blockquote>
+<p><img src="https://chenmingyu.top/nio/bio%E7%BA%BF%E7%A8%8B.png"></p>
+<p>在这种模式中通常用一个线程去接受请求，然后用一个线程池去处理请求，用这种方式并发管理多个Socket客户端连接</p>
+<p><img src="https://chenmingyu.top/nio/BIO%E7%BA%BF%E7%A8%8B+%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></p>
+<h3 id="nio"><a href="#nio" class="headerlink" title="nio"></a>nio</h3><blockquote>
+<p>同步非阻塞IO模型</p>
+<p>JDK 1.4版本以后</p>
+</blockquote>
+<p>成熟的框架，比如Netty</p>
+<h3 id="aio"><a href="#aio" class="headerlink" title="aio"></a>aio</h3><blockquote>
+<p>异步非阻塞IO模型</p>
+<p>JDK1.7升级了Nio类库，成为Nio2.0，最主要的是提供了异步文件的IO操作，以及事件驱动IO，AIO的异步套接字通道是真正的异步非阻塞IO</p>
+</blockquote>
+<p><img src="https://chenmingyu.top/nio/%E5%90%84IO%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94.png"></p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://chenmingyu.top/nio/">一文看懂java io系统</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/kafka%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1393,279 +1632,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/dva%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/11/dva%20learn/" class="post-title-link" itemprop="url">dva learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-11 13:52:30" itemprop="dateCreated datePublished" datetime="2019-04-11T13:52:30+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-18 10:36:56" itemprop="dateModified" datetime="2021-11-18T10:36:56+08:00">2021-11-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dva/" itemprop="url" rel="index"><span itemprop="name">dva</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>dva = React-Router + Redux + Redux-saga</p>
-<ul>
-<li>路由： <a target="_blank" rel="noopener" href="https://github.com/ReactTraining/react-router/tree/v2.8.1">React-Router</a></li>
-<li>架构： <a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">Redux</a></li>
-<li>异步操作： <a target="_blank" rel="noopener" href="https://github.com/yelouafi/redux-saga">Redux-saga</a></li>
-</ul>
-<p><img src="./img/PPrerEAKbIoDZYr.png"></p>
-<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>tate 表示 Model 的状态数据</p>
-<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>Action 是一个普通 javascript 对象，它是改变 State 的唯一途径。</p>
-<ul>
-<li>action 必须带有 <code>type</code> 属性指明具体的行为，其它字段可以自定义，如果要发起一个 action 需要使用 <code>dispatch</code> 函数；需要注意的是 <code>dispatch</code> 是在组件 connect Models以后，通过 props 传入的。</li>
-</ul>
-<h3 id="dispatch"><a href="#dispatch" class="headerlink" title="dispatch"></a>dispatch</h3><p>dispatching function 是一个用于触发 action 的函数</p>
-<ul>
-<li><p>action 是改变 State 的唯一途径，但是action只描述了一个行为，而 dipatch 可以看作是触发这个行为的方式，而 Reducer 则是描述如何改变数据的。</p>
-</li>
-<li><p>connect Model 的组件通过 props 可以访问到 dispatch，可以调用 Model 中的 Reducer 或者 Effects.</p>
-</li>
-</ul>
-<h3 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h3><p>Reducer函数接受两个参数：之前已经累积运算的结果和当前要被累积的值，返回的是一个新的累积结果。该函数把一个集合归并成一个单值。</p>
-<ul>
-<li>在 dva 中，reducers 聚合积累的结果是当前 model 的 state 对象。通过 actions 中传入的值，与当前 reducers 中的值进行运算获得新的值（也就是新的 state）。</li>
-</ul>
-<h3 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h3><p>Effect 被称为副作用，在我们的应用中，最常见的就是异步操作。</p>
-<ul>
-<li><p>它来自于函数编程的概念，之所以叫副作用是因为它使得我们的函数变得不纯，同样的输入不一定获得同样的输出。</p>
-</li>
-<li><p>dva 为了控制副作用的操作，将异步转成同步写法，从而将effects转为纯函数</p>
-</li>
-</ul>
-<h3 id="Subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h3><p>Subscriptions 是一种从 <strong>源</strong> 获取数据的方法，它来自于 elm。</p>
-<ul>
-<li>Subscription 语义是订阅，用于订阅一个数据源，然后根据条件 dispatch 需要的 action。</li>
-</ul>
-<h3 id="数据流图"><a href="#数据流图" class="headerlink" title="数据流图"></a>数据流图</h3><p><img src="./img/hUFIivoOFjVmwNXjjfPE.png"></p>
-<ul>
-<li><p>State 是储存数据的地方，收到 Action 以后，会更新数据。</p>
-</li>
-<li><p>View 就是 React 组件构成的 UI 层，从 State 取数据后，渲染成 HTML 代码。只要 State 有变化，View 就会自动更新。</p>
-</li>
-<li><p>Action 是用来描述 UI 层事件的一个对象。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dispatch(&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;click-submit-button&#x27;</span>,</span><br><span class="line">  <span class="attr">payload</span>: <span class="built_in">this</span>.form.data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-<li><p>connect 是一个函数，绑定 State 到 View。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&#x27;dva&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mapStateToProps</span>(<span class="params">state</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">todos</span>: state.todos &#125;;</span><br><span class="line">&#125;</span><br><span class="line">connect(mapStateToProps)(App);</span><br></pre></td></tr></table></figure>
-
-<p>connect 方法返回的也是一个 React 组件，通常称为容器组件。因为它是原始 UI 组件的容器，即在外面包了一层 State。</p>
-</li>
-<li><p>dispatch 是一个函数方法，用来将 Action 发送给 State。</p>
-<p><strong>被 connect 的 Component 会自动在 props 中拥有 dispatch 方法。</strong></p>
-</li>
-</ul>
-<h3 id="数据流图二"><a href="#数据流图二" class="headerlink" title="数据流图二"></a>数据流图二</h3><p><img src="./img/pHTYrKJxQHPyJGAYOzMu.png"></p>
-<h3 id="Model-对象的属性"><a href="#Model-对象的属性" class="headerlink" title="Model 对象的属性"></a>Model 对象的属性</h3><blockquote>
-<p>每个model，实际上都是普通的JavaScript对象</p>
-</blockquote>
-<ul>
-<li><p>namespace: 当前 Model 的名称。整个应用的 State，由多个小的 Model 的 State 以 namespace 为 key 合成</p>
-</li>
-<li><p>state: 该 Model 当前的状态。数据保存在这里，直接决定了视图层的输出</p>
-</li>
-<li><p>reducers: Action 处理器，处理同步动作，用来算出最新的 State</p>
-</li>
-<li><p>effects：Action 处理器，处理异步动。dva 提供多个 effect 函数内部的处理函数，比较常用的是 <code>call</code> 和 <code>put</code>。</p>
-<ul>
-<li>call：执行异步函数</li>
-<li>put：发出一个 Action，类似于 dispatch</li>
-</ul>
-</li>
-<li><p>subscriptions</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/redux%20learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/07/redux%20learn/" class="post-title-link" itemprop="url">redux learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-07 23:50:30" itemprop="dateCreated datePublished" datetime="2019-04-07T23:50:30+08:00">2019-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-04-11 01:22:18" itemprop="dateModified" datetime="2019-04-11T01:22:18+08:00">2019-04-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redux/" itemprop="url" rel="index"><span itemprop="name">redux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Passing-Data-Between-Adjacent-Components"><a href="#Passing-Data-Between-Adjacent-Components" class="headerlink" title="Passing Data Between Adjacent Components"></a>Passing Data Between Adjacent Components</h3><p>If you have components that are siblings and need to share data, the way to do that in React is to pull that data up into a parent component and pass it down with props.</p>
-<p>That can be cumbersome though. Redux can help by giving you one global “parent” where you can store the data, and then you can <code>connect</code> the sibling components to the data with React-Redux.</p>
-<h3 id="redux-vs-react-redux"><a href="#redux-vs-react-redux" class="headerlink" title="redux vs react-redux"></a>redux vs react-redux</h3><p><code>redux</code> knows nothing about React <em>at all</em>. (The <code>redux</code> library can be used outside of a React app too. It’ll work with Vue, Angular, and even backend Node/Express apps.)</p>
-<p><code>react-redux</code> lets you connect pieces of the state to React components.</p>
-<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><p>in charge for orchestrating all the interactions</p>
-<p>the <strong>state</strong> is the data, and the <strong>store</strong> is where it’s kept.</p>
-<h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3><p>the producer to make the state</p>
-<blockquote>
-<p>(state, action) =&gt; newState</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> letters = [<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;x&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// `reduce` takes 2 arguments:</span></span><br><span class="line"><span class="comment">//   - a function to do the reducing (you might say, a &quot;reducer&quot;)</span></span><br><span class="line"><span class="comment">//   - an initial value for accumulatedResult</span></span><br><span class="line"><span class="keyword">var</span> word = letters.reduce(</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">accumulatedResult, arrayItem</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accumulatedResult + arrayItem;</span><br><span class="line">  &#125;,</span><br><span class="line"><span class="string">&#x27;&#x27;</span>); <span class="comment">// &lt;-- notice this empty string argument: it&#x27;s the initial value</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(word) <span class="comment">// =&gt; &quot;redux&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>**Important Rule of Reducers **:</p>
-<ul>
-<li>Never return undefined from a reducer.</li>
-<li>Reducers must be pure functions.(This means that they can’t modify their arguments, and they can’t have side effects.)</li>
-</ul>
-<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>plain JavaScript objects with a property named type. </p>
-<blockquote>
-<p>An action object describes a change you want to make (like “please increment the counter”) or an event that happenend (like “the request to the server failed with this error”).</p>
-<p>action don’t really <em>do</em> anything. Not on their own, anyway.</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;add an item&quot;</span>,</span><br><span class="line">  <span class="attr">item</span>: <span class="string">&quot;Apple&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="number">7008</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;INCREMENT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In order to make an action DO something, you need to <strong>dispatch</strong> it.</p>
-<hr>
-<h3 id="redux-tips"><a href="#redux-tips" class="headerlink" title="redux tips"></a>redux tips</h3><h4 id="Redux-avoids-these-problems-with-some-simple-rules"><a href="#Redux-avoids-these-problems-with-some-simple-rules" class="headerlink" title="Redux avoids these problems with some simple rules."></a>Redux avoids these problems with some simple rules.</h4><ul>
-<li>State is read-only, and actions are the only way to modify it.</li>
-<li>Changes happen one way, and one way only: dispatch(action) -&gt; reducer -&gt; new state.</li>
-<li>The reducer function must be “pure” – it cannot modify its arguments, and it can’t have side effects.</li>
-</ul>
-<h4 id="The-most-important-methods"><a href="#The-most-important-methods" class="headerlink" title="The most important methods."></a>The most important methods.</h4><ul>
-<li>getState for <strong>accessing the current state</strong> of the application</li>
-<li>dispatch for <strong>dispatching an action</strong></li>
-<li>subscribe for <strong>listening on state changes</strong></li>
-</ul>
-<h3 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h3><h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>By wrapping the entire app with the <code>Provider</code> component, <em>every component</em> in the app tree will be able to access the Redux store if it wants to.</p>
-<h4 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h4><p>all of components can access the Redux store, but not automatically , We’ll need to use the <code>connect</code> function on our components to access the store.</p>
-<h4 id="connects-a-React-component-with-the-Redux-store"><a href="#connects-a-React-component-with-the-Redux-store" class="headerlink" title="connects a React component with the Redux store."></a>connects a React component with the Redux store.</h4><ul>
-<li>the mapStateToProps function</li>
-<li>the mapDispatchToProps function</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">&quot;./logo.svg&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./App.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; fetching, dog, onRequestDog, error &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        ......</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">fetching</span>: state.fetching,</span><br><span class="line">    <span class="attr">dog</span>: state.dog,</span><br><span class="line">    <span class="attr">error</span>: state.error</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function"><span class="params">dispatch</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">onRequestDog</span>: <span class="function">() =&gt;</span> dispatch(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_REQUEST&quot;</span> &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(App);</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux-thunk"></a>redux-thunk</h3><p>It is a <strong>middleware</strong>, basically a plugin for Redux, that enables Redux to deal with actions like <code>getUser()</code>, ie.<code>dispatch(getUser())</code></p>
-<p>thunk: it’s an action creator that returns a function instead of a plain action object, like this:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doStuff</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">dispatch, getState</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// dispatch actions here</span></span><br><span class="line">    <span class="comment">// or fetch data</span></span><br><span class="line">    <span class="comment">// or whatever</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>the 2 agruments in return function,Most of the time you’ll only need <code>dispatch</code>, but sometimes you want to do something conditionally, based on some value in the Redux state. In that case, call <code>getState()</code> and you’ll have the entire state to read as needed.</p>
-<h4 id="setup-redux-thunk"><a href="#setup-redux-thunk" class="headerlink" title="setup redux thunk"></a>setup redux thunk</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">  reducer,</span><br><span class="line">  applyMiddleware(thunk)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<h3 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h3><p><code>redux-saga</code> relies on generators, but does a decent amount of the work for us, so (in my fairly limited experience) a deep understanding of them for this use-case isn’t necessary.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeLatest, call, put &#125; <span class="keyword">from</span> <span class="string">&quot;redux-saga/effects&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// watcher saga: watches for actions dispatched to the store, starts worker saga</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">watcherSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> takeLatest(<span class="string">&quot;API_CALL_REQUEST&quot;</span>, workerSaga);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function that makes the api request and returns a Promise for response</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchDog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;https://dog.ceo/api/breeds/image/random&quot;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// worker saga: makes the api call when watcher saga sees the action</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">workerSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">yield</span> call(fetchDog);</span><br><span class="line">    <span class="keyword">const</span> dog = response.data.message;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dispatch a success action to the store with the new dog</span></span><br><span class="line">    <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_SUCCESS&quot;</span>, dog &#125;);</span><br><span class="line">  </span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="comment">// dispatch a failure action to the store with the error</span></span><br><span class="line">    <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&quot;API_CALL_FAILURE&quot;</span>, error &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1735,13 +1701,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">164</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

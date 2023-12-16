@@ -6772,6 +6772,10 @@
 </ul>
 <h3 id="DDL-VS-DML"><a href="#DDL-VS-DML" class="headerlink" title="DDL VS DML"></a>DDL VS DML</h3><p>DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.</p>
 <p>Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.</p>
+<h3 id="设置远程登录"><a href="#设置远程登录" class="headerlink" title="设置远程登录"></a>设置远程登录</h3><ul>
+<li><p>mysql 8版本设置可用root远程访问服务</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
 <li><p>导出数据库</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysqldump -h127.0.0.1 -P3306 -uroot -p database &gt; file.sql</span><br><span class="line">其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称</span><br></pre></td></tr></table></figure></li>
@@ -10178,25 +10182,11 @@
 ]]></content>
   </entry>
   <entry>
-    <title>python security - authlib</title>
-    <url>/2023/10/31/python%20authlib/</url>
-    <content><![CDATA[<blockquote>
-<p>Security is always excessive until it’s not enough.</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>auth</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>fastapi learn</title>
     <url>/2023/11/21/fastapi%20learn/</url>
     <content><![CDATA[<p><a href="https://project-awesome.org/mjhea0/awesome-fastapi">Awesome FastAPI</a></p>
 <p><a href="https://github.com/zhanymkanov/fastapi-best-practices">FastAPI Best Practices</a></p>
-]]></content>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
       <categories>
         <category>fastapi</category>
       </categories>
@@ -10513,6 +10503,56 @@
       </categories>
       <tags>
         <tag>problems</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSO (single sign-on)</title>
+    <url>/2023/12/16/SSO/</url>
+    <content><![CDATA[<blockquote>
+<p> SSO (single sign-on)</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>sso</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python security - authlib</title>
+    <url>/2023/10/31/python%20auth%20-%20authlib/</url>
+    <content><![CDATA[<blockquote>
+<p>Security is always excessive until it’s not enough.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>auth</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python auth - fastapi jwt auth</title>
+    <url>/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/</url>
+    <content><![CDATA[<p>在 FastAPI JWT Auth 中，Refresh Token（刷新令牌）和 Access Token（访问令牌）是两种不同的令牌，用于实现认证和授权机制。</p>
+<ol>
+<li>Access Token（访问令牌）：Access Token 是一个短期的令牌，用于验证用户的身份并授权用户访问受保护的资源。Access Token 是通过用户提供的凭证（如用户名和密码）进行身份验证后生成的，通常具有较短的有效期（例如几分钟或几小时）。客户端在每次请求受保护的资源时，需要在请求的头部或请求参数中携带 Access Token，以证明其有权访问该资源。</li>
+<li>Refresh Token（刷新令牌）：Refresh Token 是一个长期有效的令牌，用于在 Access Token 过期后重新获取新的 Access Token。当 Access Token 过期时，客户端可以使用 Refresh Token 向服务器发送请求来获取新的 Access Token，而无需重新提供用户名和密码等凭证。通常情况下，Refresh Token 的有效期要比 Access Token 更长。</li>
+</ol>
+<p>使用 Refresh Token 的主要目的是增强安全性和减少频繁的身份验证操作。通过将 Access Token 的有效期设置较短，可以降低令牌泄露的风险。当 Access Token 过期时，使用 Refresh Token 获取新的 Access Token，这样可以减少频繁地要求用户重新提供凭证的情况。</p>
+<p>一般的流程是，客户端在进行身份验证后会收到一个 Access Token 和一个 Refresh Token。客户端使用 Access Token 来访问受保护的资源，当 Access Token 过期时，客户端使用 Refresh Token 向服务器请求新的 Access Token。</p>
+<p>FastAPI JWT Auth 提供了相应的功能和装饰器来处理 Access Token 和 Refresh Token 的生成、验证和刷新等操作，以方便实现 JWT 认证和授权。</p>
+<p>refresh tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_required()</strong>, <strong>jwt_optional()</strong>, and <strong>fresh_jwt_required()</strong> </p>
+<p>access tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_refresh_token_required()</strong>.</p>
+<h2 id="Refresh-Tokens"><a href="#Refresh-Tokens" class="headerlink" title="Refresh Tokens"></a>Refresh Tokens</h2><p>These are long-lived tokens which can be used to create a new access tokens once an old access token has expired. </p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>auth</tag>
       </tags>
   </entry>
 </search>

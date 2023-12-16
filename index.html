@@ -174,6 +174,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/16/SSO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/16/SSO/" class="post-title-link" itemprop="url">SSO (single sign-on)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-12-16 10:57:00 / Modified: 10:57:10" itemprop="dateCreated datePublished" datetime="2023-12-16T10:57:00+08:00">2023-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sso/" itemprop="url" rel="index"><span itemprop="name">sso</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p> SSO (single sign-on)</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/" class="post-title-link" itemprop="url">python auth - fastapi jwt auth</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-12-15 10:46:58 / Modified: 10:58:11" itemprop="dateCreated datePublished" datetime="2023-12-15T10:46:58+08:00">2023-12-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在 FastAPI JWT Auth 中，Refresh Token（刷新令牌）和 Access Token（访问令牌）是两种不同的令牌，用于实现认证和授权机制。</p>
+<ol>
+<li>Access Token（访问令牌）：Access Token 是一个短期的令牌，用于验证用户的身份并授权用户访问受保护的资源。Access Token 是通过用户提供的凭证（如用户名和密码）进行身份验证后生成的，通常具有较短的有效期（例如几分钟或几小时）。客户端在每次请求受保护的资源时，需要在请求的头部或请求参数中携带 Access Token，以证明其有权访问该资源。</li>
+<li>Refresh Token（刷新令牌）：Refresh Token 是一个长期有效的令牌，用于在 Access Token 过期后重新获取新的 Access Token。当 Access Token 过期时，客户端可以使用 Refresh Token 向服务器发送请求来获取新的 Access Token，而无需重新提供用户名和密码等凭证。通常情况下，Refresh Token 的有效期要比 Access Token 更长。</li>
+</ol>
+<p>使用 Refresh Token 的主要目的是增强安全性和减少频繁的身份验证操作。通过将 Access Token 的有效期设置较短，可以降低令牌泄露的风险。当 Access Token 过期时，使用 Refresh Token 获取新的 Access Token，这样可以减少频繁地要求用户重新提供凭证的情况。</p>
+<p>一般的流程是，客户端在进行身份验证后会收到一个 Access Token 和一个 Refresh Token。客户端使用 Access Token 来访问受保护的资源，当 Access Token 过期时，客户端使用 Refresh Token 向服务器请求新的 Access Token。</p>
+<p>FastAPI JWT Auth 提供了相应的功能和装饰器来处理 Access Token 和 Refresh Token 的生成、验证和刷新等操作，以方便实现 JWT 认证和授权。</p>
+<p>refresh tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_required()</strong>, <strong>jwt_optional()</strong>, and <strong>fresh_jwt_required()</strong> </p>
+<p>access tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_refresh_token_required()</strong>.</p>
+<h2 id="Refresh-Tokens"><a href="#Refresh-Tokens" class="headerlink" title="Refresh Tokens"></a>Refresh Tokens</h2><p>These are long-lived tokens which can be used to create a new access tokens once an old access token has expired. </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/08/git%20mergetool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -444,10 +592,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-11-21 19:13:32 / Modified: 19:16:12" itemprop="dateCreated datePublished" datetime="2023-11-21T19:13:32+08:00">2023-11-21</time>
+              <time title="Created: 2023-11-21 19:13:32" itemprop="dateCreated datePublished" datetime="2023-11-21T19:13:32+08:00">2023-11-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-16 10:56:33" itemprop="dateModified" datetime="2023-12-16T10:56:33+08:00">2023-12-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -471,7 +625,7 @@
       
           <p><a target="_blank" rel="noopener" href="https://project-awesome.org/mjhea0/awesome-fastapi">Awesome FastAPI</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/zhanymkanov/fastapi-best-practices">FastAPI Best Practices</a></p>
-
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
       
     </div>
 
@@ -833,214 +987,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/15/tmux%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/15/tmux%20snippet/" class="post-title-link" itemprop="url">tmux snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-15 11:48:27" itemprop="dateCreated datePublished" datetime="2023-11-15T11:48:27+08:00">2023-11-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-30 00:00:20" itemprop="dateModified" datetime="2023-11-30T00:00:20+08:00">2023-11-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tmux/" itemprop="url" rel="index"><span itemprop="name">tmux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>新建session</td>
-<td>tmux new -s <session-name></td>
-<td>一样</td>
-</tr>
-<tr>
-<td>调整窗格大小</td>
-<td>Ctrl + b, Esc + 方向键</td>
-<td>Ctrl + b, Ctrl + 方向键</td>
-</tr>
-<tr>
-<td>窗格内容翻页</td>
-<td>Ctrl + b, Fn + 上下键</td>
-<td>Ctrl + b, Ctrl + 上下键</td>
-</tr>
-<tr>
-<td>内嵌tmux操作</td>
-<td><strong>按着 ctrl，点击两次 b 键</strong></td>
-<td>一样</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/14/python%20problem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/14/python%20problem/" class="post-title-link" itemprop="url">python problems</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-11-14 15:28:51 / Modified: 15:30:56" itemprop="dateCreated datePublished" datetime="2023-11-14T15:28:51+08:00">2023-11-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li> NotOpenSSLWarning: urllib3 v2.0 only supports OpenSSL 1.1.1+, currently the ‘ssl’ module is compiled with ‘LibreSSL 2.8.3’.</li>
-</ul>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall urllib3</span><br><span class="line">pip install &#x27;urllib3&lt;2.0&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>  <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/76187256/importerror-urllib3-v2-0-only-supports-openssl-1-1-1-currently-the-ssl-modu">stackoverflow</a></p>
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><ul>
-<li>paddlepaddle依赖只能在 python 3.9版本之内可以安装</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1110,13 +1056,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">164</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
