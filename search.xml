@@ -6551,19 +6551,19 @@
 <li><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
 </ul>
 <h2 id="jevn"><a href="#jevn" class="headerlink" title="jevn"></a>jevn</h2><h3 id="列出已安装的Java版本："><a href="#列出已安装的Java版本：" class="headerlink" title="列出已安装的Java版本："></a><strong>列出已安装的Java版本：</strong></h3><p>运行以下命令列出已安装的Java版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
 
 <p>这会显示所有已安装的Java版本。</p>
 <h3 id="5-设置全局Java版本："><a href="#5-设置全局Java版本：" class="headerlink" title="5. 设置全局Java版本："></a>5. <strong>设置全局Java版本：</strong></h3><p>你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">jenv global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">env global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
 
 <p>将 <code>&lt;jdk_version&gt;</code> 替换为你想要设置为默认的Java版本。</p>
 <h3 id="6-设置项目特定的Java版本："><a href="#6-设置项目特定的Java版本：" class="headerlink" title="6. 设置项目特定的Java版本："></a>6. <strong>设置项目特定的Java版本：</strong></h3><p>如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
 
 <p>这会在项目目录下创建一个 <code>.java-version</code> 文件，指定项目特定的Java版本。</p>
 <h3 id="7-验证Java版本："><a href="#7-验证Java版本：" class="headerlink" title="7. 验证Java版本："></a>7. <strong>验证Java版本：</strong></h3><p>在终端中运行以下命令验证当前系统使用的Java版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bashCopy code</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
 
 <p>确保输出显示的是你所期望的Java版本信息。</p>
 <p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
@@ -10511,7 +10511,36 @@
     <content><![CDATA[<blockquote>
 <p> SSO (single sign-on)</p>
 </blockquote>
-]]></content>
+<blockquote>
+<p><a href="https://ninjaauth.com/sso-single-sign-on">https://ninjaauth.com/sso-single-sign-on</a></p>
+</blockquote>
+<h2 id="keycloak"><a href="#keycloak" class="headerlink" title="keycloak"></a>keycloak</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
+<li>需要jdk9以上环境</li>
+</ul>
+<h3 id="config-server"><a href="#config-server" class="headerlink" title="config server"></a>config server</h3><ul>
+<li><p>编辑 <code>/conf/keycloak.conf </code>，配置mysql连接信息 (mysql创建keycloak库)</p>
+</li>
+<li><p>配置 <code>admin cli </code>环境变量 （方便直接命令操作，等同于界面操作）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keycloak</span></span><br><span class="line">export KCADM=&quot;/Users/dongwei/Applications/keycloak-23.0.3/bin/kcadm.sh&quot;</span><br><span class="line">export HOST_FOR_KCADM=localhost</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><ul>
+<li><p>首次启动</p>
+<p><code>KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=xxxxxx ./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>后续启动</p>
+<p><code>./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>生效 <code>KCADM</code></p>
+<p><code>$KCADM config credentials --server http://$HOST_FOR_KCADM:8080 --user admin --password xxx --realm master</code></p>
+</li>
+</ul>
+<p>​        验证 <code>$KCADM get serverinfo</code></p>
+<h3 id="config-realm"><a href="#config-realm" class="headerlink" title="config realm"></a>config realm</h3><ul>
+<li><p>创建新的realm</p>
+<p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
+</li>
+</ul>
+<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3>]]></content>
       <categories>
         <category>sso</category>
       </categories>
