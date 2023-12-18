@@ -28,7 +28,7 @@
 <meta property="og:description" content="SSO (single sign-on)   https:&#x2F;&#x2F;ninjaauth.com&#x2F;sso-single-sign-on  keycloak前提 需要jdk9以上环境  config server 编辑 &#x2F;conf&#x2F;keycloak.conf ，配置mysql连接信息 (mysql创建keycloak库)  配置 admin cli 环境变量 （方便直接命令操作，等同于界面操作） 123">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-16T02:57:00.000Z">
-<meta property="article:modified_time" content="2023-12-16T06:27:10.756Z">
+<meta property="article:modified_time" content="2023-12-18T02:54:58.578Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -202,10 +202,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-16 10:57:00 / Modified: 14:27:10" itemprop="dateCreated datePublished" datetime="2023-12-16T10:57:00+08:00">2023-12-16</time>
+              <time title="Created: 2023-12-16 10:57:00" itemprop="dateCreated datePublished" datetime="2023-12-16T10:57:00+08:00">2023-12-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-18 10:54:58" itemprop="dateModified" datetime="2023-12-18T10:54:58+08:00">2023-12-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -250,7 +256,8 @@
 <p><code>./bin/kc.sh start-dev</code></p>
 </li>
 <li><p>生效 <code>KCADM</code></p>
-<p><code>$KCADM config credentials --server http://$HOST_FOR_KCADM:8080 --user admin --password xxx --realm master</code></p>
+<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
+<p>提示输入密码即可</p>
 </li>
 </ul>
 <p>​        验证 <code>$KCADM get serverinfo</code></p>
@@ -259,7 +266,9 @@
 <p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
 </li>
 </ul>
-<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3>
+<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -280,7 +289,10 @@
     <a href="/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/" rel="prev" title="python auth - fastapi jwt auth">
       <i class="fa fa-chevron-left"></i> python auth - fastapi jwt auth
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/12/18/python%20env%20conda/" rel="next" title="python conda">
+      python conda <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -358,7 +370,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">165</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -369,7 +381,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

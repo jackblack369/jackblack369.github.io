@@ -10531,7 +10531,8 @@
 <p><code>./bin/kc.sh start-dev</code></p>
 </li>
 <li><p>生效 <code>KCADM</code></p>
-<p><code>$KCADM config credentials --server http://$HOST_FOR_KCADM:8080 --user admin --password xxx --realm master</code></p>
+<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
+<p>提示输入密码即可</p>
 </li>
 </ul>
 <p>​        验证 <code>$KCADM get serverinfo</code></p>
@@ -10540,7 +10541,9 @@
 <p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
 </li>
 </ul>
-<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3>]]></content>
+<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>sso</category>
       </categories>
@@ -10582,6 +10585,33 @@
       </categories>
       <tags>
         <tag>auth</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python conda</title>
+    <url>/2023/12/18/python%20env%20conda/</url>
+    <content><![CDATA[<blockquote>
+<p>conda相当于虚拟机，在里面安装python和依赖</p>
+</blockquote>
+<ul>
+<li><p>查看环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure></li>
+<li><p>新建环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda create --name your_env_name</span><br></pre></td></tr></table></figure>
+
+<p>指定python版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda create --name xxx python=3.9</span><br></pre></td></tr></table></figure></li>
+<li><p>激活环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda activate xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>删除环境</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda remove --name xxx --all</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>conda</tag>
       </tags>
   </entry>
 </search>
