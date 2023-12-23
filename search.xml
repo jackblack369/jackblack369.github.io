@@ -3707,7 +3707,9 @@
 </ol>
 <h3 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h3><blockquote>
 <p>对于项目中包含子项目的git项目</p>
-<p>reference <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
+<p>reference</p>
+<p><a href="https://www.git-scm.com/book/en/v2/Git-Tools-Submodules">https://www.git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
+<p> <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
 </blockquote>
 <ul>
 <li><p>如何是首次克隆，初始化代码需要</p>
@@ -3726,6 +3728,12 @@
 </ol>
 </li>
 </ul>
+<h3 id="在已有项目添加子模块"><a href="#在已有项目添加子模块" class="headerlink" title="在已有项目添加子模块"></a>在已有项目添加子模块</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git submodule add https://xxx.git configserver</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="合并策略"><a href="#合并策略" class="headerlink" title="合并策略"></a>合并策略</h3><p>warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。<br>您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config pull.rebase false # 合并（缺省策略）  </span><br><span class="line">git config pull.rebase true # 变基  </span><br><span class="line">git config pull.ff only # 仅快进</span><br></pre></td></tr></table></figure>
 
@@ -6715,7 +6723,7 @@
     <content><![CDATA[<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
 <li><p>the size of blob column</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">  A BLOB can be 65535 bytes (64 KB) maximum.</span><br><span class="line">If you need more consider using:</span><br><span class="line">a MEDIUMBLOB for 16777215 bytes (16 MB)</span><br><span class="line">a LONGBLOB for 4294967295 bytes (4 GB).</span><br></pre></td></tr></table></figure></li>
-<li><p>join sql<br><img src="https://i.stack.imgur.com/VQ5XP.png"></p>
+<li><p>join sql</p>
 </li>
 <li><p>string convert to timstamp</p>
 <p><code>SELECT STR_TO_DATE(&#39;2014-05-28 11:30:10&#39;,&#39;%Y-%m-%d %H:%i:%s&#39;);</code></p>
@@ -6804,7 +6812,16 @@
   <entry>
     <title>nacos snippet</title>
     <url>/2021/12/01/nacos%20snippet/</url>
-    <content><![CDATA[<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><a href="https://juejin.cn/post/7136952484903256077">https://juejin.cn/post/7136952484903256077</a></p>
+<h5 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h5><p>Spring Cloud Alibaba Nacos Discovery 遵循了 Spring Cloud Common 标准，实现了 AutoServiceRegistration、ServiceRegistry、Registration 这三个接口。</p>
+<p>在 Spring Cloud 应用的启动阶段，监听了 WebServerInitializedEvent 事件，当 Web 容器初始化完成后，即收到 WebServerInitializedEvent 事件后，会触发注册的动作，调用 ServiceRegistry 的 register 方法，将服务注册到 Nacos Server。</p>
+<p>![nacos客户端注册机制](/images/nacos/nacos client register mechanism.png)</p>
+<ul>
+<li><p>python nacos client</p>
+<p><a href="https://pypi.org/project/nacos-client-python/">nacos-client-python</a></p>
+</li>
+</ul>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><ul>
 <li>2.x版本启动，需要添加 -m属性<code>./startup.sh -m standalone</code></li>
 </ul>
 <h2 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h2><h3 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a>健康检查</h3><p>服务端接受到客户端的服务注册请求后，在创建空的Service后，就会开启健康检查任务</p>
@@ -6819,7 +6836,7 @@
 
 <ul>
 <li><p>创建命令空间</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -d &#x27;namespaceId=jarvex_space&#x27; \</span><br><span class="line">  -d &#x27;namespaceName=jarvex&#x27; \</span><br><span class="line">  -X POS</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -d &#x27;namespaceId=jarvex_space&#x27; \</span><br><span class="line">  -d &#x27;namespaceName=jarvex&#x27; \</span><br><span class="line">  -X POST</span><br></pre></td></tr></table></figure></li>
 <li><p>删除持久化实例</p>
 </li>
 </ul>
@@ -8210,6 +8227,12 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set list</span><br></pre></td></tr></table></figure></li>
 <li><p>统计字符出现次数</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:%s/字符串//ng</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>大小写转换</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">选择文本之后，执行 g~~ 进行大小写的转换</span><br></pre></td></tr></table></figure></li>
+<li><p>全文选择</p>
+</li>
 <li><p>多行操作</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">按下 Ctrl + v 进入可视块模式。</span><br><span class="line">使用上下箭头键或 j 和 k 键选择要编辑的行。</span><br><span class="line">按下 Shift + i 进入插入模式。</span><br><span class="line">输入要插入的文本。</span><br><span class="line">按下 Esc 键退出插入模式，所有选定的行都将被修改。</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -10612,6 +10635,20 @@
       </categories>
       <tags>
         <tag>conda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python ASGI</title>
+    <url>/2023/12/19/python%20ASGI/</url>
+    <content><![CDATA[<blockquote>
+<p>the Asynchronous Server Gateway Interface.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>ASGI</tag>
       </tags>
   </entry>
 </search>

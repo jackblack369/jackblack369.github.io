@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="format json 1:%!jq . formate xml 1:%!xmllint --format % 显示不可见字符 1:set list 统计字符出现次数 1:%s&#x2F;字符串&#x2F;&#x2F;ng 多行操作 12345按下 Ctrl + v 进入可视块模式。使用上下箭头键或 j 和 k 键选择要编辑的行。按下 Shift + i 进入插入模式。输入要插入的文本。按下 Esc 键退出插入模式，所有选定">
+  <meta name="description" content="format json 1:%!jq . formate xml 1:%!xmllint --format % 显示不可见字符 1:set list 统计字符出现次数 1:%s&#x2F;字符串&#x2F;&#x2F;ng   大小写转换 1选择文本之后，执行 g~~ 进行大小写的转换 全文选择  多行操作 12345按下 Ctrl + v 进入可视块模式。使用上下箭头键或 j 和 k 键选择要编辑的行。按下 Shift +">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vim command">
 <meta property="og:url" content="http://yoursite.com/2015/08/16/vim%20command/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="format json 1:%!jq . formate xml 1:%!xmllint --format % 显示不可见字符 1:set list 统计字符出现次数 1:%s&#x2F;字符串&#x2F;&#x2F;ng 多行操作 12345按下 Ctrl + v 进入可视块模式。使用上下箭头键或 j 和 k 键选择要编辑的行。按下 Shift + i 进入插入模式。输入要插入的文本。按下 Esc 键退出插入模式，所有选定">
+<meta property="og:description" content="format json 1:%!jq . formate xml 1:%!xmllint --format % 显示不可见字符 1:set list 统计字符出现次数 1:%s&#x2F;字符串&#x2F;&#x2F;ng   大小写转换 1选择文本之后，执行 g~~ 进行大小写的转换 全文选择  多行操作 12345按下 Ctrl + v 进入可视块模式。使用上下箭头键或 j 和 k 键选择要编辑的行。按下 Shift +">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2015-08-16T04:01:30.000Z">
-<meta property="article:modified_time" content="2023-07-17T06:00:00.244Z">
+<meta property="article:modified_time" content="2023-12-21T03:33:37.891Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="vim">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-17 14:00:00" itemprop="dateModified" datetime="2023-07-17T14:00:00+08:00">2023-07-17</time>
+                <time title="Modified: 2023-12-21 11:33:37" itemprop="dateModified" datetime="2023-12-21T11:33:37+08:00">2023-12-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,6 +242,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set list</span><br></pre></td></tr></table></figure></li>
 <li><p>统计字符出现次数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/字符串//ng</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>大小写转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择文本之后，执行 g~~ 进行大小写的转换</span><br></pre></td></tr></table></figure></li>
+<li><p>全文选择</p>
+</li>
 <li><p>多行操作</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">按下 Ctrl + v 进入可视块模式。</span><br><span class="line">使用上下箭头键或 j 和 k 键选择要编辑的行。</span><br><span class="line">按下 Shift + i 进入插入模式。</span><br><span class="line">输入要插入的文本。</span><br><span class="line">按下 Esc 键退出插入模式，所有选定的行都将被修改。</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -346,7 +352,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -357,7 +363,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
