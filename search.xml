@@ -10387,6 +10387,19 @@
 </li>
 </ol>
 <p>使用虚拟环境有助于隔离项目的依赖，避免与系统其他项目的依赖冲突，并提供更干净的开发环境。</p>
+<h3 id="uvicorn"><a href="#uvicorn" class="headerlink" title="uvicorn"></a>uvicorn</h3><blockquote>
+<p>正常情况下虚拟环境 /path/to/venv/bin/ 下面是有 uvicorn 的启动命令的，即 /xxx/venv/bin/uvicorn</p>
+</blockquote>
+<h4 id="如果当前虚拟环境不识别uvicorn，可通过"><a href="#如果当前虚拟环境不识别uvicorn，可通过" class="headerlink" title="如果当前虚拟环境不识别uvicorn，可通过"></a>如果当前虚拟环境不识别<code>uvicorn</code>，可通过</h4><ul>
+<li>方式一</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -m uvicorn xxx:app --reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式二</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install --force-reinstall uvicorn</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>python</category>
@@ -10520,7 +10533,10 @@
 </code></pre>
 </li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
+<h2 id="update操作"><a href="#update操作" class="headerlink" title="update操作"></a>update操作</h2><p>如果提前有 <code>session.get(entity, id)</code>，那后续在修改相关表属性<code>enitty.colx = xxx</code> 之后，需要紧接<code>session.add(entity)</code></p>
+<h3 id="session的获取"><a href="#session的获取" class="headerlink" title="session的获取"></a>session的获取</h3><p>在使用 SQLModel 进行数据库操作时，可以使用上下文管理器 <code>with Session(engine) as session</code> 来创建并管理数据库会话。这样可以确保会话在使用完毕后会被正确关闭，释放数据库连接资源。</p>
+<p>在例如 <code>async def delete_user(*, user_id: int, session: Session = Depends(get_session)):</code>中，<code>session</code> 参数是通过 <code>Depends(get_session)</code> 进行依赖注入的，FastAPI 框架会负责在请求处理函数执行完毕后自动关闭会话。所以在请求逻辑中，你不需要手动关闭会话连接。</p>
+]]></content>
       <categories>
         <category>python</category>
       </categories>
