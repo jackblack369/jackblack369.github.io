@@ -6149,13 +6149,19 @@
 <li><p>删除指定多行</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i &#x27;1,5d&#x27; example.txt</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
+<h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><ul>
+<li>查看编码</li>
+</ul>
+<p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
 
 <p>输出可能是这样</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
 
 <p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
+<ul>
+<li>转换编码</li>
+</ul>
 <p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
 
