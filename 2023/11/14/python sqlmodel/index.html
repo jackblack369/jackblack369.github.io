@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="单个实体转换为字典12# 将实例对象转换为字典，排除未设置值的字段entity_dict &#x3D; entity.dict(exclude_unset&#x3D;True)   使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。exclude_unset&#x3D;True 参数是用来控制是否排除未设置的属性字段。当设置为 True 时，将排除那些未设置值的字段，即只包含已经设置值的字段。   遍历">
+  <meta name="description" content="单个实体转换为字典 方式一  12# 将实例对象转换为字典，排除未设置值的字段entity_dict &#x3D; entity.dict(exclude_unset&#x3D;True)   使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。exclude_unset&#x3D;True 参数是用来控制是否排除未设置的属性字段。当设置为 True 时，将排除那些未设置值的字段，即只包含已经设置值的字段">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python sqlmodel&amp;SQLAlchemy">
 <meta property="og:url" content="http://yoursite.com/2023/11/14/python%20sqlmodel/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="单个实体转换为字典12# 将实例对象转换为字典，排除未设置值的字段entity_dict &#x3D; entity.dict(exclude_unset&#x3D;True)   使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。exclude_unset&#x3D;True 参数是用来控制是否排除未设置的属性字段。当设置为 True 时，将排除那些未设置值的字段，即只包含已经设置值的字段。   遍历">
+<meta property="og:description" content="单个实体转换为字典 方式一  12# 将实例对象转换为字典，排除未设置值的字段entity_dict &#x3D; entity.dict(exclude_unset&#x3D;True)   使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。exclude_unset&#x3D;True 参数是用来控制是否排除未设置的属性字段。当设置为 True 时，将排除那些未设置值的字段，即只包含已经设置值的字段">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-14T07:28:51.000Z">
-<meta property="article:modified_time" content="2023-12-24T08:17:56.087Z">
+<meta property="article:modified_time" content="2023-12-28T05:58:56.182Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="problems">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-24 16:17:56" itemprop="dateModified" datetime="2023-12-24T16:17:56+08:00">2023-12-24</time>
+                <time title="Modified: 2023-12-28 13:58:56" itemprop="dateModified" datetime="2023-12-28T13:58:56+08:00">2023-12-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,15 +233,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="单个实体转换为字典"><a href="#单个实体转换为字典" class="headerlink" title="单个实体转换为字典"></a>单个实体转换为字典</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将实例对象转换为字典，排除未设置值的字段</span></span><br><span class="line">entity_dict = entity.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+        <h2 id="单个实体转换为字典"><a href="#单个实体转换为字典" class="headerlink" title="单个实体转换为字典"></a>单个实体转换为字典</h2><ul>
+<li>方式一</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将实例对象转换为字典，排除未设置值的字段</span></span><br><span class="line">entity_dict = entity.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。<code>exclude_unset=True</code> 参数是用来控制是否排除未设置的属性字段。当设置为 <code>True</code> 时，将排除那些未设置值的字段，即只包含已经设置值的字段。</p>
 </blockquote>
 <ul>
-<li>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</li>
+<li><p>方式二：</p>
+<p>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</p>
+</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_group_data.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>, exclude=&#123;<span class="string">&quot;team_roles&quot;</span>&#125;).items():</span><br><span class="line">	<span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">	<span class="built_in">setattr</span>(user_group, key, value)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式三</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resourceCreate: ResourceCreate</span><br><span class="line">...</span><br><span class="line">resource = Resource(**resourceCreate.<span class="built_in">dict</span>())</span><br></pre></td></tr></table></figure>
 
 
 
@@ -371,7 +381,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -382,7 +392,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -409,7 +419,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

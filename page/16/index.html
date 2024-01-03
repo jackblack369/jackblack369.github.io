@@ -174,6 +174,283 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/java%20skill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/20/java%20skill/" class="post-title-link" itemprop="url">java skill</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-20 21:50:30" itemprop="dateCreated datePublished" datetime="2016-05-20T21:50:30+08:00">2016-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-04 17:00:22" itemprop="dateModified" datetime="2019-11-04T17:00:22+08:00">2019-11-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
+<li><p>int变量自增 效率问题 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;和i += 1;形成的指令数较少，且不需要操作数栈。相对而言，i = i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+= 1;的效率一样，并且二者的效率都优于i = i+1;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><strong>T，E，K，V，？是这样约定的：</strong></p>
+<ul>
+<li>？表示不确定的 java 类型</li>
+<li>T (type) 表示具体的一个java类型</li>
+<li>K V (key value) 分别代表java键值中的Key Value</li>
+<li>E (element) 代表Element</li>
+</ul>
+<p><strong>？和 T 的区别</strong>：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz/knmrNHnmCLFRVA73vYfkqVGfia90X5nyEsksfM8Vz6btFZCRd3PCSJC1XkZhaJ0ufxcoohxAdr8X1tykU9CZPUQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>？和 T 都表示不确定的类型，区别在于我们可以对 T 进行操作，但是对 ？不行，比如如下这种 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 可以</span><br><span class="line">T t = operate();</span><br><span class="line"></span><br><span class="line">// 不可以</span><br><span class="line">？car = operate();</span><br></pre></td></tr></table></figure>
+
+<p>简单总结下：</p>
+<p>T 是一个 确定的 类型，通常用于泛型类和泛型方法的定义，？是一个 不确定 的类型，通常用于泛型方法的调用代码和形参，不能用于定义类和泛型方法。</p>
+<p><strong>PECS（Producer Extends Consumer Super）</strong>原则：作为生产者提供数据（往外读取）时，适合用上界通配符（extends）；作为消费者消费数据（往里写入）时，适合用下界通配符（super）。</p>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><p>在 JDK8 以后，建议使用 DateTimeFormatter 代替 SimpleDateFormat ，因为 SimpleDateFormat 是线程不安全的，而 DateTimeFormatter 是线程安全的。当然，也可以采用第三方提供的线程安全日期格式化函数，比如 apache 的 DateFormatUtils 工具类。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/shiro%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/20/shiro%20snippet/" class="post-title-link" itemprop="url">shiro snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-20 21:50:30" itemprop="dateCreated datePublished" datetime="2016-05-20T21:50:30+08:00">2016-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-07 14:52:35" itemprop="dateModified" datetime="2022-04-07T14:52:35+08:00">2022-04-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/shiro/" itemprop="url" rel="index"><span itemprop="name">shiro</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>**对于一个好的框架，从外部来看应该具有非常简单易于使用的 API，且 API 契约明确；从内部来看的话，其应该有一个可扩展的架构，即非常容易插入用户自定义实现，因为任何框架都不能满足所有需求。 **</p>
+<hr>
+<ul>
+<li><p>Subject</p>
+<p>主体，代表了当前的用户</p>
+</li>
+<li><p>SecurityManager</p>
+<p>安全管理器，它管理着所有Subject，相当于springmvc中的DispatcherServlet(前端控制器)</p>
+</li>
+<li><p>Realm</p>
+<p>域，Shiro从Realm获取安全数据（如用户、角色、权限） ，是验证主体subject的数据源</p>
+</li>
+</ul>
+<p>流程如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/2.png"></p>
+<p><strong>流程说明</strong>：</p>
+<ol>
+<li>应用代码通过 Subject 来进行认证和授权，而 Subject 又委托给 SecurityManager；</li>
+<li>我们需要给 Shiro 的 SecurityManager 注入 Realm，从而让 SecurityManager 能得到合法的用户及其权限进行判断。</li>
+</ol>
+<p><strong>从以上也可以看出，Shiro 不提供维护用户 / 权限，而是通过 Realm 让开发人员自己注入。</strong> </p>
+<hr>
+<p>shiro的内部结构如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/3.png"></p>
+<hr>
+<h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h3><p><strong>principals</strong>：身份，即主体的标识属性，可以是任何东西，如用户名、邮箱等，唯一即可。 </p>
+<p><strong>credentials</strong>：证明 / 凭证，即只有主体知道的安全值，如密码 / 数字证书等。 </p>
+<ul>
+<li>身份认证流程</li>
+</ul>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/4.png"></p>
+<hr>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 </p>
+<ul>
+<li>授权方式编程式、注解式、jsp/gsp标签式</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/16/version%20sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/16/version%20sort/" class="post-title-link" itemprop="url">linux config</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-16 20:20:30" itemprop="dateCreated datePublished" datetime="2016-05-16T20:20:30+08:00">2016-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-14 14:33:44" itemprop="dateModified" datetime="2019-03-14T14:33:44+08:00">2019-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/version/" itemprop="url" rel="index"><span itemprop="name">version</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">1 	Α 	α 	alpha a:lf 阿尔法</span><br><span class="line">2 	Β 	β 	beta bet 贝塔</span><br><span class="line">3 	Γ 	γ 	gamma ga:m 伽马</span><br><span class="line">4 	Δ 	δ 	delta delt 德尔塔</span><br><span class="line">5 	Ε 	ε 	epsilon ep`silon 伊普西龙</span><br><span class="line">6 	Ζ 	ζ 	zeta zat 截塔</span><br><span class="line">7 	Η 	η 	eta eit 艾塔</span><br><span class="line">8 	Θ 	θ 	theta θit 西塔</span><br><span class="line">9 	Ι 	ι 	iota aiot 约塔</span><br><span class="line">10	Κ 	κ 	kappa kap 卡帕</span><br><span class="line">11	∧ 	λ 	lambda lambd 兰布达</span><br><span class="line">12	Μ 	μ 	mu mju 缪</span><br><span class="line">13	Ν 	ν 	nu nju 纽</span><br><span class="line">14	Ξ 	ξ 	xi ksi 克西</span><br><span class="line">15	Ο 	ο 	omicron omik`ron 奥密克戎</span><br><span class="line">16	∏ 	π 	pi pai 派</span><br><span class="line">17	Ρ 	ρ 	rho rou 肉</span><br><span class="line">18	∑ 	σ 	sigma `sigma 西格马</span><br><span class="line">19	Τ 	τ 	tau tau 套</span><br><span class="line">20 	Υ 	υ 	upsilon ju:p`sailon 宇普西龙</span><br><span class="line">21 	Φ 	φ 	phi fai 佛爱</span><br><span class="line">22 	Χ 	χ 	chi phai 西</span><br><span class="line">23 	Ψ 	ψ 	psi psai 普西</span><br><span class="line">24 	Ω 	ω 	omega o`miga 欧米伽</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/16/filter%20in%20servlet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -934,571 +1211,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/10/16/linux%20command/" class="post-title-link" itemprop="url">linux command</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-24 15:22:45" itemprop="dateModified" datetime="2023-07-24T15:22:45+08:00">2023-07-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
-<h3 id="Bash-Shell-Scripting-Definition"><a href="#Bash-Shell-Scripting-Definition" class="headerlink" title="Bash Shell Scripting Definition"></a>Bash Shell Scripting Definition</h3><ul>
-<li>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. <h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
-<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><ul>
-<li>kill seesion <code>screen -X -S [session # you want to kill] quit</code></li>
-<li>新建screen会话           screen -S xxx</li>
-<li>恢复指定会话               screen -r xxx</li>
-<li>查看所有会话                screen -ls</li>
-<li>删除指定会话                screen -S xxx -X quit</li>
-<li>回到终端                        Ctrl-a d</li>
-</ul>
-<h3 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h3><ul>
-<li><p>check status : <code>sudo ufw status</code></p>
-</li>
-<li><p>enable firewall: </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">enable</span></span><br><span class="line">Command may disrupt existing ssh connections. Proceed with operation (y|n)? y</span><br><span class="line">Firewall is active and enabled on system startup</span><br></pre></td></tr></table></figure></li>
-<li><p>disable firewall</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="磁盘相关"><a href="#磁盘相关" class="headerlink" title="磁盘相关"></a>磁盘相关</h3><ul>
-<li><p>查看系统磁盘占用情况    <code> df -h</code></p>
-</li>
-<li><p>查看目录下文件大小        <code>du -sh</code></p>
-</li>
-<li><p>查看当前目录下一级子文件和子目录占用的磁盘容量: <code>du -h --max-depth=1 </code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看当前目录下user目录的大小，并不想看其他目录以及其子目录：</span><br><span class="line">du -sh user</span><br><span class="line">-s表示总结的意思，即只列出一个总结的值</span><br><span class="line">du -h --max-depth=0 user</span><br><span class="line">--max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。</span><br></pre></td></tr></table></figure></li>
-<li><p>总结du常用命令</p>
-<p><strong>du -h –max-depth=1 |grep ‘G’ |sort   #查看上G目录并排序</strong></p>
-<p>du -h –max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序<br>du -sh –max-depth=1  #查看当前目录下所有一级子目录文件夹大小</p>
-</li>
-<li><p>清理指定目录下的文件</p>
-<p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
-<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
-
-<h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
-
-<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>限定查询结果之后的前几行 <code>grep -m 10 &lt;pattern&gt; &lt;file&gt; </code></p>
-<p>限定查询结果倒数的几行 <code>grep &lt;pattern&gt; &lt;file&gt; | tail -10</code></p>
-<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><ul>
-<li><p>判断　day of year     </p>
-<p><code>doy=$(date +%j)</code></p>
-</li>
-<li><p>制定日期减一天</p>
-<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
-</li>
-<li><p>当前时间戳（秒）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date +%s</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
-<p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
-<h3 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下载服务器文件    sz filename</span><br><span class="line">上传本地文件 rz filename</span><br></pre></td></tr></table></figure>
-
-<h3 id="tr命令"><a href="#tr命令" class="headerlink" title="tr命令"></a>tr命令</h3><p>tr – translate or delete characters </p>
-<ul>
-<li>大小写转换<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
-<li><p>“1”</p>
-<p>查看所有CPU核的使用情况</p>
-</li>
-<li><p>“c”</p>
-<p>查看具体进程的路径</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line"></span><br><span class="line">　　t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line"></span><br><span class="line">　　m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line"></span><br><span class="line">　　N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line"></span><br><span class="line">　　P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line"></span><br><span class="line">　　h - 显示帮助</span><br><span class="line"></span><br><span class="line">　　n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line"></span><br><span class="line">　　q - 退出 top</span><br><span class="line"></span><br><span class="line">　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
-
-<h3 id="查看指定服务的运行情况"><a href="#查看指定服务的运行情况" class="headerlink" title="查看指定服务的运行情况"></a>查看指定服务的运行情况</h3><ul>
-<li><code>journalctl -u xxx.service</code></li>
-</ul>
-<h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="清理缓存"><a href="#清理缓存" class="headerlink" title="清理缓存"></a>清理缓存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="centos安装离线依赖"><a href="#centos安装离线依赖" class="headerlink" title="centos安装离线依赖"></a>centos安装离线依赖</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh name.rpm</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20file/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/10/16/linux%20file/" class="post-title-link" itemprop="url">linux file command</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-25 15:13:27" itemprop="dateModified" datetime="2023-12-25T15:13:27+08:00">2023-12-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><ul>
-<li>去除包含特定字符串的行：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -v &quot;pattern&quot; inputfile &gt; outputfile</span><br></pre></td></tr></table></figure>
-
-<p>参数 <code>-v</code> 是用来反向匹配的选项，它会将不匹配指定模式的行输出</p>
-<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename1&quot;|&quot;filename2&quot;) </span><br></pre></td></tr></table></figure>
-
-<p><strong>3.</strong> The example below shows how to remove all files other than all <code>.zip</code> files interactively:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i !(*.zip)</span><br></pre></td></tr></table></figure>
-
-<p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
-
-<p><strong>5.</strong> 删除指定目录下指定日期的目录，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-
-<p><strong>6</strong>. 删除指定目录下前一个星期的文件，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -delete</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>可指定相关名称</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /var/log -name &quot;*.log&quot; -type f -mtime +30 </span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h2><ul>
-<li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
-<p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
-<p>awk ‘{ $5=””; print }’ file</p>
-</li>
-</ul>
-<h2 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h2><p>语法：wc [选项] 文件…</p>
-<p>说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。</p>
-<p>该命令各选项含义如下：</p>
-<p>　　- c 统计字节数。</p>
-<p>　　- l 统计行数。</p>
-<p>　　- w 统计字数。</p>
-<p>这些选项可以组合使用。</p>
-<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>使文件可以直接执行的命令：chmod +x filename</p>
-<p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
-
-<h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]</span><br><span class="line">–version 显示版本信息</span><br><span class="line">– 或者-l,指定每多少行切割一次，用于文本文件分割</span><br><span class="line">-b 指定切割文件大小,单位 m 或 k</span><br><span class="line">-C 与-b类似，但尽量维持每行完整性</span><br><span class="line">-d 使用数字而不是字母作为后缀名</span><br><span class="line">-a 指定后缀名的长度，默认为2位</span><br></pre></td></tr></table></figure>
-
-<p>将多个分割的文件进行合并</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat files_name_1 files_name_2 files_name_3 &gt; files_name</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>按行数分割</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">split -l 10000 bigfile.txt smallfile</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>分割之后的文件不影响读取</p>
-</blockquote>
-</li>
-<li><p>统计某个文件中的字符数，需要注意的是，如果文件中包含多字节字符（如中文），则每个字符将被视为多个字符来计算。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -c /path/to/file</span><br></pre></td></tr></table></figure>
-
-<p>在这基础上，统计内容所占KB</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -c /path/to/file | awk &#x27;&#123;print $1/1024&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
-<li><p>awk对文件按照指定多列的内容进行排序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;&#123;print $0&#125;&#x27; head_100.csv | sort -t &#x27;,&#x27; -k2,3 &gt; head_100_sort.csv</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>并用<code>sort</code>命令根据指定列的内容进行排序。<code>-t</code>选项表示使用制表符作为字段分隔符，<code>[列数]</code>是你要排序的那一列，“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
-</blockquote>
-</li>
-<li><p>统计字符的长度</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 字符 | wc -m</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h2><ul>
-<li>markdown文件转word文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
-<li>查找具体文件    </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查找指定用户的文件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -user 用户名</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查找指定用户组的文件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -group 用户组</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 <code>rm</code> 命令进行删除</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! -name &quot;*.txt&quot; -delete</span><br></pre></td></tr></table></figure></li>
-<li><p>匹配多个</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! \( -name &quot;log4j*&quot; -o -name &quot;flink*&quot; \)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
-<h2 id="格式化json"><a href="#格式化json" class="headerlink" title="格式化json"></a>格式化json</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&#123;&quot;kind&quot;: &quot;Service&quot;, &quot;apiVersion&quot;: &quot;v1&quot;, &quot;status&quot;: &#123;&quot;loadBalancer&quot;: true&#125;&#125;&#x27;|jq .</span><br></pre></td></tr></table></figure>
-
-<h2 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h2><ul>
-<li><p>替换字符</p>
-<p>linux环境：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
-
-<p>mac环境（需要设置备份，以防文件损坏）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i .bak &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure></li>
-<li><p>删除指定多行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;1,5d&#x27; example.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><ul>
-<li>查看编码</li>
-</ul>
-<p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
-
-<p>输出可能是这样</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
-
-<p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
-<ul>
-<li>转换编码</li>
-</ul>
-<p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -c  -f gb2312 -t utf8 test.txt -o output.file</span><br></pre></td></tr></table></figure></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iconv -f gb18030 -t UTF-8 input.file -o output.file</span><br><span class="line"></span><br><span class="line">gb18030</span><br></pre></td></tr></table></figure>
-
-<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><ul>
-<li><p>c – Creates a new .tar archive file.</p>
-</li>
-<li><p>x — to untar or extract a tar file</p>
-</li>
-<li><p>v – Verbosely show the .tar file progress.</p>
-</li>
-<li><p>f – File name type of the archive file.</p>
-</li>
-<li><p>z — gzip archive file</p>
-</li>
-<li><p>j —  bz2 feature compress and create archive file</p>
-</li>
-<li><p>t — to list the contents of tar archive file</p>
-</li>
-</ul>
-<h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>用zip命令对文件加密压缩和解压</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
-
-<h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
-
-<h2 id="查找指定目录下的文件内容"><a href="#查找指定目录下的文件内容" class="headerlink" title="查找指定目录下的文件内容"></a>查找指定目录下的文件内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -rn &quot;info&quot; *</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询大文件里面的内容"><a href="#查询大文件里面的内容" class="headerlink" title="查询大文件里面的内容"></a>查询大文件里面的内容</h2><p>格式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 使用管道符可以实现过滤既满足时间又满足ip的行。</span><br><span class="line">grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3</span><br></pre></td></tr></table></figure>
-
-<p>参数解释：<br>-n 参数的作用是显示查找结果的所在行号<br>-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数<br>prometheus.log 表示待搜索的大日志文件<br>head -n 3 表示显示前面查询结果的前三条记录</p>
-<h2 id="排除指定内容"><a href="#排除指定内容" class="headerlink" title="排除指定内容"></a>排除指定内容</h2><p>要仅打印与搜索模式不匹配的行，可以使用grep的<code>-v</code>或<code>--invert-match</code>选项。进行反转的匹配。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -v xxx</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><ul>
-<li>下载指定目录</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="软连接"><a href="#软连接" class="headerlink" title="软连接"></a>软连接</h2><ul>
-<li><p>创建软连接</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln  -s  [源文件或目录]  [目标文件或目录]</span><br></pre></td></tr></table></figure></li>
-<li><p>查找指定目录的软连接文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了<code>-T /data</code>选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。</p>
-<p>“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
-</blockquote>
-<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><ul>
-<li><p>Base64</p>
-<ul>
-<li><p>解码</p>
-<p><code>echo [base64-encoded-string] | base64 --decode</code></p>
-</li>
-<li><p>编码</p>
-<p><code>echo &quot;your string&quot; | base64</code></p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/16/linux%20systemInfo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/10/16/linux%20systemInfo/" class="post-title-link" itemprop="url">linux systemInfo command</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2015-10-16T12:01:30+08:00">2015-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-10 17:46:34" itemprop="dateModified" datetime="2023-11-10T17:46:34+08:00">2023-11-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h2><ul>
-<li><p>查看系统</p>
-<ul>
-<li><code>cat /etc/os-release</code></li>
-</ul>
-</li>
-<li><p>查看内核</p>
-<ul>
-<li><code>cat /proc/version</code></li>
-<li><code>uname -a</code></li>
-</ul>
-</li>
-<li><p>查看linux版本</p>
-<ul>
-<li><code>lsb_release -a</code></li>
-<li><code>cat /etc/issue</code></li>
-</ul>
-</li>
-<li><blockquote>
-<p>总核数 = 物理CPU个数 X 每颗物理CPU的核数 </p>
-<p>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</p>
-</blockquote>
-<ul>
-<li><p>查看物理CPU个数</p>
-<ol>
-<li>top命令，然后输入数字1查看，各项参数如下<ul>
-<li><code>us</code>：用户空间占用 CPU 的百分比。</li>
-<li><code>sy</code>：内核空间占用 CPU 的百分比。</li>
-<li><code>ni</code>：调整过优先级的进程占用 CPU 的百分比。</li>
-<li><code>id</code>：空闲 CPU 的百分比。</li>
-<li><code>wa</code>：等待 I/O 的 CPU 时间的百分比。</li>
-<li><code>hi</code>：硬中断（hardware interrupt）占用 CPU 的时间的百分比。</li>
-<li><code>si</code>：软中断（software interrupt）占用 CPU 的时间的百分比。</li>
-<li><code>st</code>：虚拟机或者运行在它上面的虚拟 CPU 占用 CPU 的时间的百分比。</li>
-</ul>
-</li>
-<li>输入mpstat查看</li>
-<li>输入以下命令</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>查看每个物理CPU中core的个数(即核数)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br></pre></td></tr></table></figure></li>
-<li><p>查看逻辑CPU的总数</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><ul>
-<li><p>进程CPU占用率</p>
-<p>top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。</p>
-<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
-</li>
-</ul>
-<h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
-<h2 id="清理内存"><a href="#清理内存" class="headerlink" title="清理内存"></a>清理内存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看buff-cache"><a href="#查看buff-cache" class="headerlink" title="查看buff/cache"></a>查看buff/cache</h2><ul>
-<li>工具推荐 <a target="_blank" rel="noopener" href="https://github.com/silenceshell/hcache">https://github.com/silenceshell/hcache</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1568,7 +1280,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1579,7 +1291,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1606,7 +1318,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

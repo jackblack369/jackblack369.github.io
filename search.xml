@@ -6564,23 +6564,6 @@
 <h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ul>
 <li><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
 </ul>
-<h2 id="jevn"><a href="#jevn" class="headerlink" title="jevn"></a>jevn</h2><h3 id="列出已安装的Java版本："><a href="#列出已安装的Java版本：" class="headerlink" title="列出已安装的Java版本："></a><strong>列出已安装的Java版本：</strong></h3><p>运行以下命令列出已安装的Java版本：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
-
-<p>这会显示所有已安装的Java版本。</p>
-<h3 id="5-设置全局Java版本："><a href="#5-设置全局Java版本：" class="headerlink" title="5. 设置全局Java版本："></a>5. <strong>设置全局Java版本：</strong></h3><p>你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">env global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
-
-<p>将 <code>&lt;jdk_version&gt;</code> 替换为你想要设置为默认的Java版本。</p>
-<h3 id="6-设置项目特定的Java版本："><a href="#6-设置项目特定的Java版本：" class="headerlink" title="6. 设置项目特定的Java版本："></a>6. <strong>设置项目特定的Java版本：</strong></h3><p>如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这会在项目目录下创建一个 <code>.java-version</code> 文件，指定项目特定的Java版本。</p>
-<h3 id="7-验证Java版本："><a href="#7-验证Java版本：" class="headerlink" title="7. 验证Java版本："></a>7. <strong>验证Java版本：</strong></h3><p>在终端中运行以下命令验证当前系统使用的Java版本：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-
-<p>确保输出显示的是你所期望的Java版本信息。</p>
-<p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
 <p>Regenerate</p>
 ]]></content>
       <categories>
@@ -9380,6 +9363,8 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><ul>
+<li><p>国内镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple</span><br><span class="line">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></li>
 <li><p>安装子模块</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install &#x27;fastapi_amis_admin[cli]&#x27;  # 注意引号</span><br></pre></td></tr></table></figure></li>
 <li><p>查看指定依赖版本</p>
@@ -10193,6 +10178,26 @@
 <td></td>
 </tr>
 </tbody></table>
+<h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><code>ctrl + b</code> 然后按下<code>:</code></p>
+<ul>
+<li><p>创建会话</p>
+<p><code>new-session -s &lt;session name&gt;</code> </p>
+</li>
+<li><p>切换会话</p>
+<p><code>switch-client -t &lt;session name or id&gt;</code></p>
+</li>
+<li><p>新建窗口</p>
+<p><code>new-window -n &lt;window name&gt;</code></p>
+</li>
+<li><p>切换窗口</p>
+<p><code>select-window -t &lt;window id&gt;</code></p>
+<p><code>select-window -n &lt;window name&gt;</code></p>
+</li>
+<li><p>分割窗格</p>
+<p><code>split-window -h</code> 水平</p>
+<p><code>split-window -v</code> 垂直</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>tmux</category>
@@ -10506,15 +10511,25 @@
   <entry>
     <title>python sqlmodel&amp;SQLAlchemy</title>
     <url>/2023/11/14/python%20sqlmodel/</url>
-    <content><![CDATA[<h2 id="单个实体转换为字典"><a href="#单个实体转换为字典" class="headerlink" title="单个实体转换为字典"></a>单个实体转换为字典</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将实例对象转换为字典，排除未设置值的字段</span></span><br><span class="line">entity_dict = entity.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="单个实体转换为字典"><a href="#单个实体转换为字典" class="headerlink" title="单个实体转换为字典"></a>单个实体转换为字典</h2><ul>
+<li>方式一</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将实例对象转换为字典，排除未设置值的字段</span></span><br><span class="line">entity_dict = entity.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。<code>exclude_unset=True</code> 参数是用来控制是否排除未设置的属性字段。当设置为 <code>True</code> 时，将排除那些未设置值的字段，即只包含已经设置值的字段。</p>
 </blockquote>
 <ul>
-<li>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</li>
+<li><p>方式二：</p>
+<p>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</p>
+</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_group_data.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>, exclude=&#123;<span class="string">&quot;team_roles&quot;</span>&#125;).items():</span><br><span class="line">	<span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">	<span class="built_in">setattr</span>(user_group, key, value)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式三</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">resourceCreate: ResourceCreate</span><br><span class="line">...</span><br><span class="line">resource = Resource(**resourceCreate.<span class="built_in">dict</span>())</span><br></pre></td></tr></table></figure>
 
 
 
@@ -10577,7 +10592,7 @@
 </li>
 <li><p>生效 <code>KCADM</code></p>
 <p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
-<p>提示输入密码即可</p>
+<p>提示输入密码即可 (1sou2sou)</p>
 </li>
 </ul>
 <p>​        验证 <code>$KCADM get serverinfo</code></p>
@@ -10672,5 +10687,49 @@
       <tags>
         <tag>ASGI</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>java jenv</title>
+    <url>/2023/12/29/java%20jenv/</url>
+    <content><![CDATA[<h2 id="Jenv"><a href="#Jenv" class="headerlink" title="Jenv"></a>Jenv</h2><h3 id="列出已安装的Java版本："><a href="#列出已安装的Java版本：" class="headerlink" title="列出已安装的Java版本："></a><strong>列出已安装的Java版本：</strong></h3><p>运行以下命令列出已安装的Java版本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
+
+<p>这会显示所有已安装的Java版本。</p>
+<h3 id="5-设置全局Java版本："><a href="#5-设置全局Java版本：" class="headerlink" title="5. 设置全局Java版本："></a>5. <strong>设置全局Java版本：</strong></h3><p>你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jenv global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将 <code>&lt;jdk_version&gt;</code> 替换为你想要设置为默认的Java版本。</p>
+<h3 id="6-设置项目特定的Java版本："><a href="#6-设置项目特定的Java版本：" class="headerlink" title="6. 设置项目特定的Java版本："></a>6. <strong>设置项目特定的Java版本：</strong></h3><p>如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这会在项目目录下创建一个 <code>.java-version</code> 文件，指定项目特定的Java版本。</p>
+<h3 id="7-验证Java版本："><a href="#7-验证Java版本：" class="headerlink" title="7. 验证Java版本："></a>7. <strong>验证Java版本：</strong></h3><p>在终端中运行以下命令验证当前系统使用的Java版本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p>确保输出显示的是你所期望的Java版本信息。</p>
+<p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>jenv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/12/28/python%20snippet/</url>
+    <content><![CDATA[<hr>
+<hr>
+<ul>
+<li><p>统计运行时间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 毫秒值</span></span><br><span class="line">start_time = time.perf_counter()</span><br><span class="line">xxx</span><br><span class="line">cost_time = <span class="built_in">int</span>((time.perf_counter() - start_time)* <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2024/01/02/keyboards/</url>
+    <content><![CDATA[<h1 id="niz-plum"><a href="#niz-plum" class="headerlink" title="niz plum"></a>niz plum</h1>]]></content>
   </entry>
 </search>

@@ -174,6 +174,411 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/28/flink%20overview/" class="post-title-link" itemprop="url">flink overview</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-28 18:43:00" itemprop="dateCreated datePublished" datetime="2021-12-28T18:43:00+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-11 14:31:00" itemprop="dateModified" datetime="2022-01-11T14:31:00+08:00">2022-01-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20points/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/28/flink%20points/" class="post-title-link" itemprop="url">flink points</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-28 18:43:00" itemprop="dateCreated datePublished" datetime="2021-12-28T18:43:00+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-12 11:30:33" itemprop="dateModified" datetime="2022-01-12T11:30:33+08:00">2022-01-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/24/flink%20table/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/24/flink%20table/" class="post-title-link" itemprop="url">flink table</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-24 09:00:00" itemprop="dateCreated datePublished" datetime="2021-12-24T09:00:00+08:00">2021-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-05 17:00:34" itemprop="dateModified" datetime="2022-01-05T17:00:34+08:00">2022-01-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="时间属性"><a href="#时间属性" class="headerlink" title="时间属性"></a>时间属性</h2><blockquote>
+<p> 像窗口（在 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/table/tableapi/#group-windows">Table API</a> 和 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/table/sql/queries/window-agg/">SQL</a> ）这种基于时间的操作，需要有时间信息。因此，Table API 中的表就需要提供<em>逻辑时间属性</em>来表示时间，以及支持时间相关的操作。</p>
+</blockquote>
+<p>每种类型的表都可以有时间属性，时间属性可以通过</p>
+<ol>
+<li>用CREATE TABLE DDL创建表的时候指定</li>
+<li>可以在 <code>DataStream</code> 中指定</li>
+<li>可以在定义 <code>TableSource</code> 时指定。</li>
+</ol>
+<p>一旦时间属性定义好，它就可以像普通列一样使用，也可以在时间相关的操作中使用，只要时间属性没有被修改，而是简单地从一个表传递到另一个表，它就仍然是一个有效的时间属性。</p>
+<p>时间属性可以像普通的时间戳的列一样被使用和计算。一旦时间属性被用在了计算中，它就会被物化，进而变成一个普通的时间戳。普通的时间戳是无法跟 Flink 的时间以及watermark等一起使用的，所以普通的时间戳就无法用在时间相关的操作中（这句话是只限于被修改的普通时间戳，还是包含未被修改的时间戳）。</p>
+<h3 id="处理时间"><a href="#处理时间" class="headerlink" title="处理时间"></a>处理时间</h3><blockquote>
+<p>处理时间是基于机器的本地时间来处理数据，它是最简单的一种时间概念，但是它不能提供确定性。它既不需要从数据里获取时间，也不需要生成 watermark。</p>
+</blockquote>
+<p>定义处理时间的三种方法:</p>
+<ol>
+<li><p>在创建表的 DDL 中定义</p>
+<blockquote>
+<p>用 <code>PROCTIME()</code> 就可以定义处理时间，函数 <code>PROCTIME()</code> 的返回类型是 TIMESTAMP_LTZ </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  user_action_time AS PROCTIME()</span> -- 声明一个额外的列作为处理时间属性</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>在 DataStream 到 Table 转换时定义</p>
+<blockquote>
+<p>处理时间属性可以在 schema 定义的时候用 <code>.proctime</code> 后缀来定义。时间属性一定不能定义在一个已有字段上，所以它只能定义在 schema 定义的最后。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = ...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个额外的字段作为时间属性字段</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>), $(<span class="string">&quot;user_action_time&quot;</span>).proctime());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = table.window(</span><br><span class="line">        Tumble.over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">            .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">            .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 TableSource 定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个由处理时间属性的 table source</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionSource</span> <span class="keyword">implements</span> <span class="title">StreamTableSource</span>&lt;<span class="title">Row</span>&gt;, <span class="title">DefinedProctimeAttribute</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TypeInformation&lt;Row&gt; <span class="title">getReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String[] names = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;user_name&quot;</span> , <span class="string">&quot;data&quot;</span>&#125;;</span><br><span class="line">        TypeInformation[] types = <span class="keyword">new</span> TypeInformation[] &#123;Types.STRING(), Types.STRING()&#125;;</span><br><span class="line">        <span class="keyword">return</span> Types.ROW(names, types);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataStream&lt;Row&gt; <span class="title">getDataStream</span><span class="params">(StreamExecutionEnvironment execEnv)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// create stream</span></span><br><span class="line">        DataStream&lt;Row&gt; stream = ...;</span><br><span class="line">        <span class="keyword">return</span> stream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getProctimeAttribute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这个名字的列会被追加到最后，作为第三列</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;user_action_time&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// register table source</span></span><br><span class="line">tEnv.registerTableSource(<span class="string">&quot;user_actions&quot;</span>, <span class="keyword">new</span> UserActionSource());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = tEnv</span><br><span class="line">    .from(<span class="string">&quot;user_actions&quot;</span>)</span><br><span class="line">    .window(Tumble</span><br><span class="line">        .over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">        .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">        .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="事件时间"><a href="#事件时间" class="headerlink" title="事件时间"></a>事件时间</h3><blockquote>
+<p>事件时间允许程序按照数据中包含的时间来处理，这样可以在有乱序或者晚到的数据的情况下产生一致的处理结果。为了能够处理乱序的事件，并且区分正常到达和晚到的事件，Flink 需要从事件中获取事件时间并且产生 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/concepts/time/">watermarks</a>。</p>
+</blockquote>
+<p>定义事件时间的三种方法:</p>
+<ol>
+<li><p>在 DDL 中定义</p>
+<blockquote>
+<p>WATERMARK 语句在一个已有字段上定义一个 watermark 生成表达式，同时标记这个已有字段为时间属性字段。</p>
+</blockquote>
+<p>Flink 支持和在 TIMESTAMP 列和 TIMESTAMP_LTZ 列上定义事件时间。</p>
+<ul>
+<li><p>如果源数据中的时间戳数据表示为年-月-日-时-分-秒，则通常为不带时区信息的字符串值，例如 <code>2020-04-15 20:13:40.564</code>，建议将事件时间属性定义在 <code>TIMESTAMP</code> 列上,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  user_action_time TIMESTAMP(<span class="number">3</span>)</span>,</span></span><br><span class="line"><span class="function">  -- 声明 user_action_time 是事件时间属性，并且用 延迟 5 秒的策略来生成 watermark</span></span><br><span class="line"><span class="function">  WATERMARK FOR user_action_time AS user_action_time - INTERVAL &#x27;5&#x27; SECOND</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT <span class="title">TUMBLE_START</span><span class="params">(user_action_time, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span>, <span class="title">COUNT</span><span class="params">(DISTINCT user_name)</span></span></span><br><span class="line"><span class="function">FROM user_actions</span></span><br><span class="line"><span class="function">GROUP BY <span class="title">TUMBLE</span><span class="params">(user_action_time, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>如果源数据中的时间戳数据为带时区信息的字符串值，例如源数据中的时间戳数据表示为一个纪元 (epoch) 时间，通常是一个 long 值，例如 <code>1618989564564</code>，建议将事件时间属性定义在 <code>TIMESTAMP_LTZ</code> 列上：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"> user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function"> data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function"> ts BIGINT,</span></span></span><br><span class="line"><span class="params"><span class="function"> time_ltz AS TO_TIMESTAMP_LTZ(ts, <span class="number">3</span>)</span>,</span></span><br><span class="line"><span class="function"> -- declare time_ltz as event time attribute and use 5 seconds delayed watermark strategy</span></span><br><span class="line"><span class="function"> WATERMARK FOR time_ltz AS time_ltz - INTERVAL &#x27;5&#x27; SECOND</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"> ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT <span class="title">TUMBLE_START</span><span class="params">(time_ltz, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span>, <span class="title">COUNT</span><span class="params">(DISTINCT user_name)</span></span></span><br><span class="line"><span class="function">FROM user_actions</span></span><br><span class="line"><span class="function">GROUP BY <span class="title">TUMBLE</span><span class="params">(time_ltz, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span></span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在 DataStream 到 Table 转换时定义</p>
+<blockquote>
+<p>事件时间属性可以用 <code>.rowtime</code> 后缀在定义 <code>DataStream</code> schema 的时候来定义。</p>
+<p><a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/concepts/time/">时间戳和 watermark</a> 在这之前一定是在 <code>DataStream</code> 上已经定义好了。 在从 DataStream 转换到 Table 时，由于 <code>DataStream</code> 没有时区概念，因此 Flink 总是将 <code>rowtime</code> 属性解析成 <code>TIMESTAMP WITHOUT TIME ZONE</code> 类型，并且将所有事件时间的值都视为 UTC 时区的值。</p>
+</blockquote>
+<ul>
+<li>Option 1</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基于 stream 中的事件产生时间戳和 watermark</span></span><br><span class="line">DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个额外的逻辑字段作为事件时间属性</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>), $(<span class="string">&quot;user_action_time&quot;</span>).rowtime());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Option 2</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 从第一个字段获取事件时间，并且产生 watermark</span></span><br><span class="line">DataStream&lt;Tuple3&lt;Long, String, String&gt;&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个字段已经用作事件时间抽取了，不用再用一个新字段来表示事件时间了</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_action_time&quot;</span>).rowtime(), $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage:</span></span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = table.window(Tumble</span><br><span class="line">      .over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">      .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">      .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 TableSource 定义</p>
+<blockquote>
+<p>事件时间属性可以在实现了 <code>DefinedRowTimeAttributes</code> 的 <code>TableSource</code> 中定义。<code>getRowtimeAttributeDescriptors()</code> 方法返回 <code>RowtimeAttributeDescriptor</code> 的列表，包含了描述事件时间属性的字段名字、如何计算事件时间、以及 watermark 生成策略等信息。</p>
+<p>同时需要确保 <code>getDataStream</code> 返回的 <code>DataStream</code> 已经定义好了时间属性。</p>
+<p> 只有在定义了 <code>StreamRecordTimestamp</code> 时间戳分配器的时候，才认为 <code>DataStream</code> 是有时间戳信息的。 只有定义了 <code>PreserveWatermarks</code> watermark 生成策略的 <code>DataStream</code> 的 watermark 才会被保留。反之，则只有时间字段的值是生效的。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个有事件时间属性的 table source</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionSource</span> <span class="keyword">implements</span> <span class="title">StreamTableSource</span>&lt;<span class="title">Row</span>&gt;, <span class="title">DefinedRowtimeAttributes</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TypeInformation&lt;Row&gt; <span class="title">getReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String[] names = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;user_name&quot;</span>, <span class="string">&quot;data&quot;</span>, <span class="string">&quot;user_action_time&quot;</span>&#125;;</span><br><span class="line">        TypeInformation[] types =</span><br><span class="line">            <span class="keyword">new</span> TypeInformation[] &#123;Types.STRING(), Types.STRING(), Types.LONG()&#125;;</span><br><span class="line">        <span class="keyword">return</span> Types.ROW(names, types);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataStream&lt;Row&gt; <span class="title">getDataStream</span><span class="params">(StreamExecutionEnvironment execEnv)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 构造 DataStream</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="comment">// 基于 &quot;user_action_time&quot; 定义 watermark</span></span><br><span class="line">        DataStream&lt;Row&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line">        <span class="keyword">return</span> stream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;RowtimeAttributeDescriptor&gt; <span class="title">getRowtimeAttributeDescriptors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 标记 &quot;user_action_time&quot; 字段是事件时间字段</span></span><br><span class="line">        <span class="comment">// 给 &quot;user_action_time&quot; 构造一个时间属性描述符</span></span><br><span class="line">        RowtimeAttributeDescriptor rowtimeAttrDescr = <span class="keyword">new</span> RowtimeAttributeDescriptor(</span><br><span class="line">            <span class="string">&quot;user_action_time&quot;</span>,</span><br><span class="line">            <span class="keyword">new</span> ExistingField(<span class="string">&quot;user_action_time&quot;</span>),</span><br><span class="line">            <span class="keyword">new</span> AscendingTimestamps());</span><br><span class="line">        List&lt;RowtimeAttributeDescriptor&gt; listRowtimeAttrDescr = Collections.singletonList(rowtimeAttrDescr);</span><br><span class="line">        <span class="keyword">return</span> listRowtimeAttrDescr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// register the table source</span></span><br><span class="line">tEnv.registerTableSource(<span class="string">&quot;user_actions&quot;</span>, <span class="keyword">new</span> UserActionSource());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = tEnv</span><br><span class="line">    .from(<span class="string">&quot;user_actions&quot;</span>)</span><br><span class="line">    .window(Tumble.over(lit(<span class="number">10</span>).minutes()).on($(<span class="string">&quot;user_action_time&quot;</span>)).as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><ul>
+<li>timestamp可以将时间戳类型数据最高精确微秒(百万分之一秒)，数据类型定义为timestamp(N),N取值范围为0-6，默认为0，如需要精确到毫秒则设置为Timestamp(3)，如需要精确到微秒则设置为timestamp(6)，数据精度提高的代价是其内部存储空间的变大，但仍未改变时间戳类型的最小和最大取值范围。</li>
+</ul>
+<h3 id="connector-kafka"><a href="#connector-kafka" class="headerlink" title="connector kafka"></a>connector kafka</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/20/macos%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -205,7 +610,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-16 13:13:16" itemprop="dateModified" datetime="2023-12-16T13:13:16+08:00">2023-12-16</time>
+                <time title="Modified: 2023-12-29 16:50:10" itemprop="dateModified" datetime="2023-12-29T16:50:10+08:00">2023-12-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,23 +649,6 @@
 <h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
 </ul>
-<h2 id="jevn"><a href="#jevn" class="headerlink" title="jevn"></a>jevn</h2><h3 id="列出已安装的Java版本："><a href="#列出已安装的Java版本：" class="headerlink" title="列出已安装的Java版本："></a><strong>列出已安装的Java版本：</strong></h3><p>运行以下命令列出已安装的Java版本：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
-
-<p>这会显示所有已安装的Java版本。</p>
-<h3 id="5-设置全局Java版本："><a href="#5-设置全局Java版本：" class="headerlink" title="5. 设置全局Java版本："></a>5. <strong>设置全局Java版本：</strong></h3><p>你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
-
-<p>将 <code>&lt;jdk_version&gt;</code> 替换为你想要设置为默认的Java版本。</p>
-<h3 id="6-设置项目特定的Java版本："><a href="#6-设置项目特定的Java版本：" class="headerlink" title="6. 设置项目特定的Java版本："></a>6. <strong>设置项目特定的Java版本：</strong></h3><p>如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这会在项目目录下创建一个 <code>.java-version</code> 文件，指定项目特定的Java版本。</p>
-<h3 id="7-验证Java版本："><a href="#7-验证Java版本：" class="headerlink" title="7. 验证Java版本："></a>7. <strong>验证Java版本：</strong></h3><p>在终端中运行以下命令验证当前系统使用的Java版本：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-
-<p>确保输出显示的是你所期望的Java版本信息。</p>
-<p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
 <p>Regenerate</p>
 
       
@@ -1121,296 +1509,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/11/jconsole%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/11/jconsole%20snippet/" class="post-title-link" itemprop="url">jconsole snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-11 21:05:29" itemprop="dateCreated datePublished" datetime="2021-12-11T21:05:29+08:00">2021-12-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-25 00:59:14" itemprop="dateModified" datetime="2022-01-25T00:59:14+08:00">2022-01-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="jconsole配置远程监控"><a href="#jconsole配置远程监控" class="headerlink" title="jconsole配置远程监控"></a>jconsole配置远程监控</h3><ul>
-<li>远程jvm进程需配置<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">env.java.opts: </span><br><span class="line">-Dcom.sun.management.jmxremote </span><br><span class="line">-Dcom.sun.management.jmxremote.port=9999</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false </span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其中9999为指定监控端口</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/09/ignite%20issue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/09/ignite%20issue/" class="post-title-link" itemprop="url">ignite issue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-09 15:22:02" itemprop="dateCreated datePublished" datetime="2021-12-09T15:22:02+08:00">2021-12-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-25 19:00:19" itemprop="dateModified" datetime="2023-09-25T19:00:19+08:00">2023-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="BinaryObjectException-Conflicting-enum-values"><a href="#BinaryObjectException-Conflicting-enum-values" class="headerlink" title="BinaryObjectException: Conflicting enum values"></a>BinaryObjectException: Conflicting enum values</h3><ul>
-<li><p>原因</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">存入ignite的数据格式</span><br><span class="line">key: String , value: Map&lt;Enum, BigDecimal&gt;</span><br><span class="line">Enum类型包含</span><br><span class="line">&#123;A,B,C&#125;</span><br><span class="line"></span><br><span class="line">在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间</span><br><span class="line">&#123;A,D,B,C&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>分析</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于在数据存入ignite之后，ignite会保存数据相关的schema信息,此时在enum项目之间修改item，会打乱之前的index</span><br></pre></td></tr></table></figure></li>
-<li><p>解决 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">更改enum类的名称，不再使用原有的schema信息</span><br><span class="line">方法二：</span><br><span class="line">enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引</span><br><span class="line">方法三（未验证）：</span><br><span class="line">删除 $IGNITE_HOME/work/binary_meta/Nodex里面的文件</span><br></pre></td></tr></table></figure></li>
-<li><p>官方说明</p>
-<blockquote>
-<ul>
-<li>You cannot change the types of existing fields.</li>
-<li>You cannot change the order of enum values or add new constants at the beginning or in the middle of the list of enum’s values. You can add new constants to the end of the list though.</li>
-</ul>
-</blockquote>
-</li>
-<li><p><strong>处理conflict enum values, 需要清除数据</strong></p>
-</li>
-</ul>
-<blockquote>
-<p>需要清理 $IGNITE_HOME/work/db目录下的 binary_meta、marshaller</p>
-<p>需要验证是否清理 storagePath、walPath、walArchivePath</p>
-</blockquote>
-<h3 id="gc"><a href="#gc" class="headerlink" title="gc"></a>gc</h3><p><img src="/images/ignite/gc_collect.png"></p>
-<blockquote>
-<p>3s进行gc  (110060-52672)/1024=56.04G</p>
-</blockquote>
-<p><img src="/images/ignite/gc_2.png"></p>
-<blockquote>
-<p>17s进行gc (109952-52658)/1024=55.95G</p>
-</blockquote>
-<h3 id="IgniteCacheException"><a href="#IgniteCacheException" class="headerlink" title="IgniteCacheException"></a>IgniteCacheException</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ERROR org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.spi</span><span class="variable">.communication</span><span class="variable">.tcp</span><span class="variable">.TcpCommunicationSpi</span>  [] - Failed to send message to remote node [node=ZookeeperClusterNode [id=<span class="number">1</span>c8a032d-<span class="number">042</span>e-<span class="number">4386</span>-<span class="number">9</span>ce8-<span class="number">2605</span>c0699304, addrs=[<span class="number">17</span><span class="variable">.9</span><span class="variable">.11</span><span class="variable">.11</span>], order=<span class="number">1</span>, loc=false, client=false], msg=GridIoMessage [plc=<span class="number">2</span>, topic=TOPIC_CACHE, topicOrd=<span class="number">8</span>, ordered=false, timeout=<span class="number">0</span>, skipOnTimeout=false, msg=GridNearLockRequest [topVer=AffinityTopologyVersion [topVer=<span class="number">358</span>, minorTopVer=<span class="number">0</span>], miniId=<span class="number">1</span>, dhtVers=GridCacheVersion[] [<span class="literal">null</span>], subjId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, taskNameHash=<span class="number">0</span>, createTtl=-<span class="number">1</span>, accessTtl=-<span class="number">1</span>, flags=<span class="number">3</span>, txLbl=<span class="literal">null</span>, filter=<span class="literal">null</span>, <span class="keyword">super</span>=GridDistributedLockRequest [nodeId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, nearXidVer=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], threadId=<span class="number">11960694</span>, futId=<span class="number">96</span>c1bf42d71-<span class="number">90702925</span>-<span class="number">3</span>ef9-<span class="number">4</span>c70-b7a7-<span class="number">4</span>be2fb6d75ba, timeout=<span class="number">0</span>, isInTx=true, isInvalidate=false, isRead=true, isolation=REPEATABLE_READ, retVals=[true], txSize=<span class="number">0</span>, flags=<span class="number">0</span>, keysCnt=<span class="number">1</span>, <span class="keyword">super</span>=GridDistributedBaseMessage [ver=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], committedVers=<span class="literal">null</span>, rolledbackVers=<span class="literal">null</span>, cnt=<span class="number">1</span>, <span class="keyword">super</span>=GridCacheIdMessage [cacheId=-<span class="number">182240380</span>, <span class="keyword">super</span>=GridCacheMessage [msgId=<span class="number">1360862</span>, depInfo=<span class="literal">null</span>, lastAffChangedTopVer=AffinityTopologyVersion [topVer=<span class="number">336</span>, minorTopVer=<span class="number">0</span>], err=<span class="literal">null</span>, skipPrepare=false]]]]]]]</span><br><span class="line"></span><br><span class="line">org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Failed to connect to node due to unrecoverable exception (is node still alive?). Make sure that each ComputeTask <span class="keyword">and</span> cache Transaction has a timeout set in order to prevent parties from waiting <span class="keyword">forever</span> in <span class="keyword">case</span> of network issues [nodeId=d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895, addrs=[x/x<span class="variable">.x</span><span class="variable">.x</span><span class="variable">.x</span>:<span class="number">47100</span>], err= <span class="keyword">class</span> org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895]</span><br><span class="line"></span><br><span class="line">Caused by: org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>gc的策略</li>
-<li>ignite client的异常捕获</li>
-<li></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/elasticstatic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/03/elasticstatic/" class="post-title-link" itemprop="url">Elastic Stack learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-03 09:26:30" itemprop="dateCreated datePublished" datetime="2021-12-03T09:26:30+08:00">2021-12-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-17 21:14:05" itemprop="dateModified" datetime="2022-05-17T21:14:05+08:00">2022-05-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>ELK</strong></p>
-<blockquote>
-<p>Elasticsearch 是一个搜索和分析引擎。Logstash 是服务器端数据处理管道，能够同时从多个来源采集数据，转换数据，然后将数据发送到诸如 Elasticsearch 等“存储库”中。Kibana 则可以让用户在 Elasticsearch 中使用图形和图表对数据进行可视化。</p>
-</blockquote>
-<p>Elasticsearch is the living heart of what is today’s the most popular log analytics platform — the ELK Stack (Elasticsearch, Logstash and Kibana). Elasticsearch’s role is so central that it has become synonymous with the name of the stack itself.</p>
-<p>Elasticsearch behaves like a REST API, so you can use either the <code>POST</code> or the <code>PUT</code> method to add data to it. You use <code>PUT</code> when you know the or want to specify the <code>id</code> of the data item, or <code>POST</code> if you want Elasticsearch to generate an <code>id</code> for the data item:</p>
-<h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><h4 id="max-file-descriptors-4096-for-elasticsearch-process-is-too-low-increase-to-at-least-65535"><a href="#max-file-descriptors-4096-for-elasticsearch-process-is-too-low-increase-to-at-least-65535" class="headerlink" title="max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]"></a>max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]</h4><p>If you want to increase the limit shown by <code>ulimit -n</code>, you should:</p>
-<ul>
-<li><p>Modify <code>/etc/systemd/user.conf</code> and <code>/etc/systemd/system.conf</code> with the following line (this takes care of graphical login):</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DefaultLimitNOFILE=65535</span><br></pre></td></tr></table></figure></li>
-<li><p>Modify <code>/etc/security/limits.conf</code> with the following lines (this takes care of non-GUI login):</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* hard nofile 65535</span><br><span class="line">* soft nofile 65535</span><br></pre></td></tr></table></figure></li>
-<li><p>Reboot your computer for changes to take effect.</p>
-</li>
-<li><p>check</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -Hn</span><br><span class="line">ulimit -Sn</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-increase-to-at-least-262144"><a href="#max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-increase-to-at-least-262144" class="headerlink" title="max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]"></a>max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</h4><ul>
-<li><p><code>vim /etc/sysctl.conf </code></p>
-<p>新增<strong>vm.max_map_count=655360</strong></p>
-</li>
-<li><p><code>sysctl -p</code></p>
-</li>
-</ul>
-<h4 id="the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured"><a href="#the-default-discovery-settings-are-unsuitable-for-production-use-at-least-one-of-discovery-seed-hosts-discovery-seed-providers-cluster-initial-master-nodes-must-be-configured" class="headerlink" title="the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured"></a>the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured</h4><p>in short, if you are running Elasticsearch locally(single node) or just with a single node on the cloud then just use below config in your <code>elasticsearch.yml</code> to avoid the production check, and to make it work, more info about this config in <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/60426167/4039431">this SO</a> answer:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">discovery.type:</span> <span class="string">single-node</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1480,7 +1578,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1491,7 +1589,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1518,7 +1616,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
