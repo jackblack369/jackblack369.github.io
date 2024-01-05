@@ -2447,6 +2447,8 @@
 
 
 <hr>
+<h2 id="add-git-commit-info-to-image-tag"><a href="#add-git-commit-info-to-image-tag" class="headerlink" title="add git commit info to image tag"></a>add git commit info to image tag</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">IMAGE_NAME=your-image-name</span><br><span class="line">echo &quot;image name: $IMAGE_NAME&quot;</span><br><span class="line"></span><br><span class="line">GIT_BRANCH=$(git symbolic-ref --short HEAD)</span><br><span class="line">LAST_COMMIT=$(git rev-parse HEAD)</span><br><span class="line">echo &quot;git commit info : $LAST_COMMIT&quot;</span><br><span class="line"></span><br><span class="line">docker build . -t $IMAGE_NAME:&quot;$GIT_BRANCH-$LAST_COMMIT&quot;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>docker</category>
