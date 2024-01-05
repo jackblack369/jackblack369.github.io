@@ -288,7 +288,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-30 01:39:08" itemprop="dateModified" datetime="2023-11-30T01:39:08+08:00">2023-11-30</time>
+                <time title="Modified: 2024-01-04 11:52:15" itemprop="dateModified" datetime="2024-01-04T11:52:15+08:00">2024-01-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -345,6 +345,10 @@
 <blockquote>
 <p><code>Accept: text/event-stream</code> indicates the client waiting for event stream from the server, <code>Cache-Control: no-cache</code> indicates that disabling the caching and <code>Connection: keep-alive</code> indicates the persistent connection. This request will give us an open connection which we are going to use to fetch updates. After the connection, the server can send messages when the events are ready to send by the server. The important thing is that events are text messages in <code>UTF-8</code> encoding.</p>
 </blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Accept: text/event-stream&quot; -H &quot;Cache-Control: no-cache&quot; -N &lt;SSE_ENDPOINT_URL&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.</span></span><br><span class="line">curl -X POST -H &quot;Accept: text/event-stream&quot; -H &quot;Cache-Control: no-cache&quot; -H &quot;User-Key: dongwei&quot; -H &quot;Authorization: Bearer xxxxx&quot; -H &quot;Content-Type: application/json&quot; -d &#x27;&#123;&quot;content&quot;: &quot;你好&quot;&#125;&#x27; -N http://xxx/api</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 对照非流式</span></span><br><span class="line">curl -X POST -H &quot;Accept: application/json&quot; -H &quot;User-Key: dongwei&quot; -H &quot;Authorization: Bearer xxxxx&quot; -H &quot;Content-Type: application/json&quot; -d &#x27;&#123;&quot;content&quot;: &quot;你有哪些能力&quot;&#125;&#x27; http://xxx/api/</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><h3 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h3><ul>
 <li>One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.</li>
 <li>When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)</li>
