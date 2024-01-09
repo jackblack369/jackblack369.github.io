@@ -174,6 +174,212 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/08/ubuntu%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/08/ubuntu%20snippet/" class="post-title-link" itemprop="url">ubuntu snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-08 17:07:33" itemprop="dateCreated datePublished" datetime="2021-10-08T17:07:33+08:00">2021-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-04-05 23:14:46" itemprop="dateModified" datetime="2023-04-05T23:14:46+08:00">2023-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ubuntu/" itemprop="url" rel="index"><span itemprop="name">ubuntu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="磁盘挂载"><a href="#磁盘挂载" class="headerlink" title="磁盘挂载"></a>磁盘挂载</h2><ol>
+<li><p>Get the UUID of the partition</p>
+<p><code>sudo blkid</code></p>
+</li>
+<li><p>Add partition to fstab</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /data was on /dev/sda3</span></span><br><span class="line">UUID=0009091A00027E42 /data            ntfs   defaults,iocharset=utf8,fmask=111,dmask=002        0       2</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="deepin-wine"><a href="#deepin-wine" class="headerlink" title="deepin wine"></a>deepin wine</h2><h2 id="百度网盘id"><a href="#百度网盘id" class="headerlink" title="百度网盘id"></a>百度网盘id</h2><ul>
+<li><p>一直停留在登录界面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">删除　～/baidunetdisk文件夹，再次启动即可</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="光驱相关"><a href="#光驱相关" class="headerlink" title="光驱相关"></a>光驱相关</h2><p>CDROM, DVD 这些设备现在来说都是属于古董了，但因为有些第三方软件是以CDROM的形式提供的，所以有时候还会遇到如何挂载的问题?</p>
+<p>在Ubuntu Server 18.04中，要挂载 CDROM(DVD)可以遵循以下步骤:</p>
+<h4 id="挂载-CDROM-DVD"><a href="#挂载-CDROM-DVD" class="headerlink" title="挂载 CDROM(DVD)"></a>挂载 CDROM(DVD)</h4><ol>
+<li>确认设备文件名, 进入 dev 目录， 执行：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /dev</span><br><span class="line">ls -lt | less</span><br></pre></td></tr></table></figure>
+
+<p>系统显示一个设备列表，可以看到其中有两个特别的，分别是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cdrom -&gt; sr0</span><br><span class="line">dvd -&gt; sr0</span><br></pre></td></tr></table></figure>
+
+<p>说明系统已经将 cdrom, dvd 命名为 sr0 的别名，其实是同一个设备。</p>
+<ol>
+<li>执行 mount 命令挂载cdrom, 因为 ubuntu server 18.04中，已经在根目录下建了一个名为 cdrom 的目录，我们就使用这个目录来挂载，执行:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/cdrom /cdrom</span><br></pre></td></tr></table></figure>
+
+<h4 id="卸载-CDROM-DVD"><a href="#卸载-CDROM-DVD" class="headerlink" title="卸载 CDROM (DVD)"></a>卸载 CDROM (DVD)</h4><p>要想卸载 CDROM, 可以简单的执行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo umount /cdrom</span><br></pre></td></tr></table></figure>
+
+<p>如果是想推出当前的光盘，则可以执行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo eject /cdrom</span><br></pre></td></tr></table></figure>
+
+<h2 id="postgre"><a href="#postgre" class="headerlink" title="postgre"></a>postgre</h2><p>在本机安装，非docker，user: postgres     pw:postgres </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
+
+<h2 id="更改-Ubuntu-18-04-登陆背景"><a href="#更改-Ubuntu-18-04-登陆背景" class="headerlink" title="更改 Ubuntu 18.04 登陆背景"></a>更改 Ubuntu 18.04 登陆背景</h2><ol>
+<li><p><code>sudo vi /etc/alternatives/gdm3.css</code></p>
+</li>
+<li><p>修改 CSS 文件内容</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#lockDialogGroup</span> &#123;</span><br><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">/*自己喜欢的图片的路径。注意，不需要resource://开头*/</span>);</span><br><span class="line"><span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line"><span class="attribute">background-size</span>: cover;</span><br><span class="line"><span class="attribute">background-position</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="配合electron-ssr进行终端外网访问"><a href="#配合electron-ssr进行终端外网访问" class="headerlink" title="配合electron-ssr进行终端外网访问"></a>配合electron-ssr进行终端外网访问</h2><p>在<code>/etc/profile</code>中添加配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=&quot;http://127.0.0.1:12333&quot;</span><br><span class="line">export https_proxy=&quot;http://127.0.0.1:12333&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后<code>source /etc/profile</code>即可</p>
+<h2 id="升级到2204版本中文输入法只在终端可用解决"><a href="#升级到2204版本中文输入法只在终端可用解决" class="headerlink" title="升级到2204版本中文输入法只在终端可用解决"></a>升级到2204版本中文输入法只在终端可用解决</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/508797663">https://zhuanlan.zhihu.com/p/508797663</a></p>
+</blockquote>
+<ul>
+<li>/etc/profile 添加</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export XMODIFIERS=@im=fcitx</span><br><span class="line">export GTK_IM_MODULE=fcitx</span><br><span class="line">export QT_IM_MODULE=fcitx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>~/.pam_environment 添加以下几行：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE DEFAULT=fcitx</span><br><span class="line">XMODIFIERS DEFAULT=@im=fcitx</span><br><span class="line">SDL_IM_MODULE DEFAULT=fcitx</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/26/ansible%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/26/ansible%20snippet/" class="post-title-link" itemprop="url">ansible snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-26 19:49:45" itemprop="dateCreated datePublished" datetime="2021-09-26T19:49:45+08:00">2021-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-09 17:45:09" itemprop="dateModified" datetime="2022-02-09T17:45:09+08:00">2022-02-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/" itemprop="url" rel="index"><span itemprop="name">ansible</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="roles"><a href="#roles" class="headerlink" title="roles"></a>roles</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defaults    参数</span><br><span class="line">tasks        启动脚本</span><br><span class="line">templates    配置文档</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/26/github%20skill/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1454,309 +1660,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/java%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/11/java%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">java性能调优学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-11 14:05:30" itemprop="dateCreated datePublished" datetime="2019-11-11T14:05:30+08:00">2019-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-25 00:55:46" itemprop="dateModified" datetime="2022-01-25T00:55:46+08:00">2022-01-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/course/" itemprop="url" rel="index"><span itemprop="name">course</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h2><p>“纸上得来终觉浅，绝知此事要躬行”。</p>
-<p>学会透过现象看本质</p>
-<p><strong>1. 扎实的计算机基础</strong></p>
-<blockquote>
-<p>我们需要储备计算机组成原理、操作系统、网络协议以及数据库等基础知识。具体的性能问题往往还与传输、计算、存储数据等相关，那我们还需要储备数据结构、算法以及数学等基础知识。</p>
-</blockquote>
-<p><strong>2. 习惯透过源码了解技术本质</strong></p>
-<blockquote>
-<p>我们需要深入源码，通过分析来学习、总结一项技术的实现原理和优缺点，这样我们就能更客观地去学习一项技术，还能透过源码来学习牛人的思维方式，收获更好的编码实现方式。</p>
-</blockquote>
-<p><strong>3. 善于追问和总结</strong></p>
-<blockquote>
-<p>“知其然且知所以然”才是我们积累经验的关键。知道了一项技术背后的实现原理，我们才能在遇到性能问题时，做到触类旁通。</p>
-</blockquote>
-<h2 id="调优政策"><a href="#调优政策" class="headerlink" title="调优政策"></a>调优政策</h2><ul>
-<li>分析查找问题是一个复杂而又细致的过程，某个性能问题可能是一个原因导致的，也可能是几个原因共同导致的结果。我们分析查找问题可以采用自下而上的方式，而我们解决系统性能问题，则可以采用自上而下的方式逐级优化。</li>
-</ul>
-<p><strong>1. 优化代码</strong></p>
-<p><strong>2. 优化设计</strong></p>
-<p><strong>3. 优化算法</strong></p>
-<p><strong>4. 时间换空间</strong></p>
-<p><strong>5. 空间换时间</strong></p>
-<p><strong>6. 参数调优</strong></p>
-<p><strong>7. 兜底策略，确保系统稳定性</strong></p>
-<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p><strong>数组</strong>：采用一段连续的存储单元来存储数据。对于指定下标的查找，时间复杂度为 O(1)，但在数组中间以及头部插入数据时，需要复制移动后面的元素。</p>
-<p><strong>链表</strong>：一种在物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。由于链表不用必须按顺序存储，所以链表在插入的时候可以达到 O(1) 的复杂度，但查找一个结点或者访问特定编号的结点需要 O(n) 的时间。</p>
-<p><strong>哈希表</strong>：根据关键码值（Key value）直接进行访问的数据结构。通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做哈希函数，存放记录的数组就叫做哈希表。</p>
-<p><strong>树</strong>：由 n（n≥1）个有限结点组成的一个具有层次关系的集合，就像是一棵倒挂的树。</p>
-<h3 id="字符串性能优化"><a href="#字符串性能优化" class="headerlink" title="字符串性能优化"></a>字符串性能优化</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/MGD7wV"><img src="https://s2.ax1x.com/2019/11/13/MGD7wV.md.jpg" alt="MGD7wV.md.jpg"></a></p>
-<ul>
-<li><p>一个 char 字符占 16 位，2 个字节。这个情况下，存储单字节编码内的字符（占一个字节的字符）就显得非常浪费。JDK1.9 的 String 类为了节约内存空间，于是使用了占 8 位，1 个字节的 byte 数组来存放字符串</p>
-</li>
-<li><p>String 对象的不可变性</p>
-</li>
-<li><p>对象和对象引用</p>
-</li>
-<li><p>使用 String.intern 来节省内存空间，从而优化 String 对象的存储</p>
-<blockquote>
-<p>具体做法就是，在每次赋值的时候使用 String 的 intern 方法，如果常量池中有相同值，就会重复使用该对象，返回对象引用，这样一开始的对象就可以被回收掉。这种方式可以使重复性非常高的地址信息存储大小从 20G 降到几百兆。</p>
-<p>如果调用 intern 方法，会去查看字符串常量池中是否有等于该对象的字符串，如果没有，就在常量池中新增该对象，并返回该对象引用；如果有，就返回常量池中的字符串引用。堆内存中原有的对象由于没有引用指向它，将会通过垃圾回收器回收。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a =<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>).intern();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(a==b) &#123;<span class="comment">// a 和 b 引用的是同一个对象。</span></span><br><span class="line">    System.out.print(<span class="string">&quot;a==b&quot;</span>);<span class="comment">//正常输出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>用 String.indexOf() 方法代替 Split() 方法完成字符串的分割 </p>
-</li>
-</ul>
-<h3 id="慎重使用正则表达式"><a href="#慎重使用正则表达式" class="headerlink" title="慎重使用正则表达式"></a>慎重使用正则表达式</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/MGDWWQ"><img src="https://s2.ax1x.com/2019/11/13/MGDWWQ.md.jpg" alt="MGDWWQ.md.jpg"></a></p>
-<blockquote>
-<p>正则表达式是一个用正则符号写出的公式，程序对这个公式进行语法分析，建立一个语法分析树，再根据这个分析树结合正则表达式的引擎生成执行程序（这个执行程序我们把它称作状态机，也叫状态自动机），用于字符匹配。</p>
-<p>如果使用正则表达式能使你的代码简洁方便，那么在做好性能排查的前提下，可以去使用；如果不能，那么正则表达式能不用就不用，以此避免造成更多的性能问题。</p>
-</blockquote>
-<h3 id="ArrayList-VS-LinkedList"><a href="#ArrayList-VS-LinkedList" class="headerlink" title="ArrayList VS LinkedList"></a>ArrayList VS LinkedList</h3><ul>
-<li>由于 ArrayList 是数组实现的，而数组是一块连续的内存空间，在添加元素到数组头部的时候，需要对头部以后的数据进行复制重排，所以效率很低；而 LinkedList 是基于链表实现，在添加元素的时候，首先会通过循环查找到添加元素的位置，如果要添加的位置处于 List 的前半段，就从前往后找；若其位置处于后半段，就从后往前找。因此 LinkedList 添加元素到头部是非常高效的。</li>
-<li>LinkedList 的 for 循环性能是最差的，而 ArrayList 的 for 循环性能是最好的。</li>
-</ul>
-<h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/MY0E6A"><img src="https://s2.ax1x.com/2019/11/14/MY0E6A.md.jpg" alt="MY0E6A.md.jpg"></a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/ignite_snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/01/ignite_snippet/" class="post-title-link" itemprop="url">ignite snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-01 12:01:30" itemprop="dateCreated datePublished" datetime="2019-11-01T12:01:30+08:00">2019-11-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-08 19:12:32" itemprop="dateModified" datetime="2023-11-08T19:12:32+08:00">2023-11-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
-<li><p>清空数据</p>
-<p><code>cache -clear -c=xxxxx</code></p>
-</li>
-<li><p>lostPart</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cache -rebalance -c=xxxx</span><br><span class="line">cache -rebalance 命令不需要依赖于 cache -stop 的操作。启动或重新启动分区重平衡可以在缓存运行期间进行，不需要停止缓存。</span><br></pre></td></tr></table></figure></li>
-<li><p>停止多个缓存表</p>
-</li>
-</ul>
-<p>​    <code>cache -stop --caches=myCache_*</code></p>
-<ul>
-<li>重新平衡多个缓存表</li>
-</ul>
-<p>​    <code>cache -rebalance --caches=myCache1,myCache2,myCache3</code></p>
-<ul>
-<li><p>停止所有缓存表，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cache -stop --all </span><br><span class="line">cache -start --all</span><br></pre></td></tr></table></figure></li>
-<li><p>重新加载所有缓存表并重新平衡</p>
-<p>``cache -l -r –all`</p>
-<p><code>cache -clear</code> 命令只是清空缓存中的数据，但是缓存仍然处于活动状态，可以继续使用；而<code>cache -stop</code> 命令则停止了缓存，并且清空了所有数据，需要使用 <code>cache -start</code> 命令重新启动缓存，并重新加载数据。</p>
-</li>
-</ul>
-<p>​    ``cache -start<code>命令用于启动一个已经停止的缓存。如果缓存之前已经存在并被停止，使用</code>cache -start` 命令可以重新启动该缓存，并开始加载数据。如果该缓存之前不存在，则会创建一个新的缓存并开始加载数据。</p>
-<ul>
-<li>查看表的状态</li>
-</ul>
-<p>使用 <code>cache -state</code> 命令查看指定缓存表的状态，包括缓存大小、分区数量、复制和备份数等信息。</p>
-<hr>
-<p>设置复制和备份数量：<br>cache -rebalance -r <replicas> -b <backups><br>其中<replicas>是要设置的复制数量，<backups>是要设置的备份数量。</p>
-<p>设置备份数量为1，即每个分区都在一个不同的节点上保留1个备份数量<br>设置复制数量为2，即每个缓存表的分区都会在集群中的两个节点上复制</p>
-<p>复制和备份都是为了提高数据可用性和可靠性，但复制是将同一份数据存储在多个节点上，而备份是将数据副本存储在集群中的不同节点上。在配置Ignite缓存表时，可以同时设置复制和备份的数量来确保数据的高可用性和可靠性。</p>
-<hr>
-<p>如果有三个Ignite节点，可以按照以下建议设置缓存表的复制和备份数量：</p>
-<p>复制因子建议设置为2，这样每个分区的数据都会在两个节点上进行备份，当一个节点故障时，可以保证数据的可靠性。<br>例如，使用ignitevisorcmd.sh命令可以这样设置：cache -set-replicas myCache 2<br>备份数量建议设置为1，这样每个分区的数据都会在一个节点上进行备份，当一个节点故障时，可以保证数据的可靠性，并且减少额外的网络开销。<br>例如，使用ignitevisorcmd.sh命令可以这样设置：cache -set-backups myCache 1</p>
-<p>需要注意的是，设置复制和备份数量会增加网络和存储开销，因此需要根据具体场景进行权衡和调整。<br>此外，还需要根据数据大小、访问模式、节点配置等因素进行性能测试和优化。</p>
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="ignite-2-7-0"><a href="#ignite-2-7-0" class="headerlink" title="ignite-2.7.0"></a>ignite-2.7.0</h3><ul>
-<li>编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的<code>Class&lt;?&gt; cls = Class.forName(pkgName + &quot;.misc.SharedSecrets&quot;);</code>出现的问题，jdk11中SharedSecrets出现的位置是<code>jdk.internal.access.SharedSecrets</code></li>
-</ul>
-<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><ul>
-<li>Ignite的原生持久化会在磁盘上存储一个数据的超集，以及根据容量在内存中存储一个子集。比如，如果有100个条目，然后内存只能存储20条，那么磁盘上会存储所有的100条，然后为了提高性能在内存中缓存20条。</li>
-<li>和纯内存的使用场景一样，当打开持久化时，每个独立的节点只会持久化数据的一个子集，不管是主还是备节点，都是只包括节点所属的分区的数据，总的来说，整个集群包括了完整的数据集。</li>
-<li>在开发应用时可能需要修改自定义对象字段的类型。例如假设对象A的字段类型<code>A.range</code>为<code>int</code>类型，然后决定将<code>A.range</code>的类型修改为<code>long</code>类型。之后会发现集群或应用将无法重启，因为Ignite不支持字段/列类型的更改。</li>
-<li>无法变更枚举值的顺序，也无法在枚举值列表的开始或者中部添加新的常量，但是可以在列表的末尾添加新的常量。</li>
-</ul>
-<h3 id="ZooKeeper-Discovery"><a href="#ZooKeeper-Discovery" class="headerlink" title="ZooKeeper Discovery"></a>ZooKeeper Discovery</h3><p>ZooKeeper Discovery是为需要保持易扩展性和线性性能的大规模部署而设计的。然而，同时使用Ignite和ZooKeeper需要配置和管理两个分布式系统，这可能是一个挑战。因此，我们建议你只有在计划扩展到100个或1000个节点时才使用ZooKeeper Discovery。否则，最好使用TCP/IP发现。</p>
-<hr>
-<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
-<li><p>marshaller</p>
-<blockquote>
-<p> $IGNITE_HOME/work/db/marshaller    类classpath信息</p>
-</blockquote>
-</li>
-<li><p>binary_meta</p>
-<blockquote>
-<p>$IGNITE_HOME/work/db/binary_meta    类的元素信息</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>下面三个配置项是在配置文件中进行配置</strong></p>
-<ul>
-<li><p>storagePath</p>
-<blockquote>
-<p>$RDX_HOME/data/ignite/persistent    持久化文件</p>
-</blockquote>
-</li>
-<li><p>walPath</p>
-<blockquote>
-<p>$RDX_HOME/data/ignite/wal_store    持久化数据的元数据信息（类名、元素名、位置）</p>
-</blockquote>
-<ul>
-<li>walPath和storagePath存储的数据的关联</li>
-</ul>
-</li>
-<li><p>walArchivePath</p>
-<blockquote>
-<p>$RDX_HOME/data/ignite/wal_archive</p>
-</blockquote>
-<ul>
-<li>和walPath存储的数据结构一样，二者的关系</li>
-</ul>
-</li>
-</ul>
-<h3 id="Ignite-and-ZooKeeper-Configuration-Considerations"><a href="#Ignite-and-ZooKeeper-Configuration-Considerations" class="headerlink" title="Ignite and ZooKeeper Configuration Considerations"></a>Ignite and ZooKeeper Configuration Considerations</h3><ul>
-<li>zookeeper中 tickTime和syncLimit参数的定义</li>
-</ul>
-<p>When using ZooKeeper Discovery, you need to make sure that the configuration parameters of the ZooKeeper cluster and Ignite cluster match each other.</p>
-<p>Consider a sample ZooKeeper configuration, as follows:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"># The number of ticks that can pass between sending a request and getting an acknowledgement</span><br><span class="line">syncLimit=5</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在zookeeper中 tickTime和syncLimit参数的作用</li>
-</ul>
-<p>Configured this way, ZooKeeper server detects its own segmentation from the rest of the ZooKeeper cluster only after <code>tickTime * syncLimit</code> elapses. Until this event is detected at ZooKeeper level, all Ignite nodes connected to the segmented ZooKeeper server do not try to reconnect to the other ZooKeeper servers.</p>
-<ul>
-<li>在ignite中 sessionTimeout参数与zookeeper的tickTime和syncLimit参数的关联</li>
-</ul>
-<p>On the other hand, there is a <code>sessionTimeout</code> parameter on the Ignite side that defines how soon ZooKeeper closes an Ignite node’s session if the node gets disconnected from the ZooKeeper cluster. If <code>sessionTimeout</code> is smaller than <code>tickTime * syncLimit</code> , then the Ignite node is notified by the segmented ZooKeeper server too late — its session expires before it tries to reconnect to other ZooKeeper servers.</p>
-<p>To avoid this situation, <code>sessionTimeout</code> should be bigger than <code>tickTime * syncLimit</code>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1822,18 +1729,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">90</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
