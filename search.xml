@@ -2006,7 +2006,7 @@
   <entry>
     <title>docker container</title>
     <url>/2021/12/13/docker%20container/</url>
-    <content><![CDATA[<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">查看正在运行</span><br><span class="line">docker ps</span><br><span class="line">查看所有</span><br><span class="line">docker ps -a</span><br><span class="line">启动</span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line">终止</span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"></span><br><span class="line">查看容器端口</span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">删除</span><br><span class="line">docker rm -f 容器id</span><br><span class="line">导出</span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line">导入</span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line">重启</span><br><span class="line">docker restart $container_id</span><br><span class="line">日志</span><br><span class="line">docker logs $container_id</span><br><span class="line">复制文件</span><br><span class="line">docker cp 宿主文件路径 容器名或容器ID:容器目标路径</span><br></pre></td></tr></table></figure>
 
 <h3 id="查看container现在工作网络模式"><a href="#查看container现在工作网络模式" class="headerlink" title="查看container现在工作网络模式"></a>查看container现在工作网络模式</h3><ul>
 <li><p>列出docker的所有网络模式</p>
@@ -10576,52 +10576,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSO (single sign-on)</title>
-    <url>/2023/12/16/SSO/</url>
-    <content><![CDATA[<blockquote>
-<p> SSO (single sign-on)</p>
-</blockquote>
-<blockquote>
-<p><a href="https://ninjaauth.com/sso-single-sign-on">https://ninjaauth.com/sso-single-sign-on</a></p>
-</blockquote>
-<h2 id="keycloak"><a href="#keycloak" class="headerlink" title="keycloak"></a>keycloak</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
-<li>需要jdk9以上环境</li>
-</ul>
-<h3 id="config-server"><a href="#config-server" class="headerlink" title="config server"></a>config server</h3><ul>
-<li><p>编辑 <code>/conf/keycloak.conf </code>，配置mysql连接信息 (mysql创建keycloak库)</p>
-</li>
-<li><p>配置 <code>admin cli </code>环境变量 （方便直接命令操作，等同于界面操作）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keycloak</span></span><br><span class="line">export KCADM=&quot;/Users/dongwei/Applications/keycloak-23.0.3/bin/kcadm.sh&quot;</span><br><span class="line">export HOST_FOR_KCADM=localhost</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><ul>
-<li><p>首次启动</p>
-<p><code>KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=xxxxxx ./bin/kc.sh start-dev</code></p>
-</li>
-<li><p>后续启动</p>
-<p><code>./bin/kc.sh start-dev</code></p>
-</li>
-<li><p>生效 <code>KCADM</code></p>
-<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
-<p>提示输入密码即可 (1sou2sou)</p>
-</li>
-</ul>
-<p>​        验证 <code>$KCADM get serverinfo</code></p>
-<h3 id="config-realm"><a href="#config-realm" class="headerlink" title="config realm"></a>config realm</h3><ul>
-<li><p>创建新的realm</p>
-<p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
-</li>
-</ul>
-<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>sso</category>
-      </categories>
-      <tags>
-        <tag>learn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python security - authlib</title>
     <url>/2023/10/31/python%20auth%20-%20authlib/</url>
     <content><![CDATA[<blockquote>
@@ -10787,6 +10741,52 @@
       </categories>
       <tags>
         <tag>sinppet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSO (single sign-on) keycloak</title>
+    <url>/2023/12/16/SSO%20keycloak/</url>
+    <content><![CDATA[<blockquote>
+<p> SSO (single sign-on)</p>
+</blockquote>
+<blockquote>
+<p><a href="https://ninjaauth.com/sso-single-sign-on">https://ninjaauth.com/sso-single-sign-on</a></p>
+</blockquote>
+<h2 id="keycloak"><a href="#keycloak" class="headerlink" title="keycloak"></a>keycloak</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
+<li>需要jdk9以上环境</li>
+</ul>
+<h3 id="config-server"><a href="#config-server" class="headerlink" title="config server"></a>config server</h3><ul>
+<li><p>编辑 <code>/conf/keycloak.conf </code>，配置mysql连接信息 (mysql创建keycloak库)</p>
+</li>
+<li><p>配置 <code>admin cli </code>环境变量 （方便直接命令操作，等同于界面操作）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keycloak</span></span><br><span class="line">export KCADM=&quot;/Users/dongwei/Applications/keycloak-23.0.3/bin/kcadm.sh&quot;</span><br><span class="line">export HOST_FOR_KCADM=localhost</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><ul>
+<li><p>首次启动</p>
+<p><code>KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=xxxxxx ./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>后续启动</p>
+<p><code>./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>生效 <code>KCADM</code></p>
+<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
+<p>提示输入密码即可 (1sou2sou)</p>
+</li>
+</ul>
+<p>​        验证 <code>$KCADM get serverinfo</code></p>
+<h3 id="config-realm"><a href="#config-realm" class="headerlink" title="config realm"></a>config realm</h3><ul>
+<li><p>创建新的realm</p>
+<p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
+</li>
+</ul>
+<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>sso</category>
+      </categories>
+      <tags>
+        <tag>keycloak</tag>
       </tags>
   </entry>
 </search>
