@@ -890,7 +890,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-29 16:35:14" itemprop="dateModified" datetime="2023-12-29T16:35:14+08:00">2023-12-29</time>
+                <time title="Modified: 2024-01-18 12:12:57" itemprop="dateModified" datetime="2024-01-18T12:12:57+08:00">2024-01-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -913,7 +913,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <table>
+          <ul>
+<li>session<table>
 <thead>
 <tr>
 <th>功能</th>
@@ -927,6 +928,40 @@
 <td>一样</td>
 </tr>
 <tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li>窗口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>窗格</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
 <td>调整窗格大小</td>
 <td>Ctrl + b, Esc + 方向键</td>
 <td>Ctrl + b, Ctrl + 方向键</td>
@@ -937,6 +972,21 @@
 <td>Ctrl + b, Ctrl + 上下键</td>
 </tr>
 <tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>其它<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
 <td>内嵌tmux操作</td>
 <td><strong>按着 ctrl，点击两次 b 键</strong></td>
 <td>一样</td>
@@ -946,40 +996,21 @@
 <td></td>
 <td></td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+</li>
+</ul>
 <h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><code>ctrl + b</code> 然后按下<code>:</code></p>
-<ul>
+<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><ul>
 <li><p>创建会话</p>
 <p><code>new-session -s &lt;session name&gt;</code> </p>
 </li>
 <li><p>切换会话</p>
 <p><code>switch-client -t &lt;session name or id&gt;</code></p>
 </li>
+</ul>
+<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
+<li><p>交换窗口位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 交换编号3与编号1窗口的位置</span></span><br><span class="line">swap-window -s 3 -t 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 把当前窗口放到指定编号1的位置</span></span><br><span class="line">swap-window -t 0</span><br></pre></td></tr></table></figure></li>
 <li><p>新建窗口</p>
 <p><code>new-window -n &lt;window name&gt;</code></p>
 </li>
@@ -987,6 +1018,8 @@
 <p><code>select-window -t &lt;window id&gt;</code></p>
 <p><code>select-window -n &lt;window name&gt;</code></p>
 </li>
+</ul>
+<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
 <li><p>分割窗格</p>
 <p><code>split-window -h</code> 水平</p>
 <p><code>split-window -v</code> 垂直</p>
