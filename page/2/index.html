@@ -174,6 +174,192 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/16/SSO%20keycloak/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/16/SSO%20keycloak/" class="post-title-link" itemprop="url">SSO (single sign-on) keycloak</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-16 10:57:00" itemprop="dateCreated datePublished" datetime="2023-12-16T10:57:00+08:00">2023-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-16 17:34:07" itemprop="dateModified" datetime="2024-01-16T17:34:07+08:00">2024-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sso/" itemprop="url" rel="index"><span itemprop="name">sso</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p> SSO (single sign-on)</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://ninjaauth.com/sso-single-sign-on">https://ninjaauth.com/sso-single-sign-on</a></p>
+</blockquote>
+<h2 id="keycloak"><a href="#keycloak" class="headerlink" title="keycloak"></a>keycloak</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
+<li>需要jdk9以上环境</li>
+</ul>
+<h3 id="config-server"><a href="#config-server" class="headerlink" title="config server"></a>config server</h3><ul>
+<li><p>编辑 <code>/conf/keycloak.conf </code>，配置mysql连接信息 (mysql创建keycloak库)</p>
+</li>
+<li><p>配置 <code>admin cli </code>环境变量 （方便直接命令操作，等同于界面操作）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keycloak</span></span><br><span class="line">export KCADM=&quot;/Users/dongwei/Applications/keycloak-23.0.3/bin/kcadm.sh&quot;</span><br><span class="line">export HOST_FOR_KCADM=localhost</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><ul>
+<li><p>首次启动</p>
+<p><code>KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=xxxxxx ./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>后续启动</p>
+<p><code>./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>生效 <code>KCADM</code></p>
+<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
+<p>提示输入密码即可 (1sou2sou)</p>
+</li>
+</ul>
+<p>​        验证 <code>$KCADM get serverinfo</code></p>
+<h3 id="config-realm"><a href="#config-realm" class="headerlink" title="config realm"></a>config realm</h3><ul>
+<li><p>创建新的realm</p>
+<p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
+</li>
+</ul>
+<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/" class="post-title-link" itemprop="url">python auth - fastapi jwt auth</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-12-15 10:46:58 / Modified: 10:58:11" itemprop="dateCreated datePublished" datetime="2023-12-15T10:46:58+08:00">2023-12-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在 FastAPI JWT Auth 中，Refresh Token（刷新令牌）和 Access Token（访问令牌）是两种不同的令牌，用于实现认证和授权机制。</p>
+<ol>
+<li>Access Token（访问令牌）：Access Token 是一个短期的令牌，用于验证用户的身份并授权用户访问受保护的资源。Access Token 是通过用户提供的凭证（如用户名和密码）进行身份验证后生成的，通常具有较短的有效期（例如几分钟或几小时）。客户端在每次请求受保护的资源时，需要在请求的头部或请求参数中携带 Access Token，以证明其有权访问该资源。</li>
+<li>Refresh Token（刷新令牌）：Refresh Token 是一个长期有效的令牌，用于在 Access Token 过期后重新获取新的 Access Token。当 Access Token 过期时，客户端可以使用 Refresh Token 向服务器发送请求来获取新的 Access Token，而无需重新提供用户名和密码等凭证。通常情况下，Refresh Token 的有效期要比 Access Token 更长。</li>
+</ol>
+<p>使用 Refresh Token 的主要目的是增强安全性和减少频繁的身份验证操作。通过将 Access Token 的有效期设置较短，可以降低令牌泄露的风险。当 Access Token 过期时，使用 Refresh Token 获取新的 Access Token，这样可以减少频繁地要求用户重新提供凭证的情况。</p>
+<p>一般的流程是，客户端在进行身份验证后会收到一个 Access Token 和一个 Refresh Token。客户端使用 Access Token 来访问受保护的资源，当 Access Token 过期时，客户端使用 Refresh Token 向服务器请求新的 Access Token。</p>
+<p>FastAPI JWT Auth 提供了相应的功能和装饰器来处理 Access Token 和 Refresh Token 的生成、验证和刷新等操作，以方便实现 JWT 认证和授权。</p>
+<p>refresh tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_required()</strong>, <strong>jwt_optional()</strong>, and <strong>fresh_jwt_required()</strong> </p>
+<p>access tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_refresh_token_required()</strong>.</p>
+<h2 id="Refresh-Tokens"><a href="#Refresh-Tokens" class="headerlink" title="Refresh Tokens"></a>Refresh Tokens</h2><p>These are long-lived tokens which can be used to create a new access tokens once an old access token has expired. </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/08/git%20mergetool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -651,7 +837,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-10 17:10:53" itemprop="dateModified" datetime="2024-01-10T17:10:53+08:00">2024-01-10</time>
+                <time title="Modified: 2024-01-19 14:41:59" itemprop="dateModified" datetime="2024-01-19T14:41:59+08:00">2024-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -676,8 +862,9 @@
       
           <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看当前版本</span></span><br><span class="line">pyenv version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有版本</span></span><br><span class="line">pyenv versions</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有可安装的版本</span></span><br><span class="line">pyenv install --list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装指定版本</span></span><br><span class="line">pyenv install 3.6.5</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装新版本后<span class="built_in">rehash</span>一下</span></span><br><span class="line">pyenv rehash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除指定版本</span></span><br><span class="line">pyenv uninstall 3.5.2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定版本</span></span><br><span class="line">pyenv shell &lt;version&gt; -- select just for current shell session</span><br><span class="line">pyenv local &lt;version&gt; -- automatically select whenever you are in the current directory (or its subdirectories)</span><br><span class="line">pyenv global &lt;version&gt; -- select globally for your user account</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定多个全局版本, 3版本优先</span></span><br><span class="line">pyenv global 3.6.5 2.7.14</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上当你切换版本后, 相应的pip和包仓库都是会自动切换过去的</span></span><br></pre></td></tr></table></figure>
 
-
-
+<ul>
+<li>当前项目使用的pyenv版本会在 <code>.python-version</code>文件中体现</li>
+</ul>
 <hr>
 <p>reference</p>
 <ul>
@@ -855,267 +1042,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/15/tmux%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/15/tmux%20snippet/" class="post-title-link" itemprop="url">tmux snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-15 11:48:27" itemprop="dateCreated datePublished" datetime="2023-11-15T11:48:27+08:00">2023-11-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-18 12:12:57" itemprop="dateModified" datetime="2024-01-18T12:12:57+08:00">2024-01-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tmux/" itemprop="url" rel="index"><span itemprop="name">tmux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>session<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>新建session</td>
-<td>tmux new -s <session-name></td>
-<td>一样</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li>窗口</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li>窗格</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>调整窗格大小</td>
-<td>Ctrl + b, Esc + 方向键</td>
-<td>Ctrl + b, Ctrl + 方向键</td>
-</tr>
-<tr>
-<td>窗格内容翻页</td>
-<td>Ctrl + b, Fn + 上下键</td>
-<td>Ctrl + b, Ctrl + 上下键</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li>其它<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内嵌tmux操作</td>
-<td><strong>按着 ctrl，点击两次 b 键</strong></td>
-<td>一样</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><code>ctrl + b</code> 然后按下<code>:</code></p>
-<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><ul>
-<li><p>创建会话</p>
-<p><code>new-session -s &lt;session name&gt;</code> </p>
-</li>
-<li><p>切换会话</p>
-<p><code>switch-client -t &lt;session name or id&gt;</code></p>
-</li>
-</ul>
-<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
-<li><p>交换窗口位置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 交换编号3与编号1窗口的位置</span></span><br><span class="line">swap-window -s 3 -t 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 把当前窗口放到指定编号1的位置</span></span><br><span class="line">swap-window -t 0</span><br></pre></td></tr></table></figure></li>
-<li><p>新建窗口</p>
-<p><code>new-window -n &lt;window name&gt;</code></p>
-</li>
-<li><p>切换窗口</p>
-<p><code>select-window -t &lt;window id&gt;</code></p>
-<p><code>select-window -n &lt;window name&gt;</code></p>
-</li>
-</ul>
-<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
-<li><p>分割窗格</p>
-<p><code>split-window -h</code> 水平</p>
-<p><code>split-window -v</code> 垂直</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/14/python%20problem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/14/python%20problem/" class="post-title-link" itemprop="url">python problems</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-11-14 15:28:51 / Modified: 15:30:56" itemprop="dateCreated datePublished" datetime="2023-11-14T15:28:51+08:00">2023-11-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li> NotOpenSSLWarning: urllib3 v2.0 only supports OpenSSL 1.1.1+, currently the ‘ssl’ module is compiled with ‘LibreSSL 2.8.3’.</li>
-</ul>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall urllib3</span><br><span class="line">pip install &#x27;urllib3&lt;2.0&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>  <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/76187256/importerror-urllib3-v2-0-only-supports-openssl-1-1-1-currently-the-ssl-modu">stackoverflow</a></p>
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><ul>
-<li>paddlepaddle依赖只能在 python 3.9版本之内可以安装</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1185,18 +1111,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -174,6 +174,295 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/java%20design%20pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/20/java%20design%20pattern/" class="post-title-link" itemprop="url">java design pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-20 12:01:30" itemprop="dateCreated datePublished" datetime="2017-12-20T12:01:30+08:00">2017-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-06-25 10:04:25" itemprop="dateModified" datetime="2019-06-25T10:04:25+08:00">2019-06-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/design-pattern/" itemprop="url" rel="index"><span itemprop="name">design pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Creational-Design-Patterns"><a href="#Creational-Design-Patterns" class="headerlink" title="Creational Design Patterns"></a>Creational Design Patterns</h2><blockquote>
+<p>These design patterns provide a way to create objects while hiding the creation logic, rather than instantiating objects directly using new operator. This gives program more flexibility in deciding which objects need to be created for a given use case.</p>
+</blockquote>
+<h3 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h3><blockquote>
+<p>In Factory pattern, we create object without exposing the creation logic to the client and refer to newly created object using a common interface.</p>
+</blockquote>
+<ul>
+<li><p>different approaches to implement:</p>
+<ul>
+<li>Private constructor to restrict instantiation of the class from other classes.</li>
+<li>Private static variable of the same class that is the only instance of the class.</li>
+<li>Public static method that returns the instance of the class, this is the global access point for outer world to get the instance of the singleton class.</li>
+</ul>
+</li>
+<li><p>design concerns with the implementation</p>
+<ul>
+<li>Eager initialization</li>
+<li>Static block initialization</li>
+<li>Lazy Initialization</li>
+<li>Thread Safe Singleton</li>
+<li>Bill Pugh Singleton Implementation</li>
+<li>Using Reflection to destroy Singleton Pattern</li>
+<li>Enum Singleton</li>
+<li>Serialization and Singleton</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SingleObject.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//create an object of SingleObject</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line"></span><br><span class="line">   <span class="comment">//make the constructor private so that this class cannot be</span></span><br><span class="line">   <span class="comment">//instantiated</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//Get the only object available</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SingletonPatternDemo.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//illegal construct</span></span><br><span class="line">      <span class="comment">//Compile Time Error: The constructor SingleObject() is not visible</span></span><br><span class="line">      <span class="comment">//SingleObject object = new SingleObject();</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//Get the only object available</span></span><br><span class="line">      SingleObject object = SingleObject.getInstance();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//show the message</span></span><br><span class="line">      object.showMessage();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Factory"><a href="#Factory" class="headerlink" title="Factory"></a>Factory</h3><ul>
+<li>Factory design pattern provides approach to code for interface rather than implementation.</li>
+<li>Factory pattern removes the instantiation of actual implementation classes from client code. Factory pattern makes our code more robust, less coupled and easy to extend. For example, we can easily change PC class implementation because client program is unaware of this.</li>
+<li>Factory pattern provides abstraction between implementation and client classes through inheritance.</li>
+</ul>
+<h3 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h3><ul>
+<li>Abstract Factory design pattern provides approach to code for interface rather than implementation.</li>
+<li>Abstract Factory pattern is “factory of factories” and can be easily extended to accommodate more products, for example we can add another sub-class Laptop and a factory LaptopFactory.</li>
+<li>Abstract Factory pattern is robust and avoid conditional logic of Factory pattern.</li>
+</ul>
+<h3 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h3><ul>
+<li>Builder pattern solves the issue with large number of optional parameters and inconsistent state by providing a way to build the object step-by-step and provide a method that will actually return the final Object.</li>
+</ul>
+<h3 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h3><ul>
+<li>Prototype design pattern is used when the Object creation is a costly affair and requires a lot of time and resources and you have a similar object already existing.Prototype pattern provides a mechanism to copy the original object to a new object and then modify it according to our needs. Prototype design pattern uses java cloning to copy the object.</li>
+</ul>
+<h2 id="Structural-Design-Patterns"><a href="#Structural-Design-Patterns" class="headerlink" title="Structural Design Patterns"></a>Structural Design Patterns</h2><blockquote>
+<p>These design patterns concern class and object composition. Concept of inheritance is used to compose interfaces and define ways to compose objects to obtain new functionalities.</p>
+</blockquote>
+<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><ul>
+<li>Adapter design pattern is one of the structural design pattern and its used so that two unrelated interfaces can work together. The object that joins these unrelated interface is called an Adapter.</li>
+</ul>
+<h3 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h3><ul>
+<li>Composite design pattern is used when we have to represent a part-whole hierarchy.</li>
+</ul>
+<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><ul>
+<li>Proxy design pattern common uses are to control access or to provide a wrapper implementation for better performance.</li>
+</ul>
+<h3 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h3><ul>
+<li>Use sharing to support large numbers of fine-grained objects efficiently</li>
+</ul>
+<h3 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h3><ul>
+<li>Provide a unified interface to a set of interfaces in a subsystem. Facade Pattern defines a higher-level interface that makes the subsystem easier to use.</li>
+</ul>
+<h3 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h3><ul>
+<li>Decouple an abstraction from its implementation so that the two can vary independently.</li>
+</ul>
+<h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><ul>
+<li>Decorator design pattern is helpful in providing runtime modification abilities and hence more flexible. Its easy to maintain and extend when the number of choices are more.</li>
+<li>The disadvantage of decorator design pattern is that it uses a lot of similar kind of objects (decorators).</li>
+</ul>
+<h2 id="Behavioral-Design-Patterns"><a href="#Behavioral-Design-Patterns" class="headerlink" title="Behavioral Design Patterns"></a>Behavioral Design Patterns</h2><blockquote>
+<p>These design patterns are specifically concerned with communication between objects.</p>
+</blockquote>
+<h3 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h3><ul>
+<li>Template method should consists of certain steps whose order is fixed and for some of the methods, implementation differs from base class to subclass. Template method should be final.</li>
+<li>Most of the times, subclasses calls methods from super class but in template pattern, superclass template method calls methods from subclasses, this is known as Hollywood Principle – “don’t call us, we’ll call you.”.</li>
+<li>Methods in base class with default implementation are referred as Hooks and they are intended to be overridden by subclasses, if you want some of the methods to be not overridden, you can make them final, for example in our case we can make buildFoundation() method final because if we don’t want subclasses to override it.</li>
+</ul>
+<h3 id="Media"><a href="#Media" class="headerlink" title="Media"></a>Media</h3><ul>
+<li>Allows loose coupling by encapsulating the way disparate sets of objects interact and communicate with each other. Allows for the actions of each object set to vary independently of one another.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/spring%20aop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/18/spring%20aop/" class="post-title-link" itemprop="url">spring aop</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-18 20:50:30" itemprop="dateCreated datePublished" datetime="2017-12-18T20:50:30+08:00">2017-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-22 09:20:29" itemprop="dateModified" datetime="2019-03-22T09:20:29+08:00">2019-03-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Architectural"><a href="#Architectural" class="headerlink" title="Architectural"></a>Architectural</h3><p><img src="https://www.baeldung.com/wp-content/uploads/2017/11/Program_Execution.jpg"></p>
+<h3 id="Business-Object"><a href="#Business-Object" class="headerlink" title="Business Object"></a>Business Object</h3><blockquote>
+<p><strong>A business object is a normal class which has a normal business logic.</strong></p>
+</blockquote>
+<h3 id="Aspect"><a href="#Aspect" class="headerlink" title="Aspect"></a>Aspect</h3><blockquote>
+<p><strong>An aspect is a modularization of a concern that cuts across multiple classes.</strong></p>
+</blockquote>
+<h3 id="JoinPoint"><a href="#JoinPoint" class="headerlink" title="JoinPoint"></a>JoinPoint</h3><blockquote>
+<p><strong>A Joinpoint is a point during the execution of a program, such as execution of a method or the handling of an exception.</strong></p>
+</blockquote>
+<p>In Spring AOP, a <em>JoinPoint</em> always represents a method execution.</p>
+<h3 id="Pointcut"><a href="#Pointcut" class="headerlink" title="Pointcut"></a>Pointcut</h3><blockquote>
+<p><strong>A Pointcut is a predicate that helps match an <em>Advice</em> to be applied by an <em>Aspect</em> at a particular <em>JoinPoint</em>.</strong></p>
+</blockquote>
+<p>The Advice is often associated with a <em>Pointcut</em> expression and runs at any <em>Joinpoint</em> matched by the Pointcut.</p>
+<h3 id="Advice"><a href="#Advice" class="headerlink" title="Advice"></a>Advice</h3><blockquote>
+<p><strong>An advice is an action taken by an aspect at a particular <em>Joinpoint</em>. Different types of advice include <em>“around,” “before”</em> and <em>“after”</em> advice.</strong></p>
+</blockquote>
+<p>In Spring, an <em>Advice</em> is modeled as an interceptor, maintaining a chain of interceptors around the <em>Joinpoint</em>.</p>
+<hr>
+<h3 id="Example-Wiring-Business-Object-and-Aspect"><a href="#Example-Wiring-Business-Object-and-Aspect" class="headerlink" title="Example:Wiring Business Object and Aspect"></a>Example:Wiring Business Object and Aspect</h3><ul>
+<li><p>Business Object</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleAdder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>a simple Aspect</p>
+<p>Unified logging can be an example of such cross-cutting concern:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdderAfterReturnAspect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturn</span><span class="params">(Object returnValue)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;value return was &#123;&#125;&quot;</span>,  returnValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>config excerpt</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sampleAdder&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.xxx.SampleAdder&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;doAfterReturningAspect&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">&quot;org.xxx.AdderAfterReturnAspect&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">&quot;aspects&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;doAfterReturningAspect&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;pointCutAfterReturning&quot;</span> <span class="attr">expression</span>=</span></span><br><span class="line"><span class="tag">         <span class="string">&quot;execution(* org.xxx.SampleAdder+.*(..))&quot;</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;afterReturn&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">returning</span>=<span class="string">&quot;returnValue&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pointCutAfterReturning&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<blockquote>
+<p>依赖注入DI有助于应用对象之间的解耦，而AOP可以实现横切关注点与它们所影响的对象之间的解耦</p>
+</blockquote>
+<ul>
+<li><p>通知Advice</p>
+<blockquote>
+<p>切面的工作被称为通知，通知定义了切面是什么以及何时使用。</p>
+</blockquote>
+<ul>
+<li>前置通知（Before）：在目标方法被调用之前调用通知功能</li>
+<li>后置通知（After）：在目标方法完成之后调用通知，此时不会关心方法的输出</li>
+<li>返回通知（After-returning）：在目标方法成功执行之后调用通知</li>
+<li>异常通知（After-throwing）：在目标方法抛出异常后调用通知</li>
+<li>环绕通知（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为。</li>
+</ul>
+</li>
+<li><p>连接点Join point</p>
+<blockquote>
+<p>连接点是应用程序的点，可供插入切面</p>
+<p>我理解的是程序的某处，或者任意一处都可以称作为连接点</p>
+</blockquote>
+</li>
+<li><p>切点Pointcut</p>
+<blockquote>
+<p>切点有助于缩小切面所通知的连接点的范围</p>
+<p>如果Advice定义了切面的what和when,那么pointcut就定义了where</p>
+</blockquote>
+</li>
+<li><p>切面Aspect</p>
+<blockquote>
+<p>Aspect是Advice和Pointcut的结合</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/rpc%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1054,187 +1343,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/01/next%20optimize/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/01/next%20optimize/" class="post-title-link" itemprop="url">next optimize</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-06-01 20:50:00" itemprop="dateCreated datePublished" datetime="2017-06-01T20:50:00+08:00">2017-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-11 11:13:54" itemprop="dateModified" datetime="2022-01-11T11:13:54+08:00">2022-01-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/next/" itemprop="url" rel="index"><span itemprop="name">next</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="安装评论"><a href="#安装评论" class="headerlink" title="安装评论"></a>安装评论</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33617273">来必力评论</a></p>
-<p><a target="_blank" rel="noopener" href="https://sjq597.github.io/2018/05/18/Hexo-%E4%BD%BF%E7%94%A8Gitment%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/">使用Gitment评论功能</a></p>
-<h3 id="置顶功能"><a href="#置顶功能" class="headerlink" title="置顶功能"></a>置顶功能</h3><p><a target="_blank" rel="noopener" href="https://donlex.cn/archives/caeb67e2.html">添加置顶</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/30/work%20record/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/05/30/work%20record/" class="post-title-link" itemprop="url">word record</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-05-30 15:43:50" itemprop="dateCreated datePublished" datetime="2017-05-30T15:43:50+08:00">2017-05-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>关于代码编译的事情</strong></p>
-<ul>
-<li><p>问题</p>
-<ul>
-<li>由于一些配置项写在统一的配置文档中，代码从配置文件中读取确定的配置项；此时操作的文本路径是要追加上根目录的路径，然而开发环境和生成环境是不一样的。项目在打包的过程中，就确定了文本路径，这样导致两边环境的配置文档读取结果不一致。</li>
-</ul>
-</li>
-<li><p>解决办法</p>
-<ul>
-<li>把文件路径精确写入</li>
-<li>在生成环境下编译代码</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>关于读取数据量大的excel文件</strong></p>
-<ul>
-<li><p>问题</p>
-<ul>
-<li>项目部署到tomcat中，每次读取大于1M的文件时，会停滞在<code>org.apache.poi.ss.usermodel.Workbook workbook = new XSSFWorkbook(is);</code>,直到tomcat出现报错信息<code>java.lang.OutOfMemoryError: Java heap space </code>,即java虚拟机堆溢出的错误。</li>
-</ul>
-</li>
-<li><p>现象描述</p>
-<ul>
-<li><p>手动设置Xms,Xmx的大小，在/bin/catalina.bat（windows环境）配置中，添加<code>JAVA_OPTS=&quot;-server -Xms10G -Xmx20G&quot;</code>,不知道什么原因，重启服务，仍旧报一样的错。（当我在自己电脑上运行程序，操作同样大小的文档时，也没有报错，何况自己电脑才8G内存，远不及服务器，再则就是自身电脑tomcat的配置也是默认的）</p>
-</li>
-<li><p>内存总体分为年轻代(young),老年代(old),永久代(permanent),如图</p>
-<p><img src="https://s1.ax2x.com/2018/05/31/7OCHl.jpg" alt="7OCHl.jpg"></p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1304,18 +1412,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -174,6 +174,340 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20image%20es/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20image%20es/" class="post-title-link" itemprop="url">docker es</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 18:51:56 / Modified: 19:01:02" itemprop="dateCreated datePublished" datetime="2021-12-17T18:51:56+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文中hostAddress需要替换具体的ip地址</p>
+</blockquote>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><blockquote>
+<p>查看现有环境相关参数ulimit -a</p>
+</blockquote>
+<ul>
+<li><p>设置文件句柄数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># End of file</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nofile 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>修改max user processes进程数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nproc 65536</span><br><span class="line">* hard nproc 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>调整vm.max_map_count的大小，该参数会限制一个进程可以拥有的VMA(虚拟内存区域)的数量</p>
+<p>通过修改**/etc/sysctl.conf**参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br></pre></td></tr></table></figure>
+
+<p>然后执行<code>sysctl -p</code></p>
+</li>
+<li><p>调整stack size的大小（可选），在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft stack 1024</span><br><span class="line">* hard stack 1024</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="manual-init-data"><a href="#manual-init-data" class="headerlink" title="manual init data"></a>manual init data</h3><ul>
+<li><p>create index</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://localhost:9200/indexName&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>import data</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://localhost:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>拉取远程仓库镜像文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+<li><p>启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name es_origin -e ES_JAVA_POTS=&quot;-Xms6g -Xmx6g&quot; -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.16.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="制作elasticsearch镜像"><a href="#制作elasticsearch镜像" class="headerlink" title="制作elasticsearch镜像"></a>制作elasticsearch镜像</h3><ol>
+<li>导出ES的已有索引和数据</li>
+</ol>
+<ul>
+<li><p>环境准备</p>
+<ul>
+<li>安装nodejs，安装文件地址<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">nodejs</a></li>
+<li>安装elasticdump，安装命令<code>npm install -g elasticdump</code></li>
+</ul>
+</li>
+<li><p>导出es索引文件<strong>es_mapping.json</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \               --input=http://127.0.0.1:9200/indexName \</span></span><br><span class="line"><span class="bash">  --output=/data/es_mapping.json \</span></span><br><span class="line"><span class="bash">  --<span class="built_in">type</span>=mapping</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：$nodejs_home代表nodejs的安装目录</p>
+</blockquote>
+</li>
+<li><p>导出es数据<strong>es_init_data.txt</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \ </span>          </span><br><span class="line">  --input=http://127.0.0.1:9200/indexName \</span><br><span class="line">  --output=/data/es_init_data.txt \</span><br><span class="line">  --searchBody &#x27;&#123;&quot;query&quot;:&#123;&quot;match_all&quot;:&#123; &#125;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><p>编写es数据初始化脚本 <strong>initEs.sh</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">create index</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://127.0.0.1:9200/indexName&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">import data</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://127.0.0.1:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>initEs.sh文件同1,2操作中的文件存放路径保持一致，均放在/data目录下</p>
+</blockquote>
+</li>
+<li><p>在/data目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM elasticsearch:7.16.1</span><br><span class="line">COPY ./data/* /data/</span><br><span class="line">RUN chown -R elasticsearch:root /data </span><br><span class="line">USER elasticsearch</span><br><span class="line">RUN elasticsearch -E discovery.type=single-node -p /tmp/epid &amp; /bin/bash /data/wait-for-it.sh -t 0 localhost:9200 -- /data/initEs.sh; kill $(cat /tmp/epid) &amp;&amp; wait $(cat /tmp/epid); exit 0;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:elasticsearch .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:es是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:elasticsearch hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:elasticsearch和操作3中保持一致</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20compose/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/17/docker%20compose/" class="post-title-link" itemprop="url">docker compose</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-17 11:21:10 / Modified: 14:52:28" itemprop="dateCreated datePublished" datetime="2021-12-17T11:21:10+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Docker-File-vs-Docker-Compose"><a href="#Docker-File-vs-Docker-Compose" class="headerlink" title="Docker File vs Docker Compose"></a>Docker File vs Docker Compose</h3><p>Dockerfile is what’s used to create a container image, and a Compose file is what’s used to deploy an instance of that image as a container.</p>
+<blockquote>
+<p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>
+</blockquote>
+<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><p>Dockerfile the predecessor of a container image. You build an image from a Dockerfile. A typical Dockerfile contains special build instructions, commands like <code>RUN</code>, <code>ADD</code>, <code>COPY</code>, <code>ENTRYPOINT</code>, etc.</p>
+<h4 id="Compose-file"><a href="#Compose-file" class="headerlink" title="Compose file"></a>Compose file</h4><p>Compose files are used in two types of deployments: in the non-cluster deployment with <code>docker-compose</code> and a cluster deployment with <code>docker swarm</code>.</p>
+<p>Compose files are used in two types of deployments: in the non-cluster deployment with <code>docker-compose</code> and a cluster deployment with <code>docker swarm</code>.</p>
+<p>To distinguish the two types, I’m going to address the compose file responsible for cluster deployment as stack files. I’ll talk about stack files in a moment.</p>
+<p>Compose files are part of a tool called <code>docker-compose</code>. It’s a client application to the docker daemon server, kind of like the <code>docker</code> CLI client, but instead of typing the whole <code>run</code> commands every time, with <code>docker-compose</code> you can re-use the same YAML file over and over again, and deploy the same container with the same configuration as you did in the first time.</p>
+<p>It’s more readable, more maintainable, more intuitive. A single compose file can contain multiple container deployment configurations.</p>
+<ul>
+<li><p>执行<code>docker-compose up</code>，报错</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Couldn’t connect to Docker daemon at http+docker:<span class="comment">//localhost - is it running?</span></span><br></pre></td></tr></table></figure>
+
+<p>其中<code>docker-compose.yml</code>信息如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.7&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5000:5000&quot;</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决，使用sudo权限</p>
+<ol>
+<li><p>Add user to docker group (if not already added)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure></li>
+<li><p>create a symbolic link to /usr/bin using the following command</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br></pre></td></tr></table></figure></li>
+<li><p>Restart docker service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></li>
+<li><p>execute</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker-compose up</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>运行docker compose up或docker compose up -d(后台运行)运行您的整个应用程序。 <code>注意：每次修改任一配置文件后，都要使用 docker-compose up --build 重新构建</code></p>
+<blockquote>
+<p>有了docker-compose，当我们想启动多个服务时，无需再一个一个进行docker run操作，而只需要编写docker-compose.yml配置文件，即可一次运行你的全部服务。</p>
+</blockquote>
+<hr>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker-compose build</td>
+<td>(构建yml中某个服务的镜像)</td>
+</tr>
+<tr>
+<td>docker-compose ps</td>
+<td>(查看已经启动的服务状态）</td>
+</tr>
+<tr>
+<td>docker-compose kill</td>
+<td>(停止某个服务）</td>
+</tr>
+<tr>
+<td>docker-compose logs</td>
+<td>(可以查看某个服务的log）</td>
+</tr>
+<tr>
+<td>docker-compose port</td>
+<td>(打印绑定的public port）</td>
+</tr>
+<tr>
+<td>docker-compose pull</td>
+<td>(pull服务镜像)</td>
+</tr>
+<tr>
+<td>docker-compose up</td>
+<td>(启动yml定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose stop</td>
+<td>(停止yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose start</td>
+<td>(启动被停止的yml中的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose kill</td>
+<td>(强行停止yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose rm</td>
+<td>（删除yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose restart</td>
+<td>(重启yml中定义的所有服务）</td>
+</tr>
+<tr>
+<td>docker-compose scale</td>
+<td>(扩展某个服务的个数，可以向上或向下）</td>
+</tr>
+<tr>
+<td>docker-compose version</td>
+<td>（查看compose的版本）</td>
+</tr>
+</tbody></table>
+<p>日志输出  </p>
+<p>终端输出：<code>docker-compose --verbose up $service_name</code></p>
+<p>或者docker-compose.yml配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stdin_open: true</span><br><span class="line">tty: true</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="镜像重新编译"><a href="#镜像重新编译" class="headerlink" title="镜像重新编译"></a>镜像重新编译</h3><p>如果修改了 Dockerfile内容里面相关的信息，需要重新编译镜像，如果使用docker compose，则需要使用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up --build</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/dockerFile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1024,225 +1358,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/01/nacos%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/nacos%20snippet/" class="post-title-link" itemprop="url">nacos snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-01 15:14:40" itemprop="dateCreated datePublished" datetime="2021-12-01T15:14:40+08:00">2021-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-22 17:30:20" itemprop="dateModified" datetime="2023-12-22T17:30:20+08:00">2023-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring-cloud/" itemprop="url" rel="index"><span itemprop="name">spring cloud</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7136952484903256077">https://juejin.cn/post/7136952484903256077</a></p>
-<h5 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h5><p>Spring Cloud Alibaba Nacos Discovery 遵循了 Spring Cloud Common 标准，实现了 AutoServiceRegistration、ServiceRegistry、Registration 这三个接口。</p>
-<p>在 Spring Cloud 应用的启动阶段，监听了 WebServerInitializedEvent 事件，当 Web 容器初始化完成后，即收到 WebServerInitializedEvent 事件后，会触发注册的动作，调用 ServiceRegistry 的 register 方法，将服务注册到 Nacos Server。</p>
-<p>![nacos客户端注册机制](/images/nacos/nacos client register mechanism.png)</p>
-<ul>
-<li><p>python nacos client</p>
-<p><a target="_blank" rel="noopener" href="https://pypi.org/project/nacos-client-python/">nacos-client-python</a></p>
-</li>
-</ul>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><ul>
-<li>2.x版本启动，需要添加 -m属性<code>./startup.sh -m standalone</code></li>
-</ul>
-<h2 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h2><h3 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a>健康检查</h3><p>服务端接受到客户端的服务注册请求后，在创建空的Service后，就会开启健康检查任务</p>
-<ul>
-<li>在超过15秒没收到客户端心跳时，就会把注册表中实例的健康状态改为false</li>
-<li>超时30秒没有收到客户端心跳时，就会从注册表表剔除该实例，会使用HTTP DELETE方式调用/v1/ns/instance地址</li>
-</ul>
-<h2 id="open-API"><a href="#open-API" class="headerlink" title="open API"></a>open API</h2><ul>
-<li>获取心跳</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT &#x27;127.0.0.1:8848/nacos/v2/ns/instance/beat&#x27; \</span><br><span class="line">-d &#x27;&#123;</span><br><span class="line">      &quot;namespaceId&quot;: &quot;jarvex_space&quot;,</span><br><span class="line">      &quot;serviceName&quot;: &quot;jarvex-common-group@@entity-server&quot;,</span><br><span class="line">      &quot;ip&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;port&quot;: &quot;5333&quot;</span><br><span class="line">&#125;&#x27;</span><br><span class="line">或</span><br><span class="line">curl -X PUT &#x27;127.0.0.1:8848/nacos/v2/ns/instance/beat&#x27; \</span><br><span class="line">      -d &#x27;namespaceId=jarvex_space&#x27; \</span><br><span class="line">      -d &#x27;serviceName=jarvex-common-group@@entity-server&#x27; \</span><br><span class="line">      -d &#x27;ip=127.0.0.1&#x27; \</span><br><span class="line">      -d &#x27;port=5333&#x27;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>创建命令空间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -d &#x27;namespaceId=jarvex_space&#x27; \</span><br><span class="line">  -d &#x27;namespaceName=jarvex&#x27; \</span><br><span class="line">  -X POST</span><br></pre></td></tr></table></figure></li>
-<li><p>删除持久化实例</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE &quot;http://127.0.0.1:8848/nacos/v2/ns/instance?serviceName=jarvex-gateway&amp;ip=192.168.1.148&amp;port=8085&amp;namespaceId=jarvex_space&amp;groupName=jarvex-common-group&amp;ephemeral=false&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="动态配置"><a href="#动态配置" class="headerlink" title="动态配置"></a>动态配置</h2><h3 id="方案一-nacos-config配置中心获取"><a href="#方案一-nacos-config配置中心获取" class="headerlink" title="方案一: nacos config配置中心获取"></a>方案一: nacos config配置中心获取</h3><ul>
-<li><p>通过配置nacos config和 controller获取</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">config</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line">  <span class="meta">server-addr</span>: <span class="string">$&#123;spring.cloud.nacos.server-addr&#125;</span></span><br><span class="line">  <span class="meta">file-extension</span>: <span class="string">yaml</span></span><br><span class="line">  <span class="attr">namespace</span>: <span class="string">public</span></span><br></pre></td></tr></table></figure>
-
-<p>controller类使用 @Refresh，刷新动态配置</p>
-</li>
-</ul>
-<h3 id="方案二：nacos-client-监听指定配置文件（recommended）"><a href="#方案二：nacos-client-监听指定配置文件（recommended）" class="headerlink" title="方案二：nacos client 监听指定配置文件（recommended）"></a>方案二：nacos client 监听指定配置文件（recommended）</h3><ul>
-<li>编写监听类</li>
-<li>手动刷新配置</li>
-</ul>
-<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://www.lijunyi.xyz/docs/SpringCloud/SpringCloud.html#%E6%95%B4%E4%BD%93%E5%A4%A7%E7%BA%B2%F0%9F%92%A8">https://www.lijunyi.xyz/docs/SpringCloud/SpringCloud.html#%E6%95%B4%E4%BD%93%E5%A4%A7%E7%BA%B2%F0%9F%92%A8</a></li>
-<li><a target="_blank" rel="noopener" href="http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#1-Nacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#1-Nacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86</a></li>
-<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2096938">https://cloud.tencent.com/developer/article/2096938</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/taojietaoge/p/16638226.html">https://www.cnblogs.com/taojietaoge/p/16638226.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/01/postgresql%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/postgresql%20snippet/" class="post-title-link" itemprop="url">postgresql snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-01 10:30:22 / Modified: 16:30:09" itemprop="dateCreated datePublished" datetime="2021-12-01T10:30:22+08:00">2021-12-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/fragment/" itemprop="url" rel="index"><span itemprop="name">fragment</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="终端登录pg"><a href="#终端登录pg" class="headerlink" title="终端登录pg"></a>终端登录pg</h3><ul>
-<li><p>如果之前没有登录过，需要设置当前用户进行登录操作</p>
-<p>There is no default username and password without you creating one. The simplest possible setup is to follow these steps to set up your own user as a superuser.</p>
-<p>At a terminal prompt, create a postgres user with your own username</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres createuser --superuser $USER	# $USER无须替换</span><br></pre></td></tr></table></figure>
-
-<p>Start the postgresql command prompt as your username but running as root since you didn’t set a password yet;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
-
-<p>At the postgresql prompt, set your password;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\password $USER    # 其中$USER需要替换成当前用户名</span><br></pre></td></tr></table></figure>
-
-<p>After that, you should be able to log on just fine.</p>
-</li>
-</ul>
-<ul>
-<li><p>如果之前设置了上面的步骤，可直接运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql postgres</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="导入文件"><a href="#导入文件" class="headerlink" title="导入文件"></a>导入文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">psql postgres	# login command</span><br><span class="line">\c some_database	# choose database</span><br><span class="line">\i \path\TO\file_name.sql	# execute sql</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="连接指定schema"><a href="#连接指定schema" class="headerlink" title="连接指定schema"></a>连接指定schema</h3><ul>
-<li><p>如果不指定schema的话，会默认访问public的schema</p>
-</li>
-<li><p>指定schema</p>
-<p><code>jdbc:postgresql://localhost:5432/mydatabase?currentSchema=myschema</code></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1312,18 +1427,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
