@@ -174,6 +174,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/16/filter%20in%20servlet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/16/filter%20in%20servlet/" class="post-title-link" itemprop="url">filter in servlet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-03-16 20:01:30" itemprop="dateCreated datePublished" datetime="2016-03-16T20:01:30+08:00">2016-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-13 01:36:45" itemprop="dateModified" datetime="2022-01-13T01:36:45+08:00">2022-01-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>A filter is an object that is invoked at the preprocessing and postprocessing of a request.</p>
+</blockquote>
+<ul>
+<li>It is mainly used to perform filtering tasks such as conversion, logging, compression, encryption and decryption, input validation etc.</li>
+<li>The servlet filter is pluggable, i.e. its entry is defined in the web.xml file, if we remove the entry of filter from the web.xml file, filter will be removed automatically and we don’t need to change the servlet.</li>
+</ul>
+<p><img src="https://www.javatpoint.com/images/filter.JPG"></p>
+<h3 id="Usage-of-Filter"><a href="#Usage-of-Filter" class="headerlink" title="Usage of Filter"></a>Usage of Filter</h3><ul>
+<li>recording all incoming requests</li>
+<li>logs the IP addresses of the computers from which the requests originate</li>
+<li>conversion</li>
+<li>data compression</li>
+<li>encryption and decryption</li>
+<li>input validation etc.</li>
+</ul>
+<h3 id="Advantage-of-Fliter"><a href="#Advantage-of-Fliter" class="headerlink" title="Advantage of Fliter"></a>Advantage of Fliter</h3><ul>
+<li>Filter is pluggable.</li>
+<li>One filter don’t have dependency onto another resource.</li>
+<li>Less Maintenance</li>
+</ul>
+<h3 id="Filter-API"><a href="#Filter-API" class="headerlink" title="Filter API"></a>Filter API</h3><ul>
+<li><p>Filter</p>
+<blockquote>
+<p>For creating any filter, you must implement the Filter interface. Filter interface provides the life cycle methods for a filter.</p>
+</blockquote>
+</li>
+<li><p>FilterChain</p>
+<blockquote>
+<p>The object of FilterChain is responsible to invoke the next filter or resource in the chain.This object is passed in the doFilter method of Filter interface.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span></span>&#123;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig arg0)</span> <span class="keyword">throws</span> ServletException </span>&#123;&#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp,  </span></span></span><br><span class="line"><span class="params"><span class="function">      FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;  </span><br><span class="line"></span><br><span class="line">          PrintWriter out=resp.getWriter();  </span><br><span class="line">          out.print(<span class="string">&quot;filter is invoked before&quot;</span>);  </span><br><span class="line"></span><br><span class="line">          chain.doFilter(req, resp);<span class="comment">//sends request to next resource  </span></span><br><span class="line"></span><br><span class="line">          out.print(<span class="string">&quot;filter is invoked after&quot;</span>);  </span><br><span class="line">      &#125;  </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;&#125;  </span><br><span class="line">&#125;      </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>```</p>
+<ul>
+<li>FilterConfig</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/01/Event%20and%20Listen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1389,93 +1499,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/01/java%208%20feature/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/09/01/java%208%20feature/" class="post-title-link" itemprop="url">java 8</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-09-01 12:01:30" itemprop="dateCreated datePublished" datetime="2015-09-01T12:01:30+08:00">2015-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-14 11:29:08" itemprop="dateModified" datetime="2021-04-14T11:29:08+08:00">2021-04-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="forEach-method-in-Iterable-interface"><a href="#forEach-method-in-Iterable-interface" class="headerlink" title="forEach() method in Iterable interface"></a>forEach() method in Iterable interface</h3><h3 id="default-and-static-methods-in-Interfaces"><a href="#default-and-static-methods-in-Interfaces" class="headerlink" title="default and static methods in Interfaces"></a>default and static methods in Interfaces</h3><ul>
-<li>Java 8 introduces the “Default Method” or (Defender methods) feature, which allows the developer to add new methods to the interfaces without breaking their existing implementation. It provides the flexibility to allow interface to define implementation which will use as the default in a situation where a concrete class fails to provide an implementation for that method.</li>
-</ul>
-<h3 id="Functional-Interfaces-and-Lambda-Expressions"><a href="#Functional-Interfaces-and-Lambda-Expressions" class="headerlink" title="Functional Interfaces and Lambda Expressions"></a>Functional Interfaces and Lambda Expressions</h3><h4 id="Functional-Interfaces"><a href="#Functional-Interfaces" class="headerlink" title="Functional Interfaces"></a>Functional Interfaces</h4><blockquote>
-<p>Being object oriented is not bad, but it brings a lot of verbosity to the program. Java 8 Functional Interfaces and Lambda Expressions help us in writing smaller and cleaner code by removing a lot of boiler-plate code.</p>
-</blockquote>
-<ul>
-<li>An interface with exactly one abstract method is called Functional Interface. @FunctionalInterface annotation is added so that we can mark an interface as functional interface.</li>
-<li>Some of the useful java 8 functional interfaces are Consumer, Supplier, Function and Predicate.</li>
-</ul>
-<h4 id="Lambda-Expression"><a href="#Lambda-Expression" class="headerlink" title="Lambda Expression"></a>Lambda Expression</h4><ul>
-<li>Objects are the base of java programming language and we can never have a function without an Object, that’s why Java language provide support for using lambda expressions only with functional interfaces.</li>
-<li>Lambda Expressions syntax is (argument) -&gt; (body). </li>
-</ul>
-<h3 id="Java-Stream-API-for-Bulk-Data-Operations-on-Collections"><a href="#Java-Stream-API-for-Bulk-Data-Operations-on-Collections" class="headerlink" title="Java Stream API for Bulk Data Operations on Collections"></a>Java Stream API for Bulk Data Operations on Collections</h3><h3 id="Java-Time-API"><a href="#Java-Time-API" class="headerlink" title="Java Time API"></a>Java Time API</h3><h3 id="Collection-API-improvements"><a href="#Collection-API-improvements" class="headerlink" title="Collection API improvements"></a>Collection API improvements</h3><h3 id="Concurrency-API-improvements"><a href="#Concurrency-API-improvements" class="headerlink" title="Concurrency API improvements"></a>Concurrency API improvements</h3><h3 id="Java-IO-improvements"><a href="#Java-IO-improvements" class="headerlink" title="Java IO improvements"></a>Java IO improvements</h3><h3 id="Miscellaneous-Core-API-improvements"><a href="#Miscellaneous-Core-API-improvements" class="headerlink" title="Miscellaneous Core API improvements"></a>Miscellaneous Core API improvements</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1545,7 +1568,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">175</span>
+          <span class="site-state-item-count">176</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1556,7 +1579,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
