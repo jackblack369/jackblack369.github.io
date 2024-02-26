@@ -9389,6 +9389,9 @@
 <li><p>清除缓存</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -m pip cache purge</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="Buildins"><a href="#Buildins" class="headerlink" title="Buildins"></a>Buildins</h2><ul>
+<li>装饰器 <code>staticmethod</code> 用于定义与类或实例无关的函数，而 <code>classmethod</code> 用于定义需要访问类或类变量的函数。</li>
+</ul>
 <h2 id="信创"><a href="#信创" class="headerlink" title="信创"></a>信创</h2><ul>
 <li><p>安装python3-devel</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dnf install python3-devel</span><br></pre></td></tr></table></figure></li>
@@ -9894,6 +9897,9 @@
 <li>协程的写法更加简洁清晰，把 async / await 语法和 create_task 结合来用，对于中小级别的并发需求已经毫无压力。</li>
 <li>写协程程序的时候，你的脑海中要有清晰的事件循环概念，知道程序在什么时候需要暂停、等待 I/O，什么时候需要一并执行到底。</li>
 </ul>
+<h3 id="数据隔离"><a href="#数据隔离" class="headerlink" title="数据隔离"></a>数据隔离</h3><ul>
+<li>在协程中，通常会使用局部变量或协程上下文来存储数据，每个协程拥有自己的数据空间，不会受到其他协程的影响。协程之间可以通过参数传递或全局变量等方式来进行数据交互，但是数据的修改只会影响当前协程的数据空间，不会影响其他协程的数据。</li>
+</ul>
 <h2 id="concurrency"><a href="#concurrency" class="headerlink" title="concurrency"></a>concurrency</h2><blockquote>
 <p>并发通常用于 I/O 操作频繁的场景，而并行则适用于 CPU heavy 的场景。</p>
 </blockquote>
@@ -10255,6 +10261,17 @@
 <li>强化学习</li>
 <li>生成式 AI</li>
 </ul>
+<ul>
+<li>实现机器学习的一般步骤：</li>
+</ul>
+<ol>
+<li>数据收集</li>
+<li>数据准备</li>
+<li>数据分析</li>
+<li>训练算法</li>
+<li>测试算法</li>
+<li>应用算法</li>
+</ol>
 <h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>训练集、验证集、测试集</p>
 ]]></content>
       <categories>
@@ -10634,22 +10651,6 @@
       </tags>
   </entry>
   <entry>
-    <title>jupyter</title>
-    <url>/2024/01/09/jupyter/</url>
-    <content><![CDATA[<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><ul>
-<li><code>%run python文件</code></li>
-<li><code>%timeit 检测任意python语句的执行时间</code></li>
-<li><code>%matplotlib inline</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>jupyter</category>
-      </categories>
-      <tags>
-        <tag>ide</tag>
-      </tags>
-  </entry>
-  <entry>
     <title></title>
     <url>/2024/01/10/llm%20snippet/</url>
     <content><![CDATA[<h2 id="Fine-tuning-vs-Embedding"><a href="#Fine-tuning-vs-Embedding" class="headerlink" title="Fine-tuning vs Embedding"></a>Fine-tuning vs Embedding</h2><ul>
@@ -10964,6 +10965,176 @@
       </categories>
       <tags>
         <tag>snippet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jupyter</title>
+    <url>/2024/01/09/python%20jupyter/</url>
+    <content><![CDATA[<h2 id="魔法指令"><a href="#魔法指令" class="headerlink" title="魔法指令"></a>魔法指令</h2><table>
+<thead>
+<tr>
+<th>魔法指令</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%pwd</code></td>
+<td>查看当前工作目录</td>
+</tr>
+<tr>
+<td><code>%ls</code></td>
+<td>列出当前或指定文件夹下的内容</td>
+</tr>
+<tr>
+<td><code>%cat</code></td>
+<td>查看指定文件的内容</td>
+</tr>
+<tr>
+<td><code>%hist</code></td>
+<td>查看输入历史</td>
+</tr>
+<tr>
+<td><code>%matplotlib inline</code></td>
+<td>设置在页面中嵌入matplotlib输出的统计图表</td>
+</tr>
+<tr>
+<td><code>%config Inlinebackend.figure_format=&#39;svg&#39;</code></td>
+<td>设置统计图表使用SVG格式（矢量图）</td>
+</tr>
+<tr>
+<td><code>%run</code></td>
+<td>运行指定的程序</td>
+</tr>
+<tr>
+<td><code>%load</code></td>
+<td>加载指定的文件到单元格中</td>
+</tr>
+<tr>
+<td><code>%quickref</code></td>
+<td>显示IPython的快速参考</td>
+</tr>
+<tr>
+<td><code>%timeit</code></td>
+<td>多次运行代码并统计代码执行时间</td>
+</tr>
+<tr>
+<td><code>%prun</code></td>
+<td>用<code>cProfile.run</code>运行代码并显示分析器的输出</td>
+</tr>
+<tr>
+<td><code>%who</code> / <code>%whos</code></td>
+<td>显示命名空间中的变量</td>
+</tr>
+<tr>
+<td><code>%xdel</code></td>
+<td>删除一个对象并清理所有对它的引用</td>
+</tr>
+</tbody></table>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>JupyterLab 的快捷键可以分为<strong>命令模式</strong>下的快捷键和<strong>编辑模式</strong>下的快捷键，</p>
+<p>所谓编辑模式就是处于输入代码或撰写文档状态的模式，在编辑模式下按<code>Esc</code>可以回到命令模式，在命令模式下按<code>Enter</code>可以进入编辑模式。</p>
+<ul>
+<li>命令模式下的快捷键：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Alt</code> + <code>Enter</code></td>
+<td>运行当前单元格并在下面插入新的单元格</td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>Enter</code></td>
+<td>运行当前单元格并选中下方的单元格</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Enter</code></td>
+<td>运行当前单元格</td>
+</tr>
+<tr>
+<td><code>j</code> / <code>k</code>、<code>Shift</code> + <code>j</code> / <code>Shift</code> + <code>k</code></td>
+<td>选中下方/上方单元格、连续选中下方/上方单元格</td>
+</tr>
+<tr>
+<td><code>a</code> / <code>b</code></td>
+<td>在下方/上方插入新的单元格</td>
+</tr>
+<tr>
+<td><code>c</code> / <code>x</code></td>
+<td>复制单元格 / 剪切单元格</td>
+</tr>
+<tr>
+<td><code>v</code> / <code>Shift</code> + <code>v</code></td>
+<td>在下方/上方粘贴单元格</td>
+</tr>
+<tr>
+<td><code>dd</code> / <code>z</code></td>
+<td>删除单元格 / 恢复删除的单元格</td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>l</code></td>
+<td>显示或隐藏当前/所有单元格行号</td>
+</tr>
+<tr>
+<td><code>Space</code> / <code>Shift</code> + <code>Space</code></td>
+<td>向下/向上滚动页面</td>
+</tr>
+</tbody></table>
+<ul>
+<li>编辑模式下的快捷键：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Shift</code> + <code>Tab</code></td>
+<td>获得提示信息</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>]</code>/ <code>Ctrl</code> + <code>[</code></td>
+<td>增加/减少缩进</td>
+</tr>
+<tr>
+<td><code>Alt</code> + <code>Enter</code></td>
+<td>运行当前单元格并在下面插入新的单元格</td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>Enter</code></td>
+<td>运行当前单元格并选中下方的单元格</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Enter</code></td>
+<td>运行当前单元格</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Left</code> / <code>Right</code></td>
+<td>光标移到行首/行尾</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Up</code> / <code>Down</code></td>
+<td>光标移动代码开头/结尾处</td>
+</tr>
+<tr>
+<td><code>Up</code> / <code>Down</code></td>
+<td>光标上移/下移一行或移到上/下一个单元格</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>说明</strong>：对于 macOS 系统可以将<code>Alt</code>键替换成<code>Option</code>键，将<code>Ctrl</code>键替换成<code>Command</code>键。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>jupyter</category>
+      </categories>
+      <tags>
+        <tag>ide</tag>
       </tags>
   </entry>
 </search>

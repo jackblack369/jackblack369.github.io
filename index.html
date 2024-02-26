@@ -673,7 +673,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/09/jupyter/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/09/python%20jupyter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -687,7 +687,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/09/jupyter/" class="post-title-link" itemprop="url">jupyter</a>
+            <a href="/2024/01/09/python%20jupyter/" class="post-title-link" itemprop="url">jupyter</a>
         </h2>
 
         <div class="post-meta">
@@ -696,10 +696,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-09 11:48:17 / Modified: 11:50:34" itemprop="dateCreated datePublished" datetime="2024-01-09T11:48:17+08:00">2024-01-09</time>
+              <time title="Created: 2024-01-09 11:48:17" itemprop="dateCreated datePublished" datetime="2024-01-09T11:48:17+08:00">2024-01-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-02-23 09:45:33" itemprop="dateModified" datetime="2024-02-23T09:45:33+08:00">2024-02-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -721,11 +727,165 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><ul>
-<li><code>%run python文件</code></li>
-<li><code>%timeit 检测任意python语句的执行时间</code></li>
-<li><code>%matplotlib inline</code></li>
+          <h2 id="魔法指令"><a href="#魔法指令" class="headerlink" title="魔法指令"></a>魔法指令</h2><table>
+<thead>
+<tr>
+<th>魔法指令</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%pwd</code></td>
+<td>查看当前工作目录</td>
+</tr>
+<tr>
+<td><code>%ls</code></td>
+<td>列出当前或指定文件夹下的内容</td>
+</tr>
+<tr>
+<td><code>%cat</code></td>
+<td>查看指定文件的内容</td>
+</tr>
+<tr>
+<td><code>%hist</code></td>
+<td>查看输入历史</td>
+</tr>
+<tr>
+<td><code>%matplotlib inline</code></td>
+<td>设置在页面中嵌入matplotlib输出的统计图表</td>
+</tr>
+<tr>
+<td><code>%config Inlinebackend.figure_format=&#39;svg&#39;</code></td>
+<td>设置统计图表使用SVG格式（矢量图）</td>
+</tr>
+<tr>
+<td><code>%run</code></td>
+<td>运行指定的程序</td>
+</tr>
+<tr>
+<td><code>%load</code></td>
+<td>加载指定的文件到单元格中</td>
+</tr>
+<tr>
+<td><code>%quickref</code></td>
+<td>显示IPython的快速参考</td>
+</tr>
+<tr>
+<td><code>%timeit</code></td>
+<td>多次运行代码并统计代码执行时间</td>
+</tr>
+<tr>
+<td><code>%prun</code></td>
+<td>用<code>cProfile.run</code>运行代码并显示分析器的输出</td>
+</tr>
+<tr>
+<td><code>%who</code> / <code>%whos</code></td>
+<td>显示命名空间中的变量</td>
+</tr>
+<tr>
+<td><code>%xdel</code></td>
+<td>删除一个对象并清理所有对它的引用</td>
+</tr>
+</tbody></table>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>JupyterLab 的快捷键可以分为<strong>命令模式</strong>下的快捷键和<strong>编辑模式</strong>下的快捷键，</p>
+<p>所谓编辑模式就是处于输入代码或撰写文档状态的模式，在编辑模式下按<code>Esc</code>可以回到命令模式，在命令模式下按<code>Enter</code>可以进入编辑模式。</p>
+<ul>
+<li>命令模式下的快捷键：</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Alt</code> + <code>Enter</code></td>
+<td>运行当前单元格并在下面插入新的单元格</td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>Enter</code></td>
+<td>运行当前单元格并选中下方的单元格</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Enter</code></td>
+<td>运行当前单元格</td>
+</tr>
+<tr>
+<td><code>j</code> / <code>k</code>、<code>Shift</code> + <code>j</code> / <code>Shift</code> + <code>k</code></td>
+<td>选中下方/上方单元格、连续选中下方/上方单元格</td>
+</tr>
+<tr>
+<td><code>a</code> / <code>b</code></td>
+<td>在下方/上方插入新的单元格</td>
+</tr>
+<tr>
+<td><code>c</code> / <code>x</code></td>
+<td>复制单元格 / 剪切单元格</td>
+</tr>
+<tr>
+<td><code>v</code> / <code>Shift</code> + <code>v</code></td>
+<td>在下方/上方粘贴单元格</td>
+</tr>
+<tr>
+<td><code>dd</code> / <code>z</code></td>
+<td>删除单元格 / 恢复删除的单元格</td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>l</code></td>
+<td>显示或隐藏当前/所有单元格行号</td>
+</tr>
+<tr>
+<td><code>Space</code> / <code>Shift</code> + <code>Space</code></td>
+<td>向下/向上滚动页面</td>
+</tr>
+</tbody></table>
+<ul>
+<li>编辑模式下的快捷键：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Shift</code> + <code>Tab</code></td>
+<td>获得提示信息</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>]</code>/ <code>Ctrl</code> + <code>[</code></td>
+<td>增加/减少缩进</td>
+</tr>
+<tr>
+<td><code>Alt</code> + <code>Enter</code></td>
+<td>运行当前单元格并在下面插入新的单元格</td>
+</tr>
+<tr>
+<td><code>Shift</code> + <code>Enter</code></td>
+<td>运行当前单元格并选中下方的单元格</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Enter</code></td>
+<td>运行当前单元格</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Left</code> / <code>Right</code></td>
+<td>光标移到行首/行尾</td>
+</tr>
+<tr>
+<td><code>Ctrl</code> + <code>Up</code> / <code>Down</code></td>
+<td>光标移动代码开头/结尾处</td>
+</tr>
+<tr>
+<td><code>Up</code> / <code>Down</code></td>
+<td>光标上移/下移一行或移到上/下一个单元格</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>说明</strong>：对于 macOS 系统可以将<code>Alt</code>键替换成<code>Option</code>键，将<code>Ctrl</code>键替换成<code>Command</code>键。</p>
+</blockquote>
 
       
     </div>
