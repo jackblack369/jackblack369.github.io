@@ -1644,6 +1644,20 @@
 </ol>
 <p><img src="./img/kubernetes_cluster.png"></p>
 <p>Docker is a platform and tool for building, distributing, and running Docker containers. It offers its own native clustering tool that can be used to orchestrate and schedule containers on machine clusters. Kubernetes is a container orchestration system for Docker containers that is more extensive than Docker Swarm and is meant to coordinate clusters of nodes at scale in production in an efficient manner. It works around the concept of pods, which are scheduling units (and can contain one or more containers) in the Kubernetes ecosystem, and they are distributed among nodes to provide high availability. One can easily run a Docker build on a Kubernetes cluster, but Kubernetes itself is not a complete solution and is meant to include custom plugins.</p>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="查看运行程序"><a href="#查看运行程序" class="headerlink" title="查看运行程序"></a>查看运行程序</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get pod -n 命令空间</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl logs -f 容器id -n 命令空间</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="复制服务器文件到宿主机"><a href="#复制服务器文件到宿主机" class="headerlink" title="复制服务器文件到宿主机"></a>复制服务器文件到宿主机</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Kubernetes</category>
@@ -10831,37 +10845,6 @@
       </tags>
   </entry>
   <entry>
-    <title>keyboard</title>
-    <url>/2024/01/19/tool%20keyboards/</url>
-    <content><![CDATA[<h1 id="niz-plum"><a href="#niz-plum" class="headerlink" title="niz plum"></a>niz plum</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对照</span><br><span class="line">ctrl -&gt; control</span><br><span class="line">win/lock -&gt; option</span><br><span class="line">alt -&gt; command</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>锁定键盘</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">右Fn + Esc</span><br></pre></td></tr></table></figure></li>
-<li><p>电源与蓝牙切换</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fn + F11键</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>屏幕移动</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl + win(option)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<ul>
-<li><p>reference</p>
-<p><a href="https://blog.csdn.net/qq_43528451/article/details/113357550">https://blog.csdn.net/qq_43528451/article/details/113357550</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>keyboard</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>tmux snippet</title>
     <url>/2023/11/15/tool-tmux%20snippet/</url>
     <content><![CDATA[<ul>
@@ -11152,6 +11135,37 @@
       </categories>
       <tags>
         <tag>ide</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>keyboard</title>
+    <url>/2024/01/19/keyboards/</url>
+    <content><![CDATA[<h1 id="niz-plum"><a href="#niz-plum" class="headerlink" title="niz plum"></a>niz plum</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对照</span><br><span class="line">ctrl -&gt; control</span><br><span class="line">win/lock -&gt; option</span><br><span class="line">alt -&gt; command</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>锁定键盘</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">右Fn + Esc</span><br></pre></td></tr></table></figure></li>
+<li><p>电源与蓝牙切换</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fn + F11键</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>屏幕移动</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl + win(option)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<ul>
+<li><p>reference</p>
+<p><a href="https://blog.csdn.net/qq_43528451/article/details/113357550">https://blog.csdn.net/qq_43528451/article/details/113357550</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>keyboard</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>
