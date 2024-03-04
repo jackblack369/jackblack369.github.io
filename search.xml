@@ -10670,6 +10670,11 @@
 <li><code>all(seq)</code>：仅当 <code>seq</code> 中所有对象都为布尔真时返回 <code>True</code>，否则返回 <code>False</code></li>
 <li><code>any(seq)</code>：只要 <code>seq</code> 中任何一个对象为布尔真就返回 <code>True</code>，否则返回 <code>False</code></li>
 </ul>
+<h3 id="使用-partial-构造新函数"><a href="#使用-partial-构造新函数" class="headerlink" title="使用 partial 构造新函数"></a>使用 partial 构造新函数</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiply</span>(<span class="params">x, y</span>):</span></span><br><span class="line">    <span class="keyword">return</span> x * y</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span>(<span class="params">value</span>):</span></span><br><span class="line">    <span class="comment"># 返回另一个函数调用结果</span></span><br><span class="line">    <span class="keyword">return</span> multiply(<span class="number">2</span>, value)</span><br></pre></td></tr></table></figure>
+
+<p>可写成</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line">double = functools.partial(multiply, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>python</category>
