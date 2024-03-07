@@ -9863,6 +9863,19 @@
 </ul>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nth_power</span>(<span class="params">exponent</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exponent_of</span>(<span class="params">base</span>):</span></span><br><span class="line">        <span class="keyword">return</span> base ** exponent</span><br><span class="line">    <span class="keyword">return</span> exponent_of <span class="comment"># 返回值是 exponent_of 函数</span></span><br><span class="line"> </span><br><span class="line">square = nth_power(<span class="number">2</span>) <span class="comment"># 计算一个数的平方</span></span><br><span class="line">cube = nth_power(<span class="number">3</span>) <span class="comment"># 计算一个数的立方 </span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>(square(<span class="number">2</span>))  <span class="comment"># 计算 2 的平方</span></span><br><span class="line"><span class="built_in">print</span>(cube(<span class="number">2</span>)) <span class="comment"># 计算 2 的立方</span></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="number">4</span> <span class="comment"># 2^2</span></span><br><span class="line"><span class="number">8</span> <span class="comment"># 2^3</span></span><br></pre></td></tr></table></figure>
 
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">counter</span>():</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increment</span>():</span></span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> increment</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个计数器</span></span><br><span class="line">c1 = counter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用计数器的 increment 函数，每次调用会使计数器值增加</span></span><br><span class="line"><span class="built_in">print</span>(c1())  <span class="comment"># 输出: 1</span></span><br><span class="line"><span class="built_in">print</span>(c1())  <span class="comment"># 输出: 2</span></span><br><span class="line"><span class="built_in">print</span>(c1())  <span class="comment"># 输出: 3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由于闭包的存在，<code>count</code> 变量的状态会被保留下来，而不是每次调用 <code>counter</code> 函数都会重新初始化，这样就实现了一个持久的计数器功能。</p>
+</blockquote>
+<ul>
+<li><p>闭包的关键特点是:一个内部函数被外部函数返回,内部函数在执行时记住了外部函数的变量。它像一个”小盒子”,封闭并记住了外部变量,即使外部函数已经执行完毕。</p>
+</li>
+<li><p>闭包的好处在于它可以将数据和功能打包在一起，形成一个独立的单元，可以在不同的地方重复使用，并且可以保持数据的状态。这种机制使得闭包在实现状态保持、回调函数、装饰器等方面非常有用。</p>
+</li>
+<li><p>这种特性在实际编程中很有用,比如实现私有变量、缓存等。当然,过度使用也会影响代码可读性。总之,理解了闭包的工作原理,就能更好地掌握这个强大的工具。</p>
+</li>
+</ul>
 <h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><ul>
 <li><strong>lambda 是一个表达式（expression），并不是一个语句（statement）</strong></li>
 <li><strong>lambda 的主体是只有一行的简单表达式，并不能扩展成一个多行的代码块</strong></li>
