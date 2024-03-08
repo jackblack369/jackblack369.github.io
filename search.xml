@@ -10699,7 +10699,19 @@
 <li>使用 takewhile 替代 break 语句</li>
 <li>使用生成器编写自己的修饰函数</li>
 </ul>
-<h3 id="修改外层变量时记得使用-nonlocal"><a href="#修改外层变量时记得使用-nonlocal" class="headerlink" title="修改外层变量时记得使用 nonlocal"></a>修改外层变量时记得使用 nonlocal</h3>]]></content>
+<h3 id="修改外层变量时记得使用-nonlocal"><a href="#修改外层变量时记得使用-nonlocal" class="headerlink" title="修改外层变量时记得使用 nonlocal"></a>修改外层变量时记得使用 nonlocal</h3><ul>
+<li>闭包的参数使用</li>
+</ul>
+<h3 id="类对"><a href="#类对" class="headerlink" title="类对"></a>类对</h3><ul>
+<li><code>cls</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_send_request</span>(<span class="params">cls, method, endpoint, json=<span class="literal">None</span>, params=<span class="literal">None</span></span>):</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
       <categories>
         <category>python</category>
       </categories>
@@ -10865,129 +10877,6 @@
       </categories>
       <tags>
         <tag>agent</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>tmux snippet</title>
-    <url>/2023/11/15/tool-tmux%20snippet/</url>
-    <content><![CDATA[<ul>
-<li>session<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>新建session</td>
-<td>tmux new -s <session-name></td>
-<td>一样</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li>窗口</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li>窗格</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>调整窗格大小</td>
-<td>Ctrl + b, Esc + 方向键</td>
-<td>Ctrl + b, Ctrl + 方向键</td>
-</tr>
-<tr>
-<td>窗格内容翻页</td>
-<td>Ctrl + b, Fn + 上下键</td>
-<td>Ctrl + b, Ctrl + 上下键</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li>其它<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>macos</th>
-<th>linux</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内嵌tmux操作</td>
-<td><strong>按着 ctrl，点击两次 b 键</strong></td>
-<td>一样</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><code>ctrl + b</code> 然后按下<code>:</code></p>
-<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><ul>
-<li><p>创建会话</p>
-<p><code>new-session -s &lt;session name&gt;</code> </p>
-</li>
-<li><p>切换会话</p>
-<p><code>switch-client -t &lt;session name or id&gt;</code></p>
-</li>
-</ul>
-<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
-<li><p>交换窗口位置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 交换编号3与编号1窗口的位置</span></span><br><span class="line">swap-window -s 3 -t 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 把当前窗口放到指定编号1的位置</span></span><br><span class="line">swap-window -t 0</span><br></pre></td></tr></table></figure></li>
-<li><p>新建窗口</p>
-<p><code>new-window -n &lt;window name&gt;</code></p>
-</li>
-<li><p>切换窗口</p>
-<p><code>select-window -t &lt;window id&gt;</code></p>
-<p><code>select-window -n &lt;window name&gt;</code></p>
-</li>
-</ul>
-<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
-<li><p>分割窗格</p>
-<p><code>split-window -h</code> 水平</p>
-<p><code>split-window -v</code> 垂直</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>tmux</category>
-      </categories>
-      <tags>
-        <tag>snippet</tag>
       </tags>
   </entry>
   <entry>
@@ -11222,6 +11111,162 @@
       </categories>
       <tags>
         <tag>pydantic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GPU learn</title>
+    <url>/2024/03/08/GPU%20learn/</url>
+    <content><![CDATA[<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
+<li><p>查看卡的数量</p>
+<p><code>nvidia-smi -L</code></p>
+</li>
+<li><p>查看显卡上运行的程序，以及所占内存情况</p>
+<p><code>nvidia-smi --query-compute-apps=pid,process_name,used_memory,gpu_uuid --format=csv</code></p>
+</li>
+<li><p>查看显卡所剩内存</p>
+<p><code>nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>GPU</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tmux snippet</title>
+    <url>/2023/11/15/tmux%20snippet/</url>
+    <content><![CDATA[<ul>
+<li>session<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新建session</td>
+<td>tmux new -s <session-name></td>
+<td>一样</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li>窗口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>窗格</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调整窗格大小</td>
+<td>Ctrl + b, Esc + 方向键</td>
+<td>Ctrl + b, Ctrl + 方向键</td>
+</tr>
+<tr>
+<td>窗格内容翻页</td>
+<td>Ctrl + b, Fn + 上下键</td>
+<td>Ctrl + b, Ctrl + 上下键</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>其它<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>macos</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内嵌tmux操作</td>
+<td><strong>按着 ctrl，点击两次 b 键</strong></td>
+<td>一样</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><code>ctrl + b</code> 然后按下<code>:</code></p>
+<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><ul>
+<li><p>创建会话</p>
+<p><code>new-session -s &lt;session name&gt;</code> </p>
+</li>
+<li><p>切换会话</p>
+<p><code>switch-client -t &lt;session name or id&gt;</code></p>
+</li>
+</ul>
+<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
+<li><p>交换窗口位置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 交换编号3与编号1窗口的位置</span></span><br><span class="line">swap-window -s 3 -t 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 把当前窗口放到指定编号1的位置</span></span><br><span class="line">swap-window -t 0</span><br></pre></td></tr></table></figure></li>
+<li><p>新建窗口</p>
+<p><code>new-window -n &lt;window name&gt;</code></p>
+</li>
+<li><p>切换窗口</p>
+<p><code>select-window -t &lt;window id&gt;</code></p>
+<p><code>select-window -n &lt;window name&gt;</code></p>
+</li>
+</ul>
+<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
+<li><p>分割窗格</p>
+<p><code>split-window -h</code> 水平</p>
+<p><code>split-window -v</code> 垂直</p>
+</li>
+</ul>
+<h1 id="Tmux-Plugin-Manager-TPM"><a href="#Tmux-Plugin-Manager-TPM" class="headerlink" title="Tmux Plugin Manager (TPM)"></a>Tmux Plugin Manager (TPM)</h1><ul>
+<li><p>配置文件地址<code>~/.tmux.conf</code></p>
+<p>修改配置生效 <code>tmux source-file ~/.tmux.conf</code></p>
+</li>
+<li><h5 id="使用快捷键插件管理"><a href="#使用快捷键插件管理" class="headerlink" title="使用快捷键插件管理"></a>使用快捷键插件管理</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># prefix表示是Tmux的快捷键前缀</span><br><span class="line">prefix shift-i      # 安装件列表中的插件</span><br><span class="line">prefix shift-u      # 更新件列表中的插件</span><br><span class="line">prefix alt-u        # 删除/卸载不在插件列表中的插件</span><br></pre></td></tr></table></figure></li>
+<li><h5 id="使用命令行插件管理"><a href="#使用命令行插件管理" class="headerlink" title="使用命令行插件管理"></a>使用命令行插件管理</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">~/.tmux/plugins/tpm/bin/install_plugins                  # 安装件列表中的插件</span><br><span class="line">~/.tmux/plugins/tpm/bin/update_plugins all|plugname      # 更新所有插件或指定插件</span><br><span class="line">~/.tmux/plugins/tpm/bin/clean_plugins                    # 删除/卸载不在插件列表中的插件</span><br></pre></td></tr></table></figure></li>
+<li><h5 id="保存-恢复会话-tmux-resurrect"><a href="#保存-恢复会话-tmux-resurrect" class="headerlink" title="保存/恢复会话 tmux-resurrect"></a>保存/恢复会话 tmux-resurrect</h5><blockquote>
+<p>默认会话数据路径 /.local/share/tmux/resurrect</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">保存Tmux会话：前缀键 + Ctrl-s</span><br><span class="line">还原Tmux会话： 前缀键 + Ctrl-r</span><br><span class="line"></span><br><span class="line">Tmux Resurrect 会将 Tmux 会话的详细信息以文本文件形式保存到 ~/.tmux/resurrect 目录；</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>tmux</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
       </tags>
   </entry>
 </search>
