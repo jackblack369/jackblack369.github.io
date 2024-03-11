@@ -10430,6 +10430,15 @@
 <p>如果使用<code>build backend</code>非默认的<code>poetry core</code>，则直接使用其他编译工具命令执行编译</p>
 </li>
 </ul>
+<p>一个典型的使用流程如下:</p>
+<ol>
+<li>在一个新项目中,首先执行 <code>poetry install</code> 安装依赖并生成 <code>poetry.lock</code> 文件。</li>
+<li>在开发过程中,如果需要新增或更新依赖,先执行 <code>poetry add/remove 依赖名</code>。</li>
+<li>然后执行 <code>poetry lock</code> 更新 <code>poetry.lock</code> 文件。</li>
+<li>再执行 <code>poetry install</code> 安装新的依赖。</li>
+<li>开发或运行代码时,执行 <code>poetry shell</code> 进入虚拟环境。</li>
+<li>在虚拟环境中进行开发、测试和运行。</li>
+</ol>
 <h2 id="HATCH"><a href="#HATCH" class="headerlink" title="HATCH"></a>HATCH</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
 <li><p>新建项目</p>
 <p><code>hatch new &quot;Hatch Demo&quot;</code></p>
@@ -10662,7 +10671,19 @@
   <entry>
     <title>python snippet</title>
     <url>/2023/11/14/python%20snippet/</url>
-    <content><![CDATA[<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><h3 id="统计运行时间"><a href="#统计运行时间" class="headerlink" title="统计运行时间"></a>统计运行时间</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 毫秒值</span></span><br><span class="line">start_time = time.perf_counter()</span><br><span class="line">xxx</span><br><span class="line">cost_time = <span class="built_in">int</span>((time.perf_counter() - start_time)* <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h2><h3 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h3><ul>
+<li><p>S <em>（单一职责原则 Single responsibility principle）</em> </p>
+</li>
+<li><p>O <em>（开放-关闭原则 Open–closed principle）</em></p>
+</li>
+<li><p>L <em>（里氏替换原则 Liskov Substitution Principle）</em></p>
+</li>
+<li><p>I <em>（接口隔离原则 Interface Segregation Principles）</em></p>
+</li>
+<li><p>D <em>（依赖倒置原则 Dependency Inversion Principle）</em></p>
+</li>
+</ul>
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><h3 id="统计运行时间"><a href="#统计运行时间" class="headerlink" title="统计运行时间"></a>统计运行时间</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 毫秒值</span></span><br><span class="line">start_time = time.perf_counter()</span><br><span class="line">xxx</span><br><span class="line">cost_time = <span class="built_in">int</span>((time.perf_counter() - start_time)* <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
 
 <h3 id="call-函数"><a href="#call-函数" class="headerlink" title="__call__函数"></a><code>__call__函数</code></h3><p><code>__call__</code> 方法是 Python 中的一个特殊方法（也称为魔术方法），用于将一个对象作为函数调用。当一个对象被作为函数调用时，Python 解释器会自动调用该对象的 <code>__call__</code> 方法。</p>
 <p>在类中定义 <code>__call__</code> 方法可以使对象具有可调用的行为，就像调用函数一样。这样的对象被称为可调用对象。通过实现 <code>__call__</code> 方法，我们可以在对象被调用时执行特定的逻辑。</p>
@@ -10755,7 +10776,7 @@
 <h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h2><h3 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h3><ul>
 <li>pathlib</li>
 </ul>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+]]></content>
       <categories>
         <category>python</category>
       </categories>
