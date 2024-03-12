@@ -10712,6 +10712,17 @@
 <h3 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h3><blockquote>
 <p>Mixin 是面向对象编程中的一个术语，它表示一种设计模式，用于将一组功能或行为以模块化的方式添加到类中，而不需要使用继承的方式。</p>
 </blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SendMailMixin</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_mail</span>(<span class="params">self, email</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Sending mail to <span class="subst">&#123;email&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, email</span>):</span></span><br><span class="line">        self.email = email</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AdminUser</span>(<span class="params">User, SendMailMixin</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_admin_mail</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.send_mail(self.email)</span><br><span class="line"></span><br><span class="line">admin = AdminUser(<span class="string">&quot;admin@example.com&quot;</span>)</span><br><span class="line">admin.send_admin_mail()  <span class="comment"># 输出: Sending mail to admin@example.com</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Mixin和abc.ABC的区别:</strong></p>
+<ol>
+<li><strong>用途</strong>: Mixin侧重于代码复用和功能扩展,而abc.ABC则用于定义抽象类和接口。</li>
+<li><strong>继承关系</strong>: Mixin通常与其他类一起使用多重继承,而abc.ABC作为基类被具体类继承。</li>
+<li><strong>抽象程度</strong>: Mixin可以包含具体的实现,而abc.ABC中的抽象方法必须由子类实现。</li>
+<li><strong>类型检查</strong>: abc.ABC可用于类型检查,而Mixin无法直接进行类型检查。</li>
+</ol>
 <h3 id="LOOP"><a href="#LOOP" class="headerlink" title="LOOP"></a>LOOP</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(names):</span><br><span class="line">    <span class="built_in">print</span>(i, name)</span><br></pre></td></tr></table></figure>
 
 <ul>
