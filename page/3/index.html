@@ -842,7 +842,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-11 12:06:42" itemprop="dateModified" datetime="2024-03-11T12:06:42+08:00">2024-03-11</time>
+                <time title="Modified: 2024-03-12 10:01:04" itemprop="dateModified" datetime="2024-03-12T10:01:04+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -867,14 +867,46 @@
       
           <h2 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h2><h3 id="SOLID"><a href="#SOLID" class="headerlink" title="SOLID"></a>SOLID</h3><ul>
 <li><p>S <em>（单一职责原则 Single responsibility principle）</em> </p>
+<ul>
+<li><strong>一个类应该仅仅只有一个被修改的理由。</strong></li>
+</ul>
 </li>
 <li><p>O <em>（开放-关闭原则 Open–closed principle）</em></p>
+<ul>
+<li><strong>类应该对扩展开放，对修改封闭。</strong></li>
+</ul>
 </li>
 <li><p>L <em>（里氏替换原则 Liskov Substitution Principle）</em></p>
+<ul>
+<li><strong>子类应该可以随意替换它的父类 ，而不破坏程序 本身的功能</strong></li>
+</ul>
 </li>
 <li><p>I <em>（接口隔离原则 Interface Segregation Principles）</em></p>
+<ul>
+<li><strong>客户（client）应该不依赖于它不使用的方法</strong></li>
+</ul>
 </li>
 <li><p>D <em>（依赖倒置原则 Dependency Inversion Principle）</em></p>
+<ul>
+<li><strong>高层模块不应该依赖于低层模块，二者都应该依赖于抽象。</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><ul>
+<li>好代码在处理边界情况时应该是简洁的、“润物细无声”的</li>
+</ul>
+<h2 id="code-practise"><a href="#code-practise" class="headerlink" title="code practise"></a>code practise</h2><h4 id="边界情况（Edge-cases）"><a href="#边界情况（Edge-cases）" class="headerlink" title="边界情况（Edge cases）"></a>边界情况（Edge cases）</h4><ul>
+<li>bad style: <ul>
+<li>LBYL（Look Before You Leap）</li>
+</ul>
+</li>
+<li>better style:<ul>
+<li>EAFP（Easier to Ask for Forgiveness than Permission）</li>
+</ul>
+</li>
+<li>best style<ul>
+<li>在日常编码时，我们应该尽量避免去手动校验数据。而是应该使用<em>（或者自己实现）</em>合适的第三方校验模块，把这部分边界处理工作抽象出去，简化主流程代码。</li>
+</ul>
 </li>
 </ul>
 <h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><h3 id="统计运行时间"><a href="#统计运行时间" class="headerlink" title="统计运行时间"></a>统计运行时间</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 毫秒值</span></span><br><span class="line">start_time = time.perf_counter()</span><br><span class="line">xxx</span><br><span class="line">cost_time = <span class="built_in">int</span>((time.perf_counter() - start_time)* <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
