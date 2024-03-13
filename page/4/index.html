@@ -174,6 +174,180 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/python%20env%20poetry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/03/python%20env%20poetry/" class="post-title-link" itemprop="url">python poetry</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-11-03 02:00:28" itemprop="dateCreated datePublished" datetime="2023-11-03T02:00:28+08:00">2023-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-10 17:46:07" itemprop="dateModified" datetime="2024-03-10T17:46:07+08:00">2024-03-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li><p><input disabled="" type="checkbox">  build backend : use hatch </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec">https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0621/">PEP 621 </a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">Packaging Python Projects</a></p>
+</li>
+</ul>
+<h2 id="POETRY"><a href="#POETRY" class="headerlink" title="POETRY"></a>POETRY</h2><blockquote>
+<p>每个使用 Poetry 的项目都会有自己的虚拟环境，这样可以避免不同项目之间的依赖冲突。因此，每个项目的依赖项都会独立存放在各自的虚拟环境中。</p>
+</blockquote>
+<ul>
+<li><p>查看安装依赖目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry env info --path</span><br></pre></td></tr></table></figure></li>
+<li><p>列出所有虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry env list</span><br></pre></td></tr></table></figure></li>
+<li><p>删除指定虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry env remove &lt;虚拟环境名称&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>进入 Poetry 创建的虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry shell</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>锁定并安装项目依赖项的确切版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">poetry lock</span><br><span class="line">poetry install</span><br></pre></td></tr></table></figure></li>
+<li><p>通过<code>requirement</code>添加依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poetry add $( cat requirements.txt )</span><br></pre></td></tr></table></figure></li>
+<li><p>build编译</p>
+<p>如果使用<code>build backend</code>非默认的<code>poetry core</code>，则直接使用其他编译工具命令执行编译</p>
+</li>
+</ul>
+<p>一个典型的使用流程如下:</p>
+<ol>
+<li>在一个新项目中,首先执行 <code>poetry install</code> 安装依赖并生成 <code>poetry.lock</code> 文件。</li>
+<li>在开发过程中,如果需要新增或更新依赖,先执行 <code>poetry add/remove 依赖名</code>。</li>
+<li>然后执行 <code>poetry lock</code> 更新 <code>poetry.lock</code> 文件。</li>
+<li>再执行 <code>poetry install</code> 安装新的依赖。</li>
+<li>开发或运行代码时,执行 <code>poetry shell</code> 进入虚拟环境。</li>
+<li>在虚拟环境中进行开发、测试和运行。</li>
+</ol>
+<h2 id="HATCH"><a href="#HATCH" class="headerlink" title="HATCH"></a>HATCH</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li><p>新建项目</p>
+<p><code>hatch new &quot;Hatch Demo&quot;</code></p>
+</li>
+<li><p>已有项目初始化</p>
+<p><code>hatch new --init</code></p>
+</li>
+<li><p>虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -m venv venv</span><br><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure></li>
+<li><p>创建hatch虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hatch env create</span><br></pre></td></tr></table></figure></li>
+<li><p>pycharm配置</p>
+<p>虚拟环境需配置成 <code>hatch shell</code>提示的目录</p>
+</li>
+<li><p>更新依赖</p>
+<ul>
+<li>运行 <code>hatch shell</code>命令</li>
+</ul>
+</li>
+<li><p>查看环境信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hatch env show --ascii</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>格式化</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hatch run lint:fmt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li><p>方式一：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python -m pip install --upgrade build</span><br><span class="line">python3 -m build</span><br><span class="line"><span class="meta">#</span><span class="bash"> 一旦完成应该在 dist 目录下产生两个文件：</span></span><br></pre></td></tr></table></figure>
+
+<p>方式二：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hatch build</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a>代码格式化</h3><ul>
+<li>配置</li>
+</ul>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[tool.hatch.envs.lint.scripts]</span></span><br><span class="line"><span class="attr">typing</span> = <span class="string">&quot;mypy --install-types --non-interactive &#123;args:src/jarvex_auth tests&#125;&quot;</span></span><br><span class="line"><span class="attr">style</span> = [</span><br><span class="line">  <span class="string">&quot;ruff &#123;args:.&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;black --check --diff &#123;args:.&#125;&quot;</span>,</span><br><span class="line">]</span><br><span class="line"><span class="attr">fmt</span> = [</span><br><span class="line">  <span class="string">&quot;black &#123;args:.&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;ruff --fix &#123;args:.&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;style&quot;</span>,</span><br><span class="line">]</span><br><span class="line"><span class="attr">all</span> = [</span><br><span class="line">  <span class="string">&quot;style&quot;</span>,</span><br><span class="line">  <span class="string">&quot;typing&quot;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行命令<code>hatch run lint:fmt</code></li>
+</ul>
+<h2 id="Flit"><a href="#Flit" class="headerlink" title="Flit"></a>Flit</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flit install</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://drivendata.co/blog/python-packaging-2023">THE BASICS OF PYTHON PACKAGING IN EARLY</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666166082">https://zhuanlan.zhihu.com/p/666166082</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/10/31/python%20learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1283,117 +1457,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/02/flink%20deduplication/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/02/flink%20deduplication/" class="post-title-link" itemprop="url">flink duduplication</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-08-02 14:37:35 / Modified: 14:47:54" itemprop="dateCreated datePublished" datetime="2023-08-02T14:37:35+08:00">2023-08-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [column_list]</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line"></span><br><span class="line">   <span class="keyword">SELECT</span> [column_list],</span><br><span class="line"></span><br><span class="line">     <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> ([<span class="keyword">PARTITION</span> <span class="keyword">BY</span> col1[, col2...]]</span><br><span class="line"></span><br><span class="line">       <span class="keyword">ORDER</span> <span class="keyword">BY</span> col1 [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>][, col2 [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>]...]) <span class="keyword">AS</span> rownum</span><br><span class="line"></span><br><span class="line">   <span class="keyword">FROM</span> table_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> rownum <span class="operator">&lt;=</span> N [<span class="keyword">AND</span> conditions]</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ROW_NUMBER()</td>
-<td>计算行号的OVER窗口函数。行号从1开始计算。</td>
-</tr>
-<tr>
-<td>PARTITION BY col1[, col2..]</td>
-<td>可选。指定分区的列，即去重的KEYS。</td>
-</tr>
-<tr>
-<td>ORDER BY timeAttributeCol asc desc</td>
-<td>指定排序的列，必须是一个的字段（即Proctime或Rowtime）。可以指定顺序（Keep FirstRow）或者倒序 （Keep LastRow）。</td>
-</tr>
-<tr>
-<td>rownum</td>
-<td>外层查询中对排名进行过滤，只取前N条</td>
-</tr>
-</tbody></table>
-<ul>
-<li>Deduplicate Keep FirstRow保留首行的去重策略：保留KEY下第一条出现的数据，之后出现该KEY下的数据会被丢弃掉。因为STATE中只存储了KEY数据，所以性能较优。</li>
-<li>Deduplicate Keep LastRow保留末行的去重策略：保留KEY下最后一条出现的数据。因此过程中会产生变更的记录，会向下游发送变更的消息。因此，sink表需要支持retract操作。</li>
-</ul>
-</li>
-</ul>
-<p>在 Deduplication 关于是否会出现回撤流</p>
-<ol>
-<li>⭐ Order by 事件时间 DESC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前事件时间还大的数据</li>
-<li>⭐ Order by 事件时间 ASC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前事件时间还小的数据</li>
-<li>⭐ Order by 处理时间 DESC：会出现回撤流，因为当前 key 下 <code>可能会有</code> 比当前处理时间还大的数据</li>
-<li>⭐ Order by 处理时间 ASC：不会出现回撤流，因为当前 key 下 <code>不可能会有</code> 比当前处理时间还小的数据</li>
-</ol>
-<hr>
-<p>reference</p>
-<p><a target="_blank" rel="noopener" href="https://www.modb.pro/db/232004">https://www.modb.pro/db/232004</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1463,7 +1526,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">178</span>
+          <span class="site-state-item-count">179</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1474,7 +1537,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

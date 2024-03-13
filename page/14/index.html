@@ -174,6 +174,204 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/hibernate%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/01/hibernate%20snippet/" class="post-title-link" itemprop="url">hibernate snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-01 10:01:30" itemprop="dateCreated datePublished" datetime="2018-05-01T10:01:30+08:00">2018-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-12 09:19:44" itemprop="dateModified" datetime="2019-03-12T09:19:44+08:00">2019-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hibernate/" itemprop="url" rel="index"><span itemprop="name">hibernate</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>ORM is an acronym for Object/Relational mapping. It is a programming strategy to map object with the data stored in the database. It simplifies data creation, data manipulation, and data access.</p>
+</blockquote>
+<h3 id="The-advantages-of-using-ORM-over-JDBC"><a href="#The-advantages-of-using-ORM-over-JDBC" class="headerlink" title="The advantages of using ORM over JDBC"></a>The advantages of using ORM over JDBC</h3><ul>
+<li>Application development is fast.</li>
+<li>Management of transaction.</li>
+<li>Generates key automatically.</li>
+<li>Details of SQL queries are hidden.</li>
+</ul>
+<h3 id="Hibernate-Architecture"><a href="#Hibernate-Architecture" class="headerlink" title="Hibernate Architecture"></a>Hibernate Architecture</h3><ul>
+<li>Java application layer</li>
+<li>Hibernate framework layer</li>
+<li>Backhand api layer</li>
+<li>Database layer</li>
+</ul>
+<p><img src="https://www.javatpoint.com/images/hibernate/arc2.jpg"></p>
+<p>Hibernate Application Architecture：</p>
+<p><img src="https://www.tutorialspoint.com/hibernate/images/hibernate_architecture.jpg"></p>
+<blockquote>
+<p>JDBC (Java Database Connectivity)</p>
+<p>JTA (Java Transaction API) </p>
+<p>JNDI (Java Naming Directory Interface)</p>
+</blockquote>
+<h3 id="Elements-of-Hibernate-Architecture"><a href="#Elements-of-Hibernate-Architecture" class="headerlink" title="Elements of Hibernate Architecture"></a>Elements of Hibernate Architecture</h3><ul>
+<li><p>Configuration</p>
+<ul>
+<li><strong>Database Connection</strong> − This is handled through one or more configuration files supported by Hibernate. These files are <strong>hibernate.properties</strong> and <strong>hibernate.cfg.xml</strong>.</li>
+<li><strong>Class Mapping Setup</strong> − This component creates the connection between the Java classes and database tables.</li>
+</ul>
+</li>
+<li><p>SessionFactory</p>
+<blockquote>
+<p>SessionFactory is a thread-safe object, many threads cannot access it simultaneously.</p>
+</blockquote>
+</li>
+<li><p>Session</p>
+<blockquote>
+<ul>
+<li>It maintains a connection between the hibernate application and database.It provides methods to store, update, delete or fetch data from the database such as persist(), update(), delete(), load(), get() etc.</li>
+<li>Session is not a thread-safe object, many threads can access it simultaneously. In other words, you can share it between threads.</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Transaction</p>
+</li>
+<li><p>ConnectionProvider</p>
+</li>
+<li><p>Query</p>
+<blockquote>
+<p>Query objects use SQL or Hibernate Query Language (HQL) string to retrieve data from the database and create objects. A Query instance is used to bind query parameters, limit the number of results returned by the query, and finally to execute the query.</p>
+</blockquote>
+</li>
+<li><p>Criteria</p>
+<blockquote>
+<p>Criteria objects are used to create and execute object oriented criteria queries to retrieve objects.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="About-SQL"><a href="#About-SQL" class="headerlink" title="About SQL"></a>About SQL</h3><ul>
+<li><p>SQL query created in Hibernate（Native sql）</p>
+<blockquote>
+<p>Session.createSQLQuery</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session.createSQLQuery()</span><br><span class="line"><span class="comment">//The method createSQLQuery() creates Query object using the native SQL syntax. </span></span><br><span class="line">Query query = session.createSQLQuery(<span class="string">&quot;Select * from Student&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>HQL query</p>
+<blockquote>
+<p>Session.createQuery</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session.createQuery()</span><br><span class="line"><span class="comment">//The method createQuery() creates Query object using the HQL syntax. </span></span><br><span class="line">Query query = session.createQuery(<span class="string">&quot;from Student s where s.name like &#x27;k%&#x27;&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>criteria query</p>
+<blockquote>
+<p>Session.createCriteria</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session.createCriteria()</span><br><span class="line"><span class="comment">//The method createCriteria() creates Criteria object for setting the query parameters. This is more useful feature for those who don&#x27;t want to write the query in hand. You can specify any type of complicated syntax using the Criteria API.</span></span><br><span class="line">Criteria criteria = session.createCriteria(Student.class);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="HQL-vs-Criteria"><a href="#HQL-vs-Criteria" class="headerlink" title="HQL vs Criteria"></a>HQL vs Criteria</h3><ul>
+<li>HQL is to perform both select and non-select operations on the data,  but Criteria is only for selecting the data, we cannot perform non-select operations using criteria</li>
+<li>HQL is suitable for executing Static Queries, where as Criteria is suitable for executing Dynamic Queries</li>
+<li>HQL doesn’t support pagination concept, but we can achieve pagination with Criteria</li>
+<li>Criteria used to take more time to execute then HQL</li>
+<li>With Criteria we are safe with SQL Injection because of its dynamic query generation but in HQL as your queries are either fixed or parametrized, there is no safe from SQL Injection.</li>
+</ul>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h3><blockquote>
+<p>Cache memory stores recently used data items in order to reduce the number of database hits as much as possible.</p>
+</blockquote>
+<p><img src="https://www.tutorialspoint.com/hibernate/images/hibernate_cache.jpg"></p>
+<ul>
+<li><p>First level Cache</p>
+<blockquote>
+<p>Hibernate first level cache is associated with the Session object. Hibernate first level cache is enabled by default and there is no way to disable it. However hibernate provides methods through which we can delete selected objects from the cache or clear the cache completely.Any object cached in a session will not be visible to other sessions and when the session is closed, all the cached objects will also be lost.</p>
+</blockquote>
+</li>
+<li><p>Second level Cache</p>
+<blockquote>
+<p>Hibernate Second Level cache is disabled by default but we can enable it through configuration. Currently EHCache and Infinispan provides implementation for Hibernate Second level cache and we can use them. </p>
+</blockquote>
+</li>
+<li><p>Query Cache</p>
+<blockquote>
+<p>Hibernate can also cache result set of a query. Hibernate Query Cache doesn’t cache the state of the actual entities in the cache; it caches only identifier values and results of value type. So it should always be used in conjunction with the second-level cache.</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="types-of-association-mapping"><a href="#types-of-association-mapping" class="headerlink" title="types of association mapping"></a>types of association mapping</h3><ol>
+<li><p>One to One</p>
+</li>
+<li><p>One to Many</p>
+<blockquote>
+<p>（一对多）单向：会产生中间表，此时可以用@onetoMany @Joincolumn（name=” “）避免产生中间表**，并且指定了外键的名字（别看 @joincolumn在一中写着，但它存在在多的那个表中）</p>
+</blockquote>
+</li>
+<li><p>Many to One</p>
+<blockquote>
+<p>（多对一）单向：不产生中间表，但可以用@Joincolumn（name=”  “）来指定生成外键的名字，外键在多的一方表中产生！</p>
+</blockquote>
+</li>
+<li><p>Many to Many</p>
+</li>
+</ol>
+<hr>
+<p>可参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/54108abb070f">JPA实体关系映射</a></p>
+<h4 id="为什么要有实体关系映射"><a href="#为什么要有实体关系映射" class="headerlink" title="为什么要有实体关系映射"></a>为什么要有实体关系映射</h4><blockquote>
+<p>简化编程操作。把冗余的操作交给底层框架来处理。<br> 例如，如果我要给一位新入学的学生添加一位新的老师。而这个老师又是新来的，在学生数据库与教师数据库中均不存在对应的数据。那么我需要先在教师数据库中保存新来的老师的数据，同时在学生数据库中保存新学生的数据，然后再给两者建立关联。<br> 而如果我们使用了实体关系映射，我们只需要将该新教师实体交给该学生实体，然后保存该学生实体即可完成。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/16/redis%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1531,87 +1729,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/21/neo4j%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/21/neo4j%20snippet/" class="post-title-link" itemprop="url">neo4j snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-21 17:17:00" itemprop="dateCreated datePublished" datetime="2017-11-21T17:17:00+08:00">2017-11-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-13 01:36:45" itemprop="dateModified" datetime="2022-01-13T01:36:45+08:00">2022-01-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/neo4j/" itemprop="url" rel="index"><span itemprop="name">neo4j</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>cypher语法对大小写敏感，注意属性的大小写</li>
-<li>导入csv出现乱码时，需要通过记事本更改编码格式，如果文本过大，需要一段一段的复制粘贴到新文本中，且以UTF-8格式编码</li>
-<li>MERGE命令是CREATE命令和MATCH命令的组合。<code>MERGE = CREATE + MATCH</code></li>
-</ul>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>1.<br>​    <strong>现象</strong>： 在外部处理csv数据，导入服务器，然后load csv到neo4j中，可能由于文件所属问题，不能成功导入csv，提示<code>Couldn&#39;t load the external resource</code>的错误。<br>​    <strong>解决</strong>：复制可以导入的csv文件为副本，把待导入的数据粘贴到副本中，load csv副本即可</p>
-<p>2.<br>​    <strong>现象</strong>： 在外部处理csv数据，进行merge操作的时候，提示<code>cannot merge using null property value for uid</code>的错误。<br>​    <strong>解决</strong>：经发现，是由于指令中的属性拼写错误，导致<code>Neo.ClientError.Statement.SemanticError</code>的错误，例如把<code>sfzh</code>拼写成<code>sfhm</code>。</p>
-<p>3.<br>​    <strong>现象</strong>： 大量数据的导入问题。<br>​    <strong>解决</strong>：需使用<a target="_blank" rel="noopener" href="https://neo4j.com/docs/operations-manual/current/tools/import/" title="大量数据的导入">https://neo4j.com/docs/operations-manual/current/tools/import/</a><br>​    <strong>注意</strong>：<code>Import tool is only for newly created databases.</code><br>​        <code>You can use LOAD CSV cypher command to load into an existing database.</code>也就是说neo4j-admin import只会在新建数据库的时候会用到</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1681,7 +1798,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">178</span>
+          <span class="site-state-item-count">179</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1692,7 +1809,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
