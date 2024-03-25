@@ -3569,6 +3569,10 @@
 </li>
 <li><p>建立本地至上游（远程）分支的链接</p>
 <p><code>git branch --set-upstream-to=origin/new_branch new_branch</code></p>
+<blockquote>
+<p>如果要推送到的远程分支 origin/new_branch 与本地分支 new_branch 名字相同，那可以使用</p>
+<p>git branch –set-upstream-to origin new_branch</p>
+</blockquote>
 </li>
 </ol>
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)</span><br><span class="line">git branch -d localBranchName</span><br><span class="line"></span><br><span class="line">// delete branch remotely</span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"></span><br><span class="line">//If someone else has already deleted the branch, you just do below</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
