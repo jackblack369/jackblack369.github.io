@@ -1319,7 +1319,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-27 11:01:09" itemprop="dateModified" datetime="2024-03-27T11:01:09+08:00">2024-03-27</time>
+                <time title="Modified: 2024-03-27 18:48:30" itemprop="dateModified" datetime="2024-03-27T18:48:30+08:00">2024-03-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1359,8 +1359,12 @@
 
 <h4 id="删除远程仓库文件，但保留本地文件系统的文件"><a href="#删除远程仓库文件，但保留本地文件系统的文件" class="headerlink" title="删除远程仓库文件，但保留本地文件系统的文件"></a>删除远程仓库文件，但保留本地文件系统的文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 文件</span></span><br><span class="line">git rm --cached path/to/file</span><br><span class="line"><span class="meta">#</span><span class="bash"> 目录</span></span><br><span class="line">git rm -r --cached path/to/directory</span><br></pre></td></tr></table></figure>
 
-
-
+<h4 id="回滚代码"><a href="#回滚代码" class="headerlink" title="回滚代码"></a>回滚代码</h4><ul>
+<li><p>method 1: 重置当前分支的 HEAD 指针以及工作目录和暂存区的内容到指定的提交，擦除了目标提交之后的所有提交历史。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>Method 2: 只想回滚到指定提交，并保留后续提交历史</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h4 id="查看分支对应的远程分支"><a href="#查看分支对应的远程分支" class="headerlink" title="查看分支对应的远程分支"></a>查看分支对应的远程分支</h4><p><code>git branch -vv</code></p>
 <h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
 <blockquote>
@@ -1568,33 +1572,23 @@
 <p>If your local branch had unique commits, you may need to resolve conflicts. For more information, see “<a target="_blank" rel="noopener" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts">Addressing merge conflicts</a>.”</p>
 </li>
 </ol>
-<h3 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h3><blockquote>
+<h2 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h2><blockquote>
 <p>对于项目中包含子项目的git项目</p>
 <p>reference</p>
 <p><a target="_blank" rel="noopener" href="https://www.git-scm.com/book/en/v2/Git-Tools-Submodules">https://www.git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
 <p> <a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
 </blockquote>
-<ul>
-<li><p>如何是首次克隆，初始化代码需要</p>
-<p><code>git clone --recurse-submodules https://github.com/chaconinc/MainProject</code></p>
-</li>
-</ul>
+<h3 id="如何是首次克隆，初始化代码需要"><a href="#如何是首次克隆，初始化代码需要" class="headerlink" title="如何是首次克隆，初始化代码需要"></a>如何是首次克隆，初始化代码需要</h3><p><code>git clone --recurse-submodules https://github.com/chaconinc/MainProject</code></p>
 <p>​        或如果首次没有使用<code>--recurse-submodules</code>，那后面可以通过</p>
 <p>​        <code>git submodule init</code>和<code>git submodule update</code>，进行子模块的拉取更新</p>
-<ul>
-<li><p>如何要对子模块的代码也用克隆地址</p>
-<ol>
+<h3 id="如何要对子模块的代码也用克隆地址"><a href="#如何要对子模块的代码也用克隆地址" class="headerlink" title="如何要对子模块的代码也用克隆地址"></a>如何要对子模块的代码也用克隆地址</h3><ol>
 <li><p><code>git config -f .gitmodules -e    # opens editor, update URLs for your forks</code></p>
 </li>
 <li><p><code>git submodule sync</code></p>
 </li>
 </ol>
-</li>
-</ul>
-<ul>
-<li><p>后期从远程仓库更新submodule代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule update --remote</span><br></pre></td></tr></table></figure></li>
-</ul>
+<h3 id="后期从远程仓库更新submodule代码"><a href="#后期从远程仓库更新submodule代码" class="headerlink" title="后期从远程仓库更新submodule代码"></a>后期从远程仓库更新submodule代码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule update --remote</span><br></pre></td></tr></table></figure>
+
 <h3 id="在已有项目添加子模块"><a href="#在已有项目添加子模块" class="headerlink" title="在已有项目添加子模块"></a>在已有项目添加子模块</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://xxx.git configserver</span><br></pre></td></tr></table></figure>
 
 
