@@ -1319,7 +1319,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-27 18:48:30" itemprop="dateModified" datetime="2024-03-27T18:48:30+08:00">2024-03-27</time>
+                <time title="Modified: 2024-03-31 15:34:51" itemprop="dateModified" datetime="2024-03-31T15:34:51+08:00">2024-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1352,7 +1352,8 @@
 
 <h4 id="比较文件，在不同版本的区别"><a href="#比较文件，在不同版本的区别" class="headerlink" title="比较文件，在不同版本的区别"></a>比较文件，在不同版本的区别</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to HEAD</span></span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to before last commit</span></span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">last commit to before last commit</span></span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">difference between HEAD and n-th grandparent</span></span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">Another cool feature is whatchanged <span class="built_in">command</span></span></span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="查看本地分支与远程分支的关联"><a href="#查看本地分支与远程分支的关联" class="headerlink" title="查看本地分支与远程分支的关联"></a>查看本地分支与远程分支的关联</h4><p><code>git branch -vv</code></p>
+
+
 <h4 id="查看每一行是哪次提交最后修改的"><a href="#查看每一行是哪次提交最后修改的" class="headerlink" title="查看每一行是哪次提交最后修改的"></a>查看每一行是哪次提交最后修改的</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git blame filename </span><br></pre></td></tr></table></figure>
 
 <h4 id="列出文件的所有修改记录"><a href="#列出文件的所有修改记录" class="headerlink" title="列出文件的所有修改记录"></a>列出文件的所有修改记录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -p filename</span><br></pre></td></tr></table></figure>
@@ -1366,6 +1367,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h4 id="查看分支对应的远程分支"><a href="#查看分支对应的远程分支" class="headerlink" title="查看分支对应的远程分支"></a>查看分支对应的远程分支</h4><p><code>git branch -vv</code></p>
+<h4 id="更改当前分支对应的远程分支"><a href="#更改当前分支对应的远程分支" class="headerlink" title="更改当前分支对应的远程分支"></a>更改当前分支对应的远程分支</h4><p><code>git branch -u origin/develop</code></p>
 <h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
 <blockquote>
 <p>git reset –hard HEAD~1</p>
