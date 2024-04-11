@@ -840,7 +840,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-28 13:58:56" itemprop="dateModified" datetime="2023-12-28T13:58:56+08:00">2023-12-28</time>
+                <time title="Modified: 2024-04-10 15:10:47" itemprop="dateModified" datetime="2024-04-10T15:10:47+08:00">2024-04-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -888,17 +888,24 @@
 <h2 id="单个实体与实体转换"><a href="#单个实体与实体转换" class="headerlink" title="单个实体与实体转换"></a>单个实体与实体转换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">role_update: RoleUpdate</span><br><span class="line">...</span><br><span class="line">role = Role.from_orm(role_update)</span><br></pre></td></tr></table></figure>
 
 <h2 id="列表实体转换为字典列表"><a href="#列表实体转换为字典列表" class="headerlink" title="列表实体转换为字典列表"></a>列表实体转换为字典列表</h2><ul>
-<li>方式一  <strong>session.exec</strong></li>
+<li>方式一 <strong>session.query</strong> </li>
 </ul>
+<blockquote>
+<p>在直接返回 查询结构的时候，优先使用，可以直接把结果转为json（e.g. res_json = jsonable_encoder(res_data)）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.<span class="built_in">id</span>, Role.name, Role.nick_name, Role.label)</span><br><span class="line">                             .join(RelUsergroupRole, RelUserGroupUser.usergroup_id == RelUsergroupRole.usergroup_id)</span><br><span class="line">                             .join(Role, RelUsergroupRole.role_id == Role.<span class="built_in">id</span>)</span><br><span class="line">                             .<span class="built_in">filter</span>(RelUserGroupUser.user_id == user_id)</span><br><span class="line">                             .<span class="built_in">all</span>())</span><br><span class="line">        rel_usergroup_roles_info = []</span><br><span class="line">        <span class="keyword">for</span> rel_usergroup_role <span class="keyword">in</span> db_rel_usergroup_roles:</span><br><span class="line">            rel_usergroup_roles_info.append(Role(</span><br><span class="line">                <span class="built_in">id</span>=rel_usergroup_role[<span class="number">1</span>],</span><br><span class="line">                name=rel_usergroup_role[<span class="number">2</span>],</span><br><span class="line">                nick_name=rel_usergroup_role[<span class="number">3</span>],</span><br><span class="line">                label=rel_usergroup_role[<span class="number">4</span>]</span><br><span class="line">            ))</span><br><span class="line">        <span class="keyword">return</span> rel_usergroup_roles_info</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式二 <strong>session.exec</strong></li>
+</ul>
+<blockquote>
+<p>在需要特殊处理查询的不同字段信息时，优先使用此方法</p>
+</blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">rel_usergroup_user_list = session.<span class="built_in">exec</span>(</span><br><span class="line">            select(RelUserGroupUser.usergroup_id, RelUserGroupUser.user_id, UserGroup.name, UserGroup.label, UserGroup.remark)</span><br><span class="line">            .where(RelUserGroupUser.user_id == user_id)</span><br><span class="line">            .join(UserGroup, UserGroup.<span class="built_in">id</span> == RelUserGroupUser.usergroup_id)</span><br><span class="line">        ).<span class="built_in">all</span>()</span><br><span class="line">        converted_list = []</span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> rel_usergroup_user_list:</span><br><span class="line">            converted_obj = RelUserGroupUserRead(</span><br><span class="line">                user_id=row.user_id,</span><br><span class="line">                usergroup_id=row.usergroup_id,</span><br><span class="line">                usergroup_name=row.name,</span><br><span class="line">                usergroup_label=row.label</span><br><span class="line">            )</span><br><span class="line">            converted_list.append(converted_obj)</span><br><span class="line">        <span class="keyword">return</span> converted_list</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>方式二 <strong>session.query</strong></li>
+<li></li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.<span class="built_in">id</span>, Role.name, Role.nick_name, Role.label)</span><br><span class="line">                             .join(RelUsergroupRole, RelUserGroupUser.usergroup_id == RelUsergroupRole.usergroup_id)</span><br><span class="line">                             .join(Role, RelUsergroupRole.role_id == Role.<span class="built_in">id</span>)</span><br><span class="line">                             .<span class="built_in">filter</span>(RelUserGroupUser.user_id == user_id)</span><br><span class="line">                             .<span class="built_in">all</span>())</span><br><span class="line">        rel_usergroup_roles_info = []</span><br><span class="line">        <span class="keyword">for</span> rel_usergroup_role <span class="keyword">in</span> db_rel_usergroup_roles:</span><br><span class="line">            rel_usergroup_roles_info.append(Role(</span><br><span class="line">                <span class="built_in">id</span>=rel_usergroup_role[<span class="number">1</span>],</span><br><span class="line">                name=rel_usergroup_role[<span class="number">2</span>],</span><br><span class="line">                nick_name=rel_usergroup_role[<span class="number">3</span>],</span><br><span class="line">                label=rel_usergroup_role[<span class="number">4</span>]</span><br><span class="line">            ))</span><br><span class="line">        <span class="keyword">return</span> rel_usergroup_roles_info</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="查询过滤"><a href="#查询过滤" class="headerlink" title="查询过滤"></a>查询过滤</h2><ul>
 <li><p>筛选条件为或条件</p>
 </li>
@@ -909,7 +916,7 @@
 <h2 id="update操作"><a href="#update操作" class="headerlink" title="update操作"></a>update操作</h2><p>如果提前有 <code>session.get(entity, id)</code>，那后续在修改相关表属性<code>enitty.colx = xxx</code> 之后，需要紧接<code>session.add(entity)</code></p>
 <h3 id="session的获取"><a href="#session的获取" class="headerlink" title="session的获取"></a>session的获取</h3><p>在使用 SQLModel 进行数据库操作时，可以使用上下文管理器 <code>with Session(engine) as session</code> 来创建并管理数据库会话。这样可以确保会话在使用完毕后会被正确关闭，释放数据库连接资源。</p>
 <p>在例如 <code>async def delete_user(*, user_id: int, session: Session = Depends(get_session)):</code>中，<code>session</code> 参数是通过 <code>Depends(get_session)</code> 进行依赖注入的，FastAPI 框架会负责在请求处理函数执行完毕后自动关闭会话。所以在请求逻辑中，你不需要手动关闭会话连接。</p>
-
+<h2 id="in-语法使用"><a href="#in-语法使用" class="headerlink" title="in_语法使用"></a>in_语法使用</h2>
       
     </div>
 
