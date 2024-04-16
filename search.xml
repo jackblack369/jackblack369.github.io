@@ -9864,6 +9864,16 @@
 
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">name</span>(<span class="params">param1, param2, ..., paramN</span>):</span></span><br><span class="line">    statements</span><br><span class="line">    <span class="keyword">return</span>/<span class="keyword">yield</span> value <span class="comment"># optional</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><p>为了能让一个函数接受任意数量的位置参数，可以使用一个*参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">avg</span>(<span class="params">first, *rest</span>):</span></span><br><span class="line">    ...</span><br><span class="line"><span class="comment"># Sample use</span></span><br><span class="line">avg(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>为了接受任意数量的关键字参数，使用一个以**开头的参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_element</span>(<span class="params">name, value, **attrs</span>):</span></span><br><span class="line">  ...</span><br><span class="line">make_element(<span class="string">&#x27;item&#x27;</span>, <span class="string">&#x27;Albatross&#x27;</span>, size=<span class="string">&#x27;large&#x27;</span>, quantity=<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">anyargs</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(args) <span class="comment"># A tuple</span></span><br><span class="line">    <span class="built_in">print</span>(kwargs) <span class="comment"># A dict</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 <h3 id="函数嵌套"><a href="#函数嵌套" class="headerlink" title="函数嵌套"></a>函数嵌套</h3><ul>
 <li>函数的嵌套能够保证内部函数的隐私。</li>
 <li>合理的使用函数嵌套，能够提高程序的运行效率</li>
@@ -10522,72 +10532,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python sqlmodel&amp;SQLAlchemy</title>
-    <url>/2023/11/14/python%20sqlmodel/</url>
-    <content><![CDATA[<h2 id="单个实体转换为字典"><a href="#单个实体转换为字典" class="headerlink" title="单个实体转换为字典"></a>单个实体转换为字典</h2><ul>
-<li>方式一</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将实例对象转换为字典，排除未设置值的字段</span></span><br><span class="line">entity_dict = entity.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。<code>exclude_unset=True</code> 参数是用来控制是否排除未设置的属性字段。当设置为 <code>True</code> 时，将排除那些未设置值的字段，即只包含已经设置值的字段。</p>
-</blockquote>
-<ul>
-<li><p>方式二：</p>
-<p>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_group_data.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>, exclude=&#123;<span class="string">&quot;team_roles&quot;</span>&#125;).items():</span><br><span class="line">	<span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">	<span class="built_in">setattr</span>(user_group, key, value)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>方式三</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">resourceCreate: ResourceCreate</span><br><span class="line">...</span><br><span class="line">resource = Resource(**resourceCreate.<span class="built_in">dict</span>())</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="单个实体与实体转换"><a href="#单个实体与实体转换" class="headerlink" title="单个实体与实体转换"></a>单个实体与实体转换</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">role_update: RoleUpdate</span><br><span class="line">...</span><br><span class="line">role = Role.from_orm(role_update)</span><br></pre></td></tr></table></figure>
-
-<h2 id="列表实体转换为字典列表"><a href="#列表实体转换为字典列表" class="headerlink" title="列表实体转换为字典列表"></a>列表实体转换为字典列表</h2><ul>
-<li>方式一 <strong>session.query</strong> </li>
-</ul>
-<blockquote>
-<p>在直接返回 查询结构的时候，优先使用，可以直接把结果转为json（e.g. res_json = jsonable_encoder(res_data)）</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.<span class="built_in">id</span>, Role.name, Role.nick_name, Role.label)</span><br><span class="line">                             .join(RelUsergroupRole, RelUserGroupUser.usergroup_id == RelUsergroupRole.usergroup_id)</span><br><span class="line">                             .join(Role, RelUsergroupRole.role_id == Role.<span class="built_in">id</span>)</span><br><span class="line">                             .<span class="built_in">filter</span>(RelUserGroupUser.user_id == user_id)</span><br><span class="line">                             .<span class="built_in">all</span>())</span><br><span class="line">        rel_usergroup_roles_info = []</span><br><span class="line">        <span class="keyword">for</span> rel_usergroup_role <span class="keyword">in</span> db_rel_usergroup_roles:</span><br><span class="line">            rel_usergroup_roles_info.append(Role(</span><br><span class="line">                <span class="built_in">id</span>=rel_usergroup_role[<span class="number">1</span>],</span><br><span class="line">                name=rel_usergroup_role[<span class="number">2</span>],</span><br><span class="line">                nick_name=rel_usergroup_role[<span class="number">3</span>],</span><br><span class="line">                label=rel_usergroup_role[<span class="number">4</span>]</span><br><span class="line">            ))</span><br><span class="line">        <span class="keyword">return</span> rel_usergroup_roles_info</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>方式二 <strong>session.exec</strong></li>
-</ul>
-<blockquote>
-<p>在需要特殊处理查询的不同字段信息时，优先使用此方法</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rel_usergroup_user_list = session.<span class="built_in">exec</span>(</span><br><span class="line">            select(RelUserGroupUser.usergroup_id, RelUserGroupUser.user_id, UserGroup.name, UserGroup.label, UserGroup.remark)</span><br><span class="line">            .where(RelUserGroupUser.user_id == user_id)</span><br><span class="line">            .join(UserGroup, UserGroup.<span class="built_in">id</span> == RelUserGroupUser.usergroup_id)</span><br><span class="line">        ).<span class="built_in">all</span>()</span><br><span class="line">        converted_list = []</span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> rel_usergroup_user_list:</span><br><span class="line">            converted_obj = RelUserGroupUserRead(</span><br><span class="line">                user_id=row.user_id,</span><br><span class="line">                usergroup_id=row.usergroup_id,</span><br><span class="line">                usergroup_name=row.name,</span><br><span class="line">                usergroup_label=row.label</span><br><span class="line">            )</span><br><span class="line">            converted_list.append(converted_obj)</span><br><span class="line">        <span class="keyword">return</span> converted_list</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li></li>
-</ul>
-<h2 id="查询过滤"><a href="#查询过滤" class="headerlink" title="查询过滤"></a>查询过滤</h2><ul>
-<li><p>筛选条件为或条件</p>
-</li>
-<li><p>```python<br>resource_list = session.query(Resource).filter(or_(Resource.type == “menu”, Resource.type == “element”)).all()</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## update操作</span><br><span class="line"></span><br><span class="line">如果提前有 `session.get(entity, id)`，那后续在修改相关表属性`enitty.colx = xxx` 之后，需要紧接`session.add(entity)`</span><br><span class="line"></span><br><span class="line">### session的获取</span><br><span class="line"></span><br><span class="line">在使用 SQLModel 进行数据库操作时，可以使用上下文管理器 `with Session(engine) as session` 来创建并管理数据库会话。这样可以确保会话在使用完毕后会被正确关闭，释放数据库连接资源。</span><br><span class="line"></span><br><span class="line">在例如 `async def delete_user(*, user_id: int, session: Session = Depends(get_session)):`中，`session` 参数是通过 `Depends(get_session)` 进行依赖注入的，FastAPI 框架会负责在请求处理函数执行完毕后自动关闭会话。所以在请求逻辑中，你不需要手动关闭会话连接。</span><br><span class="line"></span><br><span class="line">## in_语法使用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## session.exec vs session.query</span><br><span class="line"></span><br><span class="line">在SQLAlchemy中，`session.query`和`session.exec`都可以用来执行SQL查询。然而，它们之间有一些关键的区别。</span><br><span class="line"></span><br><span class="line">`session.query`是SQLAlchemy ORM的一部分，它返回的是模型对象。这意味着你可以使用Python的属性和方法来访问和操作返回的数据。这对于编写面向对象的代码非常有用。</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">users = session.query(User).filter(User.name == &#x27;John&#x27;).all()</span><br><span class="line">for user in users:</span><br><span class="line">    print(user.id, user.name)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>另一方面，<code>session.exec</code>是SQLAlchemy Core的一部分，它返回的是原始的SQL结果。这意味着你需要使用列名作为字符串来访问返回的数据。这对于执行复杂的SQL查询或者需要更接近SQL的性能优化可能更有用。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = session.<span class="built_in">exec</span>(select(User).where(User.name == <span class="string">&#x27;John&#x27;</span>))</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> result:</span><br><span class="line">    <span class="built_in">print</span>(row[<span class="string">&#x27;id&#x27;</span>], row[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-<p>总的来说:</p>
-<p>如果正在编写面向对象的代码，或者查询相对简单，那么<code>session.query</code>可能是更好的选择。</p>
-<p>如果需要执行复杂的SQL查询，或者需要更接近SQL的性能优化，那么<code>session.exec</code>可能是更好的选择。</p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>problems</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python security - authlib</title>
     <url>/2023/10/31/python%20auth%20-%20authlib/</url>
     <content><![CDATA[<blockquote>
@@ -11240,22 +11184,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python pydantic</title>
-    <url>/2024/03/05/python%20pydantic/</url>
-    <content><![CDATA[<h2 id="model-validator"><a href="#model-validator" class="headerlink" title="model_validator"></a>model_validator</h2><blockquote>
-<p><code>model_validator</code> 是 Pydantic 库提供的一个装饰器，用于定义模型验证器函数。模型验证器函数是一种特殊的方法，用于在创建模型实例或更新模型属性时执行自定义的验证逻辑。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;after&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_engine_and_run_func</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.search_engine <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        self.search_engine = SearchEngine.from_search_config(self.config.search, proxy=self.config.proxy)</span><br><span class="line">    <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>pydantic</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GPU learn</title>
     <url>/2024/03/08/GPU%20learn/</url>
     <content><![CDATA[<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
@@ -11428,6 +11356,102 @@
       </categories>
       <tags>
         <tag>assistant</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python pydantic</title>
+    <url>/2024/03/05/python%20pkg%20pydantic/</url>
+    <content><![CDATA[<h2 id="model-validator"><a href="#model-validator" class="headerlink" title="model_validator"></a>model_validator</h2><blockquote>
+<p><code>model_validator</code> 是 Pydantic 库提供的一个装饰器，用于定义模型验证器函数。模型验证器函数是一种特殊的方法，用于在创建模型实例或更新模型属性时执行自定义的验证逻辑。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;after&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_engine_and_run_func</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.search_engine <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        self.search_engine = SearchEngine.from_search_config(self.config.search, proxy=self.config.proxy)</span><br><span class="line">    <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;before&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_google</span>(<span class="params">cls, values: <span class="built_in">dict</span></span>) -&gt; <span class="built_in">dict</span>:</span></span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">其中values 是实例化对象的所有参数</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>pydantic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python sqlmodel&amp;SQLAlchemy</title>
+    <url>/2023/11/14/python%20pkg%20sqlmodel/</url>
+    <content><![CDATA[<h2 id="单个实体转换为字典"><a href="#单个实体转换为字典" class="headerlink" title="单个实体转换为字典"></a>单个实体转换为字典</h2><ul>
+<li>方式一</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将实例对象转换为字典，排除未设置值的字段</span></span><br><span class="line">entity_dict = entity.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 Pydantic 模型对象的一个方法，用于将模型对象转换为字典形式。<code>exclude_unset=True</code> 参数是用来控制是否排除未设置的属性字段。当设置为 <code>True</code> 时，将排除那些未设置值的字段，即只包含已经设置值的字段。</p>
+</blockquote>
+<ul>
+<li><p>方式二：</p>
+<p>遍历字典（对没有设置的字段进行默认值设置，设置排查某字段放入字典）</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_group_data.<span class="built_in">dict</span>(exclude_unset=<span class="literal">True</span>, exclude=&#123;<span class="string">&quot;team_roles&quot;</span>&#125;).items():</span><br><span class="line">	<span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">	<span class="built_in">setattr</span>(user_group, key, value)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式三</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">resourceCreate: ResourceCreate</span><br><span class="line">...</span><br><span class="line">resource = Resource(**resourceCreate.<span class="built_in">dict</span>())</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="单个实体与实体转换"><a href="#单个实体与实体转换" class="headerlink" title="单个实体与实体转换"></a>单个实体与实体转换</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">role_update: RoleUpdate</span><br><span class="line">...</span><br><span class="line">role = Role.from_orm(role_update)</span><br></pre></td></tr></table></figure>
+
+<h2 id="列表实体转换为字典列表"><a href="#列表实体转换为字典列表" class="headerlink" title="列表实体转换为字典列表"></a>列表实体转换为字典列表</h2><ul>
+<li>方式一 <strong>session.query</strong> </li>
+</ul>
+<blockquote>
+<p>在直接返回 查询结构的时候，优先使用，可以直接把结果转为json（e.g. res_json = jsonable_encoder(res_data)）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.<span class="built_in">id</span>, Role.name, Role.nick_name, Role.label)</span><br><span class="line">                             .join(RelUsergroupRole, RelUserGroupUser.usergroup_id == RelUsergroupRole.usergroup_id)</span><br><span class="line">                             .join(Role, RelUsergroupRole.role_id == Role.<span class="built_in">id</span>)</span><br><span class="line">                             .<span class="built_in">filter</span>(RelUserGroupUser.user_id == user_id)</span><br><span class="line">                             .<span class="built_in">all</span>())</span><br><span class="line">        rel_usergroup_roles_info = []</span><br><span class="line">        <span class="keyword">for</span> rel_usergroup_role <span class="keyword">in</span> db_rel_usergroup_roles:</span><br><span class="line">            rel_usergroup_roles_info.append(Role(</span><br><span class="line">                <span class="built_in">id</span>=rel_usergroup_role[<span class="number">1</span>],</span><br><span class="line">                name=rel_usergroup_role[<span class="number">2</span>],</span><br><span class="line">                nick_name=rel_usergroup_role[<span class="number">3</span>],</span><br><span class="line">                label=rel_usergroup_role[<span class="number">4</span>]</span><br><span class="line">            ))</span><br><span class="line">        <span class="keyword">return</span> rel_usergroup_roles_info</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式二 <strong>session.exec</strong></li>
+</ul>
+<blockquote>
+<p>在需要特殊处理查询的不同字段信息时，优先使用此方法</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rel_usergroup_user_list = session.<span class="built_in">exec</span>(</span><br><span class="line">            select(RelUserGroupUser.usergroup_id, RelUserGroupUser.user_id, UserGroup.name, UserGroup.label, UserGroup.remark)</span><br><span class="line">            .where(RelUserGroupUser.user_id == user_id)</span><br><span class="line">            .join(UserGroup, UserGroup.<span class="built_in">id</span> == RelUserGroupUser.usergroup_id)</span><br><span class="line">        ).<span class="built_in">all</span>()</span><br><span class="line">        converted_list = []</span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> rel_usergroup_user_list:</span><br><span class="line">            converted_obj = RelUserGroupUserRead(</span><br><span class="line">                user_id=row.user_id,</span><br><span class="line">                usergroup_id=row.usergroup_id,</span><br><span class="line">                usergroup_name=row.name,</span><br><span class="line">                usergroup_label=row.label</span><br><span class="line">            )</span><br><span class="line">            converted_list.append(converted_obj)</span><br><span class="line">        <span class="keyword">return</span> converted_list</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li></li>
+</ul>
+<h2 id="查询过滤"><a href="#查询过滤" class="headerlink" title="查询过滤"></a>查询过滤</h2><ul>
+<li><p>筛选条件为或条件</p>
+</li>
+<li><p>```python<br>resource_list = session.query(Resource).filter(or_(Resource.type == “menu”, Resource.type == “element”)).all()</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## update操作</span><br><span class="line"></span><br><span class="line">如果提前有 `session.get(entity, id)`，那后续在修改相关表属性`enitty.colx = xxx` 之后，需要紧接`session.add(entity)`</span><br><span class="line"></span><br><span class="line">### session的获取</span><br><span class="line"></span><br><span class="line">在使用 SQLModel 进行数据库操作时，可以使用上下文管理器 `with Session(engine) as session` 来创建并管理数据库会话。这样可以确保会话在使用完毕后会被正确关闭，释放数据库连接资源。</span><br><span class="line"></span><br><span class="line">在例如 `async def delete_user(*, user_id: int, session: Session = Depends(get_session)):`中，`session` 参数是通过 `Depends(get_session)` 进行依赖注入的，FastAPI 框架会负责在请求处理函数执行完毕后自动关闭会话。所以在请求逻辑中，你不需要手动关闭会话连接。</span><br><span class="line"></span><br><span class="line">## in_语法使用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## session.exec vs session.query</span><br><span class="line"></span><br><span class="line">在SQLAlchemy中，`session.query`和`session.exec`都可以用来执行SQL查询。然而，它们之间有一些关键的区别。</span><br><span class="line"></span><br><span class="line">`session.query`是SQLAlchemy ORM的一部分，它返回的是模型对象。这意味着你可以使用Python的属性和方法来访问和操作返回的数据。这对于编写面向对象的代码非常有用。</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">users = session.query(User).filter(User.name == &#x27;John&#x27;).all()</span><br><span class="line">for user in users:</span><br><span class="line">    print(user.id, user.name)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>另一方面，<code>session.exec</code>是SQLAlchemy Core的一部分，它返回的是原始的SQL结果。这意味着你需要使用列名作为字符串来访问返回的数据。这对于执行复杂的SQL查询或者需要更接近SQL的性能优化可能更有用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = session.<span class="built_in">exec</span>(select(User).where(User.name == <span class="string">&#x27;John&#x27;</span>))</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> result:</span><br><span class="line">    <span class="built_in">print</span>(row[<span class="string">&#x27;id&#x27;</span>], row[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>总的来说:</p>
+<p>如果正在编写面向对象的代码，或者查询相对简单，那么<code>session.query</code>可能是更好的选择。</p>
+<p>如果需要执行复杂的SQL查询，或者需要更接近SQL的性能优化，那么<code>session.exec</code>可能是更好的选择。</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>problems</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python fire</title>
+    <url>/2024/04/15/python%20pkg%20fire/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>fire</tag>
       </tags>
   </entry>
 </search>

@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2024-03-13T03:03:26.175Z</updated>
+  <updated>2024-04-15T04:02:44.134Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python fire</title>
+    <link href="http://yoursite.com/2024/04/15/python%20pkg%20fire/"/>
+    <id>http://yoursite.com/2024/04/15/python%20pkg%20fire/</id>
+    <published>2024-04-15T04:02:38.000Z</published>
+    <updated>2024-04-15T04:02:44.134Z</updated>
+    
+    
+    
+    
+    <category term="python" scheme="http://yoursite.com/categories/python/"/>
+    
+    
+    <category term="fire" scheme="http://yoursite.com/tags/fire/"/>
+    
+  </entry>
   
   <entry>
     <title>github copilot</title>
@@ -73,12 +90,12 @@
   
   <entry>
     <title>python pydantic</title>
-    <link href="http://yoursite.com/2024/03/05/python%20pydantic/"/>
-    <id>http://yoursite.com/2024/03/05/python%20pydantic/</id>
+    <link href="http://yoursite.com/2024/03/05/python%20pkg%20pydantic/"/>
+    <id>http://yoursite.com/2024/03/05/python%20pkg%20pydantic/</id>
     <published>2024-03-05T03:44:46.000Z</published>
-    <updated>2024-03-05T03:44:58.651Z</updated>
+    <updated>2024-04-16T06:22:49.151Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="model-validator"><a href="#model-validator" class="headerlink" title="model_validator"></a>model_validator</h2><blockquote><p><code>model_validator</code> 是 Pydantic 库提供的一个装饰器，用于定义模型验证器函数。模型验证器函数是一种特殊的方法，用于在创建模型实例或更新模型属性时执行自定义的验证逻辑。</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;after&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_engine_and_run_func</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.search_engine <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        self.search_engine = SearchEngine.from_search_config(self.config.search, proxy=self.config.proxy)</span><br><span class="line">    <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="model-validator"><a href="#model-validator" class="headerlink" title="model_validator"></a>model_validator</h2><blockquote><p><code>model_validator</code> 是 Pydantic 库提供的一个装饰器，用于定义模型验证器函数。模型验证器函数是一种特殊的方法，用于在创建模型实例或更新模型属性时执行自定义的验证逻辑。</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;after&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_engine_and_run_func</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.search_engine <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        self.search_engine = SearchEngine.from_search_config(self.config.search, proxy=self.config.proxy)</span><br><span class="line">    <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;before&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_google</span>(<span class="params">cls, values: <span class="built_in">dict</span></span>) -&gt; <span class="built_in">dict</span>:</span></span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">其中values 是实例化对象的所有参数</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -501,31 +518,6 @@
     
     
     <category term="security" scheme="http://yoursite.com/tags/security/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>fastapi learn</title>
-    <link href="http://yoursite.com/2023/11/21/fastapi%20learn/"/>
-    <id>http://yoursite.com/2023/11/21/fastapi%20learn/</id>
-    <published>2023-11-21T11:13:32.000Z</published>
-    <updated>2023-12-16T02:56:33.240Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://project-awesome.org/mjhea0/awesome-fastapi">Awesome FastAPI</a></p><p><a href="https://github.com/zhanymkanov/fastapi-best-practices">FastAPI Best Practices</a></p><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://project-awesome.org/mjhea0/awesome-fastapi&quot;&gt;Awesome FastAPI&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/zhanymkanov/fastapi-b</summary>
-      
-    
-    
-    
-    <category term="fastapi" scheme="http://yoursite.com/categories/fastapi/"/>
-    
-    
-    <category term="learn" scheme="http://yoursite.com/tags/learn/"/>
     
   </entry>
   

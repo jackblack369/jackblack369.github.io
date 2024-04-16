@@ -174,6 +174,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/logstash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/03/logstash/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-03 09:28:27 / Modified: 09:28:41" itemprop="dateCreated datePublished" datetime="2023-11-03T09:28:27+08:00">2023-11-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/logstash/" itemprop="url" rel="index"><span itemprop="name">logstash</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p>Logstash Forwarder/Beats负责在源服务器上收集日志数据，然后将数据发送到集中式的Logstash或Kafka服务器。</p>
+</li>
+<li><p>Logstash是一个灵活的数据收集引擎，它可以从多个来源（包括日志文件、标准输入、Beats等）采集数据，进行转换、过滤和解析，最后将数据发送到各种目的地，比如Elasticsearch、Kafka等。在日志处理中，Logstash常被用作数据的转换和预处理工具。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/python%20env%20poetry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -379,7 +452,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-04-12 21:06:34" itemprop="dateModified" datetime="2024-04-12T21:06:34+08:00">2024-04-12</time>
+                <time title="Modified: 2024-04-16 09:46:18" itemprop="dateModified" datetime="2024-04-16T09:46:18+08:00">2024-04-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -465,6 +538,16 @@
 
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">name</span>(<span class="params">param1, param2, ..., paramN</span>):</span></span><br><span class="line">    statements</span><br><span class="line">    <span class="keyword">return</span>/<span class="keyword">yield</span> value <span class="comment"># optional</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><p>为了能让一个函数接受任意数量的位置参数，可以使用一个*参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">avg</span>(<span class="params">first, *rest</span>):</span></span><br><span class="line">    ...</span><br><span class="line"><span class="comment"># Sample use</span></span><br><span class="line">avg(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>为了接受任意数量的关键字参数，使用一个以**开头的参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_element</span>(<span class="params">name, value, **attrs</span>):</span></span><br><span class="line">  ...</span><br><span class="line">make_element(<span class="string">&#x27;item&#x27;</span>, <span class="string">&#x27;Albatross&#x27;</span>, size=<span class="string">&#x27;large&#x27;</span>, quantity=<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">anyargs</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(args) <span class="comment"># A tuple</span></span><br><span class="line">    <span class="built_in">print</span>(kwargs) <span class="comment"># A dict</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 <h3 id="函数嵌套"><a href="#函数嵌套" class="headerlink" title="函数嵌套"></a>函数嵌套</h3><ul>
 <li>函数的嵌套能够保证内部函数的隐私。</li>
 <li>合理的使用函数嵌套，能够提高程序的运行效率</li>
@@ -1371,93 +1454,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/10/flink%20upsert%20stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/10/flink%20upsert%20stream/" class="post-title-link" itemprop="url">flink upsert stream</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-08-10 10:47:36" itemprop="dateCreated datePublished" datetime="2023-08-10T10:47:36+08:00">2023-08-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-24 14:02:33" itemprop="dateModified" datetime="2023-10-24T14:02:33+08:00">2023-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="upsert-kafka"><a href="#upsert-kafka" class="headerlink" title="upsert kafka"></a>upsert kafka</h1><p>The Kafka connector in Flink SQL can work in two streaming modes. </p>
-<p><strong>Upsert mode</strong> allows us to get the latest value for a specific entity automatically without any manual deduplication. One of the typical scenarios where you can leverage this mode is a SQL join of two tables, where one of the tables is keeping history of changes per some entity id. Once you join on such an entity id which is non-unique by design, you get unwanted rows, but you usually want to see the latest value of that entity. With upsert mode, Flink automatically normalizes before the tables are joined. Eventually it allows you to easily answer typical business questions on getting a real-time view of the shared resources like cars, planes, workers, etc.</p>
-<p><strong>Append mode</strong> is still an option to go with, if a business query does not need to filter out all historical events, but rather show the history of changes at the end. In this scenario, query may run faster with append mode, as Flink does not need to do any changelog normalization.</p>
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
-<li><p>upsert-kafka 可以配合 checkpoint使用，这样不需要再从头消费之前的数据</p>
-</li>
-<li><p>如果kafka中key没有值，是不符合upsert-kafka的格式的，flink sql引用此类topic为upsert-kafka，则不会触发计算</p>
-</li>
-</ul>
-<h2 id="deduplication"><a href="#deduplication" class="headerlink" title="deduplication"></a>deduplication</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [column_list]</span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">   <span class="keyword">SELECT</span> [column_list],</span><br><span class="line">     <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> ([<span class="keyword">PARTITION</span> <span class="keyword">BY</span> col1[, col2...]]</span><br><span class="line">       <span class="keyword">ORDER</span> <span class="keyword">BY</span> time_attr [<span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span>]) <span class="keyword">AS</span> rownum</span><br><span class="line">   <span class="keyword">FROM</span> table_name)</span><br><span class="line"><span class="keyword">WHERE</span> rownum <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>注意 在内嵌的 select语句中，建议使用 column_list 查询指定的字段，不要使用 * 代指所有指标。否则查询upsert-kafka会，一直从最新的记录读取。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1527,7 +1523,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-count">180</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1538,7 +1534,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
