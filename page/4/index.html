@@ -452,7 +452,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-04-16 09:46:18" itemprop="dateModified" datetime="2024-04-16T09:46:18+08:00">2024-04-16</time>
+                <time title="Modified: 2024-04-18 10:08:41" itemprop="dateModified" datetime="2024-04-18T10:08:41+08:00">2024-04-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -547,13 +547,9 @@
 
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">anyargs</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(args) <span class="comment"># A tuple</span></span><br><span class="line">    <span class="built_in">print</span>(kwargs) <span class="comment"># A dict</span></span><br></pre></td></tr></table></figure></li>
+<li><p>参数默认值不要设置 []，而是写成 None</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">spam</span>(<span class="params">a, b=[]</span>):</span> <span class="comment"># NO! ，后面如果多次调用spam方法，则b的值会一直传递使用</span></span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line"><span class="comment">### 函数嵌套</span></span><br><span class="line"></span><br><span class="line">- 函数的嵌套能够保证内部函数的隐私。</span><br><span class="line">- 合理的使用函数嵌套，能够提高程序的运行效率</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span>():</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;world&#x27;</span>)</span><br><span class="line">    f2()</span><br><span class="line">f1()</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="函数嵌套"><a href="#函数嵌套" class="headerlink" title="函数嵌套"></a>函数嵌套</h3><ul>
-<li>函数的嵌套能够保证内部函数的隐私。</li>
-<li>合理的使用函数嵌套，能够提高程序的运行效率</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span>():</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;world&#x27;</span>)</span><br><span class="line">    f2()</span><br><span class="line">f1()</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
-
 <h3 id="函数变量"><a href="#函数变量" class="headerlink" title="函数变量"></a>函数变量</h3><ul>
 <li><p>局部变量：只在函数内部有效。一旦函数执行完毕，局部变量就会被回收</p>
 </li>
