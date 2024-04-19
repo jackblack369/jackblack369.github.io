@@ -10449,6 +10449,16 @@
 <ul>
 <li><p>锁定并安装项目依赖项的确切版本</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry lock</span><br><span class="line">poetry install</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>安装test相关依赖</p>
+<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[tool.poetry.group.test.dependencies]</span></span><br><span class="line"><span class="attr">pytest</span> = <span class="string">&quot;^7.3.0&quot;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry install --with test</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
 <li><p>通过<code>requirement</code>添加依赖</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">poetry add $( cat requirements.txt )</span><br></pre></td></tr></table></figure></li>
 <li><p>build编译</p>
@@ -11453,5 +11463,26 @@
       <tags>
         <tag>fire</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2024/04/18/python%20pytest/</url>
+    <content><![CDATA[<hr>
+<hr>
+<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul>
+<li><p>测试信息打印</p>
+<blockquote>
+<p>默认情况下，pytest 会捕获所有的输出。这意味着在测试运行期间， <code>print</code> 语句的输出不会显示在控制台上。</p>
+<p>如果想看到 <code>print</code> 语句的输出，需要使用 <code>-s</code> 选项来告诉 pytest 不要捕获输出</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pytest -s test_web_base.py</span><br></pre></td></tr></table></figure></li>
+<li><p>测试指定方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pytest tests/unit_tests/document_loaders/test_web_base.py::类名::方法名</span><br></pre></td></tr></table></figure></li>
+<li><p>测试被标记的方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@pytest.mark.finished</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_func1</span>():</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="number">1</span> == <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pytest -m finished tests/test-function/test_with_mark.py</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
   </entry>
 </search>

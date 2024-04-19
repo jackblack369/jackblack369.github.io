@@ -174,6 +174,126 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/restful%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/08/restful%20snippet/" class="post-title-link" itemprop="url">restful snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-08 12:01:30" itemprop="dateCreated datePublished" datetime="2017-12-08T12:01:30+08:00">2017-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-14 18:02:10" itemprop="dateModified" datetime="2023-12-14T18:02:10+08:00">2023-12-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/restful/" itemprop="url" rel="index"><span itemprop="name">restful</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><strong>GET</strong>: A safe read-only method that reads a single or a list of resources.</li>
+<li><strong>POST</strong>: Creates a new resource.</li>
+<li><strong>PUT</strong>: Completely replaces the resource(s) at the given location with the new data.</li>
+<li><strong>PATCH</strong>: Merges the resource(s) at the given location with the new data.</li>
+<li><strong>DELETE</strong>: Deletes the resource(s) at a location.</li>
+<li><strong>HEAD</strong>: Same as GET but only returns the header and no data.</li>
+</ul>
+<p><strong>用 URL 表示要操作的资源，用不同的 HTTP 请求（GET，POST，PUT，DELETE）描述对资源的操作，通过 HTTP 的状态码来判断此次对资源操作的结果</strong>，这就是 Restful风格。 </p>
+<ol>
+<li>GET 用来获取资源</li>
+<li>POST 用来新增资源</li>
+<li>PUT 用来更新资源</li>
+<li>DELETE 用来删除资源</li>
+</ol>
+<ul>
+<li>put和delete虽然是http协议的规范 ,但是遗憾的是,所有的无论是html4还是h5都不支持,所以我们在实际开开发过程当中要模拟这两种状态。 </li>
+</ul>
+<h3 id="Restful有什么意义"><a href="#Restful有什么意义" class="headerlink" title="Restful有什么意义"></a>Restful有什么意义</h3><ul>
+<li>网络上的所有的信息体都看作一种资源，对网络资源的某种操作，都是通过 method 来确定的。 </li>
+<li>对于现在的数据或者资源提供方，对外透露的接口一般是 restful 风格的，有利于不同系统之间的资源共享,而且只需要遵守规范不需要做另外的配置就能达到资源共享。 </li>
+</ul>
+<p><strong>restful 是用来外提供接口的，主要用于在不同的系统之间进行数据的交互。</strong></p>
+<p><strong>ps：其实在做内部系统的时候并不会使用 restful 风格的 url 请求，只用普通的 @RequestMapping 来匹配请求就行了。</strong></p>
+<h2 id="返回码"><a href="#返回码" class="headerlink" title="返回码"></a>返回码</h2><p>RESTful API 中的标准返回码通常遵循 HTTP 状态码，并根据不同的操作和结果返回不同的状态码。以下是一些常见的 HTTP 状态码及其通常的含义：</p>
+<ul>
+<li><strong>200 OK</strong>: 表示请求成功。通常用于 GET 请求。</li>
+<li><strong>201 Created</strong>: 表示成功创建了新的资源。通常用于 POST 请求。</li>
+<li><strong>204 No Content</strong>: 表示请求成功处理，但没有返回内容。通常用于 DELETE 请求。</li>
+<li><strong>400 Bad Request</strong>: 表示客户端发送的请求有错误，服务器无法理解。</li>
+<li><strong>401 Unauthorized</strong>: 表示请求需要用户认证，用户没有提供有效的认证信息。</li>
+<li><strong>403 Forbidden</strong>: 表示服务器理解请求，但拒绝执行，通常因为权限问题。</li>
+<li><strong>404 Not Found</strong>: 表示请求的资源不存在。</li>
+<li><strong>405 Method Not Allowed</strong>: 表示请求方法不被允许。</li>
+<li><strong>409 Conflict</strong>: 表示请求可能引发冲突，例如更新资源时的版本冲突。</li>
+<li><strong>500 Internal Server Error</strong>: 表示服务器在处理请求时发生了错误。</li>
+<li>502 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502">Bad Gateway</a> - This indicates an invalid response from an upstream server.</li>
+<li>503 Service Unavailable - This indicates that something unexpected happened on server side (It can be anything like server overload, some parts of the system failed, etc.).</li>
+</ul>
+<p>RESTful API 的返回码可以根据实际情况进行适当扩展和调整，但通常遵循以上基本的 HTTP 状态码标准。</p>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>url中包含传参时，例如delete  /auth/user/{参数}，那此时其他delete方法 /auth/user/other，会发生冲突，需要在路径侯后面添加“/”，变成/auth/user/other/</li>
+</ul>
+<hr>
+<ul>
+<li>reference <a target="_blank" rel="noopener" href="https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/">Best practices for REST API design</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/07/vue%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1180,116 +1300,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/05/09/linux%20snippet/" class="post-title-link" itemprop="url">linux snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-05-09 10:01:30" itemprop="dateCreated datePublished" datetime="2017-05-09T10:01:30+08:00">2017-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 18:07:25" itemprop="dateModified" datetime="2022-03-14T18:07:25+08:00">2022-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>/bin/    用以存储二进制可执行命令文件，/usr/bin/也存储了一些基于用户的命令文件。</li>
-<li>/sbin/    许多系统命令的存储位置，/usr/sbin/中也包括了许多命令。</li>
-<li>/root/    超级用户，即根用户的主目录。</li>
-<li>/home/    普通用户的默认目录，在该目录下，每个用户拥有一个以用户名命名的文件夹。</li>
-<li>/boot/    存放Ubuntu内核和系统启动文件。</li>
-<li>/mnt/     通常包括系统引导后被挂载的文件系统的挂载点。</li>
-<li>/dev/    存储设备文件，包括计算机的所有外部设备，如硬盘、是、键盘、鼠标等。</li>
-<li>/etc/    存放文件管理配置文件和目录。</li>
-<li>/lib/    存储各种程序所需要的共享库文件。</li>
-<li>/lost+found/    一般为空，当非法关机时，会存放一些零散的文件。</li>
-<li>/var/    用于存放很多不断变化的文件，例如日志文件等。</li>
-<li>/usr/    包括与系统用户直接有关的文件和目录</li>
-<li>/media/    存放Ubuntu系统自动挂载的设备文件。</li>
-<li>/proc/    这是一个虚拟目录，它是内存的映射，包括系统信息和进程信息。</li>
-<li>/tmp/    存储系统和用户的临时信息。</li>
-<li>/initrd/    用来加载启动时临时挂载的initrd.img映像文件，以及载入所要的设备模块目录。</li>
-<li>/opt/    作为可选文件和程序的存放目录，否则将无法引导计算机进入操作系统。</li>
-<li>/srv/    存储系统提供的服务数据。</li>
-<li>/sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。</li>
-</ul>
-<h2 id="装机问题"><a href="#装机问题" class="headerlink" title="装机问题"></a>装机问题</h2><h3 id="Wifi-Not-Enabled-Acer-Aspire-4750"><a href="#Wifi-Not-Enabled-Acer-Aspire-4750" class="headerlink" title="Wifi Not Enabled Acer Aspire 4750"></a>Wifi Not Enabled Acer Aspire 4750</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: yes</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">~$</span><span class="bash"> sudo rmmod acer-wmi</span></span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">add below line at the end of the file : /etc/modprobe.d/blacklist.conf</span><br><span class="line">blacklist acer-wmi</span><br><span class="line"></span><br><span class="line">Then restart the system.</span><br><span class="line"><span class="meta">~$</span><span class="bash"> rfkill list all</span></span><br><span class="line">0: phy0: Wireless LAN</span><br><span class="line">Soft blocked: no</span><br><span class="line">Hard blocked: no</span><br></pre></td></tr></table></figure>
-
-<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><ul>
-<li>防火墙 firewalld.service</li>
-</ul>
-<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p><strong>shell与export命令</strong></p>
-<p>用户登录到Linux系统后，系统将启动一个用户shell。在这个shell中，可以使用shell命令或声明变量，也可以创建并运行 shell脚本程序。运行shell脚本程序时，系统将创建一个子shell。此时，系统中将有两个shell，一个是登录时系统启动的shell，另一 个是系统为运行脚本程序创建的shell。当一个脚本程序运行完毕，它的脚本shell将终止，可以返回到执行该脚本之前的shell。从这种意义上来 说，用户可以有许多 shell，每个shell都是由某个shell（称为父shell）派生的。</p>
-<p>在子 shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内 的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用export命令对已定义的变量进行输出。 export命令将使系统在创建每一个新的shell时定义这个变量的一个拷贝。这个过程称之为变量输出。</p>
-<h3 id="操作文件名中含有“-”的文件"><a href="#操作文件名中含有“-”的文件" class="headerlink" title="操作文件名中含有“-”的文件"></a>操作文件名中含有“-”的文件</h3><ul>
-<li>使用转移字符 “–”， 比如查看文件“-abc.txt“，命令为 <code>vim -- -abc.txt</code></li>
-</ul>
-<h3 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h3><p>KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是一个基于 Linux 内核的虚拟化管理系统。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1355,7 +1369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-count">181</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
