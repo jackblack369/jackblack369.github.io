@@ -28,7 +28,7 @@
 <meta property="og:description" content="命令 清空数据 cache -clear -c&#x3D;xxxxx  lostPart 12cache -rebalance -c&#x3D;xxxxcache -rebalance 命令不需要依赖于 cache -stop 的操作。启动或重新启动分区重平衡可以在缓存运行期间进行，不需要停止缓存。 停止多个缓存表   ​    cache -stop --caches&#x3D;myCache_*  重新平衡多个缓存表  ​">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-11-01T04:01:30.000Z">
-<meta property="article:modified_time" content="2023-11-08T11:12:32.879Z">
+<meta property="article:modified_time" content="2024-05-07T08:28:58.631Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-08 19:12:32" itemprop="dateModified" datetime="2023-11-08T19:12:32+08:00">2023-11-08</time>
+                <time title="Modified: 2024-05-07 16:28:58" itemprop="dateModified" datetime="2024-05-07T16:28:58+08:00">2024-05-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,11 +251,11 @@
 <li><p>停止所有缓存表，</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cache -stop --all </span><br><span class="line">cache -start --all</span><br></pre></td></tr></table></figure></li>
 <li><p>重新加载所有缓存表并重新平衡</p>
-<p>``cache -l -r –all`</p>
+<p><code>cache -l -r --all</code></p>
 <p><code>cache -clear</code> 命令只是清空缓存中的数据，但是缓存仍然处于活动状态，可以继续使用；而<code>cache -stop</code> 命令则停止了缓存，并且清空了所有数据，需要使用 <code>cache -start</code> 命令重新启动缓存，并重新加载数据。</p>
 </li>
 </ul>
-<p>​    ``cache -start<code>命令用于启动一个已经停止的缓存。如果缓存之前已经存在并被停止，使用</code>cache -start` 命令可以重新启动该缓存，并开始加载数据。如果该缓存之前不存在，则会创建一个新的缓存并开始加载数据。</p>
+<p>​    <code>cache -start</code> 命令用于启动一个已经停止的缓存。如果缓存之前已经存在并被停止，使用 <code>cache -start</code> 命令可以重新启动该缓存，并开始加载数据。如果该缓存之前不存在，则会创建一个新的缓存并开始加载数据。</p>
 <ul>
 <li>查看表的状态</li>
 </ul>
