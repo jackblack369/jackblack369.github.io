@@ -174,6 +174,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/30/work%20record/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/30/work%20record/" class="post-title-link" itemprop="url">word record</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-30 15:43:50" itemprop="dateCreated datePublished" datetime="2017-05-30T15:43:50+08:00">2017-05-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-04 09:23:56" itemprop="dateModified" datetime="2019-03-04T09:23:56+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>关于代码编译的事情</strong></p>
+<ul>
+<li><p>问题</p>
+<ul>
+<li>由于一些配置项写在统一的配置文档中，代码从配置文件中读取确定的配置项；此时操作的文本路径是要追加上根目录的路径，然而开发环境和生成环境是不一样的。项目在打包的过程中，就确定了文本路径，这样导致两边环境的配置文档读取结果不一致。</li>
+</ul>
+</li>
+<li><p>解决办法</p>
+<ul>
+<li>把文件路径精确写入</li>
+<li>在生成环境下编译代码</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>关于读取数据量大的excel文件</strong></p>
+<ul>
+<li><p>问题</p>
+<ul>
+<li>项目部署到tomcat中，每次读取大于1M的文件时，会停滞在<code>org.apache.poi.ss.usermodel.Workbook workbook = new XSSFWorkbook(is);</code>,直到tomcat出现报错信息<code>java.lang.OutOfMemoryError: Java heap space </code>,即java虚拟机堆溢出的错误。</li>
+</ul>
+</li>
+<li><p>现象描述</p>
+<ul>
+<li><p>手动设置Xms,Xmx的大小，在/bin/catalina.bat（windows环境）配置中，添加<code>JAVA_OPTS=&quot;-server -Xms10G -Xmx20G&quot;</code>,不知道什么原因，重启服务，仍旧报一样的错。（当我在自己电脑上运行程序，操作同样大小的文档时，也没有报错，何况自己电脑才8G内存，远不及服务器，再则就是自身电脑tomcat的配置也是默认的）</p>
+</li>
+<li><p>内存总体分为年轻代(young),老年代(old),永久代(permanent),如图</p>
+<p><img src="https://s1.ax2x.com/2018/05/31/7OCHl.jpg" alt="7OCHl.jpg"></p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/linux%20network/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1090,401 +1195,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/16/Java%20Concept%20of%20The%20Day/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/16/Java%20Concept%20of%20The%20Day/" class="post-title-link" itemprop="url">Java Concept of The Day</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-16 12:01:30" itemprop="dateCreated datePublished" datetime="2016-10-16T12:01:30+08:00">2016-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-14 14:14:40" itemprop="dateModified" datetime="2021-04-14T14:14:40+08:00">2021-04-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>Stack is used only for execution purpose. Heap is used for storage purpose.</p>
-<h3 id="Non-Static-Members-And-Their-Memory-Management-In-Java"><a href="#Non-Static-Members-And-Their-Memory-Management-In-Java" class="headerlink" title="Non-Static Members And Their Memory Management In Java"></a>Non-Static Members And Their Memory Management In Java</h3></li>
-<li><p>Non-Static variables and Non-Static methods are non-static components of a class. These are also called instance components of a class. Non-static components are stored inside the object memory. Each object will have their own copy of non-static components. But,  static components are common to all objects of that class.</p>
-<h3 id="IIB-Instance-Initialization-Block"><a href="#IIB-Instance-Initialization-Block" class="headerlink" title="IIB-Instance Initialization Block"></a>IIB-Instance Initialization Block</h3></li>
-<li><p>IIB is used to initialize instance variables or non-static variables.</p>
-</li>
-<li><p>IIB blocks will not be called from the constructor in which this() statement is written as a first statement. </p>
-<h3 id="super-and-this-keywords-in-java"><a href="#super-and-this-keywords-in-java" class="headerlink" title="super and this keywords in java"></a>super and this keywords in java</h3></li>
-<li><p>super class constructor is called by super() calling statement. You can’t use super() calling statement outside the constructor. By default, super() calling statement is the first statement in any constructor. </p>
-</li>
-<li><p>this() is the calling statement to same class constructor. It must be used within constructor only. If it is used, it must be the first statement in the constructor.</p>
-</li>
-<li><p>You can’t use super and this keywords in a static method and in a static initialization block even though you are referring static members.</p>
-<h3 id="10-Points-Every-Java-Programmer-Should-Know-About-final-keyword-in-java"><a href="#10-Points-Every-Java-Programmer-Should-Know-About-final-keyword-in-java" class="headerlink" title="10 Points Every Java Programmer Should Know About final keyword in java"></a>10 Points Every Java Programmer Should Know About final keyword in java</h3></li>
-<li><p> Any class or any method can be either abstract or final but not both. abstract and final are totally opposite. Because, abstract class or abstract method must be implemented or modified in the sub classes but final does not allow this. This creates an ambiguity.</p>
-</li>
-<li><p> The global variable which is declared as final and static remains unchanged for the whole execution. Because, Static members are stored in the class memory and they are loaded only once in the whole execution. They are common to all objects of the class. If you declare static variables as final, any of the objects can’t change their value as it is final. Therefore, variables declared as final and static are sometimes referred to as Constants. All fields of interfaces are referred as constants, because they are final and static by default.</p>
-<h3 id="Garbage-Collection-And-finalize-method-In-Java"><a href="#Garbage-Collection-And-finalize-method-In-Java" class="headerlink" title="Garbage Collection And finalize() method In Java"></a>Garbage Collection And finalize() method In Java</h3></li>
-<li><p>Whenever you run a java program, JVM creates three threads. 1) main thread   2) Thread Scheduler   3) Garbage Collector Thread. In these three threads, main thread is a user thread and remaining two are daemon threads which run in background.</p>
-<h3 id="Access-Modifiers-In-Java"><a href="#Access-Modifiers-In-Java" class="headerlink" title="Access Modifiers In Java"></a>Access Modifiers In Java</h3></li>
-<li><p>Class can not be a private except inner classes. Inner classes are nothing but again members of outer class. So members of a class (field, method, constructor and inner class) can be private but not the class itself.<br><img src="https://i.imgur.com/6h3llC0.jpg"></p>
-<h3 id="What-Are-Access-And-Non-Access-Modifiers-In-Java"><a href="#What-Are-Access-And-Non-Access-Modifiers-In-Java" class="headerlink" title="What Are Access And Non-Access Modifiers In Java?"></a>What Are Access And Non-Access Modifiers In Java?</h3><p><img src="https://i.imgur.com/nB7eV1i.jpg"></p>
-<h3 id="Type-Casting-In-Java"><a href="#Type-Casting-In-Java" class="headerlink" title="Type Casting In Java"></a>Type Casting In Java</h3><p>Please note that by using casting, data can not be modified but only type of data can be modified.</p>
-</li>
-<li><p>Primitive Casting.</p>
-<ul>
-<li>memory size <code>byte &lt; short &lt; int &lt; long &lt; float &lt; double.</code><ul>
-<li>Auto Widening</li>
-<li>Explicit Narrowing</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Derived Casting</p>
-<ul>
-<li>Auto-up Casting<ul>
-<li>Explicit Down Casting<h3 id="Abstraction-In-Java"><a href="#Abstraction-In-Java" class="headerlink" title="Abstraction In Java"></a>Abstraction In Java</h3></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Abstract classes contain abstract methods (you can refer them as ideas) so that they can be implemented in sub classes according to their requirements. They are also called as incomplete classes as they have some unimplemented abstract methods(ideas).</p>
-<h3 id="Interfaces-In-Java"><a href="#Interfaces-In-Java" class="headerlink" title="Interfaces In Java"></a>Interfaces In Java</h3></li>
-<li><p>Interfaces in java are very much similar to abstract classes but interfaces contain only abstract methods (you can refer to them as only ideas). Abstract classes may contain both abstract methods as well as concrete methods. But interfaces must contain only abstract methods. Concrete methods are not allowed in interfaces. Therefore, Interfaces show 100% abstractness.</p>
-<h3 id="Auto-Widening-Vs-Auto-Boxing-Vs-Auto-UpCasting-In-Java"><a href="#Auto-Widening-Vs-Auto-Boxing-Vs-Auto-UpCasting-In-Java" class="headerlink" title="Auto-Widening Vs Auto-Boxing Vs Auto-UpCasting In Java"></a>Auto-Widening Vs Auto-Boxing Vs Auto-UpCasting In Java</h3><p><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/widening-Vs-boxing.png?x70034"></p>
-<h3 id="Exception-Handing"><a href="#Exception-Handing" class="headerlink" title="Exception Handing"></a>Exception Handing</h3><p>java.lang.Throwable is the super class of all errors and exceptions in java.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/Exceptions.png?x70034"><br><img src="https://i.imgur.com/xHC2xQo.jpg"></p>
-</li>
-<li><p>java.lang.Error class represents the errors which are mainly caused by the environment in which application is running. For example, OutOfMemoryError occurs when JVM runs out of memory or StackOverflowError occurs when stack overflows.</p>
-</li>
-<li><p>Where as java.lang.Exception class represents the exceptions which are mainly caused by the application itself. For example, NullPointerException occurs when an application tries to access null object or ClassCastException occurs when an application tries to cast incompatible class types. </p>
-<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3></li>
-<li><p>Array can hold the references to any type of objects. It is important to note that array can contain only references to the objects, not the objects itself. </p>
-<h3 id="Threads"><a href="#Threads" class="headerlink" title="Threads"></a>Threads</h3></li>
-<li><p>Processes and threads can be diagrammatically represented as this<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/ThreadsAndProcesses.png?x70034"></p>
-</li>
-<li><p>User threads are threads which are created by the application or user.</p>
-</li>
-<li><p>Daemon threads are threads which are mostly created by the JVM.</p>
-</li>
-<li><p>There are three constant fields in java.lang.Thread class related to priority of a thread. They are,</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 	MIN_PRIORITY   —&gt; It defines the lowest priority that a thread can have and It’s value is 1.</span><br><span class="line">NORM_PRIORITY  —&gt; It defines the normal priority that a thread can have and it’s value is 5.</span><br><span class="line">MAX_PRIORITY  —&gt; It defines the highest priority that a thread can have and it’s value is 10.</span><br></pre></td></tr></table></figure>
-<p>  The priority of a main thread, if explicitly not set, is always 5 i.e NORM_PRIORITY.</p>
-</li>
-<li><p>avoid thread interference </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 	By declaring the method as synchronized.</span><br><span class="line">By declaring the variables as final.</span><br><span class="line">By declaring the variable as volatile.</span><br><span class="line">By creating the immutable objects.</span><br><span class="line">By using Atomic operations.</span><br><span class="line">By restricting the access to same object by multiple threads.</span><br></pre></td></tr></table></figure></li>
-<li><p>The Logic Behind The Synchronization In Java :</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  The synchronization in java is built around an entity called object lock or monitor. Here is the brief description about lock or monitor.</span><br><span class="line">- Whenever an object is created to any class, an object lock is created and is stored inside the object.</span><br><span class="line">- One object will have only one object lock associated with it.</span><br><span class="line">- Any thread wants to enter into synchronized methods or blocks of any object, they must acquire object lock associated with that object and release the lock after they are done with the execution.</span><br><span class="line">- The other threads which wants to enter into synchronized methods of that object have to wait until the currently executing thread releases the object lock.</span><br><span class="line">- To enter into static synchronized methods or blocks, threads have to acquire class lock associated with that class as static members are stored inside the class memory.</span><br></pre></td></tr></table></figure></li>
-<li><p>mutex</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Shared</span><br><span class="line">&#123;</span><br><span class="line">    static void staticMethod()</span><br><span class="line">    &#123;</span><br><span class="line">        synchronized (Shared.class)</span><br><span class="line">        &#123;</span><br><span class="line">            //static synchronized block</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void NonStaticMethod()</span><br><span class="line">    &#123;</span><br><span class="line">        synchronized (this)</span><br><span class="line">        &#123;</span><br><span class="line">            //Non-static synchronized block</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void anotherNonStaticMethod()</span><br><span class="line">    &#123;</span><br><span class="line">        synchronized (new Shared())</span><br><span class="line">        &#123;</span><br><span class="line">            //Non-static synchronized block</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>10 Points-To-Remember About Synchronization In Java :</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. You can use synchronized keyword only with methods but not with variables, constructors, static initializer and instance initializers.</span><br><span class="line">2. Constructors, Static initializer and instance initializer can’t be declared with synchronized keyword, but they can contain synchronized blocks.</span><br><span class="line">3. Both static and non-static methods can use synchronized keyword. For static methods, thread need class level lock and for non-static methods, thread need object level lock.</span><br><span class="line">4. It is possible that both static synchronized and non-static synchronized methods can run simultaneously. Because, static methods need class level lock and non-static methods need object level lock.</span><br><span class="line">5. A method can contain any number of synchronized blocks. This is like synchronizing multiple parts of a method.</span><br><span class="line">6. Synchronization blocks can be nested.</span><br><span class="line">7. Lock acquired by the thread before executing a synchronized method or block must be released after the completion of execution, no matter whether execution is completed normally or abnormally (due to exceptions).</span><br><span class="line">8. Synchronization in java is Re-entrant in nature. A thread can not acquire a lock that is owned by another thread. But, a thread can acquire a lock that it already owns. That means if a synchronized method gives a call to another synchronized method which needs same lock, then currently executing thread can directly enter into that method or block without acquiring the lock.</span><br><span class="line">9. synchronized method or block is very slow. They decrease the performance of an application. So, special care need to be taken while using synchronization. Use synchronization only when you needed it the most.</span><br><span class="line">10. Use synchronized blocks instead of synchronized methods. Because, synchronizing some part of a method improves the performance than synchronizing the whole method.</span><br></pre></td></tr></table></figure></li>
-<li><p>wait(), notify() and notifyAll()</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">These methods are final methods of java.lang.Object class. That means every class in java will have these methods. Below is the method signatures of these methods.</span><br><span class="line">1. public final void wait() throws InterruptedException</span><br><span class="line">This method tells the currently executing thread to release the lock of this object and wait until some other thread acquires the same lock and notify it using either notify() or notifyAll() methods. This method throws InterruptedException if waiting thread is interrupted.</span><br><span class="line">2. public final void notify()</span><br><span class="line">This method wakes up one thread randomly that called wait() method on this object.</span><br><span class="line">3. public final void notifyAll()</span><br><span class="line">This method wakes up all the threads that called wait() method on this object. But, only one thread will acquire lock of this object depending upon the priority.</span><br><span class="line"></span><br><span class="line">Important Note : These three methods must be called within synchronized method or block. Any thread which calls these methods must have lock of that object.</span><br></pre></td></tr></table></figure></li>
-<li><p>Some Things-To-Remember About wait(), notify() and notifyAll() :</p>
-<ul>
-<li>If a thread calls notify() method and more than one threads are waiting for the object lock, then only one thread will be notified randomly.</li>
-<li>When a thread calls notifyAll() method on an object, it notifies all the threads which are waiting for this object lock. But, only one thread will acquire this object lock depending upon priority.</li>
-<li>When you call sleep() method on a thread, thread goes to sleep with holding the object lock with it. But, if you call wait() method, thread releases the object lock and goes for sleep. This is the main difference between wait() and sleep() methods.</li>
-<li>wait(), notify() and notifyAll() are final methods of java.lang.Object class not java.lang.Thread class.</li>
-<li>wait(), notify() and notifyAll() – all these three methods throw IllegalMonitorStateException if the calling thread does not owns the object lock.</li>
-<li>wait() method is overloaded in Object class. There are two more wait() methods available in Object class.</li>
-</ul>
-</li>
-<li><p>Thread Life Cycle OR Thread States In Java</p>
-<ul>
-<li>NEW,    A thread will be in this state before calling start() method.<ul>
-<li>RUNNABLE, A thread will be in this state after calling the start() method.</li>
-<li>BLOCKED, A thread will be in this state when a thread is waiting for object lock to enter into synchronized method/block or a thread will be in this state if deadlock occurs. </li>
-<li>WAITING, A thread will be in this state when wait() or join() method is called.</li>
-<li>TIMED_WAITING, A thread will be in this state when thread is sleeping. i.e A thread will be in this state when sleep() or wait() with timeOut or join() with timeOut is called.</li>
-<li>TERMINATED, A thread will be in this state once it finishes it’s execution.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/JavaThreadLifeCycle.png?x70034"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>7 Things Every Java Programmer Should Know About Threads In Java</p>
-<ul>
-<li><strong>Runnable interface vs Thread class</strong> : I am of opinion that when multiple threads need to execute same task, then use Runnable interface. If multiple threads need to execute different tasks, then go for Thread class.</li>
-</ul>
-</li>
-<li><p>Difference Between wait() and sleep() Methods In Java</p>
-<ul>
-<li><p><strong>wait()</strong>:  releases the lock or monitor</p>
-<ul>
-<li><strong>sleep()</strong>: not  releases the lock or monitor</li>
-</ul>
-<p><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/02/WaitAndSleep.png"></p>
-</li>
-</ul>
-</li>
-<li><p>Extends Thread Vs Implements Runnable In Java<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/12/RunnableVsThread.png"><br>From the above all findings, it is clear that “Implements Runnable” is the preferred method to create the threads in java.</p>
-</li>
-<li><p>How To Stop A Thread In Java</p>
-<ul>
-<li>One is using boolean variable and second one is using interrupt() method. In this post, we will discuss both of these methods.</li>
-</ul>
-</li>
-<li><p>Difference Between notify And notifyAll In Java</p>
-<ul>
-<li>wait(), notify() and notifyAll() must be called within synchronized method or synchronized block.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2016/03/NotifyVsNotifyAll.png"></li>
-</ul>
-</li>
-<li><p>Difference Between BLOCKED Vs WAITING States In Java</p>
-<ul>
-<li>There are six thread states in java. They are <strong>NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING and TERMINATED</strong>.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2016/06/WaitingVsBlocked.png"></li>
-</ul>
-</li>
-</ul>
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul>
-<li>strings are treated as objects.</li>
-<li>JVM allocates some memory specially meant for string literals. This part of the heap memory is called String Constant Pool.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String s1 = &quot;abc&quot;; </span><br><span class="line">String s2 = &quot;xyz&quot;;</span><br><span class="line">String s3 = &quot;123&quot;;</span><br><span class="line">String s4 = &quot;A&quot;;</span><br><span class="line">   String s5 = new String(&quot;abc&quot;);</span><br><span class="line">char[] c = &#123;&#x27;J&#x27;, &#x27;A&#x27;, &#x27;V&#x27;, &#x27;A&#x27;&#125;;</span><br><span class="line">String s6 = new String(c);</span><br><span class="line">String s7 = new String(new StringBuffer());</span><br></pre></td></tr></table></figure>
-<img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/String-Constant-Pool.png"></li>
-<li>String Constant Pool is allocated to an object depending upon it’s content. There will be no two objects in the pool having the same content.</li>
-<li>```<br>“When you create a string object using string literal, JVM first checks the content of to be created object. If there exist an object in the pool with the same content,     then it returns the reference of that object. It doesn’t create new object. If the content is different from the existing objects then only it creates new object.”<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">	In simple words, there can not be two string objects with same content in the string constant pool. But, there can be two string objects with the same content in the heap memory.</span><br></pre></td></tr></table></figure></li>
-<li>Immutability is the fundamental property of string objects. In whatever way you create the string objects, either using string literals or using new operator, they are immutable.</li>
-</ul>
-<h3 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h3><ul>
-<li><p>Defining Generic Class</p>
-<ul>
-<li>Generics Work Only With Derived Types</li>
-</ul>
-</li>
-<li><p>Rules To Follow While Implementing Generic Interfaces</p>
-<ul>
-<li>Only generic classes can implement generic interfaces.<br><code>class GenericClass&lt;T&gt; implements GenericInterface&lt;T&gt;</code><br>-A normal class can implement a generic interface if type parameter of generic interface is a wrapper class. For example, below implementation of GenericInterface is legal.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface GenericInterface&lt;Integer&gt;&#123;</span><br><span class="line">    			//Generic interface with Integer as type parameter</span><br><span class="line">&#125;</span><br><span class="line">class NormalClass implements GenericInterface&lt;Integer&gt;&#123;</span><br><span class="line">   			 //Normal class implementing generic interface</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>Class implementing generic interface at least must have same number and same type of parameters and at most can have any number and any type of parameters.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class GenericClass2&lt;T, V&gt; implements GenericInterface&lt;T&gt;&#123;</span><br><span class="line">  		//Class with two type parameters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Define Methods And Constructors As Generic</p>
-<ul>
-<li>Generic Methods:<br><code>&lt;type-Parameters&gt; return_type method_name(parameter list)</code></li>
-<li>Constructors As Generics,As we all know that constructors are like methods but without return types</li>
-</ul>
-</li>
-<li><p>Bounded Types</p>
-<ul>
-<li>the syntax for declaring Bounded type parameters.<br><code>&lt;T extends SuperClass&gt;</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static &lt;T extends Number&gt; void printNumbers(T[] t)</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Wildcard arguments </p>
-<ul>
-<li>The syntax for declaring this type of wildcard arguments is:<code>GenericType&lt;?&gt;</code></li>
-<li>To specify an upper bound for wildcards:<code>GenericType&lt;? extends SuperClass&gt;</code></li>
-<li>specify a lower bound for wildcard argument using super clause:<code>GenericType&lt;? super SubClass&gt;</code></li>
-</ul>
-</li>
-<li><p>Type Erasure</p>
-</li>
-</ul>
-<h3 id="Collection-Framework"><a href="#Collection-Framework" class="headerlink" title="Collection Framework"></a>Collection Framework</h3><ul>
-<li><p>Collection Framework – Class Hierarchy</p>
-<ul>
-<li>All classes and interfaces related to Collection Framework are placed in java.util package.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/CollectionHierarchy.png"></li>
-</ul>
-</li>
-<li><p>Collection Framework – Collection Interface<br>  <img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/CollectionInterface.png"></p>
-<ul>
-<li>equals() and hashcode() methods in the Collection interface are not the methods of java.lang.Object class. Because, interfaces does not inherit from Object class. Only classes in java are inherited from Object class. Any classes implementing Collection interface must provide their own version of equals() and hashcode() methods or they can retain default version inherited from Object class.</li>
-</ul>
-</li>
-<li><p>Collection Framework – List Interface</p>
-<ul>
-<li>the class diagram of List interface：<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/ListInterface.png"></li>
-</ul>
-</li>
-<li><p>Collection Framework – The ArrayList Class</p>
-<ul>
-<li>Default initial capacity of an ArrayList is 10.<ul>
-<li>the hierarchy diagram of ArrayList class.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/12/ArrayListClass.png"></li>
-<li>Properties Of ArrayList :<ul>
-<li>Size of the ArrayList is not fixed. It can increase and decrease dynamically as we add or delete the elements.<ul>
-<li>ArrayList can have any number of null elements.</li>
-<li>ArrayList can have duplicate elements.</li>
-<li>As ArrayList implements RandomAccess, you can get, set, insert and remove elements of the ArrayList from  any arbitrary position.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/12/ArrayListTemplateNew.png"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Differences Between Array Vs ArrayList In Java</p>
-<ul>
-<li>Array is static in nature,ArrayList is dynamic in nature<ul>
-<li>when you try to add elements to ArrayList beyond its capacity, it creates the new array with increased size and copies the elements from old array to new array.</li>
-<li>if adding an element requires resizing of an ArrayList, then it gets slightly slower as it involves creating a new array in the background and copying all elements from old array to new array.</li>
-<li>Array can hold both primitive data types (int, float….) as well as objects. Where as ArrayList can hold only objects. If you try to insert primitive data into ArrayList, data is automatically boxed into corresponding wrapper class.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2016/09/ArrayVsArrayList.png"></li>
-<li>ArrayList to Array,<strong>toArray()</strong> method returns an array containing all elements of the ArrayList.<code> Object[] array = list.toArray();</code></li>
-<li>Array To ArrayList:<ul>
-<li>Arrays.asList() <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] array = new String[] &#123;&quot;ANDROID&quot;, &quot;JSP&quot;, &quot;JAVA&quot;, &quot;STRUTS&quot;, &quot;HADOOP&quot;, &quot;JSF&quot;&#125;;</span><br><span class="line">ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;(Arrays.asList(array));</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Collection.addAll()<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] array = new String[] &#123;&quot;ANDROID&quot;, &quot;JSP&quot;, &quot;JAVA&quot;, &quot;STRUTS&quot;, &quot;HADOOP&quot;, &quot;JSF&quot;&#125;;</span><br><span class="line">ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">		Collections.addAll(list, array);</span><br></pre></td></tr></table></figure></li>
-<li>ArrayList.addAll()<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] array = new String[] &#123;&quot;ANDROID&quot;, &quot;JSP&quot;, &quot;JAVA&quot;, &quot;STRUTS&quot;, &quot;HADOOP&quot;, &quot;JSF&quot;&#125;;</span><br><span class="line">ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">	list.addAll(Arrays.asList(array));</span><br></pre></td></tr></table></figure></li>
-<li>Using streams from java 8<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] array = new String[] &#123;&quot;ANDROID&quot;, &quot;JSP&quot;, &quot;JAVA&quot;, &quot;STRUTS&quot;, &quot;HADOOP&quot;, &quot;JSF&quot;&#125;;</span><br><span class="line">List&lt;Object&gt; list = Arrays.stream(array).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-<img src="https://javaconceptoftheday.com/wp-content/uploads/2016/07/ArrayToArrayList.png"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Remove Duplicate Elements From ArrayList</p>
-<ul>
-<li>Using HashSet<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;String&gt; set = new HashSet&lt;String&gt;(listWithDuplicateElements);</span><br><span class="line">ArrayList&lt;String&gt; listWithoutDuplicateElements = new ArrayList&lt;String&gt;(set);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Using LinkedHashSet<br><code>LinkedHashSet&lt;String&gt; set = new LinkedHashSet&lt;String&gt;(listWithDuplicateElements);</code><br><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/07/RemovingDuplicateElementsFromArrayList.png"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Collection Framework – The Vector Class</p>
-<ul>
-<li>Vector class is synchronized. <ul>
-<li>All methods of Vector class are synchronized </li>
-<li>capacity of the vector will be doubled whenever size exceeds capacity.</li>
-<li>Why Not To Use Vector Class In Your Code<ul>
-<li>you can achieve thread safe ArrayList by using synchronizedList() method of Collections class. </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Java Collection Framework – The LinkedList Class</p>
-<ul>
-<li>In general terms, LinkedList is a data structure where each element consist of three things. First one is the reference to previous element, second one is the actual value of the element and last one is the reference to next element.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/12/HowLinkedListWorks.png"></li>
-</ul>
-</li>
-<li><p>Collection Framework – The Queue Interface</p>
-<ul>
-<li>First-In-First-Out.<ul>
-<li>You can’t add or get or set elements at an arbitrary position in the queues.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/HowQueueWorks.png"></li>
-<li>Properties Of Queue :<ul>
-<li>Null elements are not allowed in the queue. <ul>
-<li>Queue can have duplicate elements.</li>
-<li>Unlike a normal list, queue is not random access. i.e you can’t set or insert or get elements at an arbitrary positions.</li>
-<li>In the Queue Interface, there are two methods to obtain and remove the elements from the head of the queue. They are poll() and remove(). The difference between them is, poll() returns null if the queue is empty and remove() throws an exception if the queue is empty.</li>
-<li>There are two methods in the Queue interface to obtain the elements but don’t remove. They are peek() and element(). peek() returns null if the queue is empty and element() throws an exception if the queue is empty.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Collection Framework – The Deque Interface</p>
-<ul>
-<li>the hierarchy diagram of Deque interface：<br>  <img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/Deque.png"></li>
-<li>The main advantage of Deque is that you can use it as both Queue (FIFO) as well as Stack (LIFO).</li>
-<li>Deque is nothing but the double ended queue. That means, you can insert, retrieve and remove the elements from both the ends.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2014/11/HowDequeWorks.png"></li>
-</ul>
-</li>
-<li><p>Collection Framework – The Set Interface</p>
-<ul>
-<li>Order of elements in a set is implementation dependent. HashSet elements are ordered on hash code of elements. TreeSet elements are ordered according to supplied Comparator (If no Comparator is supplied, elements will be placed in ascending order) and LinkedHashSet maintains insertion order.</li>
-<li>The HashSet internally uses HashMap to store the objects. The elements you insert in HashSet will be stored as keys of that HashMap object and their values will be a constant called PRESENT. This constant is defined as private static final Object PRESENT = new Object() in the source code of HashSet class.</li>
-<li>HashSet can have maximum one null element.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/01/HowHashSetWorks.png"></li>
-<li>LinkedHashSet internally uses LinkedHashMap to store it’s elements just like HashSet which internally uses HashMap to store it’s elements.</li>
-<li>LinkedHashSet maintains insertion order. This is the main difference between LinkedHashSet and HashSet.</li>
-<li>SortedSet elements are sorted according to supplied Comparator. If you don’t mention any Comparator while creating a SortedSet, elements will be placed in ascending order.</li>
-<li>SortedSet Inserted elements must be of Comparable type and they must be mutually Comparable.</li>
-<li>Elements inserted in the TreeSet must be of Comparable type and elements must be mutually comparable. </li>
-<li>TreeSet internally uses TreeMap to store it’s elements just like HashSet and LinkedHashSet which use HashMap and LinkedHashMap respectively to store their elements.</li>
-</ul>
-</li>
-<li><p>Java Collection Framework – The Map Interface<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/01/MapInterface.png"></p>
-<ul>
-<li>Each key-value pairs of the map are stored as Map.Entry objects. Map.Entry is an inner interface of Map interface.</li>
-<li>HashMap doesn’t maintain any order of elements. LinkedHashMap maintains insertion order of elements. Where as TreeMap places the elements according to supplied Comparator.</li>
-<li>Default initial capacity of HashMap is 16.</li>
-<li>Hashing is nothing but the function or algorithm or method which when applied on any object/variable returns an unique integer value representing that object/variable.</li>
-<li>The capacity of an HashMap is the number of buckets in the hash table. The initial capacity is the capacity of an HashMap at the time of its creation. The default initial capacity of the HashMap is 24 i.e 16. The capacity of the HashMap is doubled each time it reaches the threshold. i.e the capacity is increased to 25=32, 26=64, 27=128….. when the threshold is reached.</li>
-<li>HashMap internally uses an array of Entry&lt;K, V&gt; objects to store the data.</li>
-<li>HashTable is a legacy class. It is almost considered as due for deprecation. Since JDK 1.5, ConcurrentHashMap is considered as better option than the HashTable.</li>
-</ul>
-</li>
-</ul>
-<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><ul>
-<li><p>Java Database Connectivity API which is used by the java application to interact with the database.</p>
-<ul>
-<li>JDBC API not directly interacts with the database. It uses JDBC driver of that database to interact with the database.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/06/JavaJDBCDriverDatabase.png"></li>
-<li>JDBC driver is a software component provided along with the database which is required by the JDBC API to interact with the database. Each database will have its own JDBC driver.</li>
-</ul>
-<blockquote>
-<p>In simple terms, JDBC drivers are nothing but the implementations of interfaces provided in the JDBC API (java.sql and javax.sql packages) with respect to a particular database. These implementations are bundled in a JAR file and supplied along with the database. These implementations are used by the JDBC API to interact with that database.</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="Big-O-Notations"><a href="#Big-O-Notations" class="headerlink" title="Big O Notations"></a>Big O Notations</h3><ul>
-<li>Big O notations consist of O and an expression enclosed within ( ). Expression within ( ) represents the number of computations a particular algorithm has to perform to solve a given problem.</li>
-<li><strong>O(1)</strong> represents an algorithm which has to perform exact one computation to solve a problem. O(1) represents an algorithm which takes same time to execute for any size of input data. In other words, O(1) denotes an algorithm which performance is not affected by the size of the input data. <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">boolean isFirstElementZero(int[] inputData)</span><br><span class="line">	&#123;</span><br><span class="line">		if(inputData[0] == 0)</span><br><span class="line">		&#123;</span><br><span class="line">			return true;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>O(N)</strong> represents an algorithm which has to perform ‘N’ computations to solve a problem. Where ‘N’ is the number of elements in input data. That means algorithm will take more time as number of elements in input data increases. In the other words, O(N) denotes an algorithm whose performance is directly proportional to size of the input data.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">boolean searchForElement(int[] inputData, int n)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int i = 0; i &lt; inputData.length; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(inputData[i] == n)</span><br><span class="line">			&#123;</span><br><span class="line">				return true;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>O(N^2)</strong> denotes an algorithm which has to perform N^2 computations to solve a problem. Where N is the number of elements in input data. In the other words, O(N^2) represents an algorithm whose performance is directly proportional to square of the size of the input data. The algorithms which have nested iterations over the input data will give O(N^2) performance. Further deeper iterations over the input data will give O(N^3), O(N^4) and so on.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">boolean findDuplicates(int[] inputData)</span><br><span class="line">&#123;</span><br><span class="line">	for (int i = 0; i &lt; inputData.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; inputData.length; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(inputData[i] == inputData[j] &amp;&amp; i!=j)</span><br><span class="line">			&#123;</span><br><span class="line">				return true;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>O(log N)</strong> represents an algorithm whose number of computations grows linearly as input data grows exponentially. i.e O(log N) represents the algorithms whose execution time grows linearly as input data grows exponentially. That means if an algorithm takes 1 second to compute 10 elements, then it will take 2 seconds to compute 100 elements, 3 seconds to compute 1000 elements and so on. The best example for O(log N) is binary search algorithm which uses divide and conquer rule to search for an element.</li>
-<li><strong>O(2N)</strong> represents an algorithm whose execution time is doubled for every extra element in the input data. For example, if an algorithm takes 4 seconds to compute 2 elements, then it will take 8 seconds to compute 3 elements, 16 seconds for 4 elements, 32 seconds for 5 elements and so on.</li>
-<li><strong>O(N!)</strong> represents an algorithm which has to perform N! computations to solve a problem. Where N is the number of elements in the input data. For example, if an algorithm takes 2 seconds to compute 2 elements, then it will take 6 seconds to compute 3 elements, 24 seconds to compute 4 elements and so on.<br><img src="https://javaconceptoftheday.com/wp-content/uploads/2015/05/Big-O-Notation.png"></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1554,18 +1264,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-count">183</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">94</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

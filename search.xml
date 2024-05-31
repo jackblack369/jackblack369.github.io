@@ -3585,6 +3585,12 @@
 
 <h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -m new-branch-name</span><br></pre></td></tr></table></figure>
 
+<h2 id="暂存区"><a href="#暂存区" class="headerlink" title="暂存区"></a>暂存区</h2><ul>
+<li><p>查看暂存内容的差异：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure></li>
+<li><p>重置暂存区（对于所有文件）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
 <p>以下是<code>stash</code>命令的使用方式：</p>
 <ol>
@@ -10935,26 +10941,6 @@
       </tags>
   </entry>
   <entry>
-    <title>finite state machine</title>
-    <url>/2024/01/19/finite%20state%20machinemd/</url>
-    <content><![CDATA[<blockquote>
-<p>The FSM can change from one state to another in response to some inputs; the change from one state to another is called a <em>transition</em>.</p>
-</blockquote>
-<p><img src="./images/fsm/Automata_theory.png"></p>
-<hr>
-<p><strong>reference</strong></p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Finite-state_machine">https://en.wikipedia.org/wiki/Finite-state_machine</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>fsm</category>
-      </categories>
-      <tags>
-        <tag>fsm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>openai learn</title>
     <url>/2024/01/19/openai%20learn/</url>
     <content><![CDATA[<h1 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h1><h1 id="request"><a href="#request" class="headerlink" title="request"></a>request</h1><h3 id="conversion"><a href="#conversion" class="headerlink" title="conversion"></a>conversion</h3><ul>
@@ -11558,6 +11544,56 @@
       </categories>
       <tags>
         <tag>snippet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>finite state machine</title>
+    <url>/2024/01/19/finite%20state%20machine/</url>
+    <content><![CDATA[<blockquote>
+<p>The FSM can change from one state to another in response to some inputs; the change from one state to another is called a <em>transition</em>.</p>
+</blockquote>
+<p><img src="./images/fsm/Automata_theory.png"></p>
+<hr>
+<p><strong>reference</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Finite-state_machine">https://en.wikipedia.org/wiki/Finite-state_machine</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>fsm</category>
+      </categories>
+      <tags>
+        <tag>fsm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>oauth2 practise</title>
+    <url>/2024/05/31/oauth2/</url>
+    <content><![CDATA[<h2 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h2><p><img src="/images/security/user-journey-oauth.webp" alt="user-journey-oauth"></p>
+<p>The best practice for implementing OAuth2 in a web application with a separate frontend and backend is to use the Backend for Frontend (BFF) pattern. Here’s how it works:</p>
+<p>The frontend (e.g. a Single Page Application) initiates the OAuth2 flow by redirecting the user to the OAuth2 provider’s authorization endpoint. The provider then authenticates the user and redirects back to the frontend with an authorization code.</p>
+<p>The frontend then sends this authorization code to the backend over a secure channel (e.g. HTTPS). The backend acts as a confidential client and exchanges the authorization code with the OAuth2 provider for an access token and refresh token.[1][3]</p>
+<p>The backend stores the tokens securely and returns an opaque session cookie or token to the frontend. This session identifier represents the authenticated user session.[1]</p>
+<p>For subsequent API requests, the frontend includes the session cookie/token. The backend validates the session and retrieves the access token, using it to authenticate the request to the backend API or other third-party APIs on behalf of the user.[1][3]</p>
+<p>This pattern has several advantages:</p>
+<ol>
+<li><p>The access token is never exposed to the frontend, mitigating the risk of token theft.[1][3]</p>
+</li>
+<li><p>The backend can securely store and manage the refresh of access tokens without involving the frontend.[3]</p>
+</li>
+<li><p>The backend can act as a gatekeeper, validating requests and enforcing authorization rules before proxying to third-party APIs.[3]</p>
+</li>
+<li><p>The frontend only needs to handle the initial OAuth2 redirect and session management, simplifying its code.[1]</p>
+</li>
+</ol>
+<p>To implement this, the backend must be registered as a confidential OAuth2 client with the provider. The frontend can use libraries like Auth0 or Google’s client-side libraries to initiate the OAuth2 flow.[1][4] The backend handles the code exchange and token management, often using server-side OAuth2 libraries or middleware.[1]</p>
+<p>Citations:<br>[1] <a href="https://auth0.com/blog/backend-for-frontend-pattern-with-auth0-and-dotnet/">https://auth0.com/blog/backend-for-frontend-pattern-with-auth0-and-dotnet/</a><br>[2] <a href="https://community.qlik.com/t5/New-to-Qlik-Analytics/How-to-Secure-Backend-API-Endpoints-on-the-Front-End-Best/td-p/2423853">https://community.qlik.com/t5/New-to-Qlik-Analytics/How-to-Secure-Backend-API-Endpoints-on-the-Front-End-Best/td-p/2423853</a><br>[3] <a href="https://auth0.com/blog/the-backend-for-frontend-pattern-bff/">https://auth0.com/blog/the-backend-for-frontend-pattern-bff/</a><br>[4] <a href="https://infisical.com/blog/guide-to-implementing-oauth2">https://infisical.com/blog/guide-to-implementing-oauth2</a><br>[5] <a href="https://www.reddit.com/r/node/comments/skmjjn/0auth_implemented_on_frontend_or_backend/">https://www.reddit.com/r/node/comments/skmjjn/0auth_implemented_on_frontend_or_backend/</a></p>
+]]></content>
+      <categories>
+        <category>oauth2</category>
+      </categories>
+      <tags>
+        <tag>pracise</tag>
       </tags>
   </entry>
 </search>
