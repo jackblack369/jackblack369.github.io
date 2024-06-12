@@ -174,6 +174,137 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/09/11/kafka%E5%90%8C%E6%97%B6%E9%85%8D%E7%BD%AEplain%E4%B8%8Esasl_plain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/11/kafka%E5%90%8C%E6%97%B6%E9%85%8D%E7%BD%AEplain%E4%B8%8Esasl_plain/" class="post-title-link" itemprop="url">kafka plain & sasl_plain</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-11 19:57:52" itemprop="dateCreated datePublished" datetime="2023-09-11T19:57:52+08:00">2023-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-17 11:18:38" itemprop="dateModified" datetime="2023-11-17T11:18:38+08:00">2023-11-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kafka/" itemprop="url" rel="index"><span itemprop="name">kafka</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>已验证Kafka 3.3.2</p>
+<p>此方案的缺点，在sasl_plaintext模式下，不能动态创建用户，或修改用户账号信息</p>
+<p>优点是，无需在zookeeper上配置jaas</p>
+</blockquote>
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="第一步：准备kafka-server-jaas-conf文件"><a href="#第一步：准备kafka-server-jaas-conf文件" class="headerlink" title="第一步：准备kafka_server_jaas.conf文件"></a>第一步：准备kafka_server_jaas.conf文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">KafkaServer &#123;</span><br><span class="line">    org.apache.kafka.common.security.plain.PlainLoginModule required</span><br><span class="line">    username=&quot;admin&quot;</span><br><span class="line">    password=&quot;datacanvas&quot;</span><br><span class="line">    user_admin=&quot;datacanvas&quot;</span><br><span class="line">    user_qlb=&quot;qlbrtdsp&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第二步：设置kafka-server-start-sh"><a href="#第二步：设置kafka-server-start-sh" class="headerlink" title="第二步：设置kafka-server-start.sh"></a>第二步：设置kafka-server-start.sh</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> KAFKA_OPTS=<span class="string">&quot;-Djava.security.auth.login.config=/home/sasl/kafka_2.13-3.3.2/config/kafka_server_jaas.conf&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意修改路径</li>
+</ul>
+<h2 id="第三步：设置server-properties"><a href="#第三步：设置server-properties" class="headerlink" title="第三步：设置server.properties"></a>第三步：设置server.properties</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">listeners</span>=<span class="string">PLAINTEXT://0.0.0.0:9092,SASL_PLAINTEXT://0.0.0.0:29092</span></span><br><span class="line"><span class="meta">advertised.listeners</span>=<span class="string">PLAINTEXT://172.20.58.93:9092,SASL_PLAINTEXT://172.20.58.93:29092</span></span><br><span class="line"><span class="meta">security.inter.broker.protocol</span>=<span class="string">SASL_PLAINTEXT</span></span><br><span class="line"><span class="meta">sasl.mechanism.inter.broker.protocol</span>=<span class="string">PLAIN</span></span><br><span class="line"><span class="meta">sasl.enabled.mechanisms</span>=<span class="string">PLAIN</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>listeners设置了两种协议 明文连接PLAINTEXT 和 安全连接 SASL_PLAINTEXT</p>
+<ul>
+<li><code>0.0.0.0</code> 表示 Kafka Broker 将监听所有可用的网络接口，这意味着它将接受来自任何 IP 地址的连接请求。</li>
+</ul>
+</li>
+<li><p>注意zookeeer存储的位置 (/brokers)</p>
+</li>
+<li><p>设置默认副本数 default.replication.factor=3 和 num.partitions=1</p>
+</li>
+<li><p>测试使用<code>log.dirs=/home/sasl/data/kafka-logs</code></p>
+</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer 旧版本配置</span></span><br><span class="line"><span class="meta">authorizer.class.name</span>=<span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line"><span class="meta">super.users</span>=<span class="string">User:admin;User:ANONYMOUS</span></span><br><span class="line"><span class="meta">allow.everyone.if.no.acl.found</span>=<span class="string">false</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第四步：设置acl-config-properties"><a href="#第四步：设置acl-config-properties" class="headerlink" title="第四步：设置acl-config.properties"></a>第四步：设置acl-config.properties</h2><p>在config目录新增acl-config.properties设置 admin信息</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">sasl.jaas.config</span>=<span class="string">org.apache.kafka.common.security.plain.PlainLoginModule required username=&quot;admin&quot; password=&quot;datacanvas&quot;;</span></span><br><span class="line"><span class="meta">security.protocol</span>=<span class="string">SASL_PLAINTEXT</span></span><br><span class="line"><span class="meta">sasl.mechanism</span>=<span class="string">PLAIN</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第五步：启动kafka-server"><a href="#第五步：启动kafka-server" class="headerlink" title="第五步：启动kafka server"></a>第五步：启动kafka server</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">bin/kafka-server-start.sh</span> <span class="string">-daemon ./config/server.properties</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第六步：配置ACL授权"><a href="#第六步：配置ACL授权" class="headerlink" title="第六步：配置ACL授权"></a>第六步：配置ACL授权</h2><ul>
+<li><p>授权bigdata用户可以访问主题前缀为ODS的数据，且限制消费组 GROUP-BIGDATA</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --allow-principal User:bigdata --operation Read --topic ODS --group GROUP-BIGDATA --resource-pattern-type prefixed</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>禁止指定用户写入、删除主题前缀为ODS的数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --deny-principal User:bigdata --operation Write --operation Delete --topic ODS --resource-pattern-type prefixed</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><ul>
+<li><p>PLAINTEXT连接保持原先操作</p>
+</li>
+<li><p>SASL_PLAINTEXT</p>
+<p>连接配置添加用户登录信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.kafka.common.security.plain.PlainLoginModule required username=&quot;admin&quot; password=&quot;datacanvas&quot;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/09/01/flink%20Q&A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1025,88 +1156,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/27/problems/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/27/problems/" class="post-title-link" itemprop="url">tmp problems</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-09-27 17:33:47" itemprop="dateCreated datePublished" datetime="2022-09-27T17:33:47+08:00">2022-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-14 15:29:44" itemprop="dateModified" datetime="2023-11-14T15:29:44+08:00">2023-11-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/scratch/" itemprop="url" rel="index"><span itemprop="name">scratch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="DB2"><a href="#DB2" class="headerlink" title="DB2"></a>DB2</h1><h2 id="DB2-SQL-Error-SQLCODE-805-SQLSTATE-51002-SQLERRMC-NULLID-SYSLH2DA-0X5359534C564C3031"><a href="#DB2-SQL-Error-SQLCODE-805-SQLSTATE-51002-SQLERRMC-NULLID-SYSLH2DA-0X5359534C564C3031" class="headerlink" title="DB2 SQL Error: SQLCODE=-805, SQLSTATE=51002, SQLERRMC=NULLID.SYSLH2DA 0X5359534C564C3031"></a>DB2 SQL Error: SQLCODE=-805, SQLSTATE=51002, SQLERRMC=NULLID.SYSLH2DA 0X5359534C564C3031</h2><ul>
-<li><p>分析</p>
-<p>the problem was a list of operations made with the same PreparedStatement, which was never closed.</p>
-<p>许多操作使用同一个PreparedStatement，但是重来没有关闭</p>
-</li>
-<li><p>参考</p>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1837198">https://cloud.tencent.com/developer/article/1837198</a></p>
-</li>
-</ul>
-<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><h2 id="lambda是否可打日志"><a href="#lambda是否可打日志" class="headerlink" title="lambda是否可打日志"></a>lambda是否可打日志</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1176,7 +1225,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-count">184</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

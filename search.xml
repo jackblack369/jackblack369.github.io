@@ -4521,6 +4521,20 @@
 <li>One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.</li>
 <li>When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)</li>
 </ul>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><ul>
+<li>Cookies are text string stored as key/value</li>
+<li>The server Create the cookie and send it to the user’s browser where it’ll be stored.</li>
+<li>The Browser will send that cookie every time it send a request to that server.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HttpOnly: 这个属性用来限制cookie只能通过HTTP(S)协议访问，不能通过客户端脚本（如JavaScript）访问。这主要是为了减少跨站脚本攻击（XSS）的风险，因为攻击者不能通过脚本读取到这些cookie。</span><br><span class="line"></span><br><span class="line">Max-Age: 这个属性定义了cookie的生命周期，单位是秒。在你的例子中，Max-Age=3600表示cookie将在3600秒后过期，即1小时后。过期后，cookie将不再发送到服务器。</span><br><span class="line"></span><br><span class="line">Path: 这个属性定义了cookie的路径，即cookie只能被发送到这个路径或其子路径下的请求中。Path=/表示cookie对于整个域名是有效的，无论请求哪个路径。</span><br><span class="line"></span><br><span class="line">SameSite: 这个属性用来控制cookie的跨站请求。SameSite=lax是一种设置，它允许cookie在顶级导航中跟随跨站请求，但在第三方请求中不会跟随。这是一种折中的方法，旨在提供一定程度的安全性，同时允许一些合理的跨站请求。lax模式比strict模式更宽松，但比没有SameSite属性或设置为None更安全。</span><br><span class="line"></span><br><span class="line">Secure: 这个属性指示cookie只能通过HTTPS协议传输，不能通过HTTP。这增加了cookie的安全性，因为它们不会被明文传输，减少了中间人攻击的风险。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><ul>
+<li>This session is associated with a randomly generated unique ID, which is created by the server. It’s called “session ID”.</li>
+<li>The generated session ID is then sent to the user’s browser and stored as a cookie, while the session data is stored on the server-side.</li>
+<li>Sessions are often used to store sensitive information such as user credentials and financial data. They are more secure than cookies because the information is stored on the server-side and not on the client-side.</li>
+</ul>
 <h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
 <li><a href="https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73">https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73</a></li>
 </ul>
@@ -11500,6 +11514,8 @@
     <title>python pytest</title>
     <url>/2024/05/20/python%20pytest/</url>
     <content><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul>
+<li><p>查看测试详情</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pytest -v</span><br></pre></td></tr></table></figure></li>
 <li><p>测试信息打印</p>
 <blockquote>
 <p>默认情况下，pytest 会捕获所有的输出。这意味着在测试运行期间， <code>print</code> 语句的输出不会显示在控制台上。</p>
@@ -11512,6 +11528,8 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@pytest.mark.finished</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_func1</span>():</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="number">1</span> == <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pytest -m finished tests/test-function/test_with_mark.py</span><br></pre></td></tr></table></figure></li>
+<li><p>生成测试报告</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pytest --html=report.html</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -11607,5 +11625,21 @@
       <tags>
         <tag>pracise</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2024/06/05/casdoor/</url>
+    <content><![CDATA[<hr>
+<hr>
+<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><ul>
+<li><p>docker</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo docker run -d -p 18000:8000 \</span><br><span class="line">  -v /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro \</span><br><span class="line">  -v /home/dingodb/dongwei/docker/timezone:/etc/timezone:ro \</span><br><span class="line">  casbin/casdoor-all-in-one</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>容器内部服务端口8000，映射成对外访问接端口 18000</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
   </entry>
 </search>
