@@ -174,6 +174,267 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/hive%20snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/04/hive%20snippet/" class="post-title-link" itemprop="url">hive snippet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-04 00:10:30" itemprop="dateCreated datePublished" datetime="2022-01-04T00:10:30+08:00">2022-01-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-13 16:51:38" itemprop="dateModified" datetime="2022-10-13T16:51:38+08:00">2022-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Hive-site里面的配置！！！</p>
+</blockquote>
+<h2 id="level-1"><a href="#level-1" class="headerlink" title="level-1"></a>level-1</h2><h3 id="get-started"><a href="#get-started" class="headerlink" title="get started"></a>get started</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="beeline"><a href="#beeline" class="headerlink" title="beeline"></a>beeline</h3><p>1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。</p>
+<p>（2）metastore ：hivestore服务端。主要提供将DDL，DML等语句转换为MapReduce，提交到hdfs中。</p>
+<p>（3）hiveserver2：hive服务端。提供hive服务。客户端可以通过beeline，jdbc（即用java代码链接）等多种方式链接到hive。</p>
+<p>（4）beeline：hive客户端链接到hive的一个工具。可以理解成mysql的客户端。如：navite cat 等。</p>
+<p><img src="https://img-blog.csdnimg.cn/20191122115956341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NDQwMDQw,size_16,color_FFFFFF,t_70"></p>
+<p>2 连接hive：<br>（1）./bin/hive<br>通过 ./bin/hive 启动的hive服务，第一步会先启动metastore服务，然后在启动一个客户端连接到metastore。此时metastore服务端和客户端都在一台机器上，别的机器无法连接到metastore，所以也无法连接到hive。这种方式不常用，一直只用于调试环节。</p>
+<p>（2） ./bin/hive  –service metastore<br><strong>通过hive –service metastore 会启动一个 hive metastore服务默认的端口号为：9083。metastore服务里面配置metadata相关的配置。此时可以有多个hive客户端在hive-site.xml配置hive.metastore.uris=thrift://ipxxx:9083  的方式链接到hive。motestore 虽然能使hive服务端和客户端分别部署到不同的节点，客户端不需要关注metadata的相关配置。但是metastore只能通过只能通过配置hive.metastore.uris的方式连接，无法通过jdbc的方式访问。</strong></p>
+<p>（3）./bin/hiveserver2<br>hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过beeline，jdbc，odbc的方式链接到hive。<strong>hiveserver2启动的时候会先检查有没有配置hive.metastore.uris，如果没有会先启动一个metastore服务，然后在启动hiveserver2。如果有配置hive.metastore.uris。会连接到远程的metastore服务。这种方式是最常用的。</strong>部署在图如下：</p>
+<ul>
+<li>登录bin/beeline，可以启动客户端链接到hiveserver2。执行beeline后在控制输入 !connect jdbc:hive2://localhost:10000/default root 123 就可以链接到 hiveserver2了；default表示链接到default database， root 和123 分别为密码。注意这里的密码不是mysql的密码，是hive中的用户</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">连接库</span><br><span class="line">!connect jdbc:hive2://localhost:10000/default root 123</span><br></pre></td></tr></table></figure>
+
+<h3 id="hive中几种分割符"><a href="#hive中几种分割符" class="headerlink" title="hive中几种分割符"></a>hive中几种分割符</h3><p><strong>分隔符</strong></p>
+<p>\n    每行一条记录<br>^A    分隔列（八进制 \001）<br>^B    分隔ARRAY或者STRUCT中的元素，或者MAP中多个键值对之间分隔（八进制 \002）<br>^C    分隔MAP中键值对的“键”和“值”（八进制 \003）</p>
+<p><strong>用到了系统默认分隔符。通常下面2中情况我们需要需要用到分隔符</strong></p>
+<p>1，制作table的输入文件，有时候我们需要输入一些特殊的分隔符</p>
+<p>2，把hive表格导出到本地时，系统默认的分隔符是^A，这个是特殊字符，直接cat或者vim是看不到的</p>
+<p><strong>分隔符在HIVE中的用途</strong></p>
+<table>
+<thead>
+<tr>
+<th>分隔符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>对于文本文件来说，每行都是一条记录，因此换行符可以分隔记录</td>
+</tr>
+<tr>
+<td>^A(Ctrl+A)</td>
+<td>用于分隔字段(列)。在CREATE TABLE语句中可以使用八进制编码\001表示</td>
+</tr>
+<tr>
+<td>^B(Ctrl+B)</td>
+<td>用于分隔ARRAY或者STRUCT中的元素，或用于MAP中键-值对之间的分隔。在CREATE TABLE语句中可以使用八进制编码\002表示</td>
+</tr>
+<tr>
+<td>^C(Ctrl+C)</td>
+<td>用于MAP中键和值之间的分隔。在CREATE TABLE语句中可以使用八进制编码\003表示</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Hive 中没有定义专门的数据格式，数据格式可以由用户指定，用户定义数据格式需要指定三个属性：列分隔符（通常为空格、”\t”、”\x001″）、行分隔符（”\n”）以及读取文件数据的方法。由于在加载数据的过程中，不需要从用户数据格式到 Hive 定义的数据格式的转换，因此，Hive 在加载的过程中不会对数据本身进行任何修改，而只是将数据内容复制或者移动到相应的 HDFS 目录中。</p>
+</blockquote>
+<p>我们可以在create表格的时候，选择如下，表格加载input的文件的时候就会按照下面格式匹配</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row format delimited </span><br><span class="line">fields terminated by &#x27;\001&#x27; </span><br><span class="line">collection items terminated by &#x27;\002&#x27; </span><br><span class="line">map keys terminated by &#x27;\003&#x27;</span><br><span class="line">lines terminated by &#x27;\n&#x27; </span><br><span class="line">stored as textfile;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何查看和修改分割符，特殊符号"><a href="#如何查看和修改分割符，特殊符号" class="headerlink" title="如何查看和修改分割符，特殊符号"></a>如何查看和修改分割符，特殊符号</h3><ol>
+<li>查看隐藏字符的方法</li>
+</ol>
+<p>1.1，cat -A filename</p>
+<p><img src="http://image.okcode.net/26FFE1BCC5620E19E94B26122C71BA2E.png" alt="img"></p>
+<p>1.2，vim filename后 命令模式下输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set list显示特殊符号</span><br><span class="line">set nolist 取消显示特殊符号</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改隐藏字符的方法</li>
+</ol>
+<p>首先按照1.2打开显示特殊符号。进入INSERT模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrl + V 可以输入 ^符号</span><br><span class="line">ctrl + a 可以输入A---&#x27;\001&#x27;</span><br><span class="line">ctrl + b 可以输入A---&#x27;\002&#x27;</span><br><span class="line">ctrl + c 可以输入A---&#x27;\003&#x27;</span><br></pre></td></tr></table></figure>
+
+<p> 注意：虽然键盘上你能找到^和A但直接输入时不行的，必须按照上面的方法输入。</p>
+<p>第一行是特殊符号颜色蓝色，第二行直接输入不是特殊符号。</p>
+<p><img src="http://image.okcode.net/DD9ED976ABB6F4313B8F0F7C2DD5C33E.png" alt="img"></p>
+<p>特殊号直接cat是不可以看见的，但是第二行是可见的，所以不是特殊符号。</p>
+<p><img src="http://image.okcode.net/75D96F800A1815F7A84A8CF543BD7063.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ROW FORMAT DELIMITED </span><br><span class="line">FIELDS TERMINATED BY &#x27;\u0001&#x27; </span><br><span class="line">COLLECTION ITEMS TERMINATED BY &#x27;\u0002&#x27; </span><br><span class="line">MAP KEYS TERMINATED BY &#x27;\u0003&#x27;</span><br><span class="line">\u0001是ASCII编码值，对应java代码中的&quot;\001&quot;</span><br></pre></td></tr></table></figure>
+
+<p>意义如下：</p>
+<p>（1）FIELDS，字段之间的分隔符是’\u0001’</p>
+<p>（2）COLLECTION ITEMS，多个集合之间的分隔符是’\u0002’，例如（kv1，kv2，kv3）这种多个键值对之间的分隔符就是’\u0002’</p>
+<p>（3）MAP KEYS，单个map的k和v之间的分隔符是\u0003\，例如kv1里，k \u0003 v</p>
+<h3 id="查看orc文件"><a href="#查看orc文件" class="headerlink" title="查看orc文件"></a>查看orc文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --orcfiledump &lt;hdfs-location-of-orc-file&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改字段类型"><a href="#修改字段类型" class="headerlink" title="修改字段类型"></a>修改字段类型</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span><span class="keyword">table</span><span class="operator">-</span>name<span class="operator">&gt;</span> CHANGE <span class="operator">&lt;</span><span class="keyword">old</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">new</span><span class="operator">-</span>col<span class="operator">-</span>name<span class="operator">&gt;</span> <span class="operator">&lt;</span>data<span class="operator">-</span>type<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employee CHANGE e_id e_id <span class="type">INT</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><ul>
+<li><p>Create ORC table</p>
+</li>
+<li><p>Login to the web console</p>
+</li>
+<li><p>Launch Hive by typing <code>hive</code> in the web console. Run the below commands in Hive.</p>
+</li>
+<li><p>Use your database by using the below command. <code>$&#123;env:USER&#125;</code> gets replaced by your username automatically:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use $&#123;env:USER&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>To create an ORC file format:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE orc_table (</span><br><span class="line">    first_name STRING, </span><br><span class="line">    last_name STRING</span><br><span class="line"> ) </span><br><span class="line"> STORED AS ORC;</span><br></pre></td></tr></table></figure></li>
+<li><p>To insert values in the table:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO orc_table VALUES (&#x27;John&#x27;,&#x27;Gill&#x27;);</span><br></pre></td></tr></table></figure></li>
+<li><p>To retrieve all the values in the table:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM orc_table;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>查看hive进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps -ml  | grep Hive</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="level-2"><a href="#level-2" class="headerlink" title="level-2"></a>level-2</h2><h3 id="内部表vs外部表"><a href="#内部表vs外部表" class="headerlink" title="内部表vs外部表"></a>内部表vs外部表</h3><p><strong>内部表</strong></p>
+<ol>
+<li>按照表数据的生命周期，可以将表分为内部表和外部表两类；</li>
+<li>内部表也叫管理表或临时表，该类型表的生命周期时由hive控制的，默认情况下数据都存放在/user/hive/warehouse/下面；</li>
+<li>删除表时数据会被删除；</li>
+<li>以下命令创建的就是内部表，可见前面两篇文章中创建的表都是内部表</li>
+</ol>
+<p><strong>外部表</strong></p>
+<ul>
+<li>创建表的SQL语句中加上external，创建的就是外部表了；</li>
+<li>外部表的数据生命周期不受Hive控制；</li>
+<li>删除外部表的时候不会删除数据；</li>
+<li>外部表的数据，可以同时作为多个外部表的数据源共享使用；</li>
+<li>接下来开始实践，下面是建表语句：</li>
+<li>在实际生产业务系统开发中，外部表是我们主要应用的表类型</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/03/top%20command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/03/top%20command/" class="post-title-link" itemprop="url">TOP command</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-03 17:18:01 / Modified: 18:28:12" itemprop="dateCreated datePublished" datetime="2022-01-03T17:18:01+08:00">2022-01-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h3><p>us：用户态使用的cpu时间比<br>sy：系统态使用的cpu时间比<br>ni：用做nice加权的进程分配的用户态cpu时间比<br>id：空闲的cpu时间比<br>wa：cpu等待磁盘写入完成时间<br>hi：硬中断消耗时间<br>si：软中断消耗时间<br>st：虚拟机偷取时间</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/31/yarn%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1112,214 +1373,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/20/macos%20snippet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/20/macos%20snippet/" class="post-title-link" itemprop="url">macos snippet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-20 11:25:00" itemprop="dateCreated datePublished" datetime="2021-12-20T11:25:00+08:00">2021-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-04-18 09:43:23" itemprop="dateModified" datetime="2024-04-18T09:43:23+08:00">2024-04-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macos/" itemprop="url" rel="index"><span itemprop="name">macos</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="PORT"><a href="#PORT" class="headerlink" title="PORT"></a>PORT</h2><ul>
-<li><p>查看指定进程pid的占用端口</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i -P -n | grep LISTEN | grep &#123;pid&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="Install-pkg"><a href="#Install-pkg" class="headerlink" title="Install .pkg"></a>Install .pkg</h2><p>a.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo installer -pkg /path/to/package.pkg -target /</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>will install the package in /Applications.</p>
-</blockquote>
-<p>is all that’s needed. Here <code>/</code> is the mount point of <code>Macintosh HD</code> volume. <code>-target</code> accepts path like <code>&quot;/Volumes/Macintosh HD&quot;</code>, or <code>/dev/disk0</code> also.</p>
-<p>b.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">installer -pkg myapp.pkg -target CurrentUserHomeDirectory</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>will install the package in ~/Applications.</p>
-</blockquote>
-<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
-</ul>
-<p>Regenerate</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/docker%20image%20mysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/17/docker%20image%20mysql/" class="post-title-link" itemprop="url">docker image mysql</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-17 18:57:57 / Modified: 18:59:12" itemprop="dateCreated datePublished" datetime="2021-12-17T18:57:57+08:00">2021-12-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="mysql镜像制作"><a href="#mysql镜像制作" class="headerlink" title="mysql镜像制作"></a>mysql镜像制作</h2><ol>
-<li><p>需要备份当前需要同步的全量数据</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it dlabel_mysql mysqldump -uroot -p123456 dls &gt; /path/to/backup.sql</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意事项：</p>
-<p>其中dlabel_mysql，是在第二步中设置的name的名称</p>
-<p>/path/to/backup.sql是导出sql的地址路径，根据操作系统不同，需要自行更改</p>
-<p>假定以下操作是在/path/to的目录下</p>
-</blockquote>
-</li>
-</ol>
-<ol start="2">
-<li><p>在/path/to目录下创建Dockerfile文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Derived from official mysql image (our base image)</span></span><br><span class="line">FROM mysql:5.7.30</span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the content of the sql-scripts/ directory to your image</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> All scripts <span class="keyword">in</span> docker-entrypoint-initdb.d/ are automatically</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> executed during container startup</span></span><br><span class="line">COPY ./backup.sql /docker-entrypoint-initdb.d/</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意COPY指令中，backup.sql需要和操作1中的导出文件名保持一致</p>
-</blockquote>
-</li>
-<li><p>创建镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:mysql20211216 .</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>dlabel:mysql20211216是 REPOSITORY:TAG格式，可自行更改</p>
-</blockquote>
-</li>
-<li><p>登录远程仓库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
-
-<p>根据提示，输入用户名admin，密码Harbor12345</p>
-</li>
-<li><p>映射远程仓库REPOSITORY:TAG</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:mysql20211216 hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其中dlabel:mysql20211216和操作3中保持一致</p>
-<p>hostAddress/dlabel/service:mysql20211216，格式为hostAddress/library/REPOSITORY:TAG，其中可自行修改service:mysql20211216名称</p>
-</blockquote>
-</li>
-<li><p>推送当地镜像到远程仓库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure></li>
-<li><p>登录<strong><a target="_blank" rel="noopener" href="http://hostaddress/">http://hostAddress</a></strong>查看镜像上传情况</p>
-</li>
-<li><p>在镜像详情界面，点击“拉取命名”按钮进行命令复制，在终端执行命令即可拉取该镜像</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1389,13 +1442,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">184</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-count">97</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

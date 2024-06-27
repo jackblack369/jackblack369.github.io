@@ -1644,7 +1644,12 @@
 </ol>
 <p><img src="./img/kubernetes_cluster.png"></p>
 <p>Docker is a platform and tool for building, distributing, and running Docker containers. It offers its own native clustering tool that can be used to orchestrate and schedule containers on machine clusters. Kubernetes is a container orchestration system for Docker containers that is more extensive than Docker Swarm and is meant to coordinate clusters of nodes at scale in production in an efficient manner. It works around the concept of pods, which are scheduling units (and can contain one or more containers) in the Kubernetes ecosystem, and they are distributed among nodes to provide high availability. One can easily run a Docker build on a Kubernetes cluster, but Kubernetes itself is not a complete solution and is meant to include custom plugins.</p>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="查看运行程序"><a href="#查看运行程序" class="headerlink" title="查看运行程序"></a>查看运行程序</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get pod -n 命令空间</span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><p>需要切换到root用户</p>
+<h2 id="查看所有-namespace"><a href="#查看所有-namespace" class="headerlink" title="查看所有 namespace"></a>查看所有 namespace</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl get namespaces</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看运行程序"><a href="#查看运行程序" class="headerlink" title="查看运行程序"></a>查看运行程序</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get pod -n 命令空间</span><br></pre></td></tr></table></figure>
 
 
 
@@ -3533,7 +3538,9 @@
 <li><p>Method 2: 只想回滚到指定提交，并保留后续提交历史</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git revert &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h4 id="查看分支对应的远程分支"><a href="#查看分支对应的远程分支" class="headerlink" title="查看分支对应的远程分支"></a>查看分支对应的远程分支</h4><p><code>git branch -vv</code></p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h4 id="查看分支提交历史"><a href="#查看分支提交历史" class="headerlink" title="查看分支提交历史"></a>查看分支提交历史</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --oneline --graph --decorate</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看分支对应的远程分支"><a href="#查看分支对应的远程分支" class="headerlink" title="查看分支对应的远程分支"></a>查看分支对应的远程分支</h4><p><code>git branch -vv</code></p>
 <h4 id="更改当前分支对应的远程分支"><a href="#更改当前分支对应的远程分支" class="headerlink" title="更改当前分支对应的远程分支"></a>更改当前分支对应的远程分支</h4><p><code>git branch -u origin/develop</code></p>
 <h4 id="回滚远程分支"><a href="#回滚远程分支" class="headerlink" title="回滚远程分支"></a>回滚远程分支</h4><p>1、本地代码回滚到上一版本</p>
 <blockquote>
@@ -3808,7 +3815,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached &lt;要忽略的具体文件或者目录&gt; 或者 git rm -r --cached . </span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update .gitignore&quot;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
 
 ]]></content>
       <categories>
@@ -11641,5 +11648,46 @@
 </li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>jwt points</title>
+    <url>/2024/06/27/jwt/</url>
+    <content><![CDATA[<p>JWT 由三个部分组成，用 . 分隔：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJ1c2VyLWtleSIsImV4cCI6MTU2NDA1MDgxMX0.Us8zh_4VjJXF-TmR5f8cif8mBU7SuefPlpxhH0jbPVI</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    1.    Header（头部）：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</p>
+<p>​    2.    Payload（负载）：eyJrZXkiOiJ1c2VyLWtleSIsImV4cCI6MTU2NDA1MDgxMX0</p>
+<p>​    3.    Signature（签名）：Us8zh_4VjJXF-TmR5f8cif8mBU7SuefPlpxhH0jbPVI</p>
+<ul>
+<li><p><strong>可直接使用 Base64 解码 Header 和 Payload</strong></p>
+</li>
+<li><p>验签</p>
+<p>使用 Header里面的算法验证签名需要用到与签名时相同的密钥（公钥）。以下是验证签名的示例代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hmac</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">verify_signature</span>(<span class="params">header, payload, secret, signature</span>):</span></span><br><span class="line">    message = <span class="string">f&quot;<span class="subst">&#123;header&#125;</span>.<span class="subst">&#123;payload&#125;</span>&quot;</span></span><br><span class="line">    expected_signature = hmac.new(secret.encode(), message.encode(), hashlib.sha256).digest()</span><br><span class="line">    expected_signature_base64 = base64.urlsafe_b64encode(expected_signature).rstrip(<span class="string">b&#x27;=&#x27;</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> hmac.compare_digest(expected_signature_base64, signature)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例密钥（替换为实际的密钥）</span></span><br><span class="line">secret = <span class="string">&quot;your-256-bit-secret&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证签名</span></span><br><span class="line">is_valid = verify_signature(header, payload, secret, signature)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Signature is valid: <span class="subst">&#123;is_valid&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>jwt</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>time snippet</title>
+    <url>/2024/06/12/time/</url>
+    <content><![CDATA[<ul>
+<li>GMT（格林尼治标准时间）是格林尼治时间，没有夏令时调整。</li>
+<li>UTC（协调世界时）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>time</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
+      </tags>
   </entry>
 </search>
