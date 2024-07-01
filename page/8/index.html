@@ -174,6 +174,133 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/flink%20on%20yarn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/04/flink%20on%20yarn/" class="post-title-link" itemprop="url">flink on yarn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-04 00:27:40" itemprop="dateCreated datePublished" datetime="2022-01-04T00:27:40+08:00">2022-01-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-06-19 17:13:58" itemprop="dateModified" datetime="2023-06-19T17:13:58+08:00">2023-06-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p>
+<h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p>
+<h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p>
+<h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p>
+<h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
+<h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
+<h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
+<p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p>
+<p>ps:所有作业共享Dispatcher和ResourceManager；共享资源；适合规模小执行时间短的作业.适用于本地测试或者开发</p>
+</blockquote>
+<h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote>
+<p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>YarnSessionClusterEntrypoint进程</p>
+<p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p>
+<ul>
+<li><p>本节点提交任务</p>
+<p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p>
+</li>
+<li><p>如果需要在其他主机节点提交任务</p>
+<p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p>
+</li>
+</ul>
+</li>
+<li><p>FlinkYarnSessionCli进程</p>
+<p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p>
+</li>
+</ul>
+<h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote>
+<p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p>
+</blockquote>
+<h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote>
+<p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p>
+<p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>注意使用参数-m yarn-cluster提交到yarn集群。</p>
+<ul>
+<li>运行到指定的yarn session可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</li>
+</ul>
+<hr>
+<p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013411339/article/details/95421500?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164455981216780357293300%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164455981216780357293300&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-21-95421500.nonecase&utm_term=%E2%80%9Cflink+cep%E2%80%9D&spm=1018.2226.3001.4450">Flink-On-Yarn的部署模式</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/hive%20snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1228,151 +1355,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/24/flink%20table/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/24/flink%20table/" class="post-title-link" itemprop="url">flink table</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-24 09:00:00" itemprop="dateCreated datePublished" datetime="2021-12-24T09:00:00+08:00">2021-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-05 17:00:34" itemprop="dateModified" datetime="2022-01-05T17:00:34+08:00">2022-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="时间属性"><a href="#时间属性" class="headerlink" title="时间属性"></a>时间属性</h2><blockquote>
-<p> 像窗口（在 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/table/tableapi/#group-windows">Table API</a> 和 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/table/sql/queries/window-agg/">SQL</a> ）这种基于时间的操作，需要有时间信息。因此，Table API 中的表就需要提供<em>逻辑时间属性</em>来表示时间，以及支持时间相关的操作。</p>
-</blockquote>
-<p>每种类型的表都可以有时间属性，时间属性可以通过</p>
-<ol>
-<li>用CREATE TABLE DDL创建表的时候指定</li>
-<li>可以在 <code>DataStream</code> 中指定</li>
-<li>可以在定义 <code>TableSource</code> 时指定。</li>
-</ol>
-<p>一旦时间属性定义好，它就可以像普通列一样使用，也可以在时间相关的操作中使用，只要时间属性没有被修改，而是简单地从一个表传递到另一个表，它就仍然是一个有效的时间属性。</p>
-<p>时间属性可以像普通的时间戳的列一样被使用和计算。一旦时间属性被用在了计算中，它就会被物化，进而变成一个普通的时间戳。普通的时间戳是无法跟 Flink 的时间以及watermark等一起使用的，所以普通的时间戳就无法用在时间相关的操作中（这句话是只限于被修改的普通时间戳，还是包含未被修改的时间戳）。</p>
-<h3 id="处理时间"><a href="#处理时间" class="headerlink" title="处理时间"></a>处理时间</h3><blockquote>
-<p>处理时间是基于机器的本地时间来处理数据，它是最简单的一种时间概念，但是它不能提供确定性。它既不需要从数据里获取时间，也不需要生成 watermark。</p>
-</blockquote>
-<p>定义处理时间的三种方法:</p>
-<ol>
-<li><p>在创建表的 DDL 中定义</p>
-<blockquote>
-<p>用 <code>PROCTIME()</code> 就可以定义处理时间，函数 <code>PROCTIME()</code> 的返回类型是 TIMESTAMP_LTZ </p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  user_action_time AS PROCTIME()</span> -- 声明一个额外的列作为处理时间属性</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>在 DataStream 到 Table 转换时定义</p>
-<blockquote>
-<p>处理时间属性可以在 schema 定义的时候用 <code>.proctime</code> 后缀来定义。时间属性一定不能定义在一个已有字段上，所以它只能定义在 schema 定义的最后。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = ...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个额外的字段作为时间属性字段</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>), $(<span class="string">&quot;user_action_time&quot;</span>).proctime());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = table.window(</span><br><span class="line">        Tumble.over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">            .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">            .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
-<li><p>使用 TableSource 定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个由处理时间属性的 table source</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionSource</span> <span class="keyword">implements</span> <span class="title">StreamTableSource</span>&lt;<span class="title">Row</span>&gt;, <span class="title">DefinedProctimeAttribute</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TypeInformation&lt;Row&gt; <span class="title">getReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String[] names = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;user_name&quot;</span> , <span class="string">&quot;data&quot;</span>&#125;;</span><br><span class="line">        TypeInformation[] types = <span class="keyword">new</span> TypeInformation[] &#123;Types.STRING(), Types.STRING()&#125;;</span><br><span class="line">        <span class="keyword">return</span> Types.ROW(names, types);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataStream&lt;Row&gt; <span class="title">getDataStream</span><span class="params">(StreamExecutionEnvironment execEnv)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// create stream</span></span><br><span class="line">        DataStream&lt;Row&gt; stream = ...;</span><br><span class="line">        <span class="keyword">return</span> stream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getProctimeAttribute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这个名字的列会被追加到最后，作为第三列</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;user_action_time&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// register table source</span></span><br><span class="line">tEnv.registerTableSource(<span class="string">&quot;user_actions&quot;</span>, <span class="keyword">new</span> UserActionSource());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = tEnv</span><br><span class="line">    .from(<span class="string">&quot;user_actions&quot;</span>)</span><br><span class="line">    .window(Tumble</span><br><span class="line">        .over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">        .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">        .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="事件时间"><a href="#事件时间" class="headerlink" title="事件时间"></a>事件时间</h3><blockquote>
-<p>事件时间允许程序按照数据中包含的时间来处理，这样可以在有乱序或者晚到的数据的情况下产生一致的处理结果。为了能够处理乱序的事件，并且区分正常到达和晚到的事件，Flink 需要从事件中获取事件时间并且产生 <a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/concepts/time/">watermarks</a>。</p>
-</blockquote>
-<p>定义事件时间的三种方法:</p>
-<ol>
-<li><p>在 DDL 中定义</p>
-<blockquote>
-<p>WATERMARK 语句在一个已有字段上定义一个 watermark 生成表达式，同时标记这个已有字段为时间属性字段。</p>
-</blockquote>
-<p>Flink 支持和在 TIMESTAMP 列和 TIMESTAMP_LTZ 列上定义事件时间。</p>
-<ul>
-<li><p>如果源数据中的时间戳数据表示为年-月-日-时-分-秒，则通常为不带时区信息的字符串值，例如 <code>2020-04-15 20:13:40.564</code>，建议将事件时间属性定义在 <code>TIMESTAMP</code> 列上,</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function">  user_action_time TIMESTAMP(<span class="number">3</span>)</span>,</span></span><br><span class="line"><span class="function">  -- 声明 user_action_time 是事件时间属性，并且用 延迟 5 秒的策略来生成 watermark</span></span><br><span class="line"><span class="function">  WATERMARK FOR user_action_time AS user_action_time - INTERVAL &#x27;5&#x27; SECOND</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT <span class="title">TUMBLE_START</span><span class="params">(user_action_time, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span>, <span class="title">COUNT</span><span class="params">(DISTINCT user_name)</span></span></span><br><span class="line"><span class="function">FROM user_actions</span></span><br><span class="line"><span class="function">GROUP BY <span class="title">TUMBLE</span><span class="params">(user_action_time, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>如果源数据中的时间戳数据为带时区信息的字符串值，例如源数据中的时间戳数据表示为一个纪元 (epoch) 时间，通常是一个 long 值，例如 <code>1618989564564</code>，建议将事件时间属性定义在 <code>TIMESTAMP_LTZ</code> 列上：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CREATE TABLE <span class="title">user_actions</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"> user_name STRING,</span></span></span><br><span class="line"><span class="params"><span class="function"> data STRING,</span></span></span><br><span class="line"><span class="params"><span class="function"> ts BIGINT,</span></span></span><br><span class="line"><span class="params"><span class="function"> time_ltz AS TO_TIMESTAMP_LTZ(ts, <span class="number">3</span>)</span>,</span></span><br><span class="line"><span class="function"> -- declare time_ltz as event time attribute and use 5 seconds delayed watermark strategy</span></span><br><span class="line"><span class="function"> WATERMARK FOR time_ltz AS time_ltz - INTERVAL &#x27;5&#x27; SECOND</span></span><br><span class="line"><span class="function">) <span class="title">WITH</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"> ...</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT <span class="title">TUMBLE_START</span><span class="params">(time_ltz, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span>, <span class="title">COUNT</span><span class="params">(DISTINCT user_name)</span></span></span><br><span class="line"><span class="function">FROM user_actions</span></span><br><span class="line"><span class="function">GROUP BY <span class="title">TUMBLE</span><span class="params">(time_ltz, INTERVAL <span class="string">&#x27;10&#x27;</span> MINUTE)</span></span>;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>在 DataStream 到 Table 转换时定义</p>
-<blockquote>
-<p>事件时间属性可以用 <code>.rowtime</code> 后缀在定义 <code>DataStream</code> schema 的时候来定义。</p>
-<p><a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/concepts/time/">时间戳和 watermark</a> 在这之前一定是在 <code>DataStream</code> 上已经定义好了。 在从 DataStream 转换到 Table 时，由于 <code>DataStream</code> 没有时区概念，因此 Flink 总是将 <code>rowtime</code> 属性解析成 <code>TIMESTAMP WITHOUT TIME ZONE</code> 类型，并且将所有事件时间的值都视为 UTC 时区的值。</p>
-</blockquote>
-<ul>
-<li>Option 1</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基于 stream 中的事件产生时间戳和 watermark</span></span><br><span class="line">DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个额外的逻辑字段作为事件时间属性</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>), $(<span class="string">&quot;user_action_time&quot;</span>).rowtime());</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Option 2</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 从第一个字段获取事件时间，并且产生 watermark</span></span><br><span class="line">DataStream&lt;Tuple3&lt;Long, String, String&gt;&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个字段已经用作事件时间抽取了，不用再用一个新字段来表示事件时间了</span></span><br><span class="line">Table table = tEnv.fromDataStream(stream, $(<span class="string">&quot;user_action_time&quot;</span>).rowtime(), $(<span class="string">&quot;user_name&quot;</span>), $(<span class="string">&quot;data&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage:</span></span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = table.window(Tumble</span><br><span class="line">      .over(lit(<span class="number">10</span>).minutes())</span><br><span class="line">      .on($(<span class="string">&quot;user_action_time&quot;</span>))</span><br><span class="line">      .as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
-<li><p>使用 TableSource 定义</p>
-<blockquote>
-<p>事件时间属性可以在实现了 <code>DefinedRowTimeAttributes</code> 的 <code>TableSource</code> 中定义。<code>getRowtimeAttributeDescriptors()</code> 方法返回 <code>RowtimeAttributeDescriptor</code> 的列表，包含了描述事件时间属性的字段名字、如何计算事件时间、以及 watermark 生成策略等信息。</p>
-<p>同时需要确保 <code>getDataStream</code> 返回的 <code>DataStream</code> 已经定义好了时间属性。</p>
-<p> 只有在定义了 <code>StreamRecordTimestamp</code> 时间戳分配器的时候，才认为 <code>DataStream</code> 是有时间戳信息的。 只有定义了 <code>PreserveWatermarks</code> watermark 生成策略的 <code>DataStream</code> 的 watermark 才会被保留。反之，则只有时间字段的值是生效的。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个有事件时间属性的 table source</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionSource</span> <span class="keyword">implements</span> <span class="title">StreamTableSource</span>&lt;<span class="title">Row</span>&gt;, <span class="title">DefinedRowtimeAttributes</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TypeInformation&lt;Row&gt; <span class="title">getReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String[] names = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;user_name&quot;</span>, <span class="string">&quot;data&quot;</span>, <span class="string">&quot;user_action_time&quot;</span>&#125;;</span><br><span class="line">        TypeInformation[] types =</span><br><span class="line">            <span class="keyword">new</span> TypeInformation[] &#123;Types.STRING(), Types.STRING(), Types.LONG()&#125;;</span><br><span class="line">        <span class="keyword">return</span> Types.ROW(names, types);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataStream&lt;Row&gt; <span class="title">getDataStream</span><span class="params">(StreamExecutionEnvironment execEnv)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 构造 DataStream</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="comment">// 基于 &quot;user_action_time&quot; 定义 watermark</span></span><br><span class="line">        DataStream&lt;Row&gt; stream = inputStream.assignTimestampsAndWatermarks(...);</span><br><span class="line">        <span class="keyword">return</span> stream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;RowtimeAttributeDescriptor&gt; <span class="title">getRowtimeAttributeDescriptors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 标记 &quot;user_action_time&quot; 字段是事件时间字段</span></span><br><span class="line">        <span class="comment">// 给 &quot;user_action_time&quot; 构造一个时间属性描述符</span></span><br><span class="line">        RowtimeAttributeDescriptor rowtimeAttrDescr = <span class="keyword">new</span> RowtimeAttributeDescriptor(</span><br><span class="line">            <span class="string">&quot;user_action_time&quot;</span>,</span><br><span class="line">            <span class="keyword">new</span> ExistingField(<span class="string">&quot;user_action_time&quot;</span>),</span><br><span class="line">            <span class="keyword">new</span> AscendingTimestamps());</span><br><span class="line">        List&lt;RowtimeAttributeDescriptor&gt; listRowtimeAttrDescr = Collections.singletonList(rowtimeAttrDescr);</span><br><span class="line">        <span class="keyword">return</span> listRowtimeAttrDescr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// register the table source</span></span><br><span class="line">tEnv.registerTableSource(<span class="string">&quot;user_actions&quot;</span>, <span class="keyword">new</span> UserActionSource());</span><br><span class="line"></span><br><span class="line">WindowedTable windowedTable = tEnv</span><br><span class="line">    .from(<span class="string">&quot;user_actions&quot;</span>)</span><br><span class="line">    .window(Tumble.over(lit(<span class="number">10</span>).minutes()).on($(<span class="string">&quot;user_action_time&quot;</span>)).as(<span class="string">&quot;userActionWindow&quot;</span>));</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><ul>
-<li>timestamp可以将时间戳类型数据最高精确微秒(百万分之一秒)，数据类型定义为timestamp(N),N取值范围为0-6，默认为0，如需要精确到毫秒则设置为Timestamp(3)，如需要精确到微秒则设置为timestamp(6)，数据精度提高的代价是其内部存储空间的变大，但仍未改变时间戳类型的最小和最大取值范围。</li>
-</ul>
-<h3 id="connector-kafka"><a href="#connector-kafka" class="headerlink" title="connector kafka"></a>connector kafka</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1442,7 +1424,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1453,7 +1435,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

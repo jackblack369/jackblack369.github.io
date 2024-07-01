@@ -174,6 +174,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/07/07/starrocks%20points/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/07/starrocks%20points/" class="post-title-link" itemprop="url">starrocks point</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-07 14:52:04" itemprop="dateCreated datePublished" datetime="2023-07-07T14:52:04+08:00">2023-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-13 10:53:14" itemprop="dateModified" datetime="2023-11-13T10:53:14+08:00">2023-11-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/olap/" itemprop="url" rel="index"><span itemprop="name">olap</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><h2 id="注意项"><a href="#注意项" class="headerlink" title="注意项"></a>注意项</h2><ul>
+<li><p>安装前配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export STARROCKS_HOME=xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>启动mysql客户端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="FE"><a href="#FE" class="headerlink" title="FE"></a>FE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 18030</span><br><span class="line">netstat -tunlp | grep 19010</span><br><span class="line">netstat -tunlp | grep 19020</span><br><span class="line">netstat -tunlp | grep 19030</span><br><span class="line"></span><br><span class="line">http_port = 18030</span><br><span class="line">rpc_port = 19020</span><br><span class="line">query_port = 19030</span><br><span class="line">edit_log_port = 19010</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>启动FE<br><code>start_fe.sh --daemon</code></p>
+</li>
+<li><p>查看FE状态+<br><code>SHOW PROC &#39;/frontends&#39;\G</code></p>
+</li>
+<li><p>添加新FE节点（follow和observer)<br><code>./start_fe.sh --helper 172.18.244.74:19010 --daemon</code></p>
+<p>注意：</p>
+<ul>
+<li><p>在mysql command先将实例添加进集群，然后逐个启动实例。（只在首次新增节点时操作）</p>
+</li>
+<li><p>各个节点的时间一定要同步，不然FE的心跳超过5s时差，就会报错</p>
+</li>
+</ul>
+</li>
+<li><p>扩容FE<br><code>ALTER SYSTEM ADD FOLLOWER &#39;ip:19010&#39;;</code><br><code>ALTER SYSTEM ADD observer &#39;ip:19010&#39;;</code></p>
+</li>
+<li><p>缩容FE<br><code>ALTER SYSTEM DROP follower &quot;ip:19010&quot;;</code><br><code>ALTER SYSTEM DROP observer &quot;ip:19010&quot;;</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="BE"><a href="#BE" class="headerlink" title="BE"></a>BE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 19060</span><br><span class="line">netstat -tunlp | grep 18040</span><br><span class="line">netstat -tunlp | grep 19050</span><br><span class="line">netstat -tunlp | grep 18060</span><br><span class="line"></span><br><span class="line">be_port = 19060</span><br><span class="line">be_http_port = 18040</span><br><span class="line">heartbeat_service_port = 19050</span><br><span class="line">brpc_port = 18060</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查看BE状态<br><code>SHOW PROC &#39;/backends&#39;\G</code></p>
+</li>
+<li><p>启动BE<br><code>./start_be.sh --daemon</code></p>
+</li>
+<li><p>添加BE节点<br><code>ALTER SYSTEM ADD BACKEND &quot;172.18.244.74:19050&quot;;</code></p>
+</li>
+<li><p>缩容BE节点<br><code>ALTER SYSTEM DECOMMISSION BACKEND &quot;172.18.244.74:19050&quot;;</code><br>等待该节点BE从列表中消失（查看命令SHOW PROC ‘/backends’;），即可使用./stop_be.sh停掉服务</p>
+</li>
+<li><p>崩溃排查日志<code>be.out</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><ul>
+<li>FE修改端口信息，需要清理meta</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 重建meta目录</span><br><span class="line">2. 重启主节点FE</span><br><span class="line">3. 登录mysql command，添加新FE节点（follow和observer），添加BE节点</span><br><span class="line">4. 启动follower和observer节点</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BE修改端口信息，需要清理storage</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 重建storage目录（是否可以修改cluster_id进行集群处理）</span><br><span class="line">2. 逐个启动BE服务</span><br><span class="line">3. 登录mysql command，添加新BE节点（ALTER SYSTEM ADD BACKEND &quot;ip:19050&quot;;）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改密码<br><code>SET PASSWORD = PASSWORD(&#39;datacanvas&#39;)</code></li>
+</ul>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>节点时间需要同步（延迟需要在5秒内），不然starrocks无法扩容FE节点</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/13/xc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1079,81 +1212,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/15/flink%20cdc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/15/flink%20cdc/" class="post-title-link" itemprop="url">flink cdc</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-15 16:24:07" itemprop="dateCreated datePublished" datetime="2022-01-15T16:24:07+08:00">2022-01-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-20 10:59:22" itemprop="dateModified" datetime="2022-04-20T10:59:22+08:00">2022-04-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>reference</p>
-<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418">Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1223,7 +1281,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1234,7 +1292,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
