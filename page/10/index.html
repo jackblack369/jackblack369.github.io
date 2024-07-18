@@ -491,7 +491,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-14 11:19:36" itemprop="dateModified" datetime="2024-06-14T11:19:36+08:00">2024-06-14</time>
+                <time title="Modified: 2024-07-14 11:48:51" itemprop="dateModified" datetime="2024-07-14T11:48:51+08:00">2024-07-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -532,7 +532,10 @@
 </ol>
 <p><img src="./img/kubernetes_cluster.png"></p>
 <p>Docker is a platform and tool for building, distributing, and running Docker containers. It offers its own native clustering tool that can be used to orchestrate and schedule containers on machine clusters. Kubernetes is a container orchestration system for Docker containers that is more extensive than Docker Swarm and is meant to coordinate clusters of nodes at scale in production in an efficient manner. It works around the concept of pods, which are scheduling units (and can contain one or more containers) in the Kubernetes ecosystem, and they are distributed among nodes to provide high availability. One can easily run a Docker build on a Kubernetes cluster, but Kubernetes itself is not a complete solution and is meant to include custom plugins.</p>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><p>需要切换到root用户</p>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><ul>
+<li>需要切换到root用户</li>
+<li>或使用kubeconfig <code>kubectl delete pod auth-server-server-5cbfd46c5b-9zs26 --force --kubeconfig=./kubeconfig</code></li>
+</ul>
 <h2 id="查看所有-namespace"><a href="#查看所有-namespace" class="headerlink" title="查看所有 namespace"></a>查看所有 namespace</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get namespaces</span><br></pre></td></tr></table></figure>
 
 
@@ -543,9 +546,17 @@
 
 <h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs -f 容器id -n 命令空间</span><br></pre></td></tr></table></figure>
 
+<h2 id="查看容器启动配置"><a href="#查看容器启动配置" class="headerlink" title="查看容器启动配置"></a>查看容器启动配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod 容器id --kubeconfig=/path/to/configfile -o yaml &gt; env-vq48.yaml</span><br></pre></td></tr></table></figure>
 
+<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><ul>
+<li>without kubeconfig</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh</span><br></pre></td></tr></table></figure>
 
-<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>With kubeconfig</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl --kubeconfig=./kubeconfig-vq48 exec -it auth-server-server-687cf494cc-ff4s4 -- sh</span><br></pre></td></tr></table></figure>
 
 
 
