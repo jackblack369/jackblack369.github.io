@@ -3672,7 +3672,7 @@
 </li>
 <li>解决之后</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;xxx&quot;</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .  # resolve conflict, always use add &amp; commit 🚨</span><br><span class="line">git commit -m &quot;xxx&quot;</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>终止rebase</li>
@@ -3743,6 +3743,10 @@
 <blockquote>
 <p>中途如需终止rebase，运行 git rebase –abort</p>
 </blockquote>
+<ol start="5">
+<li><p>其它结合</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 先进行 `git rebase upstream/v1` 可以确保你的分支是基于最新的上游代码。</span><br><span class="line"></span><br><span class="line">- 然后进行 `git rebase -i HEAD~2` 让你可以在最新代码的基础上修改你的提交。</span><br><span class="line"></span><br><span class="line">  这个顺序可以减少冲突的可能性，因为你先将你的代码基于最新的上游代码，然后再修改你自己的提交。</span><br></pre></td></tr></table></figure></li>
+</ol>
 <h2 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h2><h3 id="fork-remote"><a href="#fork-remote" class="headerlink" title="fork remote"></a>fork remote</h3><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
 <h4 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><ol>
 <li><p>List the current configured remote repository for your fork.</p>
@@ -6649,6 +6653,10 @@
 </blockquote>
 <h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ul>
 <li><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></li>
+</ul>
+<h2 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h2><ul>
+<li><p>Disable  auto update when install </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">temp method 1:</span><br><span class="line">HOMEBREW_NO_AUTO_UPDATE=1 brew install &lt;formula&gt;</span><br><span class="line"></span><br><span class="line">temp method 2:</span><br><span class="line">export HOMEBREW_NO_AUTO_UPDATE=1</span><br><span class="line"></span><br><span class="line">permanently method:</span><br><span class="line"><span class="meta">$</span><span class="bash"> vim ~/.bashrc</span></span><br><span class="line">export HOMEBREW_NO_AUTO_UPDATE=1</span><br><span class="line">source ~/.bashrc</span><br><span class="line">or</span><br><span class="line"><span class="meta">$</span><span class="bash"> vim ~/.zshrc</span></span><br><span class="line">export HOMEBREW_NO_AUTO_UPDATE=1</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>Regenerate</p>
 ]]></content>
@@ -10728,6 +10736,11 @@
 
 <p>确保输出显示的是你所期望的Java版本信息。</p>
 <p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
+<h2 id="新增java版本"><a href="#新增java版本" class="headerlink" title="新增java版本"></a>新增java版本</h2><ol>
+<li>brew install openjdk21</li>
+<li>sudo ln -sfn /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk</li>
+<li></li>
+</ol>
 ]]></content>
       <categories>
         <category>java</category>
@@ -11696,7 +11709,7 @@
 <ul>
 <li><p><strong>可直接使用 Base64 解码 Header 和 Payload</strong></p>
 </li>
-<li><p>验签</p>
+<li><p><strong>signature验签</strong></p>
 <p>使用 Header里面的算法验证签名需要用到与签名时相同的密钥（公钥）。以下是验证签名的示例代码：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hmac</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">verify_signature</span>(<span class="params">header, payload, secret, signature</span>):</span></span><br><span class="line">    message = <span class="string">f&quot;<span class="subst">&#123;header&#125;</span>.<span class="subst">&#123;payload&#125;</span>&quot;</span></span><br><span class="line">    expected_signature = hmac.new(secret.encode(), message.encode(), hashlib.sha256).digest()</span><br><span class="line">    expected_signature_base64 = base64.urlsafe_b64encode(expected_signature).rstrip(<span class="string">b&#x27;=&#x27;</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> hmac.compare_digest(expected_signature_base64, signature)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例密钥（替换为实际的密钥）</span></span><br><span class="line">secret = <span class="string">&quot;your-256-bit-secret&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证签名</span></span><br><span class="line">is_valid = verify_signature(header, payload, secret, signature)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Signature is valid: <span class="subst">&#123;is_valid&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
