@@ -174,138 +174,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/flink%20sql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/04/flink%20sql/" class="post-title-link" itemprop="url">flink sql</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 17:55:24" itemprop="dateCreated datePublished" datetime="2022-01-04T17:55:24+08:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-17 14:04:38" itemprop="dateModified" datetime="2023-08-17T14:04:38+08:00">2023-08-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="table-vs-view"><a href="#table-vs-view" class="headerlink" title="table vs view"></a>table vs view</h1><blockquote>
-<p>Temporary tables are always stored in memory and only exist for the duration of the Flink session they are created within. These tables are not visible to other sessions. They are not bound to any catalog or database but can be created in the namespace of one. Temporary tables are not dropped if their corresponding database is removed.</p>
-</blockquote>
-<blockquote>
-<p>Tables can be either virtual (VIEWS) or regular (TABLES). VIEWS can be created from an existing Table object, usually the result of a Table API or SQL query. TABLES describe external data, such as a file, database table, or message queue.</p>
-</blockquote>
-<h1 id="grammer"><a href="#grammer" class="headerlink" title="grammer"></a>grammer</h1><ul>
-<li>NOT ENFORCED</li>
-</ul>
-<blockquote>
-<p>If you know that the data conforms to these constraints, you can use the NOT ENFORCED capability to help achieve two goals:</p>
-<ul>
-<li>Improve performance, primarily in insert, update, and delete operations on the table</li>
-<li>Reduce space requirements that are associated with enforcing a primary key or unique constraint</li>
-</ul>
-</blockquote>
-<h1 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h1><h3 id="字符串类型："><a href="#字符串类型：" class="headerlink" title="字符串类型："></a>字符串类型：</h3><ul>
-<li>⭐ CHAR、CHAR(n)：定长字符串，就和 Java 中的 Char 一样，n 代表字符的定长，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。</li>
-<li>⭐ VARCHAR、VARCHAR(n)、STRING：可变长字符串，就和 Java 中的 String 一样，n 代表字符的最大长度，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。STRING 等同于 VARCHAR(2147483647)。</li>
-</ul>
-<h3 id="二进制字符串类型："><a href="#二进制字符串类型：" class="headerlink" title="二进制字符串类型："></a>二进制字符串类型：</h3><ul>
-<li>⭐ BINARY、BINARY(n)：定长二进制字符串，n 代表定长，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。</li>
-<li>⭐ VARBINARY、VARBINARY(n)、BYTES：可变长二进制字符串，n 代表字符的最大长度，取值范围 [1, 2,147,483,647]。如果不指定 n，则默认为 1。BYTES 等同于 VARBINARY(2147483647)。</li>
-</ul>
-<h3 id="精确数值类型："><a href="#精确数值类型：" class="headerlink" title="精确数值类型："></a>精确数值类型：</h3><ul>
-<li>⭐ DECIMAL、DECIMAL(p)、DECIMAL(p, s)、DEC、DEC(p)、DEC(p, s)、NUMERIC、NUMERIC(p)、NUMERIC(p, s)：固定长度和精度的数值类型，就和 Java 中的 BigDecimal 一样，p 代表数值位数（长度），取值范围 [1, 38]；s 代表小数点后的位数（精度），取值范围 [0, p]。如果不指定，p 默认为 10，s 默认为 0。</li>
-<li>⭐ TINYINT：-128 到 127 的 1 字节大小的有符号整数，就和 Java 中的 byte 一样。</li>
-<li>⭐ SMALLINT：-32,768 to 32,767 的 2 字节大小的有符号整数，就和 Java 中的 short 一样。</li>
-<li>⭐ INT、INTEGER：-2,147,483,648 to 2,147,483,647 的 4 字节大小的有符号整数，就和 Java 中的 int 一样。</li>
-<li>⭐ BIGINT：-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 的 8 字节大小的有符号整数，就和 Java 中的 long 一样。</li>
-</ul>
-<h3 id="有损精度数值类型："><a href="#有损精度数值类型：" class="headerlink" title="有损精度数值类型："></a>有损精度数值类型：</h3><ul>
-<li>⭐ FLOAT：4 字节大小的单精度浮点数值，就和 Java 中的 float 一样。</li>
-<li>⭐ DOUBLE、DOUBLE PRECISION：8 字节大小的双精度浮点数值，就和 Java 中的 double 一样。</li>
-<li>⭐ 关于 FLOAT 和 DOUBLE 的区别可见 <a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/float-and-double-different.html">https://www.runoob.com/w3cnote/float-and-double-different.html</a></li>
-</ul>
-<h3 id="日期、时间类型："><a href="#日期、时间类型：" class="headerlink" title="日期、时间类型："></a>日期、时间类型：</h3><ul>
-<li><p>⭐ DATE：由 <code>年-月-日</code> 组成的 <code>不带时区含义</code> 的日期类型，取值范围 [0000-01-01, 9999-12-31]</p>
-</li>
-<li><p>⭐ TIME、TIME(p)：由 <code>小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的的时间的数据类型，精度高达纳秒，取值范围 [00:00:00.000000000到23:59:59.9999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 0。</p>
-</li>
-<li><p>⭐ TIMESTAMP、TIMESTAMP(p)、TIMESTAMP WITHOUT TIME ZONE、TIMESTAMP(p) WITHOUT TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒]</code> 组成的 <code>不带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000, 9999-12-31 23:59:59.999999999]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
-<p>Timestamp precision can range from 0 (seconds) to 9 (nanoseconds). The default precision is 6.</p>
-</li>
-<li><p>⭐ TIMESTAMP WITH TIME ZONE、TIMESTAMP(p) WITH TIME ZONE：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
-</li>
-<li><p>⭐ TIMESTAMP_LTZ、TIMESTAMP_LTZ(p)：由 <code>年-月-日 小时：分钟：秒[.小数秒] 时区</code> 组成的 <code>带时区含义</code> 的时间类型，取值范围 [0000-01-01 00:00:00.000000000 +14:59, 9999-12-31 23:59:59.999999999 -14:59]。其中 p 代表小数秒的位数，取值范围 [0, 9]，如果不指定 p，默认为 6。</p>
-</li>
-<li><p>⭐ TIMESTAMP_LTZ 与 TIMESTAMP WITH TIME ZONE 的区别在于：TIMESTAMP WITH TIME ZONE 的时区信息是携带在数据中的，举例：其输入数据应该是 2022-01-01 00:00:00.000000000 +08:00；TIMESTAMP_LTZ 的时区信息不是携带在数据中的，而是由 Flink SQL 任务的全局配置决定的，我们可以由 <code>table.local-time-zone</code> 参数来设置时区。</p>
-</li>
-<li><p>⭐ INTERVAL YEAR TO MONTH、 INTERVAL DAY TO SECOND：interval 的涉及到的种类比较多。INTERVAL 主要是用于给 TIMESTAMP、TIMESTAMP_LTZ 添加偏移量的。举例，比如给 TIMESTAMP 加、减几天、几个月、几年。INTERVAL 子句总共涉及到的语法种类如下 Flink SQL 案例所示。</p>
-</li>
-</ul>
-<p>​    <strong>注意：但是在 Flink SQL 中，无法直接去掉时间字段的小数秒部分而保留时间类型。</strong></p>
-<h3 id="其它类型"><a href="#其它类型" class="headerlink" title="其它类型"></a>其它类型</h3><ol>
-<li>布尔类型：BOOLEAN</li>
-<li>⭐ NULL 类型：NULL</li>
-<li>⭐ Raw 类型：RAW(‘class’, ‘snapshot’) 。只会在数据发生网络传输时进行序列化，反序列化操作，可以保留其原始数据。以 Java 举例，<code>class</code> 参数代表具体对应的 Java 类型，<code>snapshot</code> 代表类型在发生网络传输时的序列化器</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/flink%20on%20yarn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1357,6 +1225,136 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20points/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/28/flink%20points/" class="post-title-link" itemprop="url">flink points</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-28 18:43:00" itemprop="dateCreated datePublished" datetime="2021-12-28T18:43:00+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-12 11:30:33" itemprop="dateModified" datetime="2022-01-12T11:30:33+08:00">2022-01-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
+<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
+</blockquote>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
+</blockquote>
+<p><img src="/images/flink/flink_time.png"></p>
+<ul>
+<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
+</li>
+<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
+</li>
+<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
+<blockquote>
+<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
+<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
+<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
+</blockquote>
+<p><img src="/images/flink/flink_window.png"></p>
+<ul>
+<li><p>滚动窗口（Tumbling Window）</p>
+<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
+<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
+<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
+<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
+<p><img src="/images/flink/flink_window_tumbling.png"></p>
+</li>
+<li><p>滑动窗口（Sliding Window）</p>
+<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
+<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
+<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
+<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
+<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
+<p><img src="/images/flink/flink_window_sliding.png"></p>
+</li>
+<li><p>会话窗口（Session Window）</p>
+<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
+<p>特点：<strong>时间无对齐</strong></p>
+<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
+</li>
+</ul>
+<p>​        <img src="/images/flink/flink_window_session.png"></p>
+<hr>
+<p>flink API</p>
+<p><img src="/images/flink/flink_runtime.png"></p>
+<blockquote>
+<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1426,18 +1424,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">188</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

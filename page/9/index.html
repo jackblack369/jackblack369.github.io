@@ -174,136 +174,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/28/flink%20points/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/28/flink%20points/" class="post-title-link" itemprop="url">flink points</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-28 18:43:00" itemprop="dateCreated datePublished" datetime="2021-12-28T18:43:00+08:00">2021-12-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-12 11:30:33" itemprop="dateModified" datetime="2022-01-12T11:30:33+08:00">2022-01-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flink/" itemprop="url" rel="index"><span itemprop="name">flink</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
-<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
-<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
-</blockquote>
-<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
-<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
-</blockquote>
-<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
-<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
-</blockquote>
-<p><img src="/images/flink/flink_time.png"></p>
-<ul>
-<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
-</li>
-<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
-</li>
-<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
-<blockquote>
-<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
-<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
-<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
-<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
-</blockquote>
-<p><img src="/images/flink/flink_window.png"></p>
-<ul>
-<li><p>滚动窗口（Tumbling Window）</p>
-<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
-<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
-<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
-<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
-<p><img src="/images/flink/flink_window_tumbling.png"></p>
-</li>
-<li><p>滑动窗口（Sliding Window）</p>
-<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
-<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
-<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
-<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
-<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
-<p><img src="/images/flink/flink_window_sliding.png"></p>
-</li>
-<li><p>会话窗口（Session Window）</p>
-<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
-<p>特点：<strong>时间无对齐</strong></p>
-<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
-</li>
-</ul>
-<p>​        <img src="/images/flink/flink_window_session.png"></p>
-<hr>
-<p>flink API</p>
-<p><img src="/images/flink/flink_runtime.png"></p>
-<blockquote>
-<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/24/flink%20table/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1468,6 +1338,116 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/09/ignite%20issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/09/ignite%20issue/" class="post-title-link" itemprop="url">ignite issue</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-09 15:22:02" itemprop="dateCreated datePublished" datetime="2021-12-09T15:22:02+08:00">2021-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-25 19:00:19" itemprop="dateModified" datetime="2023-09-25T19:00:19+08:00">2023-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ignite/" itemprop="url" rel="index"><span itemprop="name">ignite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="BinaryObjectException-Conflicting-enum-values"><a href="#BinaryObjectException-Conflicting-enum-values" class="headerlink" title="BinaryObjectException: Conflicting enum values"></a>BinaryObjectException: Conflicting enum values</h3><ul>
+<li><p>原因</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">存入ignite的数据格式</span><br><span class="line">key: String , value: Map&lt;Enum, BigDecimal&gt;</span><br><span class="line">Enum类型包含</span><br><span class="line">&#123;A,B,C&#125;</span><br><span class="line"></span><br><span class="line">在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间</span><br><span class="line">&#123;A,D,B,C&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于在数据存入ignite之后，ignite会保存数据相关的schema信息,此时在enum项目之间修改item，会打乱之前的index</span><br></pre></td></tr></table></figure></li>
+<li><p>解决 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">更改enum类的名称，不再使用原有的schema信息</span><br><span class="line">方法二：</span><br><span class="line">enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引</span><br><span class="line">方法三（未验证）：</span><br><span class="line">删除 $IGNITE_HOME/work/binary_meta/Nodex里面的文件</span><br></pre></td></tr></table></figure></li>
+<li><p>官方说明</p>
+<blockquote>
+<ul>
+<li>You cannot change the types of existing fields.</li>
+<li>You cannot change the order of enum values or add new constants at the beginning or in the middle of the list of enum’s values. You can add new constants to the end of the list though.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>处理conflict enum values, 需要清除数据</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>需要清理 $IGNITE_HOME/work/db目录下的 binary_meta、marshaller</p>
+<p>需要验证是否清理 storagePath、walPath、walArchivePath</p>
+</blockquote>
+<h3 id="gc"><a href="#gc" class="headerlink" title="gc"></a>gc</h3><p><img src="/images/ignite/gc_collect.png"></p>
+<blockquote>
+<p>3s进行gc  (110060-52672)/1024=56.04G</p>
+</blockquote>
+<p><img src="/images/ignite/gc_2.png"></p>
+<blockquote>
+<p>17s进行gc (109952-52658)/1024=55.95G</p>
+</blockquote>
+<h3 id="IgniteCacheException"><a href="#IgniteCacheException" class="headerlink" title="IgniteCacheException"></a>IgniteCacheException</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ERROR org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.spi</span><span class="variable">.communication</span><span class="variable">.tcp</span><span class="variable">.TcpCommunicationSpi</span>  [] - Failed to send message to remote node [node=ZookeeperClusterNode [id=<span class="number">1</span>c8a032d-<span class="number">042</span>e-<span class="number">4386</span>-<span class="number">9</span>ce8-<span class="number">2605</span>c0699304, addrs=[<span class="number">17</span><span class="variable">.9</span><span class="variable">.11</span><span class="variable">.11</span>], order=<span class="number">1</span>, loc=false, client=false], msg=GridIoMessage [plc=<span class="number">2</span>, topic=TOPIC_CACHE, topicOrd=<span class="number">8</span>, ordered=false, timeout=<span class="number">0</span>, skipOnTimeout=false, msg=GridNearLockRequest [topVer=AffinityTopologyVersion [topVer=<span class="number">358</span>, minorTopVer=<span class="number">0</span>], miniId=<span class="number">1</span>, dhtVers=GridCacheVersion[] [<span class="literal">null</span>], subjId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, taskNameHash=<span class="number">0</span>, createTtl=-<span class="number">1</span>, accessTtl=-<span class="number">1</span>, flags=<span class="number">3</span>, txLbl=<span class="literal">null</span>, filter=<span class="literal">null</span>, <span class="keyword">super</span>=GridDistributedLockRequest [nodeId=a5dbdc1d-e76e-<span class="number">49</span>c2-<span class="number">85</span>d7-ed7f1c7db7bd, nearXidVer=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], threadId=<span class="number">11960694</span>, futId=<span class="number">96</span>c1bf42d71-<span class="number">90702925</span>-<span class="number">3</span>ef9-<span class="number">4</span>c70-b7a7-<span class="number">4</span>be2fb6d75ba, timeout=<span class="number">0</span>, isInTx=true, isInvalidate=false, isRead=true, isolation=REPEATABLE_READ, retVals=[true], txSize=<span class="number">0</span>, flags=<span class="number">0</span>, keysCnt=<span class="number">1</span>, <span class="keyword">super</span>=GridDistributedBaseMessage [ver=GridCacheVersion [topVer=<span class="number">245500806</span>, order=<span class="number">1638786801426</span>, nodeOrder=<span class="number">336</span>], committedVers=<span class="literal">null</span>, rolledbackVers=<span class="literal">null</span>, cnt=<span class="number">1</span>, <span class="keyword">super</span>=GridCacheIdMessage [cacheId=-<span class="number">182240380</span>, <span class="keyword">super</span>=GridCacheMessage [msgId=<span class="number">1360862</span>, depInfo=<span class="literal">null</span>, lastAffChangedTopVer=AffinityTopologyVersion [topVer=<span class="number">336</span>, minorTopVer=<span class="number">0</span>], err=<span class="literal">null</span>, skipPrepare=false]]]]]]]</span><br><span class="line"></span><br><span class="line">org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Failed to connect to node due to unrecoverable exception (is node still alive?). Make sure that each ComputeTask <span class="keyword">and</span> cache Transaction has a timeout set in order to prevent parties from waiting <span class="keyword">forever</span> in <span class="keyword">case</span> of network issues [nodeId=d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895, addrs=[x/x<span class="variable">.x</span><span class="variable">.x</span><span class="variable">.x</span>:<span class="number">47100</span>], err= <span class="keyword">class</span> org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895]</span><br><span class="line"></span><br><span class="line">Caused by: org<span class="variable">.apache</span><span class="variable">.ignite</span><span class="variable">.IgniteCheckedException</span>: Remote node does <span class="keyword">not</span> observe current node in topology : d0a258e5-ec1b-<span class="number">4</span>f79-<span class="number">89</span>ad-<span class="number">80</span>c27708f895</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>gc的策略</li>
+<li>ignite client的异常捕获</li>
+<li></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1537,18 +1517,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">188</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-count">99</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
