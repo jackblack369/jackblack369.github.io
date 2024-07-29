@@ -11447,7 +11447,7 @@
       </tags>
   </entry>
   <entry>
-    <title>实时数仓</title>
+    <title>Real-time Data Warehouse</title>
     <url>/2021/12/30/realtime%20datahouse/</url>
     <content><![CDATA[<blockquote>
 <p>当设计一款产品或者平台的时候，可以划分为两层，即底层实现和上层抽象。</p>
@@ -11502,7 +11502,7 @@
 <p>reference <a href="https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew">https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew</a></p>
 ]]></content>
       <categories>
-        <category>实时数仓</category>
+        <category>Data Warehouse</category>
       </categories>
       <tags>
         <tag>snippet</tag>
@@ -11750,6 +11750,25 @@
 <h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul>
 <li><code>go test -v</code></li>
 <li><code>go test -cover</code></li>
+</ul>
+<h3 id="error"><a href="#error" class="headerlink" title="error"></a>error</h3><ul>
+<li> errors are values, so we can refactor it out into a variable and have a single source of truth for it.</li>
+</ul>
+  <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ErrInsufficientFunds = errors.New(<span class="string">&quot;cannot withdraw, insufficient funds&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Withdraw</span><span class="params">(amount Bitcoin)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> amount &gt; w.balance &#123;</span><br><span class="line">		<span class="keyword">return</span> ErrInsufficientFunds</span><br><span class="line">	&#125;</span><br><span class="line">	w.balance -= amount</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully">Don’t just check errors, handle them gracefully</a></li>
+</ul>
+<h3 id="pointer"><a href="#pointer" class="headerlink" title="pointer"></a>pointer</h3><blockquote>
+<p><strong>when you call a function or a method the arguments are</strong> <em><strong>copied</strong></em>.</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.</span></span><br><span class="line"><span class="comment">//*Wallet rather than Wallet which you can read as &quot;a pointer to a wallet</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Balance</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> (*w).balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul>
+<li><p>errcheck</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
