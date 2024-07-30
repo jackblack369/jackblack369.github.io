@@ -6,7 +6,7 @@
   <link href="https://www.willshirley.top/atom.xml" rel="self"/>
   
   <link href="https://www.willshirley.top/"/>
-  <updated>2024-07-28T10:46:30.075Z</updated>
+  <updated>2024-07-30T10:39:46.249Z</updated>
   <id>https://www.willshirley.top/</id>
   
   <author>
@@ -17,18 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>shell bash</title>
+    <link href="https://www.willshirley.top/2024/07/30/shell%20bash/"/>
+    <id>https://www.willshirley.top/2024/07/30/shell%20bash/</id>
+    <published>2024-07-30T10:39:34.000Z</published>
+    <updated>2024-07-30T10:39:46.249Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;the shell assigns its &lt;strong&gt;exit code&lt;/strong&gt; to the &lt;code&gt;$?&lt;/code&gt; environment variable. The &lt;code&gt;$?&lt;/code&gt; variable is how w</summary>
+      
+    
+    
+    
+    <category term="shell" scheme="https://www.willshirley.top/categories/shell/"/>
+    
+    
+    <category term="bash" scheme="https://www.willshirley.top/tags/bash/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GO learn</title>
     <link href="https://www.willshirley.top/2024/07/28/golang%20learn/"/>
     <id>https://www.willshirley.top/2024/07/28/golang%20learn/</id>
     <published>2024-07-28T07:08:28.000Z</published>
-    <updated>2024-07-28T10:46:30.075Z</updated>
+    <updated>2024-07-30T03:51:04.166Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="point"><a href="#point" class="headerlink" title="point"></a>point</h2><h3 id="sclice"><a href="#sclice" class="headerlink" title="sclice"></a>sclice</h3><ul><li>syntax <code>slice[low:high]</code></li><li>“take from 1 to the end” with <code>numbers[1:]</code>.</li></ul><h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul><li><code>go test -v</code></li><li><code>go test -cover</code></li></ul><h3 id="error"><a href="#error" class="headerlink" title="error"></a>error</h3><ul><li> errors are values, so we can refactor it out into a variable and have a single source of truth for it.</li></ul>  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ErrInsufficientFunds = errors.New(<span class="string">&quot;cannot withdraw, insufficient funds&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Withdraw</span><span class="params">(amount Bitcoin)</span> <span class="title">error</span></span> &#123;</span><br><span class="line"><span class="keyword">if</span> amount &gt; w.balance &#123;</span><br><span class="line"><span class="keyword">return</span> ErrInsufficientFunds</span><br><span class="line">&#125;</span><br><span class="line">w.balance -= amount</span><br><span class="line"><span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><a href="https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully">Don’t just check errors, handle them gracefully</a></li></ul><h3 id="pointer"><a href="#pointer" class="headerlink" title="pointer"></a>pointer</h3><blockquote><p><strong>when you call a function or a method the arguments are</strong> <em><strong>copied</strong></em>.</p></blockquote><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.</span></span><br><span class="line"><span class="comment">//*Wallet rather than Wallet which you can read as &quot;a pointer to a wallet</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Balance</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> (*w).balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul><li><p>errcheck</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><h3 id="sclice"><a href="#sclice" class="headerlink" title="sclice"></a>sclice</h3><ul><li>syntax <code>slice[low:high]</code></li><li>“take from 1 to the end” with <code>numbers[1:]</code>.</li></ul><h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><ul><li><code>go test -v</code></li><li><code>go test -cover</code></li></ul><h3 id="error"><a href="#error" class="headerlink" title="error"></a>error</h3><ul><li> errors are values, so we can refactor it out into a variable and have a single source of truth for it.</li></ul>  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ErrInsufficientFunds = errors.New(<span class="string">&quot;cannot withdraw, insufficient funds&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Withdraw</span><span class="params">(amount Bitcoin)</span> <span class="title">error</span></span> &#123;</span><br><span class="line"><span class="keyword">if</span> amount &gt; w.balance &#123;</span><br><span class="line"><span class="keyword">return</span> ErrInsufficientFunds</span><br><span class="line">&#125;</span><br><span class="line">w.balance -= amount</span><br><span class="line"><span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><a href="https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully">Don’t just check errors, handle them gracefully</a></li></ul><h3 id="pointer"><a href="#pointer" class="headerlink" title="pointer"></a>pointer</h3><blockquote><p><strong>when you call a function or a method the arguments are</strong> <em><strong>copied</strong></em>.</p></blockquote><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.</span></span><br><span class="line"><span class="comment">//*Wallet rather than Wallet which you can read as &quot;a pointer to a wallet</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Balance</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> (*w).balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h3><h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><ul><li><code>Mutex</code> allows us to add locks to our data</li><li><code>WaitGroup</code> is a means of waiting for goroutines to finish jobs</li></ul><h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul><li><p>errcheck</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li></ul><h2 id="Paraphrasing"><a href="#Paraphrasing" class="headerlink" title="Paraphrasing"></a>Paraphrasing</h2><ul><li>Use channels when passing ownership of data</li><li>Use mutexes for managing state</li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;point&quot;&gt;&lt;a href=&quot;#point&quot; class=&quot;headerlink&quot; title=&quot;point&quot;&gt;&lt;/a&gt;point&lt;/h2&gt;&lt;h3 id=&quot;sclice&quot;&gt;&lt;a href=&quot;#sclice&quot; class=&quot;headerlink&quot; title=&quot;s</summary>
+    <summary type="html">&lt;h2 id=&quot;Syntax&quot;&gt;&lt;a href=&quot;#Syntax&quot; class=&quot;headerlink&quot; title=&quot;Syntax&quot;&gt;&lt;/a&gt;Syntax&lt;/h2&gt;&lt;h3 id=&quot;sclice&quot;&gt;&lt;a href=&quot;#sclice&quot; class=&quot;headerlink&quot; titl</summary>
       
     
     
@@ -45,9 +70,9 @@
     <link href="https://www.willshirley.top/2024/07/25/code%20thought/"/>
     <id>https://www.willshirley.top/2024/07/25/code%20thought/</id>
     <published>2024-07-25T07:12:13.000Z</published>
-    <updated>2024-07-25T07:12:25.368Z</updated>
+    <updated>2024-07-29T08:52:49.444Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="TDD"><a href="#TDD" class="headerlink" title="TDD"></a>TDD</h2><p>TDD, or Test-Driven Development, is a software development process that involves writing automated tests before writing the actual code. In other words, you write the test first, and then you implement the code to make the test pass.</p><p>Here’s how it typically works:</p><ol><li><p><strong>Write a test</strong>: You write an automated test that covers a specific piece of functionality or behavior in your system.</p></li><li><p><strong>Run the test and see it fail</strong>: Since you haven’t implemented the code yet, the test will naturally fail.</p></li><li><p><strong>Write the code</strong>: You then implement the code to make the test pass. This is where you write the actual logic, algorithms, or whatever is needed to satisfy the requirements of the test.</p></li><li><p><strong>Run the test and see it pass</strong>: Now that you’ve written the code, run the test again, and if everything is correct, the test should pass!</p></li><li><p><strong>Refactor the code (if needed)</strong>: If there are any issues with the code or if you can improve the design, you refactor the code to make it more maintainable, efficient, or easier to understand.</p></li></ol><p>The key benefits of TDD include:</p><ol><li><p><strong>Improved code quality</strong>: Writing tests before writing code ensures that your code is robust and meets the requirements.</p></li><li><p><strong>Reduced bugs</strong>: By testing each piece of functionality thoroughly, you can catch errors early on, reducing the overall number of bugs in your system.</p></li><li><p><strong>Faster development</strong>: TDD helps you focus on implementing only what’s necessary to pass the test, making your development process more efficient.</p></li><li><p><strong>Better design</strong>: The process of writing tests and then implementing code encourages good design principles, such as separation of concerns, modularity, and maintainability.</p></li></ol><p>TDD is often used in conjunction with other testing methodologies, like unit testing, integration testing, or acceptance testing, to ensure that your software system is thoroughly tested and reliable.</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="TDD"><a href="#TDD" class="headerlink" title="TDD"></a>TDD</h2><p>TDD, or Test-Driven Development, is a software development process that involves writing automated tests before writing the actual code. In other words, you write the test first, and then you implement the code to make the test pass.</p><p>Here’s how it typically works:</p><ol><li><p><strong>Write a test</strong>: You write an automated test that covers a specific piece of functionality or behavior in your system.</p></li><li><p><strong>Run the test and see it fail</strong>: Since you haven’t implemented the code yet, the test will naturally fail.</p></li><li><p><strong>Write the code</strong>: You then implement the code to make the test pass. This is where you write the actual logic, algorithms, or whatever is needed to satisfy the requirements of the test.</p></li><li><p><strong>Run the test and see it pass</strong>: Now that you’ve written the code, run the test again, and if everything is correct, the test should pass!</p></li><li><p><strong>Refactor the code (if needed)</strong>: If there are any issues with the code or if you can improve the design, you refactor the code to make it more maintainable, efficient, or easier to understand.</p></li></ol><p>The key benefits of TDD include:</p><ol><li><p><strong>Improved code quality</strong>: Writing tests before writing code ensures that your code is robust and meets the requirements.</p></li><li><p><strong>Reduced bugs</strong>: By testing each piece of functionality thoroughly, you can catch errors early on, reducing the overall number of bugs in your system.</p></li><li><p><strong>Faster development</strong>: TDD helps you focus on implementing only what’s necessary to pass the test, making your development process more efficient.</p></li><li><p><strong>Better design</strong>: The process of writing tests and then implementing code encourages good design principles, such as separation of concerns, modularity, and maintainability.</p></li></ol><p>TDD is often used in conjunction with other testing methodologies, like unit testing, integration testing, or acceptance testing, to ensure that your software system is thoroughly tested and reliable.</p><h2 id="Make-it-work-make-it-right-make-it-fast"><a href="#Make-it-work-make-it-right-make-it-fast" class="headerlink" title="Make it work, make it right, make it fast"></a><a href="http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make it work, make it right, make it fast</a></h2><p>Where ‘work’ is making the tests pass, ‘right’ is refactoring the code, and ‘fast’ is optimizing the code to make it, for example, run quickly. We can only ‘make it fast’ once we’ve made it work and made it right. We were lucky that the code we were given was already demonstrated to be working, and didn’t need to be refactored. We should never try to ‘make it fast’ before the other two steps have been performed because<a href="http://wiki.c2.com/?PrematureOptimization">Premature optimization is the root of all evil</a></p>]]></content>
     
     
       
@@ -495,37 +520,6 @@
     
     
     <category term="sinppet" scheme="https://www.willshirley.top/tags/sinppet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>jupyter</title>
-    <link href="https://www.willshirley.top/2024/01/09/python%20jupyter/"/>
-    <id>https://www.willshirley.top/2024/01/09/python%20jupyter/</id>
-    <published>2024-01-09T03:48:17.000Z</published>
-    <updated>2024-02-23T01:45:33.679Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="魔法指令"><a href="#魔法指令" class="headerlink" title="魔法指令"></a>魔法指令</h2><table><thead><tr><th>魔法指令</th><th>功能说明</th></tr></thead><tbody><tr><td><code>%pwd</code></td><td>查看当前工作目录</td></tr><tr><td><code>%ls</code></td><td>列出当前或指定文件夹下的内容</td></tr><tr><td><code>%cat</code></td><td>查看指定文件的内容</td></tr><tr><td><code>%hist</code></td><td>查看输入历史</td></tr><tr><td><code>%matplotlib inline</code></td><td>设置在页面中嵌入matplotlib输出的统计图表</td></tr><tr><td><code>%config Inlinebackend.figure_format=&#39;svg&#39;</code></td><td>设置统计图表使用SVG格式（矢量图）</td></tr><tr><td><code>%run</code></td><td>运行指定的程序</td></tr><tr><td><code>%load</code></td><td>加载指定的文件到单元格中</td></tr><tr><td><code>%quickref</code></td><td>显示IPython的快速参考</td></tr><tr><td><code>%timeit</code></td><td>多次运行代码并统计代码执行时间</td></tr><tr><td><code>%prun</code></td><td>用<code>cProfile.run</code>运行代码并显示分析器的输出</td></tr><tr><td><code>%who</code> / <code>%whos</code></td><td>显示命名空间中的变量</td></tr><tr><td><code>%xdel</code></td><td>删除一个对象并清理所有对它的引用</td></tr></tbody></table><h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>JupyterLab 的快捷键可以分为<strong>命令模式</strong>下的快捷键和<strong>编辑模式</strong>下的快捷键，</p><p>所谓编辑模式就是处于输入代码或撰写文档状态的模式，在编辑模式下按<code>Esc</code>可以回到命令模式，在命令模式下按<code>Enter</code>可以进入编辑模式。</p><ul><li>命令模式下的快捷键：</li></ul><table><thead><tr><th>快捷键</th><th>功能说明</th></tr></thead><tbody><tr><td><code>Alt</code> + <code>Enter</code></td><td>运行当前单元格并在下面插入新的单元格</td></tr><tr><td><code>Shift</code> + <code>Enter</code></td><td>运行当前单元格并选中下方的单元格</td></tr><tr><td><code>Ctrl</code> + <code>Enter</code></td><td>运行当前单元格</td></tr><tr><td><code>j</code> / <code>k</code>、<code>Shift</code> + <code>j</code> / <code>Shift</code> + <code>k</code></td><td>选中下方/上方单元格、连续选中下方/上方单元格</td></tr><tr><td><code>a</code> / <code>b</code></td><td>在下方/上方插入新的单元格</td></tr><tr><td><code>c</code> / <code>x</code></td><td>复制单元格 / 剪切单元格</td></tr><tr><td><code>v</code> / <code>Shift</code> + <code>v</code></td><td>在下方/上方粘贴单元格</td></tr><tr><td><code>dd</code> / <code>z</code></td><td>删除单元格 / 恢复删除的单元格</td></tr><tr><td><code>Shift</code> + <code>l</code></td><td>显示或隐藏当前/所有单元格行号</td></tr><tr><td><code>Space</code> / <code>Shift</code> + <code>Space</code></td><td>向下/向上滚动页面</td></tr></tbody></table><ul><li>编辑模式下的快捷键：</li></ul><table><thead><tr><th>快捷键</th><th>功能说明</th></tr></thead><tbody><tr><td><code>Shift</code> + <code>Tab</code></td><td>获得提示信息</td></tr><tr><td><code>Ctrl</code> + <code>]</code>/ <code>Ctrl</code> + <code>[</code></td><td>增加/减少缩进</td></tr><tr><td><code>Alt</code> + <code>Enter</code></td><td>运行当前单元格并在下面插入新的单元格</td></tr><tr><td><code>Shift</code> + <code>Enter</code></td><td>运行当前单元格并选中下方的单元格</td></tr><tr><td><code>Ctrl</code> + <code>Enter</code></td><td>运行当前单元格</td></tr><tr><td><code>Ctrl</code> + <code>Left</code> / <code>Right</code></td><td>光标移到行首/行尾</td></tr><tr><td><code>Ctrl</code> + <code>Up</code> / <code>Down</code></td><td>光标移动代码开头/结尾处</td></tr><tr><td><code>Up</code> / <code>Down</code></td><td>光标上移/下移一行或移到上/下一个单元格</td></tr></tbody></table><blockquote><p><strong>说明</strong>：对于 macOS 系统可以将<code>Alt</code>键替换成<code>Option</code>键，将<code>Ctrl</code>键替换成<code>Command</code>键。</p></blockquote>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;魔法指令&quot;&gt;&lt;a href=&quot;#魔法指令&quot; class=&quot;headerlink&quot; title=&quot;魔法指令&quot;&gt;&lt;/a&gt;魔法指令&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;魔法指令&lt;/th&gt;
-&lt;th&gt;功能说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;</summary>
-      
-    
-    
-    
-    <category term="jupyter" scheme="https://www.willshirley.top/categories/jupyter/"/>
-    
-    
-    <category term="ide" scheme="https://www.willshirley.top/tags/ide/"/>
     
   </entry>
   

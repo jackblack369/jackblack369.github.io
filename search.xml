@@ -3310,6 +3310,10 @@
 <li><p>Method 2: 只想回滚到指定提交，并保留后续提交历史</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git revert &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h4 id="删除未被追踪的文件或目录"><a href="#删除未被追踪的文件或目录" class="headerlink" title="删除未被追踪的文件或目录"></a>删除未被追踪的文件或目录</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看将要删除的文件</span></span><br><span class="line">git clean -n</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除未追踪的文件</span></span><br><span class="line">git clean -f</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除未追踪的文件和目录</span></span><br><span class="line">git clean -fd</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除未追踪的文件、目录和忽略的文件</span></span><br><span class="line">git clean -fdx</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h4 id="查看分支提交历史"><a href="#查看分支提交历史" class="headerlink" title="查看分支提交历史"></a>查看分支提交历史</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --oneline --graph --decorate</span><br></pre></td></tr></table></figure>
 
 <h4 id="查看分支对应的远程分支"><a href="#查看分支对应的远程分支" class="headerlink" title="查看分支对应的远程分支"></a>查看分支对应的远程分支</h4><p><code>git branch -vv</code></p>
@@ -11732,6 +11736,7 @@
 </li>
 </ol>
 <p>TDD is often used in conjunction with other testing methodologies, like unit testing, integration testing, or acceptance testing, to ensure that your software system is thoroughly tested and reliable.</p>
+<h2 id="Make-it-work-make-it-right-make-it-fast"><a href="#Make-it-work-make-it-right-make-it-fast" class="headerlink" title="Make it work, make it right, make it fast"></a><a href="http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make it work, make it right, make it fast</a></h2><p>Where ‘work’ is making the tests pass, ‘right’ is refactoring the code, and ‘fast’ is optimizing the code to make it, for example, run quickly. We can only ‘make it fast’ once we’ve made it work and made it right. We were lucky that the code we were given was already demonstrated to be working, and didn’t need to be refactored. We should never try to ‘make it fast’ before the other two steps have been performed because<a href="http://wiki.c2.com/?PrematureOptimization">Premature optimization is the root of all evil</a></p>
 ]]></content>
       <categories>
         <category>code</category>
@@ -11743,11 +11748,11 @@
   <entry>
     <title>GO learn</title>
     <url>/2024/07/28/golang%20learn/</url>
-    <content><![CDATA[<h2 id="point"><a href="#point" class="headerlink" title="point"></a>point</h2><h3 id="sclice"><a href="#sclice" class="headerlink" title="sclice"></a>sclice</h3><ul>
+    <content><![CDATA[<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><h3 id="sclice"><a href="#sclice" class="headerlink" title="sclice"></a>sclice</h3><ul>
 <li>syntax <code>slice[low:high]</code></li>
 <li>“take from 1 to the end” with <code>numbers[1:]</code>.</li>
 </ul>
-<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul>
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><ul>
 <li><code>go test -v</code></li>
 <li><code>go test -cover</code></li>
 </ul>
@@ -11764,11 +11769,17 @@
 </blockquote>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.</span></span><br><span class="line"><span class="comment">//*Wallet rather than Wallet which you can read as &quot;a pointer to a wallet</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Balance</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> (*w).balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
+<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h3><h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><ul>
+<li><code>Mutex</code> allows us to add locks to our data</li>
+<li><code>WaitGroup</code> is a means of waiting for goroutines to finish jobs</li>
+</ul>
 <h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul>
 <li><p>errcheck</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Paraphrasing"><a href="#Paraphrasing" class="headerlink" title="Paraphrasing"></a>Paraphrasing</h2><ul>
+<li>Use channels when passing ownership of data</li>
+<li>Use mutexes for managing state</li>
 </ul>
 ]]></content>
       <categories>
@@ -11776,6 +11787,20 @@
       </categories>
       <tags>
         <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shell bash</title>
+    <url>/2024/07/30/shell%20bash/</url>
+    <content><![CDATA[<ul>
+<li>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>bash</tag>
       </tags>
   </entry>
 </search>
