@@ -5453,7 +5453,7 @@
   <entry>
     <title>linux command</title>
     <url>/2015/10/16/linux%20command/</url>
-    <content><![CDATA[<p><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
+    <content><![CDATA[<h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
 <h3 id="Bash-Shell-Scripting-Definition"><a href="#Bash-Shell-Scripting-Definition" class="headerlink" title="Bash Shell Scripting Definition"></a>Bash Shell Scripting Definition</h3><ul>
 <li>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. <h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</li>
 </ul>
@@ -5490,7 +5490,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
-<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
@@ -11736,7 +11736,32 @@
 </li>
 </ol>
 <p>TDD is often used in conjunction with other testing methodologies, like unit testing, integration testing, or acceptance testing, to ensure that your software system is thoroughly tested and reliable.</p>
-<h2 id="Make-it-work-make-it-right-make-it-fast"><a href="#Make-it-work-make-it-right-make-it-fast" class="headerlink" title="Make it work, make it right, make it fast"></a><a href="http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make it work, make it right, make it fast</a></h2><p>Where ‘work’ is making the tests pass, ‘right’ is refactoring the code, and ‘fast’ is optimizing the code to make it, for example, run quickly. We can only ‘make it fast’ once we’ve made it work and made it right. We were lucky that the code we were given was already demonstrated to be working, and didn’t need to be refactored. We should never try to ‘make it fast’ before the other two steps have been performed because<a href="http://wiki.c2.com/?PrematureOptimization">Premature optimization is the root of all evil</a></p>
+<h1 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h1><ul>
+<li><p><a href="http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make it work, make it right, make it fast</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Where &#x27;work&#x27; is making the tests pass, &#x27;right&#x27; is refactoring the code, and &#x27;fast&#x27; is optimizing the code to make it, for example, run quickly. We can only &#x27;make it fast&#x27; once we&#x27;ve made it work and made it right. We were lucky that the code we were given was already demonstrated to be working, and didn&#x27;t need to be refactored. We should never try to &#x27;make it fast&#x27; before the other two steps have been performed because[Premature optimization is the root of all evil](http://wiki.c2.com/?PrematureOptimization)</span><br></pre></td></tr></table></figure></li>
+<li><p><a href="https://en.wikipedia.org/wiki/If_it_ain't_broke,_don't_fix_it">If it ain’t broke, don’t fix it</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/KISS_principle">KISS principle</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Don't_repeat_yourself">Don’t repeat yourself</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Feature_creep">Feature creep</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/List_of_software_development_philosophies">List of software development philosophies</a> -</p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Minimum_viable_product">Minimum viable product</a></p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/MoSCoW_method">MoSCoW method</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Overengineering">Overengineering</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Worse_is_better">Worse is better</a> </p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/SOLID">S.O.L.I.D.</a></p>
+</li>
+<li><p><a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix philosophy</a></p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>code</category>
@@ -11769,6 +11794,12 @@
 </blockquote>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.</span></span><br><span class="line"><span class="comment">//*Wallet rather than Wallet which you can read as &quot;a pointer to a wallet</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Balance</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> (*w).balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">value, ok := <span class="keyword">interface</span>&#123;&#125;(container).(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h3><ul>
+<li>引用类型：切片、字典、通道、函数</li>
+<li>值类型：数组、基础数据类型以及结构体类型</li>
+</ul>
 <h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h3><h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><ul>
 <li><code>Mutex</code> allows us to add locks to our data</li>
 <li><code>WaitGroup</code> is a means of waiting for goroutines to finish jobs</li>
@@ -11778,8 +11809,14 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="Paraphrasing"><a href="#Paraphrasing" class="headerlink" title="Paraphrasing"></a>Paraphrasing</h2><ul>
-<li>Use channels when passing ownership of data</li>
-<li>Use mutexes for managing state</li>
+<li><p>Use channels when passing ownership of data</p>
+</li>
+<li><p>Use mutexes for managing state</p>
+</li>
+<li><p>名称的首字母为大写的程序实体才可以被当前包外的代码引用，否则它就只能被当前包内的其他代码引用。</p>
+</li>
+<li><p>一对不包裹任何东西的花括号，除了可以代表空的代码块之外，还可以用于表示不包含任何内容的数据结构（或者说数据类型）</p>
+</li>
 </ul>
 ]]></content>
       <categories>
