@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="k8s deployinstall kubelet kubeadm kubectl Step1  123# Set SELinux in permissive mode (effectively disabling it)sudo setenforce 0sudo sed -i &amp;#x27;s&#x2F;^SELINUX&#x3D;enforcing$&#x2F;SELINUX&#x3D;permissive&#x2F;&amp;#x27; &#x2F;etc&#x2F;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes delploy">
+<meta property="og:url" content="https://www.willshirley.top/2024/08/05/kubernetes%20deploy/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="k8s deployinstall kubelet kubeadm kubectl Step1  123# Set SELinux in permissive mode (effectively disabling it)sudo setenforce 0sudo sed -i &amp;#x27;s&#x2F;^SELINUX&#x3D;enforcing$&#x2F;SELINUX&#x3D;permissive&#x2F;&amp;#x27; &#x2F;etc&#x2F;s">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-04T16:37:47.000Z">
+<meta property="article:modified_time" content="2024-08-04T16:40:47.546Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="deploy">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Kubernetes delploy</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/07/30/shell%20bash/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&text=Kubernetes delploy"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes delploy&body=Check out this article: https://www.willshirley.top/2024/08/05/kubernetes%20deploy/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&title=Kubernetes delploy"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&title=Kubernetes delploy"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&title=Kubernetes delploy"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&t=Kubernetes delploy"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#k8s-deploy"><span class="toc-number">1.</span> <span class="toc-text">k8s deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#install-kubelet-kubeadm-kubectl"><span class="toc-number">1.1.</span> <span class="toc-text">install kubelet kubeadm kubectl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#install-Container-Runtimes"><span class="toc-number">1.2.</span> <span class="toc-text">install Container Runtimes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#containerd"><span class="toc-number">1.2.1.</span> <span class="toc-text">containerd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRI-O"><span class="toc-number">1.2.2.</span> <span class="toc-text">CRI-O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Engine"><span class="toc-number">1.2.3.</span> <span class="toc-text">Docker Engine</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#config-crictl"><span class="toc-number">1.3.</span> <span class="toc-text">config crictl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kubeadm-deploy-cluster"><span class="toc-number">1.4.</span> <span class="toc-text">kubeadm deploy cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initializing-control-plane-node"><span class="toc-number">1.4.1.</span> <span class="toc-text">Initializing  control-plane node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#join-node"><span class="toc-number">1.4.2.</span> <span class="toc-text">join node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#optional"><span class="toc-number">1.4.3.</span> <span class="toc-text">optional</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Kubernetes delploy
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-04T16:37:47.000Z" class="dt-published" itemprop="datePublished">2024-08-05</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Kubernetes/">Kubernetes</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/deploy/" rel="tag">deploy</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="k8s-deploy"><a href="#k8s-deploy" class="headerlink" title="k8s deploy"></a>k8s deploy</h1><h2 id="install-kubelet-kubeadm-kubectl"><a href="#install-kubelet-kubeadm-kubectl" class="headerlink" title="install kubelet kubeadm kubectl"></a>install kubelet kubeadm kubectl</h2><ul>
+<li>Step1</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Set SELinux <span class="keyword">in</span> permissive mode (effectively disabling it)</span></span><br><span class="line">sudo setenforce 0</span><br><span class="line">sudo sed -i &#x27;s/^SELINUX=enforcing$/SELINUX=permissive/&#x27; /etc/selinux/config</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step2</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://mirrors.ustc.edu.cn/kubernetes/core:/stable:/v1.30/rpm/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://mirrors.ustc.edu.cn/kubernetes/core:/stable:/v1.30/rpm/repodata/repomd.xml.key</span><br><span class="line">exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step3</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line">sudo systemctl enable --now kubelet</span><br></pre></td></tr></table></figure>
+
+<h2 id="install-Container-Runtimes"><a href="#install-Container-Runtimes" class="headerlink" title="install Container Runtimes"></a>install Container Runtimes</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cloudraft.io/blog/container-runtimes">https://www.cloudraft.io/blog/container-runtimes</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Runtime	Path to Unix domain socket</span><br><span class="line">containerd	unix:///var/run/containerd/containerd.sock</span><br><span class="line">CRI-O	unix:///var/run/crio/crio.sock</span><br><span class="line">Docker Engine (using cri-dockerd)	unix:///var/run/cri-dockerd.sock</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Enable ipv4 packet forward</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sysctl params required by setup, params persist across reboots</span></span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf</span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line">EOF</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Apply sysctl params without reboot</span></span><br><span class="line">sudo sysctl --system</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify that net.ipv4.ip_forward is <span class="built_in">set</span> to 1</span></span><br><span class="line">sysctl net.ipv4.ip_forward</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>cgroup driver</li>
+</ul>
+<p>To set <code>systemd</code> as the cgroup driver, edit the <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/"><code>KubeletConfiguration</code></a> option of <code>cgroupDriver</code> and set it to <code>systemd</code>. For example:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">kubelet.config.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">KubeletConfiguration</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="attr">cgroupDriver:</span> <span class="string">systemd</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="containerd"><a href="#containerd" class="headerlink" title="containerd"></a>containerd</h3><ul>
+<li><p>stop docker service (is necessary ?) </p>
+</li>
+<li><p>init config.toml</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo containerd config default | sudo tee /etc/containerd/config.toml</span><br></pre></td></tr></table></figure></li>
+<li><p>config </p>
+</li>
+</ul>
+<p>Configuring the <code>systemd</code> cgroup driver</p>
+<p><code>sudo vim /etc/containerd/config.toml</code></p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#disabled_plugins = [&quot;cri&quot;]</span></span><br><span class="line"><span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc]</span></span><br><span class="line">  <span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc.options]</span></span><br><span class="line">    <span class="attr">SystemdCgroup</span> = <span class="literal">true</span></span><br><span class="line"><span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;]</span></span><br><span class="line">  <span class="attr">sandbox_image</span> = <span class="string">&quot;registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9&quot;</span></span><br><span class="line">  <span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span>	</span><br><span class="line">    <span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors]</span></span><br><span class="line">      <span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;docker.io&quot;]</span></span><br><span class="line">        <span class="attr">endpoint</span>=[<span class="string">&quot;https://registry-1.docker.io&quot;</span>, <span class="string">&quot;https://xxx.mirror.aliyuncs.com&quot;</span>]</span><br><span class="line">      <span class="section">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;registry.k8s.io&quot;]</span></span><br><span class="line">        <span class="attr">endpoint</span>=[<span class="string">&quot;https://xxx.mirror.aliyuncs.com&quot;</span>, <span class="string">&quot;https://k8s.m.daocloud.io&quot;</span>, <span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span>,<span class="string">&quot;https://hub-mirror.c.163.com&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p><code>sudo systemctl restart containerd</code></p>
+<ul>
+<li><p>check containerd version</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">containerd --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> containerd containerd.io 1.7.19</span> </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="CRI-O"><a href="#CRI-O" class="headerlink" title="CRI-O"></a>CRI-O</h3><ul>
+<li><p>set repo</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/cri-o.repo</span><br><span class="line">[cri-o]</span><br><span class="line">name=CRI-O</span><br><span class="line">baseurl=https://mirrors.ustc.edu.cn/kubernetes/addons:/cri-o:/stable:/v1.30/rpm/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://mirrors.ustc.edu.cn/kubernetes/addons:/cri-o:/stable:/v1.30/rpm/repodata/repomd.xml.key</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></li>
+<li><p>install</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dnf install -y container-selinux</span><br><span class="line">dnf install -y cri-o</span><br><span class="line">systemctl start crio.service</span><br></pre></td></tr></table></figure></li>
+<li><p>bootstrap cluster</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -w net.ipv4.ip_forward=1</span><br><span class="line"></span><br><span class="line">kubeadm init</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Docker-Engine"><a href="#Docker-Engine" class="headerlink" title="Docker Engine"></a>Docker Engine</h3><ul>
+<li><p>install docker (existing)</p>
+</li>
+<li><p>install <code>cri-dockerd</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> extract tgz</span></span><br><span class="line">tar -xzvf cri-dockerd-0.3.15.amd64.tgz</span><br><span class="line"></span><br><span class="line">sudo mv ./cri-dockerd /usr/local/bin/</span><br><span class="line">wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.service</span><br><span class="line">wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.socket</span><br><span class="line">sudo mv cri-docker.socket cri-docker.service /etc/systemd/system/</span><br><span class="line">sudo sed -i -e &#x27;s,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,&#x27; /etc/systemd/system/cri-docker.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span> service</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl enable cri-docker.service</span><br><span class="line">sudo systemctl enable --now cri-docker.socket</span><br><span class="line">sudo systemctl status cri-docker.socket</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="config-crictl"><a href="#config-crictl" class="headerlink" title="config crictl"></a>config crictl</h2><ul>
+<li>Config containerd <code>vim /etc/crictl.yaml</code></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">runtime-endpoint:</span> <span class="string">unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="attr">image-endpoint:</span> <span class="string">unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="attr">timeout:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">debug:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">pull-image-on-create:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>verify mirror</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo crictl info</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="kubeadm-deploy-cluster"><a href="#kubeadm-deploy-cluster" class="headerlink" title="kubeadm deploy cluster"></a>kubeadm deploy cluster</h2><h3 id="Initializing-control-plane-node"><a href="#Initializing-control-plane-node" class="headerlink" title="Initializing  control-plane node"></a>Initializing  control-plane node</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo kubeadm config images pull --config kubeadm.conf</span><br><span class="line"></span><br><span class="line">sudo kubeadm init --config kubeadm.conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>(optional) resert (back to kubeadm init)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubeadm reset --cri-socket unix:///var/run/containerd/containerd.sock</span><br></pre></td></tr></table></figure></li>
+<li><p>Use kubectl</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME/.kube/config</span><br></pre></td></tr></table></figure></li>
+<li><p>check the CoreDNS Pod is <code>Running</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods --all-namespaces</span><br><span class="line"></span><br><span class="line">NAMESPACE     NAME                                READY   STATUS    RESTARTS   AGE</span><br><span class="line">kube-system   coredns-7b5944fdcf-mgwq2            1/1     Running   0          4h22m</span><br><span class="line">kube-system   coredns-7b5944fdcf-sxfvt            1/1     Running   0          4h22m</span><br><span class="line">kube-system   etcd-dingo7232                      1/1     Running   1          4h22m</span><br><span class="line">kube-system   kube-apiserver-dingo7232            1/1     Running   1          4h22m</span><br><span class="line">kube-system   kube-controller-manager-dingo7232   1/1     Running   1          4h22m</span><br><span class="line">kube-system   kube-proxy-w2lfk                    1/1     Running   0          4h22m</span><br><span class="line">kube-system   kube-scheduler-dingo7232            1/1     Running   1          4h22m</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="join-node"><a href="#join-node" class="headerlink" title="join node"></a>join node</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubeadm join --token &lt;token&gt; &lt;control-plane-host&gt;:&lt;control-plane-port&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Check on control-plane</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get nodes</span><br></pre></td></tr></table></figure>
+
+<h3 id="optional"><a href="#optional" class="headerlink" title="optional"></a>optional</h3><ul>
+<li>other node use kubectl</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp root@&lt;control-plane-host&gt;:/etc/kubernetes/admin.conf .</span><br><span class="line">kubectl --kubeconfig ./admin.conf get nodes</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#k8s-deploy"><span class="toc-number">1.</span> <span class="toc-text">k8s deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#install-kubelet-kubeadm-kubectl"><span class="toc-number">1.1.</span> <span class="toc-text">install kubelet kubeadm kubectl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#install-Container-Runtimes"><span class="toc-number">1.2.</span> <span class="toc-text">install Container Runtimes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#containerd"><span class="toc-number">1.2.1.</span> <span class="toc-text">containerd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRI-O"><span class="toc-number">1.2.2.</span> <span class="toc-text">CRI-O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Engine"><span class="toc-number">1.2.3.</span> <span class="toc-text">Docker Engine</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#config-crictl"><span class="toc-number">1.3.</span> <span class="toc-text">config crictl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kubeadm-deploy-cluster"><span class="toc-number">1.4.</span> <span class="toc-text">kubeadm deploy cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initializing-control-plane-node"><span class="toc-number">1.4.1.</span> <span class="toc-text">Initializing  control-plane node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#join-node"><span class="toc-number">1.4.2.</span> <span class="toc-text">join node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#optional"><span class="toc-number">1.4.3.</span> <span class="toc-text">optional</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&text=Kubernetes delploy"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes delploy&body=Check out this article: https://www.willshirley.top/2024/08/05/kubernetes%20deploy/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&title=Kubernetes delploy"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&title=Kubernetes delploy"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&title=Kubernetes delploy"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/05/kubernetes%20deploy/&t=Kubernetes delploy"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
