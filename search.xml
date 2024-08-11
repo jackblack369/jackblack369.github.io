@@ -1387,16 +1387,25 @@
   <entry>
     <title>Kubernetes learn</title>
     <url>/2021/12/02/Kubernetes%20snippet/</url>
-    <content><![CDATA[<p>Kubernetes is pronounced <strong>coo-ber-net-ees</strong>, not coo-ber-neats. People also use the shortened version k8s a lot. Please don’t pronounce that one k-eights—it is still coo-ber-net-ees.</p>
+    <content><![CDATA[<blockquote>
+<p><strong>容器是一个“单进程”模型</strong></p>
+<p>一个“容器”，实际上是一个由 Linux Namespace、Linux Cgroups 和 rootfs 三种技术构建出来的进程的隔离环境</p>
+<p>一个正在运行的 Linux 容器，其实可以被“一分为二”地看待：</p>
+<ol>
+<li>一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（Container Image），是容器的静态视图；</li>
+<li>一个由 Namespace+Cgroups 构成的隔离环境，这一部分我们称为“容器运行时”（Container Runtime），是容器的动态视图。</li>
+</ol>
+</blockquote>
+<h1 id="define"><a href="#define" class="headerlink" title="define"></a>define</h1><blockquote>
+<p>容器本身没有价值，有价值的是“容器编排”。</p>
+</blockquote>
+<p>Kubernetes is pronounced <strong>coo-ber-net-ees</strong>, not coo-ber-neats. People also use the shortened version k8s a lot. Please don’t pronounce that one k-eights—it is still coo-ber-net-ees.</p>
 <h3 id="Difference-between-Docker-and-Kubernetes"><a href="#Difference-between-Docker-and-Kubernetes" class="headerlink" title="Difference between Docker and Kubernetes"></a>Difference between Docker and Kubernetes</h3><blockquote>
 <p>Docker is a containerization platform, and Kubernetes is a container orchestrator for container platforms like Docker. </p>
 </blockquote>
-<h3 id="Docker-Container-Problems"><a href="#Docker-Container-Problems" class="headerlink" title="Docker Container Problems:"></a>Docker Container Problems:</h3><ul>
-<li>How would all of these containers be coordinated and scheduled? </li>
-<li>How do you seamlessly upgrade an application without any interruption of service? </li>
-<li>How do you monitor the health of an application, know when something goes wrong and seamlessly restart it? </li>
+<h3 id="Docker-Container"><a href="#Docker-Container" class="headerlink" title="Docker Container"></a>Docker Container</h3><ul>
+<li>默认情况下，Docker 会为你提供一个隐含的 ENTRYPOINT，即：/bin/sh -c。所以，在不指定 ENTRYPOINT 时，比如运行在容器里的完整进程是：/bin/sh -c “python xxx.py”，即 CMD 的内容就是 ENTRYPOINT 的参数</li>
 </ul>
-<p>When most people talk about “Kubernetes vs. Docker,” what they really mean is “Kubernetes vs. Docker Swarm.” </p>
 <h3 id="Kubernetes-architecture-and-its-components"><a href="#Kubernetes-architecture-and-its-components" class="headerlink" title="Kubernetes architecture and its components"></a>Kubernetes architecture and its components</h3><p>We can break down the components into three main parts.</p>
 <ol>
 <li>The Control Plane - The Master.</li>
@@ -1405,6 +1414,16 @@
 </ol>
 <p><img src="./img/kubernetes_cluster.png"></p>
 <p>Docker is a platform and tool for building, distributing, and running Docker containers. It offers its own native clustering tool that can be used to orchestrate and schedule containers on machine clusters. Kubernetes is a container orchestration system for Docker containers that is more extensive than Docker Swarm and is meant to coordinate clusters of nodes at scale in production in an efficient manner. It works around the concept of pods, which are scheduling units (and can contain one or more containers) in the Kubernetes ecosystem, and they are distributed among nodes to provide high availability. One can easily run a Docker build on a Kubernetes cluster, but Kubernetes itself is not a complete solution and is meant to include custom plugins.</p>
+<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="cgoups"><a href="#cgoups" class="headerlink" title="cgoups"></a>cgoups</h2><blockquote>
+<p> <strong>Linux Cgroups 的全称是 Linux Control Group。它最主要的作用，就是限制一个进程组能够使用的资源上限，包括 CPU、内存、磁盘、网络带宽等等。</strong></p>
+</blockquote>
+<ul>
+<li>Cgroups 给用户暴露出来的操作接口是文件系统，即它以文件和目录的方式组织在操作系统的 /sys/fs/cgroup 路径下</li>
+<li>Linux Cgroups 的设计还是比较易用的，简单粗暴地理解它就是一个子系统目录加上一组资源限制文件的组合</li>
+</ul>
+<h2 id="rootfs"><a href="#rootfs" class="headerlink" title="rootfs"></a>rootfs</h2><blockquote>
+<p>它只是一个操作系统的所有文件和目录，并不包含内核，最多也就几百兆</p>
+</blockquote>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><ul>
 <li>需要切换到root用户</li>
 <li>或使用kubeconfig <code>kubectl delete pod auth-server-server-5cbfd46c5b-9zs26 --force --kubeconfig=./kubeconfig</code></li>
@@ -1435,6 +1454,11 @@
 
 <h2 id="复制服务器文件到宿主机"><a href="#复制服务器文件到宿主机" class="headerlink" title="复制服务器文件到宿主机"></a>复制服务器文件到宿主机</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file</span><br></pre></td></tr></table></figure>
 
+<h1 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h1><ul>
+<li><p>过去很多的集群管理项目（比如 Yarn、Mesos，以及 Swarm）所擅长的，都是把一个容器，按照某种规则，放置在某个最佳节点上运行起来。这种功能，我们称为“调度”。</p>
+<p>而 Kubernetes 项目所擅长的，是按照用户的意愿和整个系统的规则，完全自动化地处理好容器之间的各种关系。<strong>这种功能，就是：编排。</strong></p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>Kubernetes</category>
@@ -11796,13 +11820,7 @@
 </blockquote>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.</span></span><br><span class="line"><span class="comment">//*Wallet rather than Wallet which you can read as &quot;a pointer to a wallet</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span> <span class="title">Balance</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> (*w).balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">value, ok := <span class="keyword">interface</span>&#123;&#125;(container).(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h3><ul>
-<li>引用类型：切片、字典、通道、函数</li>
-<li>值类型：数组、基础数据类型以及结构体类型</li>
-</ul>
-<h3 id="pointer-1"><a href="#pointer-1" class="headerlink" title="pointer"></a>pointer</h3><ul>
+<ul>
 <li>不可寻址的情况：</li>
 </ul>
 <ol>
@@ -11810,7 +11828,23 @@
 <li>绝大多数被视为<strong>临时结果</strong>的值都是不可寻址的。算术操作的结果值属于临时结果，针对值字面量的表达式结果值也属于临时结果。但有一个例外，对切片字面量的索引结果值虽然也属于临时结果，但却是可寻址的。</li>
 <li>若拿到某值的指针可能会破坏程序的一致性，那么就是<strong>不安全的</strong>，该值就不可寻址。由于字典的内部机制，对字典的索引结果值的取址操作都是不安全的。另外，获取由字面量或标识符代表的函数或方法的地址显然也是不安全的。</li>
 </ol>
-<h3 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h3><h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><ul>
+<h3 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">value, ok := <span class="keyword">interface</span>&#123;&#125;(container).(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="data-type"><a href="#data-type" class="headerlink" title="data type"></a>data type</h3><ul>
+<li>引用类型：切片、字典、通道、函数</li>
+<li>值类型：数组、基础数据类型以及结构体类型</li>
+</ul>
+<h3 id="pointer-1"><a href="#pointer-1" class="headerlink" title="pointer"></a>pointer</h3><ul>
+<li></li>
+</ul>
+<h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul>
+<li><p>errcheck</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="concurrency"><a href="#concurrency" class="headerlink" title="concurrency"></a>concurrency</h2><blockquote>
+<p>Do not communicate by sharing memory; instead, share memory by communicating.</p>
+</blockquote>
+<h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><ul>
 <li><p><code>Mutex</code> allows us to add locks to our data</p>
 <blockquote>
 <p>mutual exclusion，简称 mutex</p>
@@ -11820,10 +11854,6 @@
 </li>
 <li><p><code>RWMutex</code> 读写锁</p>
 </li>
-</ul>
-<h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul>
-<li><p>errcheck</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="best-practise"><a href="#best-practise" class="headerlink" title="best practise"></a>best practise</h2><h3 id="directory"><a href="#directory" class="headerlink" title="directory"></a>directory</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">project-root/</span><br><span class="line">├── cmd/  # 包含项目的主要应用程序。每个应用程序都有一个单独的子目录。</span><br><span class="line">│   └── myapp/</span><br><span class="line">│       └── main.go  # 主应用程序入口点</span><br><span class="line">├── internal/  # 包含不希望其他项目导入的包</span><br><span class="line">│   ├── app/  # 应用程序的核心逻辑</span><br><span class="line">│   │   └── app.go</span><br><span class="line">│   ├── config/  # 配置相关代码</span><br><span class="line">│   │   └── config.go</span><br><span class="line">│   └── models/  # 数据模型</span><br><span class="line">│       └── user.go</span><br><span class="line">├── pkg/  # 可以被外部应用程序使用的库代码</span><br><span class="line">│   ├── database/  # 数据库操作相关代码</span><br><span class="line">│   │   └── database.go</span><br><span class="line">│   └── utils/  # 通用工具函数</span><br><span class="line">│       └── helper.go</span><br><span class="line">├── api/  # API相关的代码，如果项目提供API</span><br><span class="line">│   └── v1/</span><br><span class="line">│       └── api.go</span><br><span class="line">├── web/  # Web应用相关的文件，如模板和静态资产</span><br><span class="line">│   ├── templates/</span><br><span class="line">│   └── static/</span><br><span class="line">├── scripts/  # 各种工具脚本，如数据库迁移脚本</span><br><span class="line">│   └── migrate.go</span><br><span class="line">├── tests/  # 单元测试和集成测试</span><br><span class="line">│   └── app_test.go</span><br><span class="line">├── docs/  # 项目文档</span><br><span class="line">│   └── README.md</span><br><span class="line">├── go.mod  # Go模块文件</span><br><span class="line">├── go.sum</span><br><span class="line">├── .gitignore</span><br><span class="line">└── README.md</span><br></pre></td></tr></table></figure>
 
