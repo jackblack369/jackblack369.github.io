@@ -13,11 +13,18 @@
 <meta property="og:site_name" content="source is the essence">
 <meta property="og:description" content="Agent &#x3D; Large Language Model (LLM) + Observation + Thought + Action + Memory MultiAgent &#x3D; Agents + Environment + Standard Operating Procedure (SOP) + Communication + Economy ReAct1(reason, act) 是一种使用">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/llm/How-Does-AutoGPT-Work.webp">
+<meta property="og:image" content="https://www.willshirley.top/images/llm/babyagent-0.png">
+<meta property="og:image" content="https://www.willshirley.top/images/llm/babyagent-1.jpeg">
+<meta property="og:image" content="https://www.willshirley.top/images/llm/babyagent-2.jpeg">
+<meta property="og:image" content="https://www.willshirley.top/images/llm/agent_run_flowchart.png">
+<meta property="og:image" content="https://www.willshirley.top/Users/dongwei/datacanvas/doc_dev_jarvex/02-dev/Jarvex/img/agent/metaAgent/multi_agents.png">
 <meta property="article:published_time" content="2024-01-24T04:21:30.000Z">
-<meta property="article:modified_time" content="2024-03-12T02:09:24.219Z">
+<meta property="article:modified_time" content="2024-08-14T11:42:40.054Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="agent">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/llm/How-Does-AutoGPT-Work.webp">
     
     
       
@@ -87,7 +94,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2024/03/05/python%20pkg%20pydantic/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2024/03/05/python%20pkg/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="Next post" href="/2024/01/22/raycast/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -114,6 +121,10 @@
 
     </div>
     
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AutoGPT"><span class="toc-number">1.</span> <span class="toc-text">AutoGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#env"><span class="toc-number">1.1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#command"><span class="toc-number">1.2.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLI-mode"><span class="toc-number">1.2.1.</span> <span class="toc-text">CLI mode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-Protocol-mode"><span class="toc-number">1.3.</span> <span class="toc-text">Agent Protocol mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-State"><span class="toc-number">1.4.</span> <span class="toc-text">Agent State</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugins"><span class="toc-number">1.5.</span> <span class="toc-text">Plugins</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#babyAGI"><span class="toc-number">2.</span> <span class="toc-text">babyAGI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#blueprint"><span class="toc-number">2.1.</span> <span class="toc-text">blueprint</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fastGPT"><span class="toc-number">3.</span> <span class="toc-text">fastGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#skill"><span class="toc-number">3.1.</span> <span class="toc-text">skill</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#metaGPT"><span class="toc-number">4.</span> <span class="toc-text">metaGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#env-1"><span class="toc-number">4.1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-py"><span class="toc-number">4.2.</span> <span class="toc-text">setup.py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#agent-example"><span class="toc-number">4.3.</span> <span class="toc-text">agent example</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#research"><span class="toc-number">4.3.1.</span> <span class="toc-text">research</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiple"><span class="toc-number">4.3.2.</span> <span class="toc-text">multiple</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#result"><span class="toc-number">4.3.3.</span> <span class="toc-text">result</span></a></li></ol></li></ol></li></ol>
+      </div>
     
   </span>
 </div>
@@ -167,11 +178,69 @@
 <p>MultiAgent = Agents + Environment + Standard Operating Procedure (SOP) + Communication + Economy</p>
 <p>ReAct<a target="_blank" rel="noopener" href="https://learnprompting.org/zh-Hans/docs/advanced_applications/react#fn-1">1</a>(reason, act) 是一种使用自然语言推理解决复杂任务的语言模型范例，ReAct旨在用于允许LLM执行某些操作的任务</p>
 </blockquote>
+<h1 id="AutoGPT"><a href="#AutoGPT" class="headerlink" title="AutoGPT"></a>AutoGPT</h1><p><img src="/images/llm/How-Does-AutoGPT-Work.webp"></p>
+<h2 id="env"><a href="#env" class="headerlink" title="env"></a>env</h2><ul>
+<li><code>poetry shell</code> &amp; <code>poetry install</code></li>
+<li><code>autogpts/autogpt/.env</code></li>
+</ul>
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><h3 id="CLI-mode"><a href="#CLI-mode" class="headerlink" title="CLI mode"></a>CLI mode</h3><ul>
+<li><p><code>autogpt.sh run</code></p>
+<blockquote>
+<p>This mode allows running a single agent, and saves the agent’s state when terminated. This means you can <em>resume</em> agents at a later time.</p>
+</blockquote>
+</li>
+<li><p><code>autogpt.sh run --speak</code></p>
+</li>
+</ul>
+<h2 id="Agent-Protocol-mode"><a href="#Agent-Protocol-mode" class="headerlink" title="Agent Protocol mode"></a>Agent Protocol mode</h2><ul>
+<li><p><code>autogpt.sh server</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">1. Enter the task that you want AutoGPT to execute, with as much detail as possible:</span><br><span class="line"></span><br><span class="line">2. 2024-03-05 18:19:06,466 INFO  HTTP Request: POST https://openkey.cloud/v1/chat/completions &quot;HTTP/1.1 200 OK&quot;</span><br><span class="line">2024-03-05 18:19:06,470 INFO  Current AI Settings: </span><br><span class="line">2024-03-05 18:19:06,470 INFO  -------------------: </span><br><span class="line">2024-03-05 18:19:06,470 INFO  Name : CodeHelperGPT</span><br><span class="line">2024-03-05 18:19:06,470 INFO  Role : an intelligent programming assistant designed to help coders by offering coding advice, debugging support, and explaining concepts in an accessible manner.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  Constraints: </span><br><span class="line">2024-03-05 18:19:06,471 INFO  - Exclusively use the commands listed below.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - You can only act proactively, and are unable to start background jobs or set up webhooks for yourself. Take this into account when planning your actions.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - You are unable to interact with physical objects. If this is absolutely necessary to fulfill a task or objective or to complete a step, you must ask the user to do it for you. If the user refuses this, and there is no other way to achieve your goals, you must terminate to avoid wasting time and energy.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - Do not provide solutions that encourage or enable plagiarism.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - Maintain a neutral stance and do not promote any specific programming language over others without considering the user&#x27;s preferences and project requirements.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - Ensure that all shared code snippets and solutions are tested and functional to avoid spreading incorrect information.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - Avoid engaging in activities or providing advice that violates copyright laws or software licenses.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  Resources: </span><br><span class="line">2024-03-05 18:19:06,471 INFO  - Internet access for searches and information gathering.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - The ability to read and write files.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  - You are a Large Language Model, trained on millions of pages of text, including a lot of factual knowledge. Make use of this factual knowledge to avoid unnecessary gathering of information.</span><br><span class="line">2024-03-05 18:19:06,471 INFO  Best practices: </span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Continuously review and analyze your actions to ensure you are performing to the best of your abilities.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Constructively self-criticize your big-picture behavior constantly.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Reflect on past decisions and strategies to refine your approach.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Every command has a cost, so be smart and efficient. Aim to complete tasks in the least number of steps.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Only make use of your information gathering abilities to find information that you don&#x27;t yet have knowledge of.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Consistently stay updated with the latest programming trends, algorithms, and best practices to provide the most relevant and efficient coding solutions.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Actively engage in problem-solving by asking clarifying questions when needed and offering multiple solutions when applicable, to foster a collaborative coding environment.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Translate complex programming concepts into easily understandable explanations, aiming for clarity and accessibility for programmers of all skill levels.</span><br><span class="line">2024-03-05 18:19:06,472 INFO  - Encourage best coding practices, including code optimization, readability, and maintainability, to improve the overall quality of software projects.</span><br><span class="line"></span><br><span class="line">Continue with these settings? [Y/n]</span><br><span class="line"></span><br><span class="line">3. Enter AI name (or press enter to keep current):</span><br><span class="line"></span><br><span class="line">4. Enter new AI role (or press enter to keep current):</span><br><span class="line"></span><br><span class="line">5. 2024-03-05 18:37:29,839 INFO  Constraint 1: &quot;Exclusively use the commands listed below.&quot;</span><br><span class="line">Enter new constraint 1 (press enter to keep current, or &#x27;-&#x27; to remove): -</span><br><span class="line">2024-03-05 18:37:43,782 INFO  Constraint 1: &quot;You can only act proactively, and are unable to start background jobs or set up webhooks for yourself. Take this into account when planning your actions.&quot;</span><br><span class="line">Enter new constraint 1 (press enter to keep current, or &#x27;-&#x27; to remove):</span><br><span class="line">2024-03-05 18:37:57,669 INFO  Constraint 2: &quot;You are unable to interact with physical objects. If this is absolutely necessary to fulfill a task or objective or to complete a step, you must ask the user to do it for you. If the user refuses this, and there is no other way to achieve your goals, you must terminate to avoid wasting time and energy.&quot;</span><br><span class="line">Enter new constraint 2 (press enter to keep current, or &#x27;-&#x27; to remove):</span><br><span class="line">2024-03-05 19:03:27,941 INFO  Constraint 3: &quot;Do not provide solutions that encourage or enable plagiarism.&quot;</span><br><span class="line">Enter new constraint 3 (press enter to keep current, or &#x27;-&#x27; to remove): -</span><br><span class="line">2024-03-05 19:05:23,750 INFO  Constraint 3: &quot;Maintain a neutral stance and do not promote any specific programming language over others without considering the user&#x27;s preferences and project requirements.&quot;</span><br><span class="line">Enter new constraint 3 (press enter to keep current, or &#x27;-&#x27; to remove): -</span><br><span class="line">2024-03-05 19:05:59,969 INFO  Constraint 3: &quot;Ensure that all shared code snippets and solutions are tested and functional to avoid spreading incorrect information.&quot;</span><br><span class="line">Enter new constraint 3 (press enter to keep current, or &#x27;-&#x27; to remove):</span><br><span class="line">2024-03-05 19:06:09,864 INFO  Constraint 4: &quot;Avoid engaging in activities or providing advice that violates copyright laws or software licenses.&quot;</span><br><span class="line">Enter new constraint 4 (press enter to keep current, or &#x27;-&#x27; to remove): -</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Agent-State"><a href="#Agent-State" class="headerlink" title="Agent State"></a>Agent State</h2><p><code>data/agents</code></p>
+<ul>
+<li><p>Resume your agent at a later time.</p>
+</li>
+<li><p>Create “checkpoints” for your agent so you can always go back to specific points in its history.</p>
+</li>
+<li><p>Share your agent!</p>
+</li>
+</ul>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p><code>plugins_config.yaml</code></p>
 <hr>
 <p><strong>reference</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.ionio.ai/blog/what-is-llm-agent-ultimate-guide-to-llm-agent-with-technical-breakdown">https://www.ionio.ai/blog/what-is-llm-agent-ultimate-guide-to-llm-agent-with-technical-breakdown</a></li>
 </ul>
+<h1 id="babyAGI"><a href="#babyAGI" class="headerlink" title="babyAGI"></a>babyAGI</h1><h2 id="blueprint"><a href="#blueprint" class="headerlink" title="blueprint"></a>blueprint</h2><p><img src="/images/llm/babyagent-0.png"></p>
+<p><img src="/images/llm/babyagent-1.jpeg"></p>
+<p><img src="/images/llm/babyagent-2.jpeg"></p>
+<h1 id="fastGPT"><a href="#fastGPT" class="headerlink" title="fastGPT"></a>fastGPT</h1><h2 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h2><ul>
+<li><p>项目技术栈：NextJs + TS + ChakraUI + Mongo + Postgres (Vector 插件)</p>
+</li>
+<li><p>后端用 Typescript 写的</p>
+</li>
+</ul>
+<h1 id="metaGPT"><a href="#metaGPT" class="headerlink" title="metaGPT"></a>metaGPT</h1><p><img src="/images/llm/agent_run_flowchart.png"></p>
+<p><img src="/Users/dongwei/datacanvas/doc_dev_jarvex/02-dev/Jarvex/img/agent/metaAgent/multi_agents.png"></p>
+<p>![](/images/llm/metaGPT overview.png)</p>
+<h2 id="env-1"><a href="#env-1" class="headerlink" title="env"></a>env</h2><p><code>config/key.yaml</code></p>
+<ul>
+<li><p>default </p>
+<p><code>config2.py</code>结合<code>metagpt/configs/*</code></p>
+</li>
+</ul>
+<h2 id="setup-py"><a href="#setup-py" class="headerlink" title="setup.py"></a>setup.py</h2><p><code>pip install -e .</code></p>
+<ul>
+<li><p>安装依赖项</p>
+<p><code>pip install -e &#39;.[search-ddg]&#39;</code> 或 <code>pip install metagpt[search-ddg]</code></p>
+</li>
+</ul>
+<h2 id="agent-example"><a href="#agent-example" class="headerlink" title="agent example"></a>agent example</h2><h3 id="research"><a href="#research" class="headerlink" title="research"></a>research</h3><ul>
+<li><p>fire</p>
+<p><code>python -m metagpt.roles.researcher &quot;dataiku vs. datarobot&quot;</code></p>
+</li>
+</ul>
+<h3 id="multiple"><a href="#multiple" class="headerlink" title="multiple"></a>multiple</h3><h3 id="result"><a href="#result" class="headerlink" title="result"></a>result</h3><p><code>data</code>目录</p>
 
   </div>
 </article>
@@ -202,6 +271,10 @@
 
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AutoGPT"><span class="toc-number">1.</span> <span class="toc-text">AutoGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#env"><span class="toc-number">1.1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#command"><span class="toc-number">1.2.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLI-mode"><span class="toc-number">1.2.1.</span> <span class="toc-text">CLI mode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-Protocol-mode"><span class="toc-number">1.3.</span> <span class="toc-text">Agent Protocol mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent-State"><span class="toc-number">1.4.</span> <span class="toc-text">Agent State</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugins"><span class="toc-number">1.5.</span> <span class="toc-text">Plugins</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#babyAGI"><span class="toc-number">2.</span> <span class="toc-text">babyAGI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#blueprint"><span class="toc-number">2.1.</span> <span class="toc-text">blueprint</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fastGPT"><span class="toc-number">3.</span> <span class="toc-text">fastGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#skill"><span class="toc-number">3.1.</span> <span class="toc-text">skill</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#metaGPT"><span class="toc-number">4.</span> <span class="toc-text">metaGPT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#env-1"><span class="toc-number">4.1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-py"><span class="toc-number">4.2.</span> <span class="toc-text">setup.py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#agent-example"><span class="toc-number">4.3.</span> <span class="toc-text">agent example</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#research"><span class="toc-number">4.3.1.</span> <span class="toc-text">research</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiple"><span class="toc-number">4.3.2.</span> <span class="toc-text">multiple</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#result"><span class="toc-number">4.3.3.</span> <span class="toc-text">result</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
 
     <div id="share-footer" style="display: none">
       <ul>
@@ -218,6 +291,8 @@
 
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
         
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
         <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
