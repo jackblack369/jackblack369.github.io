@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="base类型 int变量自增 效率问题  1i++;和i +&#x3D; 1;形成的指令数较少，且不需要操作数栈。相对而言，i &#x3D; i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+&#x3D; 1;的效率一样，并且二者的效率都优于i &#x3D; i+1;  泛型T，E，K，V，？是这样约定的：  ？表示不确定的 java 类型 T (type) 表示具体的一个java类型 K V (key valu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java io">
+<meta property="og:url" content="https://www.willshirley.top/2019/07/10/java%20point/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="base类型 int变量自增 效率问题  1i++;和i +&#x3D; 1;形成的指令数较少，且不需要操作数栈。相对而言，i &#x3D; i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+&#x3D; 1;的效率一样，并且二者的效率都优于i &#x3D; i+1;  泛型T，E，K，V，？是这样约定的：  ？表示不确定的 java 类型 T (type) 表示具体的一个java类型 K V (key valu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/knmrNHnmCLFRVA73vYfkqVGfia90X5nyEsksfM8Vz6btFZCRd3PCSJC1XkZhaJ0ufxcoohxAdr8X1tykU9CZPUQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://i.imgur.com/s39Xj3r.png">
+<meta property="og:image" content="https://i.imgur.com/RMD0koG.png">
+<meta property="og:image" content="https://chenmingyu.top/nio/bio%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://chenmingyu.top/nio/BIO%E7%BA%BF%E7%A8%8B+%E7%BA%BF%E7%A8%8B%E6%B1%A0.png">
+<meta property="og:image" content="https://chenmingyu.top/nio/%E5%90%84IO%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94.png">
+<meta property="og:image" content="https://cdn.journaldev.com/wp-content/uploads/2013/08/WAR-directory-structure.png">
+<meta property="og:image" content="https://cdn.journaldev.com/wp-content/uploads/2013/08/Servlet-Hierarchy.png">
+<meta property="article:published_time" content="2019-07-10T06:25:30.000Z">
+<meta property="article:modified_time" content="2024-08-23T02:47:25.812Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="learn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz/knmrNHnmCLFRVA73vYfkqVGfia90X5nyEsksfM8Vz6btFZCRd3PCSJC1XkZhaJ0ufxcoohxAdr8X1tykU9CZPUQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>java io</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2019/07/31/coin/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2019/06/11/kafka%20snippet/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2019/07/10/java%20point/&text=java io"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2019/07/10/java%20point/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=java io&body=Check out this article: https://www.willshirley.top/2019/07/10/java%20point/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2019/07/10/java%20point/&title=java io"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2019/07/10/java%20point/&title=java io"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2019/07/10/java%20point/&title=java io"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2019/07/10/java%20point/&t=java io"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#base"><span class="toc-number">1.</span> <span class="toc-text">base</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dynamic-compile"><span class="toc-number">1.4.</span> <span class="toc-text">dynamic compile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E6%B5%81"><span class="toc-number">1.5.</span> <span class="toc-text">IO流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">io模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bio"><span class="toc-number">1.6.1.</span> <span class="toc-text">bio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nio"><span class="toc-number">1.6.2.</span> <span class="toc-text">nio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aio"><span class="toc-number">1.6.3.</span> <span class="toc-text">aio</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-Application"><span class="toc-number">2.</span> <span class="toc-text">Web Application</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-and-HTTP"><span class="toc-number">2.0.1.</span> <span class="toc-text">HTML and HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-Container"><span class="toc-number">2.0.2.</span> <span class="toc-text">Web Container</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet"><span class="toc-number">2.1.</span> <span class="toc-text">Servlet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-Management"><span class="toc-number">2.2.</span> <span class="toc-text">Session Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-a-Session"><span class="toc-number">2.2.1.</span> <span class="toc-text">What is a Session?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSESSIONID-Cookie"><span class="toc-number">2.2.2.</span> <span class="toc-text">JSESSIONID Cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-Basics"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">Cookie Basics</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#design-pattern"><span class="toc-number">3.</span> <span class="toc-text">design pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Creational-Design-Patterns"><span class="toc-number">3.1.</span> <span class="toc-text">Creational Design Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Singleton"><span class="toc-number">3.1.1.</span> <span class="toc-text">Singleton</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Factory"><span class="toc-number">3.1.2.</span> <span class="toc-text">Factory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstract-Factory"><span class="toc-number">3.1.3.</span> <span class="toc-text">Abstract Factory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Builder"><span class="toc-number">3.1.4.</span> <span class="toc-text">Builder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prototype"><span class="toc-number">3.1.5.</span> <span class="toc-text">Prototype</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structural-Design-Patterns"><span class="toc-number">3.2.</span> <span class="toc-text">Structural Design Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adapter"><span class="toc-number">3.2.1.</span> <span class="toc-text">Adapter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composite"><span class="toc-number">3.2.2.</span> <span class="toc-text">Composite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proxy"><span class="toc-number">3.2.3.</span> <span class="toc-text">Proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flyweight"><span class="toc-number">3.2.4.</span> <span class="toc-text">Flyweight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Facade"><span class="toc-number">3.2.5.</span> <span class="toc-text">Facade</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bridge"><span class="toc-number">3.2.6.</span> <span class="toc-text">Bridge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decorator"><span class="toc-number">3.2.7.</span> <span class="toc-text">Decorator</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Behavioral-Design-Patterns"><span class="toc-number">3.3.</span> <span class="toc-text">Behavioral Design Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Template-Method"><span class="toc-number">3.3.1.</span> <span class="toc-text">Template Method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Media"><span class="toc-number">3.3.2.</span> <span class="toc-text">Media</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        java io
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-07-10T06:25:30.000Z" class="dt-published" itemprop="datePublished">2019-07-10</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/learn/" rel="tag">learn</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="base"><a href="#base" class="headerlink" title="base"></a>base</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
+<li><p>int变量自增 效率问题 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;和i += 1;形成的指令数较少，且不需要操作数栈。相对而言，i = i+1;需要至少2个操作数栈深度，并且形成的指令数较多。故，i++;和i+= 1;的效率一样，并且二者的效率都优于i = i+1;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><strong>T，E，K，V，？是这样约定的：</strong></p>
+<ul>
+<li>？表示不确定的 java 类型</li>
+<li>T (type) 表示具体的一个java类型</li>
+<li>K V (key value) 分别代表java键值中的Key Value</li>
+<li>E (element) 代表Element</li>
+</ul>
+<p><strong>？和 T 的区别</strong>：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz/knmrNHnmCLFRVA73vYfkqVGfia90X5nyEsksfM8Vz6btFZCRd3PCSJC1XkZhaJ0ufxcoohxAdr8X1tykU9CZPUQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>？和 T 都表示不确定的类型，区别在于我们可以对 T 进行操作，但是对 ？不行，比如如下这种 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 可以</span><br><span class="line">T t = operate();</span><br><span class="line"></span><br><span class="line">// 不可以</span><br><span class="line">？car = operate();</span><br></pre></td></tr></table></figure>
+
+<p>简单总结下：</p>
+<p>T 是一个 确定的 类型，通常用于泛型类和泛型方法的定义，？是一个 不确定 的类型，通常用于泛型方法的调用代码和形参，不能用于定义类和泛型方法。</p>
+<p><strong>PECS（Producer Extends Consumer Super）</strong>原则：作为生产者提供数据（往外读取）时，适合用上界通配符（extends）；作为消费者消费数据（往里写入）时，适合用下界通配符（super）。</p>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><p>在 JDK8 以后，建议使用 DateTimeFormatter 代替 SimpleDateFormat ，因为 SimpleDateFormat 是线程不安全的，而 DateTimeFormatter 是线程安全的。当然，也可以采用第三方提供的线程安全日期格式化函数，比如 apache 的 DateFormatUtils 工具类。</p>
+<h2 id="dynamic-compile"><a href="#dynamic-compile" class="headerlink" title="dynamic compile"></a>dynamic compile</h2><p>静态编译：编译时就把所有用到的Java代码全都编译成字节码，是一次性编译。</p>
+<p>动态编译：在Java程序运行时才把需要的Java代码的编译成字节码，是按需编译。</p>
+<p>从JDK1.6开始，引入了Java代码重写过的编译器接口，使得我们可以在运行时编译Java源代码，然后再通过类加载器将编译好的类加载进JVM,这种在运行时编译代码的操作就叫做动态编译。</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.nowcoder.net/n/d2a7554ea2ec4e4b978cf4a74c3c41b2">【Java动态编译】动态编译的应用_牛客博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016842546">Java动态性(1) - 动态编译(DynamicCompile)</a></p>
+<h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">流包括字符流和字节流，流从概念上来说是一个连续的数据流。当程序需要读数据的时候就需要使用输入流读取数据，当需要往外写数据的时候就需要输出流</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>字节流：字节流主要用来处理字节或二进制对象<code>InputStream、OutputStream，</code></p>
+<blockquote>
+<p>在使用字节流的时候，InputStream和OutputStream都是抽象类，我们实例化的都是他们的子类，每一个子类都有自己的作用范围</p>
+</blockquote>
+<p><img src="https://i.imgur.com/s39Xj3r.png"></p>
+</li>
+<li><p>字符流：字符流用来处理字符文本或字符串<code>Reader、Writer</code></p>
+<blockquote>
+<p>在使用字符流的时候也是，Reader和Writer都是抽象类，我们实例化的都是他们的子类，每一个子类都有自己的作用范围</p>
+</blockquote>
+<p><img src="https://i.imgur.com/RMD0koG.png"></p>
+</li>
+<li><p>字节流转换为字符流</p>
+<blockquote>
+<p>使用<code>InputStreamReader、OutputStreamWriter</code>可以将输入字节流转化为输入字符流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Reader reader  =  <span class="keyword">new</span> InputStreamReader(inputStream);</span><br><span class="line">Writer writer = <span class="keyword">new</span> OutputStreamWriter(outputStream)</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>输入字节流：<strong>InputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/a.txt&quot;</span>);</span><br><span class="line">    InputStream inputStream = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>) file.length()];</span><br><span class="line">    inputStream.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    inputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入字符流：<strong>Reader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/a.txt&quot;</span>);</span><br><span class="line">    Reader reader = <span class="keyword">new</span> FileReader(file);</span><br><span class="line">    <span class="keyword">char</span>[] bytes = <span class="keyword">new</span> <span class="keyword">char</span>[(<span class="keyword">int</span>) file.length()];</span><br><span class="line">    reader.read(bytes);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes));</span><br><span class="line">    reader.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出字节流：<strong>OutputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String <span class="keyword">var</span> = <span class="string">&quot;hai this is a test&quot;</span>;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/b.txt&quot;</span>);</span><br><span class="line">    OutputStream outputStream = <span class="keyword">new</span> FileOutputStream(file);</span><br><span class="line">    outputStream.write(<span class="keyword">var</span>.getBytes());</span><br><span class="line">    outputStream.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出字符流：<strong>Writer</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String <span class="keyword">var</span> = <span class="string">&quot;hai this is a test&quot;</span>;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;D:/b.txt&quot;</span>);</span><br><span class="line">    Writer writer = <span class="keyword">new</span> FileWriter(file);</span><br><span class="line">    writer.write(<span class="keyword">var</span>);</span><br><span class="line">    writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedInputStream</strong></p>
+<blockquote>
+<p>在使用InputStream的时候，都是一个字节一个字节的读或写，而BufferedInputStream为输入字节流提供了缓冲区，读数据的时候会一次读取一块数据放到缓冲区里，当缓冲区里的数据被读完之后，输入流会再次填充数据缓冲区，直到输入流被读完，有了缓冲区就能够提高很多io速度</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * inputStream 输入流</span></span><br><span class="line"><span class="comment"> * 1024 内部缓冲区大小为1024byte</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BufferedInputStream bufferedInputStream = <span class="keyword">new</span> BufferedInputStream(inputStream,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedOutputStream</strong></p>
+<blockquote>
+<p>BufferedOutputStream可以为输出字节流提供缓冲区，作用与BufferedInputStream类似，使用方式将输出流包装到BufferedOutputStream中</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * outputStream 输出流</span></span><br><span class="line"><span class="comment"> * 1024 内部缓冲区大小为1024byte</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BufferedOutputStream bufferedOutputStream = <span class="keyword">new</span> BufferedOutputStream(outputStream,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedReader</strong></p>
+<blockquote>
+<p>为输入字符流提供缓冲区</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(reader,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedWriter</strong></p>
+<blockquote>
+<p>为输出字符流提供缓冲区</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(writer,<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="io模型"><a href="#io模型" class="headerlink" title="io模型"></a>io模型</h2><h3 id="bio"><a href="#bio" class="headerlink" title="bio"></a>bio</h3><blockquote>
+<p>同步阻塞IO模型</p>
+<p>JDK 1.4版本以前</p>
+</blockquote>
+<p><img src="https://chenmingyu.top/nio/bio%E7%BA%BF%E7%A8%8B.png"></p>
+<p>在这种模式中通常用一个线程去接受请求，然后用一个线程池去处理请求，用这种方式并发管理多个Socket客户端连接</p>
+<p><img src="https://chenmingyu.top/nio/BIO%E7%BA%BF%E7%A8%8B+%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></p>
+<h3 id="nio"><a href="#nio" class="headerlink" title="nio"></a>nio</h3><blockquote>
+<p>同步非阻塞IO模型</p>
+<p>JDK 1.4版本以后</p>
+</blockquote>
+<p>成熟的框架，比如Netty</p>
+<h3 id="aio"><a href="#aio" class="headerlink" title="aio"></a>aio</h3><blockquote>
+<p>异步非阻塞IO模型</p>
+<p>JDK1.7升级了Nio类库，成为Nio2.0，最主要的是提供了异步文件的IO操作，以及事件驱动IO，AIO的异步套接字通道是真正的异步非阻塞IO</p>
+</blockquote>
+<p><img src="https://chenmingyu.top/nio/%E5%90%84IO%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94.png"></p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://chenmingyu.top/nio/">一文看懂java io系统</a></p>
+<h1 id="Web-Application"><a href="#Web-Application" class="headerlink" title="Web Application"></a>Web Application</h1><h3 id="HTML-and-HTTP"><a href="#HTML-and-HTTP" class="headerlink" title="HTML and HTTP"></a>HTML and HTTP</h3><ul>
+<li>HTML:HyperText Markup Language.</li>
+<li>HTTP:HyperText Transfer Protocol<ul>
+<li>HTTP is the communication protocol between server and client. HTTP runs on top of TCP/IP communication protocol.</li>
+<li>Port numbers 0 to 1023 are reserved ports for well known services, for example 80 for HTTP, 443 for HTTPS, 21 for FTP etc.</li>
+</ul>
+</li>
+<li>Java Servlet and JSPs are server side technologies to extend the capability of web servers by providing support for dynamic response and data persistence.</li>
+</ul>
+<h3 id="Web-Container"><a href="#Web-Container" class="headerlink" title="Web Container"></a>Web Container</h3><ul>
+<li>When web container gets the request and if it’s for servlet then container creates two Objects HTTPServletRequest and HTTPServletResponse. Then it finds the correct servlet based on the URL and creates a thread for the request. Then it invokes the servlet service() method and based on the HTTP method service() method invokes doGet() or doPost() methods. Servlet methods generate the dynamic page and write it to response. Once servlet thread is complete, container converts the response to HTTP response and send it back to client.</li>
+<li>Some of the important work done by web container are:<ul>
+<li>Communication Support – Container provides easy way of communication between web server and the servlets and JSPs. Because of container, we don’t need to build a server socket to listen for any request from web server, parse the request and generate response. All these important and complex tasks are done by container and all we need to focus is on our business logic for our applications.<ul>
+<li>Lifecycle and Resource Management – Container takes care of managing the life cycle of servlet. Container takes care of loading the servlets into memory, initializing servlets, invoking servlet methods and destroying them. Container also provides utility like JNDI for resource pooling and management.</li>
+<li>Multithreading Support – Container creates new thread for every request to the servlet and when it’s processed the thread dies. So servlets are not initialized for each request and saves time and memory.</li>
+<li>JSP Support – JSPs doesn’t look like normal java classes and web container provides support for JSP. Every JSP in the application is compiled by container and converted to Servlet and then container manages them like other servlets.</li>
+<li>Miscellaneous Task – Web container manages the resource pool, does memory optimizations, run garbage collector, provides security configurations, support for multiple applications, hot deployment and several other tasks behind the scene that makes our life easier.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Java Web Applications are packaged as Web Archive (WAR) and it has a defined structure.<br><img src="https://cdn.journaldev.com/wp-content/uploads/2013/08/WAR-directory-structure.png"></li>
+</ul>
+<h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><ul>
+<li>Servlet API Hierarchy<br><img src="https://cdn.journaldev.com/wp-content/uploads/2013/08/Servlet-Hierarchy.png"></li>
+</ul>
+<h2 id="Session-Management"><a href="#Session-Management" class="headerlink" title="Session Management"></a>Session Management</h2><h3 id="What-is-a-Session"><a href="#What-is-a-Session" class="headerlink" title="What is a Session?"></a>What is a Session?</h3><ul>
+<li>HTTP protocol and Web Servers are stateless, what it means is that for web server every request is a new request to process and they can’t identify if it’s coming from client that has been sending request previously.</li>
+<li>Session is a conversional state between client and server and it can consists of multiple request and response between client and server. Since HTTP and Web Server both are stateless, the only way to maintain a session is when some unique information about the session (session id) is passed between server and client in every request and response.</li>
+</ul>
+<h3 id="JSESSIONID-Cookie"><a href="#JSESSIONID-Cookie" class="headerlink" title="JSESSIONID Cookie"></a>JSESSIONID Cookie</h3><ul>
+<li>When we use HttpServletRequest getSession() method and it creates a new request, it creates the new HttpSession object and also add a Cookie to the response object with name JSESSIONID and value as session id. This cookie is used to identify the HttpSession object in further requests from client. If the cookies are disabled at client side and we are using URL rewriting then this method uses the jsessionid value from the request URL to find the corresponding session. JSESSIONID cookie is used for session tracking, so we should not use it for our application purposes to avoid any session related issues.</li>
+<li>When a JSP resource is used, container automatically creates a session for it, so we can’t check if session is null to make sure if user has come through login page, so we are using session attribute to validate request.</li>
+<li>As we saw in last section that we can manage a session with HttpSession but if we disable the cookies in browser, it won’t work because server will not receive the JSESSIONID cookie from client. </li>
+</ul>
+<h4 id="Cookie-Basics"><a href="#Cookie-Basics" class="headerlink" title="Cookie Basics"></a>Cookie Basics</h4><ul>
+<li>a cookie is a small piece of data stored on the client-side which servers use when communicating with clients.They’re used to identify a client when sending a subsequent request. They can also be used for passing some data from one servlet to another.</li>
+</ul>
+<h1 id="design-pattern"><a href="#design-pattern" class="headerlink" title="design pattern"></a>design pattern</h1><h2 id="Creational-Design-Patterns"><a href="#Creational-Design-Patterns" class="headerlink" title="Creational Design Patterns"></a>Creational Design Patterns</h2><blockquote>
+<p>These design patterns provide a way to create objects while hiding the creation logic, rather than instantiating objects directly using new operator. This gives program more flexibility in deciding which objects need to be created for a given use case.</p>
+</blockquote>
+<h3 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h3><blockquote>
+<p>In Factory pattern, we create object without exposing the creation logic to the client and refer to newly created object using a common interface.</p>
+</blockquote>
+<ul>
+<li><p>different approaches to implement:</p>
+<ul>
+<li>Private constructor to restrict instantiation of the class from other classes.</li>
+<li>Private static variable of the same class that is the only instance of the class.</li>
+<li>Public static method that returns the instance of the class, this is the global access point for outer world to get the instance of the singleton class.</li>
+</ul>
+</li>
+<li><p>design concerns with the implementation</p>
+<ul>
+<li>Eager initialization</li>
+<li>Static block initialization</li>
+<li>Lazy Initialization</li>
+<li>Thread Safe Singleton</li>
+<li>Bill Pugh Singleton Implementation</li>
+<li>Using Reflection to destroy Singleton Pattern</li>
+<li>Enum Singleton</li>
+<li>Serialization and Singleton</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SingleObject.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//create an object of SingleObject</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line"></span><br><span class="line">   <span class="comment">//make the constructor private so that this class cannot be</span></span><br><span class="line">   <span class="comment">//instantiated</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//Get the only object available</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SingletonPatternDemo.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//illegal construct</span></span><br><span class="line">      <span class="comment">//Compile Time Error: The constructor SingleObject() is not visible</span></span><br><span class="line">      <span class="comment">//SingleObject object = new SingleObject();</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//Get the only object available</span></span><br><span class="line">      SingleObject object = SingleObject.getInstance();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//show the message</span></span><br><span class="line">      object.showMessage();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Factory"><a href="#Factory" class="headerlink" title="Factory"></a>Factory</h3><ul>
+<li>Factory design pattern provides approach to code for interface rather than implementation.</li>
+<li>Factory pattern removes the instantiation of actual implementation classes from client code. Factory pattern makes our code more robust, less coupled and easy to extend. For example, we can easily change PC class implementation because client program is unaware of this.</li>
+<li>Factory pattern provides abstraction between implementation and client classes through inheritance.</li>
+</ul>
+<h3 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h3><ul>
+<li>Abstract Factory design pattern provides approach to code for interface rather than implementation.</li>
+<li>Abstract Factory pattern is “factory of factories” and can be easily extended to accommodate more products, for example we can add another sub-class Laptop and a factory LaptopFactory.</li>
+<li>Abstract Factory pattern is robust and avoid conditional logic of Factory pattern.</li>
+</ul>
+<h3 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h3><ul>
+<li>Builder pattern solves the issue with large number of optional parameters and inconsistent state by providing a way to build the object step-by-step and provide a method that will actually return the final Object.</li>
+</ul>
+<h3 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h3><ul>
+<li>Prototype design pattern is used when the Object creation is a costly affair and requires a lot of time and resources and you have a similar object already existing.Prototype pattern provides a mechanism to copy the original object to a new object and then modify it according to our needs. Prototype design pattern uses java cloning to copy the object.</li>
+</ul>
+<h2 id="Structural-Design-Patterns"><a href="#Structural-Design-Patterns" class="headerlink" title="Structural Design Patterns"></a>Structural Design Patterns</h2><blockquote>
+<p>These design patterns concern class and object composition. Concept of inheritance is used to compose interfaces and define ways to compose objects to obtain new functionalities.</p>
+</blockquote>
+<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><ul>
+<li>Adapter design pattern is one of the structural design pattern and its used so that two unrelated interfaces can work together. The object that joins these unrelated interface is called an Adapter.</li>
+</ul>
+<h3 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h3><ul>
+<li>Composite design pattern is used when we have to represent a part-whole hierarchy.</li>
+</ul>
+<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><ul>
+<li>Proxy design pattern common uses are to control access or to provide a wrapper implementation for better performance.</li>
+</ul>
+<h3 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h3><ul>
+<li>Use sharing to support large numbers of fine-grained objects efficiently</li>
+</ul>
+<h3 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h3><ul>
+<li>Provide a unified interface to a set of interfaces in a subsystem. Facade Pattern defines a higher-level interface that makes the subsystem easier to use.</li>
+</ul>
+<h3 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h3><ul>
+<li>Decouple an abstraction from its implementation so that the two can vary independently.</li>
+</ul>
+<h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><ul>
+<li>Decorator design pattern is helpful in providing runtime modification abilities and hence more flexible. Its easy to maintain and extend when the number of choices are more.</li>
+<li>The disadvantage of decorator design pattern is that it uses a lot of similar kind of objects (decorators).</li>
+</ul>
+<h2 id="Behavioral-Design-Patterns"><a href="#Behavioral-Design-Patterns" class="headerlink" title="Behavioral Design Patterns"></a>Behavioral Design Patterns</h2><blockquote>
+<p>These design patterns are specifically concerned with communication between objects.</p>
+</blockquote>
+<h3 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h3><ul>
+<li>Template method should consists of certain steps whose order is fixed and for some of the methods, implementation differs from base class to subclass. Template method should be final.</li>
+<li>Most of the times, subclasses calls methods from super class but in template pattern, superclass template method calls methods from subclasses, this is known as Hollywood Principle – “don’t call us, we’ll call you.”.</li>
+<li>Methods in base class with default implementation are referred as Hooks and they are intended to be overridden by subclasses, if you want some of the methods to be not overridden, you can make them final, for example in our case we can make buildFoundation() method final because if we don’t want subclasses to override it.</li>
+</ul>
+<h3 id="Media"><a href="#Media" class="headerlink" title="Media"></a>Media</h3><ul>
+<li>Allows loose coupling by encapsulating the way disparate sets of objects interact and communicate with each other. Allows for the actions of each object set to vary independently of one another.</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#base"><span class="toc-number">1.</span> <span class="toc-text">base</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dynamic-compile"><span class="toc-number">1.4.</span> <span class="toc-text">dynamic compile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E6%B5%81"><span class="toc-number">1.5.</span> <span class="toc-text">IO流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">io模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bio"><span class="toc-number">1.6.1.</span> <span class="toc-text">bio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nio"><span class="toc-number">1.6.2.</span> <span class="toc-text">nio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aio"><span class="toc-number">1.6.3.</span> <span class="toc-text">aio</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-Application"><span class="toc-number">2.</span> <span class="toc-text">Web Application</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-and-HTTP"><span class="toc-number">2.0.1.</span> <span class="toc-text">HTML and HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-Container"><span class="toc-number">2.0.2.</span> <span class="toc-text">Web Container</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet"><span class="toc-number">2.1.</span> <span class="toc-text">Servlet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-Management"><span class="toc-number">2.2.</span> <span class="toc-text">Session Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-a-Session"><span class="toc-number">2.2.1.</span> <span class="toc-text">What is a Session?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSESSIONID-Cookie"><span class="toc-number">2.2.2.</span> <span class="toc-text">JSESSIONID Cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-Basics"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">Cookie Basics</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#design-pattern"><span class="toc-number">3.</span> <span class="toc-text">design pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Creational-Design-Patterns"><span class="toc-number">3.1.</span> <span class="toc-text">Creational Design Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Singleton"><span class="toc-number">3.1.1.</span> <span class="toc-text">Singleton</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Factory"><span class="toc-number">3.1.2.</span> <span class="toc-text">Factory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstract-Factory"><span class="toc-number">3.1.3.</span> <span class="toc-text">Abstract Factory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Builder"><span class="toc-number">3.1.4.</span> <span class="toc-text">Builder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prototype"><span class="toc-number">3.1.5.</span> <span class="toc-text">Prototype</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structural-Design-Patterns"><span class="toc-number">3.2.</span> <span class="toc-text">Structural Design Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adapter"><span class="toc-number">3.2.1.</span> <span class="toc-text">Adapter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composite"><span class="toc-number">3.2.2.</span> <span class="toc-text">Composite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proxy"><span class="toc-number">3.2.3.</span> <span class="toc-text">Proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flyweight"><span class="toc-number">3.2.4.</span> <span class="toc-text">Flyweight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Facade"><span class="toc-number">3.2.5.</span> <span class="toc-text">Facade</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bridge"><span class="toc-number">3.2.6.</span> <span class="toc-text">Bridge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decorator"><span class="toc-number">3.2.7.</span> <span class="toc-text">Decorator</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Behavioral-Design-Patterns"><span class="toc-number">3.3.</span> <span class="toc-text">Behavioral Design Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Template-Method"><span class="toc-number">3.3.1.</span> <span class="toc-text">Template Method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Media"><span class="toc-number">3.3.2.</span> <span class="toc-text">Media</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2019/07/10/java%20point/&text=java io"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2019/07/10/java%20point/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=java io&body=Check out this article: https://www.willshirley.top/2019/07/10/java%20point/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2019/07/10/java%20point/&title=java io"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2019/07/10/java%20point/&title=java io"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2019/07/10/java%20point/&title=java io"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2019/07/10/java%20point/&t=java io"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
