@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="vCluster is a technology that creates virtual clusters within a physical Kubernetes cluster. These virtual clusters are fully functional and provide enhanced isolation and flexibility for multi-tenan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes vcluster">
+<meta property="og:url" content="https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="vCluster is a technology that creates virtual clusters within a physical Kubernetes cluster. These virtual clusters are fully functional and provide enhanced isolation and flexibility for multi-tenan">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/k8s/vcluster-architecture.png">
+<meta property="article:published_time" content="2024-08-27T09:15:26.000Z">
+<meta property="article:modified_time" content="2024-08-27T09:28:43.106Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="vcluster">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/k8s/vcluster-architecture.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Kubernetes vcluster</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/23/plantUML/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&text=Kubernetes vcluster"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes vcluster&body=Check out this article: https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&title=Kubernetes vcluster"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&title=Kubernetes vcluster"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&title=Kubernetes vcluster"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&t=Kubernetes vcluster"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Features-of-vCluster"><span class="toc-number">1.</span> <span class="toc-text">Key Features of vCluster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relationship-Between-Kubernetes-and-vCluster"><span class="toc-number">2.</span> <span class="toc-text">Relationship Between Kubernetes and vCluster</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Kubernetes vcluster
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-27T09:15:26.000Z" class="dt-published" itemprop="datePublished">2024-08-27</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Kubernetes/">Kubernetes</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/vcluster/" rel="tag">vcluster</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>vCluster is a technology that creates virtual clusters within a physical Kubernetes cluster. These virtual clusters are fully functional and provide enhanced isolation and flexibility for multi-tenancy. Each vCluster operates independently, with its own API server and control plane, while sharing the underlying resources of the host cluster.</p>
+<p>Kubernetes serves as the foundational platform for container orchestration, while vCluster enhances its capabilities by providing isolated, virtualized environments for multi-tenant applications. This relationship allows organizations to maximize resource utilization and maintain security across diverse teams and applications</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">+--------------------------------------------------+</span><br><span class="line">|                  Host Cluster                    |</span><br><span class="line">|                                                  |</span><br><span class="line">|  +--------------------------------------------+  |</span><br><span class="line">|  |            Kubernetes Control Plane        |  |</span><br><span class="line">|  |                                            |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |  |  API Server     |   |  Controller     | |  |</span><br><span class="line">|  |  |                 |   |  Manager        | |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |                                            |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |  |  Scheduler      |   |  Data Store     | |  |</span><br><span class="line">|  |  |                 |   |  (etcd)         | |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |                                            |  |</span><br><span class="line">|  |  +--------------------------------------+  |  |</span><br><span class="line">|  |  |          Worker Nodes                |  |  |</span><br><span class="line">|  |  |  (Pods running applications)         |  |  |</span><br><span class="line">|  |  +--------------------------------------+  |  |</span><br><span class="line">|  +--------------------------------------------+  |</span><br><span class="line">|                                                  |</span><br><span class="line">|  +--------------------------------------------+  |</span><br><span class="line">|  |                vCluster                    |  |</span><br><span class="line">|  |                                            |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |  |  Virtual API    |   |  Syncer         | |  |</span><br><span class="line">|  |  |  Server         |   |                 | |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |                                            |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  |  |  Virtual        |   |  Virtual Data   | |  |</span><br><span class="line">|  |  |  Controller     |   |  Store          | |  |</span><br><span class="line">|  |  +-----------------+   +-----------------+ |  |</span><br><span class="line">|  +--------------------------------------------+  |</span><br><span class="line">+--------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<img src="/images/k8s/vcluster-architecture.png" style="width:100%">
+
+<h2 id="Key-Features-of-vCluster"><a href="#Key-Features-of-vCluster" class="headerlink" title="Key Features of vCluster"></a>Key Features of vCluster</h2><ul>
+<li><strong>Isolation</strong>: Each virtual cluster has its own control plane, enhancing security and minimizing conflicts among teams.</li>
+<li><strong>Resource Management</strong>: Virtual clusters manage their resources independently, allowing for efficient scaling and resource utilization.</li>
+<li><strong>Multi-Tenancy</strong>: Supports multiple teams or tenants operating within the same physical infrastructure without interference.</li>
+<li><strong>Flexibility</strong>: Can run on various Kubernetes distributions and supports different backing stores for data management.</li>
+</ul>
+<h2 id="Relationship-Between-Kubernetes-and-vCluster"><a href="#Relationship-Between-Kubernetes-and-vCluster" class="headerlink" title="Relationship Between Kubernetes and vCluster"></a>Relationship Between Kubernetes and vCluster</h2><ul>
+<li><strong>Foundation</strong>: vCluster is built on top of Kubernetes, leveraging its capabilities to provide additional layers of abstraction and isolation.</li>
+<li><strong>Resource Sharing</strong>: While vClusters share the physical resources of the host Kubernetes cluster, they maintain operational independence, allowing teams to work without affecting the global state of the host cluster.</li>
+<li><strong>Enhanced Security</strong>: vClusters provide granular permissions and isolated control planes, which enhance security compared to standard Kubernetes namespaces.</li>
+<li><strong>Operational Efficiency</strong>: By reducing the load on the host cluster’s API server and allowing independent management of resources, vClusters improve overall operational efficiency.</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Features-of-vCluster"><span class="toc-number">1.</span> <span class="toc-text">Key Features of vCluster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relationship-Between-Kubernetes-and-vCluster"><span class="toc-number">2.</span> <span class="toc-text">Relationship Between Kubernetes and vCluster</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&text=Kubernetes vcluster"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes vcluster&body=Check out this article: https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&title=Kubernetes vcluster"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&title=Kubernetes vcluster"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&title=Kubernetes vcluster"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/27/kubernetes%20vcluster/&t=Kubernetes vcluster"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
