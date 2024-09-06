@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/k8s-architecture-overview.png">
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/csi%20idea.png">
 <meta property="article:published_time" content="2024-08-05T08:57:50.000Z">
-<meta property="article:modified_time" content="2024-08-28T11:09:10.682Z">
+<meta property="article:modified_time" content="2024-08-29T10:51:06.943Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -402,7 +402,7 @@
 <li><p><strong>External Attacher</strong></p>
 <p><strong>负责“Attach 阶段”</strong>。在具体实现上，它监听了 APIServer 里 VolumeAttachment 对象的变化。VolumeAttachment 对象是 Kubernetes 确认一个 Volume 可以进入“Attach 阶段”的重要标志；</p>
 <p>一旦出现了 VolumeAttachment 对象，External Attacher 就会调用 CSI Controller 服务的 ControllerPublish 方法，完成它所对应的 Volume 的 Attach 阶段。</p>
-</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kubernetes-csi/external-snapshotter: This project contains the sidecar container that watches Kubernetes VolumeSnapshot objects and triggers CreateSnapshot/DeleteSnapshot operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/external-provisioner: The external-provisioner is a sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/external-attacher: The external-attacher is a sidecar container that watches Kubernetes VolumeAttachment objects and triggers ControllerPublish/Unpublish operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/node-driver-registrar: This sidecar container registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/livenessprobe: A sidecar container that can be included in a CSI plugin pod to enable integration with Kubernetes Liveness Probe</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="Custom-Components"><a href="#Custom-Components" class="headerlink" title="Custom Components"></a>Custom Components</h4><ul>
 <li><p><strong>CSI Identity</strong></p>

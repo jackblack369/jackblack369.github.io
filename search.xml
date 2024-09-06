@@ -9938,25 +9938,6 @@
       </tags>
   </entry>
   <entry>
-    <title>github copilot</title>
-    <url>/2024/03/13/github%20copilot/</url>
-    <content><![CDATA[<h1 id="keywords"><a href="#keywords" class="headerlink" title="keywords"></a>keywords</h1><ul>
-<li><p>提示内容写入 ➡️</p>
-</li>
-<li><p>下一个提示 <code>option + ]</code>，上一个提示 <code>option + [</code></p>
-</li>
-<li><p>接收一行<code>command + 右方向</code> ，多行 <code>control/fn + command + 右方向</code></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>github</category>
-      </categories>
-      <tags>
-        <tag>assistant</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python pytest</title>
     <url>/2024/05/20/python%20pytest/</url>
     <content><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul>
@@ -10442,7 +10423,14 @@
   <entry>
     <title>GO learn</title>
     <url>/2024/07/28/golang%20learn/</url>
-    <content><![CDATA[<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><h3 id="sclice"><a href="#sclice" class="headerlink" title="sclice"></a>sclice</h3><ul>
+    <content><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><ul>
+<li><code>GOPATH</code></li>
+</ul>
+<p><code>GOPATH</code> 是 Go 工作区的根目录，通常包含三个子目录：<code>src</code>、<code>pkg</code> 和 <code>bin</code></p>
+<blockquote>
+<p>可通过 go env GOPATH 查看Go 工作区的根目录。<code>GOPATH</code> 中的 <code>bin</code> 目录通常包含由 <code>go install</code>安装的可执行文件</p>
+</blockquote>
+<h1 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h1><h2 id="base"><a href="#base" class="headerlink" title="base"></a>base</h2><h3 id="sclice"><a href="#sclice" class="headerlink" title="sclice"></a>sclice</h3><ul>
 <li>syntax <code>slice[low:high]</code></li>
 <li>“take from 1 to the end” with <code>numbers[1:]</code>.</li>
 </ul>
@@ -10480,14 +10468,14 @@
 <h3 id="pointer-1"><a href="#pointer-1" class="headerlink" title="pointer"></a>pointer</h3><ul>
 <li></li>
 </ul>
-<h2 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h2><ul>
+<h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><ul>
 <li><p>errcheck</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="concurrency"><a href="#concurrency" class="headerlink" title="concurrency"></a>concurrency</h2><blockquote>
+<h1 id="concurrency"><a href="#concurrency" class="headerlink" title="concurrency"></a>concurrency</h1><blockquote>
 <p>Do not communicate by sharing memory; instead, share memory by communicating.</p>
 </blockquote>
-<h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><ul>
+<h2 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h2><ul>
 <li><p><code>Mutex</code> allows us to add locks to our data</p>
 <blockquote>
 <p>mutual exclusion，简称 mutex</p>
@@ -10498,11 +10486,9 @@
 <li><p><code>RWMutex</code> 读写锁</p>
 </li>
 </ul>
-<h2 id="best-practise"><a href="#best-practise" class="headerlink" title="best practise"></a>best practise</h2><h3 id="directory"><a href="#directory" class="headerlink" title="directory"></a>directory</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">project-root/</span><br><span class="line">├── cmd/  # 包含项目的主要应用程序。每个应用程序都有一个单独的子目录。</span><br><span class="line">│   └── myapp/</span><br><span class="line">│       └── main.go  # 主应用程序入口点</span><br><span class="line">├── internal/  # 包含不希望其他项目导入的包</span><br><span class="line">│   ├── app/  # 应用程序的核心逻辑</span><br><span class="line">│   │   └── app.go</span><br><span class="line">│   ├── config/  # 配置相关代码</span><br><span class="line">│   │   └── config.go</span><br><span class="line">│   └── models/  # 数据模型</span><br><span class="line">│       └── user.go</span><br><span class="line">├── pkg/  # 可以被外部应用程序使用的库代码</span><br><span class="line">│   ├── database/  # 数据库操作相关代码</span><br><span class="line">│   │   └── database.go</span><br><span class="line">│   └── utils/  # 通用工具函数</span><br><span class="line">│       └── helper.go</span><br><span class="line">├── api/  # API相关的代码，如果项目提供API</span><br><span class="line">│   └── v1/</span><br><span class="line">│       └── api.go</span><br><span class="line">├── web/  # Web应用相关的文件，如模板和静态资产</span><br><span class="line">│   ├── templates/</span><br><span class="line">│   └── static/</span><br><span class="line">├── scripts/  # 各种工具脚本，如数据库迁移脚本</span><br><span class="line">│   └── migrate.go</span><br><span class="line">├── tests/  # 单元测试和集成测试</span><br><span class="line">│   └── app_test.go</span><br><span class="line">├── docs/  # 项目文档</span><br><span class="line">│   └── README.md</span><br><span class="line">├── go.mod  # Go模块文件</span><br><span class="line">├── go.sum</span><br><span class="line">├── .gitignore</span><br><span class="line">└── README.md</span><br></pre></td></tr></table></figure>
+<h1 id="best-practise"><a href="#best-practise" class="headerlink" title="best practise"></a>best practise</h1><h2 id="directory"><a href="#directory" class="headerlink" title="directory"></a>directory</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">project-root/</span><br><span class="line">├── cmd/  # 包含项目的主要应用程序。每个应用程序都有一个单独的子目录。</span><br><span class="line">│   └── myapp/</span><br><span class="line">│       └── main.go  # 主应用程序入口点</span><br><span class="line">├── internal/  # 包含不希望其他项目导入的包</span><br><span class="line">│   ├── app/  # 应用程序的核心逻辑</span><br><span class="line">│   │   └── app.go</span><br><span class="line">│   ├── config/  # 配置相关代码</span><br><span class="line">│   │   └── config.go</span><br><span class="line">│   └── models/  # 数据模型</span><br><span class="line">│       └── user.go</span><br><span class="line">├── pkg/  # 可以被外部应用程序使用的库代码</span><br><span class="line">│   ├── database/  # 数据库操作相关代码</span><br><span class="line">│   │   └── database.go</span><br><span class="line">│   └── utils/  # 通用工具函数</span><br><span class="line">│       └── helper.go</span><br><span class="line">├── api/  # API相关的代码，如果项目提供API</span><br><span class="line">│   └── v1/</span><br><span class="line">│       └── api.go</span><br><span class="line">├── web/  # Web应用相关的文件，如模板和静态资产</span><br><span class="line">│   ├── templates/</span><br><span class="line">│   └── static/</span><br><span class="line">├── scripts/  # 各种工具脚本，如数据库迁移脚本</span><br><span class="line">│   └── migrate.go</span><br><span class="line">├── tests/  # 单元测试和集成测试</span><br><span class="line">│   └── app_test.go</span><br><span class="line">├── docs/  # 项目文档</span><br><span class="line">│   └── README.md</span><br><span class="line">├── go.mod  # Go模块文件</span><br><span class="line">├── go.sum</span><br><span class="line">├── .gitignore</span><br><span class="line">└── README.md</span><br></pre></td></tr></table></figure>
 
-
-
-<h2 id="Paraphrasing"><a href="#Paraphrasing" class="headerlink" title="Paraphrasing"></a>Paraphrasing</h2><ul>
+<h1 id="Paraphrasing"><a href="#Paraphrasing" class="headerlink" title="Paraphrasing"></a>Paraphrasing</h1><ul>
 <li><p>Use channels when passing ownership of data</p>
 </li>
 <li><p>Use mutexes for managing state</p>
@@ -10881,7 +10867,7 @@
 <li><p><strong>External Attacher</strong></p>
 <p><strong>负责“Attach 阶段”</strong>。在具体实现上，它监听了 APIServer 里 VolumeAttachment 对象的变化。VolumeAttachment 对象是 Kubernetes 确认一个 Volume 可以进入“Attach 阶段”的重要标志；</p>
 <p>一旦出现了 VolumeAttachment 对象，External Attacher 就会调用 CSI Controller 服务的 ControllerPublish 方法，完成它所对应的 Volume 的 Attach 阶段。</p>
-</li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">kubernetes-csi/external-snapshotter: This project contains the sidecar container that watches Kubernetes VolumeSnapshot objects and triggers CreateSnapshot/DeleteSnapshot operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/external-provisioner: The external-provisioner is a sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/external-attacher: The external-attacher is a sidecar container that watches Kubernetes VolumeAttachment objects and triggers ControllerPublish/Unpublish operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/node-driver-registrar: This sidecar container registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/livenessprobe: A sidecar container that can be included in a CSI plugin pod to enable integration with Kubernetes Liveness Probe</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="Custom-Components"><a href="#Custom-Components" class="headerlink" title="Custom Components"></a>Custom Components</h4><ul>
 <li><p><strong>CSI Identity</strong></p>
@@ -12237,6 +12223,360 @@
       </categories>
       <tags>
         <tag>vcluster</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github workflow</title>
+    <url>/2024/08/30/github%20workflow/</url>
+    <content><![CDATA[<blockquote>
+<p>GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.</p>
+</blockquote>
+<h1 id="security"><a href="#security" class="headerlink" title="security"></a>security</h1><h2 id="create-secret"><a href="#create-secret" class="headerlink" title="create secret"></a>create secret</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gh secret set SECRET_NAME</span><br><span class="line">or</span><br><span class="line">gh secret set SECRET_NAME &lt; secret.txt</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>github</category>
+      </categories>
+      <tags>
+        <tag>workflow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>copilot</title>
+    <url>/2024/03/13/copilot/</url>
+    <content><![CDATA[<h1 id="keywords"><a href="#keywords" class="headerlink" title="keywords"></a>keywords</h1><ul>
+<li><p>提示内容写入 ➡️</p>
+</li>
+<li><p>下一个提示 <code>option + ]</code>，上一个提示 <code>option + [</code></p>
+</li>
+<li><p>接收一行<code>command + 右方向</code> ，多行 <code>control/fn + command + 右方向</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>copilot</category>
+      </categories>
+      <tags>
+        <tag>assistant</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>emacs</title>
+    <url>/2024/08/30/emacs/</url>
+    <content><![CDATA[<h2 id="shortcut"><a href="#shortcut" class="headerlink" title="shortcut"></a>shortcut</h2><table>
+<thead>
+<tr>
+<th>Emacs 功能键</th>
+<th>缩写</th>
+<th>对应键盘按键(PC/Mac)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Control</td>
+<td>C</td>
+<td>Ctrl / Control</td>
+</tr>
+<tr>
+<td>Meta</td>
+<td>M</td>
+<td>Alt / Option</td>
+</tr>
+<tr>
+<td>Shift</td>
+<td>S</td>
+<td>Shift / Shift</td>
+</tr>
+<tr>
+<td>Super</td>
+<td>s</td>
+<td>Win / Command</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>操作描述</th>
+<th>快捷键</th>
+<th>命令名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入命令</td>
+<td>M-x</td>
+<td>execute-extended-command</td>
+</tr>
+<tr>
+<td>退出程序</td>
+<td>C-x C-c</td>
+<td>save-buffers-kill-terminal</td>
+</tr>
+<tr>
+<td>放弃当前输入</td>
+<td>C-g</td>
+<td>keyboard-quit</td>
+</tr>
+<tr>
+<td>光标向上一行（方向键上）</td>
+<td>C-p</td>
+<td>previous-line</td>
+</tr>
+<tr>
+<td>光标向下一行（方向键下）</td>
+<td>C-n</td>
+<td>next-line</td>
+</tr>
+<tr>
+<td>光标向左一个字符（方向键左）</td>
+<td>C-b</td>
+<td>backward-char</td>
+</tr>
+<tr>
+<td>光标向右一个字符（方向键右）</td>
+<td>C-f</td>
+<td>forward-char</td>
+</tr>
+<tr>
+<td>光标向左移动一个词</td>
+<td>M-b</td>
+<td>backward-word</td>
+</tr>
+<tr>
+<td>光标向右移动一个词</td>
+<td>M-f</td>
+<td>forward-word</td>
+</tr>
+<tr>
+<td>光标移至行首</td>
+<td>C-a</td>
+<td>move-beginning-of-line</td>
+</tr>
+<tr>
+<td>光标移至行尾</td>
+<td>C-e</td>
+<td>move-end-of-line</td>
+</tr>
+<tr>
+<td>光标移动到一行缩进的开头</td>
+<td>M-m</td>
+<td>back-to-indentation</td>
+</tr>
+<tr>
+<td>光标移至句首</td>
+<td>M-a</td>
+<td>backward-sentence</td>
+</tr>
+<tr>
+<td>光标移至句尾</td>
+<td>M-e</td>
+<td>forward-sentence</td>
+</tr>
+<tr>
+<td>光标移至文件开头</td>
+<td>M-&lt;</td>
+<td>beginning-of-buffer</td>
+</tr>
+<tr>
+<td>光标移至文件结尾</td>
+<td>M-&gt;</td>
+<td>end-of-buffer</td>
+</tr>
+<tr>
+<td>光标移动至窗口的中间、最上、最下</td>
+<td>M-r</td>
+<td>move-to-window-line-top-bottom</td>
+</tr>
+<tr>
+<td>删除光标右侧字符</td>
+<td>C-d</td>
+<td>delete-char</td>
+</tr>
+<tr>
+<td>移除光标右侧词</td>
+<td>M-d</td>
+<td>kill-word</td>
+</tr>
+<tr>
+<td>移除光标左侧词</td>
+<td>M-DEL</td>
+<td>backward-kill-word</td>
+</tr>
+<tr>
+<td>移除右侧直到句子结尾</td>
+<td>M-k</td>
+<td>kill-sentence</td>
+</tr>
+<tr>
+<td>移除右侧直到行尾</td>
+<td>C-k</td>
+<td>kill-line</td>
+</tr>
+<tr>
+<td>设置标记以选择区域</td>
+<td>C-SPC</td>
+<td>set-mark-command</td>
+</tr>
+<tr>
+<td>复制区域</td>
+<td>M-w</td>
+<td>kill-region-save</td>
+</tr>
+<tr>
+<td>移除区域</td>
+<td>C-w</td>
+<td>kill-region</td>
+</tr>
+<tr>
+<td>插入已移除文本</td>
+<td>C-y</td>
+<td>yank</td>
+</tr>
+<tr>
+<td>插入历史移除文本</td>
+<td>M-y</td>
+<td>yank-pop</td>
+</tr>
+<tr>
+<td>撤回</td>
+<td>C-/ 或 C-_ 或 C-x u</td>
+<td>undo</td>
+</tr>
+<tr>
+<td>跳转到上一标记</td>
+<td>C-x C-SPC 或 C-u C-SPC</td>
+<td>pop-global-mark</td>
+</tr>
+<tr>
+<td>跳转到行号</td>
+<td>M-g M-g</td>
+<td>goto-line</td>
+</tr>
+<tr>
+<td>重复</td>
+<td>C-u</td>
+<td>universal-argument</td>
+</tr>
+<tr>
+<td>向下一页</td>
+<td>C-v</td>
+<td>scroll-up-command</td>
+</tr>
+<tr>
+<td>向上一页</td>
+<td>M-v</td>
+<td>scroll-down-command</td>
+</tr>
+<tr>
+<td>移动页面使得光标在中央/最上方/最下方</td>
+<td>C-l</td>
+<td>recenter-top-bottom</td>
+</tr>
+<tr>
+<td>向后搜索</td>
+<td>C-s</td>
+<td>isearch-forward</td>
+</tr>
+<tr>
+<td>向前搜索</td>
+<td>C-r</td>
+<td>isearch-backward</td>
+</tr>
+<tr>
+<td>交换前后字符</td>
+<td>C-t</td>
+<td>transpose-chars</td>
+</tr>
+<tr>
+<td>交换前后词</td>
+<td>M-t</td>
+<td>transpose-words</td>
+</tr>
+<tr>
+<td>交换前后两行</td>
+<td>C-x C-t</td>
+<td>transpose-lines</td>
+</tr>
+<tr>
+<td>在下方新建一行</td>
+<td>C-o</td>
+<td>open-line</td>
+</tr>
+<tr>
+<td>删除连续空行为一个空行</td>
+<td>C-x C-o</td>
+<td>delete-blank-lines</td>
+</tr>
+<tr>
+<td>将后面的词变为小写</td>
+<td>M-l</td>
+<td>downcase-word</td>
+</tr>
+<tr>
+<td>将后面的词变为大写</td>
+<td>M-u</td>
+<td>upcase-word</td>
+</tr>
+<tr>
+<td>将后面的词变为首字母大写</td>
+<td>M-c</td>
+<td>capitalize-word</td>
+</tr>
+<tr>
+<td>放大字号</td>
+<td>C-x C-=</td>
+<td>text-scale-adjust</td>
+</tr>
+<tr>
+<td>缩小字号</td>
+<td>C-x C–</td>
+<td>text-scale-adjust</td>
+</tr>
+<tr>
+<td>重置字号</td>
+<td>C-x C-0</td>
+<td>text-scale-adjust</td>
+</tr>
+<tr>
+<td>简要描述快捷键功能</td>
+<td>C-h c</td>
+<td>describe-key-briefly</td>
+</tr>
+<tr>
+<td>描述快捷键功能</td>
+<td>C-h k</td>
+<td>describe-key</td>
+</tr>
+<tr>
+<td>描述函数功能</td>
+<td>C-h f</td>
+<td>describe-function</td>
+</tr>
+<tr>
+<td>描述变量</td>
+<td>C-h v</td>
+<td>describe-variable</td>
+</tr>
+<tr>
+<td>列出含某一关键词的命令</td>
+<td>C-h a</td>
+<td>apropos-command</td>
+</tr>
+<tr>
+<td>列出含某一关键词的符号的文档</td>
+<td>C-h d</td>
+<td>apropos-documentation</td>
+</tr>
+<tr>
+<td>帮助的帮助</td>
+<td>C-h ?</td>
+<td>help-for-help</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>emacs</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>
