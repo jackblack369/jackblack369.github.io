@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="source is the essence">
 <meta property="og:description" content="文件系统  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.willshirley.top/images/fileSystemType.jpeg">
+<meta property="og:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
 <meta property="article:published_time" content="2022-01-07T05:59:21.000Z">
-<meta property="article:modified_time" content="2024-09-11T08:16:09.821Z">
+<meta property="article:modified_time" content="2024-09-14T09:32:33.953Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.willshirley.top/images/fileSystemType.jpeg">
+<meta name="twitter:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
     
     
       
@@ -118,7 +118,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">2.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">2.0.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">2.0.2.</span> <span class="toc-text">create lvm</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.0.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.0.2.</span> <span class="toc-text">create lvm</span></a></li></ol></li></ol></li></ol>
       </div>
     
   </span>
@@ -168,7 +168,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><img src="/images/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
+    <h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
 <ul>
 <li><p>Mac 默认可以读 Windows 的 NTFS 格式，但不能写。</p>
 </li>
@@ -182,6 +182,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低</span><br><span class="line">FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB</span><br><span class="line">NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。</span><br></pre></td></tr></table></figure></li>
 </ul>
 <hr>
+<h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
+<p>Filesystem in Userspace</p>
+</blockquote>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h3 id="delete-existed-volume"><a href="#delete-existed-volume" class="headerlink" title="delete existed volume"></a>delete existed volume</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step 1:</span></span><br><span class="line">lsblk</span><br><span class="line">NAME                                                                                                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">sr0                                                                                                    11:0    1 1024M  0 rom  </span><br><span class="line">vda                                                                                                   252:0    0  300G  0 disk </span><br><span class="line">├─vda1                                                                                                252:1    0    6G  0 part /boot</span><br><span class="line">└─vda2                                                                                                252:2    0  290G  0 part </span><br><span class="line">  └─rl_172--20--7--230-root                                                                           253:0    0  290G  0 lvm  /</span><br><span class="line">vdb                                                                                                   252:16   0  100G  0 disk </span><br><span class="line">└─ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce 253:1    0  100G  0 lvm </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3:</span></span><br><span class="line">sudo vgchange -an ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4</span></span><br><span class="line">sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262a3f-354b-4d6a-95db-eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5</span></span><br><span class="line">sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091</span><br></pre></td></tr></table></figure>
 
 
@@ -227,7 +230,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">2.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">2.0.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">2.0.2.</span> <span class="toc-text">create lvm</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.0.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.0.2.</span> <span class="toc-text">create lvm</span></a></li></ol></li></ol></li></ol>
       </div>
     
 
