@@ -9,15 +9,16 @@
     <meta name="description" content="文件系统  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="file system">
-<meta property="og:url" content="https://www.willshirley.top/2022/01/07/file%20system/index.html">
+<meta property="og:url" content="https://www.willshirley.top/2024/08/07/file%20system/index.html">
 <meta property="og:site_name" content="source is the essence">
 <meta property="og:description" content="文件系统  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
-<meta property="article:published_time" content="2022-01-07T05:59:21.000Z">
-<meta property="article:modified_time" content="2024-09-19T07:08:25.125Z">
+<meta property="og:image" content="https://www.willshirley.top/images/fs/lvm%20architecture.png">
+<meta property="article:published_time" content="2024-08-07T05:59:21.000Z">
+<meta property="article:modified_time" content="2024-09-26T07:46:40.459Z">
 <meta property="article:author" content="brook">
-<meta property="article:tag" content="snippet">
+<meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
     
@@ -89,10 +90,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2022/01/07/fabric8(docker-maven-plugin)/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2024/08/14/code%20styple/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2022/01/04/flink%20sql/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2024/08/05/Kubernetes%20learn/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -105,20 +106,20 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2022/01/07/file%20system/&text=file system"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2022/01/07/file%20system/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=file system&body=Check out this article: https://www.willshirley.top/2022/01/07/file%20system/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2022/01/07/file%20system/&title=file system"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2022/01/07/file%20system/&title=file system"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2022/01/07/file%20system/&title=file system"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2022/01/07/file%20system/&t=file system"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/07/file%20system/&text=file system"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/07/file%20system/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=file system&body=Check out this article: https://www.willshirley.top/2024/08/07/file%20system/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/07/file%20system/&title=file system"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/07/file%20system/&title=file system"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/07/file%20system/&title=file system"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/07/file%20system/&t=file system"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unmount-lvm"><span class="toc-number">3.3.</span> <span class="toc-text">unmount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">3.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unmount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">unmount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -143,7 +144,7 @@
       
     <div class="postdate">
       
-        <time datetime="2022-01-07T05:59:21.000Z" class="dt-published" itemprop="datePublished">2022-01-07</time>
+        <time datetime="2024-08-07T05:59:21.000Z" class="dt-published" itemprop="datePublished">2024-08-07</time>
         
       
     </div>
@@ -152,14 +153,14 @@
       
     <div class="article-category">
         <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/file-system/">file system</a>
+        <a class="category-link" href="/categories/fs/">fs</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/snippet/" rel="tag">snippet</a>
+        <a class="p-category" href="/tags/learn/" rel="tag">learn</a>
     </div>
 
 
@@ -182,12 +183,21 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低</span><br><span class="line">FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB</span><br><span class="line">NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。</span><br></pre></td></tr></table></figure></li>
 </ul>
 <hr>
+<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="LVM-Logical-Volume-Manager"><a href="#LVM-Logical-Volume-Manager" class="headerlink" title="LVM (Logical Volume Manager)"></a>LVM (Logical Volume Manager)</h2><blockquote>
+<p> Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.</p>
+</blockquote>
+<p>​    •    <strong>Disk</strong>: Represents the physical disks, such as /dev/sda or /dev/vdb.</p>
+<p>​    •    <strong>VG (Volume Group)</strong>: Aggregates the space of one or more physical disks.</p>
+<p>​    •    <strong>LV (Logical Volume)</strong>: A subdivision of the VG space, which can be mounted.</p>
+<p>​    •    <strong>Mount Point</strong>: Where the LV is mounted in the filesystem.</p>
+<img src="/images/fs/lvm architecture.png">
+
 <h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
 <p>Filesystem in Userspace</p>
 </blockquote>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="delete-existed-volume"><a href="#delete-existed-volume" class="headerlink" title="delete existed volume"></a>delete existed volume</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step 1:</span></span><br><span class="line">lsblk</span><br><span class="line">NAME                                                                                                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">sr0                                                                                                    11:0    1 1024M  0 rom  </span><br><span class="line">vda                                                                                                   252:0    0  300G  0 disk </span><br><span class="line">├─vda1                                                                                                252:1    0    6G  0 part /boot</span><br><span class="line">└─vda2                                                                                                252:2    0  290G  0 part </span><br><span class="line">  └─rl_172--20--7--230-root                                                                           253:0    0  290G  0 lvm  /</span><br><span class="line">vdb                                                                                                   252:16   0  100G  0 disk </span><br><span class="line">└─ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce 253:1    0  100G  0 lvm </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3:</span></span><br><span class="line">sudo vgchange -an ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4</span></span><br><span class="line">sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262a3f-354b-4d6a-95db-eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5</span></span><br><span class="line">sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091</span><br></pre></td></tr></table></figure>
 
-<h2 id="create-lvm"><a href="#create-lvm" class="headerlink" title="create lvm"></a>create lvm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1 create vg</span></span><br><span class="line">sudo vgcreate s3_vg /dev/vdb</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 create lv</span></span><br><span class="line">sudo lvcreate -L 50G -n minio_lv s3_vg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3 format xfs on lvm</span></span><br><span class="line">sudo mkfs.xfs /dev/s3_vg/minio_lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4 create mount point</span></span><br><span class="line">sudo mkdir -p /mnt/minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5 mount logic point</span></span><br><span class="line">sudo mount -o noatime /dev/s3_vg/minio_lv /mnt/minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step6 verify</span></span><br><span class="line">df -h /mnt/minio</span><br><span class="line"></span><br><span class="line">Filesystem                  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio</span><br></pre></td></tr></table></figure>
+<h2 id="create-lvm"><a href="#create-lvm" class="headerlink" title="create lvm"></a>create lvm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1 create vg(volume group)</span></span><br><span class="line">sudo vgcreate s3_vg /dev/vdb</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 create lv(logic volume)</span></span><br><span class="line">sudo lvcreate -L 50G -n minio_lv s3_vg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3 format xfs on lvm</span></span><br><span class="line">sudo mkfs.xfs /dev/s3_vg/minio_lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4 create mount point</span></span><br><span class="line">sudo mkdir -p /mnt/minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5 mount logic point</span></span><br><span class="line">sudo mount -o noatime /dev/s3_vg/minio_lv /mnt/minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step6 verify</span></span><br><span class="line">df -h /mnt/minio</span><br><span class="line"></span><br><span class="line">Filesystem                  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio</span><br></pre></td></tr></table></figure>
 
 <h2 id="unmount-lvm"><a href="#unmount-lvm" class="headerlink" title="unmount lvm"></a>unmount lvm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1 umount directory</span></span><br><span class="line">sudo umount /mnt/your_mount_point</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 Deactivate the Logical Volume</span></span><br><span class="line">sudo lvchange -an /dev/volume_group/logical_volume</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3 Remove the Logical Volume</span></span><br><span class="line">sudo lvremove /dev/volume_group/logical_volume</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (Optional) step4 Remove the Volume Group</span> </span><br><span class="line">sudo vgremove volume_group</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (Optional) step5 Remove the Physical Volume</span></span><br><span class="line">sudo pvremove /dev/sdX</span><br></pre></td></tr></table></figure>
 
@@ -232,19 +242,19 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unmount-lvm"><span class="toc-number">3.3.</span> <span class="toc-text">unmount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">3.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unmount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">unmount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2022/01/07/file%20system/&text=file system"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2022/01/07/file%20system/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=file system&body=Check out this article: https://www.willshirley.top/2022/01/07/file%20system/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2022/01/07/file%20system/&title=file system"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2022/01/07/file%20system/&title=file system"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2022/01/07/file%20system/&title=file system"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2022/01/07/file%20system/&t=file system"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/07/file%20system/&text=file system"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/07/file%20system/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=file system&body=Check out this article: https://www.willshirley.top/2024/08/07/file%20system/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/07/file%20system/&title=file system"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/07/file%20system/&title=file system"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/07/file%20system/&title=file system"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/07/file%20system/&t=file system"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
