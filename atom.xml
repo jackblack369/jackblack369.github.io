@@ -6,7 +6,7 @@
   <link href="https://www.willshirley.top/atom.xml" rel="self"/>
   
   <link href="https://www.willshirley.top/"/>
-  <updated>2024-09-23T09:52:07.290Z</updated>
+  <updated>2024-09-29T06:52:19.297Z</updated>
   <id>https://www.willshirley.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>minio snippet</title>
+    <link href="https://www.willshirley.top/2024/09/29/minio%20snippet/"/>
+    <id>https://www.willshirley.top/2024/09/29/minio%20snippet/</id>
+    <published>2024-09-29T02:25:00.000Z</published>
+    <updated>2024-09-29T06:52:19.297Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="Erasure-Coding"><a href="#Erasure-Coding" class="headerlink" title="Erasure Coding"></a>Erasure Coding</h2><p><strong>Erasure Coding</strong> splits data into data and parity shards. For example, MinIO might use a <strong>4:2 erasure code</strong> (should use 6  disks), meaning each object is split into 4 data shards and 2 parity shards.</p><blockquote><p>In a 4:2 erasure coding setup:</p><p>4 data shards hold the actual object data.</p><p>2 parity shards are created for redundancy.</p></blockquote><p>In this configuration, every object is broken into smaller pieces, with redundancy pieces (parity shards) stored to allow recovery if a disk or node fails.</p><h1 id="client"><a href="#client" class="headerlink" title="client"></a>client</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> add development</span></span><br><span class="line">mc alias set myminio &#123;endpoint_address&#125; &#123;ak&#125; &#123;sk&#125; </span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. mc <span class="built_in">alias</span> <span class="built_in">set</span> myminio http://minio1.dev.net:19000 1111111 22222222</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> overview</span></span><br><span class="line">mc admin info myminio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remote data</span></span><br><span class="line">mc rm --recursive myminio/&#123;bucket_name&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> erasure code</span></span><br><span class="line">mc admin config set myminio storage_class standard=EC:0</span><br><span class="line"><span class="meta">#</span><span class="bash"> should restart minio.service, and <span class="string">&#x27;systemctl status minio&#x27;</span> will <span class="built_in">print</span> <span class="string">&#x27;WARN: The standard parity is set to 0. This can lead to data loss&#x27;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check all</span> </span><br><span class="line">mc admin config get myminio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check storage_class</span> </span><br><span class="line">mc admin config get myminio storage_class</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;concept&quot;&gt;&lt;a href=&quot;#concept&quot; class=&quot;headerlink&quot; title=&quot;concept&quot;&gt;&lt;/a&gt;concept&lt;/h1&gt;&lt;h2 id=&quot;Erasure-Coding&quot;&gt;&lt;a href=&quot;#Erasure-Coding&quot; cla</summary>
+      
+    
+    
+    
+    <category term="minio" scheme="https://www.willshirley.top/categories/minio/"/>
+    
+    
+    <category term="snippet" scheme="https://www.willshirley.top/tags/snippet/"/>
+    
+  </entry>
   
   <entry>
     <title>kubectl command</title>
@@ -488,33 +512,6 @@
     
     
     <category term="pytest" scheme="https://www.willshirley.top/tags/pytest/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>copilot</title>
-    <link href="https://www.willshirley.top/2024/03/13/copilot/"/>
-    <id>https://www.willshirley.top/2024/03/13/copilot/</id>
-    <published>2024-03-13T02:00:52.000Z</published>
-    <updated>2024-08-30T07:12:47.605Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="keywords"><a href="#keywords" class="headerlink" title="keywords"></a>keywords</h1><ul><li><p>提示内容写入 ➡️</p></li><li><p>下一个提示 <code>option + ]</code>，上一个提示 <code>option + [</code></p></li><li><p>接收一行<code>command + 右方向</code> ，多行 <code>control/fn + command + 右方向</code></p></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;keywords&quot;&gt;&lt;a href=&quot;#keywords&quot; class=&quot;headerlink&quot; title=&quot;keywords&quot;&gt;&lt;/a&gt;keywords&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;提示内容写入 ➡️&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;下一个提示 &lt;cod</summary>
-      
-    
-    
-    
-    <category term="copilot" scheme="https://www.willshirley.top/categories/copilot/"/>
-    
-    
-    <category term="assistant" scheme="https://www.willshirley.top/tags/assistant/"/>
     
   </entry>
   
