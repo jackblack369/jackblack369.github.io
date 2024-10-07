@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/lvm%20architecture.png">
 <meta property="article:published_time" content="2024-08-07T05:59:21.000Z">
-<meta property="article:modified_time" content="2024-09-26T07:46:40.459Z">
+<meta property="article:modified_time" content="2024-10-07T06:06:16.631Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unmount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">unmount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.2.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.3.</span> <span class="toc-text">mount vs bind</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -192,6 +192,102 @@
 <p>​    •    <strong>Mount Point</strong>: Where the LV is mounted in the filesystem.</p>
 <img src="/images/fs/lvm architecture.png">
 
+<h2 id="volume-vs-fs"><a href="#volume-vs-fs" class="headerlink" title="volume vs fs"></a>volume vs fs</h2><p>The relationship between volumes and file systems is fundamental to understanding how data is organized and stored in computer systems.</p>
+<p><strong>Volume</strong>:</p>
+<ul>
+<li>A volume is a single accessible storage area with a single file system.</li>
+<li>It’s a logical device that can span one or more physical storage devices or parts of them.</li>
+<li>In simple terms, you can think of a volume as a container for storing data.</li>
+</ul>
+<p><strong>File System</strong>:</p>
+<ul>
+<li>A file system is a method and data structure that the operating system uses to control how data is stored and retrieved on a volume.</li>
+<li>It defines how files are named, stored, organized, and accessed on the volume.</li>
+</ul>
+<p>Relationship:</p>
+<ol>
+<li>One-to-One Mapping:<ul>
+<li>Typically, there is a one-to-one relationship between a volume and a file system.</li>
+<li>Each volume usually has one file system formatted on it.</li>
+</ul>
+</li>
+<li>Formatting:<ul>
+<li>When you “format” a volume, you’re actually creating a file system on that volume.</li>
+<li>This process prepares the volume to store files and directories in a way that the operating system can understand.</li>
+</ul>
+</li>
+<li>Mounting:<ul>
+<li>When you “mount” a volume, you’re making its file system accessible to the operating system.</li>
+<li>The mount point becomes the root directory of that file system within the larger file hierarchy.</li>
+</ul>
+</li>
+<li>Types:<ul>
+<li>Different types of file systems (e.g., NTFS, ext4, XFS, FAT32) can be used on volumes, each with its own features and limitations.</li>
+</ul>
+</li>
+<li>Management:<ul>
+<li>Volume management often involves tasks like creating, resizing, or deleting volumes.</li>
+<li>File system management includes tasks like formatting, checking for errors, and managing permissions.</li>
+</ul>
+</li>
+<li>Abstraction:<ul>
+<li>The volume provides a level of abstraction between the physical storage (like hard drives or SSDs) and the file system.</li>
+<li>This abstraction allows for features like RAID, where multiple physical devices can appear as a single volume.</li>
+</ul>
+</li>
+<li>Performance and Features:<ul>
+<li>The choice of file system can affect the performance and features available on a volume.</li>
+<li>For example, some file systems support larger file sizes, journaling, or built-in compression.</li>
+</ul>
+</li>
+<li>Multiple File Systems:<ul>
+<li>In some advanced setups, it’s possible to have multiple file systems on a single volume, though this is less common.</li>
+</ul>
+</li>
+<li>Logical Volume Management (LVM):<ul>
+<li>LVM allows for more flexible management of storage, where volumes can be easily resized, and multiple physical devices can be combined into a single logical volume.</li>
+</ul>
+</li>
+<li>Cloud and Virtualization:<ul>
+<li>In cloud and virtualized environments, volumes and file systems are often abstracted further, allowing for easy scaling and management.</li>
+</ul>
+</li>
+</ol>
+<h2 id="mount-vs-bind"><a href="#mount-vs-bind" class="headerlink" title="mount vs bind"></a>mount vs bind</h2><ul>
+<li><p>Mount</p>
+<ul>
+<li><p><strong>Mounting</strong> is the process of making a file system accessible at a certain point in the directory tree.</p>
+</li>
+<li><p>Typically used to attach external storage devices, like USB drives or partitions, to a directory.</p>
+</li>
+<li><p>Example: <code>mount /dev/sdX1 /mnt/mydrive</code></p>
+</li>
+</ul>
+</li>
+<li><p>Bind</p>
+<ul>
+<li><p><strong>Bind mounting</strong> allows you to map a directory to another location in the same file system.</p>
+</li>
+<li><p>This is useful for accessing the same files from multiple locations without duplicating them.</p>
+</li>
+<li><p>Example: <code>mount --bind /source/directory /target/directory</code></p>
+</li>
+</ul>
+</li>
+<li><p>Key Differences</p>
+<ul>
+<li><p><strong>Purpose</strong>: Mount is for attaching entire file systems; bind is for duplicating directory paths.</p>
+</li>
+<li><p><strong>Use Cases</strong>: Mount is common for devices; bind is useful for creating alternative paths to existing directories within the same file system.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>So, When you bind mount <code>directory1</code> (which is mounted to external file system A) to <code>directory2</code>, you create an alias for <code>directory1</code> at <code>directory2</code>. This means:</p>
+<ul>
+<li>Accessing <code>directory2</code> will show the contents of file system A.</li>
+<li>Any data written to <code>directory2</code> will be stored in file system A, not the local file system.</li>
+</ul>
 <h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
 <p>Filesystem in Userspace</p>
 </blockquote>
@@ -199,7 +295,7 @@
 
 <h2 id="create-lvm"><a href="#create-lvm" class="headerlink" title="create lvm"></a>create lvm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1 create vg(volume group)</span></span><br><span class="line">sudo vgcreate s3_vg /dev/vdb</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 create lv(logic volume)</span></span><br><span class="line">sudo lvcreate -L 50G -n minio_lv s3_vg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3 format xfs on lvm</span></span><br><span class="line">sudo mkfs.xfs /dev/s3_vg/minio_lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4 create mount point</span></span><br><span class="line">sudo mkdir -p /mnt/minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5 mount logic point</span></span><br><span class="line">sudo mount -o noatime /dev/s3_vg/minio_lv /mnt/minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step6 verify</span></span><br><span class="line">df -h /mnt/minio</span><br><span class="line"></span><br><span class="line">Filesystem                  Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio</span><br></pre></td></tr></table></figure>
 
-<h2 id="unmount-lvm"><a href="#unmount-lvm" class="headerlink" title="unmount lvm"></a>unmount lvm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1 umount directory</span></span><br><span class="line">sudo umount /mnt/your_mount_point</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 Deactivate the Logical Volume</span></span><br><span class="line">sudo lvchange -an /dev/volume_group/logical_volume</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3 Remove the Logical Volume</span></span><br><span class="line">sudo lvremove /dev/volume_group/logical_volume</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (Optional) step4 Remove the Volume Group</span> </span><br><span class="line">sudo vgremove volume_group</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (Optional) step5 Remove the Physical Volume</span></span><br><span class="line">sudo pvremove /dev/sdX</span><br></pre></td></tr></table></figure>
+<h2 id="umount-lvm"><a href="#umount-lvm" class="headerlink" title="umount lvm"></a>umount lvm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1 umount directory</span></span><br><span class="line">sudo umount /mnt/your_mount_point</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 Deactivate the Logical Volume</span></span><br><span class="line">sudo lvchange -an /dev/volume_group/logical_volume</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3 Remove the Logical Volume</span></span><br><span class="line">sudo lvremove /dev/volume_group/logical_volume</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (Optional) step4 Remove the Volume Group</span> </span><br><span class="line">sudo vgremove volume_group</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (Optional) step5 Remove the Physical Volume</span></span><br><span class="line">sudo pvremove /dev/sdX</span><br></pre></td></tr></table></figure>
 
 
 
@@ -242,7 +338,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unmount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">unmount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.2.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.3.</span> <span class="toc-text">mount vs bind</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
       </div>
     
 
