@@ -2480,7 +2480,7 @@
   <entry>
     <title>file system</title>
     <url>/2024/08/07/file%20system/</url>
-    <content><![CDATA[<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
+    <content><![CDATA[<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="FS-type"><a href="#FS-type" class="headerlink" title="FS type"></a>FS type</h2><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
 <ul>
 <li><p>Mac 默认可以读 Windows 的 NTFS 格式，但不能写。</p>
 </li>
@@ -2493,8 +2493,7 @@
 <li><p>windows</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低</span><br><span class="line">FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB</span><br><span class="line">NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。</span><br></pre></td></tr></table></figure></li>
 </ul>
-<hr>
-<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="LVM-Logical-Volume-Manager"><a href="#LVM-Logical-Volume-Manager" class="headerlink" title="LVM (Logical Volume Manager)"></a>LVM (Logical Volume Manager)</h2><blockquote>
+<h2 id="LVM-Logical-Volume-Manager"><a href="#LVM-Logical-Volume-Manager" class="headerlink" title="LVM (Logical Volume Manager)"></a>LVM (Logical Volume Manager)</h2><blockquote>
 <p> Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.</p>
 </blockquote>
 <p>​    •    <strong>Disk</strong>: Represents the physical disks, such as /dev/sda or /dev/vdb.</p>
@@ -2598,6 +2597,11 @@
 <ul>
 <li>Accessing <code>directory2</code> will show the contents of file system A.</li>
 <li>Any data written to <code>directory2</code> will be stored in file system A, not the local file system.</li>
+</ul>
+<h2 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h2><ul>
+<li>tmpfs is a special filesystem that uses RAM (and swap) for fast, temporary file storage.</li>
+<li>RAM is the hardware that holds the system’s active data, while tmpfs is a virtual filesystem that leverages RAM for storage.</li>
+<li>tmpfs is useful for temporary data that doesn’t need to persist after reboots, providing fast I/O performance since it’s in memory.</li>
 </ul>
 <h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
 <p>Filesystem in Userspace</p>
@@ -12850,7 +12854,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> add development</span></span><br><span class="line">mc alias set myminio &#123;endpoint_address&#125; &#123;ak&#125; &#123;sk&#125; </span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. mc <span class="built_in">alias</span> <span class="built_in">set</span> myminio http://minio1.dev.net:19000 1111111 22222222</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ls <span class="built_in">alias</span></span></span><br><span class="line">mc alias list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> overview info</span></span><br><span class="line">mc admin info myminio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check config</span> </span><br><span class="line">mc admin config get myminio</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>bucket</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create bucket</span></span><br><span class="line">mc mb &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check object</span></span><br><span class="line">mc cat &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete object</span></span><br><span class="line">mc rm &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all data</span></span><br><span class="line">mc rm --recursive &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force delete bucket</span></span><br><span class="line">mc rb --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create bucket</span></span><br><span class="line">mc mb &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check object</span></span><br><span class="line">mc cat &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete object</span></span><br><span class="line">mc rm &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all data</span></span><br><span class="line">mc rm --recursive --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force delete bucket</span></span><br><span class="line">mc rb --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>erasure code</p>
 </li>
 </ul>

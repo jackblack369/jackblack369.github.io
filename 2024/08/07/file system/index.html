@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="文件系统  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）">
+    <meta name="description" content="conceptFS type  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得">
 <meta property="og:type" content="article">
 <meta property="og:title" content="file system">
 <meta property="og:url" content="https://www.willshirley.top/2024/08/07/file%20system/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="文件系统  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）">
+<meta property="og:description" content="conceptFS type  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/lvm%20architecture.png">
 <meta property="article:published_time" content="2024-08-07T05:59:21.000Z">
-<meta property="article:modified_time" content="2024-10-07T06:06:16.631Z">
+<meta property="article:modified_time" content="2024-10-10T04:21:57.816Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.2.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.3.</span> <span class="toc-text">mount vs bind</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">1.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">1.2.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">1.3.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">1.4.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">1.5.</span> <span class="toc-text">tmpfs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umount-lvm"><span class="toc-number">3.3.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">3.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -169,7 +169,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
+    <h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="FS-type"><a href="#FS-type" class="headerlink" title="FS type"></a>FS type</h2><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
 <ul>
 <li><p>Mac 默认可以读 Windows 的 NTFS 格式，但不能写。</p>
 </li>
@@ -182,8 +182,7 @@
 <li><p>windows</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低</span><br><span class="line">FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB</span><br><span class="line">NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。</span><br></pre></td></tr></table></figure></li>
 </ul>
-<hr>
-<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="LVM-Logical-Volume-Manager"><a href="#LVM-Logical-Volume-Manager" class="headerlink" title="LVM (Logical Volume Manager)"></a>LVM (Logical Volume Manager)</h2><blockquote>
+<h2 id="LVM-Logical-Volume-Manager"><a href="#LVM-Logical-Volume-Manager" class="headerlink" title="LVM (Logical Volume Manager)"></a>LVM (Logical Volume Manager)</h2><blockquote>
 <p> Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.</p>
 </blockquote>
 <p>​    •    <strong>Disk</strong>: Represents the physical disks, such as /dev/sda or /dev/vdb.</p>
@@ -288,6 +287,11 @@
 <li>Accessing <code>directory2</code> will show the contents of file system A.</li>
 <li>Any data written to <code>directory2</code> will be stored in file system A, not the local file system.</li>
 </ul>
+<h2 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h2><ul>
+<li>tmpfs is a special filesystem that uses RAM (and swap) for fast, temporary file storage.</li>
+<li>RAM is the hardware that holds the system’s active data, while tmpfs is a virtual filesystem that leverages RAM for storage.</li>
+<li>tmpfs is useful for temporary data that doesn’t need to persist after reboots, providing fast I/O performance since it’s in memory.</li>
+</ul>
 <h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
 <p>Filesystem in Userspace</p>
 </blockquote>
@@ -338,7 +342,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.1.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.2.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.3.</span> <span class="toc-text">mount vs bind</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umount-lvm"><span class="toc-number">4.3.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">4.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">1.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">1.2.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">1.3.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">1.4.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">1.5.</span> <span class="toc-text">tmpfs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.1.</span> <span class="toc-text">delete existed volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.2.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umount-lvm"><span class="toc-number">3.3.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#other"><span class="toc-number">3.4.</span> <span class="toc-text">other</span></a></li></ol></li></ol>
       </div>
     
 
