@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="security model Access control list (ACL)  Attribute-based access control (ABAC)  Bell–LaPadula model  Biba model  Brewer and Nash model  Capability-based security  Clark-Wilson model  Context-based ac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="security">
+<meta property="og:url" content="https://www.willshirley.top/2023/12/16/security/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="security model Access control list (ACL)  Attribute-based access control (ABAC)  Bell–LaPadula model  Biba model  Brewer and Nash model  Capability-based security  Clark-Wilson model  Context-based ac">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/rbac/rbac_auth.png">
+<meta property="og:image" content="https://www.willshirley.top/images/security/user-journey-oauth.webp">
+<meta property="og:image" content="http://wiki.jikexueyuan.com/project/shiro/images/2.png">
+<meta property="og:image" content="http://wiki.jikexueyuan.com/project/shiro/images/3.png">
+<meta property="og:image" content="http://wiki.jikexueyuan.com/project/shiro/images/4.png">
+<meta property="article:published_time" content="2023-12-16T02:57:00.000Z">
+<meta property="article:modified_time" content="2024-10-11T08:41:39.864Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="tools">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/rbac/rbac_auth.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>security</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/12/18/python%20env/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/12/08/git%20mergetool/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2023/12/16/security/&text=security"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2023/12/16/security/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=security&body=Check out this article: https://www.willshirley.top/2023/12/16/security/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2023/12/16/security/&title=security"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2023/12/16/security/&title=security"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2023/12/16/security/&title=security"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2023/12/16/security/&t=security"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#security-model"><span class="toc-number">1.</span> <span class="toc-text">security model</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oauth2"><span class="toc-number">2.</span> <span class="toc-text">oauth2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OAuth-2-0-terminology"><span class="toc-number">2.1.</span> <span class="toc-text">OAuth 2.0 terminology</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#keycloak"><span class="toc-number">3.</span> <span class="toc-text">keycloak</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">3.0.1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-server"><span class="toc-number">3.0.2.</span> <span class="toc-text">config server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bootstrap"><span class="toc-number">3.0.3.</span> <span class="toc-text">bootstrap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-realm"><span class="toc-number">3.0.4.</span> <span class="toc-text">config realm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-clients"><span class="toc-number">3.0.5.</span> <span class="toc-text">config clients</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shiro"><span class="toc-number">4.</span> <span class="toc-text">shiro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-number">4.0.1.</span> <span class="toc-text">身份验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%88%E6%9D%83"><span class="toc-number">4.0.2.</span> <span class="toc-text">授权</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        security
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-12-16T02:57:00.000Z" class="dt-published" itemprop="datePublished">2023-12-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/security/">security</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/tools/" rel="tag">tools</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="security-model"><a href="#security-model" class="headerlink" title="security model"></a>security model</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Access_control_list">Access control list</a> (ACL)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Attribute-based_access_control">Attribute-based access control</a> (ABAC)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bell%E2%80%93LaPadula_model">Bell–LaPadula model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Biba_model">Biba model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Brewer_and_Nash_model">Brewer and Nash model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Capability-based_security">Capability-based security</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Clark-Wilson_model">Clark-Wilson model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Context-based_access_control">Context-based access control</a> (CBAC)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Graham-Denning_model">Graham-Denning model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HRU_(security)">Harrison-Ruzzo-Ullman</a> (HRU)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/High-water_mark_(computer_security)">High-water mark (computer security)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lattice-based_access_control">Lattice-based access control</a> (LBAC)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mandatory_access_control">Mandatory access control</a> (MAC)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Multi-level_security">Multi-level security</a> (MLS)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Non-interference_(security)">Non-interference (security)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Object-capability_model">Object-capability model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Protection_ring">Protection ring</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Role-based_access_control">Role-based access control</a> (RBAC)</p>
+<p><img src="/images/rbac/rbac_auth.png"></p>
+<p>reference</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63769951">知乎</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ljw499356212/article/details/81055141">CSDN</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://benheart.github.io/2016/11/19/rbac-design-doc.html">https://benheart.github.io/2016/11/19/rbac-design-doc.html</a></p>
+</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Take-grant_protection_model">Take-grant protection model</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Discretionary_access_control">Discretionary access control</a> (DAC)</p>
+</li>
+</ul>
+<blockquote>
+<p> SSO (single sign-on)</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://ninjaauth.com/sso-single-sign-on">https://ninjaauth.com/sso-single-sign-on</a></p>
+</blockquote>
+<h1 id="oauth2"><a href="#oauth2" class="headerlink" title="oauth2"></a>oauth2</h1><h2 id="OAuth-2-0-terminology"><a href="#OAuth-2-0-terminology" class="headerlink" title="OAuth 2.0 terminology"></a>OAuth 2.0 terminology</h2><ul>
+<li><strong>Resource Owner</strong>: Entity that can grant access to a protected resource. Typically, this is the end-user.</li>
+<li><strong>Client</strong>: Application requesting access to a protected resource on behalf of the Resource Owner.</li>
+<li><strong>Resource Server</strong>: Server hosting the protected resources. This is the API you want to access.</li>
+<li><strong>Authorization Server</strong>: Server that authenticates the Resource Owner and issues Access Tokens after getting proper authorization. In this case, Auth0.</li>
+<li><strong>User Agent</strong>: Agent used by the Resource Owner to interact with the Client (for example, a browser or a native application).</li>
+</ul>
+<p><img src="/images/security/user-journey-oauth.webp" alt="user-journey-oauth"></p>
+<p>The best practice for implementing OAuth2 in a web application with a separate frontend and backend is to use the Backend for Frontend (BFF) pattern. Here’s how it works:</p>
+<p>The frontend (e.g. a Single Page Application) initiates the OAuth2 flow by redirecting the user to the OAuth2 provider’s authorization endpoint. The provider then authenticates the user and redirects back to the frontend with an authorization code.</p>
+<p>The frontend then sends this authorization code to the backend over a secure channel (e.g. HTTPS). The backend acts as a confidential client and exchanges the authorization code with the OAuth2 provider for an access token and refresh token.[1][3]</p>
+<p>The backend stores the tokens securely and returns an opaque session cookie or token to the frontend. This session identifier represents the authenticated user session.[1]</p>
+<p>For subsequent API requests, the frontend includes the session cookie/token. The backend validates the session and retrieves the access token, using it to authenticate the request to the backend API or other third-party APIs on behalf of the user.[1][3]</p>
+<p>This pattern has several advantages:</p>
+<ol>
+<li><p>The access token is never exposed to the frontend, mitigating the risk of token theft.[1][3]</p>
+</li>
+<li><p>The backend can securely store and manage the refresh of access tokens without involving the frontend.[3]</p>
+</li>
+<li><p>The backend can act as a gatekeeper, validating requests and enforcing authorization rules before proxying to third-party APIs.[3]</p>
+</li>
+<li><p>The frontend only needs to handle the initial OAuth2 redirect and session management, simplifying its code.[1]</p>
+</li>
+</ol>
+<p>To implement this, the backend must be registered as a confidential OAuth2 client with the provider. The frontend can use libraries like Auth0 or Google’s client-side libraries to initiate the OAuth2 flow.[1][4] The backend handles the code exchange and token management, often using server-side OAuth2 libraries or middleware.[1]</p>
+<p>Citations:<br>[1] <a target="_blank" rel="noopener" href="https://auth0.com/blog/backend-for-frontend-pattern-with-auth0-and-dotnet/">https://auth0.com/blog/backend-for-frontend-pattern-with-auth0-and-dotnet/</a><br>[2] <a target="_blank" rel="noopener" href="https://community.qlik.com/t5/New-to-Qlik-Analytics/How-to-Secure-Backend-API-Endpoints-on-the-Front-End-Best/td-p/2423853">https://community.qlik.com/t5/New-to-Qlik-Analytics/How-to-Secure-Backend-API-Endpoints-on-the-Front-End-Best/td-p/2423853</a><br>[3] <a target="_blank" rel="noopener" href="https://auth0.com/blog/the-backend-for-frontend-pattern-bff/">https://auth0.com/blog/the-backend-for-frontend-pattern-bff/</a><br>[4] <a target="_blank" rel="noopener" href="https://infisical.com/blog/guide-to-implementing-oauth2">https://infisical.com/blog/guide-to-implementing-oauth2</a><br>[5] <a target="_blank" rel="noopener" href="https://www.reddit.com/r/node/comments/skmjjn/0auth_implemented_on_frontend_or_backend/">https://www.reddit.com/r/node/comments/skmjjn/0auth_implemented_on_frontend_or_backend/</a></p>
+<hr>
+<p>reference</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/which-oauth-2-0-flow-should-i-use">https://auth0.com/docs/get-started/authentication-and-authorization-flow/which-oauth-2-0-flow-should-i-use</a></li>
+</ul>
+<h1 id="keycloak"><a href="#keycloak" class="headerlink" title="keycloak"></a>keycloak</h1><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
+<li>需要jdk9以上环境</li>
+</ul>
+<h3 id="config-server"><a href="#config-server" class="headerlink" title="config server"></a>config server</h3><ul>
+<li><p>编辑 <code>/conf/keycloak.conf </code>，配置mysql连接信息 (mysql创建keycloak库)</p>
+</li>
+<li><p>配置 <code>admin cli </code>环境变量 （方便直接命令操作，等同于界面操作）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keycloak</span></span><br><span class="line">export KCADM=&quot;/Users/dongwei/Applications/keycloak-23.0.3/bin/kcadm.sh&quot;</span><br><span class="line">export HOST_FOR_KCADM=localhost</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><ul>
+<li><p>首次启动</p>
+<p><code>KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=xxxxxx ./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>后续启动</p>
+<p><code>./bin/kc.sh start-dev</code></p>
+</li>
+<li><p>生效 <code>KCADM</code></p>
+<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
+<p>提示输入密码即可 (1sou2sou)</p>
+</li>
+</ul>
+<p>​        验证 <code>$KCADM get serverinfo</code></p>
+<h3 id="config-realm"><a href="#config-realm" class="headerlink" title="config realm"></a>config realm</h3><ul>
+<li><p>创建新的realm</p>
+<p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
+</li>
+</ul>
+<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="shiro"><a href="#shiro" class="headerlink" title="shiro"></a>shiro</h1><p>**对于一个好的框架，从外部来看应该具有非常简单易于使用的 API，且 API 契约明确；从内部来看的话，其应该有一个可扩展的架构，即非常容易插入用户自定义实现，因为任何框架都不能满足所有需求。 **</p>
+<hr>
+<ul>
+<li><p>Subject</p>
+<p>主体，代表了当前的用户</p>
+</li>
+<li><p>SecurityManager</p>
+<p>安全管理器，它管理着所有Subject，相当于springmvc中的DispatcherServlet(前端控制器)</p>
+</li>
+<li><p>Realm</p>
+<p>域，Shiro从Realm获取安全数据（如用户、角色、权限） ，是验证主体subject的数据源</p>
+</li>
+</ul>
+<p>流程如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/2.png"></p>
+<p><strong>流程说明</strong>：</p>
+<ol>
+<li>应用代码通过 Subject 来进行认证和授权，而 Subject 又委托给 SecurityManager；</li>
+<li>我们需要给 Shiro 的 SecurityManager 注入 Realm，从而让 SecurityManager 能得到合法的用户及其权限进行判断。</li>
+</ol>
+<p><strong>从以上也可以看出，Shiro 不提供维护用户 / 权限，而是通过 Realm 让开发人员自己注入。</strong> </p>
+<hr>
+<p>shiro的内部结构如图：</p>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/3.png"></p>
+<hr>
+<h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h3><p><strong>principals</strong>：身份，即主体的标识属性，可以是任何东西，如用户名、邮箱等，唯一即可。 </p>
+<p><strong>credentials</strong>：证明 / 凭证，即只有主体知道的安全值，如密码 / 数字证书等。 </p>
+<ul>
+<li>身份认证流程</li>
+</ul>
+<p><img src="http://wiki.jikexueyuan.com/project/shiro/images/4.png"></p>
+<hr>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 </p>
+<ul>
+<li><p>授权方式</p>
+<p>编程式、注解式、jsp/gsp标签式</p>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#security-model"><span class="toc-number">1.</span> <span class="toc-text">security model</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oauth2"><span class="toc-number">2.</span> <span class="toc-text">oauth2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OAuth-2-0-terminology"><span class="toc-number">2.1.</span> <span class="toc-text">OAuth 2.0 terminology</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#keycloak"><span class="toc-number">3.</span> <span class="toc-text">keycloak</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">3.0.1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-server"><span class="toc-number">3.0.2.</span> <span class="toc-text">config server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bootstrap"><span class="toc-number">3.0.3.</span> <span class="toc-text">bootstrap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-realm"><span class="toc-number">3.0.4.</span> <span class="toc-text">config realm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-clients"><span class="toc-number">3.0.5.</span> <span class="toc-text">config clients</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shiro"><span class="toc-number">4.</span> <span class="toc-text">shiro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-number">4.0.1.</span> <span class="toc-text">身份验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%88%E6%9D%83"><span class="toc-number">4.0.2.</span> <span class="toc-text">授权</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2023/12/16/security/&text=security"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2023/12/16/security/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=security&body=Check out this article: https://www.willshirley.top/2023/12/16/security/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2023/12/16/security/&title=security"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2023/12/16/security/&title=security"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2023/12/16/security/&title=security"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2023/12/16/security/&t=security"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

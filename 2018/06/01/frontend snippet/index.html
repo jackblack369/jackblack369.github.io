@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="httphttp 1.0 http 1.1 HTTP1.0最早在网页中使用是1996年，那个时候只是使用一些较为简单的网页和网络的请求，每次请求都需要建立一个单独的连接，上一次和下一次请求完全分离。这种做法，即使每次的请求量都很小，但是客户端和服务端每次建立TCP连接和关闭TCP连接都是相对比较费时的过程，严重影响客户端和服务端的性能。  基于以上的问题，HTTP1.1在1999年广泛应用于现在的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="source is the essence">
+<meta property="og:url" content="https://www.willshirley.top/2018/06/01/frontend%20snippet/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="httphttp 1.0 http 1.1 HTTP1.0最早在网页中使用是1996年，那个时候只是使用一些较为简单的网页和网络的请求，每次请求都需要建立一个单独的连接，上一次和下一次请求完全分离。这种做法，即使每次的请求量都很小，但是客户端和服务端每次建立TCP连接和关闭TCP连接都是相对比较费时的过程，严重影响客户端和服务端的性能。  基于以上的问题，HTTP1.1在1999年广泛应用于现在的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/eZzl4LXykQwdKAeT5rjMFfDXeITCDnbwnNXWrFDaIIhBibAk4N83H5dKXAkMNleqewC53Y8WQ6cOhRjA7k4SuMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://www.willshirley.top/images/http/overview-sse.webp">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13647/box-model-standard-small.png">
+<meta property="og:image" content="https://www.tutorialspoint.com/jpa/images/jpa_provider.png">
+<meta property="og:image" content="https://www.tutorialspoint.com/jpa/images/jpa_class_level_architecture.png">
+<meta property="og:image" content="https://www.tutorialspoint.com/jpa/images/jpa_class_relationships.png">
+<meta property="og:image" content="https://www.tutorialspoint.com/jpa/images/object_relational_mapping.png">
+<meta property="og:image" content="https://www.javatpoint.com/images/newrequest.JPG">
+<meta property="og:image" content="https://www.javatpoint.com/phppages/images/cookie.png">
+<meta property="og:image" content="https://www.javatpoint.com/images/httpsession.JPG">
+<meta property="og:image" content="https://www.willshirley.top/Users/dongwei/Documents/hexo/source/_posts/img/PPrerEAKbIoDZYr.png">
+<meta property="og:image" content="https://www.willshirley.top/Users/dongwei/Documents/hexo/source/_posts/img/hUFIivoOFjVmwNXjjfPE.png">
+<meta property="og:image" content="https://www.willshirley.top/Users/dongwei/Documents/hexo/source/_posts/img/pHTYrKJxQHPyJGAYOzMu.png">
+<meta property="article:published_time" content="2018-06-01T12:50:00.000Z">
+<meta property="article:modified_time" content="2024-10-11T08:43:35.016Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="snippet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/eZzl4LXykQwdKAeT5rjMFfDXeITCDnbwnNXWrFDaIIhBibAk4N83H5dKXAkMNleqewC53Y8WQ6cOhRjA7k4SuMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>source is the essence</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/08/28/words%20fragment/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/06/01/java%20thread/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2018/06/01/frontend%20snippet/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: https://www.willshirley.top/2018/06/01/frontend%20snippet/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2018/06/01/frontend%20snippet/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http"><span class="toc-number">1.</span> <span class="toc-text">http</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http-1-0-http-1-1"><span class="toc-number">1.1.</span> <span class="toc-text">http 1.0 http 1.1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSockets"><span class="toc-number">1.2.</span> <span class="toc-text">WebSockets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSE%EF%BC%88Server-Sent-Events%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">SSE（Server-Sent Events）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#client"><span class="toc-number">1.3.1.</span> <span class="toc-text">client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server"><span class="toc-number">1.3.2.</span> <span class="toc-text">server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disadvantages"><span class="toc-number">1.3.3.</span> <span class="toc-text">Disadvantages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie"><span class="toc-number">1.4.</span> <span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-number">1.5.</span> <span class="toc-text">session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ref"><span class="toc-number">1.5.1.</span> <span class="toc-text">ref</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html"><span class="toc-number">2.</span> <span class="toc-text">html</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#label"><span class="toc-number">2.1.</span> <span class="toc-text">label</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css"><span class="toc-number">2.2.</span> <span class="toc-text">css</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#display"><span class="toc-number">2.2.1.</span> <span class="toc-text">display</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#position"><span class="toc-number">2.2.2.</span> <span class="toc-text">position</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mbp"><span class="toc-number">2.2.3.</span> <span class="toc-text">mbp</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nodejs"><span class="toc-number">3.</span> <span class="toc-text">nodejs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">版本管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jquery"><span class="toc-number">4.</span> <span class="toc-text">jquery</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">语法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jpa"><span class="toc-number">5.</span> <span class="toc-text">jpa</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is"><span class="toc-number">5.1.</span> <span class="toc-text">What is</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Where-to-use"><span class="toc-number">5.2.</span> <span class="toc-text">Where to use</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Architecture"><span class="toc-number">5.3.</span> <span class="toc-text">Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session-1"><span class="toc-number">5.4.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie-1"><span class="toc-number">5.5.</span> <span class="toc-text">cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#how-cookie-work"><span class="toc-number">5.5.1.</span> <span class="toc-text">how cookie work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#type-of-cookie"><span class="toc-number">5.5.2.</span> <span class="toc-text">type of cookie</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpSession-Interface"><span class="toc-number">6.</span> <span class="toc-text">HttpSession Interface</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DVA"><span class="toc-number">7.</span> <span class="toc-text">DVA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#State"><span class="toc-number">7.0.1.</span> <span class="toc-text">State</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Action"><span class="toc-number">7.0.2.</span> <span class="toc-text">Action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dispatch"><span class="toc-number">7.0.3.</span> <span class="toc-text">dispatch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducer"><span class="toc-number">7.0.4.</span> <span class="toc-text">Reducer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Effect"><span class="toc-number">7.0.5.</span> <span class="toc-text">Effect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subscription"><span class="toc-number">7.0.6.</span> <span class="toc-text">Subscription</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE"><span class="toc-number">7.0.7.</span> <span class="toc-text">数据流图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE%E4%BA%8C"><span class="toc-number">7.0.8.</span> <span class="toc-text">数据流图二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">7.0.9.</span> <span class="toc-text">Model 对象的属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#restful"><span class="toc-number">8.</span> <span class="toc-text">restful</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Restful%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89"><span class="toc-number">8.1.</span> <span class="toc-text">Restful有什么意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E7%A0%81"><span class="toc-number">8.2.</span> <span class="toc-text">返回码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPS"><span class="toc-number">8.3.</span> <span class="toc-text">TIPS</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-06-01T12:50:00.000Z" class="dt-published" itemprop="datePublished">2018-06-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/frontend/">frontend</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/snippet/" rel="tag">snippet</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="http"><a href="#http" class="headerlink" title="http"></a>http</h1><h2 id="http-1-0-http-1-1"><a href="#http-1-0-http-1-1" class="headerlink" title="http 1.0 http 1.1"></a>http 1.0 http 1.1</h2><ul>
+<li><p>HTTP1.0最早在网页中使用是1996年，那个时候只是使用一些较为简单的网页和网络的请求，每次请求都需要建立一个单独的连接，上一次和下一次请求完全分离。这种做法，即使每次的请求量都很小，但是客户端和服务端每次建立TCP连接和关闭TCP连接都是相对比较费时的过程，严重影响客户端和服务端的性能。</p>
+</li>
+<li><p>基于以上的问题，HTTP1.1在1999年广泛应用于现在的各大浏览器网络请求中，同时HTTP1.1也是当前使用最为广泛的HTTP协议（2015年诞生了HTTP2，但是还未大规模应用），这里不详细对比HTTP1.1针对HTTP1.0改进了什么，只是在连接这块，HTTP1.1支持在一个TCP连接上传送多个HTTP请求和响应，减少了建立和关闭连接的消耗延迟，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点，这就是长连接，HTTP1.1默认使用长连接。</p>
+</li>
+<li><p>那么，长连接是如何工作的呢？首先，我们要明确一下，长短连接是通信层（TCP）的概念，HTTP是应用层协议，它只能说告诉通信层我打算一段时间内复用TCP通道而没有自己去建立、释放TCP通道的能力。</p>
+</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eZzl4LXykQwdKAeT5rjMFfDXeITCDnbwnNXWrFDaIIhBibAk4N83H5dKXAkMNleqewC53Y8WQ6cOhRjA7k4SuMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<ul>
+<li>http的keep-alive和tcp的keep-alive的区别<ul>
+<li>http的keep-alive是为了复用已有连接</li>
+<li>tcp的keep-alive是为了保活，即保证对端还存活，不然对端已经不在了我这边还占着和对端的这个连接，浪费服务器资源，做法是隔一段时间发送一个心跳包到对端服务器，一旦长时间没有接收到应答，就主动关闭连接</li>
+</ul>
+</li>
+</ul>
+<h2 id="WebSockets"><a href="#WebSockets" class="headerlink" title="WebSockets"></a>WebSockets</h2><p>WebSockets provide a persistent connection between a client and server that both parties can use to start sending data at any time.**</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Create a new WebSocket.</span><br><span class="line">var socket = new WebSocket(&#x27;ws://echo.websocket.org&#x27;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Once the connection has been established the <code>open</code> event will be fired on your WebSocket instance.</p>
+</li>
+<li><p>请求</p>
+<p><code>ws://localhost:9095/webSocket/d72b3660-29a8-4276-9eb1-3373e82fdd92</code></p>
+</li>
+<li><p>后台请求的结果传入websocket是通过session建立关联的</p>
+</li>
+</ul>
+<h2 id="SSE（Server-Sent-Events）"><a href="#SSE（Server-Sent-Events）" class="headerlink" title="SSE（Server-Sent Events）"></a>SSE（Server-Sent Events）</h2><p><img src="/images/http/overview-sse.webp"></p>
+<h3 id="client"><a href="#client" class="headerlink" title="client"></a>client</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET/POST /api/v1/live-scores </span><br><span class="line">Accept: text/event-stream</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>Accept: text/event-stream</code> indicates the client waiting for event stream from the server, <code>Cache-Control: no-cache</code> indicates that disabling the caching and <code>Connection: keep-alive</code> indicates the persistent connection. This request will give us an open connection which we are going to use to fetch updates. After the connection, the server can send messages when the events are ready to send by the server. The important thing is that events are text messages in <code>UTF-8</code> encoding.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Accept: text/event-stream&quot; -H &quot;Cache-Control: no-cache&quot; -N &lt;SSE_ENDPOINT_URL&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.</span></span><br><span class="line">curl -X POST -H &quot;Accept: text/event-stream&quot; -H &quot;Cache-Control: no-cache&quot; -H &quot;User-Key: dongwei&quot; -H &quot;Authorization: Bearer xxxxx&quot; -H &quot;Content-Type: application/json&quot; -d &#x27;&#123;&quot;content&quot;: &quot;你好&quot;&#125;&#x27; -N http://xxx/api</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 对照非流式</span></span><br><span class="line">curl -X POST -H &quot;Accept: application/json&quot; -H &quot;User-Key: dongwei&quot; -H &quot;Authorization: Bearer xxxxx&quot; -H &quot;Content-Type: application/json&quot; -d &#x27;&#123;&quot;content&quot;: &quot;你有哪些能力&quot;&#125;&#x27; http://xxx/api/</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><h3 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h3><ul>
+<li>One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.</li>
+<li>When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)</li>
+</ul>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><ul>
+<li>Cookies are text string stored as key/value</li>
+<li>The server Create the cookie and send it to the user’s browser where it’ll be stored.</li>
+<li>The Browser will send that cookie every time it send a request to that server.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HttpOnly: 这个属性用来限制cookie只能通过HTTP(S)协议访问，不能通过客户端脚本（如JavaScript）访问。这主要是为了减少跨站脚本攻击（XSS）的风险，因为攻击者不能通过脚本读取到这些cookie。</span><br><span class="line"></span><br><span class="line">Max-Age: 这个属性定义了cookie的生命周期，单位是秒。在你的例子中，Max-Age=3600表示cookie将在3600秒后过期，即1小时后。过期后，cookie将不再发送到服务器。</span><br><span class="line"></span><br><span class="line">Path: 这个属性定义了cookie的路径，即cookie只能被发送到这个路径或其子路径下的请求中。Path=/表示cookie对于整个域名是有效的，无论请求哪个路径。</span><br><span class="line"></span><br><span class="line">SameSite: 这个属性用来控制cookie的跨站请求。SameSite=lax是一种设置，它允许cookie在顶级导航中跟随跨站请求，但在第三方请求中不会跟随。这是一种折中的方法，旨在提供一定程度的安全性，同时允许一些合理的跨站请求。lax模式比strict模式更宽松，但比没有SameSite属性或设置为None更安全。</span><br><span class="line"></span><br><span class="line">Secure: 这个属性指示cookie只能通过HTTPS协议传输，不能通过HTTP。这增加了cookie的安全性，因为它们不会被明文传输，减少了中间人攻击的风险。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><ul>
+<li>This session is associated with a randomly generated unique ID, which is created by the server. It’s called “session ID”.</li>
+<li>The generated session ID is then sent to the user’s browser and stored as a cookie, while the session data is stored on the server-side.</li>
+<li>Sessions are often used to store sensitive information such as user credentials and financial data. They are more secure than cookies because the information is stored on the server-side and not on the client-side.</li>
+</ul>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73">https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73</a></li>
+</ul>
+<h1 id="html"><a href="#html" class="headerlink" title="html"></a>html</h1><h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><ul>
+<li><p>chrome页面跳转，需要使用 i 标签，不能使用 button 标签，因为在button的点击事件中，window.location.href不起作用。（但firefox起作用）</p>
+</li>
+<li><p>textarea标签里面的属性要紧靠书写，且不要换行，不然，会显示textarea默认赋值为多个空格</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span><span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span><span class="attr">id</span>=<span class="string">&quot;obj_address&quot;</span><span class="attr">placeholder</span>=<span class="string">&quot;地址（必填）&quot;</span><span class="attr">name</span>=<span class="string">&quot;address&quot;</span><span class="attr">isvalid</span>=<span class="string">&quot;yes&quot;</span><span class="attr">checkexpession</span>=<span class="string">&quot;NotNull&quot;</span><span class="attr">errormsg</span>=<span class="string">&quot;地址&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>每个元素都有一个默认的 display 类型<br>不过你可以随时随地的重写它！如常见的例子是：把 li 元素修改成 inline，制作成水平菜单。</p>
+<p>p标签是块级元素，span元素是行内元素。内元素可以写在块级元素里面  比如<code>&lt;p&gt;&lt;span&gt;内容&lt;/span&gt;&lt;/p&gt;</code></p>
+<ul>
+<li>block</li>
+</ul>
+<p>值为block的为块级元素， 如：p、form、header、footer、section</p>
+<ul>
+<li>inline</li>
+</ul>
+<p>值为inline的为行内元素</p>
+<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><ul>
+<li>static</li>
+</ul>
+<p>static是默认值，一个static元素表示它不会被”positioned”,一个position属性被设置为其它值得元素表示它会被”positioned”</p>
+<ul>
+<li>relative</li>
+</ul>
+<p>relative,在一个相对定位（position属性的值为relative）的元素上设置 top 、 right 、 bottom 和 left 属性会使其偏离其正常位置。<br>其他的元素的位置则不会受该元素的影响发生位置改变来弥补它偏离后剩下的空隙。</p>
+<ul>
+<li>fixed</li>
+</ul>
+<p>fixed,一个固定定位（position属性的值为fixed）元素会相对于视窗来定位，这意味着即便页面滚动，它还是会停留在相同的位置。<br>和 relative 一样， top 、 right 、 bottom 和 left 属性都可用。</p>
+<ul>
+<li>absolute</li>
+</ul>
+<p>absolute, 它与 fixed 的表现类似，但是它不是相对于视窗而是相对于最近的“positioned”祖先元素。<br>如果绝对定位（position属性的值为absolute）的元素没有“positioned”祖先元素，那么它是相对于文档的 body 元素，并且它会随着页面滚动而移动。<br>记住一个“positioned”元素是指 position 值不是 static 的元素。</p>
+<h3 id="mbp"><a href="#mbp" class="headerlink" title="mbp"></a>mbp</h3><p><img src="https://mdn.mozillademos.org/files/13647/box-model-standard-small.png"></p>
+<ul>
+<li><p>margin</p>
+<blockquote>
+<p>是设置两个标签的间隔，也就是距离</p>
+</blockquote>
+</li>
+<li><p>padding</p>
+<blockquote>
+<p>比如一个p标签，它是100px*100px,我们使用的时候p标签的文字是贴着p标签的最左侧的，想要它的文字距离边界远一点，好看一点，就是需要做一个样式的调整，我们可以用到padding这个属性，假如说设置是10px，就是说这个p标签的大小依然是100px*100px，但是它的内容是变成了90px*90px；</p>
+</blockquote>
+</li>
+<li><p>border</p>
+<blockquote>
+<p>boarder是设置边框的意思，他和padding的区别在于，padding是在标签边缘往里缩减，而border是在标签的边缘往外扩展，也就是说是一个100px*100px的标签，我设置他的border为20px，我们就可以看到整个标签的大小是变成了120px*120px，也就是说多出来了120px，其标签的内容也还是100px*100px的</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h1><h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><ul>
+<li>可以用 nvm 进行管理</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vue项目： npm run dev  会在开发环境下 立即启动项目   </span><br><span class="line"></span><br><span class="line">react项目： npm run start  会在开发环境下 立即启动项目</span><br><span class="line"></span><br><span class="line">编译打包项目:npm run build  </span><br></pre></td></tr></table></figure>
+
+<h1 id="jquery"><a href="#jquery" class="headerlink" title="jquery"></a>jquery</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li><p>设置标签属性</p>
+<p><code>$(&quot;div&quot;).attr(&quot;属性名&quot;,&quot;属性值&quot;);</code></p>
+</li>
+<li><p>设置标签样式</p>
+<p><code>$(&quot;div&quot;).css(&quot;color&quot;,&quot;yellow&quot;); </code>或<code>$(&quot;div&quot;).css(&quot;padding-left&quot;))</code></p>
+</li>
+<li><p>移除属性</p>
+<p><code> $(&quot;div&quot;).removeAttr(&quot;id&quot;);</code></p>
+</li>
+<li><p>遍历数组</p>
+<ul>
+<li><p>原生js有两种方法都可以使用[for(var i;i&lt;arr.length;i++){},for(var i in arr){}] </p>
+</li>
+<li><p>jquery有两个函数共计四种方法都可以使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$.each(arr,<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;&#125;),</span><br><span class="line">$(arr).each(<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;&#125;), </span><br><span class="line">$.map(arr,<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;&#125;), </span><br><span class="line">$(arr).map(<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>遍历对象 </p>
+<ul>
+<li><p>原生js有一种方法可以使用[for(var i in obj){}] </p>
+</li>
+<li><p>jquery有两个函数共计两种方法可以使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$.each(obj,<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;&#125;)</span><br><span class="line">$.map(obj,<span class="function"><span class="keyword">function</span>(<span class="params">i,item</span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Jquery中的ajax在默认不写async情况下，请求为异步请求；即：async:true</p>
+</li>
+<li><p><code>$(function()&#123; &#125;)</code>是定义一个匿名函数，它是<code>$(document).ready(function()&#123;&#125;)</code>的简写</p>
+</li>
+</ul>
+<h1 id="jpa"><a href="#jpa" class="headerlink" title="jpa"></a>jpa</h1><h2 id="What-is"><a href="#What-is" class="headerlink" title="What is"></a>What is</h2><blockquote>
+<p>Java Persistence API is a collection of classes and methods to persistently store the vast amounts of data into a database which is provided by the Oracle Corporation.</p>
+</blockquote>
+<h2 id="Where-to-use"><a href="#Where-to-use" class="headerlink" title="Where to use"></a>Where to use</h2><blockquote>
+<p>To reduce the burden of writing codes for relational object management, a programmer follows the ‘JPA Provider’ framework, which allows easy interaction with database instance. Here the required framework is taken over by JPA.</p>
+</blockquote>
+<p><img src="https://www.tutorialspoint.com/jpa/images/jpa_provider.png"></p>
+<ul>
+<li><p>JPA Pro</p>
+<blockquote>
+<p>JPA is an open source API, therefore various enterprise vendors such as Oracle, Redhat, Eclipse, etc. provide new products by adding the JPA persistence flavor in them. Some of these products include:<strong>Hibernate, Eclipselink, Toplink, Spring Data JPA, etc.</strong></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="https://www.tutorialspoint.com/jpa/images/jpa_class_level_architecture.png"></p>
+<ul>
+<li><p>jpa class relationships</p>
+<p><img src="https://www.tutorialspoint.com/jpa/images/jpa_class_relationships.png"></p>
+</li>
+<li><p>ORM Architecture</p>
+<p><img src="https://www.tutorialspoint.com/jpa/images/object_relational_mapping.png"></p>
+</li>
+<li><p>Entity Relationships</p>
+<ul>
+<li>@ManyToOne Relation</li>
+<li>@OneToMany Relation</li>
+<li>@OneToOne Relation</li>
+<li>@ManyToMany Relation</li>
+</ul>
+</li>
+</ul>
+<h2 id="session-1"><a href="#session-1" class="headerlink" title="session"></a>session</h2><blockquote>
+<p>Session simply means a particular interval of time.<br>Session Tracking is a way to maintain state (data) of an user. It is also known as session management in servlet.</p>
+</blockquote>
+<ul>
+<li><p>HTTP is stateless that means each request is considered as the new request. It is shown in the figure given below:<br><img src="https://www.javatpoint.com/images/newrequest.JPG"></p>
+</li>
+<li><p>There are four techniques used in Session tracking:</p>
+<ul>
+<li>Cookies</li>
+<li>Hidden Form Field</li>
+<li>URL Rewriting</li>
+<li>HttpSession</li>
+</ul>
+</li>
+</ul>
+<h2 id="cookie-1"><a href="#cookie-1" class="headerlink" title="cookie"></a>cookie</h2><blockquote>
+<p>A cookie is a small piece of information that is persisted between the multiple client requests.<br>A cookie has a name, a single value, and optional attributes such as a comment, path and domain qualifiers, a maximum age, and a version number.</p>
+</blockquote>
+<h3 id="how-cookie-work"><a href="#how-cookie-work" class="headerlink" title="how cookie work"></a>how cookie work</h3><p><img src="https://www.javatpoint.com/phppages/images/cookie.png"></p>
+<h3 id="type-of-cookie"><a href="#type-of-cookie" class="headerlink" title="type of cookie"></a>type of cookie</h3><ul>
+<li><p>Non-persistent cookie</p>
+<blockquote>
+<p>It is valid for single session only. It is removed each time when user closes the browser.</p>
+</blockquote>
+</li>
+<li><p>Persistent cookie</p>
+<blockquote>
+<p>It is valid for multiple session . It is not removed each time when user closes the browser. It is removed only if user logout or signout.</p>
+</blockquote>
+</li>
+<li><p>Advantage </p>
+<ul>
+<li>Simplest technique of maintaining the state.</li>
+<li>Cookies are maintained at client side.</li>
+</ul>
+</li>
+<li><p>Disadvantage</p>
+<ul>
+<li>It will not work if cookie is disabled from the browser.</li>
+<li>Only textual information can be set in Cookie object.</li>
+</ul>
+</li>
+</ul>
+<h1 id="HttpSession-Interface"><a href="#HttpSession-Interface" class="headerlink" title="HttpSession Interface"></a>HttpSession Interface</h1><ul>
+<li>An object of HttpSession can be used to perform two tasks:<ul>
+<li>bind objects</li>
+<li>view and manipulate information about a session, such as the session identifier, creation time, and last accessed time.<br><img src="https://www.javatpoint.com/images/httpsession.JPG"></li>
+</ul>
+</li>
+</ul>
+<h1 id="DVA"><a href="#DVA" class="headerlink" title="DVA"></a>DVA</h1><p>dva = React-Router + Redux + Redux-saga</p>
+<ul>
+<li>路由： <a target="_blank" rel="noopener" href="https://github.com/ReactTraining/react-router/tree/v2.8.1">React-Router</a></li>
+<li>架构： <a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">Redux</a></li>
+<li>异步操作： <a target="_blank" rel="noopener" href="https://github.com/yelouafi/redux-saga">Redux-saga</a></li>
+</ul>
+<p><img src="/Users/dongwei/Documents/hexo/source/_posts/img/PPrerEAKbIoDZYr.png"></p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>tate 表示 Model 的状态数据</p>
+<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>Action 是一个普通 javascript 对象，它是改变 State 的唯一途径。</p>
+<ul>
+<li>action 必须带有 <code>type</code> 属性指明具体的行为，其它字段可以自定义，如果要发起一个 action 需要使用 <code>dispatch</code> 函数；需要注意的是 <code>dispatch</code> 是在组件 connect Models以后，通过 props 传入的。</li>
+</ul>
+<h3 id="dispatch"><a href="#dispatch" class="headerlink" title="dispatch"></a>dispatch</h3><p>dispatching function 是一个用于触发 action 的函数</p>
+<ul>
+<li><p>action 是改变 State 的唯一途径，但是action只描述了一个行为，而 dipatch 可以看作是触发这个行为的方式，而 Reducer 则是描述如何改变数据的。</p>
+</li>
+<li><p>connect Model 的组件通过 props 可以访问到 dispatch，可以调用 Model 中的 Reducer 或者 Effects.</p>
+</li>
+</ul>
+<h3 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h3><p>Reducer函数接受两个参数：之前已经累积运算的结果和当前要被累积的值，返回的是一个新的累积结果。该函数把一个集合归并成一个单值。</p>
+<ul>
+<li>在 dva 中，reducers 聚合积累的结果是当前 model 的 state 对象。通过 actions 中传入的值，与当前 reducers 中的值进行运算获得新的值（也就是新的 state）。</li>
+</ul>
+<h3 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h3><p>Effect 被称为副作用，在我们的应用中，最常见的就是异步操作。</p>
+<ul>
+<li><p>它来自于函数编程的概念，之所以叫副作用是因为它使得我们的函数变得不纯，同样的输入不一定获得同样的输出。</p>
+</li>
+<li><p>dva 为了控制副作用的操作，将异步转成同步写法，从而将effects转为纯函数</p>
+</li>
+</ul>
+<h3 id="Subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h3><p>Subscriptions 是一种从 <strong>源</strong> 获取数据的方法，它来自于 elm。</p>
+<ul>
+<li>Subscription 语义是订阅，用于订阅一个数据源，然后根据条件 dispatch 需要的 action。</li>
+</ul>
+<h3 id="数据流图"><a href="#数据流图" class="headerlink" title="数据流图"></a>数据流图</h3><p><img src="/Users/dongwei/Documents/hexo/source/_posts/img/hUFIivoOFjVmwNXjjfPE.png"></p>
+<ul>
+<li><p>State 是储存数据的地方，收到 Action 以后，会更新数据。</p>
+</li>
+<li><p>View 就是 React 组件构成的 UI 层，从 State 取数据后，渲染成 HTML 代码。只要 State 有变化，View 就会自动更新。</p>
+</li>
+<li><p>Action 是用来描述 UI 层事件的一个对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dispatch(&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;click-submit-button&#x27;</span>,</span><br><span class="line">  <span class="attr">payload</span>: <span class="built_in">this</span>.form.data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>connect 是一个函数，绑定 State 到 View。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&#x27;dva&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mapStateToProps</span>(<span class="params">state</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">todos</span>: state.todos &#125;;</span><br><span class="line">&#125;</span><br><span class="line">connect(mapStateToProps)(App);</span><br></pre></td></tr></table></figure>
+
+<p>connect 方法返回的也是一个 React 组件，通常称为容器组件。因为它是原始 UI 组件的容器，即在外面包了一层 State。</p>
+</li>
+<li><p>dispatch 是一个函数方法，用来将 Action 发送给 State。</p>
+<p><strong>被 connect 的 Component 会自动在 props 中拥有 dispatch 方法。</strong></p>
+</li>
+</ul>
+<h3 id="数据流图二"><a href="#数据流图二" class="headerlink" title="数据流图二"></a>数据流图二</h3><p><img src="/Users/dongwei/Documents/hexo/source/_posts/img/pHTYrKJxQHPyJGAYOzMu.png"></p>
+<h3 id="Model-对象的属性"><a href="#Model-对象的属性" class="headerlink" title="Model 对象的属性"></a>Model 对象的属性</h3><blockquote>
+<p>每个model，实际上都是普通的JavaScript对象</p>
+</blockquote>
+<ul>
+<li><p>namespace: 当前 Model 的名称。整个应用的 State，由多个小的 Model 的 State 以 namespace 为 key 合成</p>
+</li>
+<li><p>state: 该 Model 当前的状态。数据保存在这里，直接决定了视图层的输出</p>
+</li>
+<li><p>reducers: Action 处理器，处理同步动作，用来算出最新的 State</p>
+</li>
+<li><p>effects：Action 处理器，处理异步动。dva 提供多个 effect 函数内部的处理函数，比较常用的是 <code>call</code> 和 <code>put</code>。</p>
+<ul>
+<li>call：执行异步函数</li>
+<li>put：发出一个 Action，类似于 dispatch</li>
+</ul>
+</li>
+<li><p>subscriptions</p>
+</li>
+</ul>
+<h1 id="restful"><a href="#restful" class="headerlink" title="restful"></a>restful</h1><ul>
+<li><strong>GET</strong>: A safe read-only method that reads a single or a list of resources.</li>
+<li><strong>POST</strong>: Creates a new resource.</li>
+<li><strong>PUT</strong>: Completely replaces the resource(s) at the given location with the new data.</li>
+<li><strong>PATCH</strong>: Merges the resource(s) at the given location with the new data.</li>
+<li><strong>DELETE</strong>: Deletes the resource(s) at a location.</li>
+<li><strong>HEAD</strong>: Same as GET but only returns the header and no data.</li>
+</ul>
+<p><strong>用 URL 表示要操作的资源，用不同的 HTTP 请求（GET，POST，PUT，DELETE）描述对资源的操作，通过 HTTP 的状态码来判断此次对资源操作的结果</strong>，这就是 Restful风格。 </p>
+<ol>
+<li>GET 用来获取资源</li>
+<li>POST 用来新增资源</li>
+<li>PUT 用来更新资源</li>
+<li>DELETE 用来删除资源</li>
+</ol>
+<ul>
+<li>put和delete虽然是http协议的规范 ,但是遗憾的是,所有的无论是html4还是h5都不支持,所以我们在实际开开发过程当中要模拟这两种状态。 </li>
+</ul>
+<h2 id="Restful有什么意义"><a href="#Restful有什么意义" class="headerlink" title="Restful有什么意义"></a>Restful有什么意义</h2><ul>
+<li>网络上的所有的信息体都看作一种资源，对网络资源的某种操作，都是通过 method 来确定的。 </li>
+<li>对于现在的数据或者资源提供方，对外透露的接口一般是 restful 风格的，有利于不同系统之间的资源共享,而且只需要遵守规范不需要做另外的配置就能达到资源共享。 </li>
+</ul>
+<p><strong>restful 是用来外提供接口的，主要用于在不同的系统之间进行数据的交互。</strong></p>
+<p><strong>ps：其实在做内部系统的时候并不会使用 restful 风格的 url 请求，只用普通的 @RequestMapping 来匹配请求就行了。</strong></p>
+<h2 id="返回码"><a href="#返回码" class="headerlink" title="返回码"></a>返回码</h2><p>RESTful API 中的标准返回码通常遵循 HTTP 状态码，并根据不同的操作和结果返回不同的状态码。以下是一些常见的 HTTP 状态码及其通常的含义：</p>
+<ul>
+<li><strong>200 OK</strong>: 表示请求成功。通常用于 GET 请求。</li>
+<li><strong>201 Created</strong>: 表示成功创建了新的资源。通常用于 POST 请求。</li>
+<li><strong>204 No Content</strong>: 表示请求成功处理，但没有返回内容。通常用于 DELETE 请求。</li>
+<li><strong>400 Bad Request</strong>: 表示客户端发送的请求有错误，服务器无法理解。</li>
+<li><strong>401 Unauthorized</strong>: 表示请求需要用户认证，用户没有提供有效的认证信息。</li>
+<li><strong>403 Forbidden</strong>: 表示服务器理解请求，但拒绝执行，通常因为权限问题。</li>
+<li><strong>404 Not Found</strong>: 表示请求的资源不存在。</li>
+<li><strong>405 Method Not Allowed</strong>: 表示请求方法不被允许。</li>
+<li><strong>409 Conflict</strong>: 表示请求可能引发冲突，例如更新资源时的版本冲突。</li>
+<li><strong>500 Internal Server Error</strong>: 表示服务器在处理请求时发生了错误。</li>
+<li>502 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502">Bad Gateway</a> - This indicates an invalid response from an upstream server.</li>
+<li>503 Service Unavailable - This indicates that something unexpected happened on server side (It can be anything like server overload, some parts of the system failed, etc.).</li>
+</ul>
+<p>RESTful API 的返回码可以根据实际情况进行适当扩展和调整，但通常遵循以上基本的 HTTP 状态码标准。</p>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>url中包含传参时，例如delete  /auth/user/{参数}，那此时其他delete方法 /auth/user/other，会发生冲突，需要在路径侯后面添加“/”，变成/auth/user/other/</li>
+</ul>
+<hr>
+<ul>
+<li>reference <a target="_blank" rel="noopener" href="https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/">Best practices for REST API design</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http"><span class="toc-number">1.</span> <span class="toc-text">http</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http-1-0-http-1-1"><span class="toc-number">1.1.</span> <span class="toc-text">http 1.0 http 1.1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSockets"><span class="toc-number">1.2.</span> <span class="toc-text">WebSockets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSE%EF%BC%88Server-Sent-Events%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">SSE（Server-Sent Events）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#client"><span class="toc-number">1.3.1.</span> <span class="toc-text">client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server"><span class="toc-number">1.3.2.</span> <span class="toc-text">server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disadvantages"><span class="toc-number">1.3.3.</span> <span class="toc-text">Disadvantages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie"><span class="toc-number">1.4.</span> <span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-number">1.5.</span> <span class="toc-text">session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ref"><span class="toc-number">1.5.1.</span> <span class="toc-text">ref</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html"><span class="toc-number">2.</span> <span class="toc-text">html</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#label"><span class="toc-number">2.1.</span> <span class="toc-text">label</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css"><span class="toc-number">2.2.</span> <span class="toc-text">css</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#display"><span class="toc-number">2.2.1.</span> <span class="toc-text">display</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#position"><span class="toc-number">2.2.2.</span> <span class="toc-text">position</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mbp"><span class="toc-number">2.2.3.</span> <span class="toc-text">mbp</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nodejs"><span class="toc-number">3.</span> <span class="toc-text">nodejs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">版本管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jquery"><span class="toc-number">4.</span> <span class="toc-text">jquery</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">语法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jpa"><span class="toc-number">5.</span> <span class="toc-text">jpa</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is"><span class="toc-number">5.1.</span> <span class="toc-text">What is</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Where-to-use"><span class="toc-number">5.2.</span> <span class="toc-text">Where to use</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Architecture"><span class="toc-number">5.3.</span> <span class="toc-text">Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session-1"><span class="toc-number">5.4.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie-1"><span class="toc-number">5.5.</span> <span class="toc-text">cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#how-cookie-work"><span class="toc-number">5.5.1.</span> <span class="toc-text">how cookie work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#type-of-cookie"><span class="toc-number">5.5.2.</span> <span class="toc-text">type of cookie</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpSession-Interface"><span class="toc-number">6.</span> <span class="toc-text">HttpSession Interface</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DVA"><span class="toc-number">7.</span> <span class="toc-text">DVA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#State"><span class="toc-number">7.0.1.</span> <span class="toc-text">State</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Action"><span class="toc-number">7.0.2.</span> <span class="toc-text">Action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dispatch"><span class="toc-number">7.0.3.</span> <span class="toc-text">dispatch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducer"><span class="toc-number">7.0.4.</span> <span class="toc-text">Reducer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Effect"><span class="toc-number">7.0.5.</span> <span class="toc-text">Effect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subscription"><span class="toc-number">7.0.6.</span> <span class="toc-text">Subscription</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE"><span class="toc-number">7.0.7.</span> <span class="toc-text">数据流图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE%E4%BA%8C"><span class="toc-number">7.0.8.</span> <span class="toc-text">数据流图二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">7.0.9.</span> <span class="toc-text">Model 对象的属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#restful"><span class="toc-number">8.</span> <span class="toc-text">restful</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Restful%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89"><span class="toc-number">8.1.</span> <span class="toc-text">Restful有什么意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E7%A0%81"><span class="toc-number">8.2.</span> <span class="toc-text">返回码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPS"><span class="toc-number">8.3.</span> <span class="toc-text">TIPS</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2018/06/01/frontend%20snippet/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: https://www.willshirley.top/2018/06/01/frontend%20snippet/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2018/06/01/frontend%20snippet/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2018/06/01/frontend%20snippet/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

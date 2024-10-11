@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="系统结构 rpc 12Consumer &#x3D;&gt; ProviderConsumer调用的Provider提供的服务。   同步调用，对于要等待返回结果&#x2F;处理结果的场景，RPC是可以非常自然直觉的使用方式。 由于等待结果，Consumer（Client）会有线程消耗。 RPC也可以是异步调用，如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息">
+    <meta name="description" content="系统结构rpc  Remote Procedure Call，远程过程调用  服务之间的调用大多采用rpc的方式调用，或者消息队列的方式进行解耦。 RPC与http调用的区别rpc是基于TCP&#x2F;IP协议的，而HTTP服务主要是基于HTTP协议的，而http协议是在传输层协议TCP之上的。所以rpc效率更好。 RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rpc vs mq">
 <meta property="og:url" content="https://www.willshirley.top/2018/12/08/rpc%20vs%20mq/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="系统结构 rpc 12Consumer &#x3D;&gt; ProviderConsumer调用的Provider提供的服务。   同步调用，对于要等待返回结果&#x2F;处理结果的场景，RPC是可以非常自然直觉的使用方式。 由于等待结果，Consumer（Client）会有线程消耗。 RPC也可以是异步调用，如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息">
+<meta property="og:description" content="系统结构rpc  Remote Procedure Call，远程过程调用  服务之间的调用大多采用rpc的方式调用，或者消息队列的方式进行解耦。 RPC与http调用的区别rpc是基于TCP&#x2F;IP协议的，而HTTP服务主要是基于HTTP协议的，而http协议是在传输层协议TCP之上的。所以rpc效率更好。 RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-12-08T15:01:30.000Z">
-<meta property="article:modified_time" content="2024-08-14T11:50:43.355Z">
+<meta property="article:modified_time" content="2024-10-11T08:44:40.986Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="vs">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">系统结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#view"><span class="toc-number">2.</span> <span class="toc-text">view</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">系统结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#rpc"><span class="toc-number">1.1.</span> <span class="toc-text">rpc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#message-queue"><span class="toc-number">1.2.</span> <span class="toc-text">message queue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#view"><span class="toc-number">1.2.1.</span> <span class="toc-text">view</span></a></li></ol></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,8 +166,13 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h3 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h3><ul>
-<li><p>rpc</p>
+    <h1 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h1><h2 id="rpc"><a href="#rpc" class="headerlink" title="rpc"></a>rpc</h2><blockquote>
+<p> Remote Procedure Call，远程过程调用</p>
+</blockquote>
+<p>服务之间的调用大多采用rpc的方式调用，或者消息队列的方式进行解耦。</p>
+<p>RPC与http调用的区别<br>rpc是基于TCP/IP协议的，而HTTP服务主要是基于HTTP协议的，而http协议是在传输层协议TCP之上的。所以rpc效率更好。</p>
+<p>RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数/方法，<br>由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。</p>
+<p>由于计算能力需要横向扩展，需要在多台机器组成的集群上部署应用。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Consumer =&gt; Provider</span><br><span class="line">Consumer调用的Provider提供的服务。</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -175,16 +180,12 @@
 <li>由于等待结果，Consumer（Client）会有线程消耗。</li>
 <li>RPC也可以是异步调用，如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息/请求，压力会直接传导到服务Provider。</li>
 </ul>
-</li>
-<li><p>message queue</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sender =&gt; Queue &lt;= Receiver</span><br><span class="line">Sender发送消息给Queue;Receiver从Queue拿到消息来处理</span><br></pre></td></tr></table></figure>
+<h2 id="message-queue"><a href="#message-queue" class="headerlink" title="message queue"></a>message queue</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sender =&gt; Queue &lt;= Receiver</span><br><span class="line">Sender发送消息给Queue;Receiver从Queue拿到消息来处理</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>Message Queue把请求的压力保存一下，逐渐释放出来，让处理者按照自己的节奏来处理。</li>
 <li>Message Queue引入一下新的结点，让系统的可靠性会受Message Queue结点的影响。</li>
 <li>Message Queue是<strong>异步单向</strong>的消息。发送消息设计成是<strong>不需要等待</strong>消息处理的完成。</li>
-</ul>
-</li>
 </ul>
 <h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><ul>
 <li>这两者可以拿来比较，但是个人感觉并不是同一个层面的问题。RPC是分布式服务之间调用的一种解决方案，是我们在做架构设计决策时同分布式对象，REST等层面的东西比较，决策的一个方案！ 消息系统更多是我们为了解决系统之间的解耦，以及性能问题等方面所考虑的方案。</li>
@@ -220,7 +221,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">系统结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#view"><span class="toc-number">2.</span> <span class="toc-text">view</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">系统结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#rpc"><span class="toc-number">1.1.</span> <span class="toc-text">rpc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#message-queue"><span class="toc-number">1.2.</span> <span class="toc-text">message queue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#view"><span class="toc-number">1.2.1.</span> <span class="toc-text">view</span></a></li></ol></li></ol></li></ol>
       </div>
     
 

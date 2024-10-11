@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="hbase   节点 端口号 协议 使用 说明    zookeeper 2181  zkCli.sh -server zookeeper1:2181 客户端接入   2888,3888  N&#x2F;A 集群内部通讯    HDFS Namenode 9000 HDFS hdfs dfs -ls hdfs:&#x2F;&#x2F;namenode1:9000&#x2F; 客户端接入   50070 HTTP http:&#x2F;&#x2F;namen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="database">
+<meta property="og:url" content="https://www.willshirley.top/2021/12/29/database/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="hbase   节点 端口号 协议 使用 说明    zookeeper 2181  zkCli.sh -server zookeeper1:2181 客户端接入   2888,3888  N&#x2F;A 集群内部通讯    HDFS Namenode 9000 HDFS hdfs dfs -ls hdfs:&#x2F;&#x2F;namenode1:9000&#x2F; 客户端接入   50070 HTTP http:&#x2F;&#x2F;namen">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-29T11:11:30.000Z">
+<meta property="article:modified_time" content="2024-10-11T08:25:43.975Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="point">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>database</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/12/30/realtime%20datahouse/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/12/29/cdc/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2021/12/29/database/&text=database"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2021/12/29/database/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=database&body=Check out this article: https://www.willshirley.top/2021/12/29/database/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2021/12/29/database/&title=database"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2021/12/29/database/&title=database"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2021/12/29/database/&title=database"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2021/12/29/database/&t=database"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hbase"><span class="toc-number">1.</span> <span class="toc-text">hbase</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#neo4j"><span class="toc-number">2.</span> <span class="toc-text">neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tips"><span class="toc-number">2.1.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#clickhouse"><span class="toc-number">3.</span> <span class="toc-text">clickhouse</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.</span> <span class="toc-text">存储架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">查询架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%83%BD%E5%8A%9B%E6%96%B9%E9%9D%A2"><span class="toc-number">3.2.1.</span> <span class="toc-text">计算能力方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%89%AB%E6%8F%8F%E6%96%B9%E9%9D%A2"><span class="toc-number">3.2.2.</span> <span class="toc-text">数据扫描方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E6%96%B9%E9%9D%A2"><span class="toc-number">3.2.3.</span> <span class="toc-text">高并发服务方面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7"><span class="toc-number">3.3.</span> <span class="toc-text">技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.3.1.</span> <span class="toc-text">唯一键约束</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rqlite"><span class="toc-number">4.</span> <span class="toc-text">rqlite</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#deploy-cluster"><span class="toc-number">4.1.</span> <span class="toc-text">deploy cluster</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#postgreSQL"><span class="toc-number">5.</span> <span class="toc-text">postgreSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E7%99%BB%E5%BD%95pg"><span class="toc-number">5.0.1.</span> <span class="toc-text">终端登录pg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-number">5.0.2.</span> <span class="toc-text">导入文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%AE%9Aschema"><span class="toc-number">5.0.3.</span> <span class="toc-text">连接指定schema</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#starrocks"><span class="toc-number">6.</span> <span class="toc-text">starrocks</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">6.1.</span> <span class="toc-text">安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E9%A1%B9"><span class="toc-number">6.2.</span> <span class="toc-text">注意项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FE"><span class="toc-number">6.3.</span> <span class="toc-text">FE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BE"><span class="toc-number">6.4.</span> <span class="toc-text">BE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9"><span class="toc-number">6.5.</span> <span class="toc-text">配置修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPS"><span class="toc-number">6.6.</span> <span class="toc-text">TIPS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tools"><span class="toc-number">7.</span> <span class="toc-text">tools</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#logstash"><span class="toc-number">7.1.</span> <span class="toc-text">logstash</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mybatis"><span class="toc-number">8.</span> <span class="toc-text">mybatis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">8.1.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-number">8.2.</span> <span class="toc-text">问题解决</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        database
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-12-29T11:11:30.000Z" class="dt-published" itemprop="datePublished">2021-12-29</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/database/">database</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/point/" rel="tag">point</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="hbase"><a href="#hbase" class="headerlink" title="hbase"></a>hbase</h1><table>
+<thead>
+<tr>
+<th>节点</th>
+<th>端口号</th>
+<th>协议</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>zookeeper</td>
+<td>2181</td>
+<td></td>
+<td>zkCli.sh -server zookeeper1:2181</td>
+<td>客户端接入</td>
+</tr>
+<tr>
+<td>2888,3888</td>
+<td></td>
+<td>N/A</td>
+<td>集群内部通讯</td>
+<td></td>
+</tr>
+<tr>
+<td>HDFS Namenode</td>
+<td>9000</td>
+<td>HDFS</td>
+<td>hdfs dfs -ls hdfs://namenode1:9000/</td>
+<td>客户端接入</td>
+</tr>
+<tr>
+<td>50070</td>
+<td>HTTP</td>
+<td><a target="_blank" rel="noopener" href="http://namenode1:50070/">http://namenode1:50070/</a></td>
+<td>集群监控</td>
+<td></td>
+</tr>
+<tr>
+<td>HDFS SecondaryNamenode</td>
+<td>50090</td>
+<td>HTTP</td>
+<td><a target="_blank" rel="noopener" href="http://namenode1:50090/">http://namenode1:50090/</a></td>
+<td>secondary监控</td>
+</tr>
+<tr>
+<td>HDFS Datanode</td>
+<td>50010</td>
+<td></td>
+<td>N/A</td>
+<td>客户端接入/其他节点接入</td>
+</tr>
+<tr>
+<td>50020</td>
+<td></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>50075</td>
+<td>HTTP</td>
+<td><a target="_blank" rel="noopener" href="http://datanode1:50075/">http://datanode1:50075/</a></td>
+<td>节点监控</td>
+<td></td>
+</tr>
+<tr>
+<td>HBase Master</td>
+<td>16000</td>
+<td></td>
+<td>hbase-client-1.x.x.jar</td>
+<td>RegionServer接入</td>
+</tr>
+<tr>
+<td>16010</td>
+<td>HTTP</td>
+<td><a target="_blank" rel="noopener" href="http://namenode1:16010/">http://namenode1:16010/</a></td>
+<td>集群监控</td>
+<td></td>
+</tr>
+<tr>
+<td>HBase RegionServer</td>
+<td>16020</td>
+<td></td>
+<td>N/A</td>
+<td>客户端接入</td>
+</tr>
+<tr>
+<td>16030</td>
+<td>HTTP</td>
+<td><a target="_blank" rel="noopener" href="http://datanode1:16030/">http://datanode1:16030/</a></td>
+<td>节点监控</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="neo4j"><a href="#neo4j" class="headerlink" title="neo4j"></a>neo4j</h1><h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
+<li>cypher语法对大小写敏感，注意属性的大小写</li>
+<li>导入csv出现乱码时，需要通过记事本更改编码格式，如果文本过大，需要一段一段的复制粘贴到新文本中，且以UTF-8格式编码</li>
+<li>MERGE命令是CREATE命令和MATCH命令的组合。<code>MERGE = CREATE + MATCH</code></li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>1.<br>​    <strong>现象</strong>： 在外部处理csv数据，导入服务器，然后load csv到neo4j中，可能由于文件所属问题，不能成功导入csv，提示<code>Couldn&#39;t load the external resource</code>的错误。<br>​    <strong>解决</strong>：复制可以导入的csv文件为副本，把待导入的数据粘贴到副本中，load csv副本即可</p>
+<p>2.<br>​    <strong>现象</strong>： 在外部处理csv数据，进行merge操作的时候，提示<code>cannot merge using null property value for uid</code>的错误。<br>​    <strong>解决</strong>：经发现，是由于指令中的属性拼写错误，导致<code>Neo.ClientError.Statement.SemanticError</code>的错误，例如把<code>sfzh</code>拼写成<code>sfhm</code>。</p>
+<p>3.<br>​    <strong>现象</strong>： 大量数据的导入问题。<br>​    <strong>解决</strong>：需使用<a target="_blank" rel="noopener" href="https://neo4j.com/docs/operations-manual/current/tools/import/" title="大量数据的导入">https://neo4j.com/docs/operations-manual/current/tools/import/</a><br>​    <strong>注意</strong>：<code>Import tool is only for newly created databases.</code><br>​        <code>You can use LOAD CSV cypher command to load into an existing database.</code>也就是说neo4j-admin import只会在新建数据库的时候会用到</p>
+<h1 id="clickhouse"><a href="#clickhouse" class="headerlink" title="clickhouse"></a>clickhouse</h1><h2 id="存储架构"><a href="#存储架构" class="headerlink" title="存储架构"></a>存储架构</h2><blockquote>
+<p>Clickhouse 存储中的最小单位是 DataPart，写入链路为了提升吞吐，放弃了部分写入实时可见性，即数据攒批写入，一次批量写入的数据会落盘成一个 DataPart.</p>
+<p>它不像 Druid 那样一条一条实时摄入。但 ClickHouse 把数据延迟攒批写入的工作交给来客户端实现，比如达到 10 条记录或每过 5s 间隔写入，换句话说就是可以在用户侧平衡吞吐量和时延，如果在业务高峰期流量不是太大，可以结合实际场景将参数调小，以达到极致的实时效果。</p>
+</blockquote>
+<h2 id="查询架构"><a href="#查询架构" class="headerlink" title="查询架构"></a>查询架构</h2><h3 id="计算能力方面"><a href="#计算能力方面" class="headerlink" title="计算能力方面"></a>计算能力方面</h3><p>Clickhouse 采用向量化函数和 aggregator 算子极大地提升了聚合计算性能，配合完备的 SQL 能力使得数据分析变得更加简单、灵活。</p>
+<h3 id="数据扫描方面"><a href="#数据扫描方面" class="headerlink" title="数据扫描方面"></a>数据扫描方面</h3><p>ClickHouse 是完全列式的存储计算引擎，而且是以有序存储为核心，在查询扫描数据的过程中，首先会根据存储的有序性、列存块统计信息、分区键等信息推断出需要扫描的列存块，然后进行并行的数据扫描，像表达式计算、聚合算子都是在正规的计算引擎中处理。从计算引擎到数据扫描，数据流转都是以列存块为单位，高度向量化的。</p>
+<h3 id="高并发服务方面"><a href="#高并发服务方面" class="headerlink" title="高并发服务方面"></a>高并发服务方面</h3><p>Clickhouse 的并发能力其实是与并行计算量和机器资源决定的。如果查询需要扫描的数据量和计算复杂度很大，并发度就会降低，但是如果保证单个 query 的 latency 足够低（增加内存和 cpu 资源），部分场景下用户可以通过设置合适的系统参数来提升并发能力，比如 max_threads 等。其他分析型系统（例如 Elasticsearch）的并发能力为什么很好，从 Cache 设计层面来看，ES 的 Cache 包括 Query Cache, Request Cache，Data Cache，Index Cache，从查询结果到索引扫描结果层层的 Cache 加速，因为 Elasticsearch 认为它的场景下存在热点数据，可能被反复查询。反观 ClickHouse，只有一个面向 IO 的 UnCompressedBlockCache 和系统的 PageCache，为了实现更优秀的并发，我们很容易想到在 Clickhouse 外面加一层 Cache，比如 redis，但是分析场景下的数据和查询都是多变的，查询结果等 Cache 都不容易命中，而且在广投业务中实时查询的数据是基于 T 之后不断更新的数据，如果外挂缓存将降低数据查询的时效性。</p>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="唯一键约束"><a href="#唯一键约束" class="headerlink" title="唯一键约束"></a>唯一键约束</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> qilu.t_01(</span><br><span class="line">	C1 String,</span><br><span class="line">	C2 String,</span><br><span class="line">	C3 String,</span><br><span class="line">	C4 <span class="type">Date</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (C1) # 要设置主键</span><br><span class="line">) engine<span class="operator">=</span>ReplacingMergeTree() # 引擎要用ReplacingMergeTree</span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> C1; # 要设置排序</span><br><span class="line"></span><br><span class="line">optimize <span class="keyword">table</span> t_01 <span class="keyword">FINAL</span>; # 要强制合并分区</span><br></pre></td></tr></table></figure>
+
+<h1 id="rqlite"><a href="#rqlite" class="headerlink" title="rqlite"></a>rqlite</h1><h2 id="deploy-cluster"><a href="#deploy-cluster" class="headerlink" title="deploy cluster"></a>deploy cluster</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> node 1</span></span><br><span class="line">nohup rqlited -node-id 1 -http-addr host1:4001 -raft-addr host1:4002 ~/rqlite/node &gt; rqlite.log 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> enter shell</span></span><br><span class="line">rqlite -H 172.20.7.232 -p 4001</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check health</span></span><br><span class="line">curl http://172.20.7.232:4001/status | jq .</span><br><span class="line">curl http://172.20.7.232:4001/status?pretty</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> join cluster</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> node 2</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="postgreSQL"><a href="#postgreSQL" class="headerlink" title="postgreSQL"></a>postgreSQL</h1><h3 id="终端登录pg"><a href="#终端登录pg" class="headerlink" title="终端登录pg"></a>终端登录pg</h3><ul>
+<li><p>如果之前没有登录过，需要设置当前用户进行登录操作</p>
+<p>There is no default username and password without you creating one. The simplest possible setup is to follow these steps to set up your own user as a superuser.</p>
+<p>At a terminal prompt, create a postgres user with your own username</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres createuser --superuser $USER	# $USER无须替换</span><br></pre></td></tr></table></figure>
+
+<p>Start the postgresql command prompt as your username but running as root since you didn’t set a password yet;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
+
+<p>At the postgresql prompt, set your password;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\password $USER    # 其中$USER需要替换成当前用户名</span><br></pre></td></tr></table></figure>
+
+<p>After that, you should be able to log on just fine.</p>
+</li>
+</ul>
+<ul>
+<li><p>如果之前设置了上面的步骤，可直接运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql postgres</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="导入文件"><a href="#导入文件" class="headerlink" title="导入文件"></a>导入文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">psql postgres	# login command</span><br><span class="line">\c some_database	# choose database</span><br><span class="line">\i \path\TO\file_name.sql	# execute sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="连接指定schema"><a href="#连接指定schema" class="headerlink" title="连接指定schema"></a>连接指定schema</h3><ul>
+<li><p>如果不指定schema的话，会默认访问public的schema</p>
+</li>
+<li><p>指定schema</p>
+<p><code>jdbc:postgresql://localhost:5432/mydatabase?currentSchema=myschema</code></p>
+</li>
+</ul>
+<h1 id="starrocks"><a href="#starrocks" class="headerlink" title="starrocks"></a>starrocks</h1><h2 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h2><h2 id="注意项"><a href="#注意项" class="headerlink" title="注意项"></a>注意项</h2><ul>
+<li><p>安装前配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export STARROCKS_HOME=xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>启动mysql客户端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h &lt;fe_ip&gt; -P&lt;fe_query_port&gt; -uroot -p # 密码为空，直接回车即可</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="FE"><a href="#FE" class="headerlink" title="FE"></a>FE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 18030</span><br><span class="line">netstat -tunlp | grep 19010</span><br><span class="line">netstat -tunlp | grep 19020</span><br><span class="line">netstat -tunlp | grep 19030</span><br><span class="line"></span><br><span class="line">http_port = 18030</span><br><span class="line">rpc_port = 19020</span><br><span class="line">query_port = 19030</span><br><span class="line">edit_log_port = 19010</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>启动FE<br><code>start_fe.sh --daemon</code></p>
+</li>
+<li><p>查看FE状态+<br><code>SHOW PROC &#39;/frontends&#39;\G</code></p>
+</li>
+<li><p>添加新FE节点（follow和observer)<br><code>./start_fe.sh --helper 172.18.244.74:19010 --daemon</code></p>
+<p>注意：</p>
+<ul>
+<li><p>在mysql command先将实例添加进集群，然后逐个启动实例。（只在首次新增节点时操作）</p>
+</li>
+<li><p>各个节点的时间一定要同步，不然FE的心跳超过5s时差，就会报错</p>
+</li>
+</ul>
+</li>
+<li><p>扩容FE<br><code>ALTER SYSTEM ADD FOLLOWER &#39;ip:19010&#39;;</code><br><code>ALTER SYSTEM ADD observer &#39;ip:19010&#39;;</code></p>
+</li>
+<li><p>缩容FE<br><code>ALTER SYSTEM DROP follower &quot;ip:19010&quot;;</code><br><code>ALTER SYSTEM DROP observer &quot;ip:19010&quot;;</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="BE"><a href="#BE" class="headerlink" title="BE"></a>BE</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep 19060</span><br><span class="line">netstat -tunlp | grep 18040</span><br><span class="line">netstat -tunlp | grep 19050</span><br><span class="line">netstat -tunlp | grep 18060</span><br><span class="line"></span><br><span class="line">be_port = 19060</span><br><span class="line">be_http_port = 18040</span><br><span class="line">heartbeat_service_port = 19050</span><br><span class="line">brpc_port = 18060</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查看BE状态<br><code>SHOW PROC &#39;/backends&#39;\G</code></p>
+</li>
+<li><p>启动BE<br><code>./start_be.sh --daemon</code></p>
+</li>
+<li><p>添加BE节点<br><code>ALTER SYSTEM ADD BACKEND &quot;172.18.244.74:19050&quot;;</code></p>
+</li>
+<li><p>缩容BE节点<br><code>ALTER SYSTEM DECOMMISSION BACKEND &quot;172.18.244.74:19050&quot;;</code><br>等待该节点BE从列表中消失（查看命令SHOW PROC ‘/backends’;），即可使用./stop_be.sh停掉服务</p>
+</li>
+<li><p>崩溃排查日志<code>be.out</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><ul>
+<li>FE修改端口信息，需要清理meta</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 重建meta目录</span><br><span class="line">2. 重启主节点FE</span><br><span class="line">3. 登录mysql command，添加新FE节点（follow和observer），添加BE节点</span><br><span class="line">4. 启动follower和observer节点</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BE修改端口信息，需要清理storage</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 重建storage目录（是否可以修改cluster_id进行集群处理）</span><br><span class="line">2. 逐个启动BE服务</span><br><span class="line">3. 登录mysql command，添加新BE节点（ALTER SYSTEM ADD BACKEND &quot;ip:19050&quot;;）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改密码<br><code>SET PASSWORD = PASSWORD(&#39;datacanvas&#39;)</code></li>
+</ul>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
+<li>节点时间需要同步（延迟需要在5秒内），不然starrocks无法扩容FE节点</li>
+</ul>
+<h1 id="tools"><a href="#tools" class="headerlink" title="tools"></a>tools</h1><h2 id="logstash"><a href="#logstash" class="headerlink" title="logstash"></a>logstash</h2><ul>
+<li><p>Logstash Forwarder/Beats负责在源服务器上收集日志数据，然后将数据发送到集中式的Logstash或Kafka服务器。</p>
+</li>
+<li><p>Logstash是一个灵活的数据收集引擎，它可以从多个来源（包括日志文件、标准输入、Beats等）采集数据，进行转换、过滤和解析，最后将数据发送到各种目的地，比如Elasticsearch、Kafka等。在日志处理中，Logstash常被用作数据的转换和预处理工具。</p>
+</li>
+</ul>
+<h1 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h1><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul>
+<li><p>about date jdbcType</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#&#123;beginDate,jdbcType=DATE&#125; (no time of the day), or</span><br><span class="line">#&#123;beginDate,jdbcType=TIMESTAMP&#125; (if you need to include the time of the day).</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>And the Java parameter you want to apply should be of type:</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.sql.Date (date without time)</span><br><span class="line">java.sql.Timestamp (timestamp)</span><br><span class="line">java.util.Date (date and time).</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>the Greater Than/Equal Operator and the Less Than/Equal Operators:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ROWNUM &amp;gt;= 20</span><br><span class="line">ROWNUM &amp;lt;= 20</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><p>使用SpringMVC+Mybatis框架写项目的时候，在mapper里面的sql语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;updateTime != null&quot;</span>&gt;</span></span><br><span class="line">	and update_time <span class="symbol">&amp;gt;</span> #&#123;updateTime,jdbcType=TIMESTAMP&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>出错：<code>There is no getter for property named &#39;updateTime&#39; in &#39;class java.util.Date&#39;</code></p>
+<p>原因是：<br>如果将and语句中的#｛属性｝写在if语句中，mybatis会去对象中从它的get方法中取值，而我之前是直接传递的值，并没有封装对象。<br>解决办法：</p>
+<pre><code> 1. 把updateTime需改为date
+ 2. 把updateTime代表的参数封装到一个对象中
+</code></pre>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hbase"><span class="toc-number">1.</span> <span class="toc-text">hbase</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#neo4j"><span class="toc-number">2.</span> <span class="toc-text">neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tips"><span class="toc-number">2.1.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#clickhouse"><span class="toc-number">3.</span> <span class="toc-text">clickhouse</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.</span> <span class="toc-text">存储架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">查询架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%83%BD%E5%8A%9B%E6%96%B9%E9%9D%A2"><span class="toc-number">3.2.1.</span> <span class="toc-text">计算能力方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%89%AB%E6%8F%8F%E6%96%B9%E9%9D%A2"><span class="toc-number">3.2.2.</span> <span class="toc-text">数据扫描方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E6%96%B9%E9%9D%A2"><span class="toc-number">3.2.3.</span> <span class="toc-text">高并发服务方面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7"><span class="toc-number">3.3.</span> <span class="toc-text">技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.3.1.</span> <span class="toc-text">唯一键约束</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rqlite"><span class="toc-number">4.</span> <span class="toc-text">rqlite</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#deploy-cluster"><span class="toc-number">4.1.</span> <span class="toc-text">deploy cluster</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#postgreSQL"><span class="toc-number">5.</span> <span class="toc-text">postgreSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E7%99%BB%E5%BD%95pg"><span class="toc-number">5.0.1.</span> <span class="toc-text">终端登录pg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-number">5.0.2.</span> <span class="toc-text">导入文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%AE%9Aschema"><span class="toc-number">5.0.3.</span> <span class="toc-text">连接指定schema</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#starrocks"><span class="toc-number">6.</span> <span class="toc-text">starrocks</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">6.1.</span> <span class="toc-text">安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E9%A1%B9"><span class="toc-number">6.2.</span> <span class="toc-text">注意项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FE"><span class="toc-number">6.3.</span> <span class="toc-text">FE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BE"><span class="toc-number">6.4.</span> <span class="toc-text">BE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9"><span class="toc-number">6.5.</span> <span class="toc-text">配置修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPS"><span class="toc-number">6.6.</span> <span class="toc-text">TIPS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tools"><span class="toc-number">7.</span> <span class="toc-text">tools</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#logstash"><span class="toc-number">7.1.</span> <span class="toc-text">logstash</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mybatis"><span class="toc-number">8.</span> <span class="toc-text">mybatis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">8.1.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-number">8.2.</span> <span class="toc-text">问题解决</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2021/12/29/database/&text=database"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2021/12/29/database/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=database&body=Check out this article: https://www.willshirley.top/2021/12/29/database/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2021/12/29/database/&title=database"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2021/12/29/database/&title=database"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2021/12/29/database/&title=database"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2021/12/29/database/&t=database"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
