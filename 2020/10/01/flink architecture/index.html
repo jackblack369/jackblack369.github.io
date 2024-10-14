@@ -22,8 +22,10 @@
 <meta property="og:image" content="https://www.willshirley.top/images/flink/flink_window_sliding.png">
 <meta property="og:image" content="https://www.willshirley.top/images/flink/flink_window_session.png">
 <meta property="og:image" content="https://www.willshirley.top/images/flink/flink_runtime.png">
+<meta property="og:image" content="https://www.willshirley.top/images/flinkOnYarn/flink_on_yarn.png">
+<meta property="og:image" content="https://www.willshirley.top/images/flinkOnYarn/submit_job.png">
 <meta property="article:published_time" content="2020-10-01T14:00:30.000Z">
-<meta property="article:modified_time" content="2024-08-14T11:23:48.500Z">
+<meta property="article:modified_time" content="2024-10-14T08:36:39.690Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -126,7 +128,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">运行时框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">作业调度框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#table%E6%A8%A1%E5%9D%97%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">table模块架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TaskExecutor"><span class="toc-number">4.1.</span> <span class="toc-text">TaskExecutor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#points"><span class="toc-number">6.</span> <span class="toc-text">points</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#checkpoint"><span class="toc-number">6.0.1.</span> <span class="toc-text">checkpoint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#state"><span class="toc-number">6.0.2.</span> <span class="toc-text">state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#time"><span class="toc-number">6.0.3.</span> <span class="toc-text">time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window"><span class="toc-number">6.0.4.</span> <span class="toc-text">window</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">运行时框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">作业调度框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#table%E6%A8%A1%E5%9D%97%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">table模块架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TaskExecutor"><span class="toc-number">4.1.</span> <span class="toc-text">TaskExecutor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkpoint"><span class="toc-number">6.</span> <span class="toc-text">checkpoint</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#state"><span class="toc-number">7.</span> <span class="toc-text">state</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">7.1.</span> <span class="toc-text">存储实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">7.2.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MemoryStateBackend"><span class="toc-number">7.3.</span> <span class="toc-text">MemoryStateBackend</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FsStateBackend"><span class="toc-number">7.4.</span> <span class="toc-text">FsStateBackend</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocksDBStateBackend"><span class="toc-number">7.5.</span> <span class="toc-text">RocksDBStateBackend</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#time"><span class="toc-number">8.</span> <span class="toc-text">time</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#window"><span class="toc-number">9.</span> <span class="toc-text">window</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cdc"><span class="toc-number">10.</span> <span class="toc-text">cdc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cep"><span class="toc-number">11.</span> <span class="toc-text">cep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#streaming-warehouse"><span class="toc-number">12.</span> <span class="toc-text">streaming warehouse</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Flink-on-YARN%E6%A8%A1%E5%BC%8F"><span class="toc-number">13.</span> <span class="toc-text">Flink on YARN模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-Mode"><span class="toc-number">13.1.</span> <span class="toc-text">Session Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Per-Job-Mode"><span class="toc-number">13.2.</span> <span class="toc-text">Per-Job Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application-Mode"><span class="toc-number">13.3.</span> <span class="toc-text">Application Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interaction"><span class="toc-number">13.4.</span> <span class="toc-text">interaction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#two-way-to-submit-job-on-yarn"><span class="toc-number">13.5.</span> <span class="toc-text">two way to submit job on yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#first-way%EF%BC%9Ayarn-session"><span class="toc-number">13.5.1.</span> <span class="toc-text">first way：yarn session</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mode-one-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="toc-number">13.5.1.1.</span> <span class="toc-text">mode one: 客户端模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mode-two-%E5%88%86%E7%A6%BB%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="toc-number">13.5.1.2.</span> <span class="toc-text">mode two: 分离式模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#second-way-flink-run"><span class="toc-number">13.5.2.</span> <span class="toc-text">second way: flink run</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FAQ"><span class="toc-number">14.</span> <span class="toc-text">FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81"><span class="toc-number">14.1.</span> <span class="toc-text">依赖冲突</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -223,14 +225,69 @@
 </blockquote>
 </li>
 </ul>
-<h1 id="points"><a href="#points" class="headerlink" title="points"></a>points</h1><h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<h1 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h1><blockquote>
 <p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
 <p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
 </blockquote>
-<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>checkpoint是使Flink 能从故障恢复的一种内部机制。检查点是 Flink 应用状态的一个一致性副本，包括了输入的读取位点。在发生故障时，Flink 通过从检查点加载应用程序状态来恢复，并从恢复的读取位点继续处理，就好像什么事情都没发生一样。Flink的状态存储在Flink的内部,这样做的好处就是不再依赖外部系统,降低了对外部系统的依赖,在Flink的内部,通过自身的进程去访问状态变量.同时会定期的做checkpoint持久化,把checkpoint存储在一个分布式的持久化系统中,如果发生故障,就会从最近的一次checkpoint中将整个流的状态进行恢复.</p>
+<h1 id="state"><a href="#state" class="headerlink" title="state"></a>state</h1><blockquote>
 <p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
 </blockquote>
-<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<ul>
+<li>what ?</li>
+</ul>
+<p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
+<ul>
+<li>why ?</li>
+</ul>
+<p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
+<ul>
+<li>how ?</li>
+</ul>
+<h2 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h2><ul>
+<li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p>
+</li>
+<li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p>
+</li>
+<li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p>
+<blockquote>
+<p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
+</blockquote>
+</li>
+<li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p>
+</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>通过算子和数据层面划分</p>
+<ul>
+<li><p>算子类state</p>
+<p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p>
+</li>
+<li><p>数据类state</p>
+<p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p>
+</li>
+</ul>
+<h2 id="MemoryStateBackend"><a href="#MemoryStateBackend" class="headerlink" title="MemoryStateBackend"></a>MemoryStateBackend</h2><p>1 基于内存的状态管理器，聚合类算子的状态会存储在JobManager的内存中</p>
+<p>2 单次状态大小默认最大被限制为5MB，可以通过构造函数来指定状态初始化内存大小。无论单次状态大小最大被限制为多少，都不可大于akka的frame大小（1.5MB，JobManager和TaskManager之间传输数据的最大消息容量）。状态的总大小不能超过 JobManager 的内存。</p>
+<p>3 是Flink默认的后端状态管理器，默认是异步的</p>
+<p>4 主机内存中的数据可能会丢失，任务可能无法恢复</p>
+<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在JobManager的内存中</p>
+<p>适用：本地开发和调试、状态比较少的作业</p>
+<h2 id="FsStateBackend"><a href="#FsStateBackend" class="headerlink" title="FsStateBackend"></a>FsStateBackend</h2><p>1 基于文件系统的状态管理器（这里的文件系统可以是本地<strong>共享</strong>文件系统，也可以是hdfs分布式文件系统。）</p>
+<p>2 如果使用，默认是异步</p>
+<p>3 比较稳定，3个副本，比较安全。不会出现任务无法恢复等问题</p>
+<p>4 状态大小受磁盘容量限制</p>
+<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在文件系统中</p>
+<p>适用：状态比较大，窗口比较长，大的KV状态</p>
+<h2 id="RocksDBStateBackend"><a href="#RocksDBStateBackend" class="headerlink" title="RocksDBStateBackend"></a>RocksDBStateBackend</h2><ol>
+<li><p>RocksDBStateBackend 采用异步的方式进行状态数据的 Snapshot， 任务中的状态数据首先被写人 RocksDB 中，然后再异步地将状态数据写人文件系统中，这样在rocksDB中仅会存储正在进行计算的热数据，对于长时间才更新的数据则写人磁盘中进行存储。而对于体量比较小的元数据状态，则直接存储在 JobManager 的内存中。</p>
+</li>
+<li><p>与 FsStateBackend 相比，RocksDBState Backend 在性能上要比 FsStateBackend 高一些，主要是因为借助于 RocksDB 存储了最新热数据，然后通过异步的方式再同步到文件系统中，但 RocksDBState Backend 和 Memory State Backend 相比性能就会较弱一些。</p>
+</li>
+<li><p>需要注意的是ROCksDB通过JNI的方式进行数据的交互，而JNI构建在byte[]数据结构之上，因此每次能够传输的最大数据量为2^31字节，也就是说每次在RocksDBState Backend 合并的状态数据量大小不能超过 2^31 字节限制，否则将会导致状态数据无法同步，这是RocksDB 采用JNI 方式的限制，用户在使用过程中应当注意。</p>
+</li>
+</ol>
+<p>综上可以看出，RocksDBState Backend 和 FsState Backend 一样，适合于任务状态数据非常大的场景。在Flink 最新版本中，已经提供了基于 RocksDBState Backend 实现的增量 Checkpoints 功能，极大地提高了状态数据同步到介质中的效率和性能，在后续的社区发展中，RocksDBStateBackend 也会作为状态管理器重点使用的方式之一。</p>
+<h1 id="time"><a href="#time" class="headerlink" title="time"></a>time</h1><blockquote>
 <p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
 </blockquote>
 <p><img src="/images/flink/flink_time.png"></p>
@@ -247,7 +304,7 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<h1 id="window"><a href="#window" class="headerlink" title="window"></a>window</h1><blockquote>
 <p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
 </blockquote>
 <p><img src="/images/flink/flink_window.png"></p>
@@ -280,6 +337,83 @@
 <blockquote>
 <p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
 </blockquote>
+<h1 id="cdc"><a href="#cdc" class="headerlink" title="cdc"></a>cdc</h1><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418">Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区</a></p>
+<h1 id="cep"><a href="#cep" class="headerlink" title="cep"></a>cep</h1><ul>
+<li><p>应用场景</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">风险控制</span><br><span class="line">对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。</span><br><span class="line"></span><br><span class="line">策略营销</span><br><span class="line">用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。</span><br><span class="line"></span><br><span class="line">运维监控</span><br><span class="line">灵活配置多指标、多依赖来实现更复杂的监控模式。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="streaming-warehouse"><a href="#streaming-warehouse" class="headerlink" title="streaming warehouse"></a>streaming warehouse</h1><p>流式数仓（Streaming Warehouse）更准确地说，其实是“make data warehouse streaming”，就是让整个数仓的数据全实时地流动起来，且是以纯流的方式而不是微批（mini-batch）的方式流动。</p>
+<p>目标是实现一个具备端到端实时性的纯流服务（Streaming Service），用一套 API 分析所有流动中的数据，当源头数据发生变化，比如捕捉到在线服务的 Log 或数据库的 Binlog 以后，就按照提前定义好的 Query 逻辑或数据处理逻辑，对数据进行分析，分析后的数据落到数仓的某一个分层，再从第一个分层向下一个分层流动，然后数仓所有分层会全部流动起来，最终流到一个在线系统里，用户可以看到整个数仓的全实时流动效果。</p>
+<p>在这个过程中，数据是主动的，而查询是被动的，分析由数据的变化来驱动。同时在垂直方向上，对每一个数据明细层，用户都可以执行 Query 进行主动查询，并且能实时获得查询结果。此外，它还能兼容离线分析场景，API 依然是同一套，实现真正的一体化。</p>
+<h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p>
+<h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p>
+<h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p>
+<h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p>
+<h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
+<h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
+<h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
+<p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p>
+<p>ps:所有作业共享Dispatcher和ResourceManager；共享资源；适合规模小执行时间短的作业.适用于本地测试或者开发</p>
+</blockquote>
+<h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote>
+<p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>YarnSessionClusterEntrypoint进程</p>
+<p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p>
+<ul>
+<li><p>本节点提交任务</p>
+<p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p>
+</li>
+<li><p>如果需要在其他主机节点提交任务</p>
+<p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p>
+</li>
+</ul>
+</li>
+<li><p>FlinkYarnSessionCli进程</p>
+<p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p>
+</li>
+</ul>
+<h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote>
+<p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p>
+</blockquote>
+<h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote>
+<p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p>
+<p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>注意使用参数-m yarn-cluster提交到yarn集群。</p>
+<ul>
+<li><p>运行到指定的yarn session</p>
+<p>可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</p>
+</li>
+</ul>
+<hr>
+<p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013411339/article/details/95421500?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164455981216780357293300%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164455981216780357293300&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-21-95421500.nonecase&utm_term=%E2%80%9Cflink+cep%E2%80%9D&spm=1018.2226.3001.4450">Flink-On-Yarn的部署模式</a></p>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h2><p><a target="_blank" rel="noopener" href="https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x">https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x</a></p>
+<p><a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading">https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading</a></p>
+<p>排查办法</p>
+<ul>
+<li>使用arthas定位依赖类所在jar包</li>
+</ul>
+<p>解决办法</p>
+<ul>
+<li><p>对冲突jar包使用maven shaded 的exclude或relocation 进行操作</p>
+</li>
+<li><p>使用7zip等解压软件对jar文件解压删除（人工shaded）</p>
+</li>
+</ul>
 
   </div>
 </article>
@@ -311,7 +445,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">运行时框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">作业调度框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#table%E6%A8%A1%E5%9D%97%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">table模块架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TaskExecutor"><span class="toc-number">4.1.</span> <span class="toc-text">TaskExecutor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#points"><span class="toc-number">6.</span> <span class="toc-text">points</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#checkpoint"><span class="toc-number">6.0.1.</span> <span class="toc-text">checkpoint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#state"><span class="toc-number">6.0.2.</span> <span class="toc-text">state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#time"><span class="toc-number">6.0.3.</span> <span class="toc-text">time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window"><span class="toc-number">6.0.4.</span> <span class="toc-text">window</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">运行时框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">作业调度框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#table%E6%A8%A1%E5%9D%97%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">table模块架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TaskExecutor"><span class="toc-number">4.1.</span> <span class="toc-text">TaskExecutor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkpoint"><span class="toc-number">6.</span> <span class="toc-text">checkpoint</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#state"><span class="toc-number">7.</span> <span class="toc-text">state</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">7.1.</span> <span class="toc-text">存储实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">7.2.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MemoryStateBackend"><span class="toc-number">7.3.</span> <span class="toc-text">MemoryStateBackend</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FsStateBackend"><span class="toc-number">7.4.</span> <span class="toc-text">FsStateBackend</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocksDBStateBackend"><span class="toc-number">7.5.</span> <span class="toc-text">RocksDBStateBackend</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#time"><span class="toc-number">8.</span> <span class="toc-text">time</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#window"><span class="toc-number">9.</span> <span class="toc-text">window</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cdc"><span class="toc-number">10.</span> <span class="toc-text">cdc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cep"><span class="toc-number">11.</span> <span class="toc-text">cep</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#streaming-warehouse"><span class="toc-number">12.</span> <span class="toc-text">streaming warehouse</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Flink-on-YARN%E6%A8%A1%E5%BC%8F"><span class="toc-number">13.</span> <span class="toc-text">Flink on YARN模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-Mode"><span class="toc-number">13.1.</span> <span class="toc-text">Session Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Per-Job-Mode"><span class="toc-number">13.2.</span> <span class="toc-text">Per-Job Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application-Mode"><span class="toc-number">13.3.</span> <span class="toc-text">Application Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interaction"><span class="toc-number">13.4.</span> <span class="toc-text">interaction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#two-way-to-submit-job-on-yarn"><span class="toc-number">13.5.</span> <span class="toc-text">two way to submit job on yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#first-way%EF%BC%9Ayarn-session"><span class="toc-number">13.5.1.</span> <span class="toc-text">first way：yarn session</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mode-one-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="toc-number">13.5.1.1.</span> <span class="toc-text">mode one: 客户端模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mode-two-%E5%88%86%E7%A6%BB%E5%BC%8F%E6%A8%A1%E5%BC%8F"><span class="toc-number">13.5.1.2.</span> <span class="toc-text">mode two: 分离式模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#second-way-flink-run"><span class="toc-number">13.5.2.</span> <span class="toc-text">second way: flink run</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FAQ"><span class="toc-number">14.</span> <span class="toc-text">FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81"><span class="toc-number">14.1.</span> <span class="toc-text">依赖冲突</span></a></li></ol></li></ol>
       </div>
     
 

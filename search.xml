@@ -1539,9 +1539,7 @@
 </blockquote>
 <h2 id="user"><a href="#user" class="headerlink" title="user"></a>user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Add the current user</span></span><br><span class="line">sudo usermod -a -G docker $(whoami)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add a specific user</span></span><br><span class="line">sudo usermod -a -G docker custom-user</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<h1 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h1><ul>
 <li><p>check</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看正在运行</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有</span></span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></li>
 <li><p>docker run</p>
@@ -1552,7 +1550,27 @@
 <li><p>other</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 终止</span></span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器端口</span></span><br><span class="line">docker port 容器名或容器id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器启动命令</span></span><br><span class="line">docker inspect -f &#x27;&#123;&#123;.Config.Cmd&#125;&#125;&#x27; &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器挂载信息</span></span><br><span class="line">docker inspect &#123;container_id&#125; --format=&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27; | jq</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rm -f 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导出</span></span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入</span></span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">docker restart $container_id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志</span></span><br><span class="line">docker logs $container_id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制文件 在容器运行和停止的状态均可执行</span></span><br><span class="line">docker cp &lt;source-path&gt; &lt;container-name&gt;:&lt;destination-path&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="查看container现在工作网络模式"><a href="#查看container现在工作网络模式" class="headerlink" title="查看container现在工作网络模式"></a>查看container现在工作网络模式</h3><ul>
+<h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><h3 id="Propagation-Modes"><a href="#Propagation-Modes" class="headerlink" title="Propagation Modes"></a>Propagation Modes</h3><blockquote>
+<p>with rshared: Unmounting inside the container affects the host’s mount as well.</p>
+<p>with rprivate: Unmounting inside the container only affects the container, leaving the host’s mounts untouched.</p>
+</blockquote>
+<ul>
+<li><p>rprivate <strong>(Recursive Private)</strong>:</p>
+<ul>
+<li><p><strong>Isolated Mount Propagation</strong>: When a mount point is set to rprivate, any mount or unmount events within that mount are <strong>not propagated</strong> between the container and the host or vice versa. Changes in mounts within the container are isolated.</p>
+<p><strong>Example</strong>: If you mount or unmount a file system inside the container, it won’t affect the corresponding mount on the host. Similarly, changes to the mounts on the host won’t reflect inside the container.</p>
+</li>
+</ul>
+</li>
+<li><p>rshared <strong>(Recursive Shared)</strong>:</p>
+<ul>
+<li><p><strong>Mount Propagation Between Host and Container</strong>: In rshared mode, mount and unmount events are <strong>propagated both ways</strong> between the host and the container.</p>
+<p><strong>Example</strong>: If you unmount or mount something inside the container, it will be reflected on the host. Conversely, if the host unmounts or mounts a file system on that mount point, it will also reflect inside the container.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="network"><a href="#network" class="headerlink" title="network"></a>network</h2><ul>
 <li><p>列出docker的所有网络模式</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure></li>
 <li><p>针对bridge和host分别查找有哪些container在其中</p>
@@ -2376,6 +2394,10 @@
 <h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
 <p>Filesystem in Userspace</p>
 </blockquote>
+<ul>
+<li><p>install</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dnf install fuse fuse-libs</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list avaliable disk</span></span><br><span class="line">sudo fdisk -l</span><br></pre></td></tr></table></figure>
 
 
@@ -2490,217 +2512,6 @@
       </categories>
       <tags>
         <tag>learn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>flink on yarn</title>
-    <url>/2022/01/04/flink%20on%20yarn/</url>
-    <content><![CDATA[<h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p>
-<h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p>
-<h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p>
-<h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p>
-<h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
-<h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
-<h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
-<p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p>
-<p>ps:所有作业共享Dispatcher和ResourceManager；共享资源；适合规模小执行时间短的作业.适用于本地测试或者开发</p>
-</blockquote>
-<h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote>
-<p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>YarnSessionClusterEntrypoint进程</p>
-<p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p>
-<ul>
-<li><p>本节点提交任务</p>
-<p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p>
-</li>
-<li><p>如果需要在其他主机节点提交任务</p>
-<p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p>
-</li>
-</ul>
-</li>
-<li><p>FlinkYarnSessionCli进程</p>
-<p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p>
-</li>
-</ul>
-<h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote>
-<p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p>
-</blockquote>
-<h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote>
-<p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p>
-<p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
-
-<p>注意使用参数-m yarn-cluster提交到yarn集群。</p>
-<ul>
-<li>运行到指定的yarn session可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</li>
-</ul>
-<hr>
-<p>reference</p>
-<p><a href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p>
-<p><a href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p>
-<p><a href="https://blog.csdn.net/u013411339/article/details/95421500?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164455981216780357293300%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164455981216780357293300&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-21-95421500.nonecase&utm_term=%E2%80%9Cflink+cep%E2%80%9D&spm=1018.2226.3001.4450">Flink-On-Yarn的部署模式</a></p>
-]]></content>
-      <categories>
-        <category>flink</category>
-      </categories>
-      <tags>
-        <tag>point</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>flink points</title>
-    <url>/2021/12/28/flink%20points/</url>
-    <content><![CDATA[<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
-<p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
-<p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
-</blockquote>
-<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
-<p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
-</blockquote>
-<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
-<p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
-</blockquote>
-<p><img src="/images/flink/flink_time.png"></p>
-<ul>
-<li><p>Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。</p>
-</li>
-<li><p>Ingestion Time：是数据进入 Flink 的时间。</p>
-</li>
-<li><p>Processing Time：是每一个执行基于时间操作的算子的本地系统时间，与机器相关，默认的时间属性就是 Processing Time。</p>
-<blockquote>
-<p>例如，一条日志进入 Flink 的时间为 2019-08-12 10:00:00.123，到达 Window 的系统时间为 2019-08-12 10:00:01.234，日志的内容如下：</p>
-<p>2019-08-02 18:37:15.624 INFO Fail over to rm2</p>
-<p>对于业务来说，要统计 1min 内的故障日志个数，哪个时间是最有意义的？—— eventTime，因为我们要根据日志的生成时间进行统计。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
-<p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
-</blockquote>
-<p><img src="/images/flink/flink_window.png"></p>
-<ul>
-<li><p>滚动窗口（Tumbling Window）</p>
-<p>将数据依据固定的窗口长度对数据进行切片, 滚动窗口分配器将每个元素分配到一个指定窗口大小的窗口中，滚动窗口有一个固定的大小，并且不会出现重叠</p>
-<p>特点：<strong>时间对齐，窗口长度固定，没有重叠</strong></p>
-<p>适用场景：适合做 BI 统计等（做每个时间段的聚合计算）</p>
-<p>例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：</p>
-<p><img src="/images/flink/flink_window_tumbling.png"></p>
-</li>
-<li><p>滑动窗口（Sliding Window）</p>
-<p>滑动窗口是固定窗口的更广义的一种形式，滑动窗口由固定的窗口长度和滑动间隔组成。</p>
-<p>特点：<strong>时间对齐，窗口长度固定，有重叠</strong></p>
-<p>滑动窗口分配器将元素分配到固定长度的窗口中，与滚动窗口类似，窗口的大小由窗口大小参数来配置，另一个窗口滑动参数控制滑动窗口开始的频率。因此，滑动窗口如果滑动参数小于窗口大小的话，窗口是可以重叠的，在这种情况下元素会被分配到多个窗口中。</p>
-<p>适用场景：对最近一个时间段内的统计（求某接口最近 5min 的失败率来决定是否要报警）。</p>
-<p>例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：</p>
-<p><img src="/images/flink/flink_window_sliding.png"></p>
-</li>
-<li><p>会话窗口（Session Window）</p>
-<p>由一系列事件组合一个指定时间长度的 timeout 间隙组成，类似于 web 应用的 session，也就是一段时间没有接收到新数据就会生成新的窗口。</p>
-<p>特点：<strong>时间无对齐</strong></p>
-<p>session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。</p>
-</li>
-</ul>
-<p>​        <img src="/images/flink/flink_window_session.png"></p>
-<hr>
-<p>flink API</p>
-<p><img src="/images/flink/flink_runtime.png"></p>
-<blockquote>
-<p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
-</blockquote>
-<h1 id="cdc"><a href="#cdc" class="headerlink" title="cdc"></a>cdc</h1><p><a href="https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418">Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区</a></p>
-<h1 id="cep"><a href="#cep" class="headerlink" title="cep"></a>cep</h1><ul>
-<li><p>应用场景</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">风险控制</span><br><span class="line">对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。</span><br><span class="line"></span><br><span class="line">策略营销</span><br><span class="line">用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。</span><br><span class="line"></span><br><span class="line">运维监控</span><br><span class="line">灵活配置多指标、多依赖来实现更复杂的监控模式。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="streaming-warehouse"><a href="#streaming-warehouse" class="headerlink" title="streaming warehouse"></a>streaming warehouse</h1><p>流式数仓（Streaming Warehouse）更准确地说，其实是“make data warehouse streaming”，就是让整个数仓的数据全实时地流动起来，且是以纯流的方式而不是微批（mini-batch）的方式流动。</p>
-<p>目标是实现一个具备端到端实时性的纯流服务（Streaming Service），用一套 API 分析所有流动中的数据，当源头数据发生变化，比如捕捉到在线服务的 Log 或数据库的 Binlog 以后，就按照提前定义好的 Query 逻辑或数据处理逻辑，对数据进行分析，分析后的数据落到数仓的某一个分层，再从第一个分层向下一个分层流动，然后数仓所有分层会全部流动起来，最终流到一个在线系统里，用户可以看到整个数仓的全实时流动效果。</p>
-<p>在这个过程中，数据是主动的，而查询是被动的，分析由数据的变化来驱动。同时在垂直方向上，对每一个数据明细层，用户都可以执行 Query 进行主动查询，并且能实时获得查询结果。此外，它还能兼容离线分析场景，API 依然是同一套，实现真正的一体化。</p>
-<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h2><p><a href="https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x">https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x</a></p>
-<p><a href="https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading">https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading</a></p>
-<p>排查办法</p>
-<ul>
-<li>使用arthas定位依赖类所在jar包</li>
-</ul>
-<p>解决办法</p>
-<ul>
-<li><p>对冲突jar包使用maven shaded 的exclude或relocation 进行操作</p>
-</li>
-<li><p>使用7zip等解压软件对jar文件解压删除（人工shaded）</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>flink</category>
-      </categories>
-      <tags>
-        <tag>point</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>flink state</title>
-    <url>/2022/01/11/flink%20state/</url>
-    <content><![CDATA[<h3 id="what"><a href="#what" class="headerlink" title="what ?"></a>what ?</h3><p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
-<h3 id="why"><a href="#why" class="headerlink" title="why ?"></a>why ?</h3><p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
-<h3 id="how"><a href="#how" class="headerlink" title="how ?"></a>how ?</h3><h4 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h4><ul>
-<li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p>
-</li>
-<li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p>
-</li>
-<li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p>
-<blockquote>
-<p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
-</blockquote>
-</li>
-<li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p>
-</li>
-</ul>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过算子和数据层面划分</p>
-<ul>
-<li><p>算子类state</p>
-<p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p>
-</li>
-<li><p>数据类state</p>
-<p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p>
-</li>
-</ul>
-<h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><p>checkpoint是使Flink 能从故障恢复的一种内部机制。检查点是 Flink 应用状态的一个一致性副本，包括了输入的读取位点。在发生故障时，Flink 通过从检查点加载应用程序状态来恢复，并从恢复的读取位点继续处理，就好像什么事情都没发生一样。Flink的状态存储在Flink的内部,这样做的好处就是不再依赖外部系统,降低了对外部系统的依赖,在Flink的内部,通过自身的进程去访问状态变量.同时会定期的做checkpoint持久化,把checkpoint存储在一个分布式的持久化系统中,如果发生故障,就会从最近的一次checkpoint中将整个流的状态进行恢复.</p>
-<h2 id="MemoryStateBackend"><a href="#MemoryStateBackend" class="headerlink" title="MemoryStateBackend"></a>MemoryStateBackend</h2><p>1 基于内存的状态管理器，聚合类算子的状态会存储在JobManager的内存中</p>
-<p>2 单次状态大小默认最大被限制为5MB，可以通过构造函数来指定状态初始化内存大小。无论单次状态大小最大被限制为多少，都不可大于akka的frame大小（1.5MB，JobManager和TaskManager之间传输数据的最大消息容量）。状态的总大小不能超过 JobManager 的内存。</p>
-<p>3 是Flink默认的后端状态管理器，默认是异步的</p>
-<p>4 主机内存中的数据可能会丢失，任务可能无法恢复</p>
-<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在JobManager的内存中</p>
-<p>适用：本地开发和调试、状态比较少的作业</p>
-<h2 id="FsStateBackend"><a href="#FsStateBackend" class="headerlink" title="FsStateBackend"></a>FsStateBackend</h2><p>1 基于文件系统的状态管理器（这里的文件系统可以是本地<strong>共享</strong>文件系统，也可以是hdfs分布式文件系统。）</p>
-<p>2 如果使用，默认是异步</p>
-<p>3 比较稳定，3个副本，比较安全。不会出现任务无法恢复等问题</p>
-<p>4 状态大小受磁盘容量限制</p>
-<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在文件系统中</p>
-<p>适用：状态比较大，窗口比较长，大的KV状态</p>
-<h2 id="RocksDBStateBackend"><a href="#RocksDBStateBackend" class="headerlink" title="RocksDBStateBackend"></a>RocksDBStateBackend</h2><ol>
-<li><p>RocksDBStateBackend 采用异步的方式进行状态数据的 Snapshot， 任务中的状态数据首先被写人 RocksDB 中，然后再异步地将状态数据写人文件系统中，这样在rocksDB中仅会存储正在进行计算的热数据，对于长时间才更新的数据则写人磁盘中进行存储。而对于体量比较小的元数据状态，则直接存储在 JobManager 的内存中。</p>
-</li>
-<li><p>与 FsStateBackend 相比，RocksDBState Backend 在性能上要比 FsStateBackend 高一些，主要是因为借助于 RocksDB 存储了最新热数据，然后通过异步的方式再同步到文件系统中，但 RocksDBState Backend 和 Memory State Backend 相比性能就会较弱一些。</p>
-</li>
-<li><p>需要注意的是ROCksDB通过JNI的方式进行数据的交互，而JNI构建在byte[]数据结构之上，因此每次能够传输的最大数据量为2^31字节，也就是说每次在RocksDBState Backend 合并的状态数据量大小不能超过 2^31 字节限制，否则将会导致状态数据无法同步，这是RocksDB 采用JNI 方式的限制，用户在使用过程中应当注意。</p>
-</li>
-</ol>
-<p>综上可以看出，RocksDBState Backend 和 FsState Backend 一样，适合于任务状态数据非常大的场景。在Flink 最新版本中，已经提供了基于 RocksDBState Backend 实现的增量 Checkpoints 功能，极大地提高了状态数据同步到介质中的效率和性能，在后续的社区发展中，RocksDBStateBackend 也会作为状态管理器重点使用的方式之一。</p>
-]]></content>
-      <categories>
-        <category>flink</category>
-      </categories>
-      <tags>
-        <tag>point</tag>
       </tags>
   </entry>
   <entry>
@@ -8239,26 +8050,6 @@
       </tags>
   </entry>
   <entry>
-    <title>finite state machine</title>
-    <url>/2024/01/19/finite%20state%20machine/</url>
-    <content><![CDATA[<blockquote>
-<p>The FSM can change from one state to another in response to some inputs; the change from one state to another is called a <em>transition</em>.</p>
-</blockquote>
-<p><img src="./images/fsm/Automata_theory.png"></p>
-<hr>
-<p><strong>reference</strong></p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Finite-state_machine">https://en.wikipedia.org/wiki/Finite-state_machine</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>fsm</category>
-      </categories>
-      <tags>
-        <tag>fsm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>jwt points</title>
     <url>/2024/06/27/jwt/</url>
     <content><![CDATA[<p>JWT 由三个部分组成，用 . 分隔：</p>
@@ -9262,14 +9053,69 @@
 </blockquote>
 </li>
 </ul>
-<h1 id="points"><a href="#points" class="headerlink" title="points"></a>points</h1><h3 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h3><blockquote>
+<h1 id="checkpoint"><a href="#checkpoint" class="headerlink" title="checkpoint"></a>checkpoint</h1><blockquote>
 <p>基于 Chandy-Lamport 算法实现了一个分布式的一致性的快照，从而提供了一致性的语义。</p>
 <p>Chandy-Lamport 算法实际上在 1985 年的时候已经被提出来，但并没有被很广泛的应用，而 Flink 则把这个算法发扬光大了。</p>
 </blockquote>
-<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><blockquote>
+<p>checkpoint是使Flink 能从故障恢复的一种内部机制。检查点是 Flink 应用状态的一个一致性副本，包括了输入的读取位点。在发生故障时，Flink 通过从检查点加载应用程序状态来恢复，并从恢复的读取位点继续处理，就好像什么事情都没发生一样。Flink的状态存储在Flink的内部,这样做的好处就是不再依赖外部系统,降低了对外部系统的依赖,在Flink的内部,通过自身的进程去访问状态变量.同时会定期的做checkpoint持久化,把checkpoint存储在一个分布式的持久化系统中,如果发生故障,就会从最近的一次checkpoint中将整个流的状态进行恢复.</p>
+<h1 id="state"><a href="#state" class="headerlink" title="state"></a>state</h1><blockquote>
 <p>丰富的State API：ValueState、ListState、MapState、 BroadcastState</p>
 </blockquote>
-<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><blockquote>
+<ul>
+<li>what ?</li>
+</ul>
+<p>State是指流计算过程中计算节点的中间计算结果或元数据属性，比如 在aggregation过程中要在state中记录中间聚合结果，比如 Apache Kafka 作为数据源时候，我们也要记录已经读取记录的offset，这些State数据在计算过程中会进行持久化(插入或更新)。所以Apache Flink中的State就是与时间相关的，Apache Flink任务的内部数据（计算数据和元数据属性）的快照。</p>
+<ul>
+<li>why ?</li>
+</ul>
+<p>与批计算相比，State是流计算特有的，批计算没有failover机制，要么成功，要么重新计算。流计算在 大多数场景 下是增量计算，数据逐条处理（大多数场景)，每次计算是在上一次计算结果之上进行处理的，这样的机制势必要将上一次的计算结果进行存储（生产模式要持久化），另外由于 机器，网络，脏数据等原因导致的程序错误，在重启job时候需要从成功的检查点(checkpoint，后面篇章会专门介绍)进行state的恢复。增量计算，Failover这些机制都需要state的支撑。</p>
+<ul>
+<li>how ?</li>
+</ul>
+<h2 id="存储实现"><a href="#存储实现" class="headerlink" title="存储实现"></a>存储实现</h2><ul>
+<li><p>基于内存的HeapStateBackend - 在debug模式使用，不 建议在生产模式下应用；</p>
+</li>
+<li><p>基于HDFS的FsStateBackend - 分布式文件持久化，每次读写都产生网络IO，整体性能不佳；</p>
+</li>
+<li><p>基于RocksDB的RocksDBStateBackend - 本地文件+异步HDFS持久化；</p>
+<blockquote>
+<p>Apache Flink版本选择用RocksDB+HDFS的方式进行State的存储，State存储分两个阶段，首先本地存储到RocksDB，然后异步的同步到远程的HDFS。 这样而设计既消除了HeapStateBackend的局限（内存大小，机器坏掉丢失等），也减少了纯分布式存储的网络IO开销。</p>
+</blockquote>
+</li>
+<li><p>还有一个是基于Niagara(Alibaba内部实现)NiagaraStateBackend - 分布式持久化- 在Alibaba生产环境应用；</p>
+</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>通过算子和数据层面划分</p>
+<ul>
+<li><p>算子类state</p>
+<p>KeyedState - 这里面的key是我们在SQL语句中对应的GroupBy/PartitioneBy里面的字段，key的值就是groupby/PartitionBy字段组成的Row的字节数组，每一个key都有一个属于自己的State，key与key之间的State是不可见的</p>
+</li>
+<li><p>数据类state</p>
+<p>OperatorState - Apache Flink内部的Source Connector的实现中就会用OperatorState来记录source数据读取的offset。</p>
+</li>
+</ul>
+<h2 id="MemoryStateBackend"><a href="#MemoryStateBackend" class="headerlink" title="MemoryStateBackend"></a>MemoryStateBackend</h2><p>1 基于内存的状态管理器，聚合类算子的状态会存储在JobManager的内存中</p>
+<p>2 单次状态大小默认最大被限制为5MB，可以通过构造函数来指定状态初始化内存大小。无论单次状态大小最大被限制为多少，都不可大于akka的frame大小（1.5MB，JobManager和TaskManager之间传输数据的最大消息容量）。状态的总大小不能超过 JobManager 的内存。</p>
+<p>3 是Flink默认的后端状态管理器，默认是异步的</p>
+<p>4 主机内存中的数据可能会丢失，任务可能无法恢复</p>
+<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在JobManager的内存中</p>
+<p>适用：本地开发和调试、状态比较少的作业</p>
+<h2 id="FsStateBackend"><a href="#FsStateBackend" class="headerlink" title="FsStateBackend"></a>FsStateBackend</h2><p>1 基于文件系统的状态管理器（这里的文件系统可以是本地<strong>共享</strong>文件系统，也可以是hdfs分布式文件系统。）</p>
+<p>2 如果使用，默认是异步</p>
+<p>3 比较稳定，3个副本，比较安全。不会出现任务无法恢复等问题</p>
+<p>4 状态大小受磁盘容量限制</p>
+<p>5 将工作state保存在TaskManager的内存中，并将checkpoint数据存储在文件系统中</p>
+<p>适用：状态比较大，窗口比较长，大的KV状态</p>
+<h2 id="RocksDBStateBackend"><a href="#RocksDBStateBackend" class="headerlink" title="RocksDBStateBackend"></a>RocksDBStateBackend</h2><ol>
+<li><p>RocksDBStateBackend 采用异步的方式进行状态数据的 Snapshot， 任务中的状态数据首先被写人 RocksDB 中，然后再异步地将状态数据写人文件系统中，这样在rocksDB中仅会存储正在进行计算的热数据，对于长时间才更新的数据则写人磁盘中进行存储。而对于体量比较小的元数据状态，则直接存储在 JobManager 的内存中。</p>
+</li>
+<li><p>与 FsStateBackend 相比，RocksDBState Backend 在性能上要比 FsStateBackend 高一些，主要是因为借助于 RocksDB 存储了最新热数据，然后通过异步的方式再同步到文件系统中，但 RocksDBState Backend 和 Memory State Backend 相比性能就会较弱一些。</p>
+</li>
+<li><p>需要注意的是ROCksDB通过JNI的方式进行数据的交互，而JNI构建在byte[]数据结构之上，因此每次能够传输的最大数据量为2^31字节，也就是说每次在RocksDBState Backend 合并的状态数据量大小不能超过 2^31 字节限制，否则将会导致状态数据无法同步，这是RocksDB 采用JNI 方式的限制，用户在使用过程中应当注意。</p>
+</li>
+</ol>
+<p>综上可以看出，RocksDBState Backend 和 FsState Backend 一样，适合于任务状态数据非常大的场景。在Flink 最新版本中，已经提供了基于 RocksDBState Backend 实现的增量 Checkpoints 功能，极大地提高了状态数据同步到介质中的效率和性能，在后续的社区发展中，RocksDBStateBackend 也会作为状态管理器重点使用的方式之一。</p>
+<h1 id="time"><a href="#time" class="headerlink" title="time"></a>time</h1><blockquote>
 <p>实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。</p>
 </blockquote>
 <p><img src="/images/flink/flink_time.png"></p>
@@ -9286,7 +9132,7 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><blockquote>
+<h1 id="window"><a href="#window" class="headerlink" title="window"></a>window</h1><blockquote>
 <p>Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。</p>
 </blockquote>
 <p><img src="/images/flink/flink_window.png"></p>
@@ -9319,6 +9165,83 @@
 <blockquote>
 <p>Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。</p>
 </blockquote>
+<h1 id="cdc"><a href="#cdc" class="headerlink" title="cdc"></a>cdc</h1><p><a href="https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418">Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区</a></p>
+<h1 id="cep"><a href="#cep" class="headerlink" title="cep"></a>cep</h1><ul>
+<li><p>应用场景</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">风险控制</span><br><span class="line">对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。</span><br><span class="line"></span><br><span class="line">策略营销</span><br><span class="line">用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。</span><br><span class="line"></span><br><span class="line">运维监控</span><br><span class="line">灵活配置多指标、多依赖来实现更复杂的监控模式。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="streaming-warehouse"><a href="#streaming-warehouse" class="headerlink" title="streaming warehouse"></a>streaming warehouse</h1><p>流式数仓（Streaming Warehouse）更准确地说，其实是“make data warehouse streaming”，就是让整个数仓的数据全实时地流动起来，且是以纯流的方式而不是微批（mini-batch）的方式流动。</p>
+<p>目标是实现一个具备端到端实时性的纯流服务（Streaming Service），用一套 API 分析所有流动中的数据，当源头数据发生变化，比如捕捉到在线服务的 Log 或数据库的 Binlog 以后，就按照提前定义好的 Query 逻辑或数据处理逻辑，对数据进行分析，分析后的数据落到数仓的某一个分层，再从第一个分层向下一个分层流动，然后数仓所有分层会全部流动起来，最终流到一个在线系统里，用户可以看到整个数仓的全实时流动效果。</p>
+<p>在这个过程中，数据是主动的，而查询是被动的，分析由数据的变化来驱动。同时在垂直方向上，对每一个数据明细层，用户都可以执行 Query 进行主动查询，并且能实时获得查询结果。此外，它还能兼容离线分析场景，API 依然是同一套，实现真正的一体化。</p>
+<h1 id="Flink-on-YARN模式"><a href="#Flink-on-YARN模式" class="headerlink" title="Flink on YARN模式"></a>Flink on YARN模式</h1><p>在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。<br>在YARN上，又分为三种部署模式：</p>
+<h2 id="Session-Mode"><a href="#Session-Mode" class="headerlink" title="Session Mode"></a>Session Mode</h2><p>共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。</p>
+<h2 id="Per-Job-Mode"><a href="#Per-Job-Mode" class="headerlink" title="Per-Job Mode"></a>Per-Job Mode</h2><p>为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。</p>
+<h2 id="Application-Mode"><a href="#Application-Mode" class="headerlink" title="Application Mode"></a>Application Mode</h2><p>一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。</p>
+<h2 id="interaction"><a href="#interaction" class="headerlink" title="interaction"></a>interaction</h2><p><img src="/images/flinkOnYarn/flink_on_yarn.png"> </p>
+<h2 id="two-way-to-submit-job-on-yarn"><a href="#two-way-to-submit-job-on-yarn" class="headerlink" title="two way to submit job on yarn"></a>two way to submit job on yarn</h2><p><img src="/images/flinkOnYarn/submit_job.png"></p>
+<h3 id="first-way：yarn-session"><a href="#first-way：yarn-session" class="headerlink" title="first way：yarn session"></a>first way：yarn session</h3><blockquote>
+<p>(Start a long-running Flink cluster on YARN)这种方式需要先启动集群，然后在提交作业，接着会向yarn申请一块空间后，资源永远保持不变。如果资源满了，下一个作业就无法提交，只能等到yarn中的其中一个作业执行完成后，释放了资源，那下一个作业才会正常提交.</p>
+<p>ps:所有作业共享Dispatcher和ResourceManager；共享资源；适合规模小执行时间短的作业.适用于本地测试或者开发</p>
+</blockquote>
+<h4 id="mode-one-客户端模式"><a href="#mode-one-客户端模式" class="headerlink" title="mode one: 客户端模式"></a>mode one: 客户端模式</h4><blockquote>
+<p>可以启动多个yarn session，一个yarn session模式对应一个JobManager,并按照需求提交作业，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 1024 -tm 4096 -s 6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>YarnSessionClusterEntrypoint进程</p>
+<p>代表本节点可以命令方式提交job，而且可以不用指定-m参数。</p>
+<ul>
+<li><p>本节点提交任务</p>
+<p><code>bin/flink run ~/flink-demo-wordcount.jar</code></p>
+</li>
+<li><p>如果需要在其他主机节点提交任务</p>
+<p><code>bin/flink run -m vmhome10.com:43258 examples/batch/WordCount.jar</code></p>
+</li>
+</ul>
+</li>
+<li><p>FlinkYarnSessionCli进程</p>
+<p>代表yarn-session集群入口，实际就是jobmanager节点，也是yarn的ApplicationMaster节点。</p>
+</li>
+</ul>
+<h4 id="mode-two-分离式模式"><a href="#mode-two-分离式模式" class="headerlink" title="mode two: 分离式模式"></a>mode two: 分离式模式</h4><blockquote>
+<p>JobManager的个数只能是一个，同一个Session中可以提交多个Flink作业。如果想要停止Flink Yarn Application，需要通过yarn application -kill命令来停止。通过-d指定分离模式.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/yarn-session.sh -nm test3 -d</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在所有的节点只会出现一个 YarnSessionClusterEntrypoint进程</p>
+</blockquote>
+<h3 id="second-way-flink-run"><a href="#second-way-flink-run" class="headerlink" title="second way: flink run"></a>second way: flink run</h3><blockquote>
+<p>直接在YARN上提交运行Flink作业(Run a Flink job on YARN)，这种方式的好处是一个任务会对应一个job,即没提交一个作业会根据自身的情况，向yarn申请资源，直到作业执行完成，并不会影响下一个作业的正常运行，除非是yarn上面没有任何资源的情况下。</p>
+<p>ps:适用于生产环境，可启动多个yarn session （bin/yarn-session.sh -nm ipOrHostName）</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/flink run -m addressOfJobmanager -yn 1 -yjm 1024 -ytm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>注意使用参数-m yarn-cluster提交到yarn集群。</p>
+<ul>
+<li><p>运行到指定的yarn session</p>
+<p>可以指定 -yid,–yarnapplicationId <arg> Attach to running YARN session来附加到到特定的yarn session上运行</p>
+</li>
+</ul>
+<hr>
+<p>reference</p>
+<p><a href="https://www.jianshu.com/p/1b05202c4fb6">Flink on yarn部署模式 - 简书</a></p>
+<p><a href="https://www.cnblogs.com/asker009/p/11327533.html">flink on yarn模式下两种提交job方式 - 我是属车的 - 博客园</a></p>
+<p><a href="https://blog.csdn.net/u013411339/article/details/95421500?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164455981216780357293300%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164455981216780357293300&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-21-95421500.nonecase&utm_term=%E2%80%9Cflink+cep%E2%80%9D&spm=1018.2226.3001.4450">Flink-On-Yarn的部署模式</a></p>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h2><p><a href="https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x">https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x</a></p>
+<p><a href="https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading">https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading</a></p>
+<p>排查办法</p>
+<ul>
+<li>使用arthas定位依赖类所在jar包</li>
+</ul>
+<p>解决办法</p>
+<ul>
+<li><p>对冲突jar包使用maven shaded 的exclude或relocation 进行操作</p>
+</li>
+<li><p>使用7zip等解压软件对jar文件解压删除（人工shaded）</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>flink</category>
@@ -10877,38 +10800,6 @@
       </tags>
   </entry>
   <entry>
-    <title>minio snippet</title>
-    <url>/2024/09/29/minio%20snippet/</url>
-    <content><![CDATA[<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="Erasure-Coding"><a href="#Erasure-Coding" class="headerlink" title="Erasure Coding"></a>Erasure Coding</h2><p><strong>Erasure Coding</strong> splits data into data and parity shards. For example, MinIO might use a <strong>4:2 erasure code</strong> (should use 6  disks), meaning each object is split into 4 data shards and 2 parity shards.</p>
-<blockquote>
-<p>In a 4:2 erasure coding setup:</p>
-<p>4 data shards hold the actual object data.</p>
-<p>2 parity shards are created for redundancy.</p>
-</blockquote>
-<p>In this configuration, every object is broken into smaller pieces, with redundancy pieces (parity shards) stored to allow recovery if a disk or node fails.</p>
-<h1 id="client"><a href="#client" class="headerlink" title="client"></a>client</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl https://dl.min.io/client/mc/release/linux-amd64/mc \</span><br><span class="line">  --create-dirs \</span><br><span class="line">  -o $HOME/minio-binaries/mc</span><br><span class="line"></span><br><span class="line">chmod +x $HOME/minio-binaries/mc</span><br><span class="line"></span><br><span class="line">cp $HOME/minio-binaries/mc /usr/bin/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> service fiel</span></span><br><span class="line">/usr/lib/systemd/system/minio.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> default config file</span></span><br><span class="line">/etc/default/minio</span><br><span class="line"><span class="meta"> </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> reload config after modify default file</span></span><br><span class="line">sudo systemctl stop minio</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果更改MINIO_VOLUMES信息，并且需要用到之前的一些盘符，需要清理干净相关目录的文件（包括隐藏文件 .minio.sys）</span></span><br><span class="line">需要目录里清理遗留的所有文件 （rm -rf ./* 命令不会清理隐藏文件）</span><br></pre></td></tr></table></figure>
-
-<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><ul>
-<li>development</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> add development</span></span><br><span class="line">mc alias set myminio &#123;endpoint_address&#125; &#123;ak&#125; &#123;sk&#125; </span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. mc <span class="built_in">alias</span> <span class="built_in">set</span> myminio http://minio1.dev.net:19000 1111111 22222222</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ls <span class="built_in">alias</span></span></span><br><span class="line">mc alias list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> overview info</span></span><br><span class="line">mc admin info myminio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check config</span> </span><br><span class="line">mc admin config get myminio</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>bucket</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create bucket</span></span><br><span class="line">mc mb &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check object</span></span><br><span class="line">mc cat &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete object</span></span><br><span class="line">mc rm &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all data</span></span><br><span class="line">mc rm --recursive --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force delete bucket</span></span><br><span class="line">mc rb --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>erasure code</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> erasure code</span></span><br><span class="line">mc admin config set myminio storage_class standard=EC:0</span><br><span class="line"><span class="meta">#</span><span class="bash"> should restart minio.service, and <span class="string">&#x27;systemctl status minio&#x27;</span> will <span class="built_in">print</span> <span class="string">&#x27;WARN: The standard parity is set to 0. This can lead to data loss&#x27;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check storage_class</span> </span><br><span class="line">mc admin config get myminio storage_class</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>minio</category>
-      </categories>
-      <tags>
-        <tag>snippet</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>design pattern</title>
     <url>/2018/05/01/design%20pattern/</url>
     <content><![CDATA[<h3 id="build"><a href="#build" class="headerlink" title="build"></a>build</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Computer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//required parameters</span></span><br><span class="line"><span class="keyword">private</span> String HDD;</span><br><span class="line"><span class="keyword">private</span> String RAM;</span><br><span class="line"></span><br><span class="line"><span class="comment">//optional parameters</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isGraphicsCardEnabled;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isBluetoothEnabled;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getHDD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> HDD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getRAM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> RAM;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isGraphicsCardEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isGraphicsCardEnabled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBluetoothEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isBluetoothEnabled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Computer</span><span class="params">(ComputerBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.HDD=builder.HDD;</span><br><span class="line">    <span class="keyword">this</span>.RAM=builder.RAM;</span><br><span class="line">    <span class="keyword">this</span>.isGraphicsCardEnabled=builder.isGraphicsCardEnabled;</span><br><span class="line">    <span class="keyword">this</span>.isBluetoothEnabled=builder.isBluetoothEnabled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Builder Class</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ComputerBuilder</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// required parameters</span></span><br><span class="line">    <span class="keyword">private</span> String HDD;</span><br><span class="line">    <span class="keyword">private</span> String RAM;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// optional parameters</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isGraphicsCardEnabled;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isBluetoothEnabled;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ComputerBuilder</span><span class="params">(String hdd, String ram)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.HDD=hdd;</span><br><span class="line">        <span class="keyword">this</span>.RAM=ram;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ComputerBuilder <span class="title">setGraphicsCardEnabled</span><span class="params">(<span class="keyword">boolean</span> isGraphicsCardEnabled)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isGraphicsCardEnabled = isGraphicsCardEnabled;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ComputerBuilder <span class="title">setBluetoothEnabled</span><span class="params">(<span class="keyword">boolean</span> isBluetoothEnabled)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.isBluetoothEnabled = isBluetoothEnabled;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Computer <span class="title">build</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Computer(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ComputerBuilder</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.journaldev.design.builder.Computer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestBuilderPattern</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Using builder to get the object in a single line of code and </span></span><br><span class="line">            <span class="comment">//without any inconsistent state or arguments management issues        </span></span><br><span class="line">    Computer comp = <span class="keyword">new</span> Computer.ComputerBuilder(</span><br><span class="line">            <span class="string">&quot;500 GB&quot;</span>, <span class="string">&quot;2 GB&quot;</span>).setBluetoothEnabled(<span class="keyword">true</span>)</span><br><span class="line">            .setGraphicsCardEnabled(<span class="keyword">true</span>).build();</span><br><span class="line">&#125;</span><br><span class="line">&#125; ```</span><br></pre></td></tr></table></figure>
@@ -10993,6 +10884,15 @@
 <li>应用算法</li>
 </ol>
 <h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>训练集、验证集、测试集</p>
+<h1 id="FSM"><a href="#FSM" class="headerlink" title="FSM"></a>FSM</h1><blockquote>
+<p>The FSM can change from one state to another in response to some inputs; the change from one state to another is called a <em>transition</em>.</p>
+</blockquote>
+<p><img src="./images/fsm/Automata_theory.png"></p>
+<hr>
+<p><strong>reference</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Finite-state_machine">https://en.wikipedia.org/wiki/Finite-state_machine</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>AI</category>
@@ -12522,9 +12422,14 @@
 <p>GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.</p>
 </blockquote>
 <ul>
-<li><p><a href="https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources">runner host</a></p>
-</li>
-<li><p>event</p>
+<li><a href="https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources">runner host</a></li>
+<li>event</li>
+</ul>
+<ul>
+<li><p>env</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GITHUB_OUTPUT</span><br><span class="line">GITHUB_STATE</span><br><span class="line">GITHUB_ENV</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs">Passing information between jobs</a></p>
 </li>
 </ul>
 <h2 id="security"><a href="#security" class="headerlink" title="security"></a>security</h2><ul>
@@ -12539,6 +12444,38 @@
       </categories>
       <tags>
         <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>minio snippet</title>
+    <url>/2024/09/29/minio/</url>
+    <content><![CDATA[<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="Erasure-Coding"><a href="#Erasure-Coding" class="headerlink" title="Erasure Coding"></a>Erasure Coding</h2><p><strong>Erasure Coding</strong> splits data into data and parity shards. For example, MinIO might use a <strong>4:2 erasure code</strong> (should use 6  disks), meaning each object is split into 4 data shards and 2 parity shards.</p>
+<blockquote>
+<p>In a 4:2 erasure coding setup:</p>
+<p>4 data shards hold the actual object data.</p>
+<p>2 parity shards are created for redundancy.</p>
+</blockquote>
+<p>In this configuration, every object is broken into smaller pieces, with redundancy pieces (parity shards) stored to allow recovery if a disk or node fails.</p>
+<h1 id="client"><a href="#client" class="headerlink" title="client"></a>client</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl https://dl.min.io/client/mc/release/linux-amd64/mc \</span><br><span class="line">  --create-dirs \</span><br><span class="line">  -o $HOME/minio-binaries/mc</span><br><span class="line"></span><br><span class="line">chmod +x $HOME/minio-binaries/mc</span><br><span class="line"></span><br><span class="line">cp $HOME/minio-binaries/mc /usr/bin/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> service fiel</span></span><br><span class="line">/usr/lib/systemd/system/minio.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> default config file</span></span><br><span class="line">/etc/default/minio</span><br><span class="line"><span class="meta"> </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> reload config after modify default file</span></span><br><span class="line">sudo systemctl stop minio</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果更改MINIO_VOLUMES信息，并且需要用到之前的一些盘符，需要清理干净相关目录的文件（包括隐藏文件 .minio.sys）</span></span><br><span class="line">需要目录里清理遗留的所有文件 （rm -rf ./* 命令不会清理隐藏文件）</span><br></pre></td></tr></table></figure>
+
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><ul>
+<li>development</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> add development</span></span><br><span class="line">mc alias set myminio &#123;endpoint_address&#125; &#123;ak&#125; &#123;sk&#125; </span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. mc <span class="built_in">alias</span> <span class="built_in">set</span> myminio http://minio1.dev.net:19000 1111111 22222222</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ls <span class="built_in">alias</span></span></span><br><span class="line">mc alias list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> overview info</span></span><br><span class="line">mc admin info myminio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check config</span> </span><br><span class="line">mc admin config get myminio</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>bucket</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create bucket</span></span><br><span class="line">mc mb &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check object</span></span><br><span class="line">mc cat &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete object</span></span><br><span class="line">mc rm &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all data</span></span><br><span class="line">mc rm --recursive --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force delete bucket</span></span><br><span class="line">mc rb --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>erasure code</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> erasure code</span></span><br><span class="line">mc admin config set myminio storage_class standard=EC:0</span><br><span class="line"><span class="meta">#</span><span class="bash"> should restart minio.service, and <span class="string">&#x27;systemctl status minio&#x27;</span> will <span class="built_in">print</span> <span class="string">&#x27;WARN: The standard parity is set to 0. This can lead to data loss&#x27;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check storage_class</span> </span><br><span class="line">mc admin config get myminio storage_class</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>minio</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
       </tags>
   </entry>
 </search>
