@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="conceptFS type  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得">
+    <meta name="description" content="storageoverview   Feature Object Storage Block Storage File Storage    Data Structure Stores as objects (data + metadata) Stores in blocks (raw chunks of data) Stores as files in directories   Access">
 <meta property="og:type" content="article">
 <meta property="og:title" content="file system">
 <meta property="og:url" content="https://www.willshirley.top/2024/08/07/file%20system/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="conceptFS type  Mac 默认可以读 Windows 的 NTFS 格式，但不能写。  Windows 无法识别 Mac 的 HFS+ 或 APFS 格式。  Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式  linux 123456789Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得">
+<meta property="og:description" content="storageoverview   Feature Object Storage Block Storage File Storage    Data Structure Stores as objects (data + metadata) Stores in blocks (raw chunks of data) Stores as files in directories   Access">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/lvm%20architecture.png">
 <meta property="article:published_time" content="2024-08-07T05:59:21.000Z">
-<meta property="article:modified_time" content="2024-10-14T08:42:26.319Z">
+<meta property="article:modified_time" content="2024-10-16T08:18:46.425Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">1.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">1.2.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">1.3.</span> <span class="toc-text">partitioning vs LVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Partitioning"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. Partitioning:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-LVM-Logical-Volume-Management"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. LVM (Logical Volume Management):</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Components"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Components:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comparison-of-Partition-and-LVM"><span class="toc-number">1.3.3.</span> <span class="toc-text">Comparison of Partition and LVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Scenario"><span class="toc-number">1.3.4.</span> <span class="toc-text">Example Scenario:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">1.3.5.</span> <span class="toc-text">Summary:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">1.4.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">1.5.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">1.6.</span> <span class="toc-text">tmpfs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">3.1.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.2.</span> <span class="toc-text">delete existed volume</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.2.1.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount-lvm"><span class="toc-number">3.2.2.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-number">3.2.3.</span> <span class="toc-text">other</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#storage"><span class="toc-number">1.</span> <span class="toc-text">storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#overview"><span class="toc-number">1.1.</span> <span class="toc-text">overview</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relation-Between-Object-Block-and-File-Storage"><span class="toc-number">1.1.1.</span> <span class="toc-text">Relation Between Object, Block, and File Storage:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-to-Illustrate-the-Relationship"><span class="toc-number">1.1.2.</span> <span class="toc-text">Example to Illustrate the Relationship</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Scenario-A-Cloud-Based-Photo-Sharing-Application"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">Scenario: A Cloud-Based Photo Sharing Application</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Workflow-Example"><span class="toc-number">1.1.3.</span> <span class="toc-text">The Workflow Example:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Visual-Relationship"><span class="toc-number">1.1.4.</span> <span class="toc-text">Visual Relationship</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Integration-Points"><span class="toc-number">1.1.5.</span> <span class="toc-text">Key Integration Points</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#S3-Gateway"><span class="toc-number">1.2.</span> <span class="toc-text">S3 Gateway</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">2.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.2.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">2.3.</span> <span class="toc-text">partitioning vs LVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Partitioning"><span class="toc-number">2.3.1.</span> <span class="toc-text">1. Partitioning:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-LVM-Logical-Volume-Management"><span class="toc-number">2.3.2.</span> <span class="toc-text">2. LVM (Logical Volume Management):</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Components"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">Components:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comparison-of-Partition-and-LVM"><span class="toc-number">2.3.3.</span> <span class="toc-text">Comparison of Partition and LVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Scenario"><span class="toc-number">2.3.4.</span> <span class="toc-text">Example Scenario:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">2.3.5.</span> <span class="toc-text">Summary:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.4.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.5.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">2.6.</span> <span class="toc-text">tmpfs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">4.1.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.2.</span> <span class="toc-text">delete existed volume</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.1.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount-lvm"><span class="toc-number">4.2.2.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-number">4.2.3.</span> <span class="toc-text">other</span></a></li></ol></li></ol></li></ol>
       </div>
     
   </span>
@@ -169,7 +169,147 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="FS-type"><a href="#FS-type" class="headerlink" title="FS type"></a>FS type</h2><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
+    <h1 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h1><h2 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h2><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><strong>Object Storage</strong></th>
+<th><strong>Block Storage</strong></th>
+<th><strong>File Storage</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Data Structure</strong></td>
+<td>Stores as objects (data + metadata)</td>
+<td>Stores in blocks (raw chunks of data)</td>
+<td>Stores as files in directories</td>
+</tr>
+<tr>
+<td><strong>Access Protocols</strong></td>
+<td>HTTP APIs (e.g., S3)</td>
+<td>iSCSI, Fibre Channel</td>
+<td>NFS, SMB/CIFS</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>High scalability, slower access</td>
+<td>Low latency, high IOPS</td>
+<td>Moderate, varies by file system</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Virtually unlimited (distributed)</td>
+<td>Scales well with SAN, but complex</td>
+<td>Limited by file system performance</td>
+</tr>
+<tr>
+<td><strong>Cost Efficiency</strong></td>
+<td>High for large amounts of unstructured data</td>
+<td>Can be expensive at scale</td>
+<td>Moderate to expensive</td>
+</tr>
+<tr>
+<td><strong>Best Use Cases</strong></td>
+<td>Media content, backups, big data, archives</td>
+<td>Databases, VMs, transactional systems</td>
+<td>Shared access, collaboration, home directories</td>
+</tr>
+<tr>
+<td><strong>Metadata</strong></td>
+<td>Rich, customizable per object</td>
+<td>None</td>
+<td>Minimal (file permissions, attributes)</td>
+</tr>
+<tr>
+<td><strong>Concurrency</strong></td>
+<td>Excellent for concurrent access</td>
+<td>Not designed for shared access</td>
+<td>Designed for shared access</td>
+</tr>
+<tr>
+<td><strong>Example Systems</strong></td>
+<td>AWS S3, MinIO, Google Cloud Storage</td>
+<td>AWS EBS, iSCSI, Fibre Channel</td>
+<td>NFS, SMB/CIFS, GlusterFS</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Object Storage</strong>: Best for large-scale unstructured data, low cost, scalable but not suitable for low-latency or transactional workloads.</li>
+<li><strong>Block Storage</strong>: High performance, low latency, granular control over data, ideal for VMs, databases, but can be costly to scale.</li>
+<li><strong>File Storage</strong>: File-based storage for shared access, good for collaboration, but less scalable for large datasets.</li>
+</ul>
+<p><strong>Object storage</strong>, <strong>block storage</strong>, and <strong>file storage</strong> are all methods of storing and accessing data, but they differ in structure, management, and how they handle data. Despite their differences, they often complement each other in modern storage systems, and sometimes, the boundaries between them blur depending on use cases.</p>
+<h3 id="Relation-Between-Object-Block-and-File-Storage"><a href="#Relation-Between-Object-Block-and-File-Storage" class="headerlink" title="Relation Between Object, Block, and File Storage:"></a>Relation Between Object, Block, and File Storage:</h3><ul>
+<li><strong>Different Levels of Abstraction</strong>:<ul>
+<li><strong>Block Storage</strong> is the most granular, dealing with raw blocks of data.</li>
+<li><strong>File Storage</strong> is built on top of block storage, organizing data into files and directories.</li>
+<li><strong>Object Storage</strong> exists at a higher level, organizing data into objects with associated metadata and accessed through APIs, not files or blocks.</li>
+</ul>
+</li>
+<li><strong>Integration in Systems</strong>:<ul>
+<li>Object storage can use block storage underneath to store objects.</li>
+<li>File storage is typically built on block storage, where the blocks form the basis of a file system.</li>
+<li>Many modern systems (especially in cloud environments) allow the coexistence of these types of storage, where object storage holds bulk data, block storage serves databases and high-performance workloads, and file storage provides shared file access.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Example-to-Illustrate-the-Relationship"><a href="#Example-to-Illustrate-the-Relationship" class="headerlink" title="Example to Illustrate the Relationship"></a>Example to Illustrate the Relationship</h3><h4 id="Scenario-A-Cloud-Based-Photo-Sharing-Application"><a href="#Scenario-A-Cloud-Based-Photo-Sharing-Application" class="headerlink" title="Scenario: A Cloud-Based Photo Sharing Application"></a>Scenario: A Cloud-Based Photo Sharing Application</h4><p>Let’s say we’re developing a photo-sharing application. Here’s how each storage type might be used:</p>
+<ol>
+<li><strong>Block Storage</strong>: <ul>
+<li>The application’s <strong>database</strong> (such as MySQL or PostgreSQL) will store metadata about users, photos, and comments. Databases need low-latency, fast read/write operations, which makes block storage ideal. Each database table or index is stored in blocks, providing high performance and reliability.</li>
+<li>Example: An AWS EC2 instance uses <strong>Amazon Elastic Block Store (EBS)</strong> for fast data access in the application’s database.</li>
+</ul>
+</li>
+<li><strong>File Storage</strong>:<ul>
+<li>For <strong>user-generated content</strong>, like profile pictures or documents that may need to be shared and updated by multiple users, file storage is the best fit. It allows users to upload, read, and modify files easily. The hierarchical structure also works well for organizing files into folders.</li>
+<li>Example: The application uses <strong>NFS (Network File System)</strong> or <strong>SMB/CIFS</strong> to store shared user profiles, document uploads, or configuration files. In this case, multiple application servers can access the same files.</li>
+</ul>
+</li>
+<li><strong>Object Storage</strong>:<ul>
+<li>For <strong>large photos and videos</strong> uploaded by users, object storage is the best choice due to its scalability and cost efficiency. Each file (photo or video) is stored as an object with metadata like date uploaded, user ID, etc. Object storage is ideal because it can easily scale to store millions of large media files.</li>
+<li>Example: The application stores users’ photos and videos in <strong>Amazon S3</strong> or <strong>MinIO</strong> as objects, where each photo or video is stored independently and accessed through an API.</li>
+</ul>
+</li>
+</ol>
+<h3 id="The-Workflow-Example"><a href="#The-Workflow-Example" class="headerlink" title="The Workflow Example:"></a>The Workflow Example:</h3><ul>
+<li>When a user uploads a new photo:<ol>
+<li><strong>File Storage</strong> stores any accompanying text (e.g., captions, metadata) that might be shared or updated by other users.</li>
+<li><strong>Block Storage</strong> is used to store transaction information, user details, and other relational data in the app’s database.</li>
+<li><strong>Object Storage</strong> stores the actual image file (the photo itself) as an object, and the app accesses it via an HTTP API when needed.</li>
+</ol>
+</li>
+</ul>
+<h3 id="Visual-Relationship"><a href="#Visual-Relationship" class="headerlink" title="Visual Relationship"></a>Visual Relationship</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Object Storage (High-level, flat structure)</span><br><span class="line">|-- Stores: Photos, Videos</span><br><span class="line">|-- Metadata: Filename, upload time, user ID</span><br><span class="line">|-- Access via: APIs (e.g., S3 API)</span><br><span class="line"></span><br><span class="line">File Storage (Intermediate level, hierarchical structure)</span><br><span class="line">|-- Stores: Text files, configuration files, shared resources</span><br><span class="line">|-- Hierarchical access: Files are accessed via paths (/photos/, /users/)</span><br><span class="line">|-- Access via: NFS, SMB/CIFS</span><br><span class="line"></span><br><span class="line">Block Storage (Low-level, raw storage)</span><br><span class="line">|-- Stores: Database records, application data, raw volumes</span><br><span class="line">|-- Managed by: File systems (ext4, XFS) or directly by applications (databases)</span><br><span class="line">|-- Access via: iSCSI, Fibre Channel, or direct local access</span><br></pre></td></tr></table></figure>
+
+<h3 id="Key-Integration-Points"><a href="#Key-Integration-Points" class="headerlink" title="Key Integration Points"></a>Key Integration Points</h3><ol>
+<li><p><strong>Data flows between storage types</strong>:</p>
+<ul>
+<li>Object storage may rely on block storage for its underlying infrastructure. For instance, in a cloud service, object storage systems often store objects across distributed blocks on physical storage.</li>
+<li>File storage often relies on block storage (e.g., a disk or volume formatted with a file system) to organize files into directories. </li>
+</ul>
+</li>
+<li><p><strong>Shared Purpose</strong>:</p>
+<ul>
+<li>All three storage types can coexist in a modern system, handling different parts of the same application. Block storage handles the core operational data; file storage manages shared, accessible data; and object storage is used for scalable, long-term archival of data.</li>
+</ul>
+</li>
+</ol>
+<p>In summary, <strong>block storage</strong> is the foundational layer, <strong>file storage</strong> organizes files in a hierarchical structure on top of block storage, and <strong>object storage</strong> organizes data in a flat, scalable way with metadata and API-based access. Each serves a different purpose but can be used together for a comprehensive data storage solution in complex applications.</p>
+<h2 id="S3-Gateway"><a href="#S3-Gateway" class="headerlink" title="S3 Gateway"></a>S3 Gateway</h2><p>S3 Gateway acts as an intermediary to facilitate interactions between your application and the object storage system. This includes common operations on <strong>buckets</strong> and <strong>objects</strong> such as:</p>
+<ul>
+<li><strong>Creating buckets</strong> (e.g., <code>CreateBucket</code> API call)</li>
+<li><strong>Reading objects</strong> (e.g., <code>GetObject</code>)</li>
+<li><strong>Uploading or writing objects</strong> (e.g., <code>PutObject</code>)</li>
+<li><strong>Deleting objects or buckets</strong> (e.g., <code>DeleteObject</code>, <code>DeleteBucket</code>)</li>
+</ul>
+<p>The S3 gateway translates these requests into <strong>S3 API calls</strong> that the object storage system understands. This is especially useful when:</p>
+<ol>
+<li>Your application isn’t natively using S3 but requires access to an S3-compatible storage system (via the gateway).</li>
+<li>You’re in a hybrid or on-premises environment where you want applications to interact with object storage in the same way they would with a cloud-based S3 service.</li>
+</ol>
+<p>For example, if you have a legacy application that doesn’t natively support the S3 API but needs to manage objects (e.g., create or read files), the S3 gateway can allow the application to perform these tasks as if it were working with a regular file system. The gateway will handle the <strong>CRUD</strong> (Create, Read, Update, Delete) operations on <strong>buckets</strong> and <strong>objects</strong> by mapping them to the appropriate S3 commands.</p>
+<p>So, when operating on buckets and objects, especially in environments where direct S3 API calls are not feasible or supported, using an S3 gateway is a key method. The gateway allows you to continue using familiar protocols while interacting with S3-compatible storage systems.</p>
+<h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><h2 id="FS-type"><a href="#FS-type" class="headerlink" title="FS type"></a>FS type</h2><p><img src="/images/fs/fileSystemType.jpeg" alt="fileSystemType.jpeg"></p>
 <ul>
 <li><p>Mac 默认可以读 Windows 的 NTFS 格式，但不能写。</p>
 </li>
@@ -424,7 +564,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">1.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">1.2.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">1.3.</span> <span class="toc-text">partitioning vs LVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Partitioning"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. Partitioning:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-LVM-Logical-Volume-Management"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. LVM (Logical Volume Management):</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Components"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Components:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comparison-of-Partition-and-LVM"><span class="toc-number">1.3.3.</span> <span class="toc-text">Comparison of Partition and LVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Scenario"><span class="toc-number">1.3.4.</span> <span class="toc-text">Example Scenario:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">1.3.5.</span> <span class="toc-text">Summary:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">1.4.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">1.5.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">1.6.</span> <span class="toc-text">tmpfs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">2.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">3.1.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">3.2.</span> <span class="toc-text">delete existed volume</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">3.2.1.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount-lvm"><span class="toc-number">3.2.2.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-number">3.2.3.</span> <span class="toc-text">other</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#storage"><span class="toc-number">1.</span> <span class="toc-text">storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#overview"><span class="toc-number">1.1.</span> <span class="toc-text">overview</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relation-Between-Object-Block-and-File-Storage"><span class="toc-number">1.1.1.</span> <span class="toc-text">Relation Between Object, Block, and File Storage:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-to-Illustrate-the-Relationship"><span class="toc-number">1.1.2.</span> <span class="toc-text">Example to Illustrate the Relationship</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Scenario-A-Cloud-Based-Photo-Sharing-Application"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">Scenario: A Cloud-Based Photo Sharing Application</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Workflow-Example"><span class="toc-number">1.1.3.</span> <span class="toc-text">The Workflow Example:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Visual-Relationship"><span class="toc-number">1.1.4.</span> <span class="toc-text">Visual Relationship</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Integration-Points"><span class="toc-number">1.1.5.</span> <span class="toc-text">Key Integration Points</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#S3-Gateway"><span class="toc-number">1.2.</span> <span class="toc-text">S3 Gateway</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">2.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-Logical-Volume-Manager"><span class="toc-number">2.2.</span> <span class="toc-text">LVM (Logical Volume Manager)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">2.3.</span> <span class="toc-text">partitioning vs LVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Partitioning"><span class="toc-number">2.3.1.</span> <span class="toc-text">1. Partitioning:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-LVM-Logical-Volume-Management"><span class="toc-number">2.3.2.</span> <span class="toc-text">2. LVM (Logical Volume Management):</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Components"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">Components:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">Example:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comparison-of-Partition-and-LVM"><span class="toc-number">2.3.3.</span> <span class="toc-text">Comparison of Partition and LVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Scenario"><span class="toc-number">2.3.4.</span> <span class="toc-text">Example Scenario:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">2.3.5.</span> <span class="toc-text">Summary:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.4.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.5.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">2.6.</span> <span class="toc-text">tmpfs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">4.1.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-existed-volume"><span class="toc-number">4.2.</span> <span class="toc-text">delete existed volume</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-lvm"><span class="toc-number">4.2.1.</span> <span class="toc-text">create lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount-lvm"><span class="toc-number">4.2.2.</span> <span class="toc-text">umount lvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-number">4.2.3.</span> <span class="toc-text">other</span></a></li></ol></li></ol></li></ol>
       </div>
     
 
