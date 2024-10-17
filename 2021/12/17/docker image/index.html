@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="concept 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker image">
+<meta property="og:url" content="https://www.willshirley.top/2021/12/17/docker%20image/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="concept 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-17T10:51:56.000Z">
+<meta property="article:modified_time" content="2024-10-17T06:09:13.836Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="image">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>docker image</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/12/20/macos/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/12/17/docker%20compose/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2021/12/17/docker%20image/&text=docker image"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2021/12/17/docker%20image/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker image&body=Check out this article: https://www.willshirley.top/2021/12/17/docker%20image/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2021/12/17/docker%20image/&title=docker image"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2021/12/17/docker%20image/&title=docker image"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2021/12/17/docker%20image/&title=docker image"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2021/12/17/docker%20image/&t=docker image"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#operate"><span class="toc-number">1.1.</span> <span class="toc-text">operate</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#command"><span class="toc-number">1.1.1.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#volume"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">volume</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jar-gt-image"><span class="toc-number">1.1.2.</span> <span class="toc-text">jar -&gt; image</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#archive-artifact"><span class="toc-number">1.2.</span> <span class="toc-text">archive artifact</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#advanced"><span class="toc-number">2.</span> <span class="toc-text">advanced</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-git-commit-info-to-image-tag"><span class="toc-number">2.1.</span> <span class="toc-text">add git commit info to image tag</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#es"><span class="toc-number">3.</span> <span class="toc-text">es</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">3.1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#manual-init-data"><span class="toc-number">3.2.</span> <span class="toc-text">manual init data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="toc-number">3.3.</span> <span class="toc-text">镜像制作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql"><span class="toc-number">4.</span> <span class="toc-text">mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C-1"><span class="toc-number">4.1.</span> <span class="toc-text">镜像制作</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        docker image
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-12-17T10:51:56.000Z" class="dt-published" itemprop="datePublished">2021-12-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/docker/">docker</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/image/" rel="tag">image</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="concept"><a href="#concept" class="headerlink" title="concept"></a>concept</h1><ul>
+<li><strong>镜像（Image）</strong>：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。</li>
+<li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
+<li><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</li>
+</ul>
+<h2 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">sudo docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>导出镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker save $REPOSITORY:$TAG &gt; $PATH/$NAME.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意$后面的变量需要替换</span></span><br></pre></td></tr></table></figure></li>
+<li><p>导入镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure></li>
+<li><p>在镜像中运行容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span><span class="bash">REPOSITORY:<span class="variable">$TAG</span>：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span></span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br><span class="line">-p hostPort:containerPort</span><br><span class="line">-v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步</span><br></pre></td></tr></table></figure>
+
+<h4 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h4></li>
+</ul>
+<blockquote>
+<p>Docker Image可以理解成多个只读文件叠加而成，因此Docker Image是只读的。</p>
+<p>当我们将其运行起来，就相当于在只读的Image外包裹了一层读写层变成了容器。</p>
+<p>当你删除容器之后，使用这个镜像重新创建一个容器，此时的镜像的只读层还和原来的一样，但是你在读写层的修改全部都会丢失（没有使用原有volume的前提下）。</p>
+<p>docker使用volume实现数据的持久化，不仅如此volume还能帮助容器和容器之间，容器和host之间共享数据。</p>
+</blockquote>
+<ul>
+<li><p>进入运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it $CONTAINER_ID /bin/bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>注意</p>
+<p>命令中的/bin/bash是根据<code> docker inspect $image_id</code>，根据”Cmd”配置项决定的</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="jar-gt-image"><a href="#jar-gt-image" class="headerlink" title="jar -&gt; image"></a>jar -&gt; image</h3><ul>
+<li><p>step1: </p>
+<p>编辑dockerfile</p>
+</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span>  openjdk:<span class="number">8</span>-jre</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定路径</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /data/justMicroservice/learning-cloudalibaba</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=nacos-provider/target/nacos-provider-<span class="number">0.0</span>.<span class="number">1</span>-SNAPSHOT.jar</span><br><span class="line"><span class="comment"># 复制jar文件到路径</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> nacos-provider.jar</span></span><br><span class="line"><span class="comment"># 启动网关服务</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;nacos-provider.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Step2: </p>
+<p>在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t $repository -f $path/dockerfile .</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="archive-artifact"><a href="#archive-artifact" class="headerlink" title="archive artifact"></a>archive artifact</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1</span></span><br><span class="line">docker save -o /tmp/my_app_image.tar my_app:latest</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 save_image.tar is equal my_app_image.tar</span></span><br><span class="line">docker load -i /path/to/destination/save_immy_app_image.tarage.tar</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h1 id="advanced"><a href="#advanced" class="headerlink" title="advanced"></a>advanced</h1><h2 id="add-git-commit-info-to-image-tag"><a href="#add-git-commit-info-to-image-tag" class="headerlink" title="add git commit info to image tag"></a>add git commit info to image tag</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">IMAGE_NAME=your-image-name</span><br><span class="line">echo &quot;image name: $IMAGE_NAME&quot;</span><br><span class="line"></span><br><span class="line">GIT_BRANCH=$(git symbolic-ref --short HEAD)</span><br><span class="line">LAST_COMMIT=$(git rev-parse HEAD)</span><br><span class="line">echo &quot;git commit info : $LAST_COMMIT&quot;</span><br><span class="line"></span><br><span class="line">docker build . -t $IMAGE_NAME:&quot;$GIT_BRANCH-$LAST_COMMIT&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="es"><a href="#es" class="headerlink" title="es"></a>es</h1><blockquote>
+<p>文中hostAddress需要替换具体的ip地址</p>
+</blockquote>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><blockquote>
+<p>查看现有环境相关参数ulimit -a</p>
+</blockquote>
+<ul>
+<li><p>设置文件句柄数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># End of file</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nofile 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>修改max user processes进程数，在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nproc 65536</span><br><span class="line">* hard nproc 65536</span><br></pre></td></tr></table></figure></li>
+<li><p>调整vm.max_map_count的大小，该参数会限制一个进程可以拥有的VMA(虚拟内存区域)的数量</p>
+<p>通过修改**/etc/sysctl.conf**参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360</span><br></pre></td></tr></table></figure>
+
+<p>然后执行<code>sysctl -p</code></p>
+</li>
+<li><p>调整stack size的大小（可选），在**/etc/security/limits.conf**中设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft stack 1024</span><br><span class="line">* hard stack 1024</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="manual-init-data"><a href="#manual-init-data" class="headerlink" title="manual init data"></a>manual init data</h2><ul>
+<li><p>create index</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://localhost:9200/indexName&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>import data</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://localhost:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>拉取远程仓库镜像文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+<li><p>启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name es_origin -e ES_JAVA_POTS=&quot;-Xms6g -Xmx6g&quot; -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.16.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="镜像制作"><a href="#镜像制作" class="headerlink" title="镜像制作"></a>镜像制作</h2><ol>
+<li>导出ES的已有索引和数据</li>
+</ol>
+<ul>
+<li><p>环境准备</p>
+<ul>
+<li>安装nodejs，安装文件地址<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">nodejs</a></li>
+<li>安装elasticdump，安装命令<code>npm install -g elasticdump</code></li>
+</ul>
+</li>
+<li><p>导出es索引文件<strong>es_mapping.json</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \               --input=http://127.0.0.1:9200/indexName \</span></span><br><span class="line"><span class="bash">  --output=/data/es_mapping.json \</span></span><br><span class="line"><span class="bash">  --<span class="built_in">type</span>=mapping</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：$nodejs_home代表nodejs的安装目录</p>
+</blockquote>
+</li>
+<li><p>导出es数据<strong>es_init_data.txt</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">/$</span><span class="bash">nodejs_home/lib/node_modules/elasticdump/bin/elasticdump \ </span>          </span><br><span class="line">  --input=http://127.0.0.1:9200/indexName \</span><br><span class="line">  --output=/data/es_init_data.txt \</span><br><span class="line">  --searchBody &#x27;&#123;&quot;query&quot;:&#123;&quot;match_all&quot;:&#123; &#125;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><p>编写es数据初始化脚本 <strong>initEs.sh</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">create index</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; -d &#x27;@/data/es_mapping.json&#x27; -X PUT &#x27;http://127.0.0.1:9200/indexName&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">import data</span></span><br><span class="line">curl -H &#x27;Content-Type: application/json&#x27; --data-binary &#x27;@/data/es_init_data.txt&#x27; &#x27;http://127.0.0.1:9200/_bulk&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>initEs.sh文件同1,2操作中的文件存放路径保持一致，均放在/data目录下</p>
+</blockquote>
+</li>
+<li><p>在/data目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM elasticsearch:7.16.1</span><br><span class="line">COPY ./data/* /data/</span><br><span class="line">RUN chown -R elasticsearch:root /data </span><br><span class="line">USER elasticsearch</span><br><span class="line">RUN elasticsearch -E discovery.type=single-node -p /tmp/epid &amp; /bin/bash /data/wait-for-it.sh -t 0 localhost:9200 -- /data/initEs.sh; kill $(cat /tmp/epid) &amp;&amp; wait $(cat /tmp/epid); exit 0;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:elasticsearch .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:es是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:elasticsearch hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:elasticsearch和操作3中保持一致</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:elasticsearch</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h1><h2 id="镜像制作-1"><a href="#镜像制作-1" class="headerlink" title="镜像制作"></a>镜像制作</h2><ol>
+<li><p>需要备份当前需要同步的全量数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it dlabel_mysql mysqldump -uroot -p123456 dls &gt; /path/to/backup.sql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意事项：</p>
+<p>其中dlabel_mysql，是在第二步中设置的name的名称</p>
+<p>/path/to/backup.sql是导出sql的地址路径，根据操作系统不同，需要自行更改</p>
+<p>假定以下操作是在/path/to的目录下</p>
+</blockquote>
+</li>
+</ol>
+<ol start="2">
+<li><p>在/path/to目录下创建Dockerfile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Derived from official mysql image (our base image)</span></span><br><span class="line">FROM mysql:5.7.30</span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the content of the sql-scripts/ directory to your image</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> All scripts <span class="keyword">in</span> docker-entrypoint-initdb.d/ are automatically</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> executed during container startup</span></span><br><span class="line">COPY ./backup.sql /docker-entrypoint-initdb.d/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意COPY指令中，backup.sql需要和操作1中的导出文件名保持一致</p>
+</blockquote>
+</li>
+<li><p>创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t dlabel:mysql20211216 .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>dlabel:mysql20211216是 REPOSITORY:TAG格式，可自行更改</p>
+</blockquote>
+</li>
+<li><p>登录远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login hostAddress</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，输入用户名admin，密码Harbor12345</p>
+</li>
+<li><p>映射远程仓库REPOSITORY:TAG</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag dlabel:mysql20211216 hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中dlabel:mysql20211216和操作3中保持一致</p>
+<p>hostAddress/dlabel/service:mysql20211216，格式为hostAddress/library/REPOSITORY:TAG，其中可自行修改service:mysql20211216名称</p>
+</blockquote>
+</li>
+<li><p>推送当地镜像到远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push hostAddress/dlabel/service:mysql20211216</span><br></pre></td></tr></table></figure></li>
+<li><p>登录<strong><a target="_blank" rel="noopener" href="http://hostaddress/">http://hostAddress</a></strong>查看镜像上传情况</p>
+</li>
+<li><p>在镜像详情界面，点击“拉取命名”按钮进行命令复制，在终端执行命令即可拉取该镜像</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#operate"><span class="toc-number">1.1.</span> <span class="toc-text">operate</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#command"><span class="toc-number">1.1.1.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#volume"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">volume</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jar-gt-image"><span class="toc-number">1.1.2.</span> <span class="toc-text">jar -&gt; image</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#archive-artifact"><span class="toc-number">1.2.</span> <span class="toc-text">archive artifact</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#advanced"><span class="toc-number">2.</span> <span class="toc-text">advanced</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-git-commit-info-to-image-tag"><span class="toc-number">2.1.</span> <span class="toc-text">add git commit info to image tag</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#es"><span class="toc-number">3.</span> <span class="toc-text">es</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">3.1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#manual-init-data"><span class="toc-number">3.2.</span> <span class="toc-text">manual init data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="toc-number">3.3.</span> <span class="toc-text">镜像制作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql"><span class="toc-number">4.</span> <span class="toc-text">mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C-1"><span class="toc-number">4.1.</span> <span class="toc-text">镜像制作</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2021/12/17/docker%20image/&text=docker image"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2021/12/17/docker%20image/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker image&body=Check out this article: https://www.willshirley.top/2021/12/17/docker%20image/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2021/12/17/docker%20image/&title=docker image"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2021/12/17/docker%20image/&title=docker image"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2021/12/17/docker%20image/&title=docker image"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2021/12/17/docker%20image/&t=docker image"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

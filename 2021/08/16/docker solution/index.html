@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="best practicesnon-root user manage docker Create the docker group. 1$ sudo groupadd docker Add your user to the docker group. 1$ sudo usermod -aG docker $USER Log out and log back in so that your grou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker best practices">
+<meta property="og:url" content="https://www.willshirley.top/2021/08/16/docker%20solution/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="best practicesnon-root user manage docker Create the docker group. 1$ sudo groupadd docker Add your user to the docker group. 1$ sudo usermod -aG docker $USER Log out and log back in so that your grou">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-16T06:34:30.000Z">
+<meta property="article:modified_time" content="2024-10-17T06:15:54.208Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="practice">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>docker best practices</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/09/01/JVM%20learn/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/04/16/record/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2021/08/16/docker%20solution/&text=docker best practices"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2021/08/16/docker%20solution/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker best practices&body=Check out this article: https://www.willshirley.top/2021/08/16/docker%20solution/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2021/08/16/docker%20solution/&title=docker best practices"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2021/08/16/docker%20solution/&title=docker best practices"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2021/08/16/docker%20solution/&title=docker best practices"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2021/08/16/docker%20solution/&t=docker best practices"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#best-practices"><span class="toc-number">1.</span> <span class="toc-text">best practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#non-root-user-manage-docker"><span class="toc-number">1.1.</span> <span class="toc-text">non-root user manage docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#migration"><span class="toc-number">1.2.</span> <span class="toc-text">migration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Plan-A"><span class="toc-number">1.2.1.</span> <span class="toc-text">Plan A</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plan-B"><span class="toc-number">1.2.2.</span> <span class="toc-text">Plan B</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pull-Image-from-Harbor"><span class="toc-number">1.3.</span> <span class="toc-text">Pull Image from Harbor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshoot"><span class="toc-number">2.</span> <span class="toc-text">troubleshoot</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        docker best practices
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-08-16T06:34:30.000Z" class="dt-published" itemprop="datePublished">2021-08-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/docker/">docker</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/practice/" rel="tag">practice</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="non-root-user-manage-docker"><a href="#non-root-user-manage-docker" class="headerlink" title="non-root user manage docker"></a>non-root user manage docker</h2><ol>
+<li><p>Create the <code>docker</code> group.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
+<li><p>Add your user to the <code>docker</code> group.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure></li>
+<li><p>Log out and log back in so that your group membership is re-evaluated.</p>
+<p>If testing on a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.</p>
+<p>On a desktop Linux environment such as X Windows, log out of your session completely and then log back in.</p>
+<p>On Linux, you can also run the following command to activate the changes to groups:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ newgrp docker </span><br></pre></td></tr></table></figure></li>
+<li><p>Verify that you can run <code>docker</code> commands without <code>sudo</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="migration"><a href="#migration" class="headerlink" title="migration"></a>migration</h2><p>reference </p>
+<p><a target="_blank" rel="noopener" href="https://bobcares.com/blog/move-docker-container-to-another-host/">5 ways to move Docker container to another host</a></p>
+<p><a target="_blank" rel="noopener" href="https://morioh.com/p/d8d9e7732952">Build a Docker Image with MySQL Database</a></p>
+<h3 id="Plan-A"><a href="#Plan-A" class="headerlink" title="Plan A"></a>Plan A</h3><ul>
+<li>Step1    create an Image From a Container</li>
+</ul>
+<blockquote>
+<p>Create a new image from a container’s changes</p>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/commit/">commit command</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span><br></pre></td></tr></table></figure>
+
+<p>options</p>
+<table>
+<thead>
+<tr>
+<th>Name, shorthand</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--author</code> , <code>-a</code></td>
+<td></td>
+<td>Author (e.g., “will brook”)</td>
+</tr>
+<tr>
+<td><code>--change</code> , <code>-c</code></td>
+<td></td>
+<td>Apply Dockerfile instruction to the created image</td>
+</tr>
+<tr>
+<td><code>--message</code> , <code>-m</code></td>
+<td></td>
+<td>Commit message</td>
+</tr>
+<tr>
+<td><code>--pause</code> , <code>-p</code></td>
+<td><code>true</code></td>
+<td>Pause container during commit</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 2    export the image to a file  </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker save -o /path/to/your_image.tar your_image_name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 3 load the Docker image file</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker load -i your_image.tar</span><br></pre></td></tr></table></figure>
+
+<h3 id="Plan-B"><a href="#Plan-B" class="headerlink" title="Plan B"></a>Plan B</h3><ul>
+<li>Step 1</li>
+</ul>
+<p>First save the new image by finding the container ID (using <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/ps/"><code>docker container ls</code></a>) and then committing it to a new image name. Note that only <code>a-z0-9-_.</code> are allowed when naming images:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create image from container</span></span><br><span class="line">docker container commit c16378f943fe rhel-httpd:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2</li>
+</ul>
+<p> tag the image with the host name or IP address, and the port of the registry:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> re-tag repository:tag info about image</span></span><br><span class="line">docker image tag rhel-httpd:latest registry-host:5000/myadmin/rhel-httpd:latest</span><br><span class="line">or</span><br><span class="line">docker tag 0e5574283393 registry-host:5000/myadmin/rhel-httpd:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 3</li>
+</ul>
+<p>log in from Docker client:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login &lt;harbor_address&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 4</li>
+</ul>
+<p>push the image to the registry using the image ID. </p>
+<p>In this example the registry is on host named <code>registry-host</code> and listening on port <code>5000</code>. (harbor默认配置端口80，详见harbor.yml)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> push repository:tag,</span></span><br><span class="line">docker image push registry-host:5000/myadmin/rhel-httpd:latest</span><br><span class="line">or</span><br><span class="line">docker push registry-host:5000/myname/myimage</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pull-Image-from-Harbor"><a href="#Pull-Image-from-Harbor" class="headerlink" title="Pull Image from Harbor"></a>Pull Image from Harbor</h2><p><a target="_blank" rel="noopener" href="https://goharbor.io/docs/2.0.0/install-config/run-installer-script/#connect-http">Connecting to Harbor via HTTP</a></p>
+<ul>
+<li>Step 1</li>
+</ul>
+<p>add the option <code>--insecure-registry</code> to your client’s Docker daemon. By default, the daemon file is located at <code>/etc/docker/daemon.json</code>.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;insecure-registries&quot; : [&quot;ip:port&quot;, &quot;0.0.0.0&quot;] #如果port为80，则可省略</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Restart Docker Engine.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hostAddress/library/REPOSITORY:TAG</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="troubleshoot"><a href="#troubleshoot" class="headerlink" title="troubleshoot"></a>troubleshoot</h1><ul>
+<li>Failed to load listeners: no sockets found via socket activation: make sure the service was started by systemd</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">edit the docker’s systemd unit file and change the ExecStart:</span><br><span class="line">sudo systemctl edit docker.service</span><br><span class="line"></span><br><span class="line">edite The value ExecStart, change fd:// to unix://:</span><br><span class="line">[Service]</span><br><span class="line">ExecStart=</span><br><span class="line">ExecStart=/usr/bin/dockerd -H unix://</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Error creating default “bridge” network: cannot create network (docker0): conflicts with network (docker0): networks have same bridge name</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /var/lib/docker/network</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>accident delete /var/run/docker.sock</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop docker</span><br><span class="line">sudo systemctl restart docker.socket</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#best-practices"><span class="toc-number">1.</span> <span class="toc-text">best practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#non-root-user-manage-docker"><span class="toc-number">1.1.</span> <span class="toc-text">non-root user manage docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#migration"><span class="toc-number">1.2.</span> <span class="toc-text">migration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Plan-A"><span class="toc-number">1.2.1.</span> <span class="toc-text">Plan A</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plan-B"><span class="toc-number">1.2.2.</span> <span class="toc-text">Plan B</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pull-Image-from-Harbor"><span class="toc-number">1.3.</span> <span class="toc-text">Pull Image from Harbor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshoot"><span class="toc-number">2.</span> <span class="toc-text">troubleshoot</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2021/08/16/docker%20solution/&text=docker best practices"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2021/08/16/docker%20solution/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker best practices&body=Check out this article: https://www.willshirley.top/2021/08/16/docker%20solution/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2021/08/16/docker%20solution/&title=docker best practices"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2021/08/16/docker%20solution/&title=docker best practices"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2021/08/16/docker%20solution/&title=docker best practices"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2021/08/16/docker%20solution/&t=docker best practices"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
