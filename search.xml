@@ -1819,11 +1819,11 @@
 <li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
 <li><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</li>
 </ul>
-<h2 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">  sudo docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br></pre></td></tr></table></figure>
+<h2 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">sudo docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>导出镜像</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker save $REPOSITORY:$TAG &gt; $PATH/$NAME.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意$后面的变量需要替换</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker save -o &lt;output-file&gt;.tar &lt;image-name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意$后面的变量需要替换</span></span><br></pre></td></tr></table></figure></li>
 <li><p>导入镜像</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure></li>
 <li><p>在镜像中运行容器</p>
@@ -8477,7 +8477,9 @@
 
 <h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><ul>
 <li><p>errcheck</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
+<li><p>format</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gofmt -w yourfile.go</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="A-vs-B"><a href="#A-vs-B" class="headerlink" title="A vs B"></a>A vs B</h1><ul>
 <li>Golang’s goroutine VS Python’s coroutine</li>
@@ -11879,6 +11881,10 @@
 </ul>
 </li>
 </ul>
+<h3 id="ja-netfilter"><a href="#ja-netfilter" class="headerlink" title="ja-netfilter"></a>ja-netfilter</h3><blockquote>
+<p>jetbrains activate tool</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Appearance &amp; Behavior -&gt; System Settings -&gt; Language and Region -&gt; Region</span><br><span class="line">需要选择 Asia(except china mainland)</span><br><span class="line">激活脚本依然使用原来的 script/install.sh</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>macos</category>
