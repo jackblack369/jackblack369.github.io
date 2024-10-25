@@ -14,7 +14,7 @@
 <meta property="og:description" content="env GOPATH  GOPATH 是 Go 工作区的根目录，通常包含三个子目录：src、pkg 和 bin  可通过 go env GOPATH 查看Go 工作区的根目录。GOPATH 中的 bin 目录通常包含由 go install安装的可执行文件  Syntaxsclice sclice selects a half-open range which includes the first">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-28T07:08:28.000Z">
-<meta property="article:modified_time" content="2024-10-23T09:41:13.169Z">
+<meta property="article:modified_time" content="2024-10-25T06:30:46.780Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -311,6 +311,24 @@
 <td>Propagates through <code>await</code>/event loop</td>
 </tr>
 </tbody></table>
+<p><strong>1. Scheduling:</strong></p>
+<p><strong>Goroutines:</strong> In Go, a goroutine is a lightweight thread that runs concurrently with other goroutines in the same process. The scheduler of the operating system determines which goroutine to run next.</p>
+<p> <strong>Coroutines:</strong> In Python, a coroutine is an asynchronous function that can suspend its execution at specific points and resume from there later. Coroutines are scheduled by the runtime environment (e.g., CPython) itself.</p>
+<p><strong>2. Context switching:</strong></p>
+<p> <strong>Goroutines:</strong> In Go, context switching between goroutines is relatively cheap because goroutines share the same memory space as their parent process.</p>
+<p> <strong>Coroutines:</strong> In Python, context switching between coroutines can be more expensive because each coroutine has its own stack and local variables.</p>
+<p><strong>3. Yielding control:</strong></p>
+<p> <strong>Goroutines:</strong> Go’s goroutines do not have a concept of yielding control to another goroutine or task. Once a goroutine is scheduled, it runs until completion.</p>
+<p> <strong>Coroutines:</strong> Python coroutines can yield control to other coroutines using the <code>yield</code> keyword, allowing them to suspend and resume their execution at specific points.</p>
+<p><strong>4. Looping:</strong></p>
+<p> <strong>Goroutines:</strong> Go’s goroutines do not have a loop mechanism like Python’s coroutines. Goroutines must be scheduled manually using <code>runtime.Gosched()</code> or other scheduling APIs.</p>
+<p> <strong>Coroutines:</strong> Python coroutines can use loops, such as <code>for</code> loops, to iterate over data and switch between different coroutine implementations.</p>
+<p><strong>5. Error handling:</strong></p>
+<p> <strong>Goroutines:</strong> Go’s goroutines handle errors internally when a panic occurs. The parent process receives the error through the <code>main</code> function.</p>
+<p> <strong>Coroutines:</strong> Python coroutines can also handle errors, but they typically use exceptions or try-except blocks to manage errors.</p>
+<p><strong>6. Global variables:</strong></p>
+<p> <strong>Goroutines:</strong> Go’s goroutines do not have access to global variables by default. They must be passed explicitly using channels or shared data structures.</p>
+<p> <strong>Coroutines:</strong> Python coroutines can access global variables, but it’s generally recommended to avoid sharing mutable state between coroutines.</p>
 
   </div>
 </article>

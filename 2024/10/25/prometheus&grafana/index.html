@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Prometheusnode_exporter package 1wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;node_exporter&#x2F;releases&#x2F;download&#x2F;v1.8.2&#x2F;node_exporter-1.8.2.linux-amd64.tar.gz prepare user and directory 1234567sudo groupadd -f din">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus&amp;Grafana">
+<meta property="og:url" content="https://www.willshirley.top/2024/10/25/prometheus&grafana/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="Prometheusnode_exporter package 1wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;node_exporter&#x2F;releases&#x2F;download&#x2F;v1.8.2&#x2F;node_exporter-1.8.2.linux-amd64.tar.gz prepare user and directory 1234567sudo groupadd -f din">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-25T07:02:38.000Z">
+<meta property="article:modified_time" content="2024-10-25T09:20:50.728Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Prometheus&amp;Grafana</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/10/10/devops/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&text=Prometheus&amp;Grafana"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Prometheus&amp;Grafana&body=Check out this article: https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&title=Prometheus&amp;Grafana"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&title=Prometheus&amp;Grafana"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&title=Prometheus&amp;Grafana"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&t=Prometheus&amp;Grafana"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Prometheus"><span class="toc-number">1.</span> <span class="toc-text">Prometheus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-exporter"><span class="toc-number">1.1.</span> <span class="toc-text">node_exporter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prometheus-server"><span class="toc-number">1.2.</span> <span class="toc-text">prometheus server</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Grafana"><span class="toc-number">2.</span> <span class="toc-text">Grafana</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#dashboard"><span class="toc-number">2.1.</span> <span class="toc-text">dashboard</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Prometheus&amp;Grafana
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-25T07:02:38.000Z" class="dt-published" itemprop="datePublished">2024-10-25</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/monitor/">monitor</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/tool/" rel="tag">tool</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h1><h2 id="node-exporter"><a href="#node-exporter" class="headerlink" title="node_exporter"></a>node_exporter</h2><ul>
+<li><p>package</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>prepare user and directory</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd -f dingofs</span><br><span class="line">sudo useradd -g dingofs dingofs</span><br><span class="line">sudo mkdir /etc/node_exporter</span><br><span class="line">sudo chown dingofs:dingofs /etc/node_exporter</span><br><span class="line"></span><br><span class="line">sudo cp /path/to/node_exporter-files/node_exporter /usr/bin/</span><br><span class="line">sudo chown dingofs:dingofs /usr/bin/node_exporter</span><br></pre></td></tr></table></figure></li>
+<li><p>config system service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /usr/lib/systemd/system/node_exporter.service</span><br><span class="line">sudo chmod 664 /usr/lib/systemd/system/node_exporter.service</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">Unit</span>]</span><br><span class="line"><span class="string">Description=Node</span> <span class="string">Exporter</span></span><br><span class="line"><span class="string">Documentation=https://prometheus.io/docs/guides/node-exporter/</span></span><br><span class="line"><span class="string">Wants=network-online.target</span></span><br><span class="line"><span class="string">After=network-online.target</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Service</span>]</span><br><span class="line"><span class="string">User=dingofs</span></span><br><span class="line"><span class="string">Group=dingofs</span></span><br><span class="line"><span class="string">Type=simple</span></span><br><span class="line"><span class="string">Restart=on-failure</span></span><br><span class="line"><span class="string">ExecStart=/usr/bin/node_exporter</span> <span class="string">\</span></span><br><span class="line">  <span class="string">--web.listen-address=:19100</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Install</span>]</span><br><span class="line"><span class="string">WantedBy=multi-user.target</span></span><br></pre></td></tr></table></figure></li>
+<li><p>start system service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl start node_exporter</span><br><span class="line">sudo systemctl status node_exporter</span><br><span class="line">sudo systemctl enable node_exporter.service # Configure node_exporter to start at boot</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="prometheus-server"><a href="#prometheus-server" class="headerlink" title="prometheus server"></a>prometheus server</h2><ul>
+<li><p>prometheus.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span>     <span class="string">15s</span> <span class="comment"># By default, scrape targets every 15 seconds.</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span> <span class="comment"># Evaluate rules every 15 seconds.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Attach these extra labels to all timeseries collected by this Prometheus instance.</span></span><br><span class="line">  <span class="attr">external_labels:</span></span><br><span class="line">    <span class="attr">monitor:</span> <span class="string">&#x27;codelab-monitor&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#rule_files:</span></span><br><span class="line"><span class="comment">#- &#x27;prometheus.rules.yml&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;prometheus&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Override the global default and scrape targets from this job every 5 seconds.</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;172.20.7.232:19090&#x27;</span>]</span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;node&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Override the global default and scrape targets from this job every 5 seconds.</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;172.20.7.232:19100&#x27;</span>,<span class="string">&#x27;172.20.7.233:19100&#x27;</span>,<span class="string">&#x27;172.20.7.234:19100&#x27;</span>]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">group:</span> <span class="string">&#x27;metric1&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>docker container</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create persistent volume <span class="keyword">for</span> your data</span></span><br><span class="line">docker volume create prometheus-data</span><br><span class="line"><span class="meta">#</span><span class="bash"> Start Prometheus container</span></span><br><span class="line">docker run -d \</span><br><span class="line">    -p 9090:9090 \</span><br><span class="line">    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">    -v prometheus-data:/prometheus \</span><br><span class="line">    prom/prometheus</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h1><ul>
+<li><p>deploy container</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create a persistent volume <span class="keyword">for</span> your data</span></span><br><span class="line">docker volume create grafana-storage</span><br><span class="line"><span class="meta">#</span><span class="bash"> verify that the volume was created correctly</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> you should see some JSON output</span></span><br><span class="line">docker volume inspect grafana-storage</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> start grafana</span></span><br><span class="line">docker run -d -p 3000:3000 --name=grafana \</span><br><span class="line">  --volume grafana-storage:/var/lib/grafana \</span><br><span class="line">  grafana/grafana</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> web login</span></span><br><span class="line">admin/admin</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="dashboard"><a href="#dashboard" class="headerlink" title="dashboard"></a>dashboard</h2><p><a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/">https://grafana.com/grafana/dashboards/</a></p>
+<p><strong>just import from existed dashboard json</strong></p>
+<p>enjoy it</p>
+<ul>
+<li>reference<ul>
+<li><a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/">official deploy</a></li>
+<li><a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/datasources/prometheus/configure-prometheus-data-source/">config prometheous</a></li>
+<li><a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus/">Get started with Grafana and Prometheus</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Prometheus"><span class="toc-number">1.</span> <span class="toc-text">Prometheus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-exporter"><span class="toc-number">1.1.</span> <span class="toc-text">node_exporter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prometheus-server"><span class="toc-number">1.2.</span> <span class="toc-text">prometheus server</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Grafana"><span class="toc-number">2.</span> <span class="toc-text">Grafana</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#dashboard"><span class="toc-number">2.1.</span> <span class="toc-text">dashboard</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&text=Prometheus&amp;Grafana"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Prometheus&amp;Grafana&body=Check out this article: https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&title=Prometheus&amp;Grafana"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&title=Prometheus&amp;Grafana"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&title=Prometheus&amp;Grafana"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/10/25/prometheus&amp;grafana/&t=Prometheus&amp;Grafana"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
