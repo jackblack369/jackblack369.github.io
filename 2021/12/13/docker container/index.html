@@ -14,7 +14,7 @@
 <meta property="og:description" content="默认情况下，Docker 会为你提供一个隐含的 ENTRYPOINT，即：&#x2F;bin&#x2F;sh -c。所以，在不指定 ENTRYPOINT 时，比如运行在容器里的完整进程是：&#x2F;bin&#x2F;sh -c “python xxx.py”，即 CMD 的内容就是 ENTRYPOINT 的参数  user12345# Add the current usersudo usermod -a -G docker $(w">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-13T10:07:46.000Z">
-<meta property="article:modified_time" content="2024-10-14T07:03:47.553Z">
+<meta property="article:modified_time" content="2024-10-31T08:35:11.667Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -202,7 +202,39 @@
 </ul>
 </li>
 </ul>
-<h2 id="network"><a href="#network" class="headerlink" title="network"></a>network</h2><ul>
+<h2 id="network"><a href="#network" class="headerlink" title="network"></a>network</h2><table>
+<thead>
+<tr>
+<th align="left">Driver</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>bridge</code></td>
+<td align="left">The default network driver.</td>
+</tr>
+<tr>
+<td align="left"><code>host</code></td>
+<td align="left">Remove network isolation between the container and the Docker host.</td>
+</tr>
+<tr>
+<td align="left"><code>none</code></td>
+<td align="left">Completely isolate a container from the host and other containers.</td>
+</tr>
+<tr>
+<td align="left"><code>overlay</code></td>
+<td align="left">Overlay networks connect multiple Docker daemons together.</td>
+</tr>
+<tr>
+<td align="left"><code>ipvlan</code></td>
+<td align="left">IPvlan networks provide full control over both IPv4 and IPv6 addressing.</td>
+</tr>
+<tr>
+<td align="left"><code>macvlan</code></td>
+<td align="left">Assign a MAC address to a container.</td>
+</tr>
+</tbody></table>
+<ul>
 <li><p>列出docker的所有网络模式</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure></li>
 <li><p>针对bridge和host分别查找有哪些container在其中</p>
