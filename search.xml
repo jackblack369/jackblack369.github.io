@@ -2047,7 +2047,13 @@
   <entry>
     <title>docker best practices</title>
     <url>/2021/08/16/docker%20solution/</url>
-    <content><![CDATA[<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="non-root-user-manage-docker"><a href="#non-root-user-manage-docker" class="headerlink" title="non-root user manage docker"></a>non-root user manage docker</h2><ol>
+    <content><![CDATA[<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="config-default-data-directory"><a href="#config-default-data-directory" class="headerlink" title="config default data directory"></a>config default data directory</h2><ul>
+<li><p>default data directory <code>/var/lib/docker</code></p>
+</li>
+<li><p>change default directory</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1</span></span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;data-root&quot;: &quot;/path/to/directory&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2</span></span><br><span class="line">systemctl restart docker </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check modify available</span></span><br><span class="line">docker info | grep &quot;Docker Root Dir&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="non-root-user-manage-docker"><a href="#non-root-user-manage-docker" class="headerlink" title="non-root user manage docker"></a>non-root user manage docker</h2><ol>
 <li><p>Create the <code>docker</code> group.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo groupadd docker</span></span><br></pre></td></tr></table></figure></li>
 <li><p>Add your user to the <code>docker</code> group.</p>
@@ -2712,9 +2718,9 @@
 <li><p>install</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dnf install fuse fuse-libs</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list avaliable disk</span></span><br><span class="line">fdisk -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list nvme</span></span><br><span class="line">nvme list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list block disk</span></span><br><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="disk"><a href="#disk" class="headerlink" title="disk"></a>disk</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list avaliable disk</span></span><br><span class="line">fdisk -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list nvme</span></span><br><span class="line">nvme list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list block disk</span></span><br><span class="line">lsblk</span><br></pre></td></tr></table></figure>
 
-<h1 id="case"><a href="#case" class="headerlink" title="case"></a>case</h1><h2 id="LVM-1"><a href="#LVM-1" class="headerlink" title="LVM"></a>LVM</h2><ul>
+<h2 id="LVM-1"><a href="#LVM-1" class="headerlink" title="LVM"></a>LVM</h2><ul>
 <li>delete lvm</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step 1:</span></span><br><span class="line">lsblk</span><br><span class="line">NAME                                                                                                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">sr0                                                                                                    11:0    1 1024M  0 rom  </span><br><span class="line">vda                                                                                                   252:0    0  300G  0 disk </span><br><span class="line">├─vda1                                                                                                252:1    0    6G  0 part /boot</span><br><span class="line">└─vda2                                                                                                252:2    0  290G  0 part </span><br><span class="line">  └─rl_172--20--7--230-root                                                                           253:0    0  290G  0 lvm  /</span><br><span class="line">vdb                                                                                                   252:16   0  100G  0 disk </span><br><span class="line">└─ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce 253:1    0  100G  0 lvm </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3:</span></span><br><span class="line">sudo vgchange -an ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4</span></span><br><span class="line">sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262a3f-354b-4d6a-95db-eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5</span></span><br><span class="line">sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091</span><br></pre></td></tr></table></figure>
@@ -2736,10 +2742,10 @@
 
 
 
-
-
-<p>reference</p>
-<p><a href="https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613">https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613</a></p>
+<h1 id="toubleshooting"><a href="#toubleshooting" class="headerlink" title="toubleshooting"></a>toubleshooting</h1><ul>
+<li><p>resolve <code>d?????????</code> status directory</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">umount -l /path/to/mount</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span> </span><br><span class="line">fusermount -uz /path/to/mount</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>fs</category>
@@ -8628,6 +8634,11 @@
 <p><strong>6. Global variables:</strong></p>
 <p> <strong>Goroutines:</strong> Go’s goroutines do not have access to global variables by default. They must be passed explicitly using channels or shared data structures.</p>
 <p> <strong>Coroutines:</strong> Python coroutines can access global variables, but it’s generally recommended to avoid sharing mutable state between coroutines.</p>
+<h1 id="ide"><a href="#ide" class="headerlink" title="ide"></a>ide</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><ul>
+<li><p>enable debug</p>
+<p><strong>First options</strong> is to fix it by running <code>&quot;Go: Install/Update Tools&quot;</code> command from the Command Palette (<em><strong>Linux/Windows</strong></em>: Ctrl+Shift+P, <em><strong>Mac</strong></em>: ⇧+⌘+P). Then, mark <code>dlv</code> &amp; <code>dlv-dap</code> from the menu, and hit <strong>ok</strong> to start install/update.</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>GO</category>
@@ -11148,14 +11159,129 @@
 <li><p>By default, floating point values whose decimal part is 0 print without the decimal places (e.g. <code>5.0</code> prints as <code>5</code>).</p>
 </li>
 </ul>
-<h2 id="const-and-string"><a href="#const-and-string" class="headerlink" title="const and string"></a>const and string</h2><h3 id="Numeral-systems"><a href="#Numeral-systems" class="headerlink" title="Numeral systems"></a>Numeral systems</h3><ul>
+<h2 id="const-and-string"><a href="#const-and-string" class="headerlink" title="const and string"></a>const and string</h2><p><strong>const vs constexpr</strong></p>
+<ul>
+<li><p><strong>Purpose:</strong> <code>const</code> is used to specify that a variable or function parameter cannot be modified, while <code>constexpr</code> is used to specify that an expression can be evaluated at compile-time.</p>
+</li>
+<li><p><strong>Scope:</strong> A <code>const</code> variable can have a scope that includes the current block, while a <code>constexpr</code> expression must be within the scope of a function or class definition.</p>
+</li>
+<li><p><strong>Evaluation time:</strong> A <code>const</code> variable is evaluated at runtime, while a <code>constexpr</code> expression is evaluated at compile-time.</p>
+</li>
+</ul>
+<p><strong>Numeral systems</strong></p>
+<ul>
 <li><p>There are 4 main numeral systems available in C++. In order of popularity, these are: decimal (base 10), binary (base 2), hexadecimal (base 16), and octal (base 8).</p>
 <p>To use an octal literal, prefix your literal with a <code>0 (zero)</code>, e.g. <code>int x&#123; 012 &#125;</code></p>
 <p>To use a hexadecimal literal, prefix your literal with <code>0x</code>, e.g.  <code>int x&#123; 0xF &#125;</code></p>
 <p>By default, C++ outputs values in decimal. However, you can change the output format via use of the <code>std::dec</code>, <code>std::oct</code>, and <code>std::hex</code> I/O manipulators:</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> x &#123; <span class="number">12</span> &#125;;</span><br><span class="line">std::cout &lt;&lt; x &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">// decimal (by default)</span></span><br><span class="line">std::cout &lt;&lt; std::hex &lt;&lt; x &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">// hexadecimal</span></span><br><span class="line">std::cout &lt;&lt; x &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">// now hexadecimal</span></span><br><span class="line">std::cout &lt;&lt; std::oct &lt;&lt; x &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">// octal</span></span><br><span class="line">std::cout &lt;&lt; std::dec &lt;&lt; x &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">// return to decimal</span></span><br><span class="line">std::cout &lt;&lt; x &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">// decimal</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
+<h2 id="scope-duration-linkage"><a href="#scope-duration-linkage" class="headerlink" title="scope duration linkage"></a>scope duration linkage</h2><table>
+<thead>
+<tr>
+<th align="left">Type</th>
+<th align="left">Example</th>
+<th align="left">Scope</th>
+<th align="left">Duration</th>
+<th align="left">Linkage</th>
+<th align="left">Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Local variable</td>
+<td align="left">int x;</td>
+<td align="left">Block</td>
+<td align="left">Automatic</td>
+<td align="left">None</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Static local variable</td>
+<td align="left">static int s_x;</td>
+<td align="left">Block</td>
+<td align="left">Static</td>
+<td align="left">None</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Dynamic local variable</td>
+<td align="left">int* x { new int{} };</td>
+<td align="left">Block</td>
+<td align="left">Dynamic</td>
+<td align="left">None</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Function parameter</td>
+<td align="left">void foo(int x)</td>
+<td align="left">Block</td>
+<td align="left">Automatic</td>
+<td align="left">None</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Internal non-const global variable</td>
+<td align="left">static int g_x;</td>
+<td align="left">Global</td>
+<td align="left">Static</td>
+<td align="left">Internal</td>
+<td align="left">Initialized or uninitialized</td>
+</tr>
+<tr>
+<td align="left">External non-const global variable</td>
+<td align="left">int g_x;</td>
+<td align="left">Global</td>
+<td align="left">Static</td>
+<td align="left">External</td>
+<td align="left">Initialized or uninitialized</td>
+</tr>
+<tr>
+<td align="left">Inline non-const global variable (C++17)</td>
+<td align="left">inline int g_x;</td>
+<td align="left">Global</td>
+<td align="left">Static</td>
+<td align="left">External</td>
+<td align="left">Initialized or uninitialized</td>
+</tr>
+<tr>
+<td align="left">Internal constant global variable</td>
+<td align="left">constexpr int g_x { 1 };</td>
+<td align="left">Global</td>
+<td align="left">Static</td>
+<td align="left">Internal</td>
+<td align="left">Must be initialized</td>
+</tr>
+<tr>
+<td align="left">External constant global variable</td>
+<td align="left">extern const int g_x { 1 };</td>
+<td align="left">Global</td>
+<td align="left">Static</td>
+<td align="left">External</td>
+<td align="left">Must be initialized</td>
+</tr>
+<tr>
+<td align="left">Inline constant global variable (C++17)</td>
+<td align="left">inline constexpr int g_x { 1 };</td>
+<td align="left">Global</td>
+<td align="left">Static</td>
+<td align="left">External</td>
+<td align="left">Must be initialized</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Variables declared inside a namespace are also global variables.</p>
+<p>Prefer defining global variables inside a namespace rather than in the global namespace.</p>
+</li>
+<li><p>Scope determines where a variable is accessible. Duration determines when a variable is created and destroyed. </p>
+</li>
+<li><p>Linkage determines whether the variable can be exported to another file or not.</p>
+</li>
+<li><p>Global variables can have either internal or external linkage, via the static and extern keywords respectively.</p>
+</li>
+<li><p>Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.</p>
+</li>
+</ul>
+<h2 id="control-flow"><a href="#control-flow" class="headerlink" title="control flow"></a>control flow</h2><h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
 <li><p>c_cpp_properties.json</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> config include path</span></span><br><span class="line">Open the Command Palette (Ctrl+Shift+P) and type C/C++: Edit Configurations (UI).</span><br><span class="line">This will open the c_cpp_properties.json file. If it doesn&#x27;t exist, it will be created.</span><br></pre></td></tr></table></figure></li>
 <li><p>setting.json</p>
