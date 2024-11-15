@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="source is the essence">
 <meta property="og:description" content="参数配置 tickTime  Length of a single tick, in milliseconds. ZooKeeper uses tick as the basic time unit to regulate timeouts. Default is 2000.  initLimit  Number of ticks after which the ZooKeeper server">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.willshirley.top/2020/10/08/zookeeper%20learn/img/zkInfo.png">
-<meta property="og:image" content="https://www.willshirley.top/2020/10/08/zookeeper%20learn/img/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9.png">
+<meta property="og:image" content="https://www.willshirley.top/images/zookeeper/zkInfo.png">
+<meta property="og:image" content="https://www.willshirley.top/images/zookeeper/modify.png">
 <meta property="article:published_time" content="2020-10-08T09:08:10.000Z">
-<meta property="article:modified_time" content="2023-09-07T02:06:03.491Z">
+<meta property="article:modified_time" content="2024-11-15T02:22:17.421Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.willshirley.top/2020/10/08/zookeeper%20learn/img/zkInfo.png">
+<meta name="twitter:image" content="https://www.willshirley.top/images/zookeeper/zkInfo.png">
     
     
       
@@ -199,14 +199,14 @@
 
 <h3 id="查看节点"><a href="#查看节点" class="headerlink" title="查看节点"></a>查看节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get path</span><br></pre></td></tr></table></figure>
 
-<p><img src="./img/zkInfo.png"></p>
+<p><img src="/images/zookeeper/zkInfo.png"></p>
 <ul>
 <li>查看节点状态<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stat path  #返回结果和get命令类似，但不会返回节点数据内容。</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="修改节点"><a href="#修改节点" class="headerlink" title="修改节点"></a>修改节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set path data [dataVersion]</span><br></pre></td></tr></table></figure>
 
 <p>可以用set命令修改节点数据。也可以基于版本号进行修改，当传入的dataVersion与当前版本号不一致时，zookeeper会拒绝修改。</p>
-<p><img src="./img/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9.png"></p>
+<p><img src="/images/zookeeper/modify.png"></p>
 <h3 id="返回节点列表"><a href="#返回节点列表" class="headerlink" title="返回节点列表"></a>返回节点列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls   path</span><br><span class="line">ls2  path</span><br></pre></td></tr></table></figure>
 
 <h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete path [dataVersion]</span><br></pre></td></tr></table></figure>

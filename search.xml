@@ -6355,14 +6355,14 @@
 
 <h3 id="查看节点"><a href="#查看节点" class="headerlink" title="查看节点"></a>查看节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">get path</span><br></pre></td></tr></table></figure>
 
-<p><img src="./img/zkInfo.png"></p>
+<p><img src="/images/zookeeper/zkInfo.png"></p>
 <ul>
 <li>查看节点状态<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stat path  #返回结果和get命令类似，但不会返回节点数据内容。</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="修改节点"><a href="#修改节点" class="headerlink" title="修改节点"></a>修改节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set path data [dataVersion]</span><br></pre></td></tr></table></figure>
 
 <p>可以用set命令修改节点数据。也可以基于版本号进行修改，当传入的dataVersion与当前版本号不一致时，zookeeper会拒绝修改。</p>
-<p><img src="./img/%E4%BF%AE%E6%94%B9%E8%8A%82%E7%82%B9.png"></p>
+<p><img src="/images/zookeeper/modify.png"></p>
 <h3 id="返回节点列表"><a href="#返回节点列表" class="headerlink" title="返回节点列表"></a>返回节点列表</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls   path</span><br><span class="line">ls2  path</span><br></pre></td></tr></table></figure>
 
 <h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">delete path [dataVersion]</span><br></pre></td></tr></table></figure>
@@ -11281,7 +11281,46 @@
 <li><p>Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.</p>
 </li>
 </ul>
-<h2 id="control-flow"><a href="#control-flow" class="headerlink" title="control flow"></a>control flow</h2><h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
+<h2 id="control-flow"><a href="#control-flow" class="headerlink" title="control flow"></a>control flow</h2><table>
+<thead>
+<tr>
+<th align="left">Category</th>
+<th align="left">Meaning</th>
+<th align="left">Implemented in C++ by</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Conditional statements</td>
+<td align="left">Causes a sequence of code to execute only if some condition is met.</td>
+<td align="left">if, else, switch</td>
+</tr>
+<tr>
+<td align="left">Jumps</td>
+<td align="left">Tells the CPU to start executing the statements at some other location.</td>
+<td align="left">goto, break, continue</td>
+</tr>
+<tr>
+<td align="left">Function calls</td>
+<td align="left">Jump to some other location and back.</td>
+<td align="left">function calls, return</td>
+</tr>
+<tr>
+<td align="left">Loops</td>
+<td align="left">Repeatedly execute some sequence of code zero or more times, until some condition is met.</td>
+<td align="left">while, do-while, for, ranged-for</td>
+</tr>
+<tr>
+<td align="left">Halts</td>
+<td align="left">Terminate the program.</td>
+<td align="left">std::exit(), std::abort()</td>
+</tr>
+<tr>
+<td align="left">Exceptions</td>
+<td align="left">A special kind of flow control structure designed for error handling.</td>
+<td align="left">try, throw, catch</td>
+</tr>
+</tbody></table>
+<h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
 <li><p>c_cpp_properties.json</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> config include path</span></span><br><span class="line">Open the Command Palette (Ctrl+Shift+P) and type C/C++: Edit Configurations (UI).</span><br><span class="line">This will open the c_cpp_properties.json file. If it doesn&#x27;t exist, it will be created.</span><br></pre></td></tr></table></figure></li>
 <li><p>setting.json</p>
@@ -13030,7 +13069,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> add development</span></span><br><span class="line">mc alias set myminio &#123;endpoint_address&#125; &#123;ak&#125; &#123;sk&#125; </span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. mc <span class="built_in">alias</span> <span class="built_in">set</span> myminio http://minio1.dev.net:19000 1111111 22222222</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ls <span class="built_in">alias</span></span></span><br><span class="line">mc alias list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> overview info</span></span><br><span class="line">mc admin info myminio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check config</span> </span><br><span class="line">mc admin config get myminio</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>bucket</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create bucket</span></span><br><span class="line">mc mb &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check object</span></span><br><span class="line">mc cat &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete object</span></span><br><span class="line">mc rm &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all data</span></span><br><span class="line">mc rm --recursive --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force delete bucket</span></span><br><span class="line">mc rb --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create bucket</span></span><br><span class="line">mc mb &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check bucket</span></span><br><span class="line">mc ls &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> count total object/file num</span></span><br><span class="line">mc ls --summarize --recursive gateway-minio</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check object</span></span><br><span class="line">mc cat &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete object</span></span><br><span class="line">mc rm &lt;ALIAS&gt;/&lt;BUCKET&gt;/&lt;OBJECT&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all data</span></span><br><span class="line">mc rm --recursive --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force delete bucket</span></span><br><span class="line">mc rb --force &lt;ALIAS&gt;/&lt;BUCKET&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 <li><p>erasure code</p>
 </li>
 </ul>
@@ -13047,7 +13086,7 @@
   <entry>
     <title>linux file command</title>
     <url>/2016/10/16/linux%20command-file/</url>
-    <content><![CDATA[<h2 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dd if=&lt;input&gt; of=&lt;output&gt; [options]</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dd if=&lt;input&gt; of=&lt;output&gt; [options]</span><br></pre></td></tr></table></figure>
 
 <p>​    •    if: Specifies the <strong>input file</strong> or device (e.g., /dev/sda or /path/to/file).</p>
 <p>​    •    of: Specifies the <strong>output file</strong> or device (e.g., /dev/sdb or /path/to/file).</p>
@@ -13066,7 +13105,25 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -v &quot;pattern&quot; inputfile &gt; outputfile</span><br></pre></td></tr></table></figure>
 
 <p>参数 <code>-v</code> 是用来反向匹配的选项，它会将不匹配指定模式的行输出</p>
-<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
+<ul>
+<li>查找指定目录下的文件内容</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rn &quot;info&quot; *</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询大文件里面的内容</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 使用管道符可以实现过滤既满足时间又满足ip的行。</span><br><span class="line">grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3</span><br></pre></td></tr></table></figure>
+
+<p>参数解释：<br>-n 参数的作用是显示查找结果的所在行号<br>-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数<br>prometheus.log 表示待搜索的大日志文件<br>head -n 3 表示显示前面查询结果的前三条记录</p>
+<ul>
+<li>排除指定内容</li>
+</ul>
+<p>要仅打印与搜索模式不匹配的行，可以使用grep的<code>-v</code>或<code>--invert-match</code>选项。进行反转的匹配。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -v xxx</span><br></pre></td></tr></table></figure>
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
 
 <p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
@@ -13099,18 +13156,18 @@
 <p>awk ‘{ $5=””; print }’ file</p>
 </li>
 </ul>
-<h2 id="统计文件行数"><a href="#统计文件行数" class="headerlink" title="统计文件行数"></a>统计文件行数</h2><p>语法：wc [选项] 文件…</p>
-<p>说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。</p>
-<p>该命令各选项含义如下：</p>
-<p>　　- c 统计字节数。</p>
-<p>　　- l 统计行数。</p>
-<p>　　- w 统计字数。</p>
-<p>这些选项可以组合使用。</p>
+<h2 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h2><ul>
+<li>语法</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">语法：wc [选项] 文件…</span><br><span class="line">  - c 统计字节数。</span><br><span class="line">  - l 统计行数。</span><br><span class="line">  - w 统计字数。</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>使文件可以直接执行的命令：chmod +x filename</p>
 <p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
 
-<h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]</span><br><span class="line">–version 显示版本信息</span><br><span class="line">– 或者-l,指定每多少行切割一次，用于文本文件分割</span><br><span class="line">-b 指定切割文件大小,单位 m 或 k</span><br><span class="line">-C 与-b类似，但尽量维持每行完整性</span><br><span class="line">-d 使用数字而不是字母作为后缀名</span><br><span class="line">-a 指定后缀名的长度，默认为2位</span><br></pre></td></tr></table></figure>
+<h1 id="senario"><a href="#senario" class="headerlink" title="senario"></a>senario</h1><h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]</span><br><span class="line">–version 显示版本信息</span><br><span class="line">– 或者-l,指定每多少行切割一次，用于文本文件分割</span><br><span class="line">-b 指定切割文件大小,单位 m 或 k</span><br><span class="line">-C 与-b类似，但尽量维持每行完整性</span><br><span class="line">-d 使用数字而不是字母作为后缀名</span><br><span class="line">-a 指定后缀名的长度，默认为2位</span><br></pre></td></tr></table></figure>
 
 <p>将多个分割的文件进行合并</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat files_name_1 files_name_2 files_name_3 &gt; files_name</span><br></pre></td></tr></table></figure>
@@ -13216,15 +13273,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -re filename.zip filename </span><br><span class="line">回车，输入2次密码</span><br></pre></td></tr></table></figure>
 
 <h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
-
-<h2 id="查找指定目录下的文件内容"><a href="#查找指定目录下的文件内容" class="headerlink" title="查找指定目录下的文件内容"></a>查找指定目录下的文件内容</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rn &quot;info&quot; *</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询大文件里面的内容"><a href="#查询大文件里面的内容" class="headerlink" title="查询大文件里面的内容"></a>查询大文件里面的内容</h2><p>格式：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 使用管道符可以实现过滤既满足时间又满足ip的行。</span><br><span class="line">grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3</span><br></pre></td></tr></table></figure>
-
-<p>参数解释：<br>-n 参数的作用是显示查找结果的所在行号<br>-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数<br>prometheus.log 表示待搜索的大日志文件<br>head -n 3 表示显示前面查询结果的前三条记录</p>
-<h2 id="排除指定内容"><a href="#排除指定内容" class="headerlink" title="排除指定内容"></a>排除指定内容</h2><p>要仅打印与搜索模式不匹配的行，可以使用grep的<code>-v</code>或<code>--invert-match</code>选项。进行反转的匹配。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -v xxx</span><br></pre></td></tr></table></figure>
 
 <h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><ul>
 <li>下载指定目录</li>
