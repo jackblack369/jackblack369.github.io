@@ -7709,7 +7709,7 @@
       </tags>
   </entry>
   <entry>
-    <title>tmux snippet</title>
+    <title>tmux</title>
     <url>/2023/11/15/tmux%20snippet/</url>
     <content><![CDATA[<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><table>
 <thead>
@@ -7832,7 +7832,7 @@
         <category>tmux</category>
       </categories>
       <tags>
-        <tag>snippet</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -10192,7 +10192,7 @@
         <category>PlantUML</category>
       </categories>
       <tags>
-        <tag>skill</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -11077,6 +11077,30 @@
 <td align="left">try, throw, catch</td>
 </tr>
 </tbody></table>
+<h2 id="References-and-Pointers"><a href="#References-and-Pointers" class="headerlink" title="References and Pointers"></a>References and Pointers</h2><p><strong>Lvalue</strong></p>
+<ul>
+<li>Lvalue expressions evaluate to an identifiable object.<ul>
+<li>An lvalue reference  acts as an alias for an existing lvalue (such as a variable).</li>
+<li>Lvalue references can only bind to modifiable lvalues.</li>
+<li>Lvalue references to const can bind to modifiable lvalues, non-modifiable lvalues, and rvalues. This makes them a much more flexible type of reference.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Rvalue</strong></p>
+<ul>
+<li>Rvalue expressions evaluate to a value.</li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li>Pass by reference allows us to pass arguments to a function without making copies of those arguments each time the function is called.</li>
+<li>Pass by reference can only accept modifiable lvalue arguments</li>
+<li>Class types can be expensive to copy (sometimes significantly so), so they are typically passed by const reference. Fundamental types and enumerated types are cheap to copy, so they are typically passed by value.</li>
+</ul>
+<p><strong>Pointer</strong></p>
+<ul>
+<li>A pointer is an object that holds a <em>memory address</em> (typically of another variable) as its value. This allows us to store the address of some other object to use later.</li>
+<li>Use <code>nullptr</code> when you need a null pointer literal for initialization, assignment, or passing a null pointer to a function.</li>
+</ul>
 <h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
 <li><p>c_cpp_properties.json</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> config include path</span></span><br><span class="line">Open the Command Palette (Ctrl+Shift+P) and type C/C++: Edit Configurations (UI).</span><br><span class="line">This will open the c_cpp_properties.json file. If it doesn&#x27;t exist, it will be created.</span><br></pre></td></tr></table></figure></li>
@@ -13325,7 +13349,11 @@
 </ul>
 <h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br></pre></td></tr></table></figure>
 
-<h1 id="system"><a href="#system" class="headerlink" title="system"></a>system</h1><h2 id="process"><a href="#process" class="headerlink" title="process"></a>process</h2><ul>
+<h1 id="system"><a href="#system" class="headerlink" title="system"></a>system</h1><h2 id="time"><a href="#time" class="headerlink" title="time"></a>time</h2><ul>
+<li><p>unning duration or uptime</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> option 1</span></span><br><span class="line">uptime</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> option 2</span></span><br><span class="line">who -b</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="process"><a href="#process" class="headerlink" title="process"></a>process</h2><ul>
 <li><p>Tree view all process</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pstree -g</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -13387,6 +13415,25 @@
       </categories>
       <tags>
         <tag>command</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bazel</title>
+    <url>/2024/11/25/bazel/</url>
+    <content><![CDATA[<p><strong>MODULE.bazel</strong></p>
+<ul>
+<li>The <code>MODULE.bazel</code> file, which identifies the directory and its contents as a Bazel workspace and lives at the root of the project’s directory structure. It’s also where you specify your external dependencies.</li>
+</ul>
+<p><strong>BUILD</strong></p>
+<ul>
+<li>One or more <a href="https://bazel.build/reference/glossary#build-file"><code>BUILD</code> files</a>, which tell Bazel how to build different parts of the project. A directory within the workspace that contains a <code>BUILD</code> file is a package. (More on packages later in this tutorial.)</li>
+</ul>
+]]></content>
+      <categories>
+        <category>build</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>
