@@ -14,7 +14,7 @@
 <meta property="og:description" content="basicdu1du -h --max-depth&#x3D;1 --exclude&#x3D;&amp;#x27;proc&amp;#x27; --exclude&#x3D;&amp;#x27;home&amp;#x27; --exclude&#x3D;&amp;#x27;mnt&amp;#x27;  dd1dd if&#x3D;&lt;input&gt; of&#x3D;&lt;output&gt; [options]  ​    •    if: Specifies the input file">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2016-10-16T04:01:30.000Z">
-<meta property="article:modified_time" content="2024-11-20T01:57:45.904Z">
+<meta property="article:modified_time" content="2024-11-26T11:32:55.812Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -368,17 +368,10 @@
 <h2 id="批量替换文件名"><a href="#批量替换文件名" class="headerlink" title="批量替换文件名"></a>批量替换文件名</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename -n -e <span class="string">&#x27;s/待替换字符串/替换字符串/&#x27;</span>  *.png</span><br></pre></td></tr></table></figure>
 
 <h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><ul>
-<li>查看编码</li>
-</ul>
-<p>首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set fileencoding</span><br></pre></td></tr></table></figure>
-
-<p>输出可能是这样</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileencoding=utf-81</span><br></pre></td></tr></table></figure>
-
-<p>也可以使用 <code>file</code> 和 <code>identify</code> 命令查看。</p>
-<ul>
-<li>转换编码</li>
+<li><p>查看编码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim</span></span><br><span class="line">:set fileencoding</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file</span></span><br><span class="line">file -i filename</span><br></pre></td></tr></table></figure></li>
+<li><p>转换编码</p>
+</li>
 </ul>
 <p>然后使用 <code>iconv</code> 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> iconv -f UTF-8 -t GBK input.file -o output.file</span></span><br></pre></td></tr></table></figure>
