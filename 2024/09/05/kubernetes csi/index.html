@@ -6,18 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="basic Container Storage Interface 容器的持久化存储的含义，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访">
+    <meta name="description" content="basic Container Storage Interface 容器的持久化存储的含义，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="source is the essence">
-<meta property="og:url" content="https://www.willshirley.top/2024/12/03/kubernetes%20csi/index.html">
+<meta property="og:title" content="Kubernetes csi">
+<meta property="og:url" content="https://www.willshirley.top/2024/09/05/kubernetes%20csi/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="basic Container Storage Interface 容器的持久化存储的含义，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访">
+<meta property="og:description" content="basic Container Storage Interface 容器的持久化存储的含义，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/csi%20idea.png">
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/csi-diagram.png">
-<meta property="article:published_time" content="2024-12-03T10:13:35.343Z">
-<meta property="article:modified_time" content="2024-12-03T10:17:27.361Z">
+<meta property="article:published_time" content="2024-09-05T08:57:50.000Z">
+<meta property="article:modified_time" content="2024-12-03T10:25:23.391Z">
 <meta property="article:author" content="brook">
+<meta property="article:tag" content="csi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.willshirley.top/images/k8s/csi%20idea.png">
     
@@ -39,7 +40,7 @@
       
     
     <!-- title -->
-    <title>source is the essence</title>
+    <title>Kubernetes csi</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -89,8 +90,10 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" aria-label="Previous post" href="/2024/09/08/c++%20learn/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        <li><a class="icon" aria-label="Next post" href="/2024/11/29/cmake/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/30/emacs/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -103,20 +106,20 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/03/kubernetes%20csi/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: https://www.willshirley.top/2024/12/03/kubernetes%20csi/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&text=Kubernetes csi"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/09/05/kubernetes%20csi/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes csi&body=Check out this article: https://www.willshirley.top/2024/09/05/kubernetes%20csi/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&title=Kubernetes csi"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&title=Kubernetes csi"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&title=Kubernetes csi"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&t=Kubernetes csi"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#External-Components"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Custom-Components"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">Custom Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">tips</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">1.0.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">1.0.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Components"><span class="toc-number">1.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Components"><span class="toc-number">1.2.</span> <span class="toc-text">Custom Components</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#provision"><span class="toc-number">2.</span> <span class="toc-text">provision</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">2.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">2.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senarios"><span class="toc-number">3.</span> <span class="toc-text">senarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#expand-volume"><span class="toc-number">3.1.</span> <span class="toc-text">expand volume</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -129,7 +132,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        
+        Kubernetes csi
     </h1>
 
 
@@ -141,24 +144,32 @@
       
     <div class="postdate">
       
-        <time datetime="2024-12-03T10:13:35.343Z" class="dt-published" itemprop="datePublished">2024-12-03</time>
+        <time datetime="2024-09-05T08:57:50.000Z" class="dt-published" itemprop="datePublished">2024-09-05</time>
         
       
     </div>
 
 
       
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Kubernetes/">Kubernetes</a>
+    </div>
+
 
       
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/csi/" rel="tag">csi</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content e-content" itemprop="articleBody">
-    <hr>
-<hr>
-<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><blockquote>
+    <h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><blockquote>
 <p>Container Storage Interface <strong>容器的持久化存储的含义</strong>，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到数据卷里保存的内容。</p>
 <p><strong>CSI 插件体系的设计思想，就是把 Provision 阶段，以及 Kubernetes 里的一部分存储管理功能(比如“Attach 阶段”和“Mount 阶段”的具体操作)，从主干代码里剥离出来，做成了几个单独的组件</strong></p>
 </blockquote>
@@ -169,12 +180,15 @@
 <p>below diagram depicts a kind of high-level Kubernetes archetypes integrated with CSI:</p>
 <img src="/images/k8s/csi-diagram.png" style="zoom:50%;"/>
 
+<blockquote>
+<p>在实际使用 CSI 插件的时候，我们会将这三个 External Components 作为 sidecar 容器和 CSI 插件放置在同一个 Pod 中。由于 External Components 对 CSI 插件的调用非常频繁，所以这种 sidecar 的部署方式非常高效。</p>
+</blockquote>
 <ul>
 <li>the external components are introduced to decouple Kubernetes and Storage Provider logic</li>
 <li>Blue arrows present the conventional way to call against API Server</li>
 <li>Red arrows present gRPC to call against Volume Driver</li>
 </ul>
-<h4 id="External-Components"><a href="#External-Components" class="headerlink" title="External Components"></a>External Components</h4><ul>
+<h2 id="External-Components"><a href="#External-Components" class="headerlink" title="External Components"></a>External Components</h2><ul>
 <li><p><strong>Driver Registrar</strong></p>
 <p><strong>负责将插件注册到 kubelet 里面</strong>（这可以类比为，将可执行文件放在插件目录下）。而在具体实现上，Driver Registrar 需要请求 CSI 插件的 Identity 服务来获取插件信息。</p>
 <blockquote>
@@ -189,7 +203,7 @@
 <p>一旦出现了 VolumeAttachment 对象，External Attacher 就会调用 CSI Controller 服务的 ControllerPublish 方法，完成它所对应的 Volume 的 Attach 阶段。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kubernetes-csi/external-snapshotter: This project contains the sidecar container that watches Kubernetes VolumeSnapshot objects and triggers CreateSnapshot/DeleteSnapshot operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/external-provisioner: The external-provisioner is a sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/external-attacher: The external-attacher is a sidecar container that watches Kubernetes VolumeAttachment objects and triggers ControllerPublish/Unpublish operations against a CSI endpoint.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/node-driver-registrar: This sidecar container registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.</span><br><span class="line"></span><br><span class="line">kubernetes-csi/livenessprobe: A sidecar container that can be included in a CSI plugin pod to enable integration with Kubernetes Liveness Probe</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="Custom-Components"><a href="#Custom-Components" class="headerlink" title="Custom Components"></a>Custom Components</h4><ul>
+<h2 id="Custom-Components"><a href="#Custom-Components" class="headerlink" title="Custom Components"></a>Custom Components</h2><ul>
 <li><p><strong>CSI Identity</strong></p>
 <p><strong>负责对外暴露这个插件本身的信息</strong></p>
 </li>
@@ -201,17 +215,16 @@
 <p>当 kubelet 的 VolumeManagerReconciler 控制循环检查到它需要执行 Mount 操作的时候，会通过 pkg/volume/csi 包，直接调用 CSI Node 服务完成 Volume 的“Mount 阶段”</p>
 </li>
 </ul>
-<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><ul>
-<li>在实际使用 CSI 插件的时候，我们会将这三个 External Components 作为 sidecar 容器和 CSI 插件放置在同一个 Pod 中。由于 External Components 对 CSI 插件的调用非常频繁，所以这种 sidecar 的部署方式非常高效。</li>
-</ul>
-<h3 id="Dynamic-provisioning"><a href="#Dynamic-provisioning" class="headerlink" title="Dynamic provisioning"></a>Dynamic provisioning</h3><ul>
+<h1 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h1><h2 id="Dynamic-provisioning"><a href="#Dynamic-provisioning" class="headerlink" title="Dynamic provisioning"></a>Dynamic provisioning</h2><ul>
 <li>Create the PVC first.</li>
 <li>the CreateVolume request is triggered by Kubernetes when a PVC requests storage, and the CSI driver dynamically provisions the volume based on StorageClass and PVC parameters.</li>
 </ul>
-<h3 id="Static-provisioning"><a href="#Static-provisioning" class="headerlink" title="Static provisioning"></a>Static provisioning</h3><ul>
+<h2 id="Static-provisioning"><a href="#Static-provisioning" class="headerlink" title="Static provisioning"></a>Static provisioning</h2><ul>
 <li>Create the PV first.</li>
 <li>there is no CreateVolume request. Instead, the PV is manually created, and the CSI driver accesses an already provisioned volume using information like volumeHandle from the PV YAML.</li>
 </ul>
+<h1 id="senarios"><a href="#senarios" class="headerlink" title="senarios"></a>senarios</h1><h2 id="expand-volume"><a href="#expand-volume" class="headerlink" title="expand volume"></a>expand volume</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant User as User</span><br><span class="line">    participant APIServer as API Server</span><br><span class="line">    participant ControllerManager as Kube-Controller-Manager</span><br><span class="line">    participant CSIController as CSI Controller Plugin</span><br><span class="line">    participant Node as Node (Kubelet)</span><br><span class="line"></span><br><span class="line">    User-&gt;&gt;APIServer: Update PVC with new size</span><br><span class="line">    APIServer-&gt;&gt;ControllerManager: Trigger Volume Expansion</span><br><span class="line">    ControllerManager-&gt;&gt;CSIController: ControllerExpandVolume</span><br><span class="line">    CSIController--&gt;&gt;ControllerManager: Expansion Success (NodeExpansionRequired: true)</span><br><span class="line"></span><br><span class="line">    ControllerManager-&gt;&gt;APIServer: Update PV size</span><br><span class="line">    APIServer-&gt;&gt;Node: Notify Node of Expansion</span><br><span class="line">    Node-&gt;&gt;CSIController: NodeExpandVolume</span><br><span class="line">    CSIController--&gt;&gt;Node: Expansion Success</span><br><span class="line">    Node-&gt;&gt;APIServer: Filesystem Resized</span><br><span class="line">    APIServer-&gt;&gt;User: PVC Expansion Complete</span><br></pre></td></tr></table></figure>
+
 
   </div>
 </article>
@@ -243,19 +256,19 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#External-Components"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Custom-Components"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">Custom Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">tips</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">1.0.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">1.0.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Components"><span class="toc-number">1.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Components"><span class="toc-number">1.2.</span> <span class="toc-text">Custom Components</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#provision"><span class="toc-number">2.</span> <span class="toc-text">provision</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">2.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">2.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senarios"><span class="toc-number">3.</span> <span class="toc-text">senarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#expand-volume"><span class="toc-number">3.1.</span> <span class="toc-text">expand volume</span></a></li></ol></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/03/kubernetes%20csi/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: https://www.willshirley.top/2024/12/03/kubernetes%20csi/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/03/kubernetes%20csi/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&text=Kubernetes csi"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/09/05/kubernetes%20csi/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes csi&body=Check out this article: https://www.willshirley.top/2024/09/05/kubernetes%20csi/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&title=Kubernetes csi"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&title=Kubernetes csi"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&title=Kubernetes csi"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/09/05/kubernetes%20csi/&t=Kubernetes csi"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

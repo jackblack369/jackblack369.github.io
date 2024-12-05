@@ -14,7 +14,7 @@
 <meta property="og:description" content="concept 镜像（Image）：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。 容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-17T10:51:56.000Z">
-<meta property="article:modified_time" content="2024-11-07T06:32:41.809Z">
+<meta property="article:modified_time" content="2024-12-04T03:47:27.360Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="image">
 <meta name="twitter:card" content="summary">
@@ -175,9 +175,16 @@
 
 <ul>
 <li><p>导出镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker save -o &lt;output-file&gt;.tar &lt;image-name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意$后面的变量需要替换</span></span><br></pre></td></tr></table></figure></li>
-<li><p>导入镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o &lt;output-file&gt;.tar &lt;image-name&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>导入镜像</li>
+</ul>
+</li>
+</ul>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load --input $PATH/$NAME.tar</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>在镜像中运行容器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG</span><br><span class="line"></span><br><span class="line">-it：表示交互式终端的容器，非启动后立刻结束的容器</span><br><span class="line">--name test：给容器取个名字，嫌麻烦可以省去</span><br><span class="line"><span class="meta">$</span><span class="bash">REPOSITORY:<span class="variable">$TAG</span>：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）</span></span><br><span class="line">-v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件</span><br><span class="line">🚨-p hostPort:containerPort</span><br><span class="line">🚨-v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步</span><br></pre></td></tr></table></figure>
 
