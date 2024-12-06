@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •    Disks: &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvm senario">
+<meta property="og:url" content="https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •    Disks: &#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-06T02:43:30.000Z">
+<meta property="article:modified_time" content="2024-12-06T02:51:29.073Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="lvm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>lvm senario</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/12/05/network%20snippet/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&text=lvm senario"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lvm senario&body=Check out this article: https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&t=lvm senario"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-LVs"><span class="toc-number">1.</span> <span class="toc-text">create LVs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Create-Physical-Volumes-PVs"><span class="toc-number">1.1.</span> <span class="toc-text">1. Create Physical Volumes (PVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Create-Volume-Groups-VGs"><span class="toc-number">1.2.</span> <span class="toc-text">2. Create Volume Groups (VGs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Create-Logical-Volumes-LVs"><span class="toc-number">1.3.</span> <span class="toc-text">3. Create Logical Volumes (LVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Verify-the-Setup"><span class="toc-number">1.4.</span> <span class="toc-text">4. Verify the Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Format-the-LVs"><span class="toc-number">1.5.</span> <span class="toc-text">5. Format the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Mount-the-LVs"><span class="toc-number">1.6.</span> <span class="toc-text">6. Mount the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Persist-the-Mounts"><span class="toc-number">1.7.</span> <span class="toc-text">7. Persist the Mounts</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        lvm senario
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-12-06T02:43:30.000Z" class="dt-published" itemprop="datePublished">2024-12-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/fs/">fs</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/lvm/" rel="tag">lvm</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="create-LVs"><a href="#create-LVs" class="headerlink" title="create LVs"></a>create LVs</h1><blockquote>
+<p> If you want to create <strong>three Logical Volumes (LVs)</strong> of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.</p>
+</blockquote>
+<p>Assume:</p>
+<p>​    •    <strong>Disks</strong>: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1</p>
+<p>​    •    <strong>Volume Groups</strong>: vg_nvme0, vg_nvme1, vg_nvme2</p>
+<p>​    •    <strong>Logical Volumes (LVs)</strong>: lv1, lv2, lv3 for each VG</p>
+<p>​    •    <strong>LV Sizes</strong>: 1TB, 1TB, and 5TB</p>
+<h2 id="1-Create-Physical-Volumes-PVs"><a href="#1-Create-Physical-Volumes-PVs" class="headerlink" title="1. Create Physical Volumes (PVs)"></a>1. Create Physical Volumes (PVs)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Initialize each disk as a PV:</span></span><br><span class="line">sudo pvcreate /dev/nvme0n1</span><br><span class="line">sudo pvcreate /dev/nvme1n1</span><br><span class="line">sudo pvcreate /dev/nvme2n1</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Create-Volume-Groups-VGs"><a href="#2-Create-Volume-Groups-VGs" class="headerlink" title="2. Create Volume Groups (VGs)"></a>2. Create Volume Groups (VGs)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create a VG <span class="keyword">for</span> each disk:</span></span><br><span class="line">sudo vgcreate vg_nvme0 /dev/nvme0n1</span><br><span class="line">sudo vgcreate vg_nvme1 /dev/nvme1n1</span><br><span class="line">sudo vgcreate vg_nvme2 /dev/nvme2n1</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Create-Logical-Volumes-LVs"><a href="#3-Create-Logical-Volumes-LVs" class="headerlink" title="3. Create Logical Volumes (LVs)"></a>3. Create Logical Volumes (LVs)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Allocate 1TB, 1TB, and 5TB LVs from each VG.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> For vg_nvme0:</span></span><br><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme0</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme0</span><br><span class="line">sudo lvcreate -L 5T -n lv3 vg_nvme0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> For vg_nvme1:</span></span><br><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme1</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme1</span><br><span class="line">sudo lvcreate -L 5T -n lv3 vg_nvme1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> For vg_nvme2:</span></span><br><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme2</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme2</span><br><span class="line">sudo lvcreate -L 5T -n lv3 vg_nvme2</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Verify-the-Setup"><a href="#4-Verify-the-Setup" class="headerlink" title="4. Verify the Setup"></a>4. Verify the Setup</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check the LVs and their sizes:</span></span><br><span class="line">sudo lvs</span><br></pre></td></tr></table></figure>
+
+<p>You should see something like:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LV   VG        Attr       LSize</span><br><span class="line"></span><br><span class="line">lv1  vg_nvme0  -wi-a----- 1.00t                           </span><br><span class="line">lv2  vg_nvme0  -wi-a----- 1.00t                           </span><br><span class="line">lv3  vg_nvme0  -wi-a----- 5.00t                           </span><br><span class="line">lv1  vg_nvme1  -wi-a----- 1.00t                           </span><br><span class="line">lv2  vg_nvme1  -wi-a----- 1.00t                           </span><br><span class="line">lv3  vg_nvme1  -wi-a----- 5.00t                           </span><br><span class="line">lv1  vg_nvme2  -wi-a----- 1.00t                           </span><br><span class="line">lv2  vg_nvme2  -wi-a----- 1.00t                           </span><br><span class="line">lv3  vg_nvme2  -wi-a----- 5.00t</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Format-the-LVs"><a href="#5-Format-the-LVs" class="headerlink" title="5. Format the LVs"></a>5. Format the LVs</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Use xfs or another filesystem to format the LVs:</span></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme0/lv1</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme0/lv2</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme0/lv3</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme1/lv1</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme1/lv2</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme1/lv3</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2/lv1</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2/lv2</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2/lv3</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Mount-the-LVs"><a href="#6-Mount-the-LVs" class="headerlink" title="6. Mount the LVs"></a>6. Mount the LVs</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create directories <span class="keyword">for</span> each LV and mount them:</span></span><br><span class="line">sudo mkdir -p /mnt/nvme0/lv1 /mnt/nvme0/lv2 /mnt/nvme0/lv3</span><br><span class="line">sudo mkdir -p /mnt/nvme1/lv1 /mnt/nvme1/lv2 /mnt/nvme1/lv3</span><br><span class="line">sudo mkdir -p /mnt/nvme2/lv1 /mnt/nvme2/lv2 /mnt/nvme2/lv3</span><br><span class="line"></span><br><span class="line">sudo mount /dev/vg_nvme0/lv1 /mnt/nvme0/lv1</span><br><span class="line">sudo mount /dev/vg_nvme0/lv2 /mnt/nvme0/lv2</span><br><span class="line">sudo mount /dev/vg_nvme0/lv3 /mnt/nvme0/lv3</span><br><span class="line"></span><br><span class="line">sudo mount /dev/vg_nvme1/lv1 /mnt/nvme1/lv1</span><br><span class="line">sudo mount /dev/vg_nvme1/lv2 /mnt/nvme1/lv2</span><br><span class="line">sudo mount /dev/vg_nvme1/lv3 /mnt/nvme1/lv3</span><br><span class="line"></span><br><span class="line">sudo mount /dev/vg_nvme2/lv1 /mnt/nvme2/lv1</span><br><span class="line">sudo mount /dev/vg_nvme2/lv2 /mnt/nvme2/lv2</span><br><span class="line">sudo mount /dev/vg_nvme2/lv3 /mnt/nvme2/lv3</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Persist-the-Mounts"><a href="#7-Persist-the-Mounts" class="headerlink" title="7. Persist the Mounts"></a>7. Persist the Mounts</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Add the mounts to /etc/fstab <span class="keyword">for</span> automatic remounting on boot:</span></span><br><span class="line">echo &#x27;/dev/vg_nvme0/lv1 /mnt/nvme0/lv1 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme0/lv2 /mnt/nvme0/lv2 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme0/lv3 /mnt/nvme0/lv3 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line"></span><br><span class="line">echo &#x27;/dev/vg_nvme1/lv1 /mnt/nvme1/lv1 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme1/lv2 /mnt/nvme1/lv2 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme1/lv3 /mnt/nvme1/lv3 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line"></span><br><span class="line">echo &#x27;/dev/vg_nvme2/lv1 /mnt/nvme2/lv1 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme2/lv2 /mnt/nvme2/lv2 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme2/lv3 /mnt/nvme2/lv3 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> **Final Directory Layout**</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> **Disk**	**VG Name**	**LV Name**	**Size**	**Mount Point**</span></span><br><span class="line">/dev/nvme0n1	vg_nvme0	lv1	1T	/mnt/nvme0/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme0/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme0/lv3</span><br><span class="line"></span><br><span class="line">/dev/nvme1n1	vg_nvme1	lv1	1T	/mnt/nvme1/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme1/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme1/lv3</span><br><span class="line"></span><br><span class="line">/dev/nvme2n1	vg_nvme2	lv1	1T	/mnt/nvme2/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme2/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme2/lv3</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-LVs"><span class="toc-number">1.</span> <span class="toc-text">create LVs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Create-Physical-Volumes-PVs"><span class="toc-number">1.1.</span> <span class="toc-text">1. Create Physical Volumes (PVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Create-Volume-Groups-VGs"><span class="toc-number">1.2.</span> <span class="toc-text">2. Create Volume Groups (VGs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Create-Logical-Volumes-LVs"><span class="toc-number">1.3.</span> <span class="toc-text">3. Create Logical Volumes (LVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Verify-the-Setup"><span class="toc-number">1.4.</span> <span class="toc-text">4. Verify the Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Format-the-LVs"><span class="toc-number">1.5.</span> <span class="toc-text">5. Format the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Mount-the-LVs"><span class="toc-number">1.6.</span> <span class="toc-text">6. Mount the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Persist-the-Mounts"><span class="toc-number">1.7.</span> <span class="toc-text">7. Persist the Mounts</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&text=lvm senario"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lvm senario&body=Check out this article: https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&t=lvm senario"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
