@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.willshirley.top/images/c++/CompileSource.png">
 <meta property="og:image" content="https://www.willshirley.top/images/c++/LinkingObjects.webp">
 <meta property="article:published_time" content="2024-09-08T09:51:34.000Z">
-<meta property="article:modified_time" content="2024-12-03T01:52:57.776Z">
+<meta property="article:modified_time" content="2024-12-09T01:48:03.532Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -787,6 +787,14 @@
 <p>Structs should generally avoid using access specifiers (all members will default to public).</p>
 </li>
 <li><p>Prefer using the member initializer list to initialize your members over assigning values in the body of the constructor.</p>
+</li>
+<li><p>If you want your class to be able to be evaluated at compile-time, make your member functions and constructor constexpr.</p>
+</li>
+<li><p>A non-const member function can modify members of non-const objects.</p>
+</li>
+<li><p>A constexpr member function can be called in either runtime contexts or compile-time contexts.</p>
+</li>
+<li><p>All non-static member functions have a <code>this</code> const pointer that holds the address of the implicit object.</p>
 </li>
 </ul>
 <h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
