@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/minio/cert.jpg">
 <meta property="article:published_time" content="2024-09-29T02:25:00.000Z">
-<meta property="article:modified_time" content="2024-12-06T03:24:30.118Z">
+<meta property="article:modified_time" content="2024-12-10T11:51:07.127Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -238,9 +238,9 @@
 </li>
 </ol>
 <blockquote>
-<p>每台机器均需要操作一遍</p>
+<p>每台机器均需要操作一遍（这样可以保证mc设置alias成功）</p>
 </blockquote>
-   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp ca.crt /etc/pki/ca-trust/source/anchors/</span><br><span class="line">update-ca-trust extract</span><br><span class="line">openssl verify -CAfile /etc/pki/tls/certs/ca-bundle.crt /etc/pki/ca-trust/source/anchors/ca.crt</span><br></pre></td></tr></table></figure>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cp ca.crt /etc/pki/ca-trust/source/anchors/</span><br><span class="line">sudo update-ca-trust extract</span><br><span class="line">sudo openssl verify -CAfile /etc/pki/tls/certs/ca-bundle.crt /etc/pki/ca-trust/source/anchors/ca.crt</span><br></pre></td></tr></table></figure>
 
 <ol start="7">
 <li>Verification</li>

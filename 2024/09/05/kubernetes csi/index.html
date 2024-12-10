@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="basic Container Storage Interface 容器的持久化存储的含义，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到">
+    <meta name="description" content="RPCIn Kubernetes, the CSI (Container Storage Interface) plugin uses Unix domain sockets for communication between the kubelet and CSI drivers:  Socket Location:    &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;plugins&#x2F;csi.dingofs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes csi">
 <meta property="og:url" content="https://www.willshirley.top/2024/09/05/kubernetes%20csi/index.html">
 <meta property="og:site_name" content="source is the essence">
-<meta property="og:description" content="basic Container Storage Interface 容器的持久化存储的含义，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到">
+<meta property="og:description" content="RPCIn Kubernetes, the CSI (Container Storage Interface) plugin uses Unix domain sockets for communication between the kubelet and CSI drivers:  Socket Location:    &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;plugins&#x2F;csi.dingofs">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/csi%20idea.png">
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/csi-diagram.png">
 <meta property="article:published_time" content="2024-09-05T08:57:50.000Z">
-<meta property="article:modified_time" content="2024-12-03T10:25:23.391Z">
+<meta property="article:modified_time" content="2024-12-10T08:43:38.113Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="csi">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Components"><span class="toc-number">1.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Components"><span class="toc-number">1.2.</span> <span class="toc-text">Custom Components</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#provision"><span class="toc-number">2.</span> <span class="toc-text">provision</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">2.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">2.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senarios"><span class="toc-number">3.</span> <span class="toc-text">senarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#expand-volume"><span class="toc-number">3.1.</span> <span class="toc-text">expand volume</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RPC"><span class="toc-number">1.</span> <span class="toc-text">RPC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">2.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Components"><span class="toc-number">2.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Components"><span class="toc-number">2.2.</span> <span class="toc-text">Custom Components</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#provision"><span class="toc-number">3.</span> <span class="toc-text">provision</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">3.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">3.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senarios"><span class="toc-number">4.</span> <span class="toc-text">senarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#expand-volume"><span class="toc-number">4.1.</span> <span class="toc-text">expand volume</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -169,7 +169,25 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><blockquote>
+    <h1 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h1><p>In Kubernetes, the CSI (Container Storage Interface) plugin uses Unix domain sockets for communication between the kubelet and CSI drivers:</p>
+<ul>
+<li><p>Socket Location:  </p>
+<ul>
+<li><code>/var/lib/kubelet/plugins/csi.dingofs.com/csi-controller.sock</code></li>
+<li><code>/var/lib/kubelet/plugins/csi.dingofs.com/csi.sock</code></li>
+</ul>
+</li>
+<li><p>Role: </p>
+<ul>
+<li><p>The CSI driver exposes its RPC interface via the Unix domain socket.</p>
+</li>
+<li><p>Kubelet connects to this socket to invoke RPC methods like CreateVolume or NodePublishVolume.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>This approach ensures efficient and secure communication between the kubelet and the storage driver, without exposing the RPC interface over a network.</p>
+<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><blockquote>
 <p>Container Storage Interface <strong>容器的持久化存储的含义</strong>，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到数据卷里保存的内容。</p>
 <p><strong>CSI 插件体系的设计思想，就是把 Provision 阶段，以及 Kubernetes 里的一部分存储管理功能(比如“Attach 阶段”和“Mount 阶段”的具体操作)，从主干代码里剥离出来，做成了几个单独的组件</strong></p>
 </blockquote>
@@ -256,7 +274,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Components"><span class="toc-number">1.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Components"><span class="toc-number">1.2.</span> <span class="toc-text">Custom Components</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#provision"><span class="toc-number">2.</span> <span class="toc-text">provision</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">2.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">2.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senarios"><span class="toc-number">3.</span> <span class="toc-text">senarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#expand-volume"><span class="toc-number">3.1.</span> <span class="toc-text">expand volume</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RPC"><span class="toc-number">1.</span> <span class="toc-text">RPC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">2.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Components"><span class="toc-number">2.1.</span> <span class="toc-text">External Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Components"><span class="toc-number">2.2.</span> <span class="toc-text">Custom Components</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#provision"><span class="toc-number">3.</span> <span class="toc-text">provision</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-provisioning"><span class="toc-number">3.1.</span> <span class="toc-text">Dynamic provisioning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-provisioning"><span class="toc-number">3.2.</span> <span class="toc-text">Static provisioning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senarios"><span class="toc-number">4.</span> <span class="toc-text">senarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#expand-volume"><span class="toc-number">4.1.</span> <span class="toc-text">expand volume</span></a></li></ol></li></ol>
       </div>
     
 
