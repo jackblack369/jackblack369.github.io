@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="From Diving into controller-runtime | Manager  controller-runtime package has become a fundamental tool for most Kubernetes controllers, simplifying the creation of controllers to manage resources wi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes controller">
+<meta property="og:url" content="https://www.willshirley.top/2024/12/15/kubernetes%20controller/index.html">
+<meta property="og:site_name" content="source is the essence">
+<meta property="og:description" content="From Diving into controller-runtime | Manager  controller-runtime package has become a fundamental tool for most Kubernetes controllers, simplifying the creation of controllers to manage resources wi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/k8s/controller-runtime-1-client-go-controller-interaction.jpeg">
+<meta property="article:published_time" content="2024-12-15T14:20:05.000Z">
+<meta property="article:modified_time" content="2024-12-16T02:03:21.035Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="controller runtime">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/k8s/controller-runtime-1-client-go-controller-interaction.jpeg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Kubernetes controller</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="source is the essence" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/12/10/golang%20pkg/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&text=Kubernetes controller"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/15/kubernetes%20controller/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes controller&body=Check out this article: https://www.willshirley.top/2024/12/15/kubernetes%20controller/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&title=Kubernetes controller"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&title=Kubernetes controller"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&title=Kubernetes controller"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&t=Kubernetes controller"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Architecture"><span class="toc-number">1.</span> <span class="toc-text">Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#informer"><span class="toc-number">1.1.</span> <span class="toc-text">informer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reflector"><span class="toc-number">1.1.1.</span> <span class="toc-text">Reflector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Indexer"><span class="toc-number">1.1.2.</span> <span class="toc-text">Indexer</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Kubernetes controller
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-12-15T14:20:05.000Z" class="dt-published" itemprop="datePublished">2024-12-15</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Kubernetes/">Kubernetes</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/controller-runtime/" rel="tag">controller runtime</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>From <a target="_blank" rel="noopener" href="https://buraksekili.github.io/articles/controller-runtime-1/">Diving into controller-runtime | Manager</a></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/controller-runtime"><code>controller-runtime</code></a> package has become a fundamental tool for most Kubernetes controllers, simplifying the creation of controllers to manage resources within a Kubernetes environment efficiently. Users tend to prefer it over <a target="_blank" rel="noopener" href="https://github.com/kubernetes/client-go"><code>client-go</code></a>.</p>
+<p>In Kubernetes, controllers observe resources, such as Deployments, in a control loop to ensure the cluster resources conform to the desired state specified in the resource specification (e.g., YAML files).</p>
+<p>On the other hand, according to Redhat, a Kubernetes Operator is an application-specific controller <a target="_blank" rel="noopener" href="https://buraksekili.github.io/articles/controller-runtime-1/#fn:2">2</a>. For instance, the Prometheus Operator manages the lifecycle of a Prometheus instance in the cluster, including managing configurations and updating Kubernetes resources, such as ConfigMaps.</p>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>controllers follow a special architecture to</p>
+<ul>
+<li>observe the resources,</li>
+<li>inform any events (updating, deleting, adding) done on the resources,</li>
+<li>keep a local cache to decrease the load on API Server,</li>
+<li>keep a work queue to pick up events,</li>
+<li>run workers to perform reconciliation on resources picked up from work queue.</li>
+</ul>
+<img src="/images/k8s/controller-runtime-1-client-go-controller-interaction.jpeg" style="zoom: 80%">
+
+<h2 id="informer"><a href="#informer" class="headerlink" title="informer"></a>informer</h2><p>Informers leverage certain components like <strong>Reflector</strong>, <strong>Queue</strong> and <strong>Indexer</strong>, as shown in the above diagram.</p>
+<p>Informers watch Kubernetes API server to detect changes in resources that we want to. It keeps a local cache - in-memory cache implementing <a target="_blank" rel="noopener" href="https://pkg.go.dev/k8s.io/client-go/tools/cache#Store">Store</a> interface - including the objects observed through Kubernetes API. Then controllers and operators use this cache for all getter requests - GET and LIST - to prevent load on Kubernetes API server. Moreover, Informers invoke controllers by sending objects to the controllers (registering Event Handlers).</p>
+<h3 id="Reflector"><a href="#Reflector" class="headerlink" title="Reflector"></a>Reflector</h3><blockquote>
+<p>Reflector watches a specified resource and causes all changes to be reflected in the given store.</p>
+</blockquote>
+<p>The store is actually a cache - with two options; simple one and FIFO. Reflector pushes objects to Delta Fifo queue.</p>
+<p>By monitoring the server (Kubernetes API Server), the Reflector maintains a local cache of the resources. Upon any event occurring on the watched resource, implying a new operation on the Kubernetes resource, the Reflector updates the cache (Delta FIFO queue, as illustrated in the diagram). Subsequently, the Informer reads objects from this Delta FIFO queue, indexes them for future retrievals, and dispatches the object to the controller.</p>
+<h3 id="Indexer"><a href="#Indexer" class="headerlink" title="Indexer"></a>Indexer</h3><p>Indexer saves objects into thread-safe Store by indexing the objects. This approach facilitates efficient querying of objects from the cache.</p>
+<p>Custom indexers, based on specific needs, can be created. For example, a custom indexer can be generated to retrieve all objects based on certain fields, such as Annotations.</p>
+<p>More details about how Kubernetes indexing works, check <a target="_blank" rel="noopener" href="https://buraksekili.github.io/articles/client-k8s-indexing">Kubernetes Client-Side Indexing</a>.</p>
+<hr>
+<p>reference</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhaohuabing.com/post/2023-03-09-how-to-create-a-k8s-controller/">Kubernetes Controller 机制详解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1989055">Controller Runtime 的四种使用姿势</a></p>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Architecture"><span class="toc-number">1.</span> <span class="toc-text">Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#informer"><span class="toc-number">1.1.</span> <span class="toc-text">informer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reflector"><span class="toc-number">1.1.1.</span> <span class="toc-text">Reflector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Indexer"><span class="toc-number">1.1.2.</span> <span class="toc-text">Indexer</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&text=Kubernetes controller"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/15/kubernetes%20controller/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes controller&body=Check out this article: https://www.willshirley.top/2024/12/15/kubernetes%20controller/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&title=Kubernetes controller"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&title=Kubernetes controller"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&title=Kubernetes controller"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/15/kubernetes%20controller/&t=Kubernetes controller"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
