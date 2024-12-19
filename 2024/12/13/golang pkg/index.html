@@ -14,7 +14,7 @@
 <meta property="og:description" content="fmt %v vs %#v 12345678910111213141516type Example struct &amp;#123;    Name  string    Value int&amp;#125;func main() &amp;#123;    ex :&#x3D; Example&amp;#123;Name: &quot;test&quot;, Value: 42&amp;#125;    &#x2F;&#x2F; Using %v    fmt">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-13T03:40:09.000Z">
-<meta property="article:modified_time" content="2024-12-16T03:40:19.925Z">
+<meta property="article:modified_time" content="2024-12-17T02:52:54.020Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="pkg">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fmt"><span class="toc-number">1.</span> <span class="toc-text">fmt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json"><span class="toc-number">2.</span> <span class="toc-text">json</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fmt"><span class="toc-number">1.</span> <span class="toc-text">fmt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json"><span class="toc-number">2.</span> <span class="toc-text">json</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cobra"><span class="toc-number">3.</span> <span class="toc-text">cobra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PersistentFlag-vs-Flag"><span class="toc-number">3.1.</span> <span class="toc-text">PersistentFlag vs Flag</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -177,6 +177,17 @@
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Meta <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:&quot;name&quot;`</span></span><br><span class="line">    Age  <span class="keyword">int</span>    <span class="string">`json:&quot;age&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">    Meta <span class="string">`json:&quot;,inline&quot;`</span></span><br><span class="line">    Address <span class="keyword">string</span> <span class="string">`json:&quot;address&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    p := Person&#123;</span><br><span class="line">        Meta: Meta&#123;</span><br><span class="line">            Name: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">            Age:  <span class="number">30</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        Address: <span class="string">&quot;123 Main St&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    data, _ := json.Marshal(p)</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(data))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># output:</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">    <span class="string">&quot;age&quot;</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="string">&quot;address&quot;</span>: <span class="string">&quot;123 Main St&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="cobra"><a href="#cobra" class="headerlink" title="cobra"></a>cobra</h1><h2 id="PersistentFlag-vs-Flag"><a href="#PersistentFlag-vs-Flag" class="headerlink" title="PersistentFlag vs Flag"></a>PersistentFlag vs Flag</h2><p><strong>PersistentFlag</strong></p>
+<ul>
+<li>Flags that are available to the command and all its subcommands. but not explicitly added to the main command’s help output.</li>
+</ul>
+<p><strong>Flag</strong></p>
+<ul>
+<li><p>Definition: Flags that are only available to the specific command they are defined on.</p>
+</li>
+<li><p>Example: If you set a flag on a specific command, it will not be available to its parent or sibling commands.</p>
+</li>
+</ul>
 
   </div>
 </article>
@@ -208,7 +219,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fmt"><span class="toc-number">1.</span> <span class="toc-text">fmt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json"><span class="toc-number">2.</span> <span class="toc-text">json</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fmt"><span class="toc-number">1.</span> <span class="toc-text">fmt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json"><span class="toc-number">2.</span> <span class="toc-text">json</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cobra"><span class="toc-number">3.</span> <span class="toc-text">cobra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PersistentFlag-vs-Flag"><span class="toc-number">3.1.</span> <span class="toc-text">PersistentFlag vs Flag</span></a></li></ol></li></ol>
       </div>
     
 
