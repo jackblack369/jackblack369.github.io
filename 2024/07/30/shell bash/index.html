@@ -14,7 +14,7 @@
 <meta property="og:description" content="the shell assigns its exit code to the $? environment variable. The $? variable is how we usually test whether a script has succeeded or not in its execution.  syntaxset -x ​    1.    Debugging: When">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-30T10:39:34.000Z">
-<meta property="article:modified_time" content="2024-10-10T07:33:50.433Z">
+<meta property="article:modified_time" content="2024-12-24T06:42:14.789Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="bash">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.1.</span> <span class="toc-text">set -x</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.1.</span> <span class="toc-text">set -x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shift-2"><span class="toc-number">1.2.</span> <span class="toc-text">shift 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li></ol>
       </div>
     
   </span>
@@ -178,8 +178,11 @@
 <p>output:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">This is a normal message</span><br><span class="line">+ name=John</span><br><span class="line">+ echo &#x27;Hello, John&#x27;</span><br><span class="line">Hello, John</span><br><span class="line">Debugging mode is now off</span><br></pre></td></tr></table></figure>
 
-
-
+<h2 id="shift-2"><a href="#shift-2" class="headerlink" title="shift 2"></a>shift 2</h2><ul>
+<li>Removes the first two positional parameters from command line arguments</li>
+<li>Shifts remaining parameters left by 2 positions</li>
+<li>Useful when processing command line options/arguments in loops</li>
+</ul>
 <h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
 <li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
 </ul>
@@ -214,7 +217,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.1.</span> <span class="toc-text">set -x</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.1.</span> <span class="toc-text">set -x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shift-2"><span class="toc-number">1.2.</span> <span class="toc-text">shift 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li></ol>
       </div>
     
 
