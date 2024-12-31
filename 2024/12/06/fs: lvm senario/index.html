@@ -6,18 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •    Disks: &#x2F;">
+    <meta name="description" content="overview  create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lvm senario">
-<meta property="og:url" content="https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/index.html">
+<meta property="og:url" content="https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •    Disks: &#x2F;">
+<meta property="og:description" content="overview  create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/fs/lvm_overview-1.svg">
 <meta property="article:published_time" content="2024-12-06T02:43:30.000Z">
-<meta property="article:modified_time" content="2024-12-06T02:51:29.073Z">
+<meta property="article:modified_time" content="2024-12-31T02:41:20.405Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="lvm">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/fs/lvm_overview-1.svg">
     
     
       
@@ -103,20 +105,20 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&text=lvm senario"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=lvm senario&body=Check out this article: https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&t=lvm senario"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&text=lvm senario"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lvm senario&body=Check out this article: https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&title=lvm senario"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&title=lvm senario"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&title=lvm senario"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&t=lvm senario"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-LVs"><span class="toc-number">1.</span> <span class="toc-text">create LVs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Create-Physical-Volumes-PVs"><span class="toc-number">1.1.</span> <span class="toc-text">1. Create Physical Volumes (PVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Create-Volume-Groups-VGs"><span class="toc-number">1.2.</span> <span class="toc-text">2. Create Volume Groups (VGs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Create-Logical-Volumes-LVs"><span class="toc-number">1.3.</span> <span class="toc-text">3. Create Logical Volumes (LVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Verify-the-Setup"><span class="toc-number">1.4.</span> <span class="toc-text">4. Verify the Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Format-the-LVs"><span class="toc-number">1.5.</span> <span class="toc-text">5. Format the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Mount-the-LVs"><span class="toc-number">1.6.</span> <span class="toc-text">6. Mount the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Persist-the-Mounts"><span class="toc-number">1.7.</span> <span class="toc-text">7. Persist the Mounts</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#create-LVs"><span class="toc-number">2.</span> <span class="toc-text">create LVs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Create-Physical-Volumes-PVs"><span class="toc-number">2.1.</span> <span class="toc-text">1. Create Physical Volumes (PVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Create-Volume-Groups-VGs"><span class="toc-number">2.2.</span> <span class="toc-text">2. Create Volume Groups (VGs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Create-Logical-Volumes-LVs"><span class="toc-number">2.3.</span> <span class="toc-text">3. Create Logical Volumes (LVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Verify-the-Setup"><span class="toc-number">2.4.</span> <span class="toc-text">4. Verify the Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Format-the-LVs"><span class="toc-number">2.5.</span> <span class="toc-text">5. Format the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Mount-the-LVs"><span class="toc-number">2.6.</span> <span class="toc-text">6. Mount the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Persist-the-Mounts"><span class="toc-number">2.7.</span> <span class="toc-text">7. Persist the Mounts</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,7 +168,9 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="create-LVs"><a href="#create-LVs" class="headerlink" title="create LVs"></a>create LVs</h1><blockquote>
+    <h1 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h1><img src="/images/fs/lvm_overview-1.svg">
+
+<h1 id="create-LVs"><a href="#create-LVs" class="headerlink" title="create LVs"></a>create LVs</h1><blockquote>
 <p> If you want to create <strong>three Logical Volumes (LVs)</strong> of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.</p>
 </blockquote>
 <p>Assume:</p>
@@ -222,19 +226,19 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#create-LVs"><span class="toc-number">1.</span> <span class="toc-text">create LVs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Create-Physical-Volumes-PVs"><span class="toc-number">1.1.</span> <span class="toc-text">1. Create Physical Volumes (PVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Create-Volume-Groups-VGs"><span class="toc-number">1.2.</span> <span class="toc-text">2. Create Volume Groups (VGs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Create-Logical-Volumes-LVs"><span class="toc-number">1.3.</span> <span class="toc-text">3. Create Logical Volumes (LVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Verify-the-Setup"><span class="toc-number">1.4.</span> <span class="toc-text">4. Verify the Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Format-the-LVs"><span class="toc-number">1.5.</span> <span class="toc-text">5. Format the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Mount-the-LVs"><span class="toc-number">1.6.</span> <span class="toc-text">6. Mount the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Persist-the-Mounts"><span class="toc-number">1.7.</span> <span class="toc-text">7. Persist the Mounts</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#create-LVs"><span class="toc-number">2.</span> <span class="toc-text">create LVs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Create-Physical-Volumes-PVs"><span class="toc-number">2.1.</span> <span class="toc-text">1. Create Physical Volumes (PVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Create-Volume-Groups-VGs"><span class="toc-number">2.2.</span> <span class="toc-text">2. Create Volume Groups (VGs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Create-Logical-Volumes-LVs"><span class="toc-number">2.3.</span> <span class="toc-text">3. Create Logical Volumes (LVs)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Verify-the-Setup"><span class="toc-number">2.4.</span> <span class="toc-text">4. Verify the Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Format-the-LVs"><span class="toc-number">2.5.</span> <span class="toc-text">5. Format the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Mount-the-LVs"><span class="toc-number">2.6.</span> <span class="toc-text">6. Mount the LVs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Persist-the-Mounts"><span class="toc-number">2.7.</span> <span class="toc-text">7. Persist the Mounts</span></a></li></ol></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&text=lvm senario"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=lvm senario&body=Check out this article: https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&title=lvm senario"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/06/file%20system:%20lvm%20senario/&t=lvm senario"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&text=lvm senario"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lvm senario&body=Check out this article: https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&title=lvm senario"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&title=lvm senario"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&title=lvm senario"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/&t=lvm senario"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
