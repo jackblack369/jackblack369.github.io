@@ -13005,7 +13005,9 @@
 </ul>
 <h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br></pre></td></tr></table></figure>
 
-<h1 id="system"><a href="#system" class="headerlink" title="system"></a>system</h1><h2 id="time"><a href="#time" class="headerlink" title="time"></a>time</h2><ul>
+<h1 id="system"><a href="#system" class="headerlink" title="system"></a>system</h1><h2 id="core"><a href="#core" class="headerlink" title="core"></a>core</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置 core 文件的存放路径</span></span><br><span class="line">echo &quot;/core/core.%e.%p&quot; &gt; /proc/sys/kernel/core_pattern</span><br></pre></td></tr></table></figure>
+
+<h2 id="time"><a href="#time" class="headerlink" title="time"></a>time</h2><ul>
 <li><p>unning duration or uptime</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> option 1</span></span><br><span class="line">uptime</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> option 2</span></span><br><span class="line">who -b</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -13409,7 +13411,54 @@
 
 <h2 id="7-Persist-the-Mounts"><a href="#7-Persist-the-Mounts" class="headerlink" title="7. Persist the Mounts"></a>7. Persist the Mounts</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Add the mounts to /etc/fstab <span class="keyword">for</span> automatic remounting on boot:</span></span><br><span class="line">echo &#x27;/dev/vg_nvme0/lv1 /mnt/nvme0/lv1 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme0/lv2 /mnt/nvme0/lv2 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme0/lv3 /mnt/nvme0/lv3 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line"></span><br><span class="line">echo &#x27;/dev/vg_nvme1/lv1 /mnt/nvme1/lv1 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme1/lv2 /mnt/nvme1/lv2 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme1/lv3 /mnt/nvme1/lv3 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line"></span><br><span class="line">echo &#x27;/dev/vg_nvme2/lv1 /mnt/nvme2/lv1 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme2/lv2 /mnt/nvme2/lv2 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme2/lv3 /mnt/nvme2/lv3 xfs defaults 0 0&#x27; | sudo tee -a /etc/fstab</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> **Final Directory Layout**</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> **Disk**	**VG Name**	**LV Name**	**Size**	**Mount Point**</span></span><br><span class="line">/dev/nvme0n1	vg_nvme0	lv1	1T	/mnt/nvme0/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme0/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme0/lv3</span><br><span class="line"></span><br><span class="line">/dev/nvme1n1	vg_nvme1	lv1	1T	/mnt/nvme1/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme1/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme1/lv3</span><br><span class="line"></span><br><span class="line">/dev/nvme2n1	vg_nvme2	lv1	1T	/mnt/nvme2/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme2/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme2/lv3</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> **Final Directory Layout**</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> **Disk**	**VG Name**	**LV Name**	**Size**	**Mount Point**</span></span><br><span class="line">/dev/nvme0n1	vg_nvme0	lv1	1T	/mnt/nvme0/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme0/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme0/lv3</span><br><span class="line"></span><br><span class="line">/dev/nvme1n1	vg_nvme1	lv1	1T	/mnt/nvme1/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme1/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme1/lv3</span><br><span class="line"></span><br><span class="line">/dev/nvme2n1	vg_nvme2	lv1	1T	/mnt/nvme2/lv1</span><br><span class="line">		lv2	1T	/mnt/nvme2/lv2</span><br><span class="line">		lv3	5T	/mnt/nvme2/lv3</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>defaults 0 x</p>
+<p>The difference is in the last number (0 vs 2) in the fstab entry, which represents the filesystem check (fsck) pass number. Here’s what these numbers mean:</p>
+<p>Last field (6th field) in fstab:</p>
+<ul>
+<li><code>0</code> = No filesystem check will be done at boot time</li>
+<li><code>1</code> = Filesystem will be checked first (typically used for root filesystem /)</li>
+<li><code>2</code> = Filesystem will be checked after pass 1 filesystems (typically used for other filesystems)</li>
+</ul>
+<p>So:</p>
+<ul>
+<li><code>defaults 0 0</code> means the filesystem will never be automatically checked during boot</li>
+<li><code>defaults 0 2</code> means the filesystem will be checked during boot, but after the root filesystem</li>
+</ul>
+<p>Best practices:</p>
+<ul>
+<li>Use <code>0 1</code> for the root filesystem (/)</li>
+<li>Use <code>0 2</code> for other important filesystems that should be checked</li>
+<li>Use <code>0 0</code> for pseudo-filesystems (like proc, sysfs) or filesystems that don’t need checking (like swap)</li>
+</ul>
+</blockquote>
+<h1 id="wipe-disk-and-create-lvm"><a href="#wipe-disk-and-create-lvm" class="headerlink" title="wipe disk and create lvm"></a>wipe disk and create lvm</h1><blockquote>
+<p>assum dev is /dev/nvme2n1</p>
+</blockquote>
+<p>To erase all partitions on the device /dev/nvme2n1 and create multiple logical volumes (LVs) using the LVM framework, follow these steps:</p>
+<h2 id="1-Verify-Device-and-Backup-Data"><a href="#1-Verify-Device-and-Backup-Data" class="headerlink" title="1. Verify Device and Backup Data"></a>1. Verify Device and Backup Data</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Ensure you are working on the correct device. Erasing partitions will delete all data on the device.</span></span><br><span class="line">sudo lsblk -o NAME,SIZE,TYPE,MOUNTPOINT /dev/nvme2n1</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Erase-Existing-Partitions"><a href="#2-Erase-Existing-Partitions" class="headerlink" title="2. Erase Existing Partitions"></a>2. Erase Existing Partitions</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Clear the Partition Table, To wipe the partition table completely:</span></span><br><span class="line">sudo wipefs -a /dev/nvme2n1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the Disk is Clean, Check that no partitions remain</span></span><br><span class="line">sudo lsblk /dev/nvme2n1</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Create-Physical-Volume-PV"><a href="#3-Create-Physical-Volume-PV" class="headerlink" title="3. Create Physical Volume (PV)"></a>3. Create Physical Volume (PV)</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Convert the entire disk into an LVM physical volume:</span></span><br><span class="line">sudo pvcreate /dev/nvme2n1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the PV</span></span><br><span class="line">sudo pvdisplay</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Create-Volume-Group-VG"><a href="#4-Create-Volume-Group-VG" class="headerlink" title="4. Create Volume Group (VG)"></a>4. Create Volume Group (VG)</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create a volume group that spans the entire disk:</span></span><br><span class="line">sudo vgcreate vg_nvme2n1 /dev/nvme2n1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the VG:</span></span><br><span class="line">sudo vgdisplay</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Create-Logical-Volumes-LVs"><a href="#5-Create-Logical-Volumes-LVs" class="headerlink" title="5. Create Logical Volumes (LVs)"></a>5. Create Logical Volumes (LVs)</h2><p>Example: Create Three LVs</p>
+<p>​    •    <strong>LV1</strong>: 1TB</p>
+<p>​    •    <strong>LV2</strong>: 1TB</p>
+<p>​    •    <strong>LV3</strong>: Remaining space</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme2n1</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme2n1</span><br><span class="line">sudo lvcreate -l 100%FREE -n lv8 vg_nvme2n1 --wipesignatures y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the LVs:</span></span><br><span class="line">sudo lvdisplay</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Format-Logical-Volumes"><a href="#6-Format-Logical-Volumes" class="headerlink" title="6. Format Logical Volumes"></a>6. Format Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Format each logical volume with your desired file system (e.g., XFS):</span></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv1</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv2</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv3</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Mount-Logical-Volumes"><a href="#7-Mount-Logical-Volumes" class="headerlink" title="7. Mount Logical Volumes"></a>7. Mount Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create mount points and mount the LVs:</span></span><br><span class="line">sudo mkdir -p /mnt/nvme2n1/lv1 /mnt/nvme2n1/lv2 /mnt/nvme2n1/lv3</span><br><span class="line"></span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv1 /mnt/nvme2n1/lv1</span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2</span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3</span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the mounts:</span></span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-Make-the-Mounts-Persistent"><a href="#8-Make-the-Mounts-Persistent" class="headerlink" title="8. Make the Mounts Persistent"></a>8. Make the Mounts Persistent</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Add entries to /etc/fstab to ensure the LVs are mounted on reboot:</span></span><br><span class="line">echo &#x27;/dev/vg_nvme2n1/lv1 /mnt/nvme2n1/lv1 xfs defaults 0 2&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2 xfs defaults 0 2&#x27; | sudo tee -a /etc/fstab</span><br><span class="line">echo &#x27;/dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3 xfs defaults 0 2&#x27; | sudo tee -a /etc/fstab</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>fs</category>
       </categories>
@@ -13927,7 +13976,10 @@
 </li>
 </ul>
 <h2 id="LVM-1"><a href="#LVM-1" class="headerlink" title="LVM"></a>LVM</h2><ul>
-<li>delete lvm</li>
+<li><p>检查指定vg的可用空间</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vgdisplay vg_nvme2n1 | grep &quot;Free&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>delete lvm</p>
+</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step 1:</span></span><br><span class="line">lsblk</span><br><span class="line">NAME                                                                                                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">sr0                                                                                                    11:0    1 1024M  0 rom  </span><br><span class="line">vda                                                                                                   252:0    0  300G  0 disk </span><br><span class="line">├─vda1                                                                                                252:1    0    6G  0 part /boot</span><br><span class="line">└─vda2                                                                                                252:2    0  290G  0 part </span><br><span class="line">  └─rl_172--20--7--230-root                                                                           253:0    0  290G  0 lvm  /</span><br><span class="line">vdb                                                                                                   252:16   0  100G  0 disk </span><br><span class="line">└─ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce 253:1    0  100G  0 lvm </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step3:</span></span><br><span class="line">sudo vgchange -an ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step4</span></span><br><span class="line">sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262a3f-354b-4d6a-95db-eb18abd939ce</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step5</span></span><br><span class="line">sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091</span><br></pre></td></tr></table></figure>
 
@@ -13946,11 +13998,17 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check vgs</span></span><br><span class="line">sudo vgs</span><br></pre></td></tr></table></figure>
 
-
-
+<h2 id="partition"><a href="#partition" class="headerlink" title="partition"></a>partition</h2><ul>
+<li><p>check specify disk partition</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1</span></span><br><span class="line">sudo parted /dev/&lt;name&gt; print</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">sudo fdisk -l /dev/nvme2n1</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h1 id="toubleshooting"><a href="#toubleshooting" class="headerlink" title="toubleshooting"></a>toubleshooting</h1><ul>
 <li><p>resolve <code>d?????????</code> status directory</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">umount -l /path/to/mount</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span> </span><br><span class="line">fusermount -uz /path/to/mount</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>排查指定分区占用进程</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 假设 /dev/nvme2n1p1 是 /dev/nvme2n1 的子分区，在对/dev/nvme2n1p1操作的时候会提示 cannot open /dev/nvme2n1p1: Device or resource busy，这时可以排查是否是主分区是否被占用，然后<span class="built_in">kill</span>掉相应process</span></span><br><span class="line">sudo lsof | grep /dev/nvme2n1</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
