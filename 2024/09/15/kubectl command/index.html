@@ -14,7 +14,7 @@
 <meta property="og:description" content="commonversion12kubectl versionkubectl api-versions  health1234567891011# check kubernetes inner ip kubectl get svc kubernetes -n default# check api serverkubectl get componentstatuses# check crdkubect">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-09-15T07:45:47.000Z">
-<meta property="article:modified_time" content="2025-01-03T04:09:34.737Z">
+<meta property="article:modified_time" content="2025-01-16T09:27:04.580Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -90,7 +90,7 @@
         <li><a class="icon" aria-label="Previous post" href="/2024/09/29/minio/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2024/09/09/ceph%20learn/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2024/09/09/ceph%20command/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -172,7 +172,7 @@
 
 <h3 id="label"><a href="#label" class="headerlink" title="label"></a>label</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check node label</span></span><br><span class="line">kubectl get nodes --show-labels</span><br></pre></td></tr></table></figure>
 
-<h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get namespaces</span><br></pre></td></tr></table></figure>
+<h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get namespaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># delete all resource by specify namespace</span></span><br><span class="line">kubectl delete all --all -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h2><h3 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list namespace<span class="string">&#x27;s pod</span></span></span><br><span class="line">kubectl get pod -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> force delete pod</span></span></span><br><span class="line">kubectl delete pod &#123;pod_name&#125; --grace-period=0 --force -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> describe</span></span></span><br><span class="line">kubectl describe pod &#123;podName&#125;</span><br></pre></td></tr></table></figure>
 
@@ -197,7 +197,7 @@
 
 <h2 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h2><h3 id="CSIDriver"><a href="#CSIDriver" class="headerlink" title="CSIDriver"></a>CSIDriver</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get csidrivers</span><br></pre></td></tr></table></figure>
 
-<h3 id="storageclass"><a href="#storageclass" class="headerlink" title="storageclass"></a>storageclass</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get storageclass</span><br></pre></td></tr></table></figure>
+<h3 id="storageclass"><a href="#storageclass" class="headerlink" title="storageclass"></a>storageclass</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get storageclass</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete</span> </span><br><span class="line">kubectl delete storageclass &lt;sc-name&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="pvc"><a href="#pvc" class="headerlink" title="pvc"></a>pvc</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pvc</span><br></pre></td></tr></table></figure>
 
