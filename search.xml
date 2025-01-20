@@ -7979,21 +7979,7 @@
 <li><p>check containerd version</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">containerd --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> containerd containerd.io 1.7.19</span> </span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="CRI-O"><a href="#CRI-O" class="headerlink" title="CRI-O"></a>CRI-O</h3><ul>
-<li><p>set repo</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/cri-o.repo</span><br><span class="line">[cri-o]</span><br><span class="line">name=CRI-O</span><br><span class="line">baseurl=https://mirrors.ustc.edu.cn/kubernetes/addons:/cri-o:/stable:/v1.30/rpm/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://mirrors.ustc.edu.cn/kubernetes/addons:/cri-o:/stable:/v1.30/rpm/repodata/repomd.xml.key</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></li>
-<li><p>install</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dnf install -y container-selinux</span><br><span class="line">dnf install -y cri-o</span><br><span class="line">systemctl start crio.service</span><br></pre></td></tr></table></figure></li>
-<li><p>bootstrap cluster</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -w net.ipv4.ip_forward=1</span><br><span class="line"></span><br><span class="line">kubeadm init</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Docker-Engine"><a href="#Docker-Engine" class="headerlink" title="Docker Engine"></a>Docker Engine</h3><ul>
-<li><p>install docker (existing)</p>
-</li>
-<li><p>install <code>cri-dockerd</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> extract tgz</span></span><br><span class="line">tar -xzvf cri-dockerd-0.3.15.amd64.tgz</span><br><span class="line"></span><br><span class="line">sudo mv ./cri-dockerd /usr/local/bin/</span><br><span class="line">wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.service</span><br><span class="line">wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.socket</span><br><span class="line">sudo mv cri-docker.socket cri-docker.service /etc/systemd/system/</span><br><span class="line">sudo sed -i -e &#x27;s,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,&#x27; /etc/systemd/system/cri-docker.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span> service</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl enable cri-docker.service</span><br><span class="line">sudo systemctl enable --now cri-docker.socket</span><br><span class="line">sudo systemctl status cri-docker.socket</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="config-crictl"><a href="#config-crictl" class="headerlink" title="config crictl"></a>config crictl</h2><ul>
+<h4 id="config-crictl-optional-containerd-cli"><a href="#config-crictl-optional-containerd-cli" class="headerlink" title="config crictl(optional containerd cli)"></a>config crictl(optional containerd cli)</h4><ul>
 <li>Config containerd <code>vim /etc/crictl.yaml</code></li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">runtime-endpoint:</span> <span class="string">unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="attr">image-endpoint:</span> <span class="string">unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="attr">timeout:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">debug:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">pull-image-on-create:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
@@ -8003,9 +7989,21 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo crictl info</span><br></pre></td></tr></table></figure>
 
-
-
-<h2 id="kubeadm-deploy-cluster"><a href="#kubeadm-deploy-cluster" class="headerlink" title="kubeadm deploy cluster"></a>kubeadm deploy cluster</h2><h3 id="Initializing-control-plane-node"><a href="#Initializing-control-plane-node" class="headerlink" title="Initializing  control-plane node"></a>Initializing  control-plane node</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo kubeadm config images pull --config kubeadm.conf</span><br><span class="line"></span><br><span class="line">sudo kubeadm init --config kubeadm.conf</span><br></pre></td></tr></table></figure>
+<h3 id="CRI-O-optional"><a href="#CRI-O-optional" class="headerlink" title="CRI-O (optional)"></a>CRI-O (optional)</h3><ul>
+<li><p>set repo</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/cri-o.repo</span><br><span class="line">[cri-o]</span><br><span class="line">name=CRI-O</span><br><span class="line">baseurl=https://mirrors.ustc.edu.cn/kubernetes/addons:/cri-o:/stable:/v1.30/rpm/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://mirrors.ustc.edu.cn/kubernetes/addons:/cri-o:/stable:/v1.30/rpm/repodata/repomd.xml.key</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></li>
+<li><p>install</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dnf install -y container-selinux</span><br><span class="line">dnf install -y cri-o</span><br><span class="line">systemctl start crio.service</span><br></pre></td></tr></table></figure></li>
+<li><p>bootstrap cluster</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -w net.ipv4.ip_forward=1</span><br><span class="line"></span><br><span class="line">kubeadm init</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Docker-Engine-optional"><a href="#Docker-Engine-optional" class="headerlink" title="Docker Engine (optional)"></a>Docker Engine (optional)</h3><ul>
+<li><p>install docker (existing)</p>
+</li>
+<li><p>install <code>cri-dockerd</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> extract tgz</span></span><br><span class="line">tar -xzvf cri-dockerd-0.3.15.amd64.tgz</span><br><span class="line"></span><br><span class="line">sudo mv ./cri-dockerd /usr/local/bin/</span><br><span class="line">wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.service</span><br><span class="line">wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.socket</span><br><span class="line">sudo mv cri-docker.socket cri-docker.service /etc/systemd/system/</span><br><span class="line">sudo sed -i -e &#x27;s,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,&#x27; /etc/systemd/system/cri-docker.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span> service</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl enable cri-docker.service</span><br><span class="line">sudo systemctl enable --now cri-docker.socket</span><br><span class="line">sudo systemctl status cri-docker.socket</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="kubeadm-deploy-cluster"><a href="#kubeadm-deploy-cluster" class="headerlink" title="kubeadm deploy cluster"></a>kubeadm deploy cluster</h2><h3 id="Initializing-control-plane-node"><a href="#Initializing-control-plane-node" class="headerlink" title="Initializing  control-plane node"></a>Initializing  control-plane node</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> use flannel as Pod network add-on (CNI plugin)</span></span><br><span class="line">sudo kubeadm init  --apiserver-advertise-address=10.220.32.16 --pod-network-cidr=10.244.0.0/16  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> apply flannel(optional) CNI plugin</span> </span><br><span class="line">kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo kubeadm config images pull --config kubeadm.conf</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo kubeadm init --config kubeadm.conf</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>(optional) resert (back to kubeadm init)</p>
