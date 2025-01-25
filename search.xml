@@ -2162,7 +2162,9 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull hostAddress/library/REPOSITORY:TAG</span><br></pre></td></tr></table></figure>
 
+<h2 id="check-docker-disk-usage"><a href="#check-docker-disk-usage" class="headerlink" title="check docker disk usage"></a>check docker disk usage</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker system df</span><br></pre></td></tr></table></figure>
 
+<h2 id="removes-unused-containers-images-and-volumes"><a href="#removes-unused-containers-images-and-volumes" class="headerlink" title="removes unused containers, images, and volumes"></a>removes unused containers, images, and volumes</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker system prune -a</span><br></pre></td></tr></table></figure>
 
 <h1 id="troubleshoot"><a href="#troubleshoot" class="headerlink" title="troubleshoot"></a>troubleshoot</h1><ul>
 <li>Failed to load listeners: no sockets found via socket activation: make sure the service was started by systemd</li>
@@ -12908,10 +12910,10 @@
 <p> If you want to create <strong>three Logical Volumes (LVs)</strong> of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.</p>
 </blockquote>
 <p>Assume:</p>
-<p>​    •    <strong>Disks</strong>: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1</p>
-<p>​    •    <strong>Volume Groups</strong>: vg_nvme0, vg_nvme1, vg_nvme2</p>
-<p>​    •    <strong>Logical Volumes (LVs)</strong>: lv1, lv2, lv3 for each VG</p>
-<p>​    •    <strong>LV Sizes</strong>: 1TB, 1TB, and 5TB</p>
+<p><strong>Disks</strong>: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1</p>
+<p><strong>Volume Groups</strong>: vg_nvme0, vg_nvme1, vg_nvme2</p>
+<p><strong>Logical Volumes (LVs)</strong>: lv1, lv2, lv3 for each VG</p>
+<p><strong>LV Sizes</strong>: 1TB, 1TB, and 5TB</p>
 <h2 id="1-Create-Physical-Volumes-PVs"><a href="#1-Create-Physical-Volumes-PVs" class="headerlink" title="1. Create Physical Volumes (PVs)"></a>1. Create Physical Volumes (PVs)</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Initialize each disk as a PV:</span></span><br><span class="line">sudo pvcreate /dev/nvme0n1</span><br><span class="line">sudo pvcreate /dev/nvme1n1</span><br><span class="line">sudo pvcreate /dev/nvme2n1</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-Create-Volume-Groups-VGs"><a href="#2-Create-Volume-Groups-VGs" class="headerlink" title="2. Create Volume Groups (VGs)"></a>2. Create Volume Groups (VGs)</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create a VG <span class="keyword">for</span> each disk:</span></span><br><span class="line">sudo vgcreate vg_nvme0 /dev/nvme0n1</span><br><span class="line">sudo vgcreate vg_nvme1 /dev/nvme1n1</span><br><span class="line">sudo vgcreate vg_nvme2 /dev/nvme2n1</span><br></pre></td></tr></table></figure>
@@ -12965,12 +12967,12 @@
 <h2 id="4-Create-Volume-Group-VG"><a href="#4-Create-Volume-Group-VG" class="headerlink" title="4. Create Volume Group (VG)"></a>4. Create Volume Group (VG)</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create a volume group that spans the entire disk:</span></span><br><span class="line">sudo vgcreate vg_nvme2n1 /dev/nvme2n1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the VG:</span></span><br><span class="line">sudo vgdisplay</span><br></pre></td></tr></table></figure>
 
 <h2 id="5-Create-Logical-Volumes-LVs"><a href="#5-Create-Logical-Volumes-LVs" class="headerlink" title="5. Create Logical Volumes (LVs)"></a>5. Create Logical Volumes (LVs)</h2><p>Example: Create Three LVs</p>
-<p>​    •    <strong>LV1</strong>: 1TB</p>
-<p>​    •    <strong>LV2</strong>: 1TB</p>
-<p>​    •    <strong>LV3</strong>: Remaining space</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme2n1</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme2n1</span><br><span class="line">sudo lvcreate -l 100%FREE -n lv8 vg_nvme2n1 --wipesignatures y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the LVs:</span></span><br><span class="line">sudo lvdisplay</span><br></pre></td></tr></table></figure>
+<p><strong>LV1</strong>: 1TB</p>
+<p><strong>LV2</strong>: 1TB</p>
+<p><strong>LV3</strong>: Remaining space</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme2n1</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme2n1</span><br><span class="line">sudo lvcreate -l 100%FREE -n lv3 vg_nvme2n1 --wipesignatures y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the LVs:</span></span><br><span class="line">sudo lvdisplay</span><br></pre></td></tr></table></figure>
 
-<h2 id="6-Format-Logical-Volumes"><a href="#6-Format-Logical-Volumes" class="headerlink" title="6. Format Logical Volumes"></a>6. Format Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Format each logical volume with your desired file system (e.g., XFS):</span></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv1</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv2</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv3</span><br></pre></td></tr></table></figure>
+<h2 id="6-Format-Logical-Volumes"><a href="#6-Format-Logical-Volumes" class="headerlink" title="6. Format Logical Volumes"></a>6. Format Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Format each logical volume with your desired file system (e.g., XFS):</span></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv1</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv2</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv3</span><br></pre></td></tr></table></figure>
 
 <h2 id="7-Mount-Logical-Volumes"><a href="#7-Mount-Logical-Volumes" class="headerlink" title="7. Mount Logical Volumes"></a>7. Mount Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create mount points and mount the LVs:</span></span><br><span class="line">sudo mkdir -p /mnt/nvme2n1/lv1 /mnt/nvme2n1/lv2 /mnt/nvme2n1/lv3</span><br><span class="line"></span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv1 /mnt/nvme2n1/lv1</span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2</span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3</span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the mounts:</span></span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
 
@@ -14189,7 +14191,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
-<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line">- opitional-1 ubuntu/debian</span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"></span><br><span class="line">- opitional-2 edit visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
@@ -14409,7 +14411,7 @@
 </ol>
 </li>
 <li><p>Change the I/O Scheduler</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To <span class="built_in">set</span> the mq-deadline scheduler <span class="keyword">for</span> nvme0n1, use:</span></span><br><span class="line">echo mq-deadline | sudo tee /sys/block/nvme0n1/queue/scheduler</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To <span class="built_in">set</span> the none scheduler <span class="keyword">for</span> nvme0n1, use:</span></span><br><span class="line">echo none | sudo tee /sys/block/nvme0n1/queue/scheduler</span><br></pre></td></tr></table></figure>
 
 <p><strong>When to Change the Scheduler?</strong></p>
 <ul>
@@ -14431,6 +14433,9 @@
 <li><p>Check Current Limits</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To see the current limits <span class="keyword">for</span> a user:</span></span><br><span class="line">ulimit -n # Check open file limit</span><br><span class="line">ulimit -a # Check all limits</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> To check system-wide limits:</span></span><br><span class="line">cat /proc/sys/fs/file-max</span><br></pre></td></tr></table></figure></li>
 <li><p>Set Open File Limits for a Specific User</p>
+<blockquote>
+<p>The changes in limits.conf are only applied to new login sessions</p>
+</blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/security/limits.conf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the following lines (replace username with the actual user):</span></span><br><span class="line">username soft nofile 65535</span><br><span class="line">username hard nofile 65535</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>​    <strong>soft</strong>: The default limit the user gets.</p>
@@ -14462,9 +14467,9 @@
 <p><strong>Step 2: Make THP Disabled at Boot</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add:</span></span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;transparent_hugepage=never&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Update GRUB:</span></span><br><span class="line">sudo grub2-mkconfig -o /boot/grub2/grub.cfg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Reboot:</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></li>
 <li><p>Verification After Reboot</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check Huge Pages Allocation</span></span><br><span class="line">cat /proc/meminfo | grep HugePages</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check THP Status</span></span><br><span class="line">cat /sys/kernel/mm/transparent_hugepage/enabled</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Expected output:</span></span><br><span class="line">always madvise [never]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check Huge Pages Allocation</span></span><br><span class="line">cat /proc/meminfo | grep HugePages</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check THP Status</span></span><br><span class="line">cat /sys/kernel/mm/transparent_hugepage/enabled</span><br><span class="line"><span class="meta">#</span><span class="bash"> Expected output:</span></span><br><span class="line">always madvise [never]</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>Summary: Should You Configure HP &amp; THP Together?**</p>
+<p>Summary: Should You Configure HP &amp; THP Together?</p>
 <p>For performance-sensitive applications, it’s recommended to <strong>disable THP</strong> and <strong>manually configure Huge Pages (HP)</strong> for better performance.</p>
 <p>THP can cause latency spikes and memory fragmentation, making it less ideal for high-performance file systems.</p>
 ]]></content>
@@ -14473,6 +14478,106 @@
       </categories>
       <tags>
         <tag>tune</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux A vs B</title>
+    <url>/2025/01/22/linux%20A%20vs%20B/</url>
+    <content><![CDATA[<h1 id="Systemd-limits-vs-PAM-limits"><a href="#Systemd-limits-vs-PAM-limits" class="headerlink" title="Systemd limits vs PAM limits"></a>Systemd limits vs PAM limits</h1><p><strong>Systemd limits</strong> and <strong>PAM limits</strong> are two different ways of configuring resource limits in Linux. They control aspects like <strong>open file limits (<strong>nofile</strong>)</strong>, <strong>memory</strong>, and <strong>CPU usage</strong>, but they work at different levels of the system.</p>
+<h2 id="PAM-Limits"><a href="#PAM-Limits" class="headerlink" title="PAM Limits"></a>PAM Limits</h2><p>PAM (Pluggable Authentication Module) sets limits when <strong>a user logs in</strong> via <strong>SSH, TTY, or GUI login</strong>. It does <strong>not</strong> apply to system services. </p>
+<p><strong>Configuration:</strong></p>
+<ul>
+<li><p>/etc/security/limits.conf</p>
+</li>
+<li><p>/etc/security/limits.d/*.conf</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Example (/etc/security/limits.conf or /etc/security/limits.d/custom.conf):**</span></span><br><span class="line">dongw soft nofile 65535</span><br><span class="line">dongw hard nofile 65535</span><br></pre></td></tr></table></figure>
+
+<p><strong>Limitations of PAM:</strong></p>
+<ul>
+<li><p>Only affects interactive logins (TTY, SSH, GUI).</p>
+</li>
+<li><p>Does <strong>not</strong> apply to systemd-managed services.</p>
+</li>
+</ul>
+<h2 id="Systemd-Limits"><a href="#Systemd-Limits" class="headerlink" title="Systemd Limits"></a>Systemd Limits</h2><p>Systemd sets limits <strong>for system services and user sessions</strong>. It applies to <strong>both login sessions and system services</strong>, making it more powerful than PAM.</p>
+<p><strong>Configuration:</strong></p>
+<ul>
+<li><p><strong>Global (for all services and users)</strong>:</p>
+</li>
+<li><p>/etc/systemd/system.conf (system-wide limits)</p>
+</li>
+<li><p>/etc/systemd/user.conf (per-user session limits)</p>
+</li>
+<li><p><strong>Per-service limits</strong> (for specific services):</p>
+</li>
+<li><p>/etc/systemd/system/<service>.service</p>
+</li>
+</ul>
+<h3 id="Global-Limits"><a href="#Global-Limits" class="headerlink" title="Global Limits"></a>Global Limits</h3><p>Applies to <strong>all</strong> processes managed by systemd. (/etc/systemd/system.conf or /etc/systemd/user.conf)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DefaultLimitNOFILE=65535</span><br></pre></td></tr></table></figure>
+
+<h3 id="Per-Service-Limits"><a href="#Per-Service-Limits" class="headerlink" title="Per-Service Limits"></a>Per-Service Limits</h3><p> This applies to only on specify service. (e.g. /etc/systemd/system/myservice.service)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Service]</span><br><span class="line">LimitNOFILE=65535</span><br></pre></td></tr></table></figure>
+
+<p><strong>Advantages of Systemd Limits:</strong></p>
+<ul>
+<li><p>Affects <strong>both user logins and system services</strong>.</p>
+</li>
+<li><p>Ensures limits persist across <strong>system reboots</strong>.</p>
+</li>
+<li><p>More reliable for applications like Ceph, Docker, and databases.</p>
+</li>
+</ul>
+<h2 id="Comparison-Table"><a href="#Comparison-Table" class="headerlink" title="Comparison Table"></a><strong>Comparison Table</strong></h2><table>
+<thead>
+<tr>
+<th align="left"><strong>Feature</strong></th>
+<th><strong>PAM Limits (<code>limits.conf</code>)</strong></th>
+<th><strong>Systemd Limits (<code>system.conf</code>/<code>.service</code>)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Applies to interactive users</td>
+<td>✅ Yes (SSH, TTY, GUI)</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td align="left">Applies to system services</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td align="left">Persists across reboots</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td align="left">Easy to configure</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td align="left">Best for tuning servers</td>
+<td>⚠️  Partial</td>
+<td>✅ Yes</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>For interactive user sessions</strong> → Use <strong>PAM (<strong>limits.conf</strong>)</strong>.</p>
+</li>
+<li><p><strong>For system services and all users</strong> → Use <strong>Systemd (<strong>system.conf</strong>,</strong> .service**)**.</p>
+</li>
+<li><p><strong>For the best persistence and reliability</strong>, configure <strong>both</strong>.</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>A vs B</tag>
       </tags>
   </entry>
 </search>

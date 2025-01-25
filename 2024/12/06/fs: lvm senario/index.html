@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="overview  create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •">
+    <meta name="description" content="overview  create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: Disks: &#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lvm senario">
 <meta property="og:url" content="https://www.willshirley.top/2024/12/06/fs:%20lvm%20senario/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="overview  create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: ​    •">
+<meta property="og:description" content="overview  create LVs  If you want to create three Logical Volumes (LVs) of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.  Assume: Disks: &#x2F;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/lvm_overview-1.svg">
 <meta property="article:published_time" content="2024-12-06T02:43:30.000Z">
-<meta property="article:modified_time" content="2024-12-31T06:12:34.651Z">
+<meta property="article:modified_time" content="2025-01-21T10:17:19.494Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="lvm">
 <meta name="twitter:card" content="summary">
@@ -174,10 +174,10 @@
 <p> If you want to create <strong>three Logical Volumes (LVs)</strong> of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.</p>
 </blockquote>
 <p>Assume:</p>
-<p>​    •    <strong>Disks</strong>: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1</p>
-<p>​    •    <strong>Volume Groups</strong>: vg_nvme0, vg_nvme1, vg_nvme2</p>
-<p>​    •    <strong>Logical Volumes (LVs)</strong>: lv1, lv2, lv3 for each VG</p>
-<p>​    •    <strong>LV Sizes</strong>: 1TB, 1TB, and 5TB</p>
+<p><strong>Disks</strong>: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1</p>
+<p><strong>Volume Groups</strong>: vg_nvme0, vg_nvme1, vg_nvme2</p>
+<p><strong>Logical Volumes (LVs)</strong>: lv1, lv2, lv3 for each VG</p>
+<p><strong>LV Sizes</strong>: 1TB, 1TB, and 5TB</p>
 <h2 id="1-Create-Physical-Volumes-PVs"><a href="#1-Create-Physical-Volumes-PVs" class="headerlink" title="1. Create Physical Volumes (PVs)"></a>1. Create Physical Volumes (PVs)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Initialize each disk as a PV:</span></span><br><span class="line">sudo pvcreate /dev/nvme0n1</span><br><span class="line">sudo pvcreate /dev/nvme1n1</span><br><span class="line">sudo pvcreate /dev/nvme2n1</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-Create-Volume-Groups-VGs"><a href="#2-Create-Volume-Groups-VGs" class="headerlink" title="2. Create Volume Groups (VGs)"></a>2. Create Volume Groups (VGs)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create a VG <span class="keyword">for</span> each disk:</span></span><br><span class="line">sudo vgcreate vg_nvme0 /dev/nvme0n1</span><br><span class="line">sudo vgcreate vg_nvme1 /dev/nvme1n1</span><br><span class="line">sudo vgcreate vg_nvme2 /dev/nvme2n1</span><br></pre></td></tr></table></figure>
@@ -231,12 +231,12 @@
 <h2 id="4-Create-Volume-Group-VG"><a href="#4-Create-Volume-Group-VG" class="headerlink" title="4. Create Volume Group (VG)"></a>4. Create Volume Group (VG)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create a volume group that spans the entire disk:</span></span><br><span class="line">sudo vgcreate vg_nvme2n1 /dev/nvme2n1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the VG:</span></span><br><span class="line">sudo vgdisplay</span><br></pre></td></tr></table></figure>
 
 <h2 id="5-Create-Logical-Volumes-LVs"><a href="#5-Create-Logical-Volumes-LVs" class="headerlink" title="5. Create Logical Volumes (LVs)"></a>5. Create Logical Volumes (LVs)</h2><p>Example: Create Three LVs</p>
-<p>​    •    <strong>LV1</strong>: 1TB</p>
-<p>​    •    <strong>LV2</strong>: 1TB</p>
-<p>​    •    <strong>LV3</strong>: Remaining space</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme2n1</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme2n1</span><br><span class="line">sudo lvcreate -l 100%FREE -n lv8 vg_nvme2n1 --wipesignatures y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the LVs:</span></span><br><span class="line">sudo lvdisplay</span><br></pre></td></tr></table></figure>
+<p><strong>LV1</strong>: 1TB</p>
+<p><strong>LV2</strong>: 1TB</p>
+<p><strong>LV3</strong>: Remaining space</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo lvcreate -L 1T -n lv1 vg_nvme2n1</span><br><span class="line">sudo lvcreate -L 1T -n lv2 vg_nvme2n1</span><br><span class="line">sudo lvcreate -l 100%FREE -n lv3 vg_nvme2n1 --wipesignatures y</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the LVs:</span></span><br><span class="line">sudo lvdisplay</span><br></pre></td></tr></table></figure>
 
-<h2 id="6-Format-Logical-Volumes"><a href="#6-Format-Logical-Volumes" class="headerlink" title="6. Format Logical Volumes"></a>6. Format Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Format each logical volume with your desired file system (e.g., XFS):</span></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv1</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv2</span><br><span class="line"></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv3</span><br></pre></td></tr></table></figure>
+<h2 id="6-Format-Logical-Volumes"><a href="#6-Format-Logical-Volumes" class="headerlink" title="6. Format Logical Volumes"></a>6. Format Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Format each logical volume with your desired file system (e.g., XFS):</span></span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv1</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv2</span><br><span class="line">sudo mkfs.xfs /dev/vg_nvme2n1/lv3</span><br></pre></td></tr></table></figure>
 
 <h2 id="7-Mount-Logical-Volumes"><a href="#7-Mount-Logical-Volumes" class="headerlink" title="7. Mount Logical Volumes"></a>7. Mount Logical Volumes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create mount points and mount the LVs:</span></span><br><span class="line">sudo mkdir -p /mnt/nvme2n1/lv1 /mnt/nvme2n1/lv2 /mnt/nvme2n1/lv3</span><br><span class="line"></span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv1 /mnt/nvme2n1/lv1</span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2</span><br><span class="line">sudo mount /dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3</span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the mounts:</span></span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
 

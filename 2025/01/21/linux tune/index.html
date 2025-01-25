@@ -14,7 +14,7 @@
 <meta property="og:description" content="cpugovernor strategy Check Available CPU Governors 12345# Run the following command to check available CPU governors:cat &#x2F;sys&#x2F;devices&#x2F;system&#x2F;cpu&#x2F;cpu0&#x2F;cpufreq&#x2F;scaling_available_governors# You should se">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-01-21T02:43:04.000Z">
-<meta property="article:modified_time" content="2025-01-21T03:49:36.205Z">
+<meta property="article:modified_time" content="2025-01-23T03:55:01.169Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tune">
 <meta name="twitter:card" content="summary">
@@ -86,6 +86,8 @@
     <br/>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/01/22/linux%20A%20vs%20B/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="Next post" href="/2025/01/17/fs:%20nvme/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -191,7 +193,7 @@
 </ol>
 </li>
 <li><p>Change the I/O Scheduler</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To <span class="built_in">set</span> the mq-deadline scheduler <span class="keyword">for</span> nvme0n1, use:</span></span><br><span class="line">echo mq-deadline | sudo tee /sys/block/nvme0n1/queue/scheduler</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To <span class="built_in">set</span> the none scheduler <span class="keyword">for</span> nvme0n1, use:</span></span><br><span class="line">echo none | sudo tee /sys/block/nvme0n1/queue/scheduler</span><br></pre></td></tr></table></figure>
 
 <p><strong>When to Change the Scheduler?</strong></p>
 <ul>
@@ -213,6 +215,9 @@
 <li><p>Check Current Limits</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To see the current limits <span class="keyword">for</span> a user:</span></span><br><span class="line">ulimit -n # Check open file limit</span><br><span class="line">ulimit -a # Check all limits</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> To check system-wide limits:</span></span><br><span class="line">cat /proc/sys/fs/file-max</span><br></pre></td></tr></table></figure></li>
 <li><p>Set Open File Limits for a Specific User</p>
+<blockquote>
+<p>The changes in limits.conf are only applied to new login sessions</p>
+</blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/security/limits.conf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add the following lines (replace username with the actual user):</span></span><br><span class="line">username soft nofile 65535</span><br><span class="line">username hard nofile 65535</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>​    <strong>soft</strong>: The default limit the user gets.</p>
@@ -244,9 +249,9 @@
 <p><strong>Step 2: Make THP Disabled at Boot</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add:</span></span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;transparent_hugepage=never&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Update GRUB:</span></span><br><span class="line">sudo grub2-mkconfig -o /boot/grub2/grub.cfg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Reboot:</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></li>
 <li><p>Verification After Reboot</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check Huge Pages Allocation</span></span><br><span class="line">cat /proc/meminfo | grep HugePages</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check THP Status</span></span><br><span class="line">cat /sys/kernel/mm/transparent_hugepage/enabled</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Expected output:</span></span><br><span class="line">always madvise [never]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check Huge Pages Allocation</span></span><br><span class="line">cat /proc/meminfo | grep HugePages</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check THP Status</span></span><br><span class="line">cat /sys/kernel/mm/transparent_hugepage/enabled</span><br><span class="line"><span class="meta">#</span><span class="bash"> Expected output:</span></span><br><span class="line">always madvise [never]</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>Summary: Should You Configure HP &amp; THP Together?**</p>
+<p>Summary: Should You Configure HP &amp; THP Together?</p>
 <p>For performance-sensitive applications, it’s recommended to <strong>disable THP</strong> and <strong>manually configure Huge Pages (HP)</strong> for better performance.</p>
 <p>THP can cause latency spikes and memory fragmentation, making it less ideal for high-performance file systems.</p>
 
