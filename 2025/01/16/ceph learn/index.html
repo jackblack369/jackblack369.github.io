@@ -8,16 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="overviewA Ceph Storage Cluster requires the following: at least one Ceph Monitor and at least one Ceph Manager, and at least as many Ceph Object Storage Daemons (OSDs) as there are copies of a given o">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ceph learn">
+<meta property="og:title" content="ceph storage cluster">
 <meta property="og:url" content="https://www.willshirley.top/2025/01/16/ceph%20learn/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
 <meta property="og:description" content="overviewA Ceph Storage Cluster requires the following: at least one Ceph Monitor and at least one Ceph Manager, and at least as many Ceph Object Storage Daemons (OSDs) as there are copies of a given o">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/ceph/stack.webp">
 <meta property="article:published_time" content="2025-01-16T06:57:29.000Z">
-<meta property="article:modified_time" content="2025-01-16T11:16:20.692Z">
+<meta property="article:modified_time" content="2025-02-08T03:08:19.514Z">
 <meta property="article:author" content="brook">
-<meta property="article:tag" content="learn">
+<meta property="article:tag" content="storage">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/ceph/stack.webp">
     
     
       
@@ -37,7 +39,7 @@
       
     
     <!-- title -->
-    <title>ceph learn</title>
+    <title>ceph storage cluster</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -103,20 +105,20 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&text=ceph learn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&text=ceph storage cluster"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/01/16/ceph%20learn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ceph learn&body=Check out this article: https://www.willshirley.top/2025/01/16/ceph%20learn/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph learn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph learn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph learn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/01/16/ceph%20learn/&t=ceph learn"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ceph storage cluster&body=Check out this article: https://www.willshirley.top/2025/01/16/ceph%20learn/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph storage cluster"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph storage cluster"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph storage cluster"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/01/16/ceph%20learn/&t=ceph storage cluster"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#architecture"><span class="toc-number">2.</span> <span class="toc-text">architecture</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Storage-Interfaces"><span class="toc-number">3.</span> <span class="toc-text">Storage Interfaces</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">4.</span> <span class="toc-text">Q&amp;A</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pools-vs-placement-groups-vs-object"><span class="toc-number">4.1.</span> <span class="toc-text">pools vs placement groups vs object</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pools-The-Logical-Storage-Units"><span class="toc-number">4.1.1.</span> <span class="toc-text">Pools: The Logical Storage Units</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Placement-Groups-PGs-Buckets-for-Objects"><span class="toc-number">4.1.2.</span> <span class="toc-text">Placement Groups (PGs): Buckets for Objects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Objects-The-Data-Units-in-Ceph"><span class="toc-number">4.1.3.</span> <span class="toc-text">Objects: The Data Units in Ceph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Putting-It-All-Together"><span class="toc-number">4.1.4.</span> <span class="toc-text">Putting It All Together</span></a></li></ol></li></ol></li></ol>
       </div>
     
   </span>
@@ -129,7 +131,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        ceph learn
+        ceph storage cluster
     </h1>
 
 
@@ -157,7 +159,7 @@
       
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/learn/" rel="tag">learn</a>
+        <a class="p-category" href="/tags/storage/" rel="tag">storage</a>
     </div>
 
 
@@ -167,14 +169,153 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h1 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h1><p>A Ceph Storage Cluster requires the following: at least one Ceph Monitor and at least one Ceph Manager, and at least as many <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-OSD">Ceph Object Storage Daemon</a>s (OSDs) as there are copies of a given object stored in the Ceph cluster (for example, if three copies of a given object are stored in the Ceph cluster, then at least three OSDs must exist in that Ceph cluster).</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    subgraph Ceph</span><br><span class="line">        direction TB</span><br><span class="line">        OSDs[OSDs]</span><br><span class="line">        Monitors[Monitors]</span><br><span class="line">        Managers[Managers]</span><br><span class="line">        MDSs[MDSs]</span><br><span class="line">    end</span><br><span class="line">    OSDs --&gt;|Storage| Ceph</span><br><span class="line">    Monitors --&gt;|Cluster State| Ceph</span><br><span class="line">    Managers --&gt;|Metrics &amp; Control| Ceph</span><br><span class="line">    MDSs --&gt;|Metadata| Ceph</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    %% Define Ceph Components</span><br><span class="line">    subgraph &quot;Ceph Cluster&quot;</span><br><span class="line">        direction TB</span><br><span class="line">        OSDs[&quot;OSDs - Object Storage Daemons\n(Store and replicate data)&quot;]</span><br><span class="line">        Monitors[&quot;Monitors (MON) - Cluster Coordination\n(Maintain cluster map &amp; quorum)&quot;]</span><br><span class="line">        Managers[&quot;Managers (MGR) - Metrics &amp; Control\n(Provide monitoring, orchestration, and services)&quot;]</span><br><span class="line">        MDSs[&quot;MDSs - Metadata Servers\n(Manage CephFS metadata)&quot;]</span><br><span class="line">        RADOS[&quot;RADOS - Reliable Autonomic Distributed Object Store\n(Core distributed storage layer)&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    %% Relationships</span><br><span class="line">    OSDs --&gt;|Store &amp; Replicate Data| RADOS</span><br><span class="line">    Monitors --&gt;|Maintain Cluster State &amp; Quorum| RADOS</span><br><span class="line">    Managers --&gt;|Monitor, Orchestrate &amp; Provide Services| RADOS</span><br><span class="line">    MDSs --&gt;|Manage CephFS Metadata| RADOS</span><br><span class="line">    RADOS --&gt;|Foundation of Ceph Storage| Ceph-Cluster</span><br><span class="line"></span><br><span class="line">    %% Descriptions</span><br><span class="line">    subgraph &quot;Component Descriptions&quot;</span><br><span class="line">        direction TB</span><br><span class="line">        MDSs_Description[&quot;MDSs: Handle metadata for CephFS, enabling file system operations like directory listing and file creation.&quot;]</span><br><span class="line">        RADOS_Description[&quot;RADOS: Core storage layer ensuring data durability, fault tolerance, and scalability.&quot;]</span><br><span class="line">        OSDs_Description[&quot;OSDs: Store, replicate, and recover object data across the cluster.&quot;]</span><br><span class="line">        Monitors_Description[&quot;Monitors: Maintain cluster state, handle authentication, and ensure consensus.&quot;]</span><br><span class="line">        Managers_Description[&quot;Managers: Provide additional cluster management features, including dashboards, orchestration, and monitoring.&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    %% Link Descriptions to Components</span><br><span class="line">    MDSs --&gt; MDSs_Description</span><br><span class="line">    RADOS --&gt; RADOS_Description</span><br><span class="line">    OSDs --&gt; OSDs_Description</span><br><span class="line">    Monitors --&gt; Monitors_Description</span><br><span class="line">    Managers --&gt; Managers_Description</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>Monitors</strong>: A <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Monitor">Ceph Monitor</a> (<code>ceph-mon</code>) maintains maps of the cluster state, including the <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/rados/operations/monitoring/#display-mon-map">monitor map</a>, manager map, the OSD map, the MDS map, and the CRUSH map. These maps are critical cluster state required for Ceph daemons to coordinate with each other. Monitors are also responsible for managing authentication between daemons and clients. At least three monitors are normally required for redundancy and high availability.</li>
-<li><strong>Managers</strong>: A <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Manager">Ceph Manager</a> daemon (<code>ceph-mgr</code>) is responsible for keeping track of runtime metrics and the current state of the Ceph cluster, including storage utilization, current performance metrics, and system load. The Ceph Manager daemons also host python-based modules to manage and expose Ceph cluster information, including a web-based <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/mgr/dashboard/#mgr-dashboard">Ceph Dashboard</a> and <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/mgr/restful">REST API</a>. At least two managers are normally required for high availability.↳</li>
-<li><strong>Ceph OSDs</strong>: An Object Storage Daemon (<a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-OSD">Ceph OSD</a>, <code>ceph-osd</code>) stores data, handles data replication, recovery, rebalancing, and provides some monitoring information to Ceph Monitors and Managers by checking other Ceph OSD Daemons for a heartbeat. At least three Ceph OSDs are normally required for redundancy and high availability.</li>
-<li><strong>MDSs</strong>: A <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Metadata-Server">Ceph Metadata Server</a> (MDS, <code>ceph-mds</code>) stores metadata for the <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-File-System">Ceph File System</a>. Ceph Metadata Servers allow CephFS users to run basic commands (like <code>ls</code>, <code>find</code>, etc.) without placing a burden on the Ceph Storage Cluster.</li>
+<li><p><strong>Monitors</strong>: A <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Monitor">Ceph Monitor</a> (<code>ceph-mon</code>) maintains maps of the cluster state, including the <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/rados/operations/monitoring/#display-mon-map">monitor map</a>, manager map, the OSD map, the MDS map, and the CRUSH map. These maps are critical cluster state required for Ceph daemons to coordinate with each other. Monitors are also responsible for managing authentication between daemons and clients. At least three monitors are normally required for redundancy and high availability.</p>
+</li>
+<li><p><strong>Managers</strong>: A <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Manager">Ceph Manager</a> daemon (<code>ceph-mgr</code>) is responsible for keeping track of runtime metrics and the current state of the Ceph cluster, including storage utilization, current performance metrics, and system load. The Ceph Manager daemons also host python-based modules to manage and expose Ceph cluster information, including a web-based <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/mgr/dashboard/#mgr-dashboard">Ceph Dashboard</a> and <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/mgr/restful">REST API</a>. At least two managers are normally required for high availability.</p>
+</li>
+<li><p><strong>Ceph OSDs</strong>: An Object Storage Daemon (<a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-OSD">Ceph OSD</a>, <code>ceph-osd</code>) stores data, handles data replication, recovery, rebalancing, and provides some monitoring information to Ceph Monitors and Managers by checking other Ceph OSD Daemons for a heartbeat. At least three Ceph OSDs are normally required for redundancy and high availability.</p>
+</li>
+<li><p><strong>MDSs</strong>: A <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Metadata-Server">Ceph Metadata Server</a> (MDS, <code>ceph-mds</code>) stores metadata for the <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-File-System">Ceph File System</a>. Ceph Metadata Servers allow CephFS users to run basic commands (like <code>ls</code>, <code>find</code>, etc.) without placing a burden on the Ceph Storage Cluster.</p>
+</li>
+<li><p><strong>RADOS</strong>: (Reliable Autonomic Distributed Object Store) Any Cluster that supports <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Object-Storage">Ceph Object Storage</a> runs Ceph RADOS Gateway daemons (<code>radosgw</code>).</p>
+</li>
 </ul>
+<ul>
+<li><strong>POOLS</strong>: A pool is an abstraction that can be designated as either “replicated” or “erasure coded”. In Ceph, the method of data protection is set at the pool level. Ceph offers and supports two types of data protection: replication and erasure coding. Objects are stored in pools. “A storage pool is a collection of storage volumes. A storage volume is the basic unit of storage, such as allocated space on a disk or a single tape cartridge. The server uses the storage volumes to store backed-up, archived, or space-managed files.”</li>
+<li><strong>PLACEMENT GROUPS</strong>: Placement groups are a part of pools.</li>
+</ul>
+<h1 id="architecture"><a href="#architecture" class="headerlink" title="architecture"></a>architecture</h1><img src="/images/ceph/stack.webp" style="zoom: 60%">
+
+<h1 id="Storage-Interfaces"><a href="#Storage-Interfaces" class="headerlink" title="Storage Interfaces"></a>Storage Interfaces</h1><p>Ceph offers several “storage interfaces”, which is another way of saying “ways of storing data”. These storage interfaces include: - <strong>CephFS</strong>(a file system) - <strong>RBD</strong> (block devices) - <strong>RADOS</strong> (an object store).</p>
+<p>Deep down, though, all three of these are really RADOS object stores. CephFS and RBD are just presenting themselves as file systems and block devices.</p>
+<h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h1><h2 id="pools-vs-placement-groups-vs-object"><a href="#pools-vs-placement-groups-vs-object" class="headerlink" title="pools vs placement groups vs object"></a>pools vs placement groups vs object</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    </span><br><span class="line">    subgraph Ceph Cluster</span><br><span class="line">        A[Pool: mypool] --&gt;|Contains| B1[PG 1]</span><br><span class="line">        A[Pool: mypool] --&gt;|Contains| B2[PG 2]</span><br><span class="line">        A[Pool: mypool] --&gt;|Contains| B3[PG 3]</span><br><span class="line">        </span><br><span class="line">        B1 --&gt;|Stores| C1[Object A]</span><br><span class="line">        B1 --&gt;|Stores| C2[Object B]</span><br><span class="line">        </span><br><span class="line">        B2 --&gt;|Stores| C3[Object C]</span><br><span class="line">        B2 --&gt;|Stores| C4[Object D]</span><br><span class="line">        </span><br><span class="line">        B3 --&gt;|Stores| C5[Object E]</span><br><span class="line">        </span><br><span class="line">        subgraph OSD Nodes</span><br><span class="line">            D1[OSD.1] </span><br><span class="line">            D2[OSD.2] </span><br><span class="line">            D3[OSD.3] </span><br><span class="line">            D4[OSD.4] </span><br><span class="line">            D5[OSD.5] </span><br><span class="line">        end</span><br><span class="line"></span><br><span class="line">        B1 --&gt;|Mapped to| D1</span><br><span class="line">        B1 --&gt;|Mapped to| D2</span><br><span class="line">        B1 --&gt;|Mapped to| D3</span><br><span class="line">        </span><br><span class="line">        B2 --&gt;|Mapped to| D2</span><br><span class="line">        B2 --&gt;|Mapped to| D3</span><br><span class="line">        B2 --&gt;|Mapped to| D4</span><br><span class="line">        </span><br><span class="line">        B3 --&gt;|Mapped to| D3</span><br><span class="line">        B3 --&gt;|Mapped to| D4</span><br><span class="line">        B3 --&gt;|Mapped to| D5</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Pool (mypool)</strong> contains <strong>multiple PGs</strong> (Placement Groups).</p>
+<p>Each <strong>PG stores multiple objects</strong>.</p>
+<p>Each <strong>PG is mapped to multiple OSDs</strong>, based on the replication factor.</p>
+<p><strong>Objects are stored within PGs</strong>, and Ceph automatically balances them across OSDs.</p>
+</blockquote>
+<p><strong>Understanding the Relationship Between Placement Groups (PGs), Pools, and Objects in Ceph</strong></p>
+<p>In Ceph, <strong>objects</strong>, <strong>placement groups (PGs)</strong>, and <strong>pools</strong> work together to distribute and store data efficiently. Here’s how they relate:</p>
+<h3 id="Pools-The-Logical-Storage-Units"><a href="#Pools-The-Logical-Storage-Units" class="headerlink" title="Pools: The Logical Storage Units"></a>Pools: The Logical Storage Units</h3><p>A pool in Ceph is a logical container that stores objects. Pools are used for different types of storage, such as:</p>
+<ul>
+<li><p><strong>RADOS block storage (RBD)</strong></p>
+</li>
+<li><p><strong>CephFS (Ceph File System)</strong></p>
+</li>
+<li><p><strong>RGW (RADOS Gateway for S3/Swift compatibility)</strong></p>
+</li>
+</ul>
+<p>A pool has properties like:</p>
+<ul>
+<li><p><strong>Replication factor (e.g., 3x replication)</strong></p>
+</li>
+<li><p><strong>Erasure coding settings</strong></p>
+</li>
+<li><p><strong>Number of placement groups (PGs)</strong></p>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph osd pool create mypool 128</span><br></pre></td></tr></table></figure>
+
+<p>This creates a pool named <strong>mypool</strong> with <strong>128 PGs</strong>.</p>
+<h3 id="Placement-Groups-PGs-Buckets-for-Objects"><a href="#Placement-Groups-PGs-Buckets-for-Objects" class="headerlink" title="Placement Groups (PGs): Buckets for Objects"></a>Placement Groups (PGs): Buckets for Objects</h3><p>A <strong>placement group (PG)</strong> is an internal grouping of objects within a pool. Instead of distributing objects directly across OSDs, Ceph first assigns objects to PGs. Then, PGs are mapped to OSDs.</p>
+<p><strong>Why PGs?</strong></p>
+<ul>
+<li><p>They act as <strong>intermediaries</strong> between objects and OSDs.</p>
+</li>
+<li><p>They help balance data across OSDs efficiently.</p>
+</li>
+<li><p>They make recovery and replication easier.</p>
+</li>
+</ul>
+<p><strong>PG Calculation Example</strong></p>
+<p>If a pool has <strong>128 PGs</strong> and uses a <strong>3-replica</strong> setting, each PG will be mapped to 3 different OSDs.</p>
+<h3 id="Objects-The-Data-Units-in-Ceph"><a href="#Objects-The-Data-Units-in-Ceph" class="headerlink" title="Objects: The Data Units in Ceph"></a>Objects: The Data Units in Ceph</h3><p>An <strong>object</strong> is the fundamental data unit in Ceph. When you store a file in Ceph, it’s broken into one or more objects.</p>
+<p><strong>How Objects Are Stored?</strong></p>
+<ol>
+<li><p><strong>Objects are stored in a Pool</strong> (e.g., mypool).</p>
+</li>
+<li><p><strong>Each object is mapped to a Placement Group (PG)</strong>.</p>
+</li>
+<li><p><strong>The PG is mapped to multiple OSDs</strong> (based on the pool’s replication settings).</p>
+</li>
+<li><p><strong>The primary OSD</strong> handles writes and ensures copies are stored on secondary OSDs.</p>
+</li>
+</ol>
+<p><strong>Example Workflow:</strong></p>
+<ul>
+<li><p>A file is stored in <strong>RGW (Ceph S3) → mypool</strong>.</p>
+</li>
+<li><p>The file is broken into <strong>objects</strong>.</p>
+</li>
+<li><p>Each object is assigned to a <strong>PG</strong>.</p>
+</li>
+<li><p>The PG is mapped to <strong>3 OSDs</strong> (in a replicated pool).</p>
+</li>
+</ul>
+<h3 id="Putting-It-All-Together"><a href="#Putting-It-All-Together" class="headerlink" title="Putting It All Together"></a>Putting It All Together</h3><p><strong>Example</strong></p>
+<p>Assume:</p>
+<ul>
+<li><p>You create a <strong>pool</strong> called mypool with <strong>128 PGs</strong>.</p>
+</li>
+<li><p>You upload a file that gets broken into <strong>10 objects</strong>.</p>
+</li>
+<li><p>Each object is <strong>hashed and assigned</strong> to a PG.</p>
+</li>
+<li><p>The PGs are <strong>mapped to OSDs</strong>.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Example Value</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Pool</strong></td>
+<td>mypool</td>
+</tr>
+<tr>
+<td><strong>PG Count</strong></td>
+<td>128</td>
+</tr>
+<tr>
+<td><strong>Object Name</strong></td>
+<td>obj12345</td>
+</tr>
+<tr>
+<td><strong>Object Hash</strong></td>
+<td>hash(obj12345) → PG 45</td>
+</tr>
+<tr>
+<td><strong>PG Assigned</strong></td>
+<td>PG 45</td>
+</tr>
+<tr>
+<td><strong>Mapped OSDs</strong></td>
+<td>OSD.3, OSD.7, OSD.12</td>
+</tr>
+</tbody></table>
+<p>In this case, <strong>obj12345</strong> will be stored in <strong>PG 45</strong>, which is replicated across <strong>OSD.3, OSD.7, and OSD.12</strong>.</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><p><strong>Objects</strong> are stored in <strong>pools</strong>.</p>
+</li>
+<li><p><strong>Pools</strong> contain <strong>placement groups (PGs)</strong>.</p>
+</li>
+<li><p><strong>PGs</strong> group multiple objects and map them to multiple OSDs.</p>
+</li>
+<li><p><strong>OSDs</strong> store object data and handle replication.</p>
+</li>
+</ul>
+<p><strong>Commands to Check PGs and Pools</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> List all pools:</span></span><br><span class="line">ceph osd pool ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check PG status:</span></span><br><span class="line">ceph pg stat</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> See <span class="built_in">which</span> PGs belong to a pool:</span></span><br><span class="line">ceph pg dump | grep mypool</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check object distribution:</span></span><br><span class="line">ceph osd df</span><br></pre></td></tr></table></figure>
 
   </div>
 </article>
@@ -206,19 +347,19 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#architecture"><span class="toc-number">2.</span> <span class="toc-text">architecture</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Storage-Interfaces"><span class="toc-number">3.</span> <span class="toc-text">Storage Interfaces</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">4.</span> <span class="toc-text">Q&amp;A</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pools-vs-placement-groups-vs-object"><span class="toc-number">4.1.</span> <span class="toc-text">pools vs placement groups vs object</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pools-The-Logical-Storage-Units"><span class="toc-number">4.1.1.</span> <span class="toc-text">Pools: The Logical Storage Units</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Placement-Groups-PGs-Buckets-for-Objects"><span class="toc-number">4.1.2.</span> <span class="toc-text">Placement Groups (PGs): Buckets for Objects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Objects-The-Data-Units-in-Ceph"><span class="toc-number">4.1.3.</span> <span class="toc-text">Objects: The Data Units in Ceph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Putting-It-All-Together"><span class="toc-number">4.1.4.</span> <span class="toc-text">Putting It All Together</span></a></li></ol></li></ol></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&text=ceph learn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&text=ceph storage cluster"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/01/16/ceph%20learn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ceph learn&body=Check out this article: https://www.willshirley.top/2025/01/16/ceph%20learn/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph learn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph learn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph learn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/01/16/ceph%20learn/&t=ceph learn"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ceph storage cluster&body=Check out this article: https://www.willshirley.top/2025/01/16/ceph%20learn/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph storage cluster"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph storage cluster"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/01/16/ceph%20learn/&title=ceph storage cluster"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/01/16/ceph%20learn/&t=ceph storage cluster"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

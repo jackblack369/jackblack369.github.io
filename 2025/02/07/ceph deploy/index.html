@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="deployinstall cephadm123dnf search release-cephdnf install --assumeyes centos-release-ceph-reefdnf install --assumeyes cephadm   enable ceph cli 12cephadm add-repo --release reefcephadm install ceph-c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ceph deploy">
+<meta property="og:url" content="https://www.willshirley.top/2025/02/07/ceph%20deploy/index.html">
+<meta property="og:site_name" content="Discipline &amp; Reflect">
+<meta property="og:description" content="deployinstall cephadm123dnf search release-cephdnf install --assumeyes centos-release-ceph-reefdnf install --assumeyes cephadm   enable ceph cli 12cephadm add-repo --release reefcephadm install ceph-c">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-07T09:40:41.000Z">
+<meta property="article:modified_time" content="2025-02-07T09:49:11.564Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="deploy">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>ceph deploy</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Discipline & Reflect" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/01/22/linux%20A%20vs%20B/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&text=ceph deploy"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/07/ceph%20deploy/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ceph deploy&body=Check out this article: https://www.willshirley.top/2025/02/07/ceph%20deploy/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&title=ceph deploy"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&title=ceph deploy"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&title=ceph deploy"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/07/ceph%20deploy/&t=ceph deploy"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#deploy"><span class="toc-number">1.</span> <span class="toc-text">deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#install-cephadm"><span class="toc-number">1.1.</span> <span class="toc-text">install cephadm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#booststrap"><span class="toc-number">1.2.</span> <span class="toc-text">booststrap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-hosts"><span class="toc-number">1.3.</span> <span class="toc-text">add hosts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-storage"><span class="toc-number">1.4.</span> <span class="toc-text">add storage</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#check"><span class="toc-number">2.</span> <span class="toc-text">check</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#thouble-shooting"><span class="toc-number">3.</span> <span class="toc-text">thouble shooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#redeploy-cluster"><span class="toc-number">3.1.</span> <span class="toc-text">redeploy cluster</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        ceph deploy
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-02-07T09:40:41.000Z" class="dt-published" itemprop="datePublished">2025-02-07</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/ceph/">ceph</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/deploy/" rel="tag">deploy</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h1><h2 id="install-cephadm"><a href="#install-cephadm" class="headerlink" title="install cephadm"></a>install cephadm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dnf search release-ceph</span><br><span class="line">dnf install --assumeyes centos-release-ceph-reef</span><br><span class="line">dnf install --assumeyes cephadm</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>enable ceph cli</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cephadm add-repo --release reef</span><br><span class="line">cephadm install ceph-common</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="booststrap"><a href="#booststrap" class="headerlink" title="booststrap"></a>booststrap</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cephadm bootstrap --mon-ip 172.20.7.232</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>log<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Ceph Dashboard is now available at:</span><br><span class="line">        URL: https://dingo7232.com:8443/</span><br><span class="line">        User: admin</span><br><span class="line">    Password: &lt;password&gt;</span><br><span class="line">Enabling client.admin keyring and conf on hosts with &quot;admin&quot; label</span><br><span class="line">Saving cluster configuration to /var/lib/ceph/6a65c746-e532-11ef-8ac2-fa7c097efb00/config directory</span><br><span class="line">Enabling autotune for osd_memory_target</span><br><span class="line">You can access the Ceph CLI as following in case of multi-cluster or non-default config:</span><br><span class="line"></span><br><span class="line">        sudo /sbin/cephadm shell --fsid 6a65c746-e532-11ef-8ac2-fa7c097efb00 -c /etc/ceph/ceph.conf -k /etc/ceph/ceph.client.admin.keyring</span><br><span class="line"></span><br><span class="line">Or, if you are only running a single cluster on this host:</span><br><span class="line"></span><br><span class="line">        sudo /sbin/cephadm shell</span><br><span class="line"></span><br><span class="line">Please consider enabling telemetry to help improve Ceph:</span><br><span class="line"></span><br><span class="line">        ceph telemetry on</span><br><span class="line"></span><br><span class="line">For more information see:</span><br><span class="line"></span><br><span class="line">        https://docs.ceph.com/en/latest/mgr/telemetry/</span><br><span class="line"></span><br><span class="line">Bootstrap complete.</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="add-hosts"><a href="#add-hosts" class="headerlink" title="add hosts"></a>add hosts</h2><ul>
+<li><p>Install the cluster’s public SSH key in the new host’s root user’s authorized_keys file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -f -i /etc/ceph/ceph.pub root@dingo7233</span><br><span class="line">ssh-copy-id -f -i /etc/ceph/ceph.pub root@dingo7234</span><br></pre></td></tr></table></figure></li>
+<li><p>Tell Ceph that the new node is part of the cluster</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ceph orch host add *&lt;newhost&gt;* [*&lt;ip&gt;*] [*&lt;label1&gt; ...*]</span></span><br><span class="line">ceph orch host add dingo7233 172.20.7.233</span><br><span class="line">ceph orch host add dingo7234 172.20.7.234</span><br><span class="line">or</span><br><span class="line">ceph orch host add dingo7233 172.20.7.233 --labels _admin</span><br><span class="line">ceph orch host add dingo7234 172.20.7.234 --labels _admin</span><br></pre></td></tr></table></figure></li>
+<li><p>add label (optional)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ceph orch host label add dingo7233 _admin</span><br><span class="line">ceph orch host label add dingo7234 _admin</span><br></pre></td></tr></table></figure></li>
+<li><p>list hosts</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph orch host ls --detail</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="add-storage"><a href="#add-storage" class="headerlink" title="add storage"></a>add storage</h2><ul>
+<li><p>check available devices</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph orch device ls</span><br></pre></td></tr></table></figure></li>
+<li><p>apply osd</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph orch apply osd --all-available-devices</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="check"><a href="#check" class="headerlink" title="check"></a>check</h1><ul>
+<li>ceph status<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cluster:</span><br><span class="line">    id:     6a65c746-e532-11ef-8ac2-fa7c097efb00</span><br><span class="line">    health: HEALTH_WARN</span><br><span class="line">            1 mgr modules have recently crashed</span><br><span class="line"></span><br><span class="line">  services:</span><br><span class="line">    mon: 3 daemons, quorum dingo7232,dingo7234,dingo7233 (age 16m)</span><br><span class="line">    mgr: dingo7232.znvodw(active, since 24m), standbys: dingo7234.yenqrt</span><br><span class="line">    osd: 3 osds: 3 up (since 15m), 3 in (since 15m)</span><br><span class="line"></span><br><span class="line">  data:</span><br><span class="line">    pools:   1 pools, 1 pgs</span><br><span class="line">    objects: 2 objects, 449 KiB</span><br><span class="line">    usage:   81 MiB used, 600 GiB / 600 GiB avail</span><br><span class="line">    pgs:     1 active+clean</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="thouble-shooting"><a href="#thouble-shooting" class="headerlink" title="thouble shooting"></a>thouble shooting</h1><h2 id="redeploy-cluster"><a href="#redeploy-cluster" class="headerlink" title="redeploy cluster"></a>redeploy cluster</h2><p>To remove an existing Ceph cluster deployed using <code>cephadm</code> and redeploy a new one, follow these steps:</p>
+<ul>
+<li>Step 1: Stop All Ceph Services</li>
+</ul>
+<p>First, stop all Ceph services on each host in the cluster.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop ceph.target</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2: Remove Ceph Configuration and Data</li>
+</ul>
+<p>Remove the Ceph configuration and data directories.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /etc/ceph</span><br><span class="line">sudo rm -rf /var/lib/ceph</span><br><span class="line">sudo rm -rf /var/<span class="built_in">log</span>/ceph</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Step 3: deploy as below words</p>
+</li>
+<li><p>Step 4: Verify Cluster Health</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph -s</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>If you encounter any issues during the redeployment, check the logs:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo journalctl -u ceph-* -f</span><br></pre></td></tr></table></figure>
+
+<p>Or check the Ceph logs directly:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo less /var/<span class="built_in">log</span>/ceph/ceph.log</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#deploy"><span class="toc-number">1.</span> <span class="toc-text">deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#install-cephadm"><span class="toc-number">1.1.</span> <span class="toc-text">install cephadm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#booststrap"><span class="toc-number">1.2.</span> <span class="toc-text">booststrap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-hosts"><span class="toc-number">1.3.</span> <span class="toc-text">add hosts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-storage"><span class="toc-number">1.4.</span> <span class="toc-text">add storage</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#check"><span class="toc-number">2.</span> <span class="toc-text">check</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#thouble-shooting"><span class="toc-number">3.</span> <span class="toc-text">thouble shooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#redeploy-cluster"><span class="toc-number">3.1.</span> <span class="toc-text">redeploy cluster</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&text=ceph deploy"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/07/ceph%20deploy/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ceph deploy&body=Check out this article: https://www.willshirley.top/2025/02/07/ceph%20deploy/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&title=ceph deploy"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&title=ceph deploy"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/07/ceph%20deploy/&title=ceph deploy"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/07/ceph%20deploy/&t=ceph deploy"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
