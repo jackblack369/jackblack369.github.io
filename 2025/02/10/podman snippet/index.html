@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="The Ceph Storage Cluster provides the basic storage service that allows Ceph to uniquely deliver object, block, and file storage in one unified system. However, you are not limited to using the RESTfu">
+    <meta name="description" content="不同用户下执行 podman ps，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ceph rados">
-<meta property="og:url" content="https://www.willshirley.top/2025/02/08/ceph%20rados/index.html">
+<meta property="og:title" content="podman snippet">
+<meta property="og:url" content="https://www.willshirley.top/2025/02/10/podman%20snippet/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="The Ceph Storage Cluster provides the basic storage service that allows Ceph to uniquely deliver object, block, and file storage in one unified system. However, you are not limited to using the RESTfu">
+<meta property="og:description" content="不同用户下执行 podman ps，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-02-08T03:40:20.000Z">
-<meta property="article:modified_time" content="2025-02-08T10:12:34.786Z">
+<meta property="article:published_time" content="2025-02-10T08:06:03.000Z">
+<meta property="article:modified_time" content="2025-02-10T08:07:20.811Z">
 <meta property="article:author" content="brook">
-<meta property="article:tag" content="storage">
+<meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
     
     
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>ceph rados</title>
+    <title>podman snippet</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -87,10 +87,8 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2025/02/10/podman%20snippet/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        
-        <li><a class="icon" aria-label="Next post" href="/2025/02/07/ceph%20deploy/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2025/02/08/ceph%20rados/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -103,21 +101,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&text=ceph rados"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/08/ceph%20rados/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ceph rados&body=Check out this article: https://www.willshirley.top/2025/02/08/ceph%20rados/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&title=ceph rados"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&title=ceph rados"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&title=ceph rados"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/08/ceph%20rados/&t=ceph rados"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&text=podman snippet"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/10/podman%20snippet/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=podman snippet&body=Check out this article: https://www.willshirley.top/2025/02/10/podman%20snippet/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&title=podman snippet"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&title=podman snippet"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&title=podman snippet"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/10/podman%20snippet/&t=podman snippet"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">1.</span> <span class="toc-text">command</span></a></li></ol>
-      </div>
     
   </span>
 </div>
@@ -129,7 +123,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        ceph rados
+        podman snippet
     </h1>
 
 
@@ -141,7 +135,7 @@
       
     <div class="postdate">
       
-        <time datetime="2025-02-08T03:40:20.000Z" class="dt-published" itemprop="datePublished">2025-02-08</time>
+        <time datetime="2025-02-10T08:06:03.000Z" class="dt-published" itemprop="datePublished">2025-02-10</time>
         
       
     </div>
@@ -150,14 +144,14 @@
       
     <div class="article-category">
         <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/ceph/">ceph</a>
+        <a class="category-link" href="/categories/podman/">podman</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/storage/" rel="tag">storage</a>
+        <a class="p-category" href="/tags/tool/" rel="tag">tool</a>
     </div>
 
 
@@ -166,9 +160,9 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p>The <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph-Storage-Cluster">Ceph Storage Cluster</a> provides the basic storage service that allows <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/glossary/#term-Ceph">Ceph</a> to uniquely deliver <strong>object, block, and file storage</strong> in one unified system. However, you are not limited to using the RESTful, block, or POSIX interfaces. Based upon RADOS, the <code>librados</code> API enables you to create your own interface to the Ceph Storage Cluster.</p>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list objects by specify pool</span></span><br><span class="line">rados -p &lt;pool-name&gt; ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">read</span> object</span></span><br><span class="line">rados -p &lt;pool-name&gt; get &lt;object-name&gt; output.txt</span><br><span class="line">cat output.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check xattr value</span></span><br><span class="line">rados -p &lt;pool-name&gt; getxattr &lt;object-name&gt; &lt;xattr-key&gt;</span><br></pre></td></tr></table></figure>
-
+    <ul>
+<li>不同用户下执行 <code>podman ps</code>，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）</li>
+</ul>
 
   </div>
 </article>
@@ -199,28 +193,22 @@
 
     
     
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">1.</span> <span class="toc-text">command</span></a></li></ol>
-      </div>
-    
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&text=ceph rados"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/08/ceph%20rados/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ceph rados&body=Check out this article: https://www.willshirley.top/2025/02/08/ceph%20rados/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&title=ceph rados"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&title=ceph rados"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/08/ceph%20rados/&title=ceph rados"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/08/ceph%20rados/&t=ceph rados"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&text=podman snippet"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/10/podman%20snippet/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=podman snippet&body=Check out this article: https://www.willshirley.top/2025/02/10/podman%20snippet/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&title=podman snippet"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&title=podman snippet"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/10/podman%20snippet/&title=podman snippet"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/10/podman%20snippet/&t=podman snippet"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
 
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
         
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
         <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>

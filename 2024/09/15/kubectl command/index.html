@@ -14,7 +14,7 @@
 <meta property="og:description" content="commonversion12kubectl versionkubectl api-versions  health1234567891011# check kubernetes inner ip kubectl get svc kubernetes -n default# check api serverkubectl get componentstatuses# check crdkubect">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-09-15T07:45:47.000Z">
-<meta property="article:modified_time" content="2025-01-16T09:27:04.580Z">
+<meta property="article:modified_time" content="2025-02-11T04:18:28.303Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -177,12 +177,12 @@
 <h2 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h2><h3 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list namespace<span class="string">&#x27;s pod</span></span></span><br><span class="line">kubectl get pod -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> force delete pod</span></span></span><br><span class="line">kubectl delete pod &#123;pod_name&#125; --grace-period=0 --force -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> describe</span></span></span><br><span class="line">kubectl describe pod &#123;podName&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><blockquote>
-<p>​    •    -c <container-name>: Specify which container to retrieve logs from.</p>
-<p>​    •    -f: Stream the logs in real-time.</p>
-<p>​    •    –previous: Show logs from the last terminated container.</p>
-<p>​    •    –since=<duration>: Return logs for the last period (e.g., 1h, 30m).</p>
-<p>​    •    –tail=<lines>: Limit the number of log lines returned.</p>
-<p>​    •    –all-containers=true: Get logs from all containers in the pod.</p>
+<p>-c <container-name>: Specify which container to retrieve logs from.</p>
+<p>-f: Stream the logs in real-time.</p>
+<p>–previous: Show logs from the last terminated container.</p>
+<p>–since=<duration>: Return logs for the last period (e.g., 1h, 30m).</p>
+<p>–tail=<lines>: Limit the number of log lines returned.</p>
+<p>–all-containers=true: Get logs from all containers in the pod.</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> pod</span></span><br><span class="line">kubectl logs -f &#123;podId&#125; -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pod<span class="string">&#x27;s container</span></span></span><br><span class="line">kubectl logs &lt;pod-name&gt; -c &lt;container-name&gt; -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
 
