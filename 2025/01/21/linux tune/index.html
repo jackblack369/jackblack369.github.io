@@ -14,7 +14,7 @@
 <meta property="og:description" content="cpugovernor strategy Check Available CPU Governors 12345# Run the following command to check available CPU governors:cat &#x2F;sys&#x2F;devices&#x2F;system&#x2F;cpu&#x2F;cpu0&#x2F;cpufreq&#x2F;scaling_available_governors# You should se">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-01-21T02:43:04.000Z">
-<meta property="article:modified_time" content="2025-02-21T11:32:42.733Z">
+<meta property="article:modified_time" content="2025-02-24T06:50:54.511Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tune">
 <meta name="twitter:card" content="summary">
@@ -222,6 +222,40 @@
 </ul>
 <p>​    <strong>soft</strong>: The default limit the user gets.</p>
 <p>​    <strong>hard</strong>: The maximum limit a user can set.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>/etc/security/limits.conf</th>
+<th>/etc/security/limits.d/*.conf</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Default File</strong></td>
+<td>Yes</td>
+<td>No (Custom files in limits.d directory)</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>Read first</td>
+<td>Read after limits.conf</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td>All rules in one file</td>
+<td>Modular approach, one file per service or user</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>* soft nofile 65536</code></td>
+<td><code>dongw soft nofile 65536</code> (in <code>/etc/security/limits.d/dongw.conf</code>)</td>
+</tr>
+<tr>
+<td><strong>Syntax</strong></td>
+<td>Same syntax for both files</td>
+<td>Same syntax as limits.conf</td>
+</tr>
+</tbody></table>
 <h1 id="HP-and-THP"><a href="#HP-and-THP" class="headerlink" title="HP and THP"></a>HP and THP</h1><blockquote>
 <p>Huge Pages (HP) and Transparent Huge Pages (THP)</p>
 </blockquote>
