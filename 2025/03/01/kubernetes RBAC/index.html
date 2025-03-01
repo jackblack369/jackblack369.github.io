@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="RBAC (Role-Based Access Control) in Kubernetes is a security model that controls who can access and perform actions on resources (like Pods, Deployments, Services, etc.) within a cluster.  ComponentK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes RBAC">
+<meta property="og:url" content="https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/index.html">
+<meta property="og:site_name" content="Discipline &amp; Reflect">
+<meta property="og:description" content="RBAC (Role-Based Access Control) in Kubernetes is a security model that controls who can access and perform actions on resources (like Pods, Deployments, Services, etc.) within a cluster.  ComponentK">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-01T11:48:15.000Z">
+<meta property="article:modified_time" content="2025-03-01T12:20:55.733Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="RBAC">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Kubernetes RBAC</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Discipline & Reflect" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/02/10/podman%20snippet/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&text=Kubernetes RBAC"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes RBAC&body=Check out this article: https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&title=Kubernetes RBAC"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&title=Kubernetes RBAC"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&title=Kubernetes RBAC"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&t=Kubernetes RBAC"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Component"><span class="toc-number">1.</span> <span class="toc-text">Component</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Role-amp-ClusterRole"><span class="toc-number">1.1.</span> <span class="toc-text">Role &amp; ClusterRole</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Role"><span class="toc-number">1.1.1.</span> <span class="toc-text">Role</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ClusterRole"><span class="toc-number">1.1.2.</span> <span class="toc-text">ClusterRole</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RoleBinding-amp-ClusterRoleBinding"><span class="toc-number">1.2.</span> <span class="toc-text">RoleBinding &amp; ClusterRoleBinding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RoleBinding"><span class="toc-number">1.2.1.</span> <span class="toc-text">RoleBinding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ClusterRoleBinding"><span class="toc-number">1.2.2.</span> <span class="toc-text">ClusterRoleBinding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subjects"><span class="toc-number">1.3.</span> <span class="toc-text">Subjects</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API-Groups-amp-Resources"><span class="toc-number">1.4.</span> <span class="toc-text">API Groups &amp; Resources</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Works-Scenario"><span class="toc-number">2.</span> <span class="toc-text">Works Scenario</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario-1"><span class="toc-number">2.1.</span> <span class="toc-text">Scenario 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario-2"><span class="toc-number">2.2.</span> <span class="toc-text">Scenario 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Recap"><span class="toc-number">3.</span> <span class="toc-text">Recap</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Kubernetes RBAC
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-01T11:48:15.000Z" class="dt-published" itemprop="datePublished">2025-03-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Kubernetes/">Kubernetes</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/RBAC/" rel="tag">RBAC</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>RBAC (Role-Based Access Control) in Kubernetes is a security model that controls who can access and perform actions on resources (like Pods, Deployments, Services, etc.) within a cluster.</p>
+</blockquote>
+<h1 id="Component"><a href="#Component" class="headerlink" title="Component"></a>Component</h1><p>Kubernetes RBAC consists of four main components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Role / ClusterRole</td>
+<td>Defines what actions (verbs) can be performed on which resources.</td>
+</tr>
+<tr>
+<td>RoleBinding / ClusterRoleBinding</td>
+<td>Grants a Role or ClusterRole to a User, Group, or ServiceAccount.</td>
+</tr>
+<tr>
+<td>Subjects (Users, Groups, ServiceAccounts)</td>
+<td>Who is allowed to perform actions (User, Group, or ServiceAccount).</td>
+</tr>
+<tr>
+<td>Resources &amp; API Groups</td>
+<td>The objects that can be controlled (e.g., pods, deployments, services, etc.).</td>
+</tr>
+</tbody></table>
+<h2 id="Role-amp-ClusterRole"><a href="#Role-amp-ClusterRole" class="headerlink" title="Role &amp; ClusterRole"></a>Role &amp; ClusterRole</h2><blockquote>
+<p>RBAC defines what actions can be performed on which resources using Roles and ClusterRoles.</p>
+</blockquote>
+<h3 id="Role"><a href="#Role" class="headerlink" title="Role"></a>Role</h3><blockquote>
+<p>A Role is used for namespace-scoped access control.</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-reader</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">my-namespace</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>✅ This Role allows a user to view (get, list, watch) Pods only in the namespace my-namespace.</p>
+<p>❌ This does not grant access to other namespaces.</p>
+<h3 id="ClusterRole"><a href="#ClusterRole" class="headerlink" title="ClusterRole"></a>ClusterRole</h3><blockquote>
+<p> A ClusterRole is used for cluster-wide permissions or permissions across all namespaces.</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-pod-reader</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>✅ This allows viewing (get, list, watch) Pods in all namespaces.</p>
+<h2 id="RoleBinding-amp-ClusterRoleBinding"><a href="#RoleBinding-amp-ClusterRoleBinding" class="headerlink" title="RoleBinding &amp; ClusterRoleBinding"></a>RoleBinding &amp; ClusterRoleBinding</h2><blockquote>
+<p>Who Gets These Permissions?</p>
+</blockquote>
+<h3 id="RoleBinding"><a href="#RoleBinding" class="headerlink" title="RoleBinding"></a>RoleBinding</h3><blockquote>
+<p>A RoleBinding assigns a Role to a specific user, group, or ServiceAccount in a namespace.</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-reader-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">my-namespace</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-reader</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<p>✅ This binds the pod-reader Role to my-user in the my-namespace namespace.</p>
+<p>❌ It does not grant permissions outside my-namespace.</p>
+<h3 id="ClusterRoleBinding"><a href="#ClusterRoleBinding" class="headerlink" title="ClusterRoleBinding"></a>ClusterRoleBinding</h3><blockquote>
+<p>A ClusterRoleBinding assigns a ClusterRole to a User, Group, or ServiceAccount across all namespaces.</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-pod-reader-binding</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-pod-reader</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<p>✅ This grants my-user access to Pods across all namespaces.</p>
+<h2 id="Subjects"><a href="#Subjects" class="headerlink" title="Subjects"></a>Subjects</h2><blockquote>
+<p>A RoleBinding or ClusterRoleBinding grants permissions to a subject, which can be:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Subject Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>User</td>
+<td>A real human user (external identity).</td>
+</tr>
+<tr>
+<td>Group</td>
+<td>A group of users (e.g., dev-team).</td>
+</tr>
+<tr>
+<td>ServiceAccount</td>
+<td>An internal Kubernetes identity for a Pod or Controller.</td>
+</tr>
+</tbody></table>
+<p>Example: Binding a ServiceAccount (my-sa) to a Role</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-sa</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">my-namespace</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="API-Groups-amp-Resources"><a href="#API-Groups-amp-Resources" class="headerlink" title="API Groups &amp; Resources"></a>API Groups &amp; Resources</h2><p>Each RBAC rule specifies which resources in which API groups can be accessed.</p>
+<table>
+<thead>
+<tr>
+<th>API Group</th>
+<th>Resources Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“” (core)</td>
+<td>pods, services, nodes</td>
+</tr>
+<tr>
+<td>apps</td>
+<td>deployments, daemonsets</td>
+</tr>
+<tr>
+<td>batch</td>
+<td>jobs, cronjobs</td>
+</tr>
+<tr>
+<td>rbac.authorization.k8s.io</td>
+<td>roles, rolebindings, clusterroles, clusterrolebindings</td>
+</tr>
+</tbody></table>
+<p>Example: Allow Access to Pods, Deployments, and Nodes</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>, <span class="string">&quot;services&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;apps&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;deployments&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;nodes&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>✅ Allows reading Pods and Services (core API group).</p>
+<p>✅ Allows reading Deployments (apps API group).</p>
+<p>✅ Allows reading Nodes (core API group).</p>
+<h1 id="Works-Scenario"><a href="#Works-Scenario" class="headerlink" title="Works Scenario"></a>Works Scenario</h1><h2 id="Scenario-1"><a href="#Scenario-1" class="headerlink" title="Scenario 1"></a>Scenario 1</h2><p>Use Case:</p>
+<ul>
+<li><p>A user (dev-user) needs read-only access to Pods in the dev namespace.</p>
+</li>
+<li><p>The ServiceAccount (cicd-runner-sa) needs to create Deployments in the cicd namespace.</p>
+</li>
+</ul>
+<p>Solution: Define the RBAC Rules</p>
+<ol>
+<li>Create a Role for Read-Only Pod Access in dev Namespace</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-reader</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Bind the Role to dev-user in dev Namespace</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-reader-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pod-reader</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Create a Role for cicd-runner-sa to Deploy Apps in cicd Namespace</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">deployment-creator</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">cicd</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;apps&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;deployments&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;create&quot;</span>, <span class="string">&quot;update&quot;</span>, <span class="string">&quot;delete&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Bind the Role to the cicd-runner-sa ServiceAccount</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cicd-runner-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">cicd</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cicd-runner-sa</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">cicd</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">deployment-creator</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Scenario-2"><a href="#Scenario-2" class="headerlink" title="Scenario 2"></a>Scenario 2</h2><p>Scenario: Grant Read-Only Access to Pods Across Multiple Namespaces</p>
+<p>Use Case:</p>
+<ul>
+<li><p>A developer team needs read-only access to Pods in multiple namespaces (dev, staging, prod).</p>
+</li>
+<li><p>Instead of creating separate Roles in each namespace, we use one ClusterRole.</p>
+</li>
+<li><p>We then create RoleBindings in each namespace to assign the ClusterRole.</p>
+</li>
+</ul>
+<ol>
+<li>Create a ClusterRole to Read Pods Across Namespaces</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">multi-namespace-pod-reader</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Bind the ClusterRole to a User for Multiple Namespaces</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">multi-namespace-pod-reader-binding</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">multi-namespace-pod-reader</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h1><p>Key Takeaways from Kubernetes RBAC Architecture</p>
+<ol>
+<li><p>Role / ClusterRole → Defines permissions (what actions are allowed?).</p>
+</li>
+<li><p>RoleBinding / ClusterRoleBinding → Assigns permissions (who gets access?).</p>
+</li>
+<li><p>Subjects → Users, Groups, ServiceAccounts (who is authorized?).</p>
+</li>
+<li><p>API Groups → Determines resources that can be controlled.</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Component"><span class="toc-number">1.</span> <span class="toc-text">Component</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Role-amp-ClusterRole"><span class="toc-number">1.1.</span> <span class="toc-text">Role &amp; ClusterRole</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Role"><span class="toc-number">1.1.1.</span> <span class="toc-text">Role</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ClusterRole"><span class="toc-number">1.1.2.</span> <span class="toc-text">ClusterRole</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RoleBinding-amp-ClusterRoleBinding"><span class="toc-number">1.2.</span> <span class="toc-text">RoleBinding &amp; ClusterRoleBinding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RoleBinding"><span class="toc-number">1.2.1.</span> <span class="toc-text">RoleBinding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ClusterRoleBinding"><span class="toc-number">1.2.2.</span> <span class="toc-text">ClusterRoleBinding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subjects"><span class="toc-number">1.3.</span> <span class="toc-text">Subjects</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API-Groups-amp-Resources"><span class="toc-number">1.4.</span> <span class="toc-text">API Groups &amp; Resources</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Works-Scenario"><span class="toc-number">2.</span> <span class="toc-text">Works Scenario</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario-1"><span class="toc-number">2.1.</span> <span class="toc-text">Scenario 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario-2"><span class="toc-number">2.2.</span> <span class="toc-text">Scenario 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Recap"><span class="toc-number">3.</span> <span class="toc-text">Recap</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&text=Kubernetes RBAC"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes RBAC&body=Check out this article: https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&title=Kubernetes RBAC"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&title=Kubernetes RBAC"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&title=Kubernetes RBAC"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/&t=Kubernetes RBAC"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
