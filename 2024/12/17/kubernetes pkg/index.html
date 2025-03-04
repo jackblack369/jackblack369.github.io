@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="klog klog.Info is equivalent to klog.V(0).Info. For more detailed debug or trace messages, use klog.V(level).Info, where level is greater than 0 (e.g., klog.V(2).Info).">
+    <meta name="description" content="klogdefault log leveldefault use klog.Info is equivalent to klog.V(0).Info. 1234567# by default klog uses level 0, so logs with log.V(1) won&amp;#x27;t appear unless you set --v&#x3D;1 or a higher verbosity.co">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes pkg">
 <meta property="og:url" content="https://www.willshirley.top/2024/12/17/kubernetes%20pkg/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="klog klog.Info is equivalent to klog.V(0).Info. For more detailed debug or trace messages, use klog.V(level).Info, where level is greater than 0 (e.g., klog.V(2).Info).">
+<meta property="og:description" content="klogdefault log leveldefault use klog.Info is equivalent to klog.V(0).Info. 1234567# by default klog uses level 0, so logs with log.V(1) won&amp;#x27;t appear unless you set --v&#x3D;1 or a higher verbosity.co">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-17T02:47:36.000Z">
-<meta property="article:modified_time" content="2024-12-17T06:08:54.605Z">
+<meta property="article:modified_time" content="2025-03-02T04:09:12.419Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="pkg">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#klog"><span class="toc-number">1.</span> <span class="toc-text">klog</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#klog"><span class="toc-number">1.</span> <span class="toc-text">klog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#default-log-level"><span class="toc-number">1.1.</span> <span class="toc-text">default log level</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,8 +166,12 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="klog"><a href="#klog" class="headerlink" title="klog"></a>klog</h1><ul>
-<li><code>klog.Info</code> is equivalent to <code>klog.V(0).Info</code>.</li>
+    <h1 id="klog"><a href="#klog" class="headerlink" title="klog"></a>klog</h1><h2 id="default-log-level"><a href="#default-log-level" class="headerlink" title="default log level"></a>default log level</h2><p>default use <code>klog.Info</code> is equivalent to <code>klog.V(0).Info</code>.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> by default klog uses level 0, so logs with log.V(1) won<span class="string">&#x27;t appear unless you set --v=1 or a higher verbosity.</span></span></span><br><span class="line"></span><br><span class="line">containers:</span><br><span class="line">  - name: your-container</span><br><span class="line">    image: your-image</span><br><span class="line">    args:</span><br><span class="line">      - &quot;--v=1&quot; # if not config this, default klog uses level 0</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
 <li>For more detailed debug or trace messages, use klog.V(level).Info, where level is greater than 0 (e.g., klog.V(2).Info).</li>
 </ul>
 
@@ -201,7 +205,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#klog"><span class="toc-number">1.</span> <span class="toc-text">klog</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#klog"><span class="toc-number">1.</span> <span class="toc-text">klog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#default-log-level"><span class="toc-number">1.1.</span> <span class="toc-text">default log level</span></a></li></ol></li></ol>
       </div>
     
 
