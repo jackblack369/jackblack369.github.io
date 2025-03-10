@@ -8139,6 +8139,48 @@
 <p>在 Kubernetes 项目中，一个 API 对象在 Etcd 里的完整资源路径，是由：Group（API 组）、Version（API 版本）和 Resource（API 资源类型）三个部分组成的。</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># “CronJob”就是这个 API 对象的资源类型（Resource），“batch”就是它的组（Group），v2alpha1 就是它的版本（Version）。</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v2alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">CronJob</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><blockquote>
+<p>管理 长期伺服型（long-running）业务</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Pod</th>
+<th>Deployment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Definition</strong></td>
+<td>The smallest deployable unit, containing one or more containers.</td>
+<td>A higher-level abstraction to manage Pods and ReplicaSets.</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Represents a single instance of a running application.</td>
+<td>Manages Pods by defining scaling, updates, and desired state.</td>
+</tr>
+<tr>
+<td><strong>Ephemerality</strong></td>
+<td>Ephemeral: Once a Pod dies, it is not automatically replaced.</td>
+<td>Resilient: Automatically replaces Pods as needed.</td>
+</tr>
+<tr>
+<td><strong>Scaling</strong></td>
+<td>Requires manual intervention to scale.</td>
+<td>Can define a desired number of replicas for automatic scaling.</td>
+</tr>
+<tr>
+<td><strong>Rolling Updates</strong></td>
+<td>No built-in support for rolling updates.</td>
+<td>Supports rolling updates and rollbacks for live changes.</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Suitable for testing or single-instance workloads.</td>
+<td>Suitable for production workloads requiring scalability and availability.</td>
+</tr>
+</tbody></table>
 <h2 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h2><blockquote>
 <p>Kubernetes 里“最小”的 API 对象是 Pod。Pod 可以等价为一个应用，所以，Pod 可以由多个紧密协作的容器组成</p>
 <p><strong>Pod 就是 Kubernetes 世界里的“应用”；而一个应用，可以由多个容器组成</strong></p>
@@ -8154,10 +8196,7 @@
 <li>每个 Pod 都会被分配一个唯一的 IP 地址。Pod 中的所有容器共享网络空间，包括 IP 地址和端口。Pod 内部的容器可以使用 <code>localhost</code> 互相通信。Pod 中的容器与外界通信时，必须分配共享网络资源（例如使用宿主机的端口映射）。</li>
 <li>可以为一个 Pod 指定多个共享的 Volume。Pod 中的所有容器都可以访问共享的 volume。Volume 也可以用来持久化 Pod 中的存储资源，以防容器重启后文件丢失。</li>
 </ul>
-<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h3><blockquote>
-<p>管理 长期伺服型（long-running）业务</p>
-</blockquote>
-<h3 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h3><blockquote>
+<h2 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h2><blockquote>
 <p>管理 节点后台支撑型（node-daemon）业务</p>
 </blockquote>
 <ol>
@@ -8165,10 +8204,10 @@
 <li>每个节点上只有一个这样的 Pod 实例；</li>
 <li>当有新的节点加入 Kubernetes 集群后，该 Pod 会自动地在新节点上被创建出来；而当旧节点被删除后，它上面的 Pod 也相应地会被回收掉。</li>
 </ol>
-<h3 id="job"><a href="#job" class="headerlink" title="job"></a>job</h3><blockquote>
+<h2 id="job"><a href="#job" class="headerlink" title="job"></a>job</h2><blockquote>
 <p>管理 批处理型（batch）业务</p>
 </blockquote>
-<h3 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h3><blockquote>
+<h2 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h2><blockquote>
 <p>管理 有状态应用型（stateful application）业务</p>
 <p>StatefulSet 的核心功能，就是通过某种方式记录这些状态，然后在 Pod 被重新创建时，能够为新 Pod 恢复这些状态</p>
 </blockquote>
@@ -8934,7 +8973,7 @@
 </li>
 <li><p><strong>创建虚拟环境：</strong></p>
 <p>在项目目录中，运行以下命令创建一个名为 <code>myenv</code> 的虚拟环境：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 -m venv myenv</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 -m venv &lt;envName&gt;  # default always use venv as env name </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Use the desired Python version:</span></span><br><span class="line">python3.9 -m venv myenv</span><br></pre></td></tr></table></figure>
 
 <p>这将在当前目录创建一个名为 <code>myenv</code> 的虚拟环境文件夹。</p>
 </li>
@@ -10806,13 +10845,13 @@
 
 <h2 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl get namespaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># delete all resource by specify namespace</span></span><br><span class="line">kubectl delete all --all -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="node"><a href="#node" class="headerlink" title="node"></a>node</h1><h2 id="quota"><a href="#quota" class="headerlink" title="quota"></a>quota</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1: Check Node Resource Availability</span></span><br><span class="line">kubectl describe node &lt;node-name&gt;  # check Capacity, Allocatable, Allocated resources</span><br><span class="line">	•	CPU available = Allocatable CPU - CPU Requests</span><br><span class="line">	•	Memory available = Allocatable Memory - Memory Requests</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2: Get Detailed Resource Requests &amp; Limits <span class="keyword">for</span> All Pods</span></span><br><span class="line">kubectl get pods -A -o=custom-columns=&quot;NAMESPACE:.metadata.namespace,NAME:.metadata.name,CPU_REQUESTS:.spec.containers[*].resources.requests.cpu,MEM_REQUESTS:.spec.containers[*].resources.requests.memory,CPU_LIMITS:.spec.containers[*].resources.limits.cpu,MEM_LIMITS:.spec.containers[*].resources.limits.memory&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 3:  Output <span class="keyword">for</span> Advanced Parsing json</span></span><br><span class="line">kubectl get nodes -o json | jq &#x27;.items[] | &#123;name: .metadata.name, allocatable: .status.allocatable&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="node"><a href="#node" class="headerlink" title="node"></a>node</h1><h2 id="resource"><a href="#resource" class="headerlink" title="resource"></a>resource</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1: Check Node Resource Availability</span></span><br><span class="line">kubectl describe node &lt;node-name&gt;  # check Capacity, Allocatable, Allocated resources</span><br><span class="line">	•	CPU available = Allocatable CPU - CPU Requests</span><br><span class="line">	•	Memory available = Allocatable Memory - Memory Requests</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2: Get Detailed Resource Requests &amp; Limits <span class="keyword">for</span> All Pods</span></span><br><span class="line">kubectl get pods -A -o=custom-columns=&quot;NAMESPACE:.metadata.namespace,NAME:.metadata.name,CPU_REQUESTS:.spec.containers[*].resources.requests.cpu,MEM_REQUESTS:.spec.containers[*].resources.requests.memory,CPU_LIMITS:.spec.containers[*].resources.limits.cpu,MEM_LIMITS:.spec.containers[*].resources.limits.memory&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 3:  Output <span class="keyword">for</span> Advanced Parsing json</span></span><br><span class="line">kubectl get nodes -o json | jq &#x27;.items[] | &#123;name: .metadata.name, allocatable: .status.allocatable&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
 
 
 <h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> show all labels</span></span><br><span class="line">kubectl get nodes --show-labels</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add label on node</span></span><br><span class="line">kubectl label node &lt;node-name&gt; &lt;label-key&gt;=&lt;label-value&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove label from node</span></span><br><span class="line">kubectl label node &lt;node-name&gt; &lt;label-key&gt;-</span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl label nodes sd-shangdi-ceph17 dingofs-csi-node-</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="taint"><a href="#taint" class="headerlink" title="taint"></a>taint</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check node is taint or not</span></span><br><span class="line">kubectl describe node &lt;nodeName&gt; | grep -i taint</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> taint node <span class="built_in">print</span></span></span><br><span class="line">Taints: nodepool=fault:NoSchedule</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> normal node <span class="built_in">print</span></span></span><br><span class="line">Taints: &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="taint"><a href="#taint" class="headerlink" title="taint"></a>taint</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check node is taint or not</span></span><br><span class="line">kubectl describe node &lt;nodeName&gt; | grep -i taint</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> taint node <span class="built_in">print</span></span></span><br><span class="line">Taints: nodepool=fault:NoSchedule</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> normal node <span class="built_in">print</span></span></span><br><span class="line">Taints: &lt;none&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> tag taint</span></span><br><span class="line">kubectl taint nodes &lt;node&gt; nodepool=fault:NoSchedule</span><br></pre></td></tr></table></figure>
 
 <h1 id="All"><a href="#All" class="headerlink" title="All"></a>All</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> delete all resource</span></span><br><span class="line">kubectl delete all --all -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
 
@@ -10831,7 +10870,7 @@
 <h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get pod &lt;容器id&gt; --kubeconfig=/path/to/configfile -o yaml &gt; env-vq48.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的方式展示出来。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> expose</span></span><br><span class="line">kubectl get pod &lt;pod-name&gt; -n &lt;namespace&gt; -o yaml &gt; pod-config.yaml</span><br></pre></td></tr></table></figure>
 
 <h2 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h2><p>without kubeconfig</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> kubectl <span class="built_in">exec</span> -it &#123;pod_name&#125; -- /bin/bash</span></span><br><span class="line">kubectl exec -it &#123;pod_id&#125; -n &#123;namespace&#125; -c &#123;container_id&#125; -- sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> enter pod on specify container</span></span><br><span class="line">kubectl exec -it &#123;pod_id&#125; -n &#123;namespace&#125; -c &#123;container_id&#125; -- sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> execute specify <span class="built_in">command</span> on pod</span></span><br><span class="line">kubectl exec -it &#123;pod_id&#125; -n &#123;namespace&#125; -c &#123;container_id&#125; -- &lt;shell&gt;</span><br><span class="line">e.g. kubectl exec -it csi-node-1 -n dingofs -- cat /etc/resolv.conf</span><br></pre></td></tr></table></figure>
 
 <h2 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file</span><br></pre></td></tr></table></figure>
 
@@ -13729,7 +13768,7 @@
 <li><p>docker container</p>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create persistent volume <span class="keyword">for</span> your data</span></span><br><span class="line">docker volume create prometheus-data</span><br><span class="line"><span class="meta">#</span><span class="bash"> Start Prometheus container</span></span><br><span class="line">docker run -d \</span><br><span class="line">    -p 9090:9090 \</span><br><span class="line">    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">    -v prometheus-data:/prometheus \</span><br><span class="line">    prom/prometheus</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create persistent volume <span class="keyword">for</span> your data</span></span><br><span class="line">docker volume create prometheus-data</span><br><span class="line"><span class="meta">#</span><span class="bash"> Start Prometheus container</span></span><br><span class="line">docker run -d \</span><br><span class="line">    -p 19090:19090 \</span><br><span class="line">    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">    -v prometheus-data:/prometheus \</span><br><span class="line">    prom/prometheus</span><br></pre></td></tr></table></figure>
 
 <h1 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h1><ul>
 <li><p>deploy container</p>
@@ -14228,7 +14267,7 @@
 
 <h2 id="markdown转word"><a href="#markdown转word" class="headerlink" title="markdown转word"></a>markdown转word</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure>
 
-]]></content>
+<h2 id="清理指定日期之前的文件"><a href="#清理指定日期之前的文件" class="headerlink" title="清理指定日期之前的文件"></a>清理指定日期之前的文件</h2>]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -14276,7 +14315,9 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
-<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"></span><br><span class="line">dingofs ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
 
 <h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
@@ -14454,16 +14495,12 @@
 <h2 id="查看buff-cache"><a href="#查看buff-cache" class="headerlink" title="查看buff/cache"></a>查看buff/cache</h2><ul>
 <li>工具推荐 <a href="https://github.com/silenceshell/hcache">https://github.com/silenceshell/hcache</a></li>
 </ul>
-<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><ul>
-<li><p>鼠标按键会在终端输入乱码</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the `reset` <span class="built_in">command</span> helps restore the terminal to a known good state, <span class="built_in">which</span> can be helpful <span class="keyword">in</span> troubleshooting issues or clearing screen clutter.</span></span><br><span class="line">reset</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>received disconnect from 10.220.32.16 port 22:2: Too many authentication failures</p>
-<p>```shell</p>
-<h1 id="Remove-all-keys-from-the-agent"><a href="#Remove-all-keys-from-the-agent" class="headerlink" title="Remove all keys from the agent"></a>Remove all keys from the agent</h1><p>ssh-add -D</p>
-</li>
-</ul>
+<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="鼠标按键会在终端输入乱码"><a href="#鼠标按键会在终端输入乱码" class="headerlink" title="鼠标按键会在终端输入乱码"></a>鼠标按键会在终端输入乱码</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the `reset` <span class="built_in">command</span> helps restore the terminal to a known good state, <span class="built_in">which</span> can be helpful <span class="keyword">in</span> troubleshooting issues or clearing screen clutter.</span></span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
+
+<h2 id="received-disconnect-from-10-220-32-16-port-22-2-Too-many-authentication-failures"><a href="#received-disconnect-from-10-220-32-16-port-22-2-Too-many-authentication-failures" class="headerlink" title="received disconnect from 10.220.32.16 port 22:2: Too many authentication failures"></a>received disconnect from 10.220.32.16 port 22:2: Too many authentication failures</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Remove all keys from the agent</span></span><br><span class="line">ssh-add -D</span><br></pre></td></tr></table></figure>
+
+<h2 id="etc-hosts-文件无法编辑"><a href="#etc-hosts-文件无法编辑" class="headerlink" title="/etc/hosts 文件无法编辑"></a>/etc/hosts 文件无法编辑</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the file may have the immutable attribute <span class="built_in">set</span>. Check with:</span></span><br><span class="line">lsattr /etc/hosts</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  remove i flag</span></span><br><span class="line">sudo chattr -i /etc/hosts</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>linux</category>
@@ -15191,6 +15228,176 @@
       </categories>
       <tags>
         <tag>RBAC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>llm vllm</title>
+    <url>/2025/03/06/llm%20vllm/</url>
+    <content><![CDATA[<h1 id="route"><a href="#route" class="headerlink" title="route"></a>route</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">INFO llm_engine.py:436] init engine (profile, create kv cache, warmup model) took 135.23 seconds</span><br><span class="line">INFO api_server.py:958] Starting vLLM API server on http://0.0.0.0:8000</span><br><span class="line">Available routes are:</span><br><span class="line"> Route: /openapi.json, Methods: GET, HEAD</span><br><span class="line"> Route: /docs, Methods: GET, HEAD</span><br><span class="line"> Route: /docs/oauth2-redirect, Methods: GET, HEAD</span><br><span class="line"> Route: /redoc, Methods: GET, HEAD</span><br><span class="line"> Route: /health, Methods: GET</span><br><span class="line"> Route: /ping, Methods: GET, POST</span><br><span class="line"> Route: /tokenize, Methods: POST</span><br><span class="line"> Route: /detokenize, Methods: POST</span><br><span class="line"> Route: /v1/models, Methods: GET</span><br><span class="line"> Route: /version, Methods: GET</span><br><span class="line"> Route: /v1/chat/completions, Methods: POST</span><br><span class="line"> Route: /v1/completions, Methods: POST</span><br><span class="line"> Route: /v1/embeddings, Methods: POST</span><br><span class="line"> Route: /pooling, Methods: POST</span><br><span class="line"> Route: /score, Methods: POST</span><br><span class="line"> Route: /v1/score, Methods: POST</span><br><span class="line"> Route: /v1/audio/transcriptions, Methods: POST</span><br><span class="line"> Route: /rerank, Methods: POST</span><br><span class="line"> Route: /v1/rerank, Methods: POST</span><br><span class="line"> Route: /v2/rerank, Methods: POST</span><br><span class="line"> Route: /invocations, Methods: POST</span><br><span class="line">INFO:     Started server process [1]</span><br><span class="line">INFO:     Waiting for application startup.</span><br><span class="line">INFO:     Application startup complete.</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>llm</category>
+      </categories>
+      <tags>
+        <tag>sinppet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>network solution</title>
+    <url>/2025/03/10/network%20solution/</url>
+    <content><![CDATA[<h1 id="make-bond"><a href="#make-bond" class="headerlink" title="make bond"></a>make bond</h1><p>Bonding Mode</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Max Speed (Single Flow)</th>
+<th>Max Speed (Multiple Flows)</th>
+<th>Key Feature</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mode=0 (round-robin)</td>
+<td>Sum of all slaves</td>
+<td>Sum of all slaves</td>
+<td>Best for maximizing bandwidth, may cause out-of-order packets.</td>
+</tr>
+<tr>
+<td>mode=1 (active-backup)</td>
+<td>One interface’s speed</td>
+<td>One interface’s speed</td>
+<td>Best for redundancy, no speed gain.</td>
+</tr>
+<tr>
+<td>mode=2 (balance-xor)</td>
+<td>One interface’s speed</td>
+<td>Sum of all slaves</td>
+<td>Good for performance; switch support required.</td>
+</tr>
+<tr>
+<td>mode=4 (802.3ad - LACP)</td>
+<td>One interface’s speed</td>
+<td>Sum of all slaves</td>
+<td>Efficient load balancing for multiple flows; requires switch support.</td>
+</tr>
+<tr>
+<td>mode=5 (balance-tlb)</td>
+<td>One interface’s speed</td>
+<td>Sum of all slaves (outgoing only)</td>
+<td>Adaptive transmit load balancing.</td>
+</tr>
+<tr>
+<td>mode=6 (balance-alb)</td>
+<td>One interface’s speed</td>
+<td>Sum of all slaves</td>
+<td>Adaptive load balancing without switch support.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p> assume make ib7s400p0 to bond1, which have assigned  ip 172.30.12.46 with ib7s400p0</p>
+</blockquote>
+<p><strong>optional</strong>: Load the Bonding Kernel Module</p>
+<p>Ensure the bonding driver is loaded:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo modprobe bonding</span><br></pre></td></tr></table></figure>
+
+<p>To persist this across reboots:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo &quot;bonding&quot; | sudo tee /etc/modules-load.d/bonding.conf</span><br></pre></td></tr></table></figure>
+
+<p><strong>optional</strong>: Remove the IP Address from ib7s400p0</p>
+<p>Since the bond interface will carry the IP, you must remove the IP from ib7s400p0 first:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr del 172.30.12.46/24 dev ib7s400p0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 2: Create the Bond Interface (bond1)</strong></p>
+<p>Create the bond interface:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ip link add bond1 type bond</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 3: Configure Bonding Mode</strong></p>
+<p>For your use case, you can set mode=active-backup (best for redundancy with one NIC now) or mode=802.3ad (if planning for LACP in the future).</p>
+<p><strong>Set Active-Backup Mode (Recommended for 1 NIC Now)</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;active-backup&quot; | sudo tee /sys/class/net/bond1/bonding/mode</span><br></pre></td></tr></table></figure>
+
+<p><strong>OR Set 802.3ad Mode (If Future Expansion is Planned)</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;802.3ad&quot; | sudo tee /sys/class/net/bond1/bonding/mode</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 4: Add ib7s400p0 as a Slave</strong></p>
+<ol>
+<li>Remove any IP address from ib7s400p0 (if it has one):</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr flush dev ib7s400p0</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Add ib7s400p0 to bond1:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo ip link <span class="built_in">set</span> ib7s400p0 down</span></span><br><span class="line">sudo ip link set ib7s400p0 master bond1</span><br><span class="line">sudo ip link set ib7s400p0 up</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Bring bond1 up:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip link set bond1 up</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 5: Assign an IP Address</strong></p>
+<p>If using a <strong>static IP</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr add 172.30.12.46/24 dev bond1</span><br></pre></td></tr></table></figure>
+
+<p>Or if using <strong>DHCP</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo dhclient bond1</span><br></pre></td></tr></table></figure>
+
+<p>Try to force traffic through bond1 by removing the direct route through ib7s400p0</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip route del 172.30.12.0/24 dev ib7s400p0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 6: Persistent Configuration (Rocky 9 / RHEL 9) (optional)</strong></p>
+<p>To ensure the bond configuration persists after reboot:</p>
+<ol>
+<li>Create /etc/sysconfig/network-scripts/ifcfg-bond1</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DEVICE=bond1</span><br><span class="line">TYPE=Bond</span><br><span class="line">BONDING_MASTER=yes</span><br><span class="line">BOOTPROTO=dhcp      # Or use &#x27;static&#x27; if assigning a static IP</span><br><span class="line">ONBOOT=yes</span><br><span class="line">BONDING_OPTS=&quot;mode=active-backup miimon=100&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Create /etc/sysconfig/network-scripts/ifcfg-ib7s400p0</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DEVICE=ib7s400p0</span><br><span class="line">MASTER=bond1</span><br><span class="line">SLAVE=yes</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Restart NetworkManager to apply changes:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart NetworkManager</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 7: Verify Configuration</strong></p>
+<ol>
+<li>Check bond details:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /proc/net/bonding/bond1</span><br></pre></td></tr></table></figure>
+
+<p>ib7s400p0 should now appear as a <strong>Slave Interface</strong>.</p>
+<ol start="2">
+<li>Confirm IP address and route:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip a</span><br><span class="line">ip route</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Test connectivity:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ping 172.30.12.47 # other same bond addr</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 8: Optional - Test Failover (For active-backup Mode)</strong></p>
+<p>​    1.    Temporarily bring down ib7s400p0:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ip link set ib7s400p0 down</span><br></pre></td></tr></table></figure>
+
+<p>​    2.    Check bond1 status:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /proc/net/bonding/bond1</span><br></pre></td></tr></table></figure>
+
+<p>In active-backup mode, bond1 should remain active (even though ib7s400p0 is down).</p>
+<p>In 802.3ad mode, bond1 would go down since no alternate NIC exists yet.</p>
+<p><strong>Summary</strong></p>
+<p>Use <strong>active-backup</strong> mode if ib7s400p0 is the only slave (recommended now).</p>
+<p>Use <strong>802.3ad</strong> if planning to add more NICs for higher throughput in the future.</p>
+<p>Ensure /etc/sysconfig/network-scripts/ configs are properly set for persistence.</p>
+]]></content>
+      <categories>
+        <category>network</category>
+      </categories>
+      <tags>
+        <tag>solution</tag>
       </tags>
   </entry>
 </search>
