@@ -14,7 +14,7 @@
 <meta property="og:description" content="make bondBonding Mode    Mode Max Speed (Single Flow) Max Speed (Multiple Flows) Key Feature    mode&#x3D;0 (round-robin) Sum of all slaves Sum of all slaves Best for maximizing bandwidth, may cause out-of">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-10T02:04:37.000Z">
-<meta property="article:modified_time" content="2025-03-10T02:21:32.198Z">
+<meta property="article:modified_time" content="2025-03-11T10:52:46.832Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="solution">
 <meta name="twitter:card" content="summary">
@@ -223,11 +223,11 @@
 
 <p><strong>optional</strong>: Remove the IP Address from ib7s400p0</p>
 <p>Since the bond interface will carry the IP, you must remove the IP from ib7s400p0 first:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip addr del 172.30.12.46/24 dev ib7s400p0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip addr del 172.30.12.61/24 dev ib7s400p0</span><br></pre></td></tr></table></figure>
 
 <p><strong>Step 2: Create the Bond Interface (bond1)</strong></p>
 <p>Create the bond interface:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip link add bond1 type bond</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip link add bond1 type bond</span><br></pre></td></tr></table></figure>
 
 <p><strong>Step 3: Configure Bonding Mode</strong></p>
 <p>For your use case, you can set mode=active-backup (best for redundancy with one NIC now) or mode=802.3ad (if planning for LACP in the future).</p>
@@ -246,16 +246,22 @@
 <ol start="2">
 <li>Add ib7s400p0 to bond1:</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo ip link <span class="built_in">set</span> ib7s400p0 down</span></span><br><span class="line">sudo ip link set ib7s400p0 master bond1</span><br><span class="line">sudo ip link set ib7s400p0 up</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ip link set ib7s400p0 down</span><br><span class="line">sudo ip link set ib7s400p0 master bond1</span><br><span class="line">sudo ip link set ib7s400p0 up</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>check: ethtool ib7s400p0</p>
+</blockquote>
 <ol start="3">
 <li>Bring bond1 up:</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip link set bond1 up</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>check: cat /proc/net/bonding/bond1</p>
+</blockquote>
 <p><strong>Step 5: Assign an IP Address</strong></p>
 <p>If using a <strong>static IP</strong>:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip addr add 172.30.12.46/24 dev bond1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip addr add 172.30.12.61/24 dev bond1</span><br></pre></td></tr></table></figure>
 
 <p>Or if using <strong>DHCP</strong>:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dhclient bond1</span><br></pre></td></tr></table></figure>

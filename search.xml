@@ -1548,7 +1548,7 @@
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建容器</span></span><br><span class="line">docker run -p &lt;宿主机端口&gt;:&lt;容器端口&gt; &lt;镜像名称&gt;[:标签]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置容器停止之后自动清理容器</span></span><br><span class="line">docker run --rm xxx  # --rm This flag tells Docker to automatically remove the container when it exits.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Run a New Container with Volume Mount</span></span><br><span class="line">docker run -it --name my-container -v /host/path:/container/path my-image</span><br></pre></td></tr></table></figure></li>
 <li><p>other</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 终止</span></span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 清理已经停止的容器</span></span><br><span class="line">docker container prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器端口</span></span><br><span class="line">docker port &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器启动命令</span></span><br><span class="line">docker inspect -f &#x27;&#123;&#123;.Config.Cmd&#125;&#125;&#x27; &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器挂载信息</span></span><br><span class="line">docker inspect &#123;container_id&#125; --format=&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27; | jq</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rm -f 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导出</span></span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入</span></span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">docker restart $container_id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志</span></span><br><span class="line">docker logs $container_id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制文件 在容器运行和停止的状态均可执行</span></span><br><span class="line">docker cp /host/path/ &lt;container_id&gt;:/path/to/file</span><br><span class="line">or</span><br><span class="line">docker cp &lt;container_id&gt;:/path/to/file /host/path/</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 终止</span></span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 清理已经停止的容器</span></span><br><span class="line">docker container prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器端口</span></span><br><span class="line">docker port &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器启动命令</span></span><br><span class="line">docker inspect -f &#x27;&#123;&#123;.Config.Cmd&#125;&#125;&#x27; &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器挂载信息</span></span><br><span class="line">docker inspect &#123;container_id&#125; --format=&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27; | jq</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rm -f 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 批量删除已停止的容器</span></span><br><span class="line">docker rm $(docker ps -a -q -f &quot;status=exited&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导出</span></span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入</span></span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">docker restart $container_id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志</span></span><br><span class="line">docker logs $container_id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制文件 在容器运行和停止的状态均可执行</span></span><br><span class="line">docker cp /host/path/ &lt;container_id&gt;:/path/to/file</span><br><span class="line">or</span><br><span class="line">docker cp &lt;container_id&gt;:/path/to/file /host/path/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Monitor Real-Time</span></span><br><span class="line">docker stats &lt;containerId&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check specify container<span class="string">&#x27;s PID</span></span></span><br><span class="line">docker inspect --format &#x27;&#123;&#123;.State.Pid&#125;&#125;&#x27; &lt;containerId&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><h3 id="Propagation-Modes"><a href="#Propagation-Modes" class="headerlink" title="Propagation Modes"></a>Propagation Modes</h3><blockquote>
 <p>with rshared: Unmounting inside the container affects the host’s mount as well.</p>
@@ -1610,7 +1610,7 @@
 <li><p>直接查看container的信息，找到network段查看。或者用grep筛选出network。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker inspect 容器名/容器ID</span><br><span class="line">docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h4><p>Common exit codes associated with docker containers are:</p>
+<h2 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h2><p>Common exit codes associated with docker containers are:</p>
 <ul>
 <li><p><strong>Exit Code 0</strong>: Absence of an attached foreground process</p>
 </li>
@@ -1627,7 +1627,7 @@
 <li><p><strong>Exit Code 127</strong>: Possible typos in shell script with unrecognizable characters</p>
 </li>
 </ul>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<h2 id="third-container"><a href="#third-container" class="headerlink" title="third container"></a>third container</h2><h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
 <li><p>密码123456</p>
 </li>
 <li><p>创建容器</p>
@@ -1687,7 +1687,7 @@
 <blockquote>
 <p>使用 docker-compose –verbose up redis启动，可查看启动详情</p>
 </blockquote>
-<h3 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h3><ol>
+<h2 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h2><h3 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h3><ol>
 <li><p>停止容器 </p>
 </li>
 <li><p>停止docker服务(systemctl stop docker) </p>
@@ -1851,7 +1851,7 @@
 <li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
 <li><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</li>
 </ul>
-<h2 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx (--platform=amd64)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br></pre></td></tr></table></figure>
+<h2 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx (--platform=amd64)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove all dangling images:</span></span><br><span class="line">docker image prune -f</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>导出镜像</p>
@@ -5087,8 +5087,7 @@
   <entry>
     <title>vim command</title>
     <url>/2015/08/16/vim%20command/</url>
-    <content><![CDATA[<p><strong>config</strong></p>
-<p><code>~/.vimrc</code></p>
+    <content><![CDATA[<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><p><code>~/.vimrc</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot; Tab and Indentation Settings</span><br><span class="line">set tabstop=4        &quot; Number of spaces a tab counts for</span><br><span class="line">set shiftwidth=4     &quot; Number of spaces to use for each step of auto indent</span><br><span class="line">set expandtab        &quot; Use spaces instead of tabs</span><br><span class="line">set smarttab         &quot; Insert tabs on the start of a line according to shiftwidth</span><br><span class="line">set autoindent       &quot; Copy indent from current line when starting a new line</span><br><span class="line">set smartindent      &quot; Smart autoindenting when starting a new line</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot; General Settings</span><br><span class="line">set number           &quot; Show line numbers</span><br><span class="line">set relativenumber   &quot; Show relative line numbers</span><br><span class="line">set ruler            &quot; Show cursor position</span><br><span class="line">set encoding=utf-8   &quot; Set UTF-8 encoding</span><br><span class="line">set scrolloff=5      &quot; Keep 5 lines visible above/below cursor</span><br><span class="line"></span><br><span class="line">&quot; Search Settings</span><br><span class="line">set ignorecase       &quot; Ignore case when searching</span><br><span class="line">set smartcase        &quot; Override ignorecase if search contains uppercase</span><br><span class="line">set hlsearch         &quot; Highlight search results</span><br><span class="line">set incsearch        &quot; Show search matches as you type</span><br><span class="line"></span><br><span class="line">&quot; Syntax and Appearance</span><br><span class="line">syntax enable        &quot; Enable syntax highlighting</span><br><span class="line">set background=dark  &quot; Dark background mode</span><br><span class="line">colorscheme default  &quot; Choose a color scheme</span><br><span class="line"></span><br><span class="line">&quot; File Handling</span><br><span class="line">set autoread         &quot; Automatically read files changed outside of Vim</span><br><span class="line">set nobackup         &quot; Don&#x27;t create backup files</span><br><span class="line">set noswapfile       &quot; Don&#x27;t use swap files</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -5119,6 +5118,11 @@
 <li><p>多行操作</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">按下 Ctrl + v 进入可视块模式。</span><br><span class="line">使用上下箭头键或 j 和 k 键选择要编辑的行。</span><br><span class="line">按下 Shift + i 进入插入模式。</span><br><span class="line">输入要插入的文本。</span><br><span class="line">按下 Esc 键退出插入模式，所有选定的行都将被修改。</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="type-M"><a href="#type-M" class="headerlink" title="type ^M"></a>type <code>^M</code></h2><blockquote>
+<p>equal <code>\r</code></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/Ctrl-V Ctrl-M</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>linux</category>
@@ -14319,6 +14323,8 @@
 
 <h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
 
+<h3 id="process"><a href="#process" class="headerlink" title="process"></a>process</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check specify process <span class="built_in">limit</span> info</span></span><br><span class="line">cat /proc/&lt;pid&gt;/limits</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check total-vm / anon-rss</span></span><br><span class="line">cat /proc/&lt;pid&gt;/status</span><br></pre></td></tr></table></figure>
+
 <h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
@@ -14439,7 +14445,7 @@
 <li><p>unning duration or uptime</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> option 1</span></span><br><span class="line">uptime</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> option 2</span></span><br><span class="line">who -b</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="process"><a href="#process" class="headerlink" title="process"></a>process</h2><ul>
+<h2 id="process-1"><a href="#process-1" class="headerlink" title="process"></a>process</h2><ul>
 <li><p>Tree view all process</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pstree -g</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -15033,6 +15039,8 @@
     <content><![CDATA[<ul>
 <li>不同用户下执行 <code>podman ps</code>，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）</li>
 </ul>
+<h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="change-default-data-dir"><a href="#change-default-data-dir" class="headerlink" title="change default data dir"></a>change default data dir</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>podman</category>
@@ -15305,11 +15313,11 @@
 
 <p><strong>optional</strong>: Remove the IP Address from ib7s400p0</p>
 <p>Since the bond interface will carry the IP, you must remove the IP from ib7s400p0 first:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr del 172.30.12.46/24 dev ib7s400p0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr del 172.30.12.61/24 dev ib7s400p0</span><br></pre></td></tr></table></figure>
 
 <p><strong>Step 2: Create the Bond Interface (bond1)</strong></p>
 <p>Create the bond interface:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ip link add bond1 type bond</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip link add bond1 type bond</span><br></pre></td></tr></table></figure>
 
 <p><strong>Step 3: Configure Bonding Mode</strong></p>
 <p>For your use case, you can set mode=active-backup (best for redundancy with one NIC now) or mode=802.3ad (if planning for LACP in the future).</p>
@@ -15328,16 +15336,22 @@
 <ol start="2">
 <li>Add ib7s400p0 to bond1:</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo ip link <span class="built_in">set</span> ib7s400p0 down</span></span><br><span class="line">sudo ip link set ib7s400p0 master bond1</span><br><span class="line">sudo ip link set ib7s400p0 up</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip link set ib7s400p0 down</span><br><span class="line">sudo ip link set ib7s400p0 master bond1</span><br><span class="line">sudo ip link set ib7s400p0 up</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>check: ethtool ib7s400p0</p>
+</blockquote>
 <ol start="3">
 <li>Bring bond1 up:</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip link set bond1 up</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>check: cat /proc/net/bonding/bond1</p>
+</blockquote>
 <p><strong>Step 5: Assign an IP Address</strong></p>
 <p>If using a <strong>static IP</strong>:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr add 172.30.12.46/24 dev bond1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip addr add 172.30.12.61/24 dev bond1</span><br></pre></td></tr></table></figure>
 
 <p>Or if using <strong>DHCP</strong>:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo dhclient bond1</span><br></pre></td></tr></table></figure>
