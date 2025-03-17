@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="make bondBonding Mode    Mode Max Speed (Single Flow) Max Speed (Multiple Flows) Key Feature    mode&#x3D;0 (round-robin) Sum of all slaves Sum of all slaves Best for maximizing bandwidth, may cause out-of">
+    <meta name="description" content="config ib network vim &#x2F;etc&#x2F;netplan&#x2F;ib.yaml  12345678network:  version: 2  renderer: networkd  ethernets:    ibp27s0:      dhcp4: no      addresses:        - 192.168.2.52&#x2F;21    execute netplan apply  m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="network solution">
 <meta property="og:url" content="https://www.willshirley.top/2025/03/10/network%20solution/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="make bondBonding Mode    Mode Max Speed (Single Flow) Max Speed (Multiple Flows) Key Feature    mode&#x3D;0 (round-robin) Sum of all slaves Sum of all slaves Best for maximizing bandwidth, may cause out-of">
+<meta property="og:description" content="config ib network vim &#x2F;etc&#x2F;netplan&#x2F;ib.yaml  12345678network:  version: 2  renderer: networkd  ethernets:    ibp27s0:      dhcp4: no      addresses:        - 192.168.2.52&#x2F;21    execute netplan apply  m">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-10T02:04:37.000Z">
-<meta property="article:modified_time" content="2025-03-11T10:52:46.832Z">
+<meta property="article:modified_time" content="2025-03-17T10:15:48.546Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="solution">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#make-bond"><span class="toc-number">1.</span> <span class="toc-text">make bond</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#config-ib-network"><span class="toc-number">1.</span> <span class="toc-text">config ib network</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-bond"><span class="toc-number">2.</span> <span class="toc-text">make bond</span></a></li></ol>
       </div>
     
   </span>
@@ -166,7 +166,15 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="make-bond"><a href="#make-bond" class="headerlink" title="make bond"></a>make bond</h1><p>Bonding Mode</p>
+    <h1 id="config-ib-network"><a href="#config-ib-network" class="headerlink" title="config ib network"></a>config ib network</h1><ol>
+<li>vim <code>/etc/netplan/ib.yaml</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">network:</span><br><span class="line">  version: 2</span><br><span class="line">  renderer: networkd</span><br><span class="line">  ethernets:</span><br><span class="line">    ibp27s0:</span><br><span class="line">      dhcp4: no</span><br><span class="line">      addresses:</span><br><span class="line">        - 192.168.2.52/21</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li> execute <code>netplan apply</code></li>
+</ol>
+<h1 id="make-bond"><a href="#make-bond" class="headerlink" title="make bond"></a>make bond</h1><p>Bonding Mode</p>
 <table>
 <thead>
 <tr>
@@ -349,7 +357,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#make-bond"><span class="toc-number">1.</span> <span class="toc-text">make bond</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#config-ib-network"><span class="toc-number">1.</span> <span class="toc-text">config ib network</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-bond"><span class="toc-number">2.</span> <span class="toc-text">make bond</span></a></li></ol>
       </div>
     
 
