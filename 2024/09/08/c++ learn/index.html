@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.willshirley.top/images/c++/CompileSource.png">
 <meta property="og:image" content="https://www.willshirley.top/images/c++/LinkingObjects.webp">
 <meta property="article:published_time" content="2024-09-08T09:51:34.000Z">
-<meta property="article:modified_time" content="2025-02-11T04:00:21.254Z">
+<meta property="article:modified_time" content="2025-03-19T02:19:45.392Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -819,9 +819,12 @@
 <h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h2><blockquote>
 <p>Lambdas are anonymous functions, A <strong>lambda expression</strong> (also called a <strong>lambda</strong> or <strong>closure</strong>) allows us to define an anonymous function inside another function. The nesting is important, as it allows us both to avoid namespace naming pollution, and to define the function as close to where it is used as possible (providing additional context).</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[ captureClause ] ( parameters ) -&gt; returnType</span><br><span class="line">&#123;</span><br><span class="line">    statements;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[ captureClause ] ( parameters ) -&gt; returnType</span><br><span class="line">&#123;</span><br><span class="line">    statements;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[捕获列表](参数列表) mutable(可选) 异常属性 -&gt; 返回类型 &#123;</span><br><span class="line">// 函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>In actuality, lambdas aren’t functions (which is part of how they avoid the limitation of C++ not supporting nested functions). They’re a special kind of object called a functor. Functors are objects that contain an overloaded <code>operator()</code> that make them callable like a function.</p>
+<blockquote>
+<p>所谓捕获列表，其实可以理解为参数的一种类型，Lambda 表达式内部函数体在默认情况下是不能够使用函数体外部的变量的， 这时候捕获列表可以起到传递外部数据的作用</p>
+</blockquote>
 <h1 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h1><p>The memory that a program uses is typically divided into a few different areas, called segments:</p>
 <ul>
 <li>The code segment (also called a text segment), where the compiled program sits in memory. The code segment is typically read-only.</li>
