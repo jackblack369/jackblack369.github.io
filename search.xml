@@ -13179,6 +13179,9 @@
 
 <h2 id="5-If-Everything-Fails"><a href="#5-If-Everything-Fails" class="headerlink" title="5. If Everything Fails"></a>5. If Everything Fails</h2><p>If none of the above works, the safest option is to <strong>reboot</strong>:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo wipefs --all --force /dev/&lt;device-name&gt;</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<h1 id="Extend-lv-size"><a href="#Extend-lv-size" class="headerlink" title="Extend lv size"></a>Extend lv size</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lvextend -l +100%FREE /path/to/lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> ext4</span></span><br><span class="line">resize2fs /path/to/lv  # e.g. /dev/ubuntu-vg/ubuntu-lv</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> xfs</span></span><br><span class="line">xfs_growfs /path/to/extend-path  # e.g. /mnt/data</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>fs</category>
