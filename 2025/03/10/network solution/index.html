@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="config ib network vim &#x2F;etc&#x2F;netplan&#x2F;ib.yaml  12345678network:  version: 2  renderer: networkd  ethernets:    ibp27s0:      dhcp4: no      addresses:        - 192.168.2.52&#x2F;21    execute netplan apply  m">
+    <meta name="description" content="DNSadd new dns method 1: 1234567# step1: vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf[Resolve]DNS&#x3D;10.201.44.51 223.5.5.5  # new DNSFallbackDNS&#x3D;127.0.0.53# step2: restart servicesudo systemctl restart systemd-resolv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="network solution">
 <meta property="og:url" content="https://www.willshirley.top/2025/03/10/network%20solution/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="config ib network vim &#x2F;etc&#x2F;netplan&#x2F;ib.yaml  12345678network:  version: 2  renderer: networkd  ethernets:    ibp27s0:      dhcp4: no      addresses:        - 192.168.2.52&#x2F;21    execute netplan apply  m">
+<meta property="og:description" content="DNSadd new dns method 1: 1234567# step1: vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf[Resolve]DNS&#x3D;10.201.44.51 223.5.5.5  # new DNSFallbackDNS&#x3D;127.0.0.53# step2: restart servicesudo systemctl restart systemd-resolv">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-10T02:04:37.000Z">
-<meta property="article:modified_time" content="2025-03-26T06:38:13.461Z">
+<meta property="article:modified_time" content="2025-03-31T06:15:25.550Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="solution">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#config-ib-network"><span class="toc-number">1.</span> <span class="toc-text">config ib network</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-bond"><span class="toc-number">2.</span> <span class="toc-text">make bond</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">1.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-new-dns"><span class="toc-number">1.1.</span> <span class="toc-text">add new dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#network"><span class="toc-number">2.</span> <span class="toc-text">network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-new-network"><span class="toc-number">2.1.</span> <span class="toc-text">create new network</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">3.</span> <span class="toc-text">bond</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-bond"><span class="toc-number">3.1.</span> <span class="toc-text">create bond</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,15 +166,17 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="config-ib-network"><a href="#config-ib-network" class="headerlink" title="config ib network"></a>config ib network</h1><ol>
-<li>vim <code>/etc/netplan/ib.yaml</code></li>
-</ol>
+    <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><h2 id="add-new-dns"><a href="#add-new-dns" class="headerlink" title="add new dns"></a>add new dns</h2><ul>
+<li><p>method 1:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># step1: vim /etc/systemd/resolved.conf</span></span><br><span class="line">[<span class="string">Resolve</span>]</span><br><span class="line"><span class="string">DNS=10.201.44.51</span> <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span>  <span class="comment"># new DNS</span></span><br><span class="line"><span class="string">FallbackDNS=127.0.0.53</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step2: restart service</span></span><br><span class="line"><span class="string">sudo</span> <span class="string">systemctl</span> <span class="string">restart</span> <span class="string">systemd-resolved</span>	</span><br></pre></td></tr></table></figure></li>
+<li><p>method2: (有时候不起效)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">/etc/resolv.conf</span></span><br><span class="line"><span class="comment"># 注意：添加的dns解析地址，需要放在前面，会有顺序影响</span></span><br><span class="line"></span><br><span class="line"><span class="string">nameserver</span> <span class="number">10.201</span><span class="number">.44</span><span class="number">.51</span>  <span class="comment"># new DNS</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span>	<span class="comment"># new DNS</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.53</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="network"><a href="#network" class="headerlink" title="network"></a>network</h1><h2 id="create-new-network"><a href="#create-new-network" class="headerlink" title="create new network"></a>create new network</h2><p>step1: vim <code>/etc/netplan/ib.yaml</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">network:</span><br><span class="line">  version: 2</span><br><span class="line">  renderer: networkd</span><br><span class="line">  ethernets:</span><br><span class="line">    ibp27s0:</span><br><span class="line">      dhcp4: no</span><br><span class="line">      addresses:</span><br><span class="line">        - 192.168.2.52/21</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li> execute <code>netplan apply</code></li>
-</ol>
-<h1 id="make-bond"><a href="#make-bond" class="headerlink" title="make bond"></a>make bond</h1><p>Bonding Mode</p>
+<p>step2: <code>netplan apply</code></p>
+<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><h2 id="create-bond"><a href="#create-bond" class="headerlink" title="create bond"></a>create bond</h2><p>Bonding Mode</p>
 <table>
 <thead>
 <tr>
@@ -357,7 +359,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#config-ib-network"><span class="toc-number">1.</span> <span class="toc-text">config ib network</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make-bond"><span class="toc-number">2.</span> <span class="toc-text">make bond</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">1.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-new-dns"><span class="toc-number">1.1.</span> <span class="toc-text">add new dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#network"><span class="toc-number">2.</span> <span class="toc-text">network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-new-network"><span class="toc-number">2.1.</span> <span class="toc-text">create new network</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">3.</span> <span class="toc-text">bond</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-bond"><span class="toc-number">3.1.</span> <span class="toc-text">create bond</span></a></li></ol></li></ol>
       </div>
     
 

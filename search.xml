@@ -1909,6 +1909,40 @@
 
 
 
+<h1 id="dockerfile"><a href="#dockerfile" class="headerlink" title="dockerfile"></a>dockerfile</h1><h2 id="ARG-vs-ENV"><a href="#ARG-vs-ENV" class="headerlink" title="ARG vs ENV"></a>ARG vs ENV</h2><table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th>ARG <strong>(Build-time)</strong></th>
+<th>ENV <strong>(Runtime)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Available at build-time?</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Available in the running container?</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Can be overridden at build-time?</td>
+<td>✅ Yes (–build-arg)</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>Can be overridden at runtime?</td>
+<td>❌ No</td>
+<td>✅ Yes (-e)</td>
+</tr>
+<tr>
+<td>Included in final image?</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+</tbody></table>
 <h1 id="es"><a href="#es" class="headerlink" title="es"></a>es</h1><blockquote>
 <p>文中hostAddress需要替换具体的ip地址</p>
 </blockquote>
@@ -10971,7 +11005,7 @@
 
 <h1 id="daemonsets"><a href="#daemonsets" class="headerlink" title="daemonsets"></a>daemonsets</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get daemonsets --all-namespaces</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> restart</span> </span><br><span class="line">kubectl rollout restart daemonset/dingofs-csi-node -n dingofs</span><br></pre></td></tr></table></figure>
 
-<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get svc -o wide -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get svc -o wide -n &lt;namespace&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete all</span></span><br><span class="line">kubectl delete service --all -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
 
 <h1 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h1><h2 id="CSIDriver"><a href="#CSIDriver" class="headerlink" title="CSIDriver"></a>CSIDriver</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl get csidrivers</span><br></pre></td></tr></table></figure>
 
@@ -12054,6 +12088,51 @@
 
 <h1 id="gpu"><a href="#gpu" class="headerlink" title="gpu"></a>gpu</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo asitop --interval 10</span><br></pre></td></tr></table></figure>
 
+<h1 id="keyboard"><a href="#keyboard" class="headerlink" title="keyboard"></a>keyboard</h1><p><strong>Keyboard Combinations for Common Special Characters</strong></p>
+<p>Here are a few of the most common symbols and their corresponding key combination.<br>Note that <strong>OPTION</strong> + <strong>2</strong> simply means hold down the option key (the alt key) and the number 2.</p>
+<p><strong>Currency Symbols</strong></p>
+<ul>
+<li><strong>€</strong> (Euro sign): <strong>OPTION</strong> + <strong>2</strong></li>
+<li><strong>¢</strong> (Cent sign): <strong>OPTION</strong> + <strong>4</strong></li>
+<li><strong>¥</strong> (Yen sign): <strong>OPTION</strong> + <strong>y</strong></li>
+</ul>
+<p><strong>Copyright and Trademark Symbols</strong></p>
+<ul>
+<li><strong>®</strong> (registered trademark): <strong>OPTION</strong> + <strong>r</strong></li>
+<li><strong>©</strong> (copyright): <strong>OPTION</strong> + <strong>g</strong></li>
+<li><strong>™</strong> (trademark): <strong>OPTION</strong> + <strong>shift</strong> + <strong>2</strong></li>
+</ul>
+<p><strong>Mathematical Symbols</strong></p>
+<ul>
+<li><strong>÷</strong> (division): <strong>OPTION</strong> + <strong>?</strong></li>
+<li><strong>≤</strong> (less than or equal to): <strong>OPTION</strong> + <strong>&lt;</strong></li>
+<li><strong>≥</strong> (greater than or equal to): <strong>OPTION</strong> + <strong>&gt;</strong></li>
+<li><em><strong>*^*</strong></em> (circumflex): <em><strong>*OPTION** + **i*</strong></em></li>
+<li><strong>√</strong> (square root): <strong>OPTION</strong> + <strong>v</strong></li>
+<li><strong>≠</strong> (not equal to): <strong>OPTION</strong> + <strong>=</strong></li>
+<li><strong>≈</strong> (almost equal to): <strong>OPTION</strong> + <strong>x</strong></li>
+<li><strong>±</strong> (plus-minus): <strong>OPTION</strong> + <strong>shift</strong> + <strong>=</strong></li>
+<li><strong>∞</strong> (infinity): <strong>OPTION</strong> + <strong>5</strong></li>
+<li><strong>ø</strong> (empty set): <strong>OPTION</strong> + <strong>o</strong></li>
+<li><strong>∑</strong> (N-ary summation or Sigma): <strong>OPTION</strong> + <strong>w</strong></li>
+<li><strong>ƒ</strong> (function): <strong>OPTION</strong> + <strong>f</strong></li>
+<li><strong>∫</strong> (integral): <strong>OPTION</strong> + <strong>b</strong></li>
+<li><strong>∂</strong> (partial differential): <strong>OPTION</strong> + <strong>d</strong></li>
+</ul>
+<p><strong>Punctuation and Quote Marks</strong></p>
+<ul>
+<li><strong>“</strong> (left double quotation mark): <strong>OPTION</strong> + <strong>[</strong></li>
+<li><strong>”</strong> (right double quotation mark): <strong>OPTION</strong> + <strong>SHIFT</strong> + <strong>[</strong></li>
+<li><strong>‘</strong> (left single quotation mark): <strong>OPTION</strong> + <strong>]</strong></li>
+<li><strong>’</strong> (right single quotation mark): <strong>OPTION</strong> + <strong>SHIFT</strong> + <strong>]</strong></li>
+<li><strong>„</strong> (double low-9 quotation mark): <strong>OPTION</strong> + <strong>SHIFT</strong> + <strong>w</strong></li>
+<li><strong>¿</strong> (inverted question mark): <strong>OPTION</strong> + <strong>SHIFT</strong> + <strong>?</strong></li>
+<li>• (bullet): <em>*<em>*</em>*OPTION**** + *</em>**8**<em>*</em>*</li>
+</ul>
+<p><strong>Miscellaneous</strong></p>
+<ul>
+<li><strong></strong> (Apple symbol): <strong>OPTION</strong> + <strong>SHIFT</strong> + <strong>k</strong></li>
+</ul>
 ]]></content>
       <categories>
         <category>macos</category>
@@ -14115,19 +14194,8 @@
 <p>因此，当你配置一个 IP 地址并添加 /24 后缀时，你正在指定该地址所属的网络和子网掩码。这样可以帮助确定该地址所在的网络，并确保与其他设备进行通信时，数据包能够正确地路由到目标设备。</p>
 <h1 id="route"><a href="#route" class="headerlink" title="route"></a>route</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check existed ip route</span></span><br><span class="line">ip route</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete specify ip route</span></span><br><span class="line">sudo ip route del 172.21.0.0/16</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete specify ip link</span></span><br><span class="line">sudo ip link delete br-900457b8a29e</span><br></pre></td></tr></table></figure>
 
-<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><h2 id="add-new-dns"><a href="#add-new-dns" class="headerlink" title="add new dns"></a>add new dns</h2><ul>
-<li><p>method 1:</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># step1: vim /etc/systemd/resolved.conf</span></span><br><span class="line">[<span class="string">Resolve</span>]</span><br><span class="line"><span class="string">DNS=10.201.44.51</span> <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span>  <span class="comment"># new DNS</span></span><br><span class="line"><span class="string">FallbackDNS=127.0.0.53</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step2: restart service</span></span><br><span class="line"><span class="string">sudo</span> <span class="string">systemctl</span> <span class="string">restart</span> <span class="string">systemd-resolved</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>​    </p>
-<ul>
-<li><p>method2: (有时候不起效)</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">/etc/resolv.conf</span></span><br><span class="line"><span class="comment"># 注意：添加的dns解析地址，需要放在前面，会有顺序影响</span></span><br><span class="line"></span><br><span class="line"><span class="string">nameserver</span> <span class="number">10.201</span><span class="number">.44</span><span class="number">.51</span>  <span class="comment"># new DNS</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span>	<span class="comment"># new DNS</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.53</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="network"><a href="#network" class="headerlink" title="network"></a>network</h1><h2 id="create-new-network"><a href="#create-new-network" class="headerlink" title="create new network"></a>create new network</h2><p>step1: vim <code>/etc/netplan/ib.yaml</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">network:</span><br><span class="line">  version: 2</span><br><span class="line">  renderer: networkd</span><br><span class="line">  ethernets:</span><br><span class="line">    ibp27s0:</span><br><span class="line">      dhcp4: no</span><br><span class="line">      addresses:</span><br><span class="line">        - 192.168.2.52/21</span><br></pre></td></tr></table></figure>
+<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check bond slave</span></span><br><span class="line">cat /proc/net/bonding/bond0</span><br></pre></td></tr></table></figure>
 
-<p>step2: <code>netplan apply</code></p>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -14141,6 +14209,16 @@
     <url>/2016/10/16/linux%20cmd:%20file/</url>
     <content><![CDATA[<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rsync -aP &lt;sourceDir&gt; &lt;targetDir&gt;</span><br><span class="line"></span><br><span class="line">cp -r &lt;sourceDir&gt; &lt;targetDir&gt;</span><br></pre></td></tr></table></figure>
 
+<h3 id="parallel"><a href="#parallel" class="headerlink" title="parallel"></a>parallel</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /path/to/source/ -maxdepth 1 -type d | parallel -j 8 &#x27;rclone copy &#123;&#125; /path/to/target/&#123;/&#125; --transfers=32 --checkers=32 --fast-list --buffer-size=512M --max-backlog=100000 --use-mmap --no-traverse --stats=30s --log-file=rclone_&#123;/&#125;.log&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>find Part</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-maxdepth 1 -type d: Finds top-level directories under point3r/ (excludes files at this level and the root itself).</span><br></pre></td></tr></table></figure></li>
+<li><p>parallel Part</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-j 8: Runs 8 parallel rclone jobs, one per subdirectory.</span><br><span class="line">&#123;&#125;: Placeholder for each directory from find.</span><br><span class="line">&#123;/&#125;: Basename of the directory (e.g., subdir1 from the full path).</span><br></pre></td></tr></table></figure></li>
+<li><p>rclone copy Part</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">--transfers=16: 16 concurrent file transfers per rclone job.</span><br><span class="line">--checkers=32: 32 concurrent file checks (e.g., verifying existence or integrity).</span><br><span class="line">--fast-list: Uses a single API call to list files (faster for remote filesystems like CephFS).</span><br><span class="line">--buffer-size=512M: 512 MB buffer per transfer (reduces disk I/O waits).</span><br><span class="line">--max-backlog=100000: Allows up to 100,000 files to queue before processing.</span><br><span class="line">--use-mmap: Uses memory-mapped I/O for reads (can speed up large files).</span><br><span class="line">--no-traverse: Skips directory traversal for remote sources, relying on listings.</span><br><span class="line">--stats=30s: Shows progress every 30 seconds.</span><br><span class="line">--log-file=rclone_&#123;/&#125;.log: Logs each job to a file named after the subdirectory (e.g., rclone_subdir1.log).</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="du"><a href="#du" class="headerlink" title="du"></a>du</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -h --max-depth=1 --exclude=&#x27;proc&#x27; --exclude=&#x27;home&#x27; --exclude=&#x27;mnt&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check actual disk usage</span></span><br><span class="line">du -sh /path/to/mountpoint</span><br></pre></td></tr></table></figure>
 
 <h2 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dd if=&lt;input&gt; of=&lt;output&gt; [options]</span><br></pre></td></tr></table></figure>
@@ -14645,9 +14723,9 @@
 </ul>
 <h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="鼠标按键会在终端输入乱码"><a href="#鼠标按键会在终端输入乱码" class="headerlink" title="鼠标按键会在终端输入乱码"></a>鼠标按键会在终端输入乱码</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the `reset` <span class="built_in">command</span> helps restore the terminal to a known good state, <span class="built_in">which</span> can be helpful <span class="keyword">in</span> troubleshooting issues or clearing screen clutter.</span></span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
 
-<h2 id="received-disconnect-from-10-220-32-16-port-22-2-Too-many-authentication-failures"><a href="#received-disconnect-from-10-220-32-16-port-22-2-Too-many-authentication-failures" class="headerlink" title="received disconnect from 10.220.32.16 port 22:2: Too many authentication failures"></a>received disconnect from 10.220.32.16 port 22:2: Too many authentication failures</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Remove all keys from the agent</span></span><br><span class="line">ssh-add -D</span><br></pre></td></tr></table></figure>
+<h2 id="received-disconnect-from-x-port-22-2-Too-many-authentication-failures"><a href="#received-disconnect-from-x-port-22-2-Too-many-authentication-failures" class="headerlink" title="received disconnect from x port 22:2: Too many authentication failures"></a>received disconnect from x port 22:2: Too many authentication failures</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Remove all keys from the agent</span></span><br><span class="line">ssh-add -D</span><br></pre></td></tr></table></figure>
 
-<h2 id="etc-hosts-文件无法编辑"><a href="#etc-hosts-文件无法编辑" class="headerlink" title="/etc/hosts 文件无法编辑"></a>/etc/hosts 文件无法编辑</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the file may have the immutable attribute <span class="built_in">set</span>. Check with:</span></span><br><span class="line">lsattr /etc/hosts</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  remove i flag</span></span><br><span class="line">sudo chattr -i /etc/hosts</span><br></pre></td></tr></table></figure>
+<h2 id="etc-hosts-文件无法编辑"><a href="#etc-hosts-文件无法编辑" class="headerlink" title="/etc/hosts 文件无法编辑"></a>/etc/hosts 文件无法编辑</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the file may have the immutable attribute <span class="built_in">set</span>. Check with:</span></span><br><span class="line">lsattr /etc/hosts</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  remove i flag</span></span><br><span class="line">sudo chattr -i /etc/hosts</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> restore</span></span><br><span class="line">sudo chattr +i /etc/hosts</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -15423,15 +15501,17 @@
   <entry>
     <title>network solution</title>
     <url>/2025/03/10/network%20solution/</url>
-    <content><![CDATA[<h1 id="config-ib-network"><a href="#config-ib-network" class="headerlink" title="config ib network"></a>config ib network</h1><ol>
-<li>vim <code>/etc/netplan/ib.yaml</code></li>
-</ol>
+    <content><![CDATA[<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><h2 id="add-new-dns"><a href="#add-new-dns" class="headerlink" title="add new dns"></a>add new dns</h2><ul>
+<li><p>method 1:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># step1: vim /etc/systemd/resolved.conf</span></span><br><span class="line">[<span class="string">Resolve</span>]</span><br><span class="line"><span class="string">DNS=10.201.44.51</span> <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span>  <span class="comment"># new DNS</span></span><br><span class="line"><span class="string">FallbackDNS=127.0.0.53</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step2: restart service</span></span><br><span class="line"><span class="string">sudo</span> <span class="string">systemctl</span> <span class="string">restart</span> <span class="string">systemd-resolved</span>	</span><br></pre></td></tr></table></figure></li>
+<li><p>method2: (有时候不起效)</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">/etc/resolv.conf</span></span><br><span class="line"><span class="comment"># 注意：添加的dns解析地址，需要放在前面，会有顺序影响</span></span><br><span class="line"></span><br><span class="line"><span class="string">nameserver</span> <span class="number">10.201</span><span class="number">.44</span><span class="number">.51</span>  <span class="comment"># new DNS</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">223.5</span><span class="number">.5</span><span class="number">.5</span>	<span class="comment"># new DNS</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.53</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="network"><a href="#network" class="headerlink" title="network"></a>network</h1><h2 id="create-new-network"><a href="#create-new-network" class="headerlink" title="create new network"></a>create new network</h2><p>step1: vim <code>/etc/netplan/ib.yaml</code></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">network:</span><br><span class="line">  version: 2</span><br><span class="line">  renderer: networkd</span><br><span class="line">  ethernets:</span><br><span class="line">    ibp27s0:</span><br><span class="line">      dhcp4: no</span><br><span class="line">      addresses:</span><br><span class="line">        - 192.168.2.52/21</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li> execute <code>netplan apply</code></li>
-</ol>
-<h1 id="make-bond"><a href="#make-bond" class="headerlink" title="make bond"></a>make bond</h1><p>Bonding Mode</p>
+<p>step2: <code>netplan apply</code></p>
+<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><h2 id="create-bond"><a href="#create-bond" class="headerlink" title="create bond"></a>create bond</h2><p>Bonding Mode</p>
 <table>
 <thead>
 <tr>
