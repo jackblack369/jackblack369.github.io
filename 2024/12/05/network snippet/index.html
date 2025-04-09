@@ -14,7 +14,7 @@
 <meta property="og:description" content="basicCommon Name (CN) Alternative Name (SAN) Transport Layer Security (TLS) A VS BSSL VS TLS TLS (Transport Layer Security) and SSL (Secure Sockets Layer) are both cryptographic protocols used for sec">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-05T07:50:13.000Z">
-<meta property="article:modified_time" content="2025-04-09T02:15:04.355Z">
+<meta property="article:modified_time" content="2025-04-09T04:13:31.300Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDMA-vs-InfiniBand-vs-RoCE"><span class="toc-number">2.2.</span> <span class="toc-text">RDMA vs InfiniBand vs RoCE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RDMA"><span class="toc-number">3.</span> <span class="toc-text">RDMA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfiniBand"><span class="toc-number">4.</span> <span class="toc-text">InfiniBand</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoCE"><span class="toc-number">5.</span> <span class="toc-text">RoCE</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDMA-vs-InfiniBand-vs-RoCE"><span class="toc-number">2.2.</span> <span class="toc-text">RDMA vs InfiniBand vs RoCE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RDMA"><span class="toc-number">3.</span> <span class="toc-text">RDMA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfiniBand"><span class="toc-number">4.</span> <span class="toc-text">InfiniBand</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoCE"><span class="toc-number">5.</span> <span class="toc-text">RoCE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mellanox"><span class="toc-number">6.</span> <span class="toc-text">Mellanox</span></a></li></ol>
       </div>
     
   </span>
@@ -280,6 +280,52 @@
 <li><p>RoCE allows RDMA to be deployed using more common Ethernet-based infrastructure, often used in cloud and data center deployments.</p>
 </li>
 </ul>
+<p>Great follow-up! Let’s explore the relationship between <strong>RDMA</strong> and <strong>Mellanox</strong>, which is very close and central in the high-performance networking world.</p>
+<h1 id="Mellanox"><a href="#Mellanox" class="headerlink" title="Mellanox"></a>Mellanox</h1><ul>
+<li><strong>Mellanox Technologies</strong> (now owned by <strong>NVIDIA</strong>) is a <strong>leading vendor</strong> of high-performance network interface cards (NICs), switches, and software — especially for <strong>InfiniBand</strong> and <strong>Ethernet</strong> with RDMA capabilities.</li>
+<li>Mellanox NIC families (like <strong>ConnectX-3, 4, 5, 6, 7</strong>, etc.) support:<ul>
+<li><strong>InfiniBand RDMA</strong></li>
+<li><strong>RoCE v1 / v2 RDMA</strong></li>
+<li><strong>iWARP</strong> (less commonly used)</li>
+</ul>
+</li>
+<li>Mellanox also provides the <strong>driver stack</strong> and <strong>tools</strong> to enable RDMA:<ul>
+<li>mlx5_ib → RDMA over Mellanox NICs</li>
+<li>mlx4_core, mlx5_core → core NIC drivers</li>
+<li>ibverbs, rdma-core → user-space RDMA APIs</li>
+<li>ethtool, ibstat, ibv_devinfo, rdma → debug/config tools</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Role</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RDMA</strong></td>
+<td>Technology for fast memory access</td>
+</tr>
+<tr>
+<td><strong>InfiniBand/RoCE</strong></td>
+<td>Transport for RDMA</td>
+</tr>
+<tr>
+<td><strong>Mellanox NICs</strong></td>
+<td>Hardware that <strong>implements RDMA</strong></td>
+</tr>
+<tr>
+<td><strong>Mellanox drivers</strong></td>
+<td>Software to <strong>enable RDMA support</strong> on Linux</td>
+</tr>
+<tr>
+<td><strong>rdma-core + ibverbs</strong></td>
+<td>API layer used by apps (e.g., MPI, Ceph)</td>
+</tr>
+</tbody></table>
+<p><strong>Mellanox</strong> provides the <strong>hardware and drivers</strong> that make RDMA <em>actually work on your servers</em>.</p>
 
   </div>
 </article>
@@ -311,7 +357,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDMA-vs-InfiniBand-vs-RoCE"><span class="toc-number">2.2.</span> <span class="toc-text">RDMA vs InfiniBand vs RoCE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RDMA"><span class="toc-number">3.</span> <span class="toc-text">RDMA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfiniBand"><span class="toc-number">4.</span> <span class="toc-text">InfiniBand</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoCE"><span class="toc-number">5.</span> <span class="toc-text">RoCE</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDMA-vs-InfiniBand-vs-RoCE"><span class="toc-number">2.2.</span> <span class="toc-text">RDMA vs InfiniBand vs RoCE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RDMA"><span class="toc-number">3.</span> <span class="toc-text">RDMA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfiniBand"><span class="toc-number">4.</span> <span class="toc-text">InfiniBand</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoCE"><span class="toc-number">5.</span> <span class="toc-text">RoCE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mellanox"><span class="toc-number">6.</span> <span class="toc-text">Mellanox</span></a></li></ol>
       </div>
     
 
