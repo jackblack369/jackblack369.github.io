@@ -14,7 +14,7 @@
 <meta property="og:description" content="basicCommon Name (CN) Alternative Name (SAN) Transport Layer Security (TLS) A VS BSSL VS TLS TLS (Transport Layer Security) and SSL (Secure Sockets Layer) are both cryptographic protocols used for sec">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-05T07:50:13.000Z">
-<meta property="article:modified_time" content="2025-03-10T02:03:52.811Z">
+<meta property="article:modified_time" content="2025-04-09T02:15:04.355Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="snippet">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDMA-vs-InfiniBand-vs-RoCE"><span class="toc-number">2.2.</span> <span class="toc-text">RDMA vs InfiniBand vs RoCE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RDMA"><span class="toc-number">3.</span> <span class="toc-text">RDMA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfiniBand"><span class="toc-number">4.</span> <span class="toc-text">InfiniBand</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoCE"><span class="toc-number">5.</span> <span class="toc-text">RoCE</span></a></li></ol>
       </div>
     
   </span>
@@ -201,6 +201,85 @@
 <li>Use TLS for new applications and systems where security is paramount.</li>
 </ul>
 <p>Keep in mind that most modern systems, including web servers and clients, have already adopted TLS as the standard for secure communication. If you’re developing a new application or system, it’s recommended to use TLS to ensure the highest level of security.</p>
+<h2 id="RDMA-vs-InfiniBand-vs-RoCE"><a href="#RDMA-vs-InfiniBand-vs-RoCE" class="headerlink" title="RDMA vs InfiniBand vs RoCE"></a>RDMA vs InfiniBand vs RoCE</h2><table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>RDMA</strong></th>
+<th><strong>InfiniBand</strong></th>
+<th><strong>RoCE</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Type</td>
+<td>Technology</td>
+<td>Network standard + hardware</td>
+<td>Protocol (RDMA over Ethernet)</td>
+</tr>
+<tr>
+<td>Runs Over</td>
+<td>InfiniBand, RoCE, iWARP</td>
+<td>InfiniBand cables and switches</td>
+<td>Ethernet (RoCE v1/v2)</td>
+</tr>
+<tr>
+<td>Needs RDMA?</td>
+<td>✅ Yes</td>
+<td>✅ Yes (native)</td>
+<td>✅ Yes (via Ethernet NICs with RDMA)</td>
+</tr>
+<tr>
+<td>Main Use Case</td>
+<td>Fast memory transfer</td>
+<td>HPC, low-latency compute</td>
+<td>Data centers, storage over Ethernet</td>
+</tr>
+</tbody></table>
+<p>In Practical Terms:</p>
+<ul>
+<li><strong>RDMA</strong> is the <strong>core mechanism</strong>.</li>
+<li><strong>InfiniBand</strong> is a <strong>specialized RDMA transport</strong>.</li>
+<li><strong>RoCE</strong> is a <strong>way to use RDMA over standard Ethernet</strong> hardware (with special NIC support).</li>
+</ul>
+<p>So, if you have <strong>InfiniBand</strong> hardware — you’re doing <strong>native RDMA</strong>.</p>
+<p>If you’re using <strong>RoCE</strong> — you’re doing <strong>RDMA over Ethernet</strong> (with RDMA-capable NICs like Mellanox).</p>
+<h1 id="RDMA"><a href="#RDMA" class="headerlink" title="RDMA"></a>RDMA</h1><blockquote>
+<p> RDMA (Remote Direct Memory Access)</p>
+</blockquote>
+<ul>
+<li>RDMA is a <strong>technology</strong> that allows one computer to directly access the memory of another computer <strong>without involving the CPU, OS, or context switching</strong> on the remote system.<ul>
+<li><strong>Low latency</strong></li>
+<li><strong>High throughput</strong></li>
+<li><strong>Very low CPU usage</strong></li>
+</ul>
+</li>
+<li><strong>Used in:</strong> HPC clusters, storage systems, distributed databases (like Ceph, NVMe-oF, RDMA-aware MPI, etc.)</li>
+</ul>
+<h1 id="InfiniBand"><a href="#InfiniBand" class="headerlink" title="InfiniBand"></a>InfiniBand</h1><blockquote>
+<p>RDMA was first implemented over InfiniBand — so it’s the “classic” RDMA transport</p>
+</blockquote>
+<ul>
+<li>InfiniBand is a <strong>high-performance network architecture</strong> designed specifically for data centers and HPC, and it <strong>natively supports RDMA</strong>.<ul>
+<li>Specialized hardware (InfiniBand adapters and switches)</li>
+<li>Very high bandwidth (100 Gbps+)</li>
+<li>Very low latency</li>
+<li>Used in supercomputers, HPC clusters, etc.</li>
+</ul>
+</li>
+</ul>
+<h1 id="RoCE"><a href="#RoCE" class="headerlink" title="RoCE"></a>RoCE</h1><blockquote>
+<p> RDMA over Converged Ethernet</p>
+</blockquote>
+<ul>
+<li><p>RoCE allows RDMA to run <strong>over standard Ethernet networks</strong> instead of specialized InfiniBand hardware.</p>
+<ul>
+<li><strong>RoCE v1:</strong> Requires a lossless Ethernet fabric (same L2 subnet).</li>
+<li><strong>RoCE v2:</strong> Works over routed networks (L3) using UDP encapsulation.</li>
+</ul>
+</li>
+<li><p>RoCE allows RDMA to be deployed using more common Ethernet-based infrastructure, often used in cloud and data center deployments.</p>
+</li>
+</ul>
 
   </div>
 </article>
@@ -232,7 +311,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-VS-B"><span class="toc-number">2.</span> <span class="toc-text">A VS B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-VS-TLS"><span class="toc-number">2.1.</span> <span class="toc-text">SSL VS TLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDMA-vs-InfiniBand-vs-RoCE"><span class="toc-number">2.2.</span> <span class="toc-text">RDMA vs InfiniBand vs RoCE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RDMA"><span class="toc-number">3.</span> <span class="toc-text">RDMA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfiniBand"><span class="toc-number">4.</span> <span class="toc-text">InfiniBand</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoCE"><span class="toc-number">5.</span> <span class="toc-text">RoCE</span></a></li></ol>
       </div>
     
 
