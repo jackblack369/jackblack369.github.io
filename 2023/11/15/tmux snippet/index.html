@@ -14,7 +14,7 @@
 <meta property="og:description" content="session -&gt; window -&gt; pane session   功能 macos linux    新建session tmux new -s  same        窗口   功能 macos linux    更改当前窗口的索引号 命令模式：move-window [space] -t [space]  xx Same   窗格   功能 macos linux    调">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-15T03:48:27.000Z">
-<meta property="article:modified_time" content="2025-04-17T08:02:34.417Z">
+<meta property="article:modified_time" content="2025-04-21T06:40:58.333Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
@@ -277,6 +277,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check pane num</span></span><br><span class="line">Ctrl + b, Then press q # this will display pane numbers</span><br><span class="line"></span><br><span class="line">:swap-pane -s &lt;source-pane&gt; -t &lt;target-pane&gt;</span><br><span class="line">or </span><br><span class="line">:swap-pane -t &lt;target-pane&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>同时操作相同window的所有pane</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span></span></span><br><span class="line">setw synchronize-panes on</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">disable</span></span></span><br><span class="line">setw synchronize-panes off</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>改变大小</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Ctrl + b, <span class="built_in">type</span> <span class="string">&#x27;:&#x27;</span></span></span><br><span class="line">resize-pane -D 10    # Resize down by 10 lines</span><br><span class="line">resize-pane -U 5     # Resize up by 5 lines</span><br><span class="line">resize-pane -L 20    # Resize left by 20 columns</span><br><span class="line">resize-pane -R 15    # Resize right by 15 columns</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="Tmux-Plugin-Manager-TPM"><a href="#Tmux-Plugin-Manager-TPM" class="headerlink" title="Tmux Plugin Manager (TPM)"></a>Tmux Plugin Manager (TPM)</h1><ul>
 <li><p>配置文件地址<code>~/.tmux.conf</code></p>

@@ -6,7 +6,7 @@
   <link href="https://www.willshirley.top/atom.xml" rel="self"/>
   
   <link href="https://www.willshirley.top/"/>
-  <updated>2025-04-10T09:23:50.303Z</updated>
+  <updated>2025-04-22T03:40:37.924Z</updated>
   <id>https://www.willshirley.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>github action</title>
+    <link href="https://www.willshirley.top/2025/10/22/github%20action/"/>
+    <id>https://www.willshirley.top/2025/10/22/github%20action/</id>
+    <published>2025-10-22T03:07:23.000Z</published>
+    <updated>2025-04-22T03:40:37.924Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="docker-metadata-action"><a href="#docker-metadata-action" class="headerlink" title="docker/metadata-action"></a>docker/metadata-action</h1><blockquote><p>制作镜像tag</p></blockquote><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Docker</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">if:</span> <span class="string">steps.check-event.outputs.continue</span> <span class="string">==</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">id:</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">docker/metadata-action@v5</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">images:</span> <span class="string">dingodatabase/dingofs</span></span><br><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=&#123;&#123;is_default_branch&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.一直会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.一直会推送commitId镜像</span></span><br></pre></td></tr></table></figure><p>如果修改内容为：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=$&#123;&#123;github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long,enable=$&#123;&#123;env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是</span> <span class="string">push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.如果是main分支，并且非tag</span> <span class="string">event，才会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.非tag</span> <span class="string">event才会推送commitId镜像</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;docker-metadata-action&quot;&gt;&lt;a href=&quot;#docker-metadata-action&quot; class=&quot;headerlink&quot; title=&quot;docker/metadata-action&quot;&gt;&lt;/a&gt;docker/metadata-acti</summary>
+      
+    
+    
+    
+    <category term="ci" scheme="https://www.willshirley.top/categories/ci/"/>
+    
+    
+    <category term="tool" scheme="https://www.willshirley.top/tags/tool/"/>
+    
+  </entry>
   
   <entry>
     <title>containerd</title>
@@ -262,9 +286,9 @@
     <link href="https://www.willshirley.top/2025/02/10/podman%20snippet/"/>
     <id>https://www.willshirley.top/2025/02/10/podman%20snippet/</id>
     <published>2025-02-10T08:06:03.000Z</published>
-    <updated>2025-04-09T08:47:44.602Z</updated>
+    <updated>2025-04-21T10:51:04.524Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>不同用户下执行 <code>podman ps</code>，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）</p></blockquote><h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> load tar file to image</span></span><br><span class="line">podman load -i &lt;image-tar-file&gt;</span><br></pre></td></tr></table></figure><h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="change-default-data-dir"><a href="#change-default-data-dir" class="headerlink" title="change default data dir"></a>change default data dir</h2><ul><li><p><strong>rootful mode</strong> </p><blockquote><p>Default graphroot: /var/lib/containers/storage.</p></blockquote></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p /etc/containers</span><br><span class="line">sudo vim /etc/containers/storage.conf </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;//mnt/podman-data&quot;</span><br></pre></td></tr></table></figure><ul><li><p><strong>rootless mode</strong></p><blockquote><p>Default graphroot: ~/.local/share/containers/storage.</p></blockquote></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p ~/.config/containers</span><br><span class="line">sudo vim ~/.config/containers/storage.conf  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storge.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-data&quot;</span><br></pre></td></tr></table></figure><h2 id="potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace"><a href="#potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace" class="headerlink" title="potentially insufficient UIDs or GIDs available in user namespace"></a>potentially insufficient UIDs or GIDs available in user namespace</h2><blockquote><p> If the requested UID/GID still falls outside or Podman needs more mappings, you can edit /etc/subuid and /etc/subgid (as root) to increase the range</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Increase UID/GID Range (Optional):</span></span><br><span class="line">sudo vim /etc/subuid  # dingofs:60000:131072</span><br><span class="line">sudo vim /etc/subgid  # dingofs:60000:131072</span><br><span class="line"></span><br><span class="line">podman system migrate</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>不同用户下执行 <code>podman ps</code>，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）</p></blockquote><h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> load tar file to image</span></span><br><span class="line">podman load -i &lt;image-tar-file&gt;</span><br></pre></td></tr></table></figure><h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="change-default-data-dir"><a href="#change-default-data-dir" class="headerlink" title="change default data dir"></a>change default data dir</h2><ul><li><p><strong>rootful mode</strong> </p><blockquote><p>Default graphroot: /var/lib/containers/storage.</p></blockquote></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p /etc/containers</span><br><span class="line">sudo vim /etc/containers/storage.conf </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-data&quot;</span><br></pre></td></tr></table></figure><ul><li><p><strong>rootless mode</strong></p><blockquote><p>Default graphroot: ~/.local/share/containers/storage.</p></blockquote></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p ~/.config/containers</span><br><span class="line">sudo vim ~/.config/containers/storage.conf  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storge.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-data&quot;</span><br></pre></td></tr></table></figure><h2 id="potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace"><a href="#potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace" class="headerlink" title="potentially insufficient UIDs or GIDs available in user namespace"></a>potentially insufficient UIDs or GIDs available in user namespace</h2><blockquote><p> If the requested UID/GID still falls outside or Podman needs more mappings, you can edit /etc/subuid and /etc/subgid (as root) to increase the range</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Increase UID/GID Range (Optional):</span></span><br><span class="line">sudo vim /etc/subuid  # dingofs:60000:131072</span><br><span class="line">sudo vim /etc/subgid  # dingofs:60000:131072</span><br><span class="line"></span><br><span class="line">podman system migrate</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -473,31 +497,6 @@
     
     
     <category term="pkg" scheme="https://www.willshirley.top/tags/pkg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cmake</title>
-    <link href="https://www.willshirley.top/2024/12/16/cmake/"/>
-    <id>https://www.willshirley.top/2024/12/16/cmake/</id>
-    <published>2024-12-16T03:43:12.000Z</published>
-    <updated>2024-12-16T04:14:48.137Z</updated>
-    
-    <content type="html"><![CDATA[<p>TBD</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;TBD&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="cmake" scheme="https://www.willshirley.top/categories/cmake/"/>
-    
-    
-    <category term="tool" scheme="https://www.willshirley.top/tags/tool/"/>
     
   </entry>
   

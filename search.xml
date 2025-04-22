@@ -5276,6 +5276,8 @@
 <p><code>ctrl+alt+i</code> can insert comments in the head.</p>
 </li>
 </ul>
+<h1 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h1><h2 id="golang"><a href="#golang" class="headerlink" title="golang"></a>golang</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>vscode</category>
@@ -7377,6 +7379,10 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check pane num</span></span><br><span class="line">Ctrl + b, Then press q # this will display pane numbers</span><br><span class="line"></span><br><span class="line">:swap-pane -s &lt;source-pane&gt; -t &lt;target-pane&gt;</span><br><span class="line">or </span><br><span class="line">:swap-pane -t &lt;target-pane&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>同时操作相同window的所有pane</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span></span></span><br><span class="line">setw synchronize-panes on</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">disable</span></span></span><br><span class="line">setw synchronize-panes off</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>改变大小</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Ctrl + b, <span class="built_in">type</span> <span class="string">&#x27;:&#x27;</span></span></span><br><span class="line">resize-pane -D 10    # Resize down by 10 lines</span><br><span class="line">resize-pane -U 5     # Resize up by 5 lines</span><br><span class="line">resize-pane -L 20    # Resize left by 20 columns</span><br><span class="line">resize-pane -R 15    # Resize right by 15 columns</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="Tmux-Plugin-Manager-TPM"><a href="#Tmux-Plugin-Manager-TPM" class="headerlink" title="Tmux Plugin Manager (TPM)"></a>Tmux Plugin Manager (TPM)</h1><ul>
 <li><p>配置文件地址<code>~/.tmux.conf</code></p>
@@ -12447,7 +12453,7 @@
 </ul>
 <h2 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h2><ul>
 <li><p>拉取并切换指定tag 分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">  git fetch --all --tags</span><br><span class="line">  git tag  # list all tag</span><br><span class="line">  git checkout &lt;tag_name&gt;</span><br><span class="line"></span><br><span class="line">- 对指定commit进行标记tag</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  git tag &lt;tag_name&gt; &lt;commit_hash&gt;</span><br><span class="line">  git push origin &lt;tag_name&gt;</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> push remote upstream repo</span></span><br><span class="line">  git push upstream &lt;tag_name&gt;</span><br><span class="line"><span class="meta">  #</span><span class="bash"> 该命令会自动触发upstream repo的github workflow</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">  git fetch --all --tags</span><br><span class="line">  git tag  # list all tag</span><br><span class="line">  git checkout &lt;tag_name&gt;</span><br><span class="line"></span><br><span class="line">- 对指定commit进行标记tag</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  git tag &lt;tag_name&gt; &lt;commit_hash&gt;</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> origin tag</span></span><br><span class="line">  git push origin &lt;tag_name&gt;</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> push remote upstream repo</span></span><br><span class="line">  git push upstream &lt;tag_name&gt;</span><br><span class="line"><span class="meta">  #</span><span class="bash"> 该命令会自动触发upstream repo的github workflow</span></span><br></pre></td></tr></table></figure></li>
 <li><p>根据tag创建分支</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b &lt;new_branch_name&gt; &lt;tag_name&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -13396,7 +13402,7 @@
 <h2 id="5-If-Everything-Fails"><a href="#5-If-Everything-Fails" class="headerlink" title="5. If Everything Fails"></a>5. If Everything Fails</h2><p>If none of the above works, the safest option is to <strong>reboot</strong>:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo wipefs --all --force /dev/&lt;device-name&gt;</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
 
-<h1 id="Extend-lv-size"><a href="#Extend-lv-size" class="headerlink" title="Extend lv size"></a>Extend lv size</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lvextend -l +100%FREE /path/to/lv  # e.g. /dev/ubuntu-vg/ubuntu-lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> ext4</span></span><br><span class="line">resize2fs /path/to/lv  # e.g. /dev/ubuntu-vg/ubuntu-lv</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> xfs</span></span><br><span class="line">xfs_growfs /path/to/extend-path  # e.g. /mnt/data</span><br></pre></td></tr></table></figure>
+<h1 id="Extend-lv-size"><a href="#Extend-lv-size" class="headerlink" title="Extend lv size"></a>Extend lv size</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1</span></span><br><span class="line">lvextend -l +100%FREE /path/to/lv  # e.g. /dev/ubuntu-vg/ubuntu-lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> ext4</span></span><br><span class="line">resize2fs /path/to/lv  # e.g. /dev/ubuntu-vg/ubuntu-lv</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> xfs</span></span><br><span class="line">xfs_growfs /path/to/extend-path  # e.g. /mnt/data</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -15431,7 +15437,7 @@
 </blockquote>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p /etc/containers</span><br><span class="line">sudo vim /etc/containers/storage.conf </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;//mnt/podman-data&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p /etc/containers</span><br><span class="line">sudo vim /etc/containers/storage.conf </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-data&quot;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p><strong>rootless mode</strong></p>
@@ -15441,10 +15447,6 @@
 </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">sudo mkdir -p ~/.config/containers</span><br><span class="line">sudo vim ~/.config/containers/storage.conf  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storge.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-data&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h2 id="potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace"><a href="#potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace" class="headerlink" title="potentially insufficient UIDs or GIDs available in user namespace"></a>potentially insufficient UIDs or GIDs available in user namespace</h2><blockquote>
 <p> If the requested UID/GID still falls outside or Podman needs more mappings, you can edit /etc/subuid and /etc/subgid (as root) to increase the range</p>
@@ -16210,6 +16212,24 @@
       </categories>
       <tags>
         <tag>practice</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github action</title>
+    <url>/2025/10/22/github%20action/</url>
+    <content><![CDATA[<h1 id="docker-metadata-action"><a href="#docker-metadata-action" class="headerlink" title="docker/metadata-action"></a>docker/metadata-action</h1><blockquote>
+<p>制作镜像tag</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Docker</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">if:</span> <span class="string">steps.check-event.outputs.continue</span> <span class="string">==</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">id:</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">docker/metadata-action@v5</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">images:</span> <span class="string">dingodatabase/dingofs</span></span><br><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=&#123;&#123;is_default_branch&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.一直会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.一直会推送commitId镜像</span></span><br></pre></td></tr></table></figure>
+<p>如果修改内容为：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=$&#123;&#123;github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long,enable=$&#123;&#123;env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是</span> <span class="string">push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.如果是main分支，并且非tag</span> <span class="string">event，才会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.非tag</span> <span class="string">event才会推送commitId镜像</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>ci</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>
