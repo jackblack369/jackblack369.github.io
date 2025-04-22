@@ -14894,6 +14894,21 @@
 <li><p>resolve</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fsck /dev/mapper/ubuntu--vg-ubuntu--lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">When prompted, <span class="built_in">type</span> y to accept each fix suggestion, or a to fix all.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Once fsck completes successfully, reboot the system:</span></span><br><span class="line">exec reboot -f</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="A-fatal-error-was-detected-on-a-component-at-bus-0-device-2-function-0"><a href="#A-fatal-error-was-detected-on-a-component-at-bus-0-device-2-function-0" class="headerlink" title="A fatal error was detected on a component at bus 0 device 2 function 0."></a>A fatal error was detected on a component at bus 0 device 2 function 0.</h2><ul>
+<li><p>identify what device is at <code>bus 0 device 2 function 0</code>:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lspci -s 00:02.0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">e.g. console <span class="built_in">print</span></span></span><br><span class="line">00:02.0 PCI bridge: Intel Corporation Xeon E7 v4/Xeon E5 v4/Xeon E3 v4/Xeon D PCI Express Root Port 2 (rev 01)</span><br></pre></td></tr></table></figure></li>
+<li><p>list all PCI devices hierarchically and see what’s attached behind the 00:02.0 bridge:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lspci -t -vv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">e.g. console <span class="built_in">print</span></span></span><br><span class="line"> \-[0000:00]-+-00.0  Intel Corporation Xeon E7 v4/Xeon E5 v4/Xeon E3 v4/Xeon D DMI2</span><br><span class="line">             +-01.0-[02]----00.0  Broadcom / LSI MegaRAID SAS-3 3108 [Invader]</span><br><span class="line">             +-02.0-[03]----00.0  Samsung Electronics Co Ltd NVMe SSD Controller S4LV008[Pascal]</span><br><span class="line">             +-03.0-[01]--+-00.0  Broadcom Inc. and subsidiaries BCM57412 NetXtreme-E 10Gb RDMA Ethernet Controller</span><br><span class="line">             ...</span><br><span class="line">             </span><br><span class="line"><span class="meta">#</span><span class="bash"> Explanation</span></span><br><span class="line">The PCIe fatal bus error you previously saw (bus 0 device 2 function 0) corresponds to:</span><br><span class="line">- A PCIe root port (00:02.0)</span><br><span class="line">- Leading to a Samsung NVMe SSD</span><br></pre></td></tr></table></figure></li>
+<li><p>check NVMe Devices to PCIe Slots</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -l /sys/block/ | grep nvme</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">e.g. console <span class="built_in">print</span></span></span><br><span class="line">lrwxrwxrwx. 1 root root 0 Apr 22 14:18 nvme0n1 -&gt; ../devices/pci0000:00/0000:00:02.0/0000:03:00.0/nvme/nvme0/nvme0n1</span><br><span class="line">lrwxrwxrwx. 1 root root 0 Apr 22 14:18 nvme1n1 -&gt; ../devices/pci0000:00/0000:00:03.2/0000:04:00.0/nvme/nvme1/nvme1n1</span><br><span class="line">lrwxrwxrwx. 1 root root 0 Apr 22 14:18 nvme2n1 -&gt; ../devices/pci0000:80/0000:80:02.0/0000:82:00.0/nvme/nvme2/nvme2n1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>other check</strong></p>
+<ul>
+<li><p>check drive health</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nvme smart-log /path/to/device  # e.g. nvme smart-log /dev/nvme0</span><br></pre></td></tr></table></figure></li>
+<li><p>check again for PCIe or I/O errors</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dmesg | grep -iE &quot;nvme|pcie|error&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>linux</category>
