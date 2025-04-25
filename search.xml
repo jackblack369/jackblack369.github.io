@@ -14661,6 +14661,26 @@
 <h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
 <h3 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> temp</span></span><br><span class="line">sudo swapoff -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> persistent</span></span><br><span class="line">sudo sed -i &#x27;/[[:space:]]swap[[:space:]]/s/^/#/&#x27; /etc/fstab</span><br></pre></td></tr></table></figure>
 
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
+<li><p>“1”</p>
+<p>查看所有CPU核的使用情况</p>
+</li>
+<li><p>“c”</p>
+<p>查看具体进程的路径</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line">t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line">m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line">N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line">P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line">M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line">h - 显示帮助</span><br><span class="line">n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line">q - 退出 top</span><br><span class="line">s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>进程CPU占用率</p>
+<p>top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。</p>
+<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### cpu</span><br><span class="line">us：用户态使用的cpu时间比</span><br><span class="line">sy：系统态使用的cpu时间比</span><br><span class="line">ni：用做nice加权的进程分配的用户态cpu时间比</span><br><span class="line">id：空闲的cpu时间比</span><br><span class="line">wa：cpu等待磁盘写入完成时间</span><br><span class="line">hi：硬中断消耗时间</span><br><span class="line">si：软中断消耗时间</span><br><span class="line">st：虚拟机偷取时间</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>过滤指定进程</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1</span> </span><br><span class="line">o</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2</span></span><br><span class="line">COMMAND=&lt;process_name&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h1 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h1><h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h2><h3 id="积分机制"><a href="#积分机制" class="headerlink" title="积分机制"></a>积分机制</h3><blockquote>
 <p>OOM（Out-Of-Memory）积分机制是 Linux 内核在系统内存耗尽时，通过评估进程的优先级和内存使用情况，选择一个或多个进程终止以释放内存的一种机制。其核心目标是在内存不足时，最小化系统崩溃风险并优先保留关键进程。</p>
 </blockquote>
@@ -14691,7 +14711,7 @@
 
 <ul>
 <li><p>check memory limit</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Get the Cgroup Path</span></span><br><span class="line">cat /proc/&lt;pid&gt;/cgroup</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg.</span></span><br><span class="line">cat /proc/51683/cgroup print</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 0::/system.slice/dingofs-mount.service</span></span><br><span class="line">cgroup_path=&quot;/sys/fs/cgroup/system.slice/dingofs-mount.service&quot;</span><br><span class="line">cat &quot;$cgroup_path/memory.max&quot;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Get the Cgroup Path</span></span><br><span class="line">cat /proc/&lt;pid&gt;/cgroup  # eg. cat /proc/51683/cgroup</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 0::/system.slice/dingofs-mount.service</span></span><br><span class="line">cgroup_path=&quot;/sys/fs/cgroup/system.slice/dingofs-mount.service&quot;</span><br><span class="line">cat &quot;$cgroup_path/memory.max&quot;  # print bytes num</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo hostnamectl set-hostname &lt;new-hostname&gt;</span><br><span class="line">sudo hostnamectl status</span><br></pre></td></tr></table></figure>
 
@@ -14748,26 +14768,6 @@
 <p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
 <h3 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">下载服务器文件  sz filename</span><br><span class="line">上传本地文件   rz filename</span><br></pre></td></tr></table></figure>
 
-<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
-<li><p>“1”</p>
-<p>查看所有CPU核的使用情况</p>
-</li>
-<li><p>“c”</p>
-<p>查看具体进程的路径</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">l- 开启或关闭第一部分第一行top信息显示</span><br><span class="line">t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line">m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line">N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line">P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line">M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line">h - 显示帮助</span><br><span class="line">n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line">q - 退出 top</span><br><span class="line">s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>进程CPU占用率</p>
-<p>top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。</p>
-<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### cpu</span><br><span class="line">us：用户态使用的cpu时间比</span><br><span class="line">sy：系统态使用的cpu时间比</span><br><span class="line">ni：用做nice加权的进程分配的用户态cpu时间比</span><br><span class="line">id：空闲的cpu时间比</span><br><span class="line">wa：cpu等待磁盘写入完成时间</span><br><span class="line">hi：硬中断消耗时间</span><br><span class="line">si：软中断消耗时间</span><br><span class="line">st：虚拟机偷取时间</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>过滤指定进程</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1</span> </span><br><span class="line">o</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2</span></span><br><span class="line">COMMAND=&lt;process_name&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
 <h3 id="查看指定服务的运行情况"><a href="#查看指定服务的运行情况" class="headerlink" title="查看指定服务的运行情况"></a>查看指定服务的运行情况</h3><ul>
 <li><code>journalctl -u xxx.service</code></li>
 <li><code>journalctl -xe</code> 查看最近系统服务日志</li>
@@ -16239,12 +16239,28 @@
 <p>如果修改内容为：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=$&#123;&#123;github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long,enable=$&#123;&#123;env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是</span> <span class="string">push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.如果是main分支，并且非tag</span> <span class="string">event，才会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.非tag</span> <span class="string">event才会推送commitId镜像</span></span><br></pre></td></tr></table></figure>
 
+<p>适配main和其他分支</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">  type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">  type=raw,value=latest,enable=$&#123;&#123; env.BRANCH_NAME == &#x27;main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">  type=sha,prefix=,format=short,enable=$&#123;&#123; env.EVENT != &#x27;tag&#x27; &amp;&amp; env.BRANCH_NAME == &#x27;main&#x27; &#125;&#125;</span></span><br><span class="line"><span class="string">  type=sha,prefix=$&#123;&#123; env.BRANCH_NAME &#125;&#125;-,format=short,enable=$&#123;&#123; env.EVENT != &#x27;tag&#x27; &amp;&amp; env.BRANCH_NAME != &#x27;main&#x27; &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>ci</category>
       </categories>
       <tags>
         <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>etcd snippet</title>
+    <url>/2025/04/24/etcd/</url>
+    <content><![CDATA[<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ETCDCTL_API=3 etcdctl --endpoints=http://127.0.0.1:2379 endpoint health</span><br><span class="line">ETCDCTL_API=3 /dingofs/etcd/sbin/etcdctl   --endpoints=http://10.220.32.16:12379   member list</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>etcd</category>
+      </categories>
+      <tags>
+        <tag>snippet</tag>
       </tags>
   </entry>
 </search>

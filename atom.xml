@@ -6,7 +6,7 @@
   <link href="https://www.willshirley.top/atom.xml" rel="self"/>
   
   <link href="https://www.willshirley.top/"/>
-  <updated>2025-04-22T03:40:37.924Z</updated>
+  <updated>2025-04-22T13:13:03.875Z</updated>
   <id>https://www.willshirley.top/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://www.willshirley.top/2025/10/22/github%20action/"/>
     <id>https://www.willshirley.top/2025/10/22/github%20action/</id>
     <published>2025-10-22T03:07:23.000Z</published>
-    <updated>2025-04-22T03:40:37.924Z</updated>
+    <updated>2025-04-22T13:13:03.875Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="docker-metadata-action"><a href="#docker-metadata-action" class="headerlink" title="docker/metadata-action"></a>docker/metadata-action</h1><blockquote><p>制作镜像tag</p></blockquote><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Docker</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">if:</span> <span class="string">steps.check-event.outputs.continue</span> <span class="string">==</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">id:</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">docker/metadata-action@v5</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">images:</span> <span class="string">dingodatabase/dingofs</span></span><br><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=&#123;&#123;is_default_branch&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.一直会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.一直会推送commitId镜像</span></span><br></pre></td></tr></table></figure><p>如果修改内容为：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=$&#123;&#123;github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long,enable=$&#123;&#123;env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是</span> <span class="string">push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.如果是main分支，并且非tag</span> <span class="string">event，才会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.非tag</span> <span class="string">event才会推送commitId镜像</span></span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="docker-metadata-action"><a href="#docker-metadata-action" class="headerlink" title="docker/metadata-action"></a>docker/metadata-action</h1><blockquote><p>制作镜像tag</p></blockquote><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Docker</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">if:</span> <span class="string">steps.check-event.outputs.continue</span> <span class="string">==</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">id:</span> <span class="string">meta</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">docker/metadata-action@v5</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">images:</span> <span class="string">dingodatabase/dingofs</span></span><br><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=&#123;&#123;is_default_branch&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.一直会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.一直会推送commitId镜像</span></span><br></pre></td></tr></table></figure><p>如果修改内容为：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        <span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">          type=raw,value=latest,enable=$&#123;&#123;github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">          type=sha,prefix=,format=long,enable=$&#123;&#123;env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string"></span><span class="string">以上配置会进行</span></span><br><span class="line"><span class="number">1</span><span class="string">.如果是</span> <span class="string">push</span> <span class="string">tag</span> <span class="string">event，进行推送</span> <span class="string">tag</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">2</span><span class="string">.如果是main分支，并且非tag</span> <span class="string">event，才会推送</span> <span class="string">latest</span> <span class="string">镜像</span></span><br><span class="line"><span class="number">3</span><span class="string">.非tag</span> <span class="string">event才会推送commitId镜像</span></span><br></pre></td></tr></table></figure><p>适配main和其他分支</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tags:</span> <span class="string">|</span></span><br><span class="line"><span class="string">  type=raw,enable=$&#123;&#123; env.EVENT == &#x27;tag&#x27; &#125;&#125;,value=$&#123;&#123; env.TAG_NAME &#125;&#125;</span></span><br><span class="line"><span class="string">  type=raw,value=latest,enable=$&#123;&#123; env.BRANCH_NAME == &#x27;main&#x27; &amp;&amp; env.EVENT != &#x27;tag&#x27;&#125;&#125;</span></span><br><span class="line"><span class="string">  type=sha,prefix=,format=short,enable=$&#123;&#123; env.EVENT != &#x27;tag&#x27; &amp;&amp; env.BRANCH_NAME == &#x27;main&#x27; &#125;&#125;</span></span><br><span class="line"><span class="string">  type=sha,prefix=$&#123;&#123; env.BRANCH_NAME &#125;&#125;-,format=short,enable=$&#123;&#123; env.EVENT != &#x27;tag&#x27; &amp;&amp; env.BRANCH_NAME != &#x27;main&#x27; &#125;&#125;</span></span><br></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -37,6 +37,30 @@
     
     
     <category term="tool" scheme="https://www.willshirley.top/tags/tool/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>etcd snippet</title>
+    <link href="https://www.willshirley.top/2025/04/24/etcd/"/>
+    <id>https://www.willshirley.top/2025/04/24/etcd/</id>
+    <published>2025-04-24T11:26:30.000Z</published>
+    <updated>2025-04-25T02:10:44.968Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ETCDCTL_API=3 etcdctl --endpoints=http://127.0.0.1:2379 endpoint health</span><br><span class="line">ETCDCTL_API=3 /dingofs/etcd/sbin/etcdctl   --endpoints=http://10.220.32.16:12379   member list</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;command&quot;&gt;&lt;a href=&quot;#command&quot; class=&quot;headerlink&quot; title=&quot;command&quot;&gt;&lt;/a&gt;command&lt;/h1&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=</summary>
+      
+    
+    
+    
+    <category term="etcd" scheme="https://www.willshirley.top/categories/etcd/"/>
+    
+    
+    <category term="snippet" scheme="https://www.willshirley.top/tags/snippet/"/>
     
   </entry>
   
@@ -473,30 +497,6 @@
     
     
     <category term="terminology" scheme="https://www.willshirley.top/tags/terminology/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes pkg</title>
-    <link href="https://www.willshirley.top/2024/12/17/kubernetes%20pkg/"/>
-    <id>https://www.willshirley.top/2024/12/17/kubernetes%20pkg/</id>
-    <published>2024-12-17T02:47:36.000Z</published>
-    <updated>2025-03-02T04:09:12.419Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="klog"><a href="#klog" class="headerlink" title="klog"></a>klog</h1><h2 id="default-log-level"><a href="#default-log-level" class="headerlink" title="default log level"></a>default log level</h2><p>default use <code>klog.Info</code> is equivalent to <code>klog.V(0).Info</code>.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> by default klog uses level 0, so logs with log.V(1) won<span class="string">&#x27;t appear unless you set --v=1 or a higher verbosity.</span></span></span><br><span class="line"></span><br><span class="line">containers:</span><br><span class="line">  - name: your-container</span><br><span class="line">    image: your-image</span><br><span class="line">    args:</span><br><span class="line">      - &quot;--v=1&quot; # if not config this, default klog uses level 0</span><br></pre></td></tr></table></figure><ul><li>For more detailed debug or trace messages, use klog.V(level).Info, where level is greater than 0 (e.g., klog.V(2).Info).</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;klog&quot;&gt;&lt;a href=&quot;#klog&quot; class=&quot;headerlink&quot; title=&quot;klog&quot;&gt;&lt;/a&gt;klog&lt;/h1&gt;&lt;h2 id=&quot;default-log-level&quot;&gt;&lt;a href=&quot;#default-log-level&quot; class=&quot;he</summary>
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.willshirley.top/categories/Kubernetes/"/>
-    
-    
-    <category term="pkg" scheme="https://www.willshirley.top/tags/pkg/"/>
     
   </entry>
   
