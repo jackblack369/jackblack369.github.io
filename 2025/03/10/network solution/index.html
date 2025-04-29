@@ -14,7 +14,7 @@
 <meta property="og:description" content="DNSadd new dns method 1: 1234567# step1: vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf[Resolve]DNS&#x3D;10.201.44.51 223.5.5.5  # new DNSFallbackDNS&#x3D;127.0.0.53# step2: restart servicesudo systemctl restart systemd-resolv">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-10T02:04:37.000Z">
-<meta property="article:modified_time" content="2025-03-31T06:15:25.550Z">
+<meta property="article:modified_time" content="2025-04-29T06:14:06.113Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="solution">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">1.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-new-dns"><span class="toc-number">1.1.</span> <span class="toc-text">add new dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#network"><span class="toc-number">2.</span> <span class="toc-text">network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-new-network"><span class="toc-number">2.1.</span> <span class="toc-text">create new network</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">3.</span> <span class="toc-text">bond</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-bond"><span class="toc-number">3.1.</span> <span class="toc-text">create bond</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">1.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-new-dns"><span class="toc-number">1.1.</span> <span class="toc-text">add new dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#network"><span class="toc-number">2.</span> <span class="toc-text">network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-new-network"><span class="toc-number">2.1.</span> <span class="toc-text">create new network</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">3.</span> <span class="toc-text">bond</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-bond"><span class="toc-number">3.1.</span> <span class="toc-text">create bond</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ibtables"><span class="toc-number">4.</span> <span class="toc-text">ibtables</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#remove-specify-rule"><span class="toc-number">4.1.</span> <span class="toc-text">remove specify rule</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -328,6 +328,43 @@
 <p>Use <strong>active-backup</strong> mode if ib7s400p0 is the only slave (recommended now).</p>
 <p>Use <strong>802.3ad</strong> if planning to add more NICs for higher throughput in the future.</p>
 <p>Ensure <code>/etc/sysconfig/network-scripts/</code> configs are properly set for persistence.</p>
+<h1 id="ibtables"><a href="#ibtables" class="headerlink" title="ibtables"></a>ibtables</h1><h2 id="remove-specify-rule"><a href="#remove-specify-rule" class="headerlink" title="remove specify rule"></a>remove specify rule</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check iptables</span></span><br><span class="line">sudo iptables -L -n -v</span><br><span class="line"><span class="meta">#</span><span class="bash"> check nftables</span></span><br><span class="line">sudo nft list ruleset</span><br></pre></td></tr></table></figure>
+
+<p>To remove the <code>reject-with icmp-host-prohibited</code> rule and allow <strong>all incoming traffic</strong> from external servers, follow these steps. This will disable the firewall’s default rejection of unmatched traffic.</p>
+<p><strong>Step 1: Remove the <code>REJECT</code> Rule in <code>iptables</code></strong></p>
+<p>First, identify and delete the explicit <code>REJECT</code> rule in the <code>INPUT</code> chain.</p>
+<p>Check current <code>iptables</code> rules (look for the <code>REJECT</code> line):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -L INPUT -n --line-numbers</span><br></pre></td></tr></table></figure>
+
+<p>Example output:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Chain INPUT (policy ACCEPT)</span><br><span class="line">num  target     prot opt source               destination</span><br><span class="line">...</span><br><span class="line">5    REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited</span><br></pre></td></tr></table></figure>
+
+<p>Delete the rule by its line number (e.g., line <code>5</code>):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -D INPUT 5</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 2: Set Default Policy to <code>ACCEPT</code> (Optional)</strong></p>
+<p>If you want to <strong>allow all traffic by default</strong> (not recommended for security), set the <code>INPUT</code> chain policy to <code>ACCEPT</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -P INPUT ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 3: Save the Rules (Persist Across Reboots)</strong></p>
+<p>Save the changes to ensure they survive a reboot.</p>
+<p>For systems using <code>iptables-persistent</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netfilter-persistent save</span><br></pre></td></tr></table></figure>
+
+<p>For systems using <code>nftables</code> (modern Linux):</p>
+<p>If your system uses <code>nftables</code> , flush all rules and set a default <code>ACCEPT</code> policy:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Flush existing rules</span></span><br><span class="line">sudo nft flush ruleset</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set default policies to ACCEPT</span></span><br><span class="line">sudo nft add table ip filter</span><br><span class="line">sudo nft add chain ip filter INPUT &#123; <span class="built_in">type</span> filter hook input priority 0 \; policy accept \; &#125;</span><br><span class="line">sudo nft add chain ip filter FORWARD &#123; <span class="built_in">type</span> filter hook forward priority 0 \; policy accept \; &#125;</span><br><span class="line">sudo nft add chain ip filter OUTPUT &#123; <span class="built_in">type</span> filter hook output priority 0 \; policy accept \; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save rules</span></span><br><span class="line">sudo nft list ruleset &gt; /etc/nftables.conf</span><br></pre></td></tr></table></figure>
+
+<p><strong>Step 4: Verify the Rules</strong></p>
+<p>Confirm the <code>REJECT</code> rule is gone and traffic is allowed:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -L INPUT -n</span><br><span class="line"><span class="comment"># OR for nftables:</span></span><br><span class="line">sudo nft list ruleset</span><br></pre></td></tr></table></figure>
+
+<p><strong>Important Notes</strong></p>
+<ul>
+<li><strong>Security Warning</strong>: Disabling firewall rules entirely (<code>ACCEPT</code> policy) exposes your server to all traffic. Only do this in trusted environments.</li>
+<li>If you only want to allow specific ports (e.g., <code>6800</code>), use targeted rules instead of disabling the firewall:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -I INPUT -p tcp --dport 6800 -j ACCEPT</span><br><span class="line">sudo netfilter-persistent save</span><br></pre></td></tr></table></figure></li>
+<li>The <code>icmp-host-prohibited</code> rejection is part of the <code>iptables</code> rules, not a separate service. Deleting the rule (Step 1) is sufficient to stop the blocking.</li>
+</ul>
 
   </div>
 </article>
@@ -359,7 +396,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">1.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-new-dns"><span class="toc-number">1.1.</span> <span class="toc-text">add new dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#network"><span class="toc-number">2.</span> <span class="toc-text">network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-new-network"><span class="toc-number">2.1.</span> <span class="toc-text">create new network</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">3.</span> <span class="toc-text">bond</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-bond"><span class="toc-number">3.1.</span> <span class="toc-text">create bond</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">1.</span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-new-dns"><span class="toc-number">1.1.</span> <span class="toc-text">add new dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#network"><span class="toc-number">2.</span> <span class="toc-text">network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-new-network"><span class="toc-number">2.1.</span> <span class="toc-text">create new network</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">3.</span> <span class="toc-text">bond</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-bond"><span class="toc-number">3.1.</span> <span class="toc-text">create bond</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ibtables"><span class="toc-number">4.</span> <span class="toc-text">ibtables</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#remove-specify-rule"><span class="toc-number">4.1.</span> <span class="toc-text">remove specify rule</span></a></li></ol></li></ol>
       </div>
     
 
