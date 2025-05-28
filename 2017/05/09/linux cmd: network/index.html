@@ -14,7 +14,7 @@
 <meta property="og:description" content="port Check the listening ports Run any one of the following command: 123sudo lsof -i -P -n | grep LISTEN sudo netstat -tulpn | grep LISTENsudo nmap -sTU -O IP-address-Here checking remote system tcp 8">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2017-05-09T02:01:30.000Z">
-<meta property="article:modified_time" content="2025-04-29T08:22:57.711Z">
+<meta property="article:modified_time" content="2025-05-22T11:49:31.705Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -217,6 +217,24 @@
 <h1 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h1><p>检测端口是否允许远程访问</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;port&gt;</span><br><span class="line"></span><br><span class="line">查看输出结果。如果输出结果中有 0.0.0.0:&lt;port&gt; 或者 :::&lt;port&gt;，表示该端口允许远程访问；</span><br><span class="line">如果输出结果中只有 127.0.0.1:&lt;port&gt; 或者 ::1:&lt;port&gt;，表示该端口只允许本地访问</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp       0     82   172.30.14.126:2355    172.30.14.126:8772     ESTABLISHED 2057039/dingo-fuse</span><br><span class="line">          │     │           │                       │                      │              │</span><br><span class="line">          │     │           │                       │                      │              └── Process using connection</span><br><span class="line">          │     │           │                       │                      └──────────────── TCP state</span><br><span class="line">          │     │           └───────────────────────┘</span><br><span class="line">          │     └────────────── TCP send buffer</span><br><span class="line">          └──────────────────── TCP receive buffer</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th><strong>Position</strong></th>
+<th><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First 2355 (local)</td>
+<td>The port the <strong>local process (dingo-fuse)</strong> is listening on (server side)</td>
+</tr>
+<tr>
+<td>Second 8772 (remote)</td>
+<td>The port used by the <strong>client side</strong> of the connection (also dingo-fuse)</td>
+</tr>
+</tbody></table>
 <ul>
 <li>在 Ubuntu 中，要开启指定端口的远程访问，需要进行以下步骤：</li>
 </ul>
