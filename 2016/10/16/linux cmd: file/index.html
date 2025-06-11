@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="basiccopy123rsync -aP &lt;sourceDir&gt; &lt;targetDir&gt;cp -r &lt;sourceDir&gt; &lt;targetDir&gt;  rclone Built-in retry and performance options  12345678910111213141516171819202122232425262728293031">
+    <meta name="description" content="basicawk awk -v FS&#x3D;&quot;输入分隔符&quot; -v OFS&#x3D;&#39;输出分隔符&#39; &#39;&amp;#123;if($1&#x3D;&#x3D;$5) print $1,$5,$10&amp;#125;&#39; filename 查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux file command">
 <meta property="og:url" content="https://www.willshirley.top/2016/10/16/linux%20cmd:%20file/index.html">
 <meta property="og:site_name" content="Discipline &amp; Reflect">
-<meta property="og:description" content="basiccopy123rsync -aP &lt;sourceDir&gt; &lt;targetDir&gt;cp -r &lt;sourceDir&gt; &lt;targetDir&gt;  rclone Built-in retry and performance options  12345678910111213141516171819202122232425262728293031">
+<meta property="og:description" content="basicawk awk -v FS&#x3D;&quot;输入分隔符&quot; -v OFS&#x3D;&#39;输出分隔符&#39; &#39;&amp;#123;if($1&#x3D;&#x3D;$5) print $1,$5,$10&amp;#125;&#39; filename 查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2016-10-16T04:01:30.000Z">
-<meta property="article:modified_time" content="2025-06-05T07:29:35.000Z">
+<meta property="article:modified_time" content="2025-06-06T06:08:14.996Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#copy"><span class="toc-number">1.1.</span> <span class="toc-text">copy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rclone"><span class="toc-number">1.1.1.</span> <span class="toc-text">rclone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parallel"><span class="toc-number">1.1.2.</span> <span class="toc-text">parallel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#du"><span class="toc-number">1.2.</span> <span class="toc-text">du</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dd"><span class="toc-number">1.3.</span> <span class="toc-text">dd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-number">1.5.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete"><span class="toc-number">1.6.</span> <span class="toc-text">delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWK"><span class="toc-number">1.7.</span> <span class="toc-text">AWK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wc"><span class="toc-number">1.8.</span> <span class="toc-text">wc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chmod"><span class="toc-number">1.9.</span> <span class="toc-text">chmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cut"><span class="toc-number">1.10.</span> <span class="toc-text">cut</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">1.11.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.12.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SED"><span class="toc-number">1.13.</span> <span class="toc-text">SED</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar"><span class="toc-number">1.14.</span> <span class="toc-text">tar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wget"><span class="toc-number">1.15.</span> <span class="toc-text">wget</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link"><span class="toc-number">1.16.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort"><span class="toc-number">1.17.</span> <span class="toc-text">sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#base64"><span class="toc-number">1.18.</span> <span class="toc-text">base64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr"><span class="toc-number">1.19.</span> <span class="toc-text">tr</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senario"><span class="toc-number">2.</span> <span class="toc-text">senario</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dd-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">dd</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">2.3.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-number">2.4.</span> <span class="toc-text">批量替换文件名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.5.</span> <span class="toc-text">转换文件编码格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="toc-number">2.6.</span> <span class="toc-text">格式化json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">2.7.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown%E8%BD%ACword"><span class="toc-number">2.8.</span> <span class="toc-text">markdown转word</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E6%8C%87%E5%AE%9A%E6%97%A5%E6%9C%9F%E4%B9%8B%E5%89%8D%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">2.9.</span> <span class="toc-text">清理指定日期之前的文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">3.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%B1%95%E7%A4%BA%E7%A9%BA%E9%97%B4%E5%92%8C%E5%AE%9E%E9%99%85%E7%A9%BA%E9%97%B4%E4%B8%8D%E7%AC%A6"><span class="toc-number">3.1.</span> <span class="toc-text">磁盘展示空间和实际空间不符</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#awk"><span class="toc-number">1.1.</span> <span class="toc-text">awk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#base64"><span class="toc-number">1.2.</span> <span class="toc-text">base64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chmod"><span class="toc-number">1.3.</span> <span class="toc-text">chmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy"><span class="toc-number">1.4.</span> <span class="toc-text">copy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cut"><span class="toc-number">1.5.</span> <span class="toc-text">cut</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rclone"><span class="toc-number">1.5.1.</span> <span class="toc-text">rclone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parallel"><span class="toc-number">1.5.2.</span> <span class="toc-text">parallel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete"><span class="toc-number">1.6.</span> <span class="toc-text">delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#du"><span class="toc-number">1.7.</span> <span class="toc-text">du</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dd"><span class="toc-number">1.8.</span> <span class="toc-text">dd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.9.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">1.10.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#findmnt"><span class="toc-number">1.11.</span> <span class="toc-text">findmnt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-number">1.12.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.13.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link"><span class="toc-number">1.14.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sed"><span class="toc-number">1.15.</span> <span class="toc-text">sed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort"><span class="toc-number">1.16.</span> <span class="toc-text">sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar"><span class="toc-number">1.17.</span> <span class="toc-text">tar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr"><span class="toc-number">1.18.</span> <span class="toc-text">tr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wc"><span class="toc-number">1.19.</span> <span class="toc-text">wc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wget"><span class="toc-number">1.20.</span> <span class="toc-text">wget</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senario"><span class="toc-number">2.</span> <span class="toc-text">senario</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">2.3.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-number">2.4.</span> <span class="toc-text">批量替换文件名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.5.</span> <span class="toc-text">转换文件编码格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="toc-number">2.6.</span> <span class="toc-text">格式化json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">2.7.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown%E8%BD%ACword"><span class="toc-number">2.8.</span> <span class="toc-text">markdown转word</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E6%8C%87%E5%AE%9A%E6%97%A5%E6%9C%9F%E4%B9%8B%E5%89%8D%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">2.9.</span> <span class="toc-text">清理指定日期之前的文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">3.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%B1%95%E7%A4%BA%E7%A9%BA%E9%97%B4%E5%92%8C%E5%AE%9E%E9%99%85%E7%A9%BA%E9%97%B4%E4%B8%8D%E7%AC%A6"><span class="toc-number">3.1.</span> <span class="toc-text">磁盘展示空间和实际空间不符</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,7 +166,29 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rsync -aP &lt;sourceDir&gt; &lt;targetDir&gt;</span><br><span class="line"></span><br><span class="line">cp -r &lt;sourceDir&gt; &lt;targetDir&gt;</span><br></pre></td></tr></table></figure>
+    <h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><ul>
+<li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
+<p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
+<p>awk ‘{ $5=””; print }’ file</p>
+</li>
+</ul>
+<h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><ul>
+<li><p>解码</p>
+<p><code>echo [base64-encoded-string] | base64 --decode</code></p>
+</li>
+<li><p>编码</p>
+<p><code>echo &quot;your string&quot; | base64</code></p>
+</li>
+</ul>
+<h2 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h2><p>使文件可以直接执行的命令：chmod +x filename</p>
+<p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
+
+<h2 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rsync -aP &lt;sourceDir&gt; &lt;targetDir&gt;</span><br><span class="line"></span><br><span class="line">cp -r &lt;sourceDir&gt; &lt;targetDir&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello_world&quot; | cut -c1-5   # Output: hello</span><br></pre></td></tr></table></figure>
 
 <h3 id="rclone"><a href="#rclone" class="headerlink" title="rclone"></a>rclone</h3><blockquote>
 <p>Built-in retry and performance options</p>
@@ -183,6 +205,31 @@
 <li><p>rclone copy Part</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--transfers=16: 16 concurrent file transfers per rclone job.</span><br><span class="line">--checkers=32: 32 concurrent file checks (e.g., verifying existence or integrity).</span><br><span class="line">--fast-list: Uses a single API call to list files (faster for remote filesystems like CephFS).</span><br><span class="line">--buffer-size=512M: 512 MB buffer per transfer (reduces disk I/O waits).</span><br><span class="line">--max-backlog=100000: Allows up to 100,000 files to queue before processing.</span><br><span class="line">--use-mmap: Uses memory-mapped I/O for reads (can speed up large files).</span><br><span class="line">--no-traverse: Skips directory traversal for remote sources, relying on listings.</span><br><span class="line">--stats=30s: Shows progress every 30 seconds.</span><br><span class="line">--log-file=rclone_&#123;/&#125;.log: Logs each job to a file named after the subdirectory (e.g., rclone_subdir1.log).</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename1&quot;|&quot;filename2&quot;) </span><br></pre></td></tr></table></figure>
+
+<p><strong>3.</strong> The example below shows how to remove all files other than all <code>.zip</code> files interactively:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i !(*.zip)</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
+
+<p><strong>5.</strong> 删除指定目录下指定日期的目录，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p><strong>6</strong>. 删除指定目录下前一个星期的文件，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -delete</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>可指定相关名称</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /var/log -name &quot;*.log&quot; -type f -mtime +30 </span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="du"><a href="#du" class="headerlink" title="du"></a>du</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">du -h --max-depth=1 --exclude=&#x27;proc&#x27; --exclude=&#x27;home&#x27; --exclude=&#x27;mnt&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check actual disk usage</span></span><br><span class="line">du -sh /path/to/mountpoint</span><br></pre></td></tr></table></figure>
 
 <h2 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=&lt;input&gt; of=&lt;output&gt; [options]</span><br></pre></td></tr></table></figure>
@@ -198,6 +245,34 @@
 
 <h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 省略相同内容的展示</span></span><br><span class="line">diff -y --suppress-common-lines original.txt modified.txt</span><br></pre></td></tr></table></figure>
 
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
+<li>查找具体文件    </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查找指定用户的文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -user 用户名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查找指定用户组的文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -group 用户组</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 <code>rm</code> 命令进行删除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! -name &quot;*.txt&quot; -delete</span><br></pre></td></tr></table></figure></li>
+<li><p>匹配多个</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! \( -name &quot;log4j*&quot; -o -name &quot;flink*&quot; \)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>指定天数数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找30天之前的文件</span></span><br><span class="line">find &lt;directory&gt; -type f -name &quot;*.tar.gz&quot; -mtime +30</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找30天之内的文件</span></span><br><span class="line">find &lt;directory&gt; -type f -name &quot;*.tar.gz&quot; -mtime -30</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="findmnt"><a href="#findmnt" class="headerlink" title="findmnt"></a>findmnt</h2><blockquote>
+<p>列举所有挂载盘</p>
+</blockquote>
 <h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><ul>
 <li>去除包含特定字符串的行：</li>
 </ul>
@@ -236,79 +311,16 @@
 <li><p>查看周围行数的内容</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-A n # Show n lines after the match</span><br><span class="line">-B n # Show n lines before the match</span><br><span class="line">-C n # Show n lines around the match</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><p><strong>1.</strong> To delete all files in a directory except filename, type the command below:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename&quot;)</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.</strong> To delete all files with the exception of <strong>filename1</strong> and <strong>filename2</strong>:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(&quot;filename1&quot;|&quot;filename2&quot;) </span><br></pre></td></tr></table></figure>
-
-<p><strong>3.</strong> The example below shows how to remove all files other than all <code>.zip</code> files interactively:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i !(*.zip)</span><br></pre></td></tr></table></figure>
-
-<p><strong>4.</strong> Next, you can delete all files in a directory apart from all <code>.zip</code> and <code>.odt</code> files as follows, while displaying what is being done:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -v !(*.zip|*.odt)</span><br></pre></td></tr></table></figure>
-
-<p><strong>5.</strong> 删除指定目录下指定日期的目录，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type d -mtime +365 -exec rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-
-<p><strong>6</strong>. 删除指定目录下前一个星期的文件，可以使用 <code>find</code> 和 <code>rm</code> 命令来删除指定目录下指定日期的文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -type f -mtime +7 -delete</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>可指定相关名称</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /var/log -name &quot;*.log&quot; -type f -mtime +30 </span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="AWK"><a href="#AWK" class="headerlink" title="AWK"></a>AWK</h2><ul>
-<li><p><code>awk -v FS=&quot;输入分隔符&quot; -v OFS=&#39;输出分隔符&#39; &#39;&#123;if($1==$5) print $1,$5,$10&#125;&#39; filename</code></p>
-<p>查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk">exclude a column with awk</a>, 比如打印除第5列的其它所有列</p>
-<p>awk ‘{ $5=””; print }’ file</p>
-</li>
-</ul>
-<h2 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h2><ul>
-<li>语法</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法：wc [选项] 文件…</span><br><span class="line">  - c 统计字节数。</span><br><span class="line">  - l 统计行数。</span><br><span class="line">  - w 统计字数。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 统计目录下所有文件数量</span></span><br><span class="line">find /path/to/directory -type f | wc -l</span><br></pre></td></tr></table></figure>
-
-<h2 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h2><p>使文件可以直接执行的命令：chmod +x filename</p>
-<p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
-
-<h2 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello_world&quot; | cut -c1-5   # Output: hello</span><br></pre></td></tr></table></figure>
-
-<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
-<li>查找具体文件    </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查找指定用户的文件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -user 用户名</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查找指定用户组的文件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./* -group 用户组</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 <code>rm</code> 命令进行删除</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! -name &quot;*.txt&quot; -delete</span><br></pre></td></tr></table></figure></li>
-<li><p>匹配多个</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . ! \( -name &quot;log4j*&quot; -o -name &quot;flink*&quot; \)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>指定天数数据</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找30天之前的文件</span></span><br><span class="line">find &lt;directory&gt; -type f -name &quot;*.tar.gz&quot; -mtime +30</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找30天之内的文件</span></span><br><span class="line">find &lt;directory&gt; -type f -name &quot;*.tar.gz&quot; -mtime -30</span><br></pre></td></tr></table></figure></li>
-</ul>
 <h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p><code>ls -lh</code>以可读性G、M查看文件的大小</p>
-<h2 id="SED"><a href="#SED" class="headerlink" title="SED"></a>SED</h2><ul>
+<h2 id="link"><a href="#link" class="headerlink" title="link"></a>link</h2><ul>
+<li><p>创建软连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln  -s  [源文件或目录]  [目标文件或目录]</span><br></pre></td></tr></table></figure></li>
+<li><p>查找指定目录的软连接文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
+<li><p>relink</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -sf &lt;new_target&gt; &lt;link_name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> -s: Create a symbolic link.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -f: Force overwriting an existing link.</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><ul>
 <li><p>替换字符</p>
 <p>linux环境：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/Search_String/Replacement_String/g&#x27; Input_File</span><br></pre></td></tr></table></figure>
@@ -318,6 +330,12 @@
 <li><p>删除指定多行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;1,5d&#x27; example.txt</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了<code>-T /data</code>选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。</p>
+<p>“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
+</blockquote>
 <h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><ul>
 <li><p>c – Creates a new .tar archive file.</p>
 </li>
@@ -336,45 +354,31 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> extract files to a specific destination directory</span></span><br><span class="line">tar -xvf &lt;archive.tar&gt; -C &lt;destination_directory&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><ul>
-<li>下载指定目录</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure>
-
-<h2 id="link"><a href="#link" class="headerlink" title="link"></a>link</h2><ul>
-<li><p>创建软连接</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln  -s  [源文件或目录]  [目标文件或目录]</span><br></pre></td></tr></table></figure></li>
-<li><p>查找指定目录的软连接文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alR | grep ^l</span><br></pre></td></tr></table></figure></li>
-<li><p>relink</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -sf &lt;new_target&gt; &lt;link_name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> -s: Create a symbolic link.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -f: Force overwriting an existing link.</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt &gt; sorted_file.txt</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了<code>-T /data</code>选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。</p>
-<p>“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。</p>
-</blockquote>
-<h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><ul>
-<li><p>解码</p>
-<p><code>echo [base64-encoded-string] | base64 --decode</code></p>
-</li>
-<li><p>编码</p>
-<p><code>echo &quot;your string&quot; | base64</code></p>
-</li>
-</ul>
 <h2 id="tr"><a href="#tr" class="headerlink" title="tr"></a>tr</h2><p>tr – translate or delete characters </p>
 <ul>
 <li><p>大小写转换</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat file | tr A-Z a-z </span><br><span class="line">cat file | tr a-z A-Z</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h2><ul>
+<li>语法</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法：wc [选项] 文件…</span><br><span class="line">  - c 统计字节数。</span><br><span class="line">  - l 统计行数。</span><br><span class="line">  - w 统计字数。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 统计目录下所有文件数量</span></span><br><span class="line">find /path/to/directory -type f | wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><ul>
+<li>下载指定目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure>
+
 <h1 id="senario"><a href="#senario" class="headerlink" title="senario"></a>senario</h1><h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check filesystem <span class="built_in">type</span></span></span><br><span class="line">df -T /path/to/mountpoint</span><br></pre></td></tr></table></figure>
 
 
 
 <h2 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">fallocate -l 1G fileName</span><br></pre></td></tr></table></figure>
 
-<h3 id="dd-1"><a href="#dd-1" class="headerlink" title="dd"></a>dd</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=/path/to/directory/filename bs=block_size count=number_of_blocks</span><br><span class="line"><span class="meta">#</span><span class="bash"> Create a 100MB File <span class="keyword">in</span> /tmp/</span></span><br><span class="line">dd if=/dev/zero of=/tmp/testfile.img bs=1M count=100</span><br></pre></td></tr></table></figure>
+<p><strong>dd</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=/path/to/directory/filename bs=block_size count=number_of_blocks</span><br><span class="line"><span class="meta">#</span><span class="bash"> Create a 100MB File <span class="keyword">in</span> /tmp/</span></span><br><span class="line">dd if=/dev/zero of=/tmp/testfile.img bs=1M count=100</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong><code>if=/dev/zero</code></strong>: Input file (<code>/dev/zero</code> provides null bytes; use <code>/dev/urandom</code> for random data).</li>
@@ -466,7 +470,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#copy"><span class="toc-number">1.1.</span> <span class="toc-text">copy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rclone"><span class="toc-number">1.1.1.</span> <span class="toc-text">rclone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parallel"><span class="toc-number">1.1.2.</span> <span class="toc-text">parallel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#du"><span class="toc-number">1.2.</span> <span class="toc-text">du</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dd"><span class="toc-number">1.3.</span> <span class="toc-text">dd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-number">1.5.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete"><span class="toc-number">1.6.</span> <span class="toc-text">delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWK"><span class="toc-number">1.7.</span> <span class="toc-text">AWK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wc"><span class="toc-number">1.8.</span> <span class="toc-text">wc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chmod"><span class="toc-number">1.9.</span> <span class="toc-text">chmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cut"><span class="toc-number">1.10.</span> <span class="toc-text">cut</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">1.11.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.12.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SED"><span class="toc-number">1.13.</span> <span class="toc-text">SED</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar"><span class="toc-number">1.14.</span> <span class="toc-text">tar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wget"><span class="toc-number">1.15.</span> <span class="toc-text">wget</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link"><span class="toc-number">1.16.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort"><span class="toc-number">1.17.</span> <span class="toc-text">sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#base64"><span class="toc-number">1.18.</span> <span class="toc-text">base64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr"><span class="toc-number">1.19.</span> <span class="toc-text">tr</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senario"><span class="toc-number">2.</span> <span class="toc-text">senario</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dd-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">dd</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">2.3.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-number">2.4.</span> <span class="toc-text">批量替换文件名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.5.</span> <span class="toc-text">转换文件编码格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="toc-number">2.6.</span> <span class="toc-text">格式化json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">2.7.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown%E8%BD%ACword"><span class="toc-number">2.8.</span> <span class="toc-text">markdown转word</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E6%8C%87%E5%AE%9A%E6%97%A5%E6%9C%9F%E4%B9%8B%E5%89%8D%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">2.9.</span> <span class="toc-text">清理指定日期之前的文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">3.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%B1%95%E7%A4%BA%E7%A9%BA%E9%97%B4%E5%92%8C%E5%AE%9E%E9%99%85%E7%A9%BA%E9%97%B4%E4%B8%8D%E7%AC%A6"><span class="toc-number">3.1.</span> <span class="toc-text">磁盘展示空间和实际空间不符</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#awk"><span class="toc-number">1.1.</span> <span class="toc-text">awk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#base64"><span class="toc-number">1.2.</span> <span class="toc-text">base64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chmod"><span class="toc-number">1.3.</span> <span class="toc-text">chmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy"><span class="toc-number">1.4.</span> <span class="toc-text">copy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cut"><span class="toc-number">1.5.</span> <span class="toc-text">cut</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rclone"><span class="toc-number">1.5.1.</span> <span class="toc-text">rclone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parallel"><span class="toc-number">1.5.2.</span> <span class="toc-text">parallel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete"><span class="toc-number">1.6.</span> <span class="toc-text">delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#du"><span class="toc-number">1.7.</span> <span class="toc-text">du</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dd"><span class="toc-number">1.8.</span> <span class="toc-text">dd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.9.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">1.10.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#findmnt"><span class="toc-number">1.11.</span> <span class="toc-text">findmnt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-number">1.12.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.13.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link"><span class="toc-number">1.14.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sed"><span class="toc-number">1.15.</span> <span class="toc-text">sed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort"><span class="toc-number">1.16.</span> <span class="toc-text">sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar"><span class="toc-number">1.17.</span> <span class="toc-text">tar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr"><span class="toc-number">1.18.</span> <span class="toc-text">tr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wc"><span class="toc-number">1.19.</span> <span class="toc-text">wc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wget"><span class="toc-number">1.20.</span> <span class="toc-text">wget</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#senario"><span class="toc-number">2.</span> <span class="toc-text">senario</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.1.</span> <span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">2.3.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-number">2.4.</span> <span class="toc-text">批量替换文件名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.5.</span> <span class="toc-text">转换文件编码格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96json"><span class="toc-number">2.6.</span> <span class="toc-text">格式化json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">2.7.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown%E8%BD%ACword"><span class="toc-number">2.8.</span> <span class="toc-text">markdown转word</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E6%8C%87%E5%AE%9A%E6%97%A5%E6%9C%9F%E4%B9%8B%E5%89%8D%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">2.9.</span> <span class="toc-text">清理指定日期之前的文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">3.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%B1%95%E7%A4%BA%E7%A9%BA%E9%97%B4%E5%92%8C%E5%AE%9E%E9%99%85%E7%A9%BA%E9%97%B4%E4%B8%8D%E7%AC%A6"><span class="toc-number">3.1.</span> <span class="toc-text">磁盘展示空间和实际空间不符</span></a></li></ol></li></ol>
       </div>
     
 
