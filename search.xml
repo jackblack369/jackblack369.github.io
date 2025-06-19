@@ -7847,26 +7847,6 @@
 <li><p>结构体类型中的一个字段看作是它的一个属性或者一项数据，再把隶属于它的一个方法看作是附加在其中数据之上的一个能力或者一项操作。将属性及其能力（或者说数据及其操作）封装在一起，是面向对象编程（object-oriented programming）的一个主要原则。</p>
 </li>
 </ul>
-<h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><ul>
-<li><code>go test -v</code></li>
-<li><code>go test -cover</code></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试指定目录下的某个方法</span></span><br><span class="line">go test -v /path/to/package -run ^FuncName$</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. go <span class="built_in">test</span> -v ./http -run ^TestRunning$  <span class="comment"># 注意 &quot;./&quot; 这个是必须的</span></span></span><br></pre></td></tr></table></figure>
-
-<h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><ul>
-<li><p>errcheck</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
-<li><p>format</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gofmt -w yourfile.go</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>mod</p>
-<p><code>go mod tidy</code> is used to clean up the module directory by removing any unnecessary files, such as: Unused dependencies, Duplicate entries, Empty directories</p>
-<p><code>go mod vendor</code> is a part of Go’s vendor tooling, which allows you to manage dependencies in your project by creating a separate directory called <code>vendor</code>. This directory contains all the dependencies required for your project.</p>
-<p><strong>Purpose</strong>: <code>go mod tidy</code> is used for cleaning up the module directory, while <code>go mod vendor</code> is used for managing dependencies in a separate <code>vendor</code> directory.</p>
-<p><strong>Output</strong>: <code>go mod tidy</code> updates the <code>go.mod</code> file, while <code>go mod vendor</code> creates or updates the <code>vendor</code> directory.</p>
-</li>
-</ul>
 <h1 id="A-vs-B"><a href="#A-vs-B" class="headerlink" title="A vs B"></a>A vs B</h1><ul>
 <li>Golang’s goroutine VS Python’s coroutine</li>
 </ul>
@@ -13472,8 +13452,9 @@
   <entry>
     <title>Kubernetes pkg</title>
     <url>/2024/12/17/kubernetes%20pkg/</url>
-    <content><![CDATA[<h1 id="klog"><a href="#klog" class="headerlink" title="klog"></a>klog</h1><h2 id="default-log-level"><a href="#default-log-level" class="headerlink" title="default log level"></a>default log level</h2><p>default use <code>klog.Info</code> is equivalent to <code>klog.V(0).Info</code>.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> by default klog uses level 0, so logs with log.V(1) won<span class="string">&#x27;t appear unless you set --v=1 or a higher verbosity.</span></span></span><br><span class="line"></span><br><span class="line">containers:</span><br><span class="line">  - name: your-container</span><br><span class="line">    image: your-image</span><br><span class="line">    args:</span><br><span class="line">      - &quot;--v=1&quot; # if not config this, default klog uses level 0</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="klog"><a href="#klog" class="headerlink" title="klog"></a>klog</h1><h2 id="default-log-level"><a href="#default-log-level" class="headerlink" title="default log level"></a>default log level</h2><p>klog verbosity level (0-10)</p>
+<p>default use <code>klog.Info</code> is equivalent to <code>klog.V(0).Info</code>. </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> by default klog uses level 0, so logs with log.V(1) won<span class="string">&#x27;t appear unless you set --v=1 or a higher verbosity.  default k8s&#x27;</span>s <span class="built_in">log</span> level is also 0</span></span><br><span class="line"></span><br><span class="line">containers:</span><br><span class="line">  - name: your-container</span><br><span class="line">    image: your-image</span><br><span class="line">    args:</span><br><span class="line">      - &quot;--v=1&quot; # if not config this, default klog uses level 0</span><br></pre></td></tr></table></figure>
 
 
 
@@ -14301,14 +14282,16 @@
 
 <h1 id="cluster"><a href="#cluster" class="headerlink" title="cluster"></a>cluster</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1</span></span><br><span class="line">ceph fsid</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">cat /etc/ceph/ceph.conf | grep fsid</span><br></pre></td></tr></table></figure>
 
-<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><ul>
-<li><p>check userId</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph auth list</span><br></pre></td></tr></table></figure></li>
-</ul>
+<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check regular user key</span></span><br><span class="line">ceph auth list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check admin key</span></span><br><span class="line">ceph auth get client.admin</span><br></pre></td></tr></table></figure>
+
 <h1 id="health"><a href="#health" class="headerlink" title="health"></a>health</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph df</span><br></pre></td></tr></table></figure>
 
 <h1 id="host"><a href="#host" class="headerlink" title="host"></a>host</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list host</span></span><br><span class="line">ceph orch host ls --detail</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add host</span></span><br><span class="line">ssh-copy-id -f -i /etc/ceph/ceph.pub root@*&lt;new-host&gt;*</span><br><span class="line">ceph orch host add *&lt;newhost&gt;* [*&lt;ip&gt;*] [*&lt;label1&gt; ...*]</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.  ceph orch host add host2 10.10.0.102 --labels _admin</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove host</span></span><br><span class="line">ceph orch host drain *&lt;host&gt;*</span><br><span class="line">ceph orch ps &lt;host&gt;  # daemons on the host</span><br><span class="line">ceph orch host rm &lt;host&gt; # remove the host from the cluster after all daemons have been removed</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add storage</span></span><br><span class="line">ceph orch apply osd --all-available-devices</span><br></pre></td></tr></table></figure>
 <h1 id="osd"><a href="#osd" class="headerlink" title="osd"></a>osd</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list</span></span><br><span class="line">ceph orch device ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Creating New OSDs</span></span><br><span class="line">ceph orch apply osd --all-available-devices</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">ceph orch daemon add osd *&lt;host&gt;*:*&lt;device-path&gt;*</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.</span></span><br><span class="line">ceph orch daemon add osd host1:/dev/sdb</span><br><span class="line">ceph orch daemon add osd host1:data_devices=/dev/sda,/dev/sdb,db_devices=/dev/sdc,osds_per_device=2</span><br></pre></td></tr></table></figure>
+
+<h2 id="pool"><a href="#pool" class="headerlink" title="pool"></a>pool</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list available pool</span></span><br><span class="line">ceph osd pool ls</span><br></pre></td></tr></table></figure>
+
+
 
 <h1 id="RGW"><a href="#RGW" class="headerlink" title="RGW"></a>RGW</h1><blockquote>
 <p>radosgw</p>
@@ -16674,27 +16657,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cmake &amp; make</title>
-    <url>/2024/12/16/cmake%20&amp;%20make/</url>
-    <content><![CDATA[<h1 id="cmake"><a href="#cmake" class="headerlink" title="cmake"></a>cmake</h1><ul>
-<li><p>generate a full dependency graph</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake --graphviz=output.dot .</span><br><span class="line">dot -Tpng output.dot -o deps.png</span><br></pre></td></tr></table></figure></li>
-<li><p>diagnose error</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查询 CMake Error 信息字样</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="make"><a href="#make" class="headerlink" title="make"></a>make</h1><ul>
-<li><p>show all errors</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> -k (keep going) helps show all errors,</span></span><br><span class="line">make -j2 -k   # 先用 make -j32 多并发编译暴露错误，然后再用2并发结合&#x27;-k&#x27;参数打印编译错误</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>cmake</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Dockerfile</title>
     <url>/2024/08/16/Dockerfile/</url>
     <content><![CDATA[<h1 id="ARG-vs-ENV"><a href="#ARG-vs-ENV" class="headerlink" title="ARG vs ENV"></a>ARG vs ENV</h1><table>
@@ -16744,6 +16706,9 @@
     <url>/2025/06/06/c++%20summary/</url>
     <content><![CDATA[<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>C++ 里类的四大函数：构造函数、析构函数、拷贝构造函数、拷贝赋值函数。C++11 因为引入了右值（Rvalue）和转移（Move），又多出了两大函数：转移构造函数和转移赋值函数。</p>
 <p>所以，在现代 C++ 里，一个类总是会有六大基本函数：三个构造、两个赋值、一个析构。</p>
+<ul>
+<li>在 C/C++ 里，所有的函数都是全局的，没有生存周期的概念（static、名字空间的作用很弱，只是简单限制了应用范围，避免名字冲突）。而且函数也都是平级的，不能在函数里再定义函数，也就是不允许定义嵌套函数、函数套函数。</li>
+</ul>
 <h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><h3 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h3><h4 id="“委托构造”（delegating-constructor）"><a href="#“委托构造”（delegating-constructor）" class="headerlink" title="“委托构造”（delegating constructor）"></a>“委托构造”（delegating constructor）</h4><blockquote>
 <p>使用“委托构造”的新特性，一个构造函数直接调用另一个构造函数，把构造工作“委托”出去，既简单又高效。</p>
 </blockquote>
@@ -16753,6 +16718,37 @@
 
 <h4 id="“类型别名”（Type-Alias）"><a href="#“类型别名”（Type-Alias）" class="headerlink" title="“类型别名”（Type Alias）"></a>“类型别名”（Type Alias）</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">uint_t</span> = <span class="keyword">unsigned</span> <span class="keyword">int</span>; <span class="comment">// using别名</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="keyword">uint_t</span>； <span class="comment">// 等价的typedef</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h2><blockquote>
+<p>C++ 没有为 lambda 表达式引入新的关键字，并没有“lambda”这样的词汇，而是用了一个特殊的形式“[]”，术语叫“lambda 引出符”（lambda introducer）。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> lambda 表达式示例</span></span><br><span class="line">auto f1 = [](&lt;入口参数&gt;)&#123;函数体&#125;; </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>lambda表达式赋值必须用auto（但auto不能用在类成员初始化）</li>
+<li>lambda 表达式是一个闭包，能够像函数一样被调用，像变量一样被传递</li>
+<li>捕获引用时必须要注意外部变量的生命周期，防止变量失效</li>
+</ul>
+<p><strong>变量捕获</strong></p>
+<ul>
+<li><code>[=]</code>表示按值捕获所有外部变量，表达式内部是值的拷贝，并且不能修改</li>
+<li><code>[&amp;]</code>是按引用捕获所有外部变量，内部以引用的方式使用，可以修改</li>
+</ul>
+<h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><blockquote>
+<p>尽量不要再使用裸指针、new 和 delete 来操作内存</p>
+</blockquote>
+<h2 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h2><ul>
+<li>尽量不要对 unique_ptr 执行赋值操作就好了，让它“自生自灭”，完全自动化管理。</li>
+</ul>
+<h2 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h2><ul>
+<li>shared_ptr 支持安全共享的秘密在于内部使用了“引用计数”</li>
+<li>因为 shared_ptr 具有完整的“值语义”（即可以拷贝赋值），所以，它可以在任何场合替代原始指针，而不用再担心资源回收的问题，比如用于容器存储指针、用于函数安全返回动态创建的对象，等等</li>
+</ul>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li><p>C++ 里也是有垃圾回收的，不过不是 Java、Go 那种严格意义上的垃圾回收，而是广义上的垃圾回收，这就是构造 / 析构函数和 <code>RAII</code> 惯用法（Resource Acquisition Is Initialization）</p>
+</li>
+<li><p><code>noexcept</code> 专门用来修饰函数，告诉编译器：这个函数不会抛出异常。编译器看到<code>noexcept</code>，就得到了一个“保证”，就可以对函数做优化，不去加那些栈展开的额外代码，消除异常处理的成本。</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>c++</category>
@@ -16770,6 +16766,141 @@
       </categories>
       <tags>
         <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmake &amp; make cmd</title>
+    <url>/2024/12/16/cmake%20&amp;%20make%20cmd/</url>
+    <content><![CDATA[<h1 id="cmake"><a href="#cmake" class="headerlink" title="cmake"></a>cmake</h1><ul>
+<li><p>generate a full dependency graph</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cmake --graphviz=output.dot .</span><br><span class="line">dot -Tpng output.dot -o deps.png</span><br></pre></td></tr></table></figure></li>
+<li><p>diagnose error</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查询 CMake Error 信息字样</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="make"><a href="#make" class="headerlink" title="make"></a>make</h1><ul>
+<li><p>show all errors</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> -k (keep going) helps show all errors,</span></span><br><span class="line">make -j2 -k   # 先用 make -j32 多并发编译暴露错误，然后再用2并发结合&#x27;-k&#x27;参数打印编译错误</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>cmake</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmake learn</title>
+    <url>/2025/06/17/cmake%20learn/</url>
+    <content><![CDATA[<h1 id="default"><a href="#default" class="headerlink" title="default"></a>default</h1><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">CMAKE_CURRENT_SOURCE_DIR</span><br><span class="line">PROJECT_SOURCE_DIR</span><br></pre></td></tr></table></figure>
+
+<p>**CMAKE_CURRENT_SOURCE_DIR **</p>
+<p>The path to the source directory currently being processed.</p>
+<p>This is the full path to the source directory that is currently being processed by cmake.</p>
+<p><strong>PROJECT_SOURCE_DIR</strong></p>
+<p>This is the source directory of the last call to the project() command made in the current directory scope or one of its parents. Note, it is not affected by calls to project() made within a child directory scope (i.e. from within a call to add_subdirectory()  from the current scope).</p>
+<ul>
+<li>When run in <a href="https://cmake.org/cmake/help/v3.31/manual/cmake.1.html#cmdoption-cmake-P"><code>cmake -P</code></a> script mode, CMake sets the variables <code>CMAKE_BINARY_DIR</code>, <code>CMAKE_SOURCE_DIR</code>, <code>CMAKE_CURRENT_BINARY_DIR</code> and <code>CMAKE_CURRENT_SOURCE_DIR</code> to the current working directory.</li>
+</ul>
+<h1 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h1><p><strong><code>PUBLIC</code></strong></p>
+<p>Populates both properties for <a href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-build-specification">building</a> and properties for <a href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-usage-requirements">using</a> a target.</p>
+<p><strong><code>PRIVATE</code></strong></p>
+<p>Populates only properties for <a href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-build-specification">building</a> a target.</p>
+<p><strong><code>INTERFACE</code></strong></p>
+<p>Populates only properties for <a href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-usage-requirements">using</a> a target.</p>
+<ul>
+<li>Remember <code>INTERFACE</code> means things that consumers require but the producer doesn’t.</li>
+</ul>
+<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>()</span><br><span class="line"><span class="keyword">cmake_minimum_required</span>()</span><br><span class="line"><span class="keyword">project</span>()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(Tutorial VERSION <span class="number">2.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the variable</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tells CMake to create an executable using the specified source code files</span></span><br><span class="line"><span class="keyword">add_executable</span>(Tutorial tutorial.cxx)</span><br></pre></td></tr></table></figure>
+
+<h3 id="configure-file"><a href="#configure-file" class="headerlink" title="configure_file"></a>configure_file</h3><blockquote>
+<p>copy the input file with the specified CMake variables replaced</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Copies an &lt;input&gt; file to an &lt;output&gt; file </span></span><br><span class="line"><span class="keyword">configure_file</span>(&lt;input&gt; &lt;output&gt;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="target-include-directories"><a href="#target-include-directories" class="headerlink" title="target_include_directories"></a>target_include_directories</h3><blockquote>
+<p>specify where the executable target should look for include files</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">target_include_directories</span>(Tutorial PUBLIC <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-a-Library"><a href="#Adding-a-Library" class="headerlink" title="Adding a Library"></a>Adding a Library</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_library</span>()</span><br><span class="line"><span class="keyword">add_subdirectory</span>()</span><br><span class="line"><span class="keyword">target_include_directories</span>()</span><br><span class="line"><span class="keyword">target_link_libraries</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="add-library"><a href="#add-library" class="headerlink" title="add_library"></a>add_library</h3><blockquote>
+<p>Add a library target called <code>&lt;name&gt;</code> to be built from the source files listed in the command invocation</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(MathFunctions MathFunctions.cxx mysqrt.cxx)</span><br></pre></td></tr></table></figure>
+
+<h3 id="add-subdirectory"><a href="#add-subdirectory" class="headerlink" title="add_subdirectory"></a>add_subdirectory</h3><blockquote>
+<p>make use of the new library call</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_subdirectory</span>(MathFunctions)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Usage-Requirements-for-a-Library"><a href="#Adding-Usage-Requirements-for-a-Library" class="headerlink" title="Adding Usage Requirements for a Library"></a>Adding Usage Requirements for a Library</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">target_compile_definitions</span>()</span><br><span class="line"><span class="keyword">target_compile_options</span>()</span><br><span class="line"><span class="keyword">target_include_directories</span>()</span><br><span class="line"><span class="keyword">target_link_directories</span>()</span><br><span class="line"><span class="keyword">target_link_options</span>()</span><br><span class="line">target_precompile_headers()</span><br><span class="line"><span class="keyword">target_sources</span>()</span><br><span class="line"><span class="keyword">add_library</span>()</span><br><span class="line"><span class="keyword">target_compile_features</span>()</span><br><span class="line"><span class="keyword">target_link_libraries</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Generator-Expressions"><a href="#Adding-Generator-Expressions" class="headerlink" title="Adding Generator Expressions"></a>Adding Generator Expressions</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">cmake-generator-expressions(<span class="number">7</span>)</span><br><span class="line"><span class="keyword">cmake_minimum_required</span>()</span><br><span class="line"><span class="keyword">set</span>()</span><br><span class="line"><span class="keyword">target_compile_options</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Installing-and-Testing"><a href="#Installing-and-Testing" class="headerlink" title="Installing and Testing"></a>Installing and Testing</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">install</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-System-Introspection"><a href="#Adding-System-Introspection" class="headerlink" title="Adding System Introspection"></a>Adding System Introspection</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Packaging-an-Installer"><a href="#Packaging-an-Installer" class="headerlink" title="Packaging an Installer"></a>Packaging an Installer</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cpack</span><br></pre></td></tr></table></figure>
+
+<h2 id="Selecting-Static-or-Shared-Libraries"><a href="#Selecting-Static-or-Shared-Libraries" class="headerlink" title="Selecting Static or Shared Libraries"></a>Selecting Static or Shared Libraries</h2><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">option</span>(BUILD_SHARED_LIBS <span class="string">&quot;Build using shared libraries&quot;</span> <span class="keyword">ON</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Export-Configuration"><a href="#Adding-Export-Configuration" class="headerlink" title="Adding Export Configuration"></a>Adding Export Configuration</h2>]]></content>
+      <categories>
+        <category>cmake</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang command</title>
+    <url>/2024/10/22/golang%20cmd/</url>
+    <content><![CDATA[<h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><blockquote>
+<p>你可以覆盖 100% 的代码行，但你永远无法覆盖 100% 的输入和状态组合</p>
+</blockquote>
+<ul>
+<li>单元测试 (Unit Testing): 验证开发者对代码单元在预期输入下的行为。</li>
+<li>模糊测试 (Fuzz Testing): 通过自动生成大量随机或变异输入，探索代码的边缘情况和未知缺陷。Go 1.18 已将 Fuzz Testing 内置到标准工具链中，这是一个强大的武器。</li>
+<li>集成测试 (Integration Testing): 验证模块间的交互。</li>
+<li>端到端测试 (End-to-End Testing): 模拟真实用户场景。</li>
+<li>生产测试/灰度发布 (Staged Rollouts / Canary Releases): 在真实生产环境中，小范围、逐步地验证变更的可靠性，这是大型系统发布的“金丝雀”。</li>
+</ul>
+<p><strong>command</strong></p>
+<ul>
+<li><code>go test -v</code></li>
+<li><code>go test -cover</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试指定目录下的某个方法</span></span><br><span class="line">go test -v /path/to/package -run ^FuncName$</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. go <span class="built_in">test</span> -v ./http -run ^TestRunning$  <span class="comment"># 注意 &quot;./&quot; 这个是必须的</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h1><ul>
+<li><p>install</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go install github.com/go-resty/resty/v2@xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>errcheck</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
+<li><p>format</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gofmt -w yourfile.go</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>mod</p>
+<p><code>go mod tidy</code> is used to clean up the module directory by removing any unnecessary files, such as: Unused dependencies, Duplicate entries, Empty directories</p>
+<p><code>go mod vendor</code> is a part of Go’s vendor tooling, which allows you to manage dependencies in your project by creating a separate directory called <code>vendor</code>. This directory contains all the dependencies required for your project.</p>
+<p><strong>Purpose</strong>: <code>go mod tidy</code> is used for cleaning up the module directory, while <code>go mod vendor</code> is used for managing dependencies in a separate <code>vendor</code> directory.</p>
+<p><strong>Output</strong>: <code>go mod tidy</code> updates the <code>go.mod</code> file, while <code>go mod vendor</code> creates or updates the <code>vendor</code> directory.</p>
+</li>
+<li><p>run</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go run /path/to/main/directory</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>command</tag>
       </tags>
   </entry>
 </search>

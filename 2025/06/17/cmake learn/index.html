@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="default12CMAKE_CURRENT_SOURCE_DIRPROJECT_SOURCE_DIR  **CMAKE_CURRENT_SOURCE_DIR ** The path to the source directory currently being processed. This is the full path to the source directory that is cur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmake learn">
+<meta property="og:url" content="https://www.willshirley.top/2025/06/17/cmake%20learn/index.html">
+<meta property="og:site_name" content="Discipline &amp; Reflect">
+<meta property="og:description" content="default12CMAKE_CURRENT_SOURCE_DIRPROJECT_SOURCE_DIR  **CMAKE_CURRENT_SOURCE_DIR ** The path to the source directory currently being processed. This is the full path to the source directory that is cur">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-06-17T07:09:24.000Z">
+<meta property="article:modified_time" content="2025-06-18T11:23:26.075Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>cmake learn</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Discipline & Reflect" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/10/22/github/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/06/06/c++%20summary/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&text=cmake learn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/06/17/cmake%20learn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=cmake learn&body=Check out this article: https://www.willshirley.top/2025/06/17/cmake%20learn/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&title=cmake learn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&title=cmake learn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&title=cmake learn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/06/17/cmake%20learn/&t=cmake learn"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#default"><span class="toc-number">1.</span> <span class="toc-text">default</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scope"><span class="toc-number">2.</span> <span class="toc-text">scope</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">3.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">3.1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#configure-file"><span class="toc-number">3.1.1.</span> <span class="toc-text">configure_file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#target-include-directories"><span class="toc-number">3.1.2.</span> <span class="toc-text">target_include_directories</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-a-Library"><span class="toc-number">3.2.</span> <span class="toc-text">Adding a Library</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#add-library"><span class="toc-number">3.2.1.</span> <span class="toc-text">add_library</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-subdirectory"><span class="toc-number">3.2.2.</span> <span class="toc-text">add_subdirectory</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-Usage-Requirements-for-a-Library"><span class="toc-number">3.3.</span> <span class="toc-text">Adding Usage Requirements for a Library</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-Generator-Expressions"><span class="toc-number">3.4.</span> <span class="toc-text">Adding Generator Expressions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-and-Testing"><span class="toc-number">3.5.</span> <span class="toc-text">Installing and Testing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-System-Introspection"><span class="toc-number">3.6.</span> <span class="toc-text">Adding System Introspection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Packaging-an-Installer"><span class="toc-number">3.7.</span> <span class="toc-text">Packaging an Installer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Selecting-Static-or-Shared-Libraries"><span class="toc-number">3.8.</span> <span class="toc-text">Selecting Static or Shared Libraries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-Export-Configuration"><span class="toc-number">3.9.</span> <span class="toc-text">Adding Export Configuration</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        cmake learn
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-17T07:09:24.000Z" class="dt-published" itemprop="datePublished">2025-06-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/cmake/">cmake</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/tool/" rel="tag">tool</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="default"><a href="#default" class="headerlink" title="default"></a>default</h1><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CMAKE_CURRENT_SOURCE_DIR</span><br><span class="line">PROJECT_SOURCE_DIR</span><br></pre></td></tr></table></figure>
+
+<p>**CMAKE_CURRENT_SOURCE_DIR **</p>
+<p>The path to the source directory currently being processed.</p>
+<p>This is the full path to the source directory that is currently being processed by cmake.</p>
+<p><strong>PROJECT_SOURCE_DIR</strong></p>
+<p>This is the source directory of the last call to the project() command made in the current directory scope or one of its parents. Note, it is not affected by calls to project() made within a child directory scope (i.e. from within a call to add_subdirectory()  from the current scope).</p>
+<ul>
+<li>When run in <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/v3.31/manual/cmake.1.html#cmdoption-cmake-P"><code>cmake -P</code></a> script mode, CMake sets the variables <code>CMAKE_BINARY_DIR</code>, <code>CMAKE_SOURCE_DIR</code>, <code>CMAKE_CURRENT_BINARY_DIR</code> and <code>CMAKE_CURRENT_SOURCE_DIR</code> to the current working directory.</li>
+</ul>
+<h1 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h1><p><strong><code>PUBLIC</code></strong></p>
+<p>Populates both properties for <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-build-specification">building</a> and properties for <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-usage-requirements">using</a> a target.</p>
+<p><strong><code>PRIVATE</code></strong></p>
+<p>Populates only properties for <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-build-specification">building</a> a target.</p>
+<p><strong><code>INTERFACE</code></strong></p>
+<p>Populates only properties for <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/v3.31/manual/cmake-buildsystem.7.html#target-usage-requirements">using</a> a target.</p>
+<ul>
+<li>Remember <code>INTERFACE</code> means things that consumers require but the producer doesn’t.</li>
+</ul>
+<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>()</span><br><span class="line"><span class="keyword">cmake_minimum_required</span>()</span><br><span class="line"><span class="keyword">project</span>()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(Tutorial VERSION <span class="number">2.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the variable</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tells CMake to create an executable using the specified source code files</span></span><br><span class="line"><span class="keyword">add_executable</span>(Tutorial tutorial.cxx)</span><br></pre></td></tr></table></figure>
+
+<h3 id="configure-file"><a href="#configure-file" class="headerlink" title="configure_file"></a>configure_file</h3><blockquote>
+<p>copy the input file with the specified CMake variables replaced</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Copies an &lt;input&gt; file to an &lt;output&gt; file </span></span><br><span class="line"><span class="keyword">configure_file</span>(&lt;input&gt; &lt;output&gt;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="target-include-directories"><a href="#target-include-directories" class="headerlink" title="target_include_directories"></a>target_include_directories</h3><blockquote>
+<p>specify where the executable target should look for include files</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_include_directories</span>(Tutorial PUBLIC <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-a-Library"><a href="#Adding-a-Library" class="headerlink" title="Adding a Library"></a>Adding a Library</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>()</span><br><span class="line"><span class="keyword">add_subdirectory</span>()</span><br><span class="line"><span class="keyword">target_include_directories</span>()</span><br><span class="line"><span class="keyword">target_link_libraries</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="add-library"><a href="#add-library" class="headerlink" title="add_library"></a>add_library</h3><blockquote>
+<p>Add a library target called <code>&lt;name&gt;</code> to be built from the source files listed in the command invocation</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(MathFunctions MathFunctions.cxx mysqrt.cxx)</span><br></pre></td></tr></table></figure>
+
+<h3 id="add-subdirectory"><a href="#add-subdirectory" class="headerlink" title="add_subdirectory"></a>add_subdirectory</h3><blockquote>
+<p>make use of the new library call</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_subdirectory</span>(MathFunctions)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Usage-Requirements-for-a-Library"><a href="#Adding-Usage-Requirements-for-a-Library" class="headerlink" title="Adding Usage Requirements for a Library"></a>Adding Usage Requirements for a Library</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_compile_definitions</span>()</span><br><span class="line"><span class="keyword">target_compile_options</span>()</span><br><span class="line"><span class="keyword">target_include_directories</span>()</span><br><span class="line"><span class="keyword">target_link_directories</span>()</span><br><span class="line"><span class="keyword">target_link_options</span>()</span><br><span class="line">target_precompile_headers()</span><br><span class="line"><span class="keyword">target_sources</span>()</span><br><span class="line"><span class="keyword">add_library</span>()</span><br><span class="line"><span class="keyword">target_compile_features</span>()</span><br><span class="line"><span class="keyword">target_link_libraries</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Generator-Expressions"><a href="#Adding-Generator-Expressions" class="headerlink" title="Adding Generator Expressions"></a>Adding Generator Expressions</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake-generator-expressions(<span class="number">7</span>)</span><br><span class="line"><span class="keyword">cmake_minimum_required</span>()</span><br><span class="line"><span class="keyword">set</span>()</span><br><span class="line"><span class="keyword">target_compile_options</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Installing-and-Testing"><a href="#Installing-and-Testing" class="headerlink" title="Installing and Testing"></a>Installing and Testing</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">install</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-System-Introspection"><a href="#Adding-System-Introspection" class="headerlink" title="Adding System Introspection"></a>Adding System Introspection</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Packaging-an-Installer"><a href="#Packaging-an-Installer" class="headerlink" title="Packaging an Installer"></a>Packaging an Installer</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cpack</span><br></pre></td></tr></table></figure>
+
+<h2 id="Selecting-Static-or-Shared-Libraries"><a href="#Selecting-Static-or-Shared-Libraries" class="headerlink" title="Selecting Static or Shared Libraries"></a>Selecting Static or Shared Libraries</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">option</span>(BUILD_SHARED_LIBS <span class="string">&quot;Build using shared libraries&quot;</span> <span class="keyword">ON</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Adding-Export-Configuration"><a href="#Adding-Export-Configuration" class="headerlink" title="Adding Export Configuration"></a>Adding Export Configuration</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#default"><span class="toc-number">1.</span> <span class="toc-text">default</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#scope"><span class="toc-number">2.</span> <span class="toc-text">scope</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">3.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">3.1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#configure-file"><span class="toc-number">3.1.1.</span> <span class="toc-text">configure_file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#target-include-directories"><span class="toc-number">3.1.2.</span> <span class="toc-text">target_include_directories</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-a-Library"><span class="toc-number">3.2.</span> <span class="toc-text">Adding a Library</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#add-library"><span class="toc-number">3.2.1.</span> <span class="toc-text">add_library</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-subdirectory"><span class="toc-number">3.2.2.</span> <span class="toc-text">add_subdirectory</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-Usage-Requirements-for-a-Library"><span class="toc-number">3.3.</span> <span class="toc-text">Adding Usage Requirements for a Library</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-Generator-Expressions"><span class="toc-number">3.4.</span> <span class="toc-text">Adding Generator Expressions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-and-Testing"><span class="toc-number">3.5.</span> <span class="toc-text">Installing and Testing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-System-Introspection"><span class="toc-number">3.6.</span> <span class="toc-text">Adding System Introspection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Packaging-an-Installer"><span class="toc-number">3.7.</span> <span class="toc-text">Packaging an Installer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Selecting-Static-or-Shared-Libraries"><span class="toc-number">3.8.</span> <span class="toc-text">Selecting Static or Shared Libraries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-Export-Configuration"><span class="toc-number">3.9.</span> <span class="toc-text">Adding Export Configuration</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&text=cmake learn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/06/17/cmake%20learn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=cmake learn&body=Check out this article: https://www.willshirley.top/2025/06/17/cmake%20learn/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&title=cmake learn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&title=cmake learn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/06/17/cmake%20learn/&title=cmake learn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/06/17/cmake%20learn/&t=cmake learn"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
