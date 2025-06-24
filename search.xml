@@ -14773,6 +14773,45 @@
 <li><p>relink</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ln -sf &lt;new_target&gt; &lt;link_name&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> -s: Create a symbolic link.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -f: Force overwriting an existing link.</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="nbsp"><a href="#nbsp" class="headerlink" title="nbsp"></a>nbsp</h2><non-breaking spaces>
+
+<p>显示 nbsp</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 方式一</span></span><br><span class="line">xxd &lt;file&gt;  # </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方式二</span></span><br><span class="line">vim 模式</span><br><span class="line">:set list</span><br><span class="line">:set listchars+=nbsp:⦸  # 这个实际对应输入  :set listchars+=nbsp:^Vu29b8</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th><strong>Character</strong></th>
+<th><strong>Normal Space</strong></th>
+<th><strong>Non-Breaking Space</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unicode codepoint</td>
+<td>U+0020</td>
+<td>U+00A0</td>
+</tr>
+<tr>
+<td>UTF-8 representation</td>
+<td>0x20</td>
+<td>0xC2A0</td>
+</tr>
+<tr>
+<td>Visible?</td>
+<td>No (looks like a space)</td>
+<td>No (looks like a space)</td>
+</tr>
+<tr>
+<td>Breaks line?</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>YAML-safe?</td>
+<td>✅ Yes</td>
+<td>❌ No — may cause parse errors</td>
+</tr>
+</tbody></table>
 <h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><ul>
 <li><p>替换字符</p>
 <p>linux环境：</p>
@@ -14871,7 +14910,7 @@
 
 <h2 id="转换文件编码格式"><a href="#转换文件编码格式" class="headerlink" title="转换文件编码格式"></a>转换文件编码格式</h2><ul>
 <li><p>查看编码</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim</span></span><br><span class="line">:set fileencoding</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file</span></span><br><span class="line">file -i filename</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim</span></span><br><span class="line">:set fileencoding</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file</span></span><br><span class="line">file -I filename</span><br></pre></td></tr></table></figure></li>
 <li><p>转换编码</p>
 </li>
 </ul>
@@ -14892,6 +14931,10 @@
 <h2 id="markdown转word"><a href="#markdown转word" class="headerlink" title="markdown转word"></a>markdown转word</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pandoc -o output.docx -f markdown -t docx filename.md</span><br></pre></td></tr></table></figure>
 
 <h2 id="清理指定日期之前的文件"><a href="#清理指定日期之前的文件" class="headerlink" title="清理指定日期之前的文件"></a>清理指定日期之前的文件</h2><h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="磁盘展示空间和实际空间不符"><a href="#磁盘展示空间和实际空间不符" class="headerlink" title="磁盘展示空间和实际空间不符"></a>磁盘展示空间和实际空间不符</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check deleted process</span></span><br><span class="line">sudo lsof | grep deleted</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Analyzing the Output</span></span><br><span class="line">wsssr_def 1368270 1368507 wsssr_def            root    7w      REG              259,3         0    1180232 /usr/local/wsssr_defence_agent/agent_init (deleted)</span><br><span class="line"></span><br><span class="line">Breaking it down:</span><br><span class="line">Command: wsssr_def (shortened process name, likely wsssr_defence_agent or similar).</span><br><span class="line">PID: 1368270 (process ID).</span><br><span class="line">PPID: 1368507 (parent process ID).</span><br><span class="line">User: root (running as root).</span><br><span class="line">FD: 7w (file descriptor 7, open for writing).</span><br><span class="line">Type: REG (regular file).</span><br><span class="line">Device: 259,3 (device number, matching /dev/nvme0n1p2—your root partition).</span><br><span class="line">Size: 0 (reported size is 0 bytes—see below for why this is misleading).</span><br><span class="line">Node: 1180232 (inode number).</span><br><span class="line">File: /usr/local/wsssr_defence_agent/agent_init (deleted) (the deleted file).</span><br></pre></td></tr></table></figure>
+
+<h2 id="拷贝之后，空格编码不一致"><a href="#拷贝之后，空格编码不一致" class="headerlink" title="拷贝之后，空格编码不一致"></a>拷贝之后，空格编码不一致</h2><p>替换 no-breaking spaces(nbsp) 为 正常空格</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i  &#x27;s/\xC2\xA0/ /g&#x27; &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>linux</category>
@@ -16945,6 +16988,19 @@
       </categories>
       <tags>
         <tag>command</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java backend</title>
+    <url>/2025/06/24/aws%20cli/</url>
+    <content><![CDATA[<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl &quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot; -o &quot;awscliv2.zip&quot;</span><br><span class="line">unzip awscliv2.zip</span><br><span class="line">sudo ./aws/install</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>aws cli</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>
