@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.willshirley.top/images/fs/fileSystemType.jpeg">
 <meta property="og:image" content="https://www.willshirley.top/images/fs/lvm%20architecture.png">
 <meta property="article:published_time" content="2024-08-07T05:59:21.000Z">
-<meta property="article:modified_time" content="2025-02-18T02:28:06.041Z">
+<meta property="article:modified_time" content="2025-06-27T11:23:11.890Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#storage"><span class="toc-number">1.</span> <span class="toc-text">storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Block-and-File-Storage"><span class="toc-number">1.1.</span> <span class="toc-text">Object, Block and File Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#S3-Gateway"><span class="toc-number">1.2.</span> <span class="toc-text">S3 Gateway</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">2.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blocks"><span class="toc-number">2.2.</span> <span class="toc-text">Blocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunks"><span class="toc-number">2.3.</span> <span class="toc-text">Chunks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inode"><span class="toc-number">2.4.</span> <span class="toc-text">inode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dentry"><span class="toc-number">2.5.</span> <span class="toc-text">dentry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">2.6.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">2.7.</span> <span class="toc-text">partitioning vs LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.8.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.9.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hard-link-vs-soft-link"><span class="toc-number">2.10.</span> <span class="toc-text">hard link vs soft link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">2.11.</span> <span class="toc-text">tmpfs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvme"><span class="toc-number">2.12.</span> <span class="toc-text">nvme</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">4.1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Check-Disk-Health"><span class="toc-number">4.1.1.</span> <span class="toc-text">Check Disk Health</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount"><span class="toc-number">4.1.2.</span> <span class="toc-text">umount</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-1"><span class="toc-number">4.2.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partition"><span class="toc-number">4.3.</span> <span class="toc-text">partition</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#toubleshooting"><span class="toc-number">5.</span> <span class="toc-text">toubleshooting</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#storage"><span class="toc-number">1.</span> <span class="toc-text">storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Block-and-File-Storage"><span class="toc-number">1.1.</span> <span class="toc-text">Object, Block and File Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#S3-Gateway"><span class="toc-number">1.2.</span> <span class="toc-text">S3 Gateway</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">2.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blocks"><span class="toc-number">2.2.</span> <span class="toc-text">Blocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunks"><span class="toc-number">2.3.</span> <span class="toc-text">Chunks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inode"><span class="toc-number">2.4.</span> <span class="toc-text">inode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dentry"><span class="toc-number">2.5.</span> <span class="toc-text">dentry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">2.6.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">2.7.</span> <span class="toc-text">partitioning vs LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.8.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.9.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hard-link-vs-soft-link"><span class="toc-number">2.10.</span> <span class="toc-text">hard link vs soft link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">2.11.</span> <span class="toc-text">tmpfs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvme"><span class="toc-number">2.12.</span> <span class="toc-text">nvme</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xattrs"><span class="toc-number">4.</span> <span class="toc-text">xattrs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">5.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">5.1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Check-Disk-Health"><span class="toc-number">5.1.1.</span> <span class="toc-text">Check Disk Health</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount"><span class="toc-number">5.1.2.</span> <span class="toc-text">umount</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-1"><span class="toc-number">5.2.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partition"><span class="toc-number">5.3.</span> <span class="toc-text">partition</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#toubleshooting"><span class="toc-number">6.</span> <span class="toc-text">toubleshooting</span></a></li></ol>
       </div>
     
   </span>
@@ -722,6 +722,116 @@
 <li><p>install</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dnf install fuse fuse-libs</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="xattrs"><a href="#xattrs" class="headerlink" title="xattrs"></a>xattrs</h1><blockquote>
+<p>Extended attributes (xattrs) allow <strong>attaching arbitrary metadata</strong> to files or directories, beyond the standard file properties like permissions, size, or timestamps.</p>
+<p>In Linux, <strong>extended attributes (xattrs)</strong> are stored <strong>within the filesystem itself</strong>, typically in <strong>inode metadata</strong> or in <strong>separate data blocks</strong> depending on the filesystem and the size of the attribute.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check a file’s extended attributes (xattrs) on Linux</span></span><br><span class="line">getfattr -d &lt;filename&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. <span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment"># # # # # # # # # # # # # # # # #</span></span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> file: test.txt</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> user.comment=<span class="string">&quot;This is a test file&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> user.note=<span class="string">&quot;Reviewed by Will&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment"># # # # # # # # # # # # # # # # #</span></span> </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Show all attributes including system</span></span><br><span class="line">getfattr -m - &lt;filename&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add a user-defined attribute</span></span><br><span class="line">setfattr -n user.note -v &quot;Reviewed by Will&quot; &lt;filename&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check filesystems support xattrs</span></span><br><span class="line">mount | grep &#x27;xattr&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Core Use Cases of Extended Attributes</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Purpose</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>User-defined metadata</td>
+<td>You can store custom info like tags, descriptions, or hashes</td>
+</tr>
+<tr>
+<td>Filesystem-level features</td>
+<td>Filesystems like XFS, ext4, and Btrfs use xattrs for advanced features</td>
+</tr>
+<tr>
+<td>Access Control (ACLs)</td>
+<td>POSIX ACLs can be stored as extended attributes</td>
+</tr>
+<tr>
+<td>SELinux/AppArmor labels</td>
+<td>Security modules store labels and access controls in xattrs</td>
+</tr>
+<tr>
+<td>File integrity systems</td>
+<td>Tools like Ima, EVM, or tripwire store hash digests in xattrs</td>
+</tr>
+<tr>
+<td>System operations</td>
+<td>Tools like setcap use xattrs to attach capabilities to executables</td>
+</tr>
+</tbody></table>
+<p>put any info any binary or text data — but with constraints:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Constraint</strong></th>
+<th><strong>Limit / Behavior</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Attribute name</td>
+<td>Must follow <namespace>.<name> format (e.g. user.comment)</td>
+</tr>
+<tr>
+<td>Namespaces available</td>
+<td>user, system, security, trusted</td>
+</tr>
+<tr>
+<td>Size limits</td>
+<td>Usually 64KB per file total (varies by FS)</td>
+</tr>
+<tr>
+<td>Namespaces access</td>
+<td>Some (e.g. trusted.*) are only accessible by root</td>
+</tr>
+</tbody></table>
+<p>You <strong>cannot</strong> use attributes across different namespaces without permission.</p>
+<p><strong>xattr data stored</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Storage Location</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>In inode (inline)</td>
+<td>For small xattr values, many filesystems store them directly in the inode</td>
+</tr>
+<tr>
+<td>External blocks</td>
+<td>For larger attributes, xattrs are stored in separate blocks on disk</td>
+</tr>
+<tr>
+<td>Filesystem-dependent</td>
+<td>The actual storage mechanism is implemented by the filesystem (e.g., ext4, XFS, Btrfs)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>Filesystem</strong></th>
+<th><strong>Xattr Storage Behavior</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ext4</strong></td>
+<td>Stores small xattrs inline in inode; larger ones in external blocks</td>
+</tr>
+<tr>
+<td><strong>XFS</strong></td>
+<td>Uses B-tree and attribute forks; supports large xattr efficiently</td>
+</tr>
+<tr>
+<td><strong>Btrfs</strong></td>
+<td>Stores xattrs as part of its copy-on-write metadata structures</td>
+</tr>
+<tr>
+<td><strong>tmpfs</strong></td>
+<td>Stores xattrs in memory</td>
+</tr>
+</tbody></table>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list avaliable disk</span></span><br><span class="line">fdisk -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list nvme (sudo dnf install -y nvme-cli)</span></span><br><span class="line">nvme list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list block disk</span></span><br><span class="line">lsblk -l</span><br></pre></td></tr></table></figure>
 
 <h3 id="Check-Disk-Health"><a href="#Check-Disk-Health" class="headerlink" title="Check Disk Health"></a>Check Disk Health</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep -i &#x27;error&#x27;</span><br></pre></td></tr></table></figure>
@@ -799,7 +909,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#storage"><span class="toc-number">1.</span> <span class="toc-text">storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Block-and-File-Storage"><span class="toc-number">1.1.</span> <span class="toc-text">Object, Block and File Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#S3-Gateway"><span class="toc-number">1.2.</span> <span class="toc-text">S3 Gateway</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">2.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blocks"><span class="toc-number">2.2.</span> <span class="toc-text">Blocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunks"><span class="toc-number">2.3.</span> <span class="toc-text">Chunks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inode"><span class="toc-number">2.4.</span> <span class="toc-text">inode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dentry"><span class="toc-number">2.5.</span> <span class="toc-text">dentry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">2.6.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">2.7.</span> <span class="toc-text">partitioning vs LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.8.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.9.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hard-link-vs-soft-link"><span class="toc-number">2.10.</span> <span class="toc-text">hard link vs soft link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">2.11.</span> <span class="toc-text">tmpfs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvme"><span class="toc-number">2.12.</span> <span class="toc-text">nvme</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">4.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">4.1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Check-Disk-Health"><span class="toc-number">4.1.1.</span> <span class="toc-text">Check Disk Health</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount"><span class="toc-number">4.1.2.</span> <span class="toc-text">umount</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-1"><span class="toc-number">4.2.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partition"><span class="toc-number">4.3.</span> <span class="toc-text">partition</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#toubleshooting"><span class="toc-number">5.</span> <span class="toc-text">toubleshooting</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#storage"><span class="toc-number">1.</span> <span class="toc-text">storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Block-and-File-Storage"><span class="toc-number">1.1.</span> <span class="toc-text">Object, Block and File Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#S3-Gateway"><span class="toc-number">1.2.</span> <span class="toc-text">S3 Gateway</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#concept"><span class="toc-number">2.</span> <span class="toc-text">concept</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FS-type"><span class="toc-number">2.1.</span> <span class="toc-text">FS type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blocks"><span class="toc-number">2.2.</span> <span class="toc-text">Blocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunks"><span class="toc-number">2.3.</span> <span class="toc-text">Chunks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inode"><span class="toc-number">2.4.</span> <span class="toc-text">inode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dentry"><span class="toc-number">2.5.</span> <span class="toc-text">dentry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM"><span class="toc-number">2.6.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partitioning-vs-LVM"><span class="toc-number">2.7.</span> <span class="toc-text">partitioning vs LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume-vs-fs"><span class="toc-number">2.8.</span> <span class="toc-text">volume vs fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-vs-bind"><span class="toc-number">2.9.</span> <span class="toc-text">mount vs bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hard-link-vs-soft-link"><span class="toc-number">2.10.</span> <span class="toc-text">hard link vs soft link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmpfs"><span class="toc-number">2.11.</span> <span class="toc-text">tmpfs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvme"><span class="toc-number">2.12.</span> <span class="toc-text">nvme</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FUSE"><span class="toc-number">3.</span> <span class="toc-text">FUSE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xattrs"><span class="toc-number">4.</span> <span class="toc-text">xattrs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">5.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">5.1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Check-Disk-Health"><span class="toc-number">5.1.1.</span> <span class="toc-text">Check Disk Health</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount"><span class="toc-number">5.1.2.</span> <span class="toc-text">umount</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM-1"><span class="toc-number">5.2.</span> <span class="toc-text">LVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partition"><span class="toc-number">5.3.</span> <span class="toc-text">partition</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#toubleshooting"><span class="toc-number">6.</span> <span class="toc-text">toubleshooting</span></a></li></ol>
       </div>
     
 
