@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="TerminologyNSFS NSFS (short for Namespace-Filesystem) is a capability to use a shared filesystem (mounted in the endpoints) for the storage of S3 buckets, while keeping a 1-1 mapping between Object an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="noobaa">
+<meta property="og:url" content="https://www.willshirley.top/2025/06/26/noobaa/index.html">
+<meta property="og:site_name" content="Discipline &amp; Reflect">
+<meta property="og:description" content="TerminologyNSFS NSFS (short for Namespace-Filesystem) is a capability to use a shared filesystem (mounted in the endpoints) for the storage of S3 buckets, while keeping a 1-1 mapping between Object an">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-06-26T03:12:48.000Z">
+<meta property="article:modified_time" content="2025-06-26T15:23:24.457Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="s3">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>noobaa</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Discipline & Reflect" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/10/22/github/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/06/24/aws%20cli/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/06/26/noobaa/&text=noobaa"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/06/26/noobaa/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=noobaa&body=Check out this article: https://www.willshirley.top/2025/06/26/noobaa/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/06/26/noobaa/&title=noobaa"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/06/26/noobaa/&title=noobaa"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/06/26/noobaa/&title=noobaa"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/06/26/noobaa/&t=noobaa"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Terminology"><span class="toc-number">1.</span> <span class="toc-text">Terminology</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deploy"><span class="toc-number">2.</span> <span class="toc-text">Deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#install"><span class="toc-number">2.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pod"><span class="toc-number">2.2.</span> <span class="toc-text">pod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#serivice"><span class="toc-number">2.3.</span> <span class="toc-text">serivice</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume"><span class="toc-number">2.4.</span> <span class="toc-text">volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemc-info"><span class="toc-number">2.5.</span> <span class="toc-text">systemc info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mgmt-UI"><span class="toc-number">2.6.</span> <span class="toc-text">Mgmt UI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#aws-cli"><span class="toc-number">2.7.</span> <span class="toc-text">aws-cli</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NSFS"><span class="toc-number">3.</span> <span class="toc-text">NSFS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-create-NSFS-resource"><span class="toc-number">3.1.</span> <span class="toc-text">1. create NSFS resource</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-create-bucket"><span class="toc-number">3.2.</span> <span class="toc-text">2. create bucket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-add-bucket-policy"><span class="toc-number">3.3.</span> <span class="toc-text">3. add bucket policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-create-account"><span class="toc-number">3.4.</span> <span class="toc-text">4. create account</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-config-s3-client"><span class="toc-number">3.5.</span> <span class="toc-text">5. config s3 client</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-operate"><span class="toc-number">3.6.</span> <span class="toc-text">6. operate</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Best-Practices"><span class="toc-number">4.</span> <span class="toc-text">Best Practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Postgresql-DB-TBD"><span class="toc-number">4.1.</span> <span class="toc-text">External Postgresql DB (TBD)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Troubleshooting"><span class="toc-number">5.</span> <span class="toc-text">Troubleshooting</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        noobaa
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-26T03:12:48.000Z" class="dt-published" itemprop="datePublished">2025-06-26</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/noobaa/">noobaa</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/s3/" rel="tag">s3</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h1><p><strong>NSFS</strong></p>
+<p>NSFS (short for Namespace-Filesystem) is a capability to use a shared filesystem (mounted in the endpoints) for the storage of S3 buckets, while keeping a 1-1 mapping between Object and File.</p>
+<p>reference </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/noobaa/noobaa-core/wiki/NSFS-on-Kubernetes">NSFS on Kubernetes</a></p>
+<ul>
+<li>FS backend supported types are <code>GPFS</code>, <code>CEPH_FS</code>, <code>NFSv4</code> default is <code>POSIX</code></li>
+</ul>
+<h1 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -LO https://github.com/noobaa/noobaa-operator/releases/download/v5.18.4/noobaa-operator-v5.18.4-linux-amd64.tar.gz</span><br><span class="line">tar -xzvf noobaa-operator-v5.18.4-linux-amd64.tar.gz</span><br><span class="line">chmod +x noobaa-$OS-$VERSION</span><br><span class="line">mv noobaa-$OS-$VERSION /usr/local/bin/noobaa</span><br></pre></td></tr></table></figure>
+
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><ul>
+<li><p>prepare</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ctr -n k8s.io images pull dockerproxy.zetyun.cn/docker.io/noobaa/noobaa-core:master-20250623</span><br><span class="line">sudo ctr -n k8s.io images pull dockerproxy.zetyun.cn/docker.io/noobaa/noobaa-operator:5.18.4</span><br><span class="line">sudo ctr -n k8s.io images pull quay.io/sclorg/postgresql-15-c9s:latest</span><br></pre></td></tr></table></figure></li>
+<li><p>install</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">kubectl create ns noobaa</span><br><span class="line">kubectl config set-context --current --namespace noobaa</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> use internal postgres</span></span><br><span class="line">noobaa install --noobaa-image=dockerproxy.zetyun.cn/docker.io/noobaa/noobaa-core:master-20250623 --operator-image=dockerproxy.zetyun.cn/docker.io/noobaa/noobaa-operator:5.18.4 --db-image=quay.io/sclorg/postgresql-15-c9s:latest --namespace=noobaa</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> use external postgres</span> </span><br><span class="line">noobaa install --noobaa-image=dockerproxy.zetyun.cn/docker.io/noobaa/noobaa-core:master-20250623 --operator-image=dockerproxy.zetyun.cn/docker.io/noobaa/noobaa-operator:5.18.4 --postgres-url=&quot;postgres://postgres:noobaa123@10.220.32.18:5432/nbcore&quot; --namespace=noobaa</span><br></pre></td></tr></table></figure></li>
+<li><p>status</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noobaa status --show-secrets</span><br></pre></td></tr></table></figure></li>
+<li><p>uninstall</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noobaa uninstall --cleanup</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">noobaa-core-0                                      2/2     Running   0          2m5s</span><br><span class="line">noobaa-db-pg-0                                     1/1     Running   0          2m6s</span><br><span class="line">noobaa-default-backing-store-noobaa-pod-cb1747eb   1/1     Running   0          19s</span><br><span class="line">noobaa-endpoint-79677c7dd9-cjqdj                   1/1     Running   0          42s</span><br><span class="line">noobaa-operator-7d969db69c-gmlm4                   1/1     Running   0          2m28s</span><br></pre></td></tr></table></figure>
+
+<p><strong>noobaa-db-pg-0</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> volume</span></span><br><span class="line">/var/lib/pgsql from db (rw)</span><br><span class="line">db:</span><br><span class="line">  Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)</span><br><span class="line">  ClaimName:  db-noobaa-db-pg-0</span><br><span class="line">  ReadOnly:   false</span><br></pre></td></tr></table></figure>
+
+<h2 id="serivice"><a href="#serivice" class="headerlink" title="serivice"></a>serivice</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME            TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                    AGE</span><br><span class="line">noobaa-db-pg    ClusterIP      None            &lt;none&gt;        5432/TCP                                                   2m15s</span><br><span class="line">noobaa-mgmt     ClusterIP      10.97.139.113   &lt;none&gt;        80/TCP,443/TCP,8445/TCP,8446/TCP                           2m14s</span><br><span class="line">noobaa-syslog   ClusterIP      10.102.80.226   &lt;none&gt;        514/UDP                                                    2m11s</span><br><span class="line">s3              LoadBalancer   10.110.97.124   &lt;pending&gt;     80:32292/TCP,443:32034/TCP,8444:31155/TCP,7004:30222/TCP   2m14s</span><br><span class="line">sts             LoadBalancer   10.103.219.22   &lt;pending&gt;     443:30126/TCP                                              2m13s</span><br></pre></td></tr></table></figure>
+
+<h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">noobaa-db-noobaa-db-pg-0</span><br><span class="line">noobaa-noobaa-default-backing-store-noobaa-pvc-07c805ab</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mountpod</span> </span><br><span class="line">dingofs-ubuntu2-pvc-ef31f21c-5677-4f83-94ad-face89b741c3-lhenuc</span><br><span class="line">dingofs-ubuntu3-pvc-10fd093a-0d75-45ee-b52d-84f712378e09-jbxeue</span><br></pre></td></tr></table></figure>
+
+<h2 id="systemc-info"><a href="#systemc-info" class="headerlink" title="systemc info"></a>systemc info</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">NOOBAA_SECRET=$(kubectl get noobaa noobaa -n noobaa -o json | jq -r &#x27;.status.accounts.admin.secretRef.name&#x27; )</span><br><span class="line">noobaa-admin</span><br><span class="line"></span><br><span class="line">NOOBAA_MGMT=$(kubectl get noobaa noobaa -n noobaa -o json | jq -r &#x27;.status.services.serviceMgmt.nodePorts[0]&#x27; )</span><br><span class="line">https://10.xx.xx.18:0</span><br><span class="line"></span><br><span class="line">NOOBAA_S3=$(kubectl get noobaa noobaa -n noobaa -o json | jq -r &#x27;.status.services.serviceS3.nodePorts[0]&#x27; )</span><br><span class="line">https://10.xx.xx.18:30478   # entrypoint</span><br><span class="line"></span><br><span class="line">NOOBAA_ACCESS_KEY=$(kubectl get secret noobaa-admin -n noobaa -o json | jq -r &#x27;.data.AWS_ACCESS_KEY_ID|@base64d&#x27;)</span><br><span class="line">3gR59xxxxxHBbOdOx</span><br><span class="line"></span><br><span class="line">NOOBAA_SECRET_KEY=$(kubectl get secret noobaa-admin -n noobaa -o json | jq -r &#x27;.data.AWS_SECRET_ACCESS_KEY|@base64d&#x27;)</span><br><span class="line">zu229xxxxxxxxxxxxxxxxxxxxxxxxcfX</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mgmt-UI"><a href="#Mgmt-UI" class="headerlink" title="Mgmt UI"></a>Mgmt UI</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secret noobaa-admin -n noobaa -o json | jq &#x27;.data|map_values(@base64d)&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span> </span><br><span class="line">&#123;</span><br><span class="line">  &quot;AWS_ACCESS_KEY_ID&quot;: &quot;3gR59eoLoBvhjHBbOdOx&quot;,</span><br><span class="line">  &quot;AWS_SECRET_ACCESS_KEY&quot;: &quot;zu229aAJIo6g9GOsjKTyUc6p3Rc0c/nHGdjI3cfX&quot;,</span><br><span class="line">  &quot;email&quot;: &quot;admin@noobaa.io&quot;,</span><br><span class="line">  &quot;password&quot;: &quot;7JfrgTXgnJjU4ywSFWYr+Q==&quot;,</span><br><span class="line">  &quot;system&quot;: &quot;noobaa&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">open $NOOBAA_MGMT</span><br></pre></td></tr></table></figure>
+
+<h2 id="aws-cli"><a href="#aws-cli" class="headerlink" title="aws-cli"></a>aws-cli</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alias s3=&#x27;AWS_ACCESS_KEY_ID=3gR5xxxxxxxxOx AWS_SECRET_ACCESS_KEY=zu229aAJxxxxxxxxxxxxxxxxxcfX aws --endpoint https://10.xxx.xx.18:30478 --no-verify-ssl s3&#x27;</span><br><span class="line">s3 ls</span><br><span class="line">s3 sync /var/log/ s3://first.bucket</span><br><span class="line">s3 ls s3://first.bucket</span><br></pre></td></tr></table></figure>
+
+<h1 id="NSFS"><a href="#NSFS" class="headerlink" title="NSFS"></a>NSFS</h1><h2 id="1-create-NSFS-resource"><a href="#1-create-NSFS-resource" class="headerlink" title="1. create NSFS resource"></a>1. create NSFS resource</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noobaa namespacestore create nsfs dingofs-nsfs --pvc-name=&#x27;noobaa-nsfs-pvc&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>dynamic-pvc-1.yaml</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">noobaa-nsfs-pvc</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">noobaa</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteMany</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">100Gi</span></span><br><span class="line">  <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">dingofs-sc-s3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>delete</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noobaa namespacestore delete dingofs-nsfs</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-create-bucket"><a href="#2-create-bucket" class="headerlink" title="2. create bucket"></a>2. create bucket</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">noobaa api bucket_api create_bucket &#x27;&#123;</span><br><span class="line">  &quot;name&quot;: &quot;dingofs-bucket-1&quot;,</span><br><span class="line">  &quot;namespace&quot;:&#123;</span><br><span class="line">    &quot;write_resource&quot;: &#123; &quot;resource&quot;: &quot;dingofs-nsfs&quot;, &quot;path&quot;: &quot;dingofs-bucket-1/&quot; &#125;,</span><br><span class="line">    &quot;read_resources&quot;: [ &#123; &quot;resource&quot;: &quot;dingofs-nsfs&quot;, &quot;path&quot;: &quot;dingofs-bucket-1/&quot; &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">log</span></span></span><br><span class="line">bucket_type: NAMESPACE</span><br><span class="line">data:</span><br><span class="line">  available_quantity_for_upload:</span><br><span class="line">    &quot;n&quot;: 1125899906842623</span><br><span class="line">    peta: 7</span><br><span class="line">  available_size_for_upload: 0</span><br><span class="line">  free: 0</span><br><span class="line">  last_update: 1750931642170</span><br><span class="line">  size: 0</span><br><span class="line">  size_reduced: 0</span><br><span class="line">mode: OPTIMAL</span><br><span class="line">name: dingofs-bucket-1</span><br><span class="line">namespace:</span><br><span class="line">  read_resources:</span><br><span class="line">  - path: dingofs-bucket-1/</span><br><span class="line">    resource: dingofs-nsfs</span><br><span class="line">  should_create_underlying_storage: false</span><br><span class="line">  write_resource:</span><br><span class="line">    path: dingofs-bucket-1/</span><br><span class="line">    resource: dingofs-nsfs</span><br><span class="line">num_objects:</span><br><span class="line">  last_update: 1750931550000</span><br><span class="line">  value: 0</span><br><span class="line">owner_account:</span><br><span class="line">  email: operator@noobaa.io</span><br><span class="line">  id: 685d128d454ec60022bf1918</span><br><span class="line">stats_by_type: []</span><br><span class="line">storage:</span><br><span class="line">  last_update: 1750931642170</span><br><span class="line">  values:</span><br><span class="line">    free: 0</span><br><span class="line">    total: 0</span><br><span class="line">    used: 0</span><br><span class="line">    used_other: 0</span><br><span class="line">tag: &quot;&quot;</span><br><span class="line">usage_by_pool:</span><br><span class="line">  last_update: 1750931550000</span><br><span class="line">  pools: []</span><br><span class="line">versioning: DISABLED</span><br><span class="line">writable: false</span><br></pre></td></tr></table></figure>
+
+<p><strong>status</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noobaa bucket status &lt;bucketName&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>list bucket</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">noobaa api bucket_api list_buckets &#x27;&#123;&#125;&#x27;</span><br><span class="line">or </span><br><span class="line">noobaa bucket list</span><br></pre></td></tr></table></figure>
+
+<p><strong>get_bucket_policy</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noobaa api bucket_api get_bucket_policy &#x27;&#123;&quot;name&quot;: &quot;&lt;bucketName&gt;&quot;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>delete bucket</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">noobaa api bucket_api delete_bucket &#x27;&#123;&quot;name&quot;: &quot;&lt;bucketName&gt;&quot;&#125;&#x27;</span><br><span class="line">or </span><br><span class="line">noobaa bucket delete &lt;bucketName&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-add-bucket-policy"><a href="#3-add-bucket-policy" class="headerlink" title="3. add bucket policy"></a>3. add bucket policy</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hould update the bucket policy using admin account</span></span><br><span class="line">AWS_ACCESS_KEY_ID=3gR59eoxxxxBbOdOx AWS_SECRET_ACCESS_KEY=zu229aAJIxxxxxxxxxxxdjI3cfX aws --endpoint-url=https://10.220.32.18:30478 --no-verify-ssl s3api put-bucket-policy --bucket dingofs-bucket-1 --policy file://policy.json</span><br></pre></td></tr></table></figure>
+<p><strong>policy.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;Version&quot;</span>:<span class="string">&quot;2025-06-25&quot;</span>,</span><br><span class="line"><span class="attr">&quot;Statement&quot;</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="attr">&quot;Sid&quot;</span>:<span class="string">&quot;id-1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;Effect&quot;</span>:<span class="string">&quot;Allow&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;Principal&quot;</span>:<span class="string">&quot;*&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;Action&quot;</span>:[<span class="string">&quot;s3:*&quot;</span>],</span><br><span class="line">        <span class="attr">&quot;Resource&quot;</span>:[<span class="string">&quot;arn:aws:s3:::*&quot;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>Sid</code> (Statement ID) serves as an optional identifier for individual policy statements, allowing for easier management and referencing of specific rules within a larger policy. It’s a way to give a unique name to each permission set within the bucket policy, which can be helpful when dealing with multiple statements or when debugging policy issues</p>
+</blockquote>
+<h2 id="4-create-account"><a href="#4-create-account" class="headerlink" title="4. create account"></a>4. create account</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">noobaa api account_api create_account &#x27;&#123;</span><br><span class="line">    &quot;email&quot;: &quot;dingofs@zetyun.com&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;dingofs&quot;,</span><br><span class="line">    &quot;has_login&quot;: false,</span><br><span class="line">    &quot;s3_access&quot;: true,</span><br><span class="line">    &quot;default_resource&quot;: &quot;dingofs-nsfs&quot;,</span><br><span class="line">    &quot;nsfs_account_config&quot;: &#123;</span><br><span class="line">      &quot;uid&quot;: 0,</span><br><span class="line">      &quot;gid&quot;: 0,</span><br><span class="line">      &quot;new_buckets_path&quot;: &quot;/&quot;,</span><br><span class="line">      &quot;nsfs_only&quot;: false</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;&#x27;</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span> </span><br><span class="line">access_keys:</span><br><span class="line">access_key: UanhXoxxxxxIggJP</span><br><span class="line">secret_key: ptsSJUYxxxxxxxx2SF8ltV</span><br><span class="line">token: eyJhbGcixxxxxxxxxxxxxxxxxxxxxxxxxxxxxqGdB-E2zQF-3MBII</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>check account<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">noobaa api account_api list_accounts &#123;&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> check specify accout</span></span><br><span class="line">noobaa api account_api read_account &#x27;&#123;&quot;email&quot;:&quot;jenia@noobaa.io&quot;&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-config-s3-client"><a href="#5-config-s3-client" class="headerlink" title="5. config s3 client"></a>5. config s3 client</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias s3-user-dingofs=&#x27;AWS_ACCESS_KEY_ID=UanhxxxxxxggJP AWS_SECRET_ACCESS_KEY=ptsSJUYVCxxxxxxxxxxxSF8ltV aws --endpoint https://10.220.32.18:30478  --no-verify-ssl s3&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-operate"><a href="#6-operate" class="headerlink" title="6. operate"></a>6. operate</h2><ul>
+<li>create bucket<br><code>s3-user-datacanvas mb s3://test-bucket</code></li>
+</ul>
+<h1 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h1><h2 id="External-Postgresql-DB-TBD"><a href="#External-Postgresql-DB-TBD" class="headerlink" title="External Postgresql DB (TBD)"></a>External Postgresql DB (TBD)</h2><ul>
+<li><p>binary install</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm</span><br><span class="line">sudo dnf -qy module disable postgresql</span><br><span class="line">sudo dnf install -y postgresql17-server</span><br><span class="line">sudo /usr/pgsql-17/bin/postgresql-17-setup initdb</span><br><span class="line">sudo systemctl enable postgresql-17</span><br><span class="line">sudo systemctl start postgresql-17</span><br></pre></td></tr></table></figure></li>
+<li><p>docker install</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 17 version</span></span><br><span class="line">docker run --name noobaa-postgres \</span><br><span class="line">  -e POSTGRES_PASSWORD=&lt;&gt; \</span><br><span class="line">  --restart always \</span><br><span class="line">  --network host \</span><br><span class="line">  -d dockerproxy.zetyun.cn/docker.io/postgres:latest</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 15 version</span></span><br><span class="line">docker run --name noobaa-postgres \</span><br><span class="line">  -e POSTGRESQL_ADMIN_PASSWORD=&lt;&gt; \</span><br><span class="line">  --restart always \</span><br><span class="line">  --network host \</span><br><span class="line">  -d quay.io/sclorg/postgresql-15-c9s:latest</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> enter psql</span></span><br><span class="line">psql -U postgres</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> create nbcore database</span></span><br><span class="line">CREATE DATABASE nbcore WITH LC_COLLATE = &#x27;C&#x27; TEMPLATE template0;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span> </span><br><span class="line">\list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> db url</span> </span><br><span class="line">postgres://postgres:&lt;mysecretpassword&gt;@&lt;ip&gt;:5432/nbcore&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>use postgres 15, should config </p>
+<p>variables:                                                               </p>
+<p>POSTGRESQL_USER POSTGRESQL_PASSWORD POSTGRESQL_DATABASE     </p>
+<p>Or the following environment variable:                                                 </p>
+<p>POSTGRESQL_ADMIN_PASSWORD                                                       </p>
+<p>Or both.  </p>
+</blockquote>
+</li>
+</ul>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Terminology"><span class="toc-number">1.</span> <span class="toc-text">Terminology</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deploy"><span class="toc-number">2.</span> <span class="toc-text">Deploy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#install"><span class="toc-number">2.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pod"><span class="toc-number">2.2.</span> <span class="toc-text">pod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#serivice"><span class="toc-number">2.3.</span> <span class="toc-text">serivice</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume"><span class="toc-number">2.4.</span> <span class="toc-text">volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemc-info"><span class="toc-number">2.5.</span> <span class="toc-text">systemc info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mgmt-UI"><span class="toc-number">2.6.</span> <span class="toc-text">Mgmt UI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#aws-cli"><span class="toc-number">2.7.</span> <span class="toc-text">aws-cli</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NSFS"><span class="toc-number">3.</span> <span class="toc-text">NSFS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-create-NSFS-resource"><span class="toc-number">3.1.</span> <span class="toc-text">1. create NSFS resource</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-create-bucket"><span class="toc-number">3.2.</span> <span class="toc-text">2. create bucket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-add-bucket-policy"><span class="toc-number">3.3.</span> <span class="toc-text">3. add bucket policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-create-account"><span class="toc-number">3.4.</span> <span class="toc-text">4. create account</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-config-s3-client"><span class="toc-number">3.5.</span> <span class="toc-text">5. config s3 client</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-operate"><span class="toc-number">3.6.</span> <span class="toc-text">6. operate</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Best-Practices"><span class="toc-number">4.</span> <span class="toc-text">Best Practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Postgresql-DB-TBD"><span class="toc-number">4.1.</span> <span class="toc-text">External Postgresql DB (TBD)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Troubleshooting"><span class="toc-number">5.</span> <span class="toc-text">Troubleshooting</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/06/26/noobaa/&text=noobaa"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/06/26/noobaa/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=noobaa&body=Check out this article: https://www.willshirley.top/2025/06/26/noobaa/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/06/26/noobaa/&title=noobaa"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/06/26/noobaa/&title=noobaa"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/06/26/noobaa/&title=noobaa"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/06/26/noobaa/&t=noobaa"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
