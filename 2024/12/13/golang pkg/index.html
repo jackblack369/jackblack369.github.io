@@ -14,7 +14,7 @@
 <meta property="og:description" content="fmt %v vs %#v 12345678910111213141516type Example struct &amp;#123;    Name  string    Value int&amp;#125;func main() &amp;#123;    ex :&#x3D; Example&amp;#123;Name: &quot;test&quot;, Value: 42&amp;#125;    &#x2F;&#x2F; Using %v    fmt">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-13T03:40:09.000Z">
-<meta property="article:modified_time" content="2025-05-07T02:31:23.250Z">
+<meta property="article:modified_time" content="2025-07-07T03:15:30.408Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="pkg">
 <meta name="twitter:card" content="summary">
@@ -192,6 +192,11 @@
 <p>k8s.io/klog/v2</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">klog.Info(<span class="string">&quot;setting.MountOptions&quot;</span>, setting.MountOptions)</span><br><span class="line"></span><br><span class="line">klog.Infof(<span class="string">&quot;volumeId[%s] using patch:%#v&quot;</span>, setting.VolumeId, patch)</span><br><span class="line"></span><br><span class="line">klog.ErrorS(err, <span class="string">&quot;dingofs create fs error: %v&quot;</span>, err)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Change to a lower level (e.g., V(5).Infof)</span></span><br><span class="line">klog.V(<span class="number">5</span>).Infof(<span class="string">&quot;csi-driver volume mounts JSON: %s&quot;</span>, <span class="keyword">string</span>(volumeMountsJSON))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>log print include with specify info</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	log := klog.NewKlogr().WithName(<span class="string">&quot;NodePublishVolume&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> volCtx != <span class="literal">nil</span> &amp;&amp; volCtx[config.PodInfoName] != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		log = log.WithValues(<span class="string">&quot;appName&quot;</span>, volCtx[config.PodInfoName])</span><br><span class="line">	&#125;</span><br><span class="line">	volumeID := req.GetVolumeId()</span><br><span class="line">	log = log.WithValues(<span class="string">&quot;volumeId&quot;</span>, volumeID)</span><br><span class="line"></span><br><span class="line">	ctx = util.WithLog(ctx, log)</span><br><span class="line"></span><br><span class="line"><span class="comment">// e.g.  log.Info(&quot;get volume_capability&quot;, &quot;volCap&quot;, *volCap)</span></span><br><span class="line"><span class="comment">// print</span></span><br><span class="line"><span class="comment">// &quot;get volume_capability&quot; logger=&quot;NodePublishVolume&quot; appName=&quot;test-dingofs-app&quot; volumeId=&quot;test-pv-sjj1&quot; volCap=&#123;&quot;AccessType&quot;:&#123;&quot;Mount&quot;:&#123;&#125;&#125;,&quot;access_mode&quot;:&#123;&quot;mode&quot;:5&#125;&#125;</span></span><br></pre></td></tr></table></figure>
 
 
   </div>
