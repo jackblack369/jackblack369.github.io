@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="the shell assigns its exit code to the $? environment variable. The $? variable is how we usually test whether a script has succeeded or not in its execution.  syntaxset -e1Causes the script to exit">
+    <meta name="description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition  Bash:Bourne-Again SHellBash is a command language interpreter.   conclusion Do not be afraid to break things as that is perfectly">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell bash">
 <meta property="og:url" content="https://www.willshirley.top/2024/07/30/shell%20bash/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="the shell assigns its exit code to the $? environment variable. The $? variable is how we usually test whether a script has succeeded or not in its execution.  syntaxset -e1Causes the script to exit">
+<meta property="og:description" content="Bash Scripting Tutorial for Beginners Bash Shell Scripting Definition  Bash:Bourne-Again SHellBash is a command language interpreter.   conclusion Do not be afraid to break things as that is perfectly">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-30T10:39:34.000Z">
-<meta property="article:modified_time" content="2025-06-20T08:11:46.978Z">
+<meta property="article:modified_time" content="2025-07-11T10:36:37.492Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="bash">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-e"><span class="toc-number">1.1.</span> <span class="toc-text">set -e</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.2.</span> <span class="toc-text">set -x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shift-2"><span class="toc-number">1.3.</span> <span class="toc-text">shift 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xx-xx"><span class="toc-number">1.4.</span> <span class="toc-text">{xx..xx}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#args"><span class="toc-number">1.5.</span> <span class="toc-text">${args[@]}</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nohup"><span class="toc-number">3.</span> <span class="toc-text">nohup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopt"><span class="toc-number">4.</span> <span class="toc-text">getopt</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#exit-code"><span class="toc-number">1.1.</span> <span class="toc-text">exit code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-e"><span class="toc-number">1.2.</span> <span class="toc-text">set -e</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.3.</span> <span class="toc-text">set -x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shift-2"><span class="toc-number">1.4.</span> <span class="toc-text">shift 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xx-xx"><span class="toc-number">1.5.</span> <span class="toc-text">{xx..xx}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#args"><span class="toc-number">1.6.</span> <span class="toc-text">${args[@]}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sigle-quota-and-double-quota"><span class="toc-number">1.7.</span> <span class="toc-text">sigle quota and double quota</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nohup"><span class="toc-number">3.</span> <span class="toc-text">nohup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopt"><span class="toc-number">4.</span> <span class="toc-text">getopt</span></a></li></ol>
       </div>
     
   </span>
@@ -166,10 +166,18 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <ul>
-<li>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</li>
+    <p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
+<p>Bash Shell Scripting Definition</p>
+<ul>
+<li><p>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. </p>
+</li>
+<li><p>conclusion</p>
+<p>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</p>
+</li>
 </ul>
-<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Causes the script to exit immediately if any command fails (returns a non-zero status).</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
+<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="exit-code"><a href="#exit-code" class="headerlink" title="exit code"></a>exit code</h2><p>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</p>
+<h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Causes the script to exit immediately if any command fails (returns a non-zero status).</span><br></pre></td></tr></table></figure>
 
 <h2 id="set-x"><a href="#set-x" class="headerlink" title="set -x"></a>set -x</h2><blockquote>
 <p>​    1.    <strong>Debugging</strong>: When you’re trying to troubleshoot a script, set -x helps you see exactly what commands are being executed and in what order.</p>
@@ -190,6 +198,7 @@
 <h2 id="args"><a href="#args" class="headerlink" title="${args[@]}"></a><code>$&#123;args[@]&#125;</code></h2><p>The <code>$&#123;args[@]&#125;</code> syntax in bash is used to expand an array variable named <code>args</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Define an array</span></span><br><span class="line">args=(&quot;hello&quot; &quot;world&quot; &quot;test&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="variable">$&#123;args[@]&#125;</span> expands to all elements</span></span><br><span class="line">echo &quot;All arguments: $&#123;args[@]&#125;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> Output: All arguments: hello world <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
 
+<h2 id="sigle-quota-and-double-quota"><a href="#sigle-quota-and-double-quota" class="headerlink" title="sigle quota and double quota"></a>sigle quota and double quota</h2><p>single quotes <code>&#39;...&#39;</code> prevent the shell from expanding <code>$&#123;G_FSNAME&#125;</code>. As a result, the literal string <code>$&#123;G_FSNAME&#125;</code> is inserted instead of the value of the environment variable.<br>Use Double Quotes for Variable Expansion, to allow the shell to expand the variable</p>
 <h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
 <li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
 </ul>
@@ -287,7 +296,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-e"><span class="toc-number">1.1.</span> <span class="toc-text">set -e</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.2.</span> <span class="toc-text">set -x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shift-2"><span class="toc-number">1.3.</span> <span class="toc-text">shift 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xx-xx"><span class="toc-number">1.4.</span> <span class="toc-text">{xx..xx}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#args"><span class="toc-number">1.5.</span> <span class="toc-text">${args[@]}</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nohup"><span class="toc-number">3.</span> <span class="toc-text">nohup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopt"><span class="toc-number">4.</span> <span class="toc-text">getopt</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#syntax"><span class="toc-number">1.</span> <span class="toc-text">syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#exit-code"><span class="toc-number">1.1.</span> <span class="toc-text">exit code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-e"><span class="toc-number">1.2.</span> <span class="toc-text">set -e</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-x"><span class="toc-number">1.3.</span> <span class="toc-text">set -x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shift-2"><span class="toc-number">1.4.</span> <span class="toc-text">shift 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xx-xx"><span class="toc-number">1.5.</span> <span class="toc-text">{xx..xx}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#args"><span class="toc-number">1.6.</span> <span class="toc-text">${args[@]}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sigle-quota-and-double-quota"><span class="toc-number">1.7.</span> <span class="toc-text">sigle quota and double quota</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#point"><span class="toc-number">2.</span> <span class="toc-text">point</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nohup"><span class="toc-number">3.</span> <span class="toc-text">nohup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopt"><span class="toc-number">4.</span> <span class="toc-text">getopt</span></a></li></ol>
       </div>
     
 

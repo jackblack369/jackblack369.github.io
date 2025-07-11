@@ -7923,10 +7923,18 @@
   <entry>
     <title>shell bash</title>
     <url>/2024/07/30/shell%20bash/</url>
-    <content><![CDATA[<ul>
-<li>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</li>
+    <content><![CDATA[<p><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
+<p>Bash Shell Scripting Definition</p>
+<ul>
+<li><p>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. </p>
+</li>
+<li><p>conclusion</p>
+<p>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</p>
+</li>
 </ul>
-<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Causes the script to exit immediately if any command fails (returns a non-zero status).</span><br></pre></td></tr></table></figure>
+<p><a href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
+<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="exit-code"><a href="#exit-code" class="headerlink" title="exit code"></a>exit code</h2><p>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</p>
+<h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Causes the script to exit immediately if any command fails (returns a non-zero status).</span><br></pre></td></tr></table></figure>
 
 <h2 id="set-x"><a href="#set-x" class="headerlink" title="set -x"></a>set -x</h2><blockquote>
 <p>​    1.    <strong>Debugging</strong>: When you’re trying to troubleshoot a script, set -x helps you see exactly what commands are being executed and in what order.</p>
@@ -7947,6 +7955,7 @@
 <h2 id="args"><a href="#args" class="headerlink" title="${args[@]}"></a><code>$&#123;args[@]&#125;</code></h2><p>The <code>$&#123;args[@]&#125;</code> syntax in bash is used to expand an array variable named <code>args</code></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Define an array</span></span><br><span class="line">args=(&quot;hello&quot; &quot;world&quot; &quot;test&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="variable">$&#123;args[@]&#125;</span> expands to all elements</span></span><br><span class="line">echo &quot;All arguments: $&#123;args[@]&#125;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> Output: All arguments: hello world <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
 
+<h2 id="sigle-quota-and-double-quota"><a href="#sigle-quota-and-double-quota" class="headerlink" title="sigle quota and double quota"></a>sigle quota and double quota</h2><p>single quotes <code>&#39;...&#39;</code> prevent the shell from expanding <code>$&#123;G_FSNAME&#125;</code>. As a result, the literal string <code>$&#123;G_FSNAME&#125;</code> is inserted instead of the value of the environment variable.<br>Use Double Quotes for Variable Expansion, to allow the shell to expand the variable</p>
 <h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
 <li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
 </ul>
@@ -11278,7 +11287,7 @@
 
 <ul>
 <li><p>delete pv</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: change stragety</span></span><br><span class="line">kubectl patch pv PV_NAME -p &#x27;&#123;&quot;spec&quot;:&#123;&quot;persistentVolumeReclaimPolicy&quot;:&quot;Delete&quot;&#125;&#125;&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: delete</span></span><br><span class="line">kubectl delete pv PV_NAME</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: change stragety</span></span><br><span class="line">kubectl patch pv PV_NAME -p &#x27;&#123;&quot;spec&quot;:&#123;&quot;persistentVolumeReclaimPolicy&quot;:&quot;Delete&quot;&#125;&#125;&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: delete</span></span><br><span class="line">kubectl delete pv PV_NAME</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果还是删不掉，进行强制删除</span></span><br><span class="line">kubectl patch pv pvc-xxx -p &#x27;&#123;&quot;metadata&quot;:&#123;&quot;finalizers&quot;:null&#125;&#125;&#x27; --type=merge</span><br></pre></td></tr></table></figure></li>
 <li><p>PV reavailable</p>
 <blockquote>
 <p> 现象：在原有PV已经bound上pvc的情况下（pv此时状态位 bound），修改了pvc的参数，并删除pvc（此时pv状态为release），重新应用pvc之后 （此时pv状态为release）</p>
@@ -14403,7 +14412,7 @@
 
 <h1 id="cluster"><a href="#cluster" class="headerlink" title="cluster"></a>cluster</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1</span></span><br><span class="line">ceph fsid</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">cat /etc/ceph/ceph.conf | grep fsid</span><br></pre></td></tr></table></figure>
 
-<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check regular user key</span></span><br><span class="line">ceph auth list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check admin key</span></span><br><span class="line">ceph auth get client.admin</span><br></pre></td></tr></table></figure>
+<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check regular user key</span></span><br><span class="line">ceph auth list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check admin key</span></span><br><span class="line">ceph auth get client.admin</span><br></pre></td></tr></table></figure>
 
 <h1 id="health"><a href="#health" class="headerlink" title="health"></a>health</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph df</span><br></pre></td></tr></table></figure>
 
@@ -14759,12 +14768,13 @@
 
 <h2 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;hello_world&quot; | cut -c1-5   # Output: hello</span><br></pre></td></tr></table></figure>
 
-<h3 id="rclone"><a href="#rclone" class="headerlink" title="rclone"></a>rclone</h3><blockquote>
+<h2 id="rclone"><a href="#rclone" class="headerlink" title="rclone"></a>rclone</h2><blockquote>
 <p>Built-in retry and performance options</p>
+<p>By default, <code>rclone copy</code> only transfers files and does not create empty directories at the destination. To ensure all directories (including empty ones) are copied, you need to add a specific flag <code>--create-empty-src-dirs</code>.</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> dir1 to dir2 注意传输的是 dir1中的文件到 dir2目录下（而不是传输dir1目录到dir2目录）</span></span><br><span class="line">rclone copy dir1 dir2 \  </span><br><span class="line">  --transfers=32 --checkers=32 \</span><br><span class="line">  --fast-list --no-traverse \</span><br><span class="line">  --log-file=rclone_copy.log --progress</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one big file</span></span><br><span class="line">rclone copy \</span><br><span class="line">  --progress \                     # Monitor transfer</span><br><span class="line">  --buffer-size=512M \             # Increase buffer size (adjust based on RAM)</span><br><span class="line">  --transfers=10 \                 # Parallel file transfers (uses CPU cores)</span><br><span class="line">  --multi-thread-streams=10 \      # Split file into concurrent streams</span><br><span class="line">  --retries=10 \                   # Retry on failures</span><br><span class="line">  --low-level-retries=20 \         # Retry on transient errors</span><br><span class="line">  --fast-list \                    # Speed up directory listings (if applicable)</span><br><span class="line">  /path/to/source/file \           # Source file path</span><br><span class="line">  remote:destination/path          # Target remote</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. big file</span></span><br><span class="line">rclone copy \</span><br><span class="line">  --progress \</span><br><span class="line">  --buffer-size=512M \</span><br><span class="line">  --transfers=5 \</span><br><span class="line">  --multi-thread-streams=5 \</span><br><span class="line">  --retries=5 \</span><br><span class="line">  --low-level-retries=10 \</span><br><span class="line">  --fast-list \</span><br><span class="line">  /mnt/tsinghua/newzip/omniobject3d.zip \</span><br><span class="line">  /mnt/disk2/tsinghua</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> large small files</span></span><br><span class="line">rclone copy /mnt/source/ /mnt/destination/ \</span><br><span class="line">  --progress \</span><br><span class="line">  --transfers=30 \               # Max parallel file transfers</span><br><span class="line">  --checkers=30 \                # Parallel file checks/listing</span><br><span class="line">  --buffer-size=16M \            # Smaller buffers for small files</span><br><span class="line">  --multi-thread-streams=0 \     # Disable chunking (small files)</span><br><span class="line">  --fast-list \                  # Reduce memory for directory listings</span><br><span class="line">  --no-traverse \                # Skip scanning destination</span><br><span class="line">  --max-backlog=100000 \         # Keep the pipeline full</span><br><span class="line">  --retries=10 \               </span><br><span class="line">  --low-level-retries=20 \</span><br><span class="line">  --log-level=INFO \</span><br><span class="line">  --log-file=rclone.log \</span><br><span class="line">  --drive-use-trash=false \      # If using Google Drive (optional)</span><br><span class="line">  --checksum                    # Keep for integrity (or remove for speed)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> dir1 to dir2 注意传输的是 dir1中的文件到 dir2目录下（而不是传输dir1目录到dir2目录）</span></span><br><span class="line">rclone copy dir1 dir2 \  </span><br><span class="line">	--create-empty-src-dirs \</span><br><span class="line">  --transfers=32 --checkers=32 \</span><br><span class="line">  --fast-list --no-traverse \</span><br><span class="line">  --log-file=rclone_copy.log --progress</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one big file</span></span><br><span class="line">rclone copy \</span><br><span class="line">  --progress \  </span><br><span class="line">  --create-empty-src-dirs \# Monitor transfer</span><br><span class="line">  --buffer-size=512M \             # Increase buffer size (adjust based on RAM)</span><br><span class="line">  --transfers=10 \                 # Parallel file transfers (uses CPU cores)</span><br><span class="line">  --multi-thread-streams=10 \      # Split file into concurrent streams</span><br><span class="line">  --retries=10 \                   # Retry on failures</span><br><span class="line">  --low-level-retries=20 \         # Retry on transient errors</span><br><span class="line">  --fast-list \                    # Speed up directory listings (if applicable)</span><br><span class="line">  /path/to/source/file \           # Source file path</span><br><span class="line">  remote:destination/path          # Target remote</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. big file</span></span><br><span class="line">rclone copy \</span><br><span class="line">  --progress \</span><br><span class="line">  --create-empty-src-dirs \</span><br><span class="line">  --buffer-size=512M \</span><br><span class="line">  --transfers=5 \</span><br><span class="line">  --multi-thread-streams=5 \</span><br><span class="line">  --retries=5 \</span><br><span class="line">  --low-level-retries=10 \</span><br><span class="line">  --fast-list \</span><br><span class="line">  /mnt/tsinghua/newzip/omniobject3d.zip \</span><br><span class="line">  /mnt/disk2/tsinghua</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> large small files</span></span><br><span class="line">rclone copy /mnt/source/ /mnt/destination/ \</span><br><span class="line">  --progress \</span><br><span class="line">  --create-empty-src-dirs \</span><br><span class="line">  --transfers=30 \               # Max parallel file transfers</span><br><span class="line">  --checkers=30 \                # Parallel file checks/listing</span><br><span class="line">  --buffer-size=16M \            # Smaller buffers for small files</span><br><span class="line">  --multi-thread-streams=0 \     # Disable chunking (small files)</span><br><span class="line">  --fast-list \                  # Reduce memory for directory listings</span><br><span class="line">  --no-traverse \                # Skip scanning destination</span><br><span class="line">  --max-backlog=100000 \         # Keep the pipeline full</span><br><span class="line">  --retries=10 \               </span><br><span class="line">  --low-level-retries=20 \</span><br><span class="line">  --log-level=INFO \</span><br><span class="line">  --log-file=rclone.log \</span><br><span class="line">  --drive-use-trash=false \      # If using Google Drive (optional)</span><br><span class="line">  --checksum                    # Keep for integrity (or remove for speed)</span><br></pre></td></tr></table></figure>
 
-<h3 id="parallel"><a href="#parallel" class="headerlink" title="parallel"></a>parallel</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /path/to/source/ -maxdepth 1 -type d | parallel -j 8 &#x27;rclone copy &#123;&#125; /path/to/target/&#123;/&#125; --transfers=32 --checkers=32 --fast-list --buffer-size=512M --max-backlog=100000 --use-mmap --no-traverse --stats=30s --log-file=rclone_&#123;/&#125;.log&#x27;</span><br></pre></td></tr></table></figure>
+<h2 id="parallel"><a href="#parallel" class="headerlink" title="parallel"></a>parallel</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /path/to/source/ -maxdepth 1 -type d | parallel -j 8 &#x27;rclone copy &#123;&#125; /path/to/target/&#123;/&#125; --transfers=32 --checkers=32 --fast-list --buffer-size=512M --max-backlog=100000 --use-mmap --no-traverse --stats=30s --log-file=rclone_&#123;/&#125;.log&#x27;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>find Part</p>
@@ -14818,6 +14828,11 @@
 <li>查找具体文件    </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>统计目录下所有文件数量</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /path/to/directory -type f | wc -l</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>查找目录</li>
@@ -15067,21 +15082,69 @@
   <entry>
     <title>linux system command</title>
     <url>/2016/10/16/linux%20cmd:%20system/</url>
-    <content><![CDATA[<h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
-<h3 id="Bash-Shell-Scripting-Definition"><a href="#Bash-Shell-Scripting-Definition" class="headerlink" title="Bash Shell Scripting Definition"></a>Bash Shell Scripting Definition</h3><ul>
-<li>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. <h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</li>
-</ul>
-<p><a href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
-<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="user"><a href="#user" class="headerlink" title="user"></a>user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> visudo</span></span><br><span class="line">dingofs ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> uid:65535 to nobody base on gid: nobody 65534</span> </span><br><span class="line">sudo useradd -u 65535 -g 65534 -d /nonexistent -s /usr/sbin/nologin nobody65535</span><br></pre></td></tr></table></figure>
 
-<h3 id="edit"><a href="#edit" class="headerlink" title="edit"></a>edit</h3><blockquote>
+<h2 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo hostnamectl set-hostname &lt;new-hostname&gt;</span><br><span class="line">sudo hostnamectl status</span><br></pre></td></tr></table></figure>
+
+<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
+
+<h2 id="cron"><a href="#cron" class="headerlink" title="cron"></a>cron</h2><blockquote>
 <p>config nano or vim as default editor</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">select-editor</span><br></pre></td></tr></table></figure>
 
-<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">- kill seesion </span><br><span class="line">screen -X -S [session # you want to kill] quit</span><br><span class="line">- 新建screen会话</span><br><span class="line">screen -S xxx</span><br><span class="line">- 恢复指定会话</span><br><span class="line">screen -r xxx</span><br><span class="line">- 查看所有会话</span><br><span class="line">screen -ls</span><br><span class="line">- 删除指定会话</span><br><span class="line">screen -S xxx -X quit</span><br><span class="line">- 回到终端</span><br><span class="line">Ctrl-a d</span><br></pre></td></tr></table></figure>
+<h2 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> temp</span></span><br><span class="line">sudo swapoff -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> persistent</span></span><br><span class="line">sudo sed -i &#x27;/[[:space:]]swap[[:space:]]/s/^/#/&#x27; /etc/fstab</span><br></pre></td></tr></table></figure>
 
-<h3 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h3><ul>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1 - 查看所有CPU核的使用情况</span><br><span class="line">c - 查看具体进程的路径</span><br><span class="line">l - 开启或关闭第一部分第一行top信息显示</span><br><span class="line">t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line">m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line">N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line">P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line">M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line">h - 显示帮助</span><br><span class="line">n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line">q - 退出 top</span><br><span class="line">s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 组合</span></span><br><span class="line">xb，然后用 &lt; 和 &gt; 手动选择排序的列</span><br><span class="line">o (小写字母), 然后输入 COMMAND=&lt;process_name&gt; 过滤指定进程</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>进程CPU占用率</p>
+<blockquote>
+<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">us：用户态使用的cpu时间比</span><br><span class="line">sy：系统态使用的cpu时间比</span><br><span class="line">ni：用做nice加权的进程分配的用户态cpu时间比</span><br><span class="line">id：空闲的cpu时间比</span><br><span class="line">wa：cpu等待磁盘写入完成时间</span><br><span class="line">hi：硬中断消耗时间</span><br><span class="line">si：软中断消耗时间</span><br><span class="line">st：虚拟机偷取时间</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
+
+<h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><p><a href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
+<ul>
+<li><p>UTC（Coordinated Universal Time ）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。</p>
+<ul>
+<li><p>UTC is the global standard for timekeeping.</p>
+</li>
+<li><p>It does not observe Daylight Saving Time (DST).</p>
+</li>
+<li><p>Used as a reference for time zones worldwide.</p>
+</li>
+<li><p>Offset: UTC is the baseline, so its offset is <strong>0 hours</strong>.</p>
+</li>
+</ul>
+</li>
+<li><p>GMT（Greenwich Mean Time）是格林尼治时间，没有夏令时调整。</p>
+<ul>
+<li>GMT was historically the global time standard but has largely been replaced by UTC.</li>
+</ul>
+</li>
+<li><p>UTC+N or GMT+N</p>
+<ul>
+<li>In most practical cases, <strong>UTC+N</strong> and <strong>GMT+N</strong> are equivalent.</li>
+<li>Refers to a time zone that is <strong>N hours ahead of UTC (Coordinated Universal Time)</strong>.</li>
+<li><strong>UTC+N</strong> is the modern term and is more precise in technical or scientific contexts (e.g., aviation, computing, telecommunications).</li>
+<li><strong>GMT+N</strong> is an older term that is still widely recognized but less commonly used in formal applications.</li>
+</ul>
+</li>
+</ul>
+<h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><ul>
+<li><p>判断　day of year     </p>
+<p><code>doy=$(date +%j)</code></p>
+</li>
+<li><p>制定日期减一天</p>
+<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
+</li>
+<li><p>当前时间戳（秒）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date +%s</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h1><ul>
 <li><p>check status : <code>sudo ufw status</code></p>
 </li>
 <li><p>enable firewall: </p>
@@ -15089,7 +15152,7 @@
 <li><p>disable firewall</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo ufw <span class="built_in">disable</span></span><br><span class="line">Firewall stopped and disabled on system startup</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="磁盘相关"><a href="#磁盘相关" class="headerlink" title="磁盘相关"></a>磁盘相关</h3><ul>
+<h1 id="disk"><a href="#disk" class="headerlink" title="disk"></a>disk</h1><ul>
 <li><p>查看系统磁盘占用情况    <code> df -h</code></p>
 </li>
 <li><p>查看目录下文件大小        <code>du -sh</code></p>
@@ -15104,19 +15167,7 @@
 <p>例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /tmp -mtime +21 -name &quot;*&quot; -exec rm -Rf &#123;&#125; \;</span><br><span class="line">- /tmp ：准备要进行清理的任意目录</span><br><span class="line">- -mtime：标准语句写法</span><br><span class="line">- ＋10：查找10天前的文件，这里用数字代表天数，＋30表示查找30天前的文件</span><br><span class="line">- &quot;*&quot;：希望查找的数据类型，&quot;.jpg&quot;表示查找扩展名为jpg的所有文件，&quot;&quot;表示查找所有文件</span><br><span class="line">- -exec：固定写法</span><br><span class="line">- rm -Rf：强制删除文件，包括目录(注意R大写，f小写)</span><br><span class="line">-  &#123;&#125; \; 固定写法，一对大括号+空格+\+; </span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史命令，支持 grep过滤操作</p>
-<h3 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> temp</span></span><br><span class="line">sudo swapoff -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> persistent</span></span><br><span class="line">sudo sed -i &#x27;/[[:space:]]swap[[:space:]]/s/^/#/&#x27; /etc/fstab</span><br></pre></td></tr></table></figure>
-
-<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1 - 查看所有CPU核的使用情况</span><br><span class="line">c - 查看具体进程的路径</span><br><span class="line">l - 开启或关闭第一部分第一行top信息显示</span><br><span class="line">t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示</span><br><span class="line">m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示</span><br><span class="line">N - 以 PID 的大小的顺序排列表示进程列表</span><br><span class="line">P - 以 CPU 占用率大小的顺序排列进程列表</span><br><span class="line">M - 以内存占用率大小的顺序排列进程列表</span><br><span class="line">h - 显示帮助</span><br><span class="line">n - 设置在进程列表所显示进程的数量（按完n，再输入个数）</span><br><span class="line">q - 退出 top</span><br><span class="line">s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 组合</span></span><br><span class="line">xb，然后用 &lt; 和 &gt; 手动选择排序的列</span><br><span class="line">o (小写字母), 然后输入 COMMAND=&lt;process_name&gt; 过滤指定进程</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>进程CPU占用率</p>
-<blockquote>
-<p>在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">us：用户态使用的cpu时间比</span><br><span class="line">sy：系统态使用的cpu时间比</span><br><span class="line">ni：用做nice加权的进程分配的用户态cpu时间比</span><br><span class="line">id：空闲的cpu时间比</span><br><span class="line">wa：cpu等待磁盘写入完成时间</span><br><span class="line">hi：硬中断消耗时间</span><br><span class="line">si：软中断消耗时间</span><br><span class="line">st：虚拟机偷取时间</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h1><h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h2><h3 id="积分机制"><a href="#积分机制" class="headerlink" title="积分机制"></a>积分机制</h3><blockquote>
+<h1 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h1><h2 id="OOM积分机制"><a href="#OOM积分机制" class="headerlink" title="OOM积分机制"></a>OOM积分机制</h2><blockquote>
 <p>OOM（Out-Of-Memory）积分机制是 Linux 内核在系统内存耗尽时，通过评估进程的优先级和内存使用情况，选择一个或多个进程终止以释放内存的一种机制。其核心目标是在内存不足时，最小化系统崩溃风险并优先保留关键进程。</p>
 </blockquote>
 <p><strong>OOM 积分机制的工作原理</strong></p>
@@ -15148,66 +15199,24 @@
 <li><p>check memory limit</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Get the Cgroup Path</span></span><br><span class="line">cat /proc/&lt;pid&gt;/cgroup  # eg. cat /proc/51683/cgroup</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 0::/system.slice/dingofs-mount.service</span></span><br><span class="line">cgroup_path=&quot;/sys/fs/cgroup/system.slice/dingofs-mount.service&quot;</span><br><span class="line">cat &quot;$cgroup_path/memory.max&quot;  # print bytes num</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h3 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo hostnamectl set-hostname &lt;new-hostname&gt;</span><br><span class="line">sudo hostnamectl status</span><br></pre></td></tr></table></figure>
-
-<h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> visudo</span></span><br><span class="line">dingofs ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> uid:65535 to nobody base on gid: nobody 65534</span> </span><br><span class="line">sudo useradd -u 65535 -g 65534 -d /nonexistent -s /usr/sbin/nologin nobody65535</span><br></pre></td></tr></table></figure>
-
-<h3 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h3><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
-
-<h3 id="centos安装离线依赖"><a href="#centos安装离线依赖" class="headerlink" title="centos安装离线依赖"></a>centos安装离线依赖</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rpm -ivh name.rpm</span><br></pre></td></tr></table></figure>
-
-<h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl+a：光标回到命令行首。 （a：ahead）</span><br><span class="line">Ctrl+e：光标回到命令行尾。 （e：end）</span><br><span class="line">Ctrl+b：光标向行首移动一个字符。 （b：backwards）</span><br><span class="line">Ctrl+f：光标向行尾移动一个字符。 （f：forwards）</span><br><span class="line">Ctrl+w: 删除光标处到行首的字符。</span><br><span class="line">Ctrl+k：删除光标处到行尾的字符。</span><br><span class="line">Ctrl+u：删除整个命令行文本字符。</span><br><span class="line">Ctrl+h：向行首删除一个字符。</span><br><span class="line">Ctrl+d：向行尾删除一个字符。</span><br><span class="line"></span><br><span class="line">Ctrl + xx ：在命令行尾和光标之间移动</span><br></pre></td></tr></table></figure>
-
-<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p><a href="https://www.cnblogs.com/zhangeamon/p/5500744.html">CentOS 7 时区设置</a></p>
-<ul>
-<li><p>UTC（Coordinated Universal Time ）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。</p>
-<ul>
-<li><p>UTC is the global standard for timekeeping.</p>
-</li>
-<li><p>It does not observe Daylight Saving Time (DST).</p>
-</li>
-<li><p>Used as a reference for time zones worldwide.</p>
-</li>
-<li><p>Offset: UTC is the baseline, so its offset is <strong>0 hours</strong>.</p>
-</li>
-</ul>
-</li>
-<li><p>GMT（Greenwich Mean Time）是格林尼治时间，没有夏令时调整。</p>
-<ul>
-<li>GMT was historically the global time standard but has largely been replaced by UTC.</li>
-</ul>
-</li>
-<li><p>UTC+N or GMT+N</p>
-<ul>
-<li>In most practical cases, <strong>UTC+N</strong> and <strong>GMT+N</strong> are equivalent.</li>
-<li>Refers to a time zone that is <strong>N hours ahead of UTC (Coordinated Universal Time)</strong>.</li>
-<li><strong>UTC+N</strong> is the modern term and is more precise in technical or scientific contexts (e.g., aviation, computing, telecommunications).</li>
-<li><strong>GMT+N</strong> is an older term that is still widely recognized but less commonly used in formal applications.</li>
-</ul>
-</li>
-</ul>
-<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><ul>
-<li><p>判断　day of year     </p>
-<p><code>doy=$(date +%j)</code></p>
-</li>
-<li><p>制定日期减一天</p>
-<p><code>date -d&quot;20140101 -1 days&quot; +&quot;%Y%m%d&quot;</code></p>
-</li>
-<li><p>当前时间戳（秒）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date +%s</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h3><p>将剪切板中的内容输出到文件     echo $(xsel –clipboard) &gt;&gt; a.txt </p>
-<p>将文件的内容复制到剪切板         cat a.txt | xsel –clipboard</p>
-<h3 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">下载服务器文件  sz filename</span><br><span class="line">上传本地文件   rz filename</span><br></pre></td></tr></table></figure>
-
-<h3 id="查看指定服务的运行情况"><a href="#查看指定服务的运行情况" class="headerlink" title="查看指定服务的运行情况"></a>查看指定服务的运行情况</h3><ul>
+<h2 id="status"><a href="#status" class="headerlink" title="status"></a>status</h2><ul>
 <li><code>journalctl -u xxx.service</code></li>
 <li><code>journalctl -xe</code> 查看最近系统服务日志</li>
 </ul>
-<h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br></pre></td></tr></table></figure>
+<h2 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep 服务名称或pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 显示</span></span><br><span class="line">root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555</span><br><span class="line"></span><br><span class="line">19496 为PID</span><br><span class="line">0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）</span><br><span class="line">2.4 为内存占用百分比</span><br></pre></td></tr></table></figure>
+
+<h2 id="Tree-view-all-process"><a href="#Tree-view-all-process" class="headerlink" title="Tree view all process"></a>Tree view all process</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pstree -g</span><br></pre></td></tr></table></figure>
+
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h2><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="centos安装离线依赖"><a href="#centos安装离线依赖" class="headerlink" title="centos安装离线依赖"></a>centos安装离线依赖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rpm -ivh name.rpm</span><br></pre></td></tr></table></figure>
+
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将剪切板中的内容输出到文件</span> </span><br><span class="line">echo $(xsel --clipboard) &gt;&gt; a.txt </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将文件的内容复制到剪切板</span>         </span><br><span class="line">cat a.txt | xsel --clipboard</span><br></pre></td></tr></table></figure>
+
+<h2 id="securtCRT"><a href="#securtCRT" class="headerlink" title="securtCRT"></a>securtCRT</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">下载服务器文件  sz filename</span><br><span class="line">上传本地文件   rz filename</span><br></pre></td></tr></table></figure>
 
 <h1 id="system"><a href="#system" class="headerlink" title="system"></a>system</h1><h2 id="kernel-dumps"><a href="#kernel-dumps" class="headerlink" title="kernel dumps"></a>kernel dumps</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Changing Kernel Crash Dump Directory (<span class="keyword">for</span> kdump)</span></span><br><span class="line">sudo vi /etc/kdump.conf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Look <span class="keyword">for</span> the line starting with path and change it to your desired directory</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> default: /var/crash</span></span><br><span class="line">path /new/crash/directory</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Restart the kdump service:</span></span><br><span class="line">sudo systemctl restart kdump</span><br></pre></td></tr></table></figure>
 
@@ -15258,11 +15267,7 @@
 <li><p>chrony</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">sudo dnf install chrony -y</span><br><span class="line">sudo systemctl enable chronyd</span><br><span class="line">sudo systemctl start chronyd</span><br><span class="line"><span class="meta">#</span><span class="bash"> config NTP servers</span></span><br><span class="line">sudo vi /etc/chrony.conf</span><br><span class="line"><span class="meta">#</span><span class="bash">server time1.aliyun.com iburst</span></span><br><span class="line"><span class="meta">#</span><span class="bash">server time2.aliyun.com iburst</span></span><br><span class="line"><span class="meta">#</span><span class="bash">server ntp.aliyun.com iburst</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> restart</span></span><br><span class="line">sudo systemctl restart chronyd</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="process-1"><a href="#process-1" class="headerlink" title="process"></a>process</h2><ul>
-<li><p>Tree view all process</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pstree -g</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="查看系统配置"><a href="#查看系统配置" class="headerlink" title="查看系统配置"></a>查看系统配置</h2><ul>
+<h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><ul>
 <li><p>查看系统</p>
 <ul>
 <li><code>cat /etc/os-release</code></li>
@@ -16540,15 +16545,32 @@
 <li><p>step4</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl create -f kms-config.yaml</span><br><span class="line">kubectl create -f csi-cephfsplugin-provisioner.yaml</span><br><span class="line">kubectl create -f csi-cephfsplugin.yaml</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h2><h3 id="dynamic-provision"><a href="#dynamic-provision" class="headerlink" title="dynamic provision"></a>dynamic provision</h3><ul>
+<h2 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h2><blockquote>
+<p>Requires subvolumegroup to be created before provisioning the PVC. If the subvolumegroup provided in <code>ceph-csi-config</code> ConfigMap is missing in the ceph cluster, the PVC creation will fail and will stay in <code>Pending</code> state.</p>
+</blockquote>
+<h3 id="dynamic-provision"><a href="#dynamic-provision" class="headerlink" title="dynamic provision"></a>dynamic provision</h3><ul>
 <li><p>step1 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph fs subvolumegroup create &lt;fsName&gt; csi</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph fs subvolumegroup create &lt;fsName&gt; csi # 会生成子目录（volumes/csi） /挂载点/volumes/csi/</span><br></pre></td></tr></table></figure></li>
 <li><p>step2</p>
 <p><code>kubectl create -f secret.yaml</code></p>
 <blockquote>
 <p>check by <code>ceph auth get client.dongwei</code> and <code>ceph auth get client.admin</code></p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">csi-cephfs-secret</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="comment"># Required for statically provisioned volumes, 🚨 this use user</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">dongwei</span></span><br><span class="line">  <span class="attr">userKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Required for dynamically provisioned volumes, 🚨 this use admin</span></span><br><span class="line">  <span class="attr">admin:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">adminKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Encryption passphrase</span></span><br><span class="line">  <span class="attr">encryptionPassphrase:</span> <span class="string">test_passphrase</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">csi-cephfs-secret</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="comment"># Required for statically provisioned volumes, 🚨 this use userID</span></span><br><span class="line">  <span class="attr">userID:</span> <span class="string">dongwei</span></span><br><span class="line">  <span class="attr">userKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Required for dynamically provisioned volumes, 🚨 this use adminID</span></span><br><span class="line">  <span class="attr">adminID:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">adminKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Encryption passphrase</span></span><br><span class="line">  <span class="attr">encryptionPassphrase:</span> <span class="string">test_passphrase</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Required secrets for provisioning:</strong> Admin credentials are required for provisioning new volumes</p>
+<ul>
+<li><code>adminID</code>: ID of an admin client</li>
+<li><code>adminKey</code>: key of the admin client</li>
+</ul>
+<p><strong>Required secrets for statically provisioned volumes:</strong> User credentials with access to an existing volume</p>
+<ul>
+<li><code>userID</code>: ID of a user client</li>
+<li><code>userKey</code>: key of a user client</li>
+</ul>
+</blockquote>
+</li>
 <li><p>step3</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl create -f storageclass.yaml</span><br><span class="line">kubectl create -f pvc.yaml</span><br><span class="line">kubectl create -f pod.yaml</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -16573,6 +16595,9 @@
 <p><code>kubectl create -f pvc.yaml</code></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cephfs-static-pvc</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteMany</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">1Gi</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br><span class="line">  <span class="comment"># volumeName should be same as PV name</span></span><br><span class="line">  <span class="attr">volumeName:</span> <span class="string">cephfs-static-pv</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="更高clusterID"><a href="#更高clusterID" class="headerlink" title="更高clusterID"></a>更高clusterID</h2><p>需要删除历史的 PV 和 PVC</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 强制删除PV</span></span><br><span class="line">kubectl patch pv pvc-xxx -p &#x27;&#123;&quot;metadata&quot;:&#123;&quot;finalizers&quot;:null&#125;&#125;&#x27; --type=merge</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>ceph</category>
@@ -16584,24 +16609,34 @@
   <entry>
     <title>ceph fs</title>
     <url>/2025/03/26/ceph%20FS/</url>
-    <content><![CDATA[<h1 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h1><p>Before mounting CephFS, ensure that</p>
+    <content><![CDATA[<blockquote>
+<p>使用root操作</p>
+</blockquote>
+<h1 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h1><blockquote>
+<p>operate on host server</p>
+</blockquote>
+<p>Before mounting CephFS, ensure that</p>
 <ol>
 <li>the client host (where CephFS has to be mounted and used) has a copy of the Ceph configuration file (i.e. ceph.conf)</li>
 <li>a keyring of the CephX user that has permission to access the MDS.<br>both of these files must already be present on the host where the Ceph MON resides.</li>
 </ol>
 <ul>
-<li><p>Generate a minimal conf file for the client host and place it at a standard location:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> on client host</span></span><br><span class="line">mkdir -p -m 755 /etc/ceph</span><br><span class="line">ssh &#123;user&#125;@&#123;mon-host&#125; &quot;sudo ceph config generate-minimal-conf&quot; | sudo tee /etc/ceph/ceph.conf</span><br><span class="line">chmod 644 /etc/ceph/ceph.conf</span><br></pre></td></tr></table></figure></li>
-<li><p>Create a CephX user and get its secret key:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh &#123;user&#125;@&#123;mon-host&#125; &quot;sudo ceph fs authorize cephfs-1 client.dongwei / rw&quot; | sudo tee /etc/ceph/ceph.client.dongwei.keyring</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>In above command, replace cephfs with the name of your CephFS, foo by the name you want for your CephX user and / by the path within your CephFS for which you want to allow access to the client host and rw stands for both read and write permissions.</p>
-</blockquote>
-</li>
-<li><p>Ensure that the keyring has appropriate permissions:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 600 /etc/ceph/ceph.client.dongwei.keyring</span><br></pre></td></tr></table></figure></li>
+<li>Generate a minimal conf file for the client host and place it at a standard location:<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> on client host</span></span><br><span class="line">mkdir -p -m 755 /etc/ceph</span><br><span class="line">sudo ceph config generate-minimal-conf | sudo tee /etc/ceph/ceph.conf</span><br><span class="line">chmod 644 /etc/ceph/ceph.conf</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="Create-Pool-FS"><a href="#Create-Pool-FS" class="headerlink" title="Create Pool/FS"></a>Create Pool/FS</h1><ul>
+<h1 id="Create-Pool-FS"><a href="#Create-Pool-FS" class="headerlink" title="Create Pool/FS"></a>Create Pool/FS</h1><blockquote>
+<p>operate in cephadm cli</p>
+</blockquote>
+<h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><blockquote>
+<p>自动配置mds</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> automatically create and configure MDS <span class="keyword">for</span>  file system</span></span><br><span class="line">ceph fs volume create cephfs-2 </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> specify mds</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph fs volume create cephfs-2 --placement=<span class="string">&quot;2 node1 node2&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><blockquote>
+<p>手动配置mds</p>
+</blockquote>
+<ul>
+<li><p>deploy mds</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mkdir /var/lib/ceph/mds/ceph-<span class="variable">$&#123;id&#125;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo ceph auth get-or-create mds.<span class="variable">$&#123;id&#125;</span> mon <span class="string">&#x27;profile mds&#x27;</span> mgr <span class="string">&#x27;profile mds&#x27;</span> mds <span class="string">&#x27;allow *&#x27;</span> osd <span class="string">&#x27;allow *&#x27;</span> &gt; /var/lib/ceph/mds/ceph-<span class="variable">$&#123;id&#125;</span>/keyring</span></span><br><span class="line"></span><br><span class="line">mkdir /var/lib/ceph/mds/ceph-node1</span><br><span class="line">ceph auth get-or-create mds.node1 mon &#x27;profile mds&#x27; mgr &#x27;profile mds&#x27; mds &#x27;allow *&#x27; osd &#x27;allow *&#x27; &gt; /var/lib/ceph/mds/ceph-node1/keyring</span><br><span class="line"></span><br><span class="line">systemctl start ceph-mds@node1</span><br></pre></td></tr></table></figure></li>
 <li><p>Creating pools</p>
 <blockquote>
 <p>A Ceph file system requires at least two RADOS pools, one for data and one for metadata.</p>
@@ -16616,7 +16651,17 @@
 <li><p>Using Erasure Coded pools with CephFS（optional）</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph osd pool set my_ec_pool allow_ec_overwrites true</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="Mount-CephFS-using-Kernel-Driver"><a href="#Mount-CephFS-using-Kernel-Driver" class="headerlink" title="Mount CephFS using Kernel Driver"></a>Mount CephFS using Kernel Driver</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mount -t ceph &#123;device-string&#125;=&#123;path-to-mounted&#125; &#123;mount-point&#125; -o &#123;key-value-args&#125; &#123;other-args&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mount -t ceph &lt;name&gt;@&lt;fsid&gt;.&lt;fs_name&gt;=/ /mnt/mycephfs</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fsid is the FSID of the Ceph cluster, <span class="built_in">which</span> can be found using the `ceph fsid` <span class="built_in">command</span>.</span></span><br><span class="line"></span><br><span class="line">mkdir /mnt/mycephfs</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> not use mount.helper</span></span><br><span class="line">mount -t ceph dongwei@b3acfc0d-575f-41d3-9c91-0e7ed3dbb3fa.cephfs-1=/ -o mon_addr=192.168.0.1:6789,secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> use mount.helper</span></span><br><span class="line">mount -t ceph dongwei@.cephfs-1=/ /mnt/cephfs -o secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> use secret file and Multiple monitor hosts</span></span><br><span class="line">mount -t ceph cephuser@.cephfs=/ /mnt/mycephfs -o</span><br><span class="line">mon_addr=192.168.0.1:6789/192.168.0.2:6789,secretfile=/etc/ceph/cephuser.secret</span><br></pre></td></tr></table></figure>
+<h2 id="Create-a-CephX-user"><a href="#Create-a-CephX-user" class="headerlink" title="Create a CephX user"></a>Create a CephX user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 需要在创建好文件系统cephfs-1再进行操作</span></span><br><span class="line">sudo ceph fs authorize cephfs-1 client.dongwei / rw | sudo tee /etc/ceph/ceph.client.dongwei.keyring</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>In above command, replace cephfs with the name of your CephFS, foo by the name you want for your CephX user and / by the path within your CephFS for which you want to allow access to the client host and rw stands for both read and write permissions.</p>
+</blockquote>
+<ul>
+<li>Ensure that the keyring has appropriate permissions:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 600 /etc/ceph/ceph.client.dongwei.keyring</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mount-CephFS-using-Kernel-Driver"><a href="#Mount-CephFS-using-Kernel-Driver" class="headerlink" title="Mount CephFS using Kernel Driver"></a>Mount CephFS using Kernel Driver</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> install ceph commond</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mount -t ceph &#123;device-string&#125;=&#123;path-to-mounted&#125; &#123;mount-point&#125; -o &#123;key-value-args&#125; &#123;other-args&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mount -t ceph &lt;name&gt;@&lt;fsid&gt;.&lt;fs_name&gt;=/ /mnt/mycephfs</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fsid is the FSID of the Ceph cluster, <span class="built_in">which</span> can be found using the `ceph fsid` <span class="built_in">command</span>.</span></span><br><span class="line"></span><br><span class="line">mkdir /mnt/mycephfs</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> not use mount.helper</span></span><br><span class="line">mount -t ceph dongwei@b3acfc0d-575f-41d3-9c91-0e7ed3dbb3fa.cephfs-1=/ /mnt/cephfs -o mon_addr=192.168.0.1:6789,secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> use mount.helper</span></span><br><span class="line">mount -t ceph dongwei@.cephfs-1=/ /mnt/cephfs -o secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> use secret file and Multiple monitor hosts</span></span><br><span class="line">mount -t ceph cephuser@.cephfs=/ /mnt/mycephfs -o</span><br><span class="line">mon_addr=192.168.0.1:6789/192.168.0.2:6789,secretfile=/etc/ceph/cephuser.secret</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>check</p>
