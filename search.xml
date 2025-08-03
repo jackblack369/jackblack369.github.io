@@ -16387,6 +16387,79 @@
 <li> <code>$&#123;!#&#125;</code> is a bash parameter expansion that gets the last command-line argument passed to the script.</li>
 </ul>
 <h2 id="sigle-quota-and-double-quota"><a href="#sigle-quota-and-double-quota" class="headerlink" title="sigle quota and double quota"></a>sigle quota and double quota</h2><p>single quotes <code>&#39;...&#39;</code> prevent the shell from expanding <code>$&#123;G_FSNAME&#125;</code>. As a result, the literal string <code>$&#123;G_FSNAME&#125;</code> is inserted instead of the value of the environment variable.<br>Use Double Quotes for Variable Expansion, to allow the shell to expand the variable</p>
+<h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
+<li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
+</ul>
+<h1 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h1><ul>
+<li><p>output of a script to a specified file</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup your_script.sh &gt; output.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>0: Standard input (stdin)</p>
+<p>1: Standard output (stdout)</p>
+<p>2: Standard error (stderr)</p>
+<p><strong>&gt;&amp;</strong>: This is used to redirect the output.</p>
+<p>&amp;: Puts the command in the background.</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="getopt"><a href="#getopt" class="headerlink" title="getopt"></a>getopt</h1><p><strong>**
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">local long_opts=&quot;role:,args:,help&quot;</span><br><span class="line">local args=getopt -o ra --long $long_opts -n &quot;$0&quot; -- &quot;$@&quot;</span><br><span class="line">eval set -- &quot;$&#123;args&#125;&quot;</span><br></pre></td></tr></table></figure>
+**</strong></p>
+<p>This snippet is a common pattern in <strong>Bash scripting</strong> to <strong>parse command-line options</strong> using getopt. Here’s a line-by-line breakdown:</p>
+<p><strong>Explanation:</strong></p>
+<p><code>local long_opts=&quot;role:,args:,help&quot;</code></p>
+<p>Defines <strong>long options</strong> supported by the script:</p>
+<ul>
+<li>role: means –role requires a value (e.g., –role=admin)</li>
+<li>args: means –args requires a value</li>
+<li>help means –help is a flag with <strong>no value</strong></li>
+</ul>
+<blockquote>
+<p>: means the option <strong>requires an argument</strong>; no colon means it’s a flag.</p>
+</blockquote>
+<p><code>local args=getopt -o ra –long $long_opts -n “$0” – “$@”</code></p>
+<ul>
+<li>-o ra: short options -r and -a are accepted</li>
+<li>–long $long_opts: specify long-form options (see above)</li>
+<li>-n “$0”: used for error messages (e.g., script name)</li>
+<li>– “$@”: separates option parsing from positional arguments</li>
+</ul>
+<p>This parses the options passed to the script and stores the <strong>normalized result</strong> in args.</p>
+<p><strong>**
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Example: ./myscript.sh --role=admin --args=val --help foo bar</span><br><span class="line">Output of getopt:</span><br><span class="line">--role admin --args val --help -- foo bar</span><br></pre></td></tr></table></figure>
+
+`eval set -- "${args}"`
+
+This re-sets the $1, $2, … positional parameters to the parsed list.
+
+So later in the script, you can safely loop through options using:
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while true; do</span><br><span class="line">  case &quot;$1&quot; in</span><br><span class="line">    --role) ROLE=$2; shift 2 ;;</span><br><span class="line">    --args) ARGS=$2; shift 2 ;;</span><br><span class="line">    --help) show_help; exit 0 ;;</span><br><span class="line">    --) shift; break ;;</span><br><span class="line">    *) echo &quot;Unknown option: $1&quot;; exit 1 ;;</span><br><span class="line">  esac</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+**</strong></p>
+<p><strong>Summary</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Line</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>long_opts=…</td>
+<td>Defines supported long options</td>
+</tr>
+<tr>
+<td>getopt …</td>
+<td>Parses CLI arguments</td>
+</tr>
+<tr>
+<td>eval set – …</td>
+<td>Makes parsed options available for normal while-case parsing</td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>shell</category>
