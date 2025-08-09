@@ -14,7 +14,7 @@
 <meta property="og:description" content="cpugovernor strategy Check Available CPU Governors 12345# Run the following command to check available CPU governors:cat &#x2F;sys&#x2F;devices&#x2F;system&#x2F;cpu&#x2F;cpu0&#x2F;cpufreq&#x2F;scaling_available_governors# You should se">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-01-21T02:43:04.000Z">
-<meta property="article:modified_time" content="2025-02-24T06:50:54.511Z">
+<meta property="article:modified_time" content="2025-08-09T10:32:49.672Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tune">
 <meta name="twitter:card" content="summary">
@@ -176,6 +176,9 @@
 <li><p>Set CPU Governor Persistent</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> First, install cpupower:</span></span><br><span class="line">sudo dnf install kernel-tools -y</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Then, <span class="built_in">set</span> the governor:</span></span><br><span class="line">sudo cpupower frequency-set -g performance</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> To apply this setting at boot, <span class="built_in">enable</span> the service:</span></span><br><span class="line">sudo systemctl enable --now cpupower.service</span><br></pre></td></tr></table></figure></li>
 </ul>
+<p><strong>troubleshooting</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check <span class="keyword">if</span> the driver is loaded</span></span><br><span class="line">lsmod | grep -E &#x27;pstate|cpufreq&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"> Load it manually</span></span><br><span class="line">sudo modprobe intel_pstate || sudo modprobe acpi_cpufreq</span><br></pre></td></tr></table></figure>
+
 <h1 id="nvme"><a href="#nvme" class="headerlink" title="nvme"></a>nvme</h1><h2 id="I-O-scheduler"><a href="#I-O-scheduler" class="headerlink" title="I/O scheduler"></a>I/O scheduler</h2><ul>
 <li><p>check current scheduler pattern</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/nvme[01]\*/queue/scheduler</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> console <span class="built_in">print</span> below info</span></span><br><span class="line">none [mq-deadline] kyber bfq</span><br></pre></td></tr></table></figure>
