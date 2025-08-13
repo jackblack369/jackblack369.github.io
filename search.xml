@@ -1901,7 +1901,10 @@
   <entry>
     <title>ansible</title>
     <url>/2024/06/24/ansible%20snippet/</url>
-    <content><![CDATA[<p>TBD</p>
+    <content><![CDATA[<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 -m pip install  ansible # or with &#x27;--user&#x27; which just install on current user </span><br></pre></td></tr></table></figure>
+
+
+
 ]]></content>
       <categories>
         <category>ansible</category>
@@ -3952,7 +3955,7 @@
 <li><p>Move Existing Data (if required)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop containerd  # optional</span><br><span class="line">sudo mv /var/lib/containerd /data/containerd</span><br><span class="line">sudo systemctl start containerd</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pull k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images pull xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> load tar file</span> </span><br><span class="line">sudo ctr -n k8s.io images import /tmp/my-image.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> combine load tar file to specify tag image</span></span><br><span class="line">sudo ctr -n k8s.io images import --base-name my.registry.com/myproject/my-image:v1.2.3 /path/to/image.tar</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rename tag</span></span><br><span class="line">sudo ctr -n k8s.io images tag &lt;old-image-name&gt; &lt;new-image-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove image</span></span><br><span class="line">sudo ctr -n k8s.io images remove &lt;name&gt;:&lt;tag&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pull k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images pull xxx</span><br><span class="line"><span class="meta">#</span><span class="bash"> pull with auth</span></span><br><span class="line">sudo ctr images pull --user username:password registry.example.com/repository/image:tag</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> load tar file</span> </span><br><span class="line">sudo ctr -n k8s.io images import /tmp/my-image.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> combine load tar file to specify tag image</span></span><br><span class="line">sudo ctr -n k8s.io images import --base-name my.registry.com/myproject/my-image:v1.2.3 /path/to/image.tar</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rename tag</span></span><br><span class="line">sudo ctr -n k8s.io images tag &lt;old-image-name&gt; &lt;new-image-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove image</span></span><br><span class="line">sudo ctr -n k8s.io images remove &lt;name&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -11410,12 +11413,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all</span></span><br><span class="line">findmnt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check specify mnt</span></span><br><span class="line">findmnt &lt;path/to/mnt&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><ul>
-<li>去除包含特定字符串的行：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -v &quot;pattern&quot; inputfile &gt; outputfile</span><br></pre></td></tr></table></figure>
-
-<p>参数 <code>-v</code> 是用来反向匹配的选项，它会将不匹配指定模式的行输出</p>
-<ul>
 <li>查找指定目录下的文件内容</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rn &quot;info&quot; *</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定检索目录，指定排出目录（exclude-dir可多次使用）</span></span><br><span class="line">grep -rn &quot;info&quot; /home/rdx --exclude-dir=&quot;log&quot;</span><br></pre></td></tr></table></figure>
@@ -11423,25 +11420,12 @@
 <ul>
 <li>查询大文件里面的内容</li>
 </ul>
-<p>格式：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 使用管道符可以实现过滤既满足时间又满足ip的行。</span><br><span class="line">grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3</span><br></pre></td></tr></table></figure>
-
-<p>参数解释：<br>-n 参数的作用是显示查找结果的所在行号<br>-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数<br>prometheus.log 表示待搜索的大日志文件<br>head -n 3 表示显示前面查询结果的前三条记录</p>
-<ul>
-<li>排除指定内容</li>
-</ul>
-<p>要仅打印与搜索模式不匹配的行，可以使用grep的<code>-v</code>或<code>--invert-match</code>选项。进行反转的匹配。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -v xxx</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 使用管道符可以实现过滤既满足时间又满足ip的行。</span><br><span class="line">grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -n 参数的作用是显示查找结果的所在行号</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>限定查询结果之后的前几行</p>
-<p> <code>grep -m 10 &lt;pattern&gt; &lt;file&gt; </code></p>
-</li>
-<li><p>限定查询结果倒数的几行</p>
-<p> <code>grep &lt;pattern&gt; &lt;file&gt; | tail -10</code></p>
-</li>
+<li>logical</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Match any of multiple strings (OR logic)</span></span><br><span class="line">grep -E &#x27;pattern1|pattern2|pattern3&#x27; filename</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Match any of multiple strings (logical OR)</span></span><br><span class="line">grep -E &#x27;pattern1|pattern2|pattern3&#x27; filename</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Match lines containing all keywords (logical AND)</span></span><br><span class="line">grep &#x27;word1&#x27; file.txt | grep &#x27;word2&#x27; | grep &#x27;word3&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Match lines exclude keywords (logical NOT)</span></span><br><span class="line">grep -v &quot;pattern&quot; inputfile </span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>查看周围行数的内容</p>
@@ -15271,11 +15255,13 @@
   <entry>
     <title>linux system command</title>
     <url>/2016/10/16/linux%20cmd:%20system/</url>
-    <content><![CDATA[<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="user"><a href="#user" class="headerlink" title="user"></a>user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> visudo</span></span><br><span class="line">dingofs ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> uid:65535 to nobody base on gid: nobody 65534</span> </span><br><span class="line">sudo useradd -u 65535 -g 65534 -d /nonexistent -s /usr/sbin/nologin nobody65535</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="kernel"><a href="#kernel" class="headerlink" title="kernel"></a>kernel</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check version</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+
+<h2 id="user"><a href="#user" class="headerlink" title="user"></a>user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sudo权限用户切换成root</span></span><br><span class="line">sudo -i</span><br><span class="line">sudo su -</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line">sudo useradd -m -s /bin/bash &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> visudo</span></span><br><span class="line">dingofs ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta">#</span><span class="bash">	-m: Creates a home directory <span class="keyword">for</span> the user.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	-s /bin/bash: Sets the default shell to /bin/bash.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config password</span></span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user to sudo group</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-1 ubuntu/debian</span></span><br><span class="line">usermod -aG sudo &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> opitional-2 edit visudo</span></span><br><span class="line">visudo</span><br><span class="line">&lt;username&gt; ALL=(ALL) NOPASSWD:ALL</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete user</span></span><br><span class="line">userdel &lt;username&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> uid:65535 to nobody base on gid: nobody 65534</span> </span><br><span class="line">sudo useradd -u 65535 -g 65534 -d /nonexistent -s /usr/sbin/nologin nobody65535</span><br></pre></td></tr></table></figure>
 
 <h2 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo hostnamectl set-hostname &lt;new-hostname&gt;</span><br><span class="line">sudo hostnamectl status</span><br></pre></td></tr></table></figure>
 
-<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys  </span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
+<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
 
 <h2 id="editor"><a href="#editor" class="headerlink" title="editor"></a>editor</h2><blockquote>
 <p>config nano or vim as default editor</p>
@@ -15540,6 +15526,12 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nvme smart-log /path/to/device  # e.g. nvme smart-log /dev/nvme0</span><br></pre></td></tr></table></figure></li>
 <li><p>check again for PCIe or I/O errors</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dmesg | grep -iE &quot;nvme|pcie|error&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Permission-denied-publickey"><a href="#Permission-denied-publickey" class="headerlink" title="Permission denied (publickey)"></a>Permission denied (publickey)</h2><ul>
+<li><p>check target server <code>/etc/ssh/sshd_config</code> should config below value</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PermitRootLogin yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys</span><br></pre></td></tr></table></figure></li>
+<li><p>availble modify value</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl reload sshd</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -17542,6 +17534,41 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>learn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nfs</title>
+    <url>/2025/02/17/fs:%20nfs/</url>
+    <content><![CDATA[<h1 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h1><p>Configuring an NFS (Network File System) server to use a local disk, and multiple servers mount the same NFS share is a common way to provide shared storage on a local network. </p>
+<h2 id="1-Set-Up-the-NFS-Server"><a href="#1-Set-Up-the-NFS-Server" class="headerlink" title="1. Set Up the NFS Server"></a>1. Set Up the NFS Server</h2><ul>
+<li><p>Install NFS Packages: On your NFS server, install the required NFS utilities.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># For Debian/Ubuntu</span></span><br><span class="line">sudo apt update         </span><br><span class="line">sudo apt install nfs-kernel-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># For Red Hat/CentOS/Fedora:</span></span><br><span class="line">sudo dnf install nfs-utils</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> --now nfs-server</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> --now rpcbind</span><br></pre></td></tr></table></figure></li>
+<li><p>Create a Shared Directory: Make a directory on a local disk to share.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo mkdir -p /nfs_share</span><br><span class="line">sudo chown nobody:nobody /nfs_share  <span class="comment"># check nobody group by &#x27;id nobody&#x27;</span></span><br><span class="line">sudo chmod 777 /nfs_share</span><br></pre></td></tr></table></figure></li>
+<li><p>Export the Directory: Edit <code>/etc/exports</code> to define what and how is shared. Here’s how to share with all clients in your local network:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/nfs_share 192.168.1.0/24(rw,sync,no_subtree_check)</span><br></pre></td></tr></table></figure>
+<p>Adjust the subnet to match your network.</p>
+</li>
+<li><p>Apply Export Changes &amp; Restart NFS:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo exportfs -ra</span><br><span class="line">sudo systemctl restart nfs-kernel-server <span class="comment"># or systemctl restart nfs-server</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-Configure-NFS-Clients"><a href="#2-Configure-NFS-Clients" class="headerlink" title="2. Configure NFS Clients"></a>2. Configure NFS Clients</h2><p>On every client server that needs to mount the NFS share:</p>
+<ul>
+<li><p>Install NFS Client Utilities:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># For Debian/Ubuntu</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install nfs-common</span><br><span class="line"></span><br><span class="line"><span class="comment"># For Red Hat/CentOS/Fedora:</span></span><br><span class="line">sudo yum install nfs-utils</span><br></pre></td></tr></table></figure></li>
+<li><p>Mount the NFS Share:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo mkdir -p /mnt/nfs_share</span><br><span class="line">sudo mount -t nfs &lt;server_ip&gt;:/nfs_share /mnt/nfs_share</span><br></pre></td></tr></table></figure>
+<p>Replace <code>&lt;server_ip&gt;</code> with the IP address of your NFS server. Now, any server with an IP in that subnet can mount <code>/nfs_share</code>.</p>
+</li>
+<li><p>Optional: Persist Mount Across Reboots<br>Edit <code>/etc/fstab</code> on each client:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;server_ip&gt;:/nfs_share /mnt/nfs_share nfs defaults 0 0</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>fs</category>
+      </categories>
+      <tags>
+        <tag>nfs</tag>
       </tags>
   </entry>
 </search>
