@@ -2207,6 +2207,10 @@
 <h3 id="operator"><a href="#operator" class="headerlink" title="operator"></a>operator</h3><ul>
 <li>The <code>:: </code>symbol is an operator called the <strong>scope resolution operator</strong>.</li>
 </ul>
+<h3 id="constant"><a href="#constant" class="headerlink" title="constant"></a>constant</h3><ul>
+<li><p>C++98 did not have <code>constexpr</code>, so people used <code>const</code>.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> max = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> min = <span class="number">0</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h3 id="iostream"><a href="#iostream" class="headerlink" title="iostream"></a>iostream</h3><ul>
 <li><p>std::endl</p>
 <p>output a newline; Using <code>std::endl</code> is often inefficient than <code>&#39;\n&#39;</code></p>
@@ -2949,6 +2953,13 @@
 <ul>
 <li><a href="https://www.devxperiences.com/pzwp1/2023/05/17/c-dynamic-loading-of-a-shared-library-also-create-and-load-one-on-your-own/">C++ Dynamic loading of a shared library</a></li>
 </ul>
+<h1 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h1><h2 id="Compile-time-errors"><a href="#Compile-time-errors" class="headerlink" title="Compile-time errors"></a>Compile-time errors</h2><p>Errors found by the compiler. We can further classify compile-time errors based on which language rules they violate, for example:</p>
+<ul>
+<li>Syntax errors</li>
+<li>Type errors</li>
+</ul>
+<h2 id="Link-time-errors"><a href="#Link-time-errors" class="headerlink" title="Link-time errors"></a>Link-time errors</h2><p>Errors found by the linker when it is trying to combine object files into an executable program.</p>
+<h2 id="Run-time-erros"><a href="#Run-time-erros" class="headerlink" title="Run-time erros"></a>Run-time erros</h2><p>Errors found by checks in a running program. We can further classify runtime errors as: error detected by compute/libray(e.g. standard library)/user’s code</p>
 <h1 id="Data-structures-algorithms-and-design-patterns"><a href="#Data-structures-algorithms-and-design-patterns" class="headerlink" title="Data structures, algorithms, and design patterns"></a>Data structures, algorithms, and design patterns</h1><p>TBD</p>
 <h1 id="tool"><a href="#tool" class="headerlink" title="tool"></a>tool</h1><h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h3 id="config-file"><a href="#config-file" class="headerlink" title="config file"></a>config file</h3><ul>
 <li><p>c_cpp_properties.json</p>
@@ -4200,18 +4211,21 @@
     <content><![CDATA[<blockquote>
 <p>默认情况下，Docker 会为你提供一个隐含的 ENTRYPOINT，即：/bin/sh -c。所以，在不指定 ENTRYPOINT 时，比如运行在容器里的完整进程是：/bin/sh -c “python xxx.py”，即 CMD 的内容就是 ENTRYPOINT 的参数</p>
 </blockquote>
-<h2 id="user"><a href="#user" class="headerlink" title="user"></a>user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Add the current user</span></span><br><span class="line">sudo usermod -a -G docker $(whoami)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add a specific user</span></span><br><span class="line">sudo usermod -a -G docker custom-user</span><br></pre></td></tr></table></figure>
+<h1 id="user"><a href="#user" class="headerlink" title="user"></a>user</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Add the current user</span></span><br><span class="line">sudo usermod -a -G docker $(whoami)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add a specific user</span></span><br><span class="line">sudo usermod -a -G docker custom-user</span><br></pre></td></tr></table></figure>
 
-<h1 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h1><ul>
-<li><p>check</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看正在运行</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有</span></span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></li>
-<li><p>docker run</p>
-<blockquote>
+<h1 id="dockerfile"><a href="#dockerfile" class="headerlink" title="dockerfile"></a>dockerfile</h1><ul>
+<li><p><strong>RUN</strong> is executed while the image is being build</p>
+<p>while <strong>ENTRYPOINT</strong> is executed after the image has been built.</p>
+</li>
+</ul>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="check"><a href="#check" class="headerlink" title="check"></a>check</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看正在运行</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 资源占用</span> </span><br><span class="line">docker stats --no-stream</span><br></pre></td></tr></table></figure>
+
+<h2 id="run"><a href="#run" class="headerlink" title="run"></a>run</h2><blockquote>
 <p>docker run is a higher-level command that combines multiple subcommands (docker create, docker start, docker exec, etc.) into a single step.</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建容器</span></span><br><span class="line">docker run -p &lt;宿主机端口&gt;:&lt;容器端口&gt; &lt;镜像名称&gt;[:标签]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置容器停止之后自动清理容器</span></span><br><span class="line">docker run --rm xxx  # --rm This flag tells Docker to automatically remove the container when it exits.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Run a New Container with Volume Mount</span></span><br><span class="line">docker run -it --name my-container -v /host/path:/container/path my-image</span><br></pre></td></tr></table></figure></li>
-<li><p>other</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 终止</span></span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 清理已经停止的容器</span></span><br><span class="line">docker container prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器端口</span></span><br><span class="line">docker port &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器启动命令</span></span><br><span class="line">docker inspect -f &#x27;&#123;&#123;.Config.Cmd&#125;&#125;&#x27; &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器挂载信息</span></span><br><span class="line">docker inspect &#123;container_id&#125; --format=&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27; | jq</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rm -f 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 批量删除已停止的容器</span></span><br><span class="line">docker rm $(docker ps -a -q -f &quot;status=exited&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导出</span></span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入</span></span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">docker restart $container_id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志</span></span><br><span class="line">docker logs $container_id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制文件 在容器运行和停止的状态均可执行</span></span><br><span class="line">docker cp /host/path/ &lt;container_id&gt;:/path/to/file</span><br><span class="line">or</span><br><span class="line">docker cp &lt;container_id&gt;:/path/to/file /host/path/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Monitor Real-Time</span></span><br><span class="line">docker stats &lt;containerId&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check specify container<span class="string">&#x27;s PID</span></span></span><br><span class="line">docker inspect --format &#x27;&#123;&#123;.State.Pid&#125;&#125;&#x27; &lt;containerId&gt;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建容器</span></span><br><span class="line">docker run -p &lt;宿主机端口&gt;:&lt;容器端口&gt; &lt;镜像名称&gt;[:标签]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置容器停止之后自动清理容器</span></span><br><span class="line">docker run --rm xxx  # --rm This flag tells Docker to automatically remove the container when it exits.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Run a New Container with Volume Mount</span></span><br><span class="line">docker run -it --name my-container -v /host/path:/container/path my-image</span><br></pre></td></tr></table></figure>
+<ul>
+<li>other<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">docker start 容器名或容器 id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 终止</span></span><br><span class="line">docker stop [NAME]/[CONTAINER ID]:将容器退出。</span><br><span class="line">docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 清理已经停止的容器</span></span><br><span class="line">docker container prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器端口</span></span><br><span class="line">docker port &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器启动命令</span></span><br><span class="line">docker inspect -f &#x27;&#123;&#123;.Config.Cmd&#125;&#125;&#x27; &#123;container_id&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器挂载信息</span></span><br><span class="line">docker inspect &#123;container_id&#125; --format=&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27; | jq</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rm -f 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 批量删除已停止的容器</span></span><br><span class="line">docker rm $(docker ps -a -q -f &quot;status=exited&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导出</span></span><br><span class="line">docker export 容器id &gt; xxx.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入</span></span><br><span class="line">docker import - test/xxx:v1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">docker restart $container_id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志</span></span><br><span class="line">docker logs $container_id</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制文件 在容器运行和停止的状态均可执行</span></span><br><span class="line">docker cp /host/path/ &lt;container_id&gt;:/path/to/file</span><br><span class="line">or</span><br><span class="line">docker cp &lt;container_id&gt;:/path/to/file /host/path/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Monitor Real-Time</span></span><br><span class="line">docker stats &lt;containerId&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check specify container<span class="string">&#x27;s PID</span></span></span><br><span class="line">docker inspect --format &#x27;&#123;&#123;.State.Pid&#125;&#125;&#x27; &lt;containerId&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><h3 id="Propagation-Modes"><a href="#Propagation-Modes" class="headerlink" title="Propagation Modes"></a>Propagation Modes</h3><blockquote>
 <p>with rshared: Unmounting inside the container affects the host’s mount as well.</p>
@@ -4233,7 +4247,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="network"><a href="#network" class="headerlink" title="network"></a>network</h2><table>
+<h1 id="network"><a href="#network" class="headerlink" title="network"></a>network</h1><table>
 <thead>
 <tr>
 <th align="left">Driver</th>
@@ -4273,7 +4287,7 @@
 <li><p>直接查看container的信息，找到network段查看。或者用grep筛选出network。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker inspect 容器名/容器ID</span><br><span class="line">docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h2><p>Common exit codes associated with docker containers are:</p>
+<h1 id="Exit-Codes"><a href="#Exit-Codes" class="headerlink" title="Exit Codes"></a>Exit Codes</h1><p>Common exit codes associated with docker containers are:</p>
 <ul>
 <li><p><strong>Exit Code 0</strong>: Absence of an attached foreground process</p>
 </li>
@@ -4290,7 +4304,8 @@
 <li><p><strong>Exit Code 127</strong>: Possible typos in shell script with unrecognizable characters</p>
 </li>
 </ul>
-<h2 id="third-container"><a href="#third-container" class="headerlink" title="third container"></a>third container</h2><h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ul>
+<h1 id="third-container"><a href="#third-container" class="headerlink" title="third container"></a>third container</h1><p><strong>mysql</strong></p>
+<ul>
 <li><p>密码123456</p>
 </li>
 <li><p>创建容器</p>
@@ -4309,7 +4324,8 @@
 <li><p>导出数据库</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it  mysql-server（容器名） mysqldump -uroot -p123456 数据库名称 &gt; /opt/sql_bak/test_db.sql（导出表格路径）</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="portainer"><a href="#portainer" class="headerlink" title="portainer"></a>portainer</h3><ul>
+<p><strong>portainer</strong></p>
+<ul>
 <li><p>密码重置</p>
 <ul>
 <li><p>下载帮助镜像portainer/helper-reset-password</p>
@@ -4329,7 +4345,8 @@
 <li><p>重新安装</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer \</span><br><span class="line">    --restart=always \</span><br><span class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">    -v portainer_data:/data \</span><br><span class="line">    cr.portainer.io/portainer/portainer-ce:2.9.3</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h3><ul>
+<p><strong>nacos</strong></p>
+<ul>
 <li>run<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -4337,7 +4354,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><blockquote>
+<p><strong>redis</strong></p>
+<blockquote>
 <p>使用docker-compose up redis启动容器时，如果配置自定义配置文件 redis.conf，需要设置</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize no</span><br></pre></td></tr></table></figure>
@@ -4350,7 +4368,7 @@
 <blockquote>
 <p>使用 docker-compose –verbose up redis启动，可查看启动详情</p>
 </blockquote>
-<h2 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h2><h3 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h3><ol>
+<h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="修改已有容器的端口映射"><a href="#修改已有容器的端口映射" class="headerlink" title="修改已有容器的端口映射"></a>修改已有容器的端口映射</h2><ol>
 <li><p>停止容器 </p>
 </li>
 <li><p>停止docker服务(systemctl stop docker) </p>
@@ -4362,13 +4380,8 @@
 <li><p>启动容器</p>
 </li>
 </ol>
-<h3 id="配置容器的镜像源（安装vim）"><a href="#配置容器的镜像源（安装vim）" class="headerlink" title="配置容器的镜像源（安装vim）"></a>配置容器的镜像源（安装vim）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list </span><br><span class="line"><span class="meta">#</span><span class="bash">更新安装源</span> </span><br><span class="line">apt-get update </span><br><span class="line"><span class="meta">#</span><span class="bash">如果下载过程中卡在[waiting <span class="keyword">for</span> headers] 删除/var/cache/apt/archives/下的所有文件</span> </span><br><span class="line"><span class="meta">#</span><span class="bash">安装vim</span> </span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+<h2 id="配置容器的镜像源（安装vim）"><a href="#配置容器的镜像源（安装vim）" class="headerlink" title="配置容器的镜像源（安装vim）"></a>配置容器的镜像源（安装vim）</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">echo &quot;deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib&quot; &gt;&gt;/etc/apt/sources.list </span><br><span class="line"><span class="meta">#</span><span class="bash">更新安装源</span> </span><br><span class="line">apt-get update </span><br><span class="line"><span class="meta">#</span><span class="bash">如果下载过程中卡在[waiting <span class="keyword">for</span> headers] 删除/var/cache/apt/archives/下的所有文件</span> </span><br><span class="line"><span class="meta">#</span><span class="bash">安装vim</span> </span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
 
-<h1 id="dockerfile"><a href="#dockerfile" class="headerlink" title="dockerfile"></a>dockerfile</h1><ul>
-<li><p><strong>RUN</strong> is executed while the image is being build</p>
-<p>while <strong>ENTRYPOINT</strong> is executed after the image has been built.</p>
-</li>
-</ul>
 <h1 id="advanced"><a href="#advanced" class="headerlink" title="advanced"></a>advanced</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;/core/core.%e.%p.%t&quot; | sudo tee /proc/sys/kernel/core_pattern</span><br></pre></td></tr></table></figure>
 
 ]]></content>
@@ -4512,7 +4525,7 @@
 <li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
 <li><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</li>
 </ul>
-<h2 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .  # 注意不要省略 .</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定dockerfile</span></span><br><span class="line">docker build --no-cache -t your-image-name -f /path/to/dockerfile . # 注意不要省略 .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check Image Architecture</span></span><br><span class="line">docker image inspect &lt;imageId&gt;  | jq &#x27;.[].Architecture&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx (--platform=amd64)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove all dangling images:</span></span><br><span class="line">docker image prune -f</span><br></pre></td></tr></table></figure>
+<h1 id="operate"><a href="#operate" class="headerlink" title="operate"></a>operate</h1><h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 构建 （--no-cache 可以清理缓存进行构建）</span></span><br><span class="line">docker build --no-cache -t your-image-name .  # 注意不要省略 .</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定dockerfile</span></span><br><span class="line">docker build --no-cache -t your-image-name -f /path/to/dockerfile . # 注意不要省略 .</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找</span></span><br><span class="line">docker search xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check Image Architecture</span></span><br><span class="line">docker image inspect &lt;imageId&gt;  | jq &#x27;.[].Architecture&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取</span></span><br><span class="line">docker pull xxx (--platform=amd64)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行(容器)</span></span><br><span class="line">docker run xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除</span></span><br><span class="line">docker rmi xxx</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除所有tag为 none 的镜像</span></span><br><span class="line">docker images -q --filter &quot;dangling=true&quot; | sudo xargs docker rmi</span><br><span class="line"></span><br><span class="line">docker images : 列出本地镜像。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">docker images [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line">OPTIONS说明：</span><br><span class="line">-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</span><br><span class="line">–digests :显示镜像的摘要信息；</span><br><span class="line">-f :显示满足条件的镜像；</span><br><span class="line">–format :指定返回值的模板文件；</span><br><span class="line">–no-trunc :显示完整的镜像信息；</span><br><span class="line">-q :只显示镜像ID。</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove all dangling images:</span></span><br><span class="line">docker image prune -f</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  create an image from a container</span></span><br><span class="line">docker commit &lt;container&gt; &lt;image&gt;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>导出镜像</p>
@@ -4545,7 +4558,7 @@
 <li><p>测试运行镜像</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试运行（镜像），<span class="string">&#x27;sleep infinity&#x27;</span> <span class="built_in">command</span> could keep a container running interactively</span></span><br><span class="line">docker run -d $REPOSITORY:$TAG sleep infinity</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="jar-gt-image"><a href="#jar-gt-image" class="headerlink" title="jar -&gt; image"></a>jar -&gt; image</h3><ul>
+<h2 id="jar-gt-image"><a href="#jar-gt-image" class="headerlink" title="jar -&gt; image"></a>jar -&gt; image</h2><ul>
 <li><p>step1: </p>
 <p>编辑dockerfile</p>
 </li>
@@ -4563,9 +4576,6 @@
 
 <h2 id="archive-artifact"><a href="#archive-artifact" class="headerlink" title="archive artifact"></a>archive artifact</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1</span></span><br><span class="line">docker save -o /tmp/my_app_image.tar my_app:latest</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> step2 save_image.tar is equal my_app_image.tar</span></span><br><span class="line">docker load -i /path/to/destination/save_immy_app_image.tarage.tar</span><br></pre></td></tr></table></figure>
 
-
-
-<hr>
 <h1 id="advanced"><a href="#advanced" class="headerlink" title="advanced"></a>advanced</h1><h2 id="add-git-commit-info-to-image-tag"><a href="#add-git-commit-info-to-image-tag" class="headerlink" title="add git commit info to image tag"></a>add git commit info to image tag</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">IMAGE_NAME=your-image-name</span><br><span class="line">echo &quot;image name: $IMAGE_NAME&quot;</span><br><span class="line"></span><br><span class="line">GIT_BRANCH=$(git symbolic-ref --short HEAD)</span><br><span class="line">LAST_COMMIT=$(git rev-parse HEAD)</span><br><span class="line">echo &quot;git commit info : $LAST_COMMIT&quot;</span><br><span class="line"></span><br><span class="line">docker build . -t $IMAGE_NAME:&quot;$GIT_BRANCH-$LAST_COMMIT&quot;</span><br></pre></td></tr></table></figure>
 
 <h1 id="es"><a href="#es" class="headerlink" title="es"></a>es</h1><blockquote>
@@ -4884,6 +4894,9 @@
 <h1 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> rocky</span></span><br><span class="line">dnf install -y sqlite</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ubuntu</span></span><br><span class="line">apt-get install -y sqlite3</span><br></pre></td></tr></table></figure>
 
 <h2 id="export-sql-file"><a href="#export-sql-file" class="headerlink" title="export sql file"></a>export sql file</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> init database</span></span><br><span class="line">sqlite3 /path/to/databaseFile</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> dump database</span></span><br><span class="line"><span class="meta">sqlite&gt;</span><span class="bash"> .output /path/to/<span class="built_in">export</span>/sqlFile  <span class="comment"># config output file path</span></span></span><br><span class="line"><span class="meta">sqlite&gt;</span><span class="bash"> .dump</span></span><br><span class="line"><span class="meta">sqlite&gt;</span><span class="bash"> .<span class="built_in">exit</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>other</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list tables</span></span><br><span class="line">SELECT name FROM sqlite_master WHERE type=&#x27;table&#x27;;</span><br></pre></td></tr></table></figure>
 
 <h1 id="rqlite"><a href="#rqlite" class="headerlink" title="rqlite"></a>rqlite</h1><h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd $GOPATH/src/github.com/rqlite/rqlite</span><br><span class="line">go install ./...  # install in $GOPATH/bin/ directory</span><br></pre></td></tr></table></figure>
 
@@ -8130,13 +8143,15 @@
 <p>In Git, the –amend option is used with the git commit command to modify the most recent commit. It allows you to make changes to the last commit without creating a new one, which is helpful for fixing small mistakes such as a missing file, a typo in the commit message, or an incorrect change.</p>
 </blockquote>
 <ul>
-<li><p><strong>Example 1: Fixing a Commit Message</strong></p>
+<li><p><strong>scenario 1: Fixing a Commit Message</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Suppose you made a commit but realized there was a typo <span class="keyword">in</span> the message:</span></span><br><span class="line">git commit -m &quot;Fixing a bugg in login&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> To correct the message, This will update the last commit with the corrected message.</span></span><br><span class="line">git commit --amend -m &quot;Fixing a bug in login&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>Example 2: Adding Missing Changes</strong></p>
+<li><p><strong>scenario 2: Adding Missing Changes</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> You commit some changes but forgot to include a file:</span></span><br><span class="line">git commit -m &quot;Add login functionality&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Later, you realize that you forgot to add auth.js. To fix this:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1.	Stage the missing file:</span></span><br><span class="line">git add auth.js</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2.	Amend the commit:</span></span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
 
 <p>Git will open an editor to let you modify the commit message if needed. Save and close the editor to complete the process.</p>
 </li>
+<li><p><strong>scenario 3: Change latest commit user info</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit --amend --author=&quot;New Name &lt;new.email@example.com&gt;&quot; --no-edit</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. git commit --amend --author=<span class="string">&quot;Dongwei &lt;jackblack369@163.com&gt;&quot;</span> --no-edit</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <p><strong>Important Notes</strong></p>
 <ol>
@@ -13449,6 +13464,10 @@
 </blockquote>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> load tar file to image</span></span><br><span class="line">podman load -i &lt;image-tar-file&gt;</span><br></pre></td></tr></table></figure>
 
+<h2 id="prune"><a href="#prune" class="headerlink" title="prune"></a>prune</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> remove unused containers (stopped containers)</span></span><br><span class="line">podman container prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete dangling images (images not referenced by any container)</span></span><br><span class="line">podman image prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> comprehensive cleanup (all unused containers, images, pods, and optionally volumes)</span></span><br><span class="line">podman system prune -a</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="change-default-data-dir"><a href="#change-default-data-dir" class="headerlink" title="change default data dir"></a>change default data dir</h2><ul>
 <li><p><strong>rootful mode</strong> </p>
 <blockquote>
@@ -15163,6 +15182,8 @@
 
 <h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
 
+<h2 id="env"><a href="#env" class="headerlink" title="env"></a>env</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">unset</span></span></span><br><span class="line">unset VARIABLE_NAME</span><br></pre></td></tr></table></figure>
+
 <h2 id="editor"><a href="#editor" class="headerlink" title="editor"></a>editor</h2><blockquote>
 <p>config nano or vim as default editor</p>
 </blockquote>
@@ -16350,6 +16371,11 @@
 <li> <code>$&#123;!#&#125;</code> is a bash parameter expansion that gets the last command-line argument passed to the script.</li>
 </ul>
 <h2 id="sigle-quota-and-double-quota"><a href="#sigle-quota-and-double-quota" class="headerlink" title="sigle quota and double quota"></a>sigle quota and double quota</h2><p>single quotes <code>&#39;...&#39;</code> prevent the shell from expanding <code>$&#123;G_FSNAME&#125;</code>. As a result, the literal string <code>$&#123;G_FSNAME&#125;</code> is inserted instead of the value of the environment variable.<br>Use Double Quotes for Variable Expansion, to allow the shell to expand the variable</p>
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><ul>
+<li><p><code>-e</code></p>
+<p>By default, <code>echo</code> just prints the arguments as plain text. If use <code>echo -e</code>, the <code>-e</code> option tells <code>echo</code> to enable interpretation of special characters like <code>\n</code> (newline), <code>\t</code> (tab), <code>\\</code> (literal backslash), and others.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1\nline2</span><br><span class="line"></span><br><span class="line">echo -e &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1</span><br><span class="line">line2</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
 <li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
 </ul>
@@ -17506,7 +17532,9 @@ So later in the script, you can safely loop through options using:
   <entry>
     <title>maven &amp; gradle</title>
     <url>/2018/01/09/maven%20&amp;%20gradle/</url>
-    <content><![CDATA[<h1 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h1><ol>
+    <content><![CDATA[<h1 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h1><h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> macos</span> </span><br><span class="line">/opt/homebrew/Cellar/maven/3.9.9/libexec/conf/settings.xml</span><br></pre></td></tr></table></figure>
+
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><ol>
 <li><strong>mvn compile</strong> 编译,将Java 源程序编译成 class 字节码文件。</li>
 <li><strong>mvn test</strong> 测试，并生成测试报告</li>
 <li><strong>mvn clean</strong> 将以前编译得到的旧的 class 字节码文件删除</li>
@@ -17514,29 +17542,8 @@ So later in the script, you can safely loop through options using:
 <li><strong>mvn install</strong> 将项目生成 jar 包放在仓库中，以便别的模块调用</li>
 <li><a href="https://www.cnblogs.com/zhangxh20/p/6298062.html">Maven的几个常用plugin</a></li>
 </ol>
-<h3 id="tomcat项目的部署"><a href="#tomcat项目的部署" class="headerlink" title="tomcat项目的部署"></a>tomcat项目的部署</h3><ul>
-<li>参照 <a href="https://blog.csdn.net/u012076316/article/details/46907823">tomcat 设置热部署</a></li>
-<li>参照<a href="http://www.jb51.net/article/117334.htm">war和war exploded区别及问题汇总</a></li>
-<li>参照<a href="https://www.jianshu.com/p/fb0ed26c35d5">tomcat部署的不同方式</a></li>
-<li>启动项目时，如果test包里面有测试程序，为了忽略编译test测试程序，需要运行命令打包<code>mvn clean package -DskipTests</code>，另外运行tomcat的时候以debug模式进行启动。</li>
-</ul>
-<h3 id="maven多项目之间相互引用"><a href="#maven多项目之间相互引用" class="headerlink" title="maven多项目之间相互引用"></a>maven多项目之间相互引用</h3><ul>
-<li><p>应该在父目录下进行maven install操作，会自动生成子模块的jar或war包。</p>
-</li>
-<li><p><strong>解决maven无法加载本地lib/下的jar包问题(程序包XXX不存在)</strong></p>
-<ul>
-<li><p>原因</p>
-<p>若该程序包是第三方的jar，解决方案是让maven既加载maven库中的jar包，又要加载本地WEB-INF/lib下的jar包。 </p>
-</li>
-<li><p>解决</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.6.0&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">        &lt;compilerArguments&gt;</span><br><span class="line">            &lt;extdirs&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib&lt;/extdirs&gt;</span><br><span class="line">        &lt;/compilerArguments&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h2 id="创建本地引用包"><a href="#创建本地引用包" class="headerlink" title="创建本地引用包"></a>创建本地引用包</h2><h4 id="1-直接引用本地jar"><a href="#1-直接引用本地jar" class="headerlink" title="1.直接引用本地jar"></a>1.直接引用本地jar</h4><p>将jar放在项目中，例如web项目就放在 <code>webapp/WEB-INF/lib</code>下面<br>然后再<code>pom.xml</code>中添加jar的依赖：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;myjar&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;myjar&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">    &lt;systemPath&gt;$&#123;project.basedir&#125;/webapp/WEB-INF/lib/myjar-1.0.0.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-安装到本地仓库"><a href="#2-安装到本地仓库" class="headerlink" title="2.安装到本地仓库"></a>2.安装到本地仓库</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar</span><br><span class="line"></span><br><span class="line">参数说明:</span><br><span class="line">-DgroupId:对应dependency的groupId</span><br><span class="line">-DartifactId:对应dependency的artifactId</span><br><span class="line">-Dversion:对应dependency中的version</span><br><span class="line">-Dpackaging:安装的类型，jar或者pom</span><br><span class="line">-Dfile:要安装的jar文件的路径</span><br></pre></td></tr></table></figure>
+<p><strong>other</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> package</span></span><br><span class="line">mvn clean package -DskipTests</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> init project</span></span><br><span class="line">mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> run sprint-boot project</span></span><br><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
 
 <h2 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h2><ul>
 <li><p>compile<br>默认就是compile，什么都不配置也就是意味着compile。compile表示被依赖项目需要参与当前项目的编译，当然后续的测试，运行周期也参与其中，是一个比较强的依赖。打包的时候通常需要包含进去。</p>
@@ -17550,7 +17557,31 @@ So later in the script, you can safely loop through options using:
 <li><p>system<br>从参与度来说，和provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用</p>
 </li>
 </ul>
-<h2 id="依赖传递原则"><a href="#依赖传递原则" class="headerlink" title="依赖传递原则"></a>依赖传递原则</h2><p>几乎所有的Jar包冲突都和依赖传递原则有关，所以我们先说Maven中的依赖传递原则：</p>
+<h2 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h2><h3 id="多项目之间相互引用"><a href="#多项目之间相互引用" class="headerlink" title="多项目之间相互引用"></a>多项目之间相互引用</h3><ul>
+<li><p>应该在父目录下进行maven install操作，会自动生成子模块的jar或war包。</p>
+</li>
+<li><p><strong>解决maven无法加载本地lib/下的jar包问题(程序包XXX不存在)</strong></p>
+<ul>
+<li><p>原因</p>
+<p>若该程序包是第三方的jar，解决方案是让maven既加载maven库中的jar包，又要加载本地WEB-INF/lib下的jar包。 </p>
+</li>
+<li><p>解决</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.6.0&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">        &lt;compilerArguments&gt;</span><br><span class="line">            &lt;extdirs&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib&lt;/extdirs&gt;</span><br><span class="line">        &lt;/compilerArguments&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="创建本地引用包"><a href="#创建本地引用包" class="headerlink" title="创建本地引用包"></a>创建本地引用包</h3><ul>
+<li>直接引用本地jar</li>
+</ul>
+<p>将jar放在项目中，例如web项目就放在 <code>webapp/WEB-INF/lib</code>下面<br>然后再<code>pom.xml</code>中添加jar的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>myjar<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>myjar<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/path/to/myjar-1.0.0.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装到本地仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar</span><br><span class="line"></span><br><span class="line">参数说明:</span><br><span class="line">-DgroupId:对应dependency的groupId</span><br><span class="line">-DartifactId:对应dependency的artifactId</span><br><span class="line">-Dversion:对应dependency中的version</span><br><span class="line">-Dpackaging:安装的类型，jar或者pom</span><br><span class="line">-Dfile:要安装的jar文件的路径</span><br></pre></td></tr></table></figure>
+
+<h3 id="依赖传递原则"><a href="#依赖传递原则" class="headerlink" title="依赖传递原则"></a>依赖传递原则</h3><p>几乎所有的Jar包冲突都和依赖传递原则有关，所以我们先说Maven中的依赖传递原则：</p>
 <p><strong>最短路径优先原则</strong></p>
 <p>假如引入了2个Jar包A和B，都传递依赖了Z这个Jar包：</p>
 <p>A -&gt; X -&gt; Y -&gt; Z(2.5)<br>B -&gt; X -&gt; Z(2.0)</p>
@@ -17559,33 +17590,12 @@ So later in the script, you can safely loop through options using:
 <p>如果路径长短一样，优先选最先声明的那个。</p>
 <p>A -&gt; Z(3.0)<br>B -&gt; Z(2.5)</p>
 <p>这里A最先声明，所以传递过来的Z选择用3.0版本的。</p>
-<h2 id="引用本地jar包依赖"><a href="#引用本地jar包依赖" class="headerlink" title="引用本地jar包依赖"></a>引用本地jar包依赖</h2><ol>
-<li><p>jar包放入项目指定位置 ie：${project.basedir}/src/main/resources/lib/xxx.jar</p>
-</li>
-<li><p>pom文件引入依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sdk.core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;project.basedir&#125;/src/main/resources/lib/xxx.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>systemPath这个路径是jar包的路径。${project.basedir}只是一个系统自己的常量。</p>
-</blockquote>
-</li>
-<li><p>在将项目用Maven打包是需要在 <plugin> 标签中加入:</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includeSystemScope</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeSystemScope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="init-project"><a href="#init-project" class="headerlink" title="init project"></a>init project</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false</span><br></pre></td></tr></table></figure>
-
-<h2 id="命令启动springboot"><a href="#命令启动springboot" class="headerlink" title="命令启动springboot"></a>命令启动springboot</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
-
-<h2 id="add-git-commit-info-to-jar-package"><a href="#add-git-commit-info-to-jar-package" class="headerlink" title="add git commit info to jar package"></a>add git commit info to jar package</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>pl.project13.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>git-commit-id-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>get-the-git-infos<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>revision<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dotGitDirectory</span>&gt;</span>$&#123;project.basedir&#125;/.git<span class="tag">&lt;/<span class="name">dotGitDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">prefix</span>&gt;</span>git<span class="tag">&lt;/<span class="name">prefix</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>false<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">generateGitPropertiesFile</span>&gt;</span>true&lt;/generateGitPropertiesFile</span><br><span class="line">  <span class="tag">&lt;<span class="name">generateGitPropertiesFilename</span>&gt;</span>$&#123;project.build.outputDirectory&#125;/git.properties<span class="tag">&lt;/<span class="name">generateGitPropertiesFilename</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">format</span>&gt;</span>json<span class="tag">&lt;/<span class="name">format</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gitDescribe</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">skip</span>&gt;</span>false<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">always</span>&gt;</span>false<span class="tag">&lt;/<span class="name">always</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dirty</span>&gt;</span>-dirty<span class="tag">&lt;/<span class="name">dirty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">gitDescribe</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="add-git-info-into-package"><a href="#add-git-info-into-package" class="headerlink" title="add git info into package"></a>add git info into package</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>pl.project13.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>git-commit-id-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>get-the-git-infos<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>revision<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dotGitDirectory</span>&gt;</span>$&#123;project.basedir&#125;/.git<span class="tag">&lt;/<span class="name">dotGitDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">prefix</span>&gt;</span>git<span class="tag">&lt;/<span class="name">prefix</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>false<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">generateGitPropertiesFile</span>&gt;</span>true&lt;/generateGitPropertiesFile</span><br><span class="line">  <span class="tag">&lt;<span class="name">generateGitPropertiesFilename</span>&gt;</span>$&#123;project.build.outputDirectory&#125;/git.properties<span class="tag">&lt;/<span class="name">generateGitPropertiesFilename</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">format</span>&gt;</span>json<span class="tag">&lt;/<span class="name">format</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gitDescribe</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">skip</span>&gt;</span>false<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">always</span>&gt;</span>false<span class="tag">&lt;/<span class="name">always</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dirty</span>&gt;</span>-dirty<span class="tag">&lt;/<span class="name">dirty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">gitDescribe</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>生成的<code>git.properties</code>会在jar包位置 <code>BOOT-INF/classes/git.properties</code></p>
 </blockquote>
-<h2 id="macos"><a href="#macos" class="headerlink" title="macos"></a>macos</h2><ul>
-<li><p>setting.xml</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/opt/homebrew/Cellar/maven/3.9.9/libexec/conf/setting.xml</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><ul>
+<h2 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h2><ul>
 <li><p><a href="https://www.cnblogs.com/baixiaoshuai/p/8939989.html">idea中的maven模块变成灰色的可能原因</a></p>
 </li>
 <li><p><a href="https://blog.csdn.net/qq_38663729/article/details/78275209">jar包和war包的介绍与区别</a></p>
@@ -17593,9 +17603,9 @@ So later in the script, you can safely loop through options using:
 <li><p>由于没有mvn install操作，没有在本地下载依赖包到lib目录下，所以启动项目，会提示java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener错误</p>
 </li>
 </ul>
-<h1 id="gradle"><a href="#gradle" class="headerlink" title="gradle"></a>gradle</h1><h2 id="check"><a href="#check" class="headerlink" title="check"></a>check</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check plugin version</span></span><br><span class="line">./gradlew buildEnvironment</span><br></pre></td></tr></table></figure>
+<h1 id="gradle"><a href="#gradle" class="headerlink" title="gradle"></a>gradle</h1><h2 id="command-1"><a href="#command-1" class="headerlink" title="command"></a>command</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> stops all Gradle daemons of the same Gradle version used by the wrapper.</span></span><br><span class="line">./gradlew --stop</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Upgrade Gradle Version <span class="keyword">in</span> a Java Project</span></span><br><span class="line">./gradlew wrapper --gradle-version x.y.z</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check plugin version</span></span><br><span class="line">./gradlew buildEnvironment</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> skip <span class="built_in">test</span></span></span><br><span class="line">./gradlew build -x test</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> diagnostic</span></span><br><span class="line">./gradlew xxx --stacktrace</span><br></pre></td></tr></table></figure>
 
-<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><h3 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h3><h4 id="com-vanniktech-maven-publish"><a href="#com-vanniktech-maven-publish" class="headerlink" title="com.vanniktech.maven.publish"></a>com.vanniktech.maven.publish</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> offical</span></span><br><span class="line">https://vanniktech.github.io/gradle-maven-publish-plugin/central/</span><br></pre></td></tr></table></figure>
+<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><h3 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h3><h4 id="com-vanniktech-maven-publish"><a href="#com-vanniktech-maven-publish" class="headerlink" title="com.vanniktech.maven.publish"></a>com.vanniktech.maven.publish</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> offical</span></span><br><span class="line">https://vanniktech.github.io/gradle-maven-publish-plugin/central/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> publish</span></span><br><span class="line">./gradlew publishToMavenCentral  # --stacktrace </span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>config secret </p>
@@ -17603,12 +17613,10 @@ So later in the script, you can safely loop through options using:
 <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">mavenCentralUsername</span>=<span class="string">username</span></span><br><span class="line"><span class="attr">mavenCentralPassword</span>=<span class="string">the_password</span></span><br><span class="line"></span><br><span class="line"><span class="meta">signing.keyId</span>=<span class="string">12345678</span></span><br><span class="line"><span class="meta">signing.password</span>=<span class="string">some_password</span></span><br><span class="line"><span class="meta">signing.secretKeyRingFile</span>=<span class="string">/Users/yourusername/.gnupg/secring.gpg</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>optional 2</strong>: env</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ORG_GRADLE_PROJECT_mavenCentralUsername=username</span><br><span class="line">ORG_GRADLE_PROJECT_mavenCentralPassword=the_password</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> see below <span class="keyword">for</span> how to obtain this</span></span><br><span class="line">ORG_GRADLE_PROJECT_signingInMemoryKey=exported_ascii_armored_key</span><br><span class="line"><span class="meta">#</span><span class="bash"> Optional</span></span><br><span class="line">ORG_GRADLE_PROJECT_signingInMemoryKeyId=12345678</span><br><span class="line"><span class="meta">#</span><span class="bash"> If key was created with a password.</span></span><br><span class="line">ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=some_password</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ORG_GRADLE_PROJECT_mavenCentralUsername=username</span><br><span class="line">ORG_GRADLE_PROJECT_mavenCentralPassword=the_password</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> short key id</span></span><br><span class="line">ORG_GRADLE_PROJECT_signingInMemoryKey=exported_ascii_armored_key  </span><br><span class="line"><span class="meta">#</span><span class="bash"> Optional</span></span><br><span class="line">ORG_GRADLE_PROJECT_signingInMemoryKeyId=12345678</span><br><span class="line"><span class="meta">#</span><span class="bash"> If key was created with a password.</span></span><br><span class="line">ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=some_password</span><br></pre></td></tr></table></figure></li>
 <li><p>tip</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> signing.keyId 是取8位 short keyid,</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> the 8-character short form of  PGP key ID. For example, <span class="keyword">if</span> full key ID is 633B1F30DF975148, the short form would be DF975148.</span></span><br><span class="line">signing.keyId=DF975148</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="diagnostic"><a href="#diagnostic" class="headerlink" title="diagnostic"></a>diagnostic</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">--stacktrace</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>maven</category>
