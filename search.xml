@@ -11405,7 +11405,7 @@
 <h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 省略相同内容的展示</span></span><br><span class="line">diff -y --suppress-common-lines original.txt modified.txt</span><br></pre></td></tr></table></figure>
 
 <h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
-<li>查找具体文件    </li>
+<li>查找具体文件</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find / -name 文件名称</span><br></pre></td></tr></table></figure>
 
@@ -13481,8 +13481,6 @@
 </blockquote>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check disk usage</span></span><br><span class="line">podman system df</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> debug <span class="built_in">command</span></span> </span><br><span class="line">podman --log-level=debug xxx</span><br></pre></td></tr></table></figure>
 
-
-
 <h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> load tar file to image</span></span><br><span class="line">podman load -i &lt;image-tar-file&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="prune"><a href="#prune" class="headerlink" title="prune"></a>prune</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> remove unused containers (stopped containers)</span></span><br><span class="line">podman container prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete dangling images (images not referenced by any container)</span></span><br><span class="line">podman image prune</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> comprehensive cleanup (all unused containers, images, pods, and optionally volumes)</span></span><br><span class="line">podman system prune -a</span><br></pre></td></tr></table></figure>
@@ -13505,7 +13503,7 @@
 </blockquote>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">vim ~/.config/containers/storage.conf   # 普通用户默认采用的配置</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storge.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-&lt;userName&gt;-data&quot; # 普通用户和root用户的数据必须要区分开，不然会有目录权限操作的问题</span><br><span class="line">runroot = &quot;/mnt/podman-&lt;userName&gt;/run&quot; </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">vim ~/.config/containers/storage.conf   # 普通用户默认采用的配置</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storge.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-&lt;userName&gt;/data&quot; # 普通用户和root用户的数据必须要区分开，不然会有目录权限操作的问题</span><br><span class="line">runroot = &quot;/mnt/podman-&lt;userName&gt;/run&quot; </span><br></pre></td></tr></table></figure>
 
 <h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace"><a href="#potentially-insufficient-UIDs-or-GIDs-available-in-user-namespace" class="headerlink" title="potentially insufficient UIDs or GIDs available in user namespace"></a>potentially insufficient UIDs or GIDs available in user namespace</h2><blockquote>
 <p> If the requested UID/GID still falls outside or Podman needs more mappings, you can edit /etc/subuid and /etc/subgid (as root) to increase the range</p>
@@ -13564,7 +13562,7 @@
 <li><p>package</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure></li>
 <li><p>prepare user and directory</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo groupadd -f dingofs</span><br><span class="line">sudo useradd -g dingofs dingofs</span><br><span class="line">sudo mkdir /etc/node_exporter</span><br><span class="line">sudo chown dingofs:dingofs /etc/node_exporter</span><br><span class="line"></span><br><span class="line">sudo cp /path/to/node_exporter-files/node_exporter /usr/bin/</span><br><span class="line">sudo chown dingofs:dingofs /usr/bin/node_exporter</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo groupadd -f dingofs</span><br><span class="line">sudo useradd -g dingofs dingofs</span><br><span class="line">sudo mkdir /etc/node_exporter</span><br><span class="line">sudo chown dingofs:dingofs /etc/node_exporter</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> copy binary file</span></span><br><span class="line">sudo cp /path/to/node_exporter-files/node_exporter /usr/bin/</span><br><span class="line">sudo chown dingofs:dingofs /usr/bin/node_exporter</span><br></pre></td></tr></table></figure></li>
 <li><p>config system service</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi /usr/lib/systemd/system/node_exporter.service</span><br><span class="line">sudo chmod 664 /usr/lib/systemd/system/node_exporter.service</span><br></pre></td></tr></table></figure>
 
@@ -13578,7 +13576,7 @@
 <li><p>docker container</p>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create persistent volume <span class="keyword">for</span> your data</span></span><br><span class="line">docker volume create prometheus-data</span><br><span class="line"><span class="meta">#</span><span class="bash"> Start Prometheus container</span></span><br><span class="line">docker run -d \</span><br><span class="line">    -p 19090:19090 \</span><br><span class="line">    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">    -v prometheus-data:/prometheus \</span><br><span class="line">    prom/prometheus</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create persistent volume <span class="keyword">for</span> your data</span></span><br><span class="line">docker volume create prometheus-data</span><br><span class="line"><span class="meta">#</span><span class="bash"> Start Prometheus container</span></span><br><span class="line">docker run -d \</span><br><span class="line">		--name prometheus \</span><br><span class="line">    -p 19090:9090 \</span><br><span class="line">    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">    -v prometheus-data:/prometheus \</span><br><span class="line">    prom/prometheus</span><br></pre></td></tr></table></figure>
 
 <h1 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h1><ul>
 <li><p>deploy container</p>
@@ -15215,7 +15213,7 @@
 
 <h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
 
-<h2 id="env"><a href="#env" class="headerlink" title="env"></a>env</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">unset</span></span></span><br><span class="line">unset VARIABLE_NAME</span><br></pre></td></tr></table></figure>
+<h2 id="env"><a href="#env" class="headerlink" title="env"></a>env</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list env</span></span><br><span class="line">env</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">unset</span></span></span><br><span class="line">unset VARIABLE_NAME</span><br></pre></td></tr></table></figure>
 
 <h2 id="editor"><a href="#editor" class="headerlink" title="editor"></a>editor</h2><blockquote>
 <p>config nano or vim as default editor</p>
@@ -16414,6 +16412,14 @@
 <li><p><code>-e</code></p>
 <p>By default, <code>echo</code> just prints the arguments as plain text. If use <code>echo -e</code>, the <code>-e</code> option tells <code>echo</code> to enable interpretation of special characters like <code>\n</code> (newline), <code>\t</code> (tab), <code>\\</code> (literal backslash), and others.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1\nline2</span><br><span class="line"></span><br><span class="line">echo -e &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1</span><br><span class="line">line2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="numeric-operator"><a href="#numeric-operator" class="headerlink" title="numeric operator"></a>numeric operator</h2><ul>
+<li>-eq → equal (a -eq b)</li>
+<li>-ne → not equal</li>
+<li>-gt → greater than</li>
+<li>-lt → less than</li>
+<li>-ge → greater than or equal to</li>
+<li>-le → less than or equal to</li>
 </ul>
 <h2 id="trap"><a href="#trap" class="headerlink" title="trap"></a>trap</h2><p>trap is a built-in command that lets you <em>catch signals or shell events</em> and then run custom code when those signals/events happen. </p>
 <p>Normally, when your script receives a signal (like SIGINT from pressing <strong>Ctrl-C</strong>, or SIGTERM from kill), the shell just stops whatever it’s doing.With trap, you can intercept that and do cleanup first (remove temp files, stop background jobs, unmount, etc.).</p>
@@ -17683,6 +17689,35 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>snippet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>s3</title>
+    <url>/2025/02/01/fs:%20s3/</url>
+    <content><![CDATA[<h1 id="benchmark"><a href="#benchmark" class="headerlink" title="benchmark"></a>benchmark</h1><p><a href="https://github.com/minio/warp">warp</a></p>
+<blockquote>
+<p>慎用，warp 会删除指定 bucket 的数据！！！！！！</p>
+</blockquote>
+<h2 id="mixed"><a href="#mixed" class="headerlink" title="mixed"></a>mixed</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">warp mixed --host=&lt;ip&gt;:&lt;port&gt; --access-key=xxx --secret-key=xxx --autoterm --bucket xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>log</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Reqs: 5834, Errs:0, Objs:5834, Bytes: 34.16GiB                                                         </span><br><span class="line"> -    DELETE Average: 29 Obj/s; Current 31 Obj/s, 50.7 ms/req                                          </span><br><span class="line"> -       GET Average: 131 Obj/s, 1310.5MiB/s; Current 126 Obj/s, 1260.6MiB/s, 75.6 ms/req, TTFB: 31.2ms</span><br><span class="line"> -       PUT Average: 44 Obj/s, 438.1MiB/s; Current 53 Obj/s, 526.7MiB/s, 165.8 ms/req                 </span><br><span class="line"> -      STAT Average: 88 Obj/s; Current 83 Obj/s, 13.6 ms/req                                          </span><br><span class="line">                                                                                                       </span><br><span class="line">Throughput 1874123791.0MiB/s within 7.500000% for 7s. Assuming stability. Terminating benchmark.</span><br><span class="line"></span><br><span class="line">Report: DELETE. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 28.89 obj/s</span><br><span class="line"> * Reqs: Avg: 51.9ms, 50%: 46.4ms, 90%: 96.7ms, 99%: 152.9ms, Fastest: 6.0ms, Slowest: 226.5ms, StdDev: 32.1ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 40.02 obj/s</span><br><span class="line"> * 50% Median: 30.24 obj/s</span><br><span class="line"> * Slowest: 20.73 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: GET. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 1313.68 MiB/s, 131.37 obj/s</span><br><span class="line"> * Reqs: Avg: 74.7ms, 50%: 67.8ms, 90%: 115.2ms, 99%: 191.7ms, Fastest: 23.0ms, Slowest: 339.0ms, StdDev: 31.7ms</span><br><span class="line"> * TTFB: Avg: 30ms, Best: 5ms, 25th: 16ms, Median: 23ms, 75th: 38ms, 90th: 57ms, 99th: 112ms, Worst: 210ms StdDev: 22ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 1431.8MiB/s, 143.18 obj/s</span><br><span class="line"> * 50% Median: 1321.3MiB/s, 132.13 obj/s</span><br><span class="line"> * Slowest: 1188.9MiB/s, 118.89 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: PUT. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 437.08 MiB/s, 43.71 obj/s</span><br><span class="line"> * Reqs: Avg: 170.3ms, 50%: 164.6ms, 90%: 209.2ms, 99%: 312.0ms, Fastest: 102.0ms, Slowest: 481.4ms, StdDev: 36.6ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 542.3MiB/s, 54.23 obj/s</span><br><span class="line"> * 50% Median: 422.8MiB/s, 42.28 obj/s</span><br><span class="line"> * Slowest: 364.7MiB/s, 36.47 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: STAT. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 87.88 obj/s</span><br><span class="line"> * Reqs: Avg: 13.5ms, 50%: 9.6ms, 90%: 30.4ms, 99%: 63.2ms, Fastest: 1.2ms, Slowest: 205.1ms, StdDev: 13.5ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 103.12 obj/s</span><br><span class="line"> * 50% Median: 87.88 obj/s</span><br><span class="line"> * Slowest: 79.00 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: Total. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 1750.76 MiB/s, 291.84 obj/s</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 1823.9MiB/s, 322.56 obj/s</span><br><span class="line"> * 50% Median: 1733.2MiB/s, 291.07 obj/s</span><br><span class="line"> * Slowest: 1638.9MiB/s, 269.42 obj/s</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">warp put --host=&lt;ip&gt;:&lt;port&gt; --access-key=xxx --secret-key=xxx --autoterm --bucket xxx --obj.size=4M --concurrent=32</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>log</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Requests considered: 53611:</span><br><span class="line"> * Avg: 178ms, 50%: 167ms, 90%: 299ms, 99%: 470ms, Fastest: 26ms, Slowest: 1.35s, StdDev: 103ms</span><br><span class="line"></span><br><span class="line">Throughput:</span><br><span class="line">* Average: 684.22 MiB/s, 179.36 obj/s</span><br><span class="line"></span><br><span class="line">Throughput, split into 299 x 1s:</span><br><span class="line"> * Fastest: 1202.1MiB/s, 315.13 obj/s (1s, starting 10:54:57 CST)</span><br><span class="line"> * 50% Median: 647.9MiB/s, 169.85 obj/s (1s, starting 10:56:03 CST)</span><br><span class="line"> * Slowest: 465.5MiB/s, 122.04 obj/s (1s, starting 10:55:10 CST)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="analyze"><a href="#analyze" class="headerlink" title="analyze"></a>analyze</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">warp analyze --analyze.v  --analyze.out=1.csv &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>fs</category>
+      </categories>
+      <tags>
+        <tag>s3</tag>
       </tags>
   </entry>
 </search>

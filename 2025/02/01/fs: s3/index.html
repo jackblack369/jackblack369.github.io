@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="benchmarkwarp  慎用，warp 会删除指定 bucket 的数据！！！！！！  mixed1warp mixed --host&#x3D;&lt;ip&gt;:&lt;port&gt; --access-key&#x3D;xxx --secret-key&#x3D;xxx --autoterm --bucket xxx   log 12345678910111213141516171819202122232425">
+<meta property="og:type" content="article">
+<meta property="og:title" content="s3">
+<meta property="og:url" content="https://www.willshirley.top/2025/02/01/fs:%20s3/index.html">
+<meta property="og:site_name" content="Clean &amp; Focus">
+<meta property="og:description" content="benchmarkwarp  慎用，warp 会删除指定 bucket 的数据！！！！！！  mixed1warp mixed --host&#x3D;&lt;ip&gt;:&lt;port&gt; --access-key&#x3D;xxx --secret-key&#x3D;xxx --autoterm --bucket xxx   log 12345678910111213141516171819202122232425">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-01T04:21:01.000Z">
+<meta property="article:modified_time" content="2025-09-17T11:08:48.748Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="s3">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>s3</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Clean & Focus" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/02/07/ceph%20deploy/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/01/22/linux%20A%20vs%20B/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&text=s3"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/01/fs:%20s3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=s3&body=Check out this article: https://www.willshirley.top/2025/02/01/fs:%20s3/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&title=s3"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&title=s3"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&title=s3"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/01/fs:%20s3/&t=s3"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#benchmark"><span class="toc-number">1.</span> <span class="toc-text">benchmark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mixed"><span class="toc-number">1.1.</span> <span class="toc-text">mixed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PUT"><span class="toc-number">1.2.</span> <span class="toc-text">PUT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#analyze"><span class="toc-number">1.3.</span> <span class="toc-text">analyze</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        s3
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-02-01T04:21:01.000Z" class="dt-published" itemprop="datePublished">2025-02-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/fs/">fs</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/s3/" rel="tag">s3</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="benchmark"><a href="#benchmark" class="headerlink" title="benchmark"></a>benchmark</h1><p><a target="_blank" rel="noopener" href="https://github.com/minio/warp">warp</a></p>
+<blockquote>
+<p>慎用，warp 会删除指定 bucket 的数据！！！！！！</p>
+</blockquote>
+<h2 id="mixed"><a href="#mixed" class="headerlink" title="mixed"></a>mixed</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">warp mixed --host=&lt;ip&gt;:&lt;port&gt; --access-key=xxx --secret-key=xxx --autoterm --bucket xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>log</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">Reqs: 5834, Errs:0, Objs:5834, Bytes: 34.16GiB                                                         </span><br><span class="line"> -    DELETE Average: 29 Obj/s; Current 31 Obj/s, 50.7 ms/req                                          </span><br><span class="line"> -       GET Average: 131 Obj/s, 1310.5MiB/s; Current 126 Obj/s, 1260.6MiB/s, 75.6 ms/req, TTFB: 31.2ms</span><br><span class="line"> -       PUT Average: 44 Obj/s, 438.1MiB/s; Current 53 Obj/s, 526.7MiB/s, 165.8 ms/req                 </span><br><span class="line"> -      STAT Average: 88 Obj/s; Current 83 Obj/s, 13.6 ms/req                                          </span><br><span class="line">                                                                                                       </span><br><span class="line">Throughput 1874123791.0MiB/s within 7.500000% for 7s. Assuming stability. Terminating benchmark.</span><br><span class="line"></span><br><span class="line">Report: DELETE. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 28.89 obj/s</span><br><span class="line"> * Reqs: Avg: 51.9ms, 50%: 46.4ms, 90%: 96.7ms, 99%: 152.9ms, Fastest: 6.0ms, Slowest: 226.5ms, StdDev: 32.1ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 40.02 obj/s</span><br><span class="line"> * 50% Median: 30.24 obj/s</span><br><span class="line"> * Slowest: 20.73 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: GET. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 1313.68 MiB/s, 131.37 obj/s</span><br><span class="line"> * Reqs: Avg: 74.7ms, 50%: 67.8ms, 90%: 115.2ms, 99%: 191.7ms, Fastest: 23.0ms, Slowest: 339.0ms, StdDev: 31.7ms</span><br><span class="line"> * TTFB: Avg: 30ms, Best: 5ms, 25th: 16ms, Median: 23ms, 75th: 38ms, 90th: 57ms, 99th: 112ms, Worst: 210ms StdDev: 22ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 1431.8MiB/s, 143.18 obj/s</span><br><span class="line"> * 50% Median: 1321.3MiB/s, 132.13 obj/s</span><br><span class="line"> * Slowest: 1188.9MiB/s, 118.89 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: PUT. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 437.08 MiB/s, 43.71 obj/s</span><br><span class="line"> * Reqs: Avg: 170.3ms, 50%: 164.6ms, 90%: 209.2ms, 99%: 312.0ms, Fastest: 102.0ms, Slowest: 481.4ms, StdDev: 36.6ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 542.3MiB/s, 54.23 obj/s</span><br><span class="line"> * 50% Median: 422.8MiB/s, 42.28 obj/s</span><br><span class="line"> * Slowest: 364.7MiB/s, 36.47 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: STAT. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 87.88 obj/s</span><br><span class="line"> * Reqs: Avg: 13.5ms, 50%: 9.6ms, 90%: 30.4ms, 99%: 63.2ms, Fastest: 1.2ms, Slowest: 205.1ms, StdDev: 13.5ms</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 103.12 obj/s</span><br><span class="line"> * 50% Median: 87.88 obj/s</span><br><span class="line"> * Slowest: 79.00 obj/s</span><br><span class="line"></span><br><span class="line">──────────────────────────────────</span><br><span class="line"></span><br><span class="line">Report: Total. Concurrency: 20. Ran: 18s</span><br><span class="line"> * Average: 1750.76 MiB/s, 291.84 obj/s</span><br><span class="line"></span><br><span class="line">Throughput, split into 18 x 1s:</span><br><span class="line"> * Fastest: 1823.9MiB/s, 322.56 obj/s</span><br><span class="line"> * 50% Median: 1733.2MiB/s, 291.07 obj/s</span><br><span class="line"> * Slowest: 1638.9MiB/s, 269.42 obj/s</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">warp put --host=&lt;ip&gt;:&lt;port&gt; --access-key=xxx --secret-key=xxx --autoterm --bucket xxx --obj.size=4M --concurrent=32</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>log</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Requests considered: 53611:</span><br><span class="line"> * Avg: 178ms, 50%: 167ms, 90%: 299ms, 99%: 470ms, Fastest: 26ms, Slowest: 1.35s, StdDev: 103ms</span><br><span class="line"></span><br><span class="line">Throughput:</span><br><span class="line">* Average: 684.22 MiB/s, 179.36 obj/s</span><br><span class="line"></span><br><span class="line">Throughput, split into 299 x 1s:</span><br><span class="line"> * Fastest: 1202.1MiB/s, 315.13 obj/s (1s, starting 10:54:57 CST)</span><br><span class="line"> * 50% Median: 647.9MiB/s, 169.85 obj/s (1s, starting 10:56:03 CST)</span><br><span class="line"> * Slowest: 465.5MiB/s, 122.04 obj/s (1s, starting 10:55:10 CST)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="analyze"><a href="#analyze" class="headerlink" title="analyze"></a>analyze</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">warp analyze --analyze.v  --analyze.out=1.csv &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#benchmark"><span class="toc-number">1.</span> <span class="toc-text">benchmark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mixed"><span class="toc-number">1.1.</span> <span class="toc-text">mixed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PUT"><span class="toc-number">1.2.</span> <span class="toc-text">PUT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#analyze"><span class="toc-number">1.3.</span> <span class="toc-text">analyze</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&text=s3"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2025/02/01/fs:%20s3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=s3&body=Check out this article: https://www.willshirley.top/2025/02/01/fs:%20s3/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&title=s3"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&title=s3"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2025/02/01/fs:%20s3/&title=s3"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2025/02/01/fs:%20s3/&t=s3"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
