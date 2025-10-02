@@ -5285,7 +5285,11 @@
 
 <h2 id="temporary-env"><a href="#temporary-env" class="headerlink" title="temporary env"></a>temporary env</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ARG http_proxy=xxx</span><br><span class="line">ARG https_proxy=xxx</span><br></pre></td></tr></table></figure>
 
-<h1 id="troubleshoot"><a href="#troubleshoot" class="headerlink" title="troubleshoot"></a>troubleshoot</h1><h2 id="Failed-to-load-listeners"><a href="#Failed-to-load-listeners" class="headerlink" title="Failed to load listeners"></a>Failed to load listeners</h2><blockquote>
+<h1 id="troubleshoot"><a href="#troubleshoot" class="headerlink" title="troubleshoot"></a>troubleshoot</h1><h2 id="check-logs"><a href="#check-logs" class="headerlink" title="check logs"></a>check logs</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">journalctl -xeu cri-docker.socket</span><br><span class="line">journalctl -xeu docker.service</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Failed-to-load-listeners"><a href="#Failed-to-load-listeners" class="headerlink" title="Failed to load listeners"></a>Failed to load listeners</h2><blockquote>
 <p> no sockets found via socket activation: make sure the service was started by systemd</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">edit the docker’s systemd unit file and change the ExecStart:</span><br><span class="line">sudo systemctl edit docker.service</span><br><span class="line"></span><br><span class="line">edite The value ExecStart, change fd:// to unix://:</span><br><span class="line">[Service]</span><br><span class="line">ExecStart=</span><br><span class="line">ExecStart=/usr/bin/dockerd -H unix://</span><br></pre></td></tr></table></figure>
@@ -8213,7 +8217,7 @@
 <li><p>根据tag创建分支</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b &lt;new_branch_name&gt; &lt;tag_name&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>删除tag</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> origin</span></span><br><span class="line">git push origin --delete &lt;tagname&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upstream</span></span><br><span class="line">git push upstream --delete &lt;tagname&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行上述任何操作之后，需要清理本地的tag记录</span></span><br><span class="line">git tag -d &lt;tagname&gt;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> origin</span></span><br><span class="line">git push origin --delete refs/tags/&lt;tagname&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upstream</span></span><br><span class="line">git push upstream --delete refs/tags/&lt;tagname&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行上述任何操作之后，需要清理本地的tag记录</span></span><br><span class="line">git tag -d &lt;tagname&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="conflict"><a href="#conflict" class="headerlink" title="conflict"></a>conflict</h2><ul>
 <li><p>查看冲突文件</p>
@@ -11562,6 +11566,8 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure>
 
+<h2 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unzip package.zip -d /path/to/target_directory</span><br></pre></td></tr></table></figure>
+
 <h1 id="senario"><a href="#senario" class="headerlink" title="senario"></a>senario</h1><h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check filesystem <span class="built_in">type</span></span></span><br><span class="line">df -T /path/to/mountpoint</span><br></pre></td></tr></table></figure>
 
 
@@ -11637,7 +11643,7 @@
 <h2 id="清理挂载盘之前相同位置的数据"><a href="#清理挂载盘之前相同位置的数据" class="headerlink" title="清理挂载盘之前相同位置的数据"></a>清理挂载盘之前相同位置的数据</h2><blockquote>
 <p>比如之前数据存放在 /mnt/disk0/data (使用了系统盘/ ，挂载了磁盘vda) ，但是后来挂载了新磁盘vdb到 /mnt/disk0。这样，原来 /mnt/disk0/data的数据还存在在系统盘中。</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo mkdir /mnt/old_disk0</span><br><span class="line">sudo mount --bind / /mnt/old_disk0</span><br><span class="line">sudo rm -rf /mnt/old_disk0/mnt/disk0/*</span><br><span class="line">sudo umount /mnt/old_disk0</span><br><span class="line">sudo rmdir /mnt/old_disk0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo mkdir /mnt/old_disk0</span><br><span class="line">sudo mount --bind / /mnt/old_disk0</span><br><span class="line">sudo rm -rf /mnt/old_disk0/mnt/disk0/* # 🚨 注意，这里只能删除指定的子目录，切记不能直接删除 /mnt/old_disk0 目录</span><br><span class="line">sudo umount /mnt/old_disk0</span><br><span class="line">sudo rmdir /mnt/old_disk0</span><br></pre></td></tr></table></figure>
 
 <h2 id="tree命令报错"><a href="#tree命令报错" class="headerlink" title="tree命令报错"></a>tree命令报错</h2><ul>
 <li><p>error</p>
@@ -11928,32 +11934,86 @@
   <entry>
     <title>linux network command</title>
     <url>/2017/05/09/linux%20cmd:%20network/</url>
-    <content><![CDATA[<h1 id="port"><a href="#port" class="headerlink" title="port"></a>port</h1><ul>
-<li><p>Check the listening ports</p>
-<p>Run any one of the following command:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure></li>
-<li><p>checking <strong>remote system</strong> tcp 80 port status</p>
-<ol>
+    <content><![CDATA[<h1 id="port"><a href="#port" class="headerlink" title="port"></a>port</h1><h2 id="check-listening-ports"><a href="#check-listening-ports" class="headerlink" title="check listening ports"></a>check listening ports</h2><p>Run any one of the following command:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure>
+
+<h2 id="check-remote-port"><a href="#check-remote-port" class="headerlink" title="check remote port"></a>check remote port</h2><ol>
 <li><p>Telnet</p>
 </li>
 <li><p>nc</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
+<li><p>nmap</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
 </ol>
-</li>
-</ul>
-<ol start="3">
-<li>nmap<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>通过进程名查看占用端口<ul>
+<h2 id="check-port-by-pid"><a href="#check-port-by-pid" class="headerlink" title="check port by pid"></a>check port by pid</h2><ul>
 <li><p>先查看进程pid    <code>ps -ef | grep 进程名 </code></p>
 </li>
 <li><p>再通过pid查看占用端口  </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -nap | grep &lt;pid&gt;</span><br><span class="line">lsof -p &lt;pid&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>通过端口查看进程</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li>通过端口查看进程<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
+<h2 id="check-process"><a href="#check-process" class="headerlink" title="check process"></a>check process</h2><p><strong>netstat</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p><strong>ss</strong></p>
+<blockquote>
+<p>socket statistics</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ss -n --no-header --processes --listening</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-t</code></td>
+<td>Display TCP sockets</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>Display UDP sockets</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Display listening sockets ((TCP, UDP, Unix, etc.)</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Display all sockets (listening &amp; others)</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Numerical addresses (skip DNS resolving)</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Show process (PID) using the socket</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>Display summary statistics</td>
+</tr>
+<tr>
+<td><code>-4</code></td>
+<td>Show only IPv4 sockets</td>
+</tr>
+<tr>
+<td><code>-6</code></td>
+<td>Show only IPv6 sockets</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td>Show Unix domain sockets</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>Show timer information</td>
+</tr>
+</tbody></table>
 <h1 id="pid"><a href="#pid" class="headerlink" title="pid"></a>pid</h1><ul>
 <li><p>根据进程号查看启动文件所在位置</p>
 <p><code>readlink /proc/&lt;线程ID&gt;/exe</code></p>
@@ -15213,6 +15273,11 @@
 
 <h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> step1: generate ssh-key <span class="keyword">in</span> all nodes</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> step2: <span class="keyword">in</span> first node</span></span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">#</span><span class="bash"> step3: <span class="keyword">in</span> other node</span></span><br><span class="line">ssh-copy-id -i id_rsa.pub 用户@&lt;first_node&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> step4: <span class="keyword">in</span> first node</span></span><br><span class="line">scp authorized_keys 用户@&lt;other_node&gt;:~/.ssh/</span><br></pre></td></tr></table></figure>
 
+<p><strong>troubleshooting</strong></p>
+<ul>
+<li><p>Enter passphrase for key ‘/home/jenkins/.ssh/id_rsa’</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> remove existed passphrase</span></span><br><span class="line">ssh-keygen -p -f ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="env"><a href="#env" class="headerlink" title="env"></a>env</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list env</span></span><br><span class="line">env</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">unset</span></span></span><br><span class="line">unset VARIABLE_NAME</span><br></pre></td></tr></table></figure>
 
 <h2 id="editor"><a href="#editor" class="headerlink" title="editor"></a>editor</h2><blockquote>
@@ -16688,9 +16753,9 @@ So later in the script, you can safely loop through options using:
 <td>same</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
+<td>删除session</td>
+<td>tmux kill-session -t <session-name></td>
+<td>same</td>
 </tr>
 </tbody></table>
 <h1 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h1><table>

@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="port Check the listening ports Run any one of the following command: 123sudo lsof -i -P -n | grep LISTEN sudo netstat -tulpn | grep LISTENsudo nmap -sTU -O IP-address-Here checking remote system tcp 8">
+    <meta name="description" content="portcheck listening portsRun any one of the following command: 123sudo lsof -i -P -n | grep LISTEN sudo netstat -tulpn | grep LISTENsudo nmap -sTU -O IP-address-Here  check remote port Telnet  nc 1234">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux network command">
 <meta property="og:url" content="https://www.willshirley.top/2017/05/09/linux%20cmd:%20network/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="port Check the listening ports Run any one of the following command: 123sudo lsof -i -P -n | grep LISTEN sudo netstat -tulpn | grep LISTENsudo nmap -sTU -O IP-address-Here checking remote system tcp 8">
+<meta property="og:description" content="portcheck listening portsRun any one of the following command: 123sudo lsof -i -P -n | grep LISTEN sudo netstat -tulpn | grep LISTENsudo nmap -sTU -O IP-address-Here  check remote port Telnet  nc 1234">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2017-05-09T02:01:30.000Z">
-<meta property="article:modified_time" content="2025-05-22T11:49:31.705Z">
+<meta property="article:modified_time" content="2025-09-24T06:57:49.275Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#port"><span class="toc-number">1.</span> <span class="toc-text">port</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pid"><span class="toc-number">2.</span> <span class="toc-text">pid</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proxy"><span class="toc-number">3.</span> <span class="toc-text">proxy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#curl"><span class="toc-number">4.</span> <span class="toc-text">curl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat"><span class="toc-number">5.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subnet-mask"><span class="toc-number">6.</span> <span class="toc-text">subnet mask</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#route"><span class="toc-number">7.</span> <span class="toc-text">route</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">8.</span> <span class="toc-text">bond</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump"><span class="toc-number">9.</span> <span class="toc-text">tcpdump</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#port"><span class="toc-number">1.</span> <span class="toc-text">port</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#check-listening-ports"><span class="toc-number">1.1.</span> <span class="toc-text">check listening ports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-remote-port"><span class="toc-number">1.2.</span> <span class="toc-text">check remote port</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-port-by-pid"><span class="toc-number">1.3.</span> <span class="toc-text">check port by pid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-process"><span class="toc-number">1.4.</span> <span class="toc-text">check process</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pid"><span class="toc-number">2.</span> <span class="toc-text">pid</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proxy"><span class="toc-number">3.</span> <span class="toc-text">proxy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#curl"><span class="toc-number">4.</span> <span class="toc-text">curl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat"><span class="toc-number">5.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subnet-mask"><span class="toc-number">6.</span> <span class="toc-text">subnet mask</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#route"><span class="toc-number">7.</span> <span class="toc-text">route</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">8.</span> <span class="toc-text">bond</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump"><span class="toc-number">9.</span> <span class="toc-text">tcpdump</span></a></li></ol>
       </div>
     
   </span>
@@ -166,32 +166,86 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="port"><a href="#port" class="headerlink" title="port"></a>port</h1><ul>
-<li><p>Check the listening ports</p>
-<p>Run any one of the following command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure></li>
-<li><p>checking <strong>remote system</strong> tcp 80 port status</p>
-<ol>
+    <h1 id="port"><a href="#port" class="headerlink" title="port"></a>port</h1><h2 id="check-listening-ports"><a href="#check-listening-ports" class="headerlink" title="check listening ports"></a>check listening ports</h2><p>Run any one of the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i -P -n | grep LISTEN </span><br><span class="line">sudo netstat -tulpn | grep LISTEN</span><br><span class="line">sudo nmap -sTU -O IP-address-Here</span><br></pre></td></tr></table></figure>
+
+<h2 id="check-remote-port"><a href="#check-remote-port" class="headerlink" title="check remote port"></a>check remote port</h2><ol>
 <li><p>Telnet</p>
 </li>
 <li><p>nc</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> nc -zvw10 192.168.0.1 22</span><br><span class="line">其中参数：</span><br><span class="line">z: zero-I/O mode which is used for scanning</span><br><span class="line">v: for verbose output</span><br><span class="line">w10: timeout wait seconds</span><br></pre></td></tr></table></figure></li>
+<li><p>nmap</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
 </ol>
-</li>
-</ul>
-<ol start="3">
-<li>nmap<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">telnet myserver.com 80 </span><br><span class="line">nc -v myserver.com 80</span><br><span class="line">nc -vn 192.168.40.146 2424</span><br><span class="line">nmap myserver.com 80 </span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>通过进程名查看占用端口<ul>
+<h2 id="check-port-by-pid"><a href="#check-port-by-pid" class="headerlink" title="check port by pid"></a>check port by pid</h2><ul>
 <li><p>先查看进程pid    <code>ps -ef | grep 进程名 </code></p>
 </li>
 <li><p>再通过pid查看占用端口  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -nap | grep &lt;pid&gt;</span><br><span class="line">lsof -p &lt;pid&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>通过端口查看进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li>通过端口查看进程<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
+<h2 id="check-process"><a href="#check-process" class="headerlink" title="check process"></a>check process</h2><p><strong>netstat</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p><strong>ss</strong></p>
+<blockquote>
+<p>socket statistics</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -n --no-header --processes --listening</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-t</code></td>
+<td>Display TCP sockets</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>Display UDP sockets</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Display listening sockets ((TCP, UDP, Unix, etc.)</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Display all sockets (listening &amp; others)</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Numerical addresses (skip DNS resolving)</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Show process (PID) using the socket</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>Display summary statistics</td>
+</tr>
+<tr>
+<td><code>-4</code></td>
+<td>Show only IPv4 sockets</td>
+</tr>
+<tr>
+<td><code>-6</code></td>
+<td>Show only IPv6 sockets</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td>Show Unix domain sockets</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>Show timer information</td>
+</tr>
+</tbody></table>
 <h1 id="pid"><a href="#pid" class="headerlink" title="pid"></a>pid</h1><ul>
 <li><p>根据进程号查看启动文件所在位置</p>
 <p><code>readlink /proc/&lt;线程ID&gt;/exe</code></p>
@@ -299,7 +353,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#port"><span class="toc-number">1.</span> <span class="toc-text">port</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pid"><span class="toc-number">2.</span> <span class="toc-text">pid</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proxy"><span class="toc-number">3.</span> <span class="toc-text">proxy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#curl"><span class="toc-number">4.</span> <span class="toc-text">curl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat"><span class="toc-number">5.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subnet-mask"><span class="toc-number">6.</span> <span class="toc-text">subnet mask</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#route"><span class="toc-number">7.</span> <span class="toc-text">route</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">8.</span> <span class="toc-text">bond</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump"><span class="toc-number">9.</span> <span class="toc-text">tcpdump</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#port"><span class="toc-number">1.</span> <span class="toc-text">port</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#check-listening-ports"><span class="toc-number">1.1.</span> <span class="toc-text">check listening ports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-remote-port"><span class="toc-number">1.2.</span> <span class="toc-text">check remote port</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-port-by-pid"><span class="toc-number">1.3.</span> <span class="toc-text">check port by pid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-process"><span class="toc-number">1.4.</span> <span class="toc-text">check process</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pid"><span class="toc-number">2.</span> <span class="toc-text">pid</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proxy"><span class="toc-number">3.</span> <span class="toc-text">proxy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#curl"><span class="toc-number">4.</span> <span class="toc-text">curl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#netstat"><span class="toc-number">5.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subnet-mask"><span class="toc-number">6.</span> <span class="toc-text">subnet mask</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#route"><span class="toc-number">7.</span> <span class="toc-text">route</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bond"><span class="toc-number">8.</span> <span class="toc-text">bond</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump"><span class="toc-number">9.</span> <span class="toc-text">tcpdump</span></a></li></ol>
       </div>
     
 
