@@ -14,7 +14,7 @@
 <meta property="og:description" content="detect123# virtual machine will return &amp;#x27;kvm&amp;#x27; or &amp;#x27;vmware&amp;#x27;, physical machine will return &amp;#x27;none&amp;#x27;systemd-detect-virt# KVM may have not previlege to config vip, so may could n">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-10-15T07:20:27.000Z">
-<meta property="article:modified_time" content="2025-10-15T09:37:59.159Z">
+<meta property="article:modified_time" content="2025-10-17T10:12:59.286Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="load balance">
 <meta name="twitter:card" content="summary">
@@ -180,7 +180,10 @@
 <h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><p><strong>/etc/haproxy/haproxy.cfg</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">defaults</span><br><span class="line">    mode                    tcp</span><br><span class="line">    log                     global</span><br><span class="line">    option                  tcplog</span><br><span class="line">    option                  dontlognull</span><br><span class="line">		......</span><br><span class="line">		</span><br><span class="line">frontend ft_executor</span><br><span class="line">    bind *:13308</span><br><span class="line">    mode tcp</span><br><span class="line">    default_backend bk_executor</span><br><span class="line"></span><br><span class="line">backend bk_executor</span><br><span class="line">    mode tcp</span><br><span class="line">    balance roundrobin</span><br><span class="line">    server executor1 10.225.10.50:13307 check</span><br><span class="line">    server executor2 10.225.10.51:13307 check</span><br></pre></td></tr></table></figure>
 
-<h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo setenforce 0</span><br><span class="line">sudo systemctl enable haproxy</span><br><span class="line">sudo systemctl start haproxy</span><br></pre></td></tr></table></figure>
+<h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><p><strong>config restart policy</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /usr/lib/systemd/system/haproxy.service</span></span><br><span class="line"><span class="string">Restart=on-failure</span></span><br><span class="line"><span class="string">RestartSec=5s</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo setenforce 0</span><br><span class="line">sudo systemctl enable haproxy</span><br><span class="line">sudo systemctl start haproxy</span><br></pre></td></tr></table></figure>
 
 <h1 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h1><blockquote>
 <p>both server all should config and bootstrap keepalived</p>

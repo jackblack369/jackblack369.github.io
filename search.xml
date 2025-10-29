@@ -6678,6 +6678,63 @@
 <td>lvcreate, vgcreate, pvcreate, etc.</td>
 </tr>
 </tbody></table>
+<h1 id="Replication-VS-Erasure-coding"><a href="#Replication-VS-Erasure-coding" class="headerlink" title="Replication VS Erasure coding"></a>Replication VS Erasure coding</h1><p>Replication keeps multiple identical copies of every block, while erasure coding splits each block into fragments plus parity so any k of n pieces can recover the original. Full comparison:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Replication</th>
+<th>Erasure coding</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>How it works</td>
+<td>Store 2–3 complete copies on different nodes</td>
+<td><strong>Erasure coding parameters often denoted as (n, k): data is split into k data fragments and n−k parity fragments; data can be recovered from any k of the n fragments.</strong><br />Encode data into k data + m parity fragments (e.g., RS 6 + 3) distributed across nodes; any k rebuilds the file</td>
+</tr>
+<tr>
+<td>Storage overhead</td>
+<td>High (3× copies = 200% extra)</td>
+<td>Much lower (RS 6+3 ≈ 50% extra)</td>
+</tr>
+<tr>
+<td>Bandwidth on write</td>
+<td>Low for factor 1; proportional to number of replicas written (3× replication ≈3 × data)</td>
+<td>Extra CPU to encode and send parity but still &lt;3×; larger write‐amplification than single replica but less than triple replication</td>
+</tr>
+<tr>
+<td>Read performance</td>
+<td>Local reads usually possible; hot data served fast</td>
+<td>Must read many remote fragments; no locality, so colder reads cost more network</td>
+</tr>
+<tr>
+<td>Repair cost after failure</td>
+<td>Copy one full replica (size = block)</td>
+<td>Reconstruct block by pulling k fragments (size ≈ k ⁄ (k+m) of block) but uses more CPU/net during decode</td>
+</tr>
+<tr>
+<td>Fault tolerance</td>
+<td>Loses data only if all replicas gone; with 3×, can lose two nodes</td>
+<td>Tunable: RS k+m tolerates m simultaneous losses, often giving higher durability per byte</td>
+</tr>
+<tr>
+<td>Ideal workload</td>
+<td>Hot or mutable data needing fast I/O and simple ops</td>
+<td>Large, cold, infrequently changed data (backups, archives)</td>
+</tr>
+<tr>
+<td>Typical systems</td>
+<td>HDFS default 3×, MySQL replicas, Cassandra, etc.</td>
+<td>Ceph EC pools, HDFS RS 6+3, Azure LRS/GRS with LRC codes</td>
+</tr>
+</tbody></table>
+<p>Key differences:</p>
+<ol>
+<li>Space: EC cuts storage overhead from ~200% to ~50% for the same 3-failure resilience.</li>
+<li>Performance: Replication gives faster reads and simpler repairs; EC trades CPU/network for capacity savings, so writes/repairs are slower.</li>
+<li>Flexibility: EC lets operators pick any k/m to balance durability vs. overhead, while replication only changes by whole copies.</li>
+</ol>
+<p>Practical guideline: keep hot, frequently updated data on replicated volumes; migrate cold, large, immutable datasets to erasure-coded pools to cut costs without risking durability.</p>
 <h1 id="FUSE"><a href="#FUSE" class="headerlink" title="FUSE"></a>FUSE</h1><blockquote>
 <p>Filesystem in Userspace</p>
 </blockquote>
@@ -7617,9 +7674,11 @@
 <ul>
 <li><p><a href="https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources">runner host</a></p>
 </li>
-<li><p>所有分支的workflow都是运行的main分支的action</p>
+<li><p>不同分支的workflow运行的yml是独立的</p>
 </li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Developer commits code</span><br><span class="line">       ↓</span><br><span class="line">GitHub Action triggers &quot;build&quot;</span><br><span class="line">       ↓</span><br><span class="line">Artifacts built successfully</span><br><span class="line">       ↓</span><br><span class="line">&quot;publish&quot; job uploads to Maven/Nexus</span><br><span class="line">       ↓</span><br><span class="line">&quot;release&quot; job creates GitHub release for version/tag</span><br></pre></td></tr></table></figure>
+
 <h2 id="runner-user"><a href="#runner-user" class="headerlink" title="runner user"></a><strong>runner</strong> user</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">username: runner</span><br><span class="line">group: docker adm users systemd-journal</span><br><span class="line">Current directory: /home/runner/work/test-dingofs/test-dingofs</span><br></pre></td></tr></table></figure>
 
 <h2 id="home"><a href="#home" class="headerlink" title="home"></a>home</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 情况一</span></span><br><span class="line">runs-on: ubuntu-latest</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HOME=/home/runner/work/&lt;projectName&gt;/&lt;projectName&gt;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 情况二</span></span><br><span class="line">runs-on: ubuntu-latest</span><br><span class="line">container: dingodatabase/dingo-eureka:rocky9</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HOME=/__w/&lt;projectName&gt;/&lt;projectName&gt;</span></span><br></pre></td></tr></table></figure>
@@ -8117,6 +8176,8 @@
 <li>method b</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add . &#x27;:!&lt;file-to-exclude&gt;&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>撤回刚才错误提交的commit</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset HEAD~1</span><br></pre></td></tr></table></figure></li>
 <li><p>比较文件，在不同版本的区别</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to HEAD</span></span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to before last commit</span></span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">last commit to before last commit</span></span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">difference between HEAD and n-th grandparent</span></span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">Another cool feature is whatchanged <span class="built_in">command</span></span></span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>删除远程仓库文件，但保留本地文件系统的文件</p>
@@ -16872,10 +16933,12 @@ So later in the script, you can safely loop through options using:
 <li><p>改变大小</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Ctrl + b, <span class="built_in">type</span> <span class="string">&#x27;:&#x27;</span></span></span><br><span class="line">resize-pane -D 10    # Resize down by 10 lines</span><br><span class="line">resize-pane -U 5     # Resize up by 5 lines</span><br><span class="line">resize-pane -L 20    # Resize left by 20 columns</span><br><span class="line">resize-pane -R 15    # Resize right by 15 columns</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="Tmux-Plugin-Manager-TPM"><a href="#Tmux-Plugin-Manager-TPM" class="headerlink" title="Tmux Plugin Manager (TPM)"></a>Tmux Plugin Manager (TPM)</h1><ul>
-<li><p>配置文件地址<code>~/.tmux.conf</code></p>
+<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><p>配置文件地址<code>~/.tmux.conf</code></p>
 <p>修改配置生效 <code>tmux source-file ~/.tmux.conf</code></p>
-</li>
+<p>e.g.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Make tmux <span class="built_in">wait</span> longer after prefix before timing out</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> (default is 500ms — increase <span class="keyword">for</span> longer prefix <span class="built_in">wait</span>)</span></span><br><span class="line">set -s escape-time 1000         # Wait 1 second between sequence chars</span><br><span class="line">set -g repeat-time 1000         # Allow holding prefix+key longer</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Use 1-based window and pane numbering</span></span><br><span class="line">set -g base-index 1</span><br><span class="line">setw -g pane-base-index 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Extend pane display time when pressing prefix+q</span></span><br><span class="line">bind q display-panes -d 2000   # Display pane numbers for 2 seconds</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Optional ergonomic improvements</span></span><br><span class="line">set -g history-limit 10000</span><br><span class="line">set -g default-terminal &quot;screen-256color&quot;</span><br><span class="line">set -g visual-activity on</span><br><span class="line">set -g bell-action non</span><br></pre></td></tr></table></figure>
+
+<h1 id="Plugin"><a href="#Plugin" class="headerlink" title="Plugin"></a>Plugin</h1><h2 id="Tmux-Plugin-Manager-TPM"><a href="#Tmux-Plugin-Manager-TPM" class="headerlink" title="Tmux Plugin Manager (TPM)"></a>Tmux Plugin Manager (TPM)</h2><ul>
 <li><h5 id="使用快捷键插件管理"><a href="#使用快捷键插件管理" class="headerlink" title="使用快捷键插件管理"></a>使用快捷键插件管理</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># prefix表示是Tmux的快捷键前缀</span><br><span class="line">prefix shift-i      # 安装件列表中的插件</span><br><span class="line">prefix shift-u      # 更新件列表中的插件</span><br><span class="line">prefix alt-u        # 删除/卸载不在插件列表中的插件</span><br></pre></td></tr></table></figure></li>
 <li><h5 id="使用命令行插件管理"><a href="#使用命令行插件管理" class="headerlink" title="使用命令行插件管理"></a>使用命令行插件管理</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">~/.tmux/plugins/tpm/bin/install_plugins                  # 安装件列表中的插件</span><br><span class="line">~/.tmux/plugins/tpm/bin/update_plugins all|plugname      # 更新所有插件或指定插件</span><br><span class="line">~/.tmux/plugins/tpm/bin/clean_plugins                    # 删除/卸载不在插件列表中的插件</span><br></pre></td></tr></table></figure></li>
 <li><h5 id="保存-恢复会话-tmux-resurrect"><a href="#保存-恢复会话-tmux-resurrect" class="headerlink" title="保存/恢复会话 tmux-resurrect"></a>保存/恢复会话 tmux-resurrect</h5><blockquote>
@@ -17817,7 +17880,10 @@ So later in the script, you can safely loop through options using:
 <h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><p><strong>/etc/haproxy/haproxy.cfg</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">defaults</span><br><span class="line">    mode                    tcp</span><br><span class="line">    log                     global</span><br><span class="line">    option                  tcplog</span><br><span class="line">    option                  dontlognull</span><br><span class="line">		......</span><br><span class="line">		</span><br><span class="line">frontend ft_executor</span><br><span class="line">    bind *:13308</span><br><span class="line">    mode tcp</span><br><span class="line">    default_backend bk_executor</span><br><span class="line"></span><br><span class="line">backend bk_executor</span><br><span class="line">    mode tcp</span><br><span class="line">    balance roundrobin</span><br><span class="line">    server executor1 10.225.10.50:13307 check</span><br><span class="line">    server executor2 10.225.10.51:13307 check</span><br></pre></td></tr></table></figure>
 
-<h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo setenforce 0</span><br><span class="line">sudo systemctl enable haproxy</span><br><span class="line">sudo systemctl start haproxy</span><br></pre></td></tr></table></figure>
+<h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><p><strong>config restart policy</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># /usr/lib/systemd/system/haproxy.service</span></span><br><span class="line"><span class="string">Restart=on-failure</span></span><br><span class="line"><span class="string">RestartSec=5s</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo setenforce 0</span><br><span class="line">sudo systemctl enable haproxy</span><br><span class="line">sudo systemctl start haproxy</span><br></pre></td></tr></table></figure>
 
 <h1 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h1><blockquote>
 <p>both server all should config and bootstrap keepalived</p>
