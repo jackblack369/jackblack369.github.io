@@ -9,13 +9,13 @@
     <meta name="description" content="容器是一个“单进程”模型 一个“容器”，实际上是一个由 Linux Namespace、Linux Cgroups 和 rootfs 三种技术构建出来的进程的隔离环境 一个正在运行的 Linux 容器，其实可以被“一分为二”地看待：  一组联合挂载在 &#x2F;var&#x2F;lib&#x2F;docker&#x2F;aufs&#x2F;mnt 上的 rootfs，这一部分我们称为“容器镜像”（Container Image），是容器的静态">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes learn">
-<meta property="og:url" content="https://www.willshirley.top/2024/08/05/Kubernetes%20learn/index.html">
+<meta property="og:url" content="https://www.willshirley.top/2024/08/05/K8s%20learn/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
 <meta property="og:description" content="容器是一个“单进程”模型 一个“容器”，实际上是一个由 Linux Namespace、Linux Cgroups 和 rootfs 三种技术构建出来的进程的隔离环境 一个正在运行的 Linux 容器，其实可以被“一分为二”地看待：  一组联合挂载在 &#x2F;var&#x2F;lib&#x2F;docker&#x2F;aufs&#x2F;mnt 上的 rootfs，这一部分我们称为“容器镜像”（Container Image），是容器的静态">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/k8s/k8s-architecture-overview.png">
 <meta property="article:published_time" content="2024-08-05T08:57:50.000Z">
-<meta property="article:modified_time" content="2025-03-20T03:46:13.554Z">
+<meta property="article:modified_time" content="2025-10-31T12:02:29.358Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -92,7 +92,7 @@
         <li><a class="icon" aria-label="Previous post" href="/2024/08/07/fs:%20file%20system/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2024/08/05/kubernetes%20deploy/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2024/08/05/k8s%20deploy/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -105,13 +105,13 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&text=Kubernetes learn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kubernetes learn&body=Check out this article: https://www.willshirley.top/2024/08/05/Kubernetes%20learn/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&title=Kubernetes learn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&title=Kubernetes learn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&title=Kubernetes learn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&t=Kubernetes learn"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&text=Kubernetes learn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/05/K8s%20learn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes learn&body=Check out this article: https://www.willshirley.top/2024/08/05/K8s%20learn/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&title=Kubernetes learn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&title=Kubernetes learn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&title=Kubernetes learn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/05/K8s%20learn/&t=Kubernetes learn"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -595,13 +595,13 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&text=Kubernetes learn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kubernetes learn&body=Check out this article: https://www.willshirley.top/2024/08/05/Kubernetes%20learn/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&title=Kubernetes learn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&title=Kubernetes learn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&title=Kubernetes learn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/05/Kubernetes%20learn/&t=Kubernetes learn"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&text=Kubernetes learn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2024/08/05/K8s%20learn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kubernetes learn&body=Check out this article: https://www.willshirley.top/2024/08/05/K8s%20learn/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&title=Kubernetes learn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&title=Kubernetes learn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2024/08/05/K8s%20learn/&title=Kubernetes learn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2024/08/05/K8s%20learn/&t=Kubernetes learn"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
