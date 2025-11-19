@@ -14,7 +14,7 @@
 <meta property="og:description" content="DeployConfiguring an NFS (Network File System) server to use a local disk, and multiple servers mount the same NFS share is a common way to provide shared storage on a local network.  1. Set Up the NF">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-02-17T02:21:01.000Z">
-<meta property="article:modified_time" content="2025-09-02T08:13:11.442Z">
+<meta property="article:modified_time" content="2025-11-10T07:36:27.007Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="nfs">
 <meta name="twitter:card" content="summary">
@@ -171,7 +171,7 @@
 <li><p>Install NFS Packages: On your NFS server, install the required NFS utilities.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For Debian/Ubuntu</span></span><br><span class="line">sudo apt update         </span><br><span class="line">sudo apt install nfs-kernel-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># For Red Hat/CentOS/Fedora:</span></span><br><span class="line">sudo dnf install nfs-utils</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> --now nfs-server</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> --now rpcbind</span><br></pre></td></tr></table></figure></li>
 <li><p>Create a Shared Directory: Make a directory on a local disk to share.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /nfs_share</span><br><span class="line">sudo chown nobody:nobody /nfs_share  <span class="comment"># check nobody group by &#x27;id nobody&#x27;</span></span><br><span class="line">sudo chmod 777 /nfs_share</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /path/to/nfs_share</span><br><span class="line">sudo chown nobody:nobody /path/to/nfs_share  <span class="comment"># check nobody group by &#x27;id nobody&#x27;</span></span><br><span class="line">sudo chmod 777 /path/to/nfs_share</span><br></pre></td></tr></table></figure></li>
 <li><p>Export the Directory: Edit <code>/etc/exports</code> to define what and how is shared. Here’s how to share with all clients in your local network:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/nfs_share 192.168.1.0/24(rw,sync,no_subtree_check)</span><br></pre></td></tr></table></figure>
 <p>Adjust the subnet to match your network.</p>
