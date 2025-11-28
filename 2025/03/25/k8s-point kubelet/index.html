@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="troubleshootingVersion from runtime service failed123E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service failed&quot; err&#x3D;&quot;rpc error: code &#x3D; Unimplemented desc">
+    <meta name="description" content="log1journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;  troubleshootingVersion from runtime service failed123E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubelet snippet">
 <meta property="og:url" content="https://www.willshirley.top/2025/03/25/k8s-point%20kubelet/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="troubleshootingVersion from runtime service failed123E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service failed&quot; err&#x3D;&quot;rpc error: code &#x3D; Unimplemented desc">
+<meta property="og:description" content="log1journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;  troubleshootingVersion from runtime service failed123E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-25T06:58:19.000Z">
-<meta property="article:modified_time" content="2025-11-06T07:00:56.252Z">
+<meta property="article:modified_time" content="2025-11-24T07:33:09.249Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="kubelet">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">1.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">1.1.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#log"><span class="toc-number">1.</span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">2.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">2.1.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,7 +166,9 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="Version-from-runtime-service-failed"><a href="#Version-from-runtime-service-failed" class="headerlink" title="Version from runtime service failed"></a>Version from runtime service failed</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service failed&quot; err=&quot;rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889663 3185179 kuberuntime_manager.go:226] &quot;Get runtime version failed&quot; err=&quot;get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889683 3185179 run.go:74] &quot;command failed&quot; err=&quot;failed to run Kubelet: failed to create kubelet: get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br></pre></td></tr></table></figure>
+    <h1 id="log"><a href="#log" class="headerlink" title="log"></a>log</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="Version-from-runtime-service-failed"><a href="#Version-from-runtime-service-failed" class="headerlink" title="Version from runtime service failed"></a>Version from runtime service failed</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service failed&quot; err=&quot;rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889663 3185179 kuberuntime_manager.go:226] &quot;Get runtime version failed&quot; err=&quot;get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889683 3185179 run.go:74] &quot;command failed&quot; err=&quot;failed to run Kubelet: failed to create kubelet: get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>resolve</p>
@@ -203,7 +205,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">1.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">1.1.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#log"><span class="toc-number">1.</span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">2.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">2.1.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
       </div>
     
 
