@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="log1journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;  troubleshootingVersion from runtime service failed123E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service">
+    <meta name="description" content="Path Purpose    &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;pods&#x2F; Pod + volume desired state   &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;plugins&#x2F;kubernetes.io&#x2F;csi&#x2F; CSI mount state   &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;volumeDevices&#x2F; or &#x2F;volumePlugins&#x2F; Volume tracking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubelet snippet">
 <meta property="og:url" content="https://www.willshirley.top/2025/03/25/k8s-point%20kubelet/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="log1journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;  troubleshootingVersion from runtime service failed123E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service">
+<meta property="og:description" content="Path Purpose    &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;pods&#x2F; Pod + volume desired state   &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;plugins&#x2F;kubernetes.io&#x2F;csi&#x2F; CSI mount state   &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;volumeDevices&#x2F; or &#x2F;volumePlugins&#x2F; Volume tracking">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-25T06:58:19.000Z">
-<meta property="article:modified_time" content="2025-11-24T07:33:09.249Z">
+<meta property="article:modified_time" content="2025-12-26T08:37:05.762Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="kubelet">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#log"><span class="toc-number">1.</span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">2.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">2.1.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#log"><span class="toc-number">1.</span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">2.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-pvc-which-is-absent"><span class="toc-number">2.1.</span> <span class="toc-text">mount pvc which is absent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">2.2.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -166,9 +166,106 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="log"><a href="#log" class="headerlink" title="log"></a>log</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;</span><br></pre></td></tr></table></figure>
+    <table>
+<thead>
+<tr>
+<th><strong>Path</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/var/lib/kubelet/pods/</td>
+<td>Pod + volume desired state</td>
+</tr>
+<tr>
+<td>/var/lib/kubelet/plugins/kubernetes.io/csi/</td>
+<td>CSI mount state</td>
+</tr>
+<tr>
+<td>/var/lib/kubelet/volumeDevices/ or /volumePlugins/</td>
+<td>Volume tracking</td>
+</tr>
+</tbody></table>
+<h1 id="log"><a href="#log" class="headerlink" title="log"></a>log</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;</span><br></pre></td></tr></table></figure>
 
-<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="Version-from-runtime-service-failed"><a href="#Version-from-runtime-service-failed" class="headerlink" title="Version from runtime service failed"></a>Version from runtime service failed</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service failed&quot; err=&quot;rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889663 3185179 kuberuntime_manager.go:226] &quot;Get runtime version failed&quot; err=&quot;get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889683 3185179 run.go:74] &quot;command failed&quot; err=&quot;failed to run Kubelet: failed to create kubelet: get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="mount-pvc-which-is-absent"><a href="#mount-pvc-which-is-absent" class="headerlink" title="mount pvc which is absent"></a>mount pvc which is absent</h2><p>Kubelet runs <strong>multiple controllers</strong> in parallel:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Loop</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Trigger</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Mount loop</td>
+<td>NodePublishVolume</td>
+<td>Pod volume</td>
+</tr>
+<tr>
+<td>Expand loop</td>
+<td>NodeExpandVolume</td>
+<td>PVC resize logic</td>
+</tr>
+<tr>
+<td>Attach loop</td>
+<td>VolumeAttachment</td>
+<td>Controller side</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Even though the <strong>PVC object is absent</strong>, Kubelet thinks: <code>“Volume still required but temporarily unavailable”</code> (kubelet still has <strong>stale DesiredStateOfWorld (DSW)</strong> entries created earlier, and retry loop continues forever)</p>
+</li>
+<li><p>When <strong>Mount</strong> pvc success, Kubelet thinks: “Mount succeeded, now check expansion”(kubelet calls <strong>NodeExpandVolume</strong>)</p>
+<p>That code path: <code>mountVolume.NodeExpandVolume → GET PVC</code>, But </p>
+</li>
+<li><p>kubelet schedules retry (2m backoff)  (⚠️This retry is NOT CSI-controlled)</p>
+</li>
+</ul>
+<p>Once kubelet decides success Until <strong>DSW is updated</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pod X needs Volume Y</span><br></pre></td></tr></table></figure>
+
+<p><strong>CSI cannot cancel kubelet desire</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>CSI Return</strong></th>
+<th><strong>Result</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OK</td>
+<td>Expand loop triggers</td>
+</tr>
+<tr>
+<td>NotFound</td>
+<td>Mount loop retries</td>
+</tr>
+<tr>
+<td>FailedPrecondition</td>
+<td>Retries</td>
+</tr>
+<tr>
+<td>Aborted</td>
+<td>Retries</td>
+</tr>
+<tr>
+<td>Canceled</td>
+<td>Retries</td>
+</tr>
+</tbody></table>
+<p><strong>Why kubelet behaves like this (design reality)</strong></p>
+<p>Kubernetes assumes:</p>
+<ul>
+<li>API server may be temporarily unavailable</li>
+<li>PVC deletion may be delayed</li>
+<li>Node permissions may be limited</li>
+</ul>
+<p>So kubelet <strong>never treats “PVC missing” as terminal</strong>, That decision is <strong>intentional</strong>.</p>
+<blockquote>
+<p><strong>If kubelet decides a Pod needs a volume, only kubelet can forget it. CSI can only convince it by saying “OK”.</strong></p>
+</blockquote>
+<h2 id="Version-from-runtime-service-failed"><a href="#Version-from-runtime-service-failed" class="headerlink" title="Version from runtime service failed"></a>Version from runtime service failed</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E0325 12:15:10.889620 3185179 remote_runtime.go:189] &quot;Version from runtime service failed&quot; err=&quot;rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889663 3185179 kuberuntime_manager.go:226] &quot;Get runtime version failed&quot; err=&quot;get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br><span class="line">E0325 12:15:10.889683 3185179 run.go:74] &quot;command failed&quot; err=&quot;failed to run Kubelet: failed to create kubelet: get remote runtime typed version failed: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService&quot;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>resolve</p>
@@ -205,7 +302,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#log"><span class="toc-number">1.</span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">2.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">2.1.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#log"><span class="toc-number">1.</span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#troubleshooting"><span class="toc-number">2.</span> <span class="toc-text">troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mount-pvc-which-is-absent"><span class="toc-number">2.1.</span> <span class="toc-text">mount pvc which is absent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Version-from-runtime-service-failed"><span class="toc-number">2.2.</span> <span class="toc-text">Version from runtime service failed</span></a></li></ol></li></ol>
       </div>
     
 
@@ -240,7 +337,7 @@
     Copyright &copy;
     
     
-    2016-2025
+    2016-2026
     brook
   </div>
   <div class="footer-right">

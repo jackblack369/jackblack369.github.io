@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="best practisechange containerd’s default data path  Identify the Current Data Path 1containerd config default | grep &quot;root&quot; # Expected output: root &#x3D; &quot;&#x2F;var&#x2F;lib&#x2F;containerd&quot; Modify t">
+    <meta name="description" content="history Docker created  containerd  originally as a component of its own engine to separate “high-level” management from “low-level” execution. Later, Docker donated  containerd  to the CNCF (Cloud Na">
 <meta property="og:type" content="article">
 <meta property="og:title" content="containerd">
 <meta property="og:url" content="https://www.willshirley.top/2025/03/28/containerd/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="best practisechange containerd’s default data path  Identify the Current Data Path 1containerd config default | grep &quot;root&quot; # Expected output: root &#x3D; &quot;&#x2F;var&#x2F;lib&#x2F;containerd&quot; Modify t">
+<meta property="og:description" content="history Docker created  containerd  originally as a component of its own engine to separate “high-level” management from “low-level” execution. Later, Docker donated  containerd  to the CNCF (Cloud Na">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-28T06:10:57.000Z">
-<meta property="article:modified_time" content="2025-08-11T10:41:18.289Z">
+<meta property="article:modified_time" content="2025-12-31T06:28:24.938Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="container">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#best-practise"><span class="toc-number">1.</span> <span class="toc-text">best practise</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number"></span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#image"><span class="toc-number">1.</span> <span class="toc-text">image</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#history"><span class="toc-number">1.</span> <span class="toc-text">history</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#best-practise"><span class="toc-number">2.</span> <span class="toc-text">best practise</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#image"><span class="toc-number">3.1.</span> <span class="toc-text">image</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#container"><span class="toc-number">3.2.</span> <span class="toc-text">container</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nerdctl"><span class="toc-number">4.</span> <span class="toc-text">nerdctl</span></a></li></ol>
       </div>
     
   </span>
@@ -166,7 +166,17 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h2 id="best-practise"><a href="#best-practise" class="headerlink" title="best practise"></a>best practise</h2><p><strong>change containerd’s default data path</strong></p>
+    <h1 id="history"><a href="#history" class="headerlink" title="history"></a>history</h1><ul>
+<li>Docker created  containerd  originally as a component of its own engine to separate “high-level” management from “low-level” execution.</li>
+<li>Later, Docker donated  containerd  to the CNCF (Cloud Native Computing Foundation).</li>
+<li>Kubernetes then adopted  containerd  as its runtime to remove its dependency on the full Docker daemon (the “Docker Shim” removal), because Kubernetes only needed the “running containers” part, not the full Docker UI/Network/Build stack.</li>
+</ul>
+<p>So today:</p>
+<ol>
+<li>   Docker USES containerd (as its internal engine).</li>
+<li>   Kubernetes USES containerd (directly, skipping Docker).<br>Both tools rely on the same underlying  containerd  daemon to actually manage processes and images on Linux. If you kill  containerd , you break both Docker and Kubernetes on that node.</li>
+</ol>
+<h1 id="best-practise"><a href="#best-practise" class="headerlink" title="best practise"></a>best practise</h1><p><strong>change containerd’s default data path</strong></p>
 <ol>
 <li><p>Identify the Current Data Path</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">containerd config default | grep &quot;root&quot; # Expected output: root = &quot;/var/lib/containerd&quot;</span><br></pre></td></tr></table></figure></li>
@@ -176,6 +186,36 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop containerd  # optional</span><br><span class="line">sudo mv /var/lib/containerd /data/containerd</span><br><span class="line">sudo systemctl start containerd</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pull k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images pull xxx</span><br><span class="line"><span class="meta">#</span><span class="bash"> pull with auth</span></span><br><span class="line">sudo ctr images pull --user username:password registry.example.com/repository/image:tag</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> load tar file</span> </span><br><span class="line">sudo ctr -n k8s.io images import /tmp/my-image.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> combine load tar file to specify tag image</span></span><br><span class="line">sudo ctr -n k8s.io images import --base-name my.registry.com/myproject/my-image:v1.2.3 /path/to/image.tar</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rename tag</span></span><br><span class="line">sudo ctr -n k8s.io images tag &lt;old-image-name&gt; &lt;new-image-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove image</span></span><br><span class="line">sudo ctr -n k8s.io images remove &lt;name&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="container"><a href="#container" class="headerlink" title="container"></a>container</h2><table>
+<thead>
+<tr>
+<th align="left">Usage Context</th>
+<th align="left">Command</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Default Namespace</strong></td>
+<td align="left"><code>ctr container ls</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Kubernetes Namespace</strong></td>
+<td align="left"><code>ctr -n k8s.io container ls</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Check Process PIDs</strong></td>
+<td align="left"><code>ctr task ls</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Detailed Inspection</strong></td>
+<td align="left"><code>ctr container info &lt;id&gt;</code></td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Forcefully stop the task</span></span><br><span class="line">ctr task kill -s SIGKILL &lt;taskName&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete the Stopped Task</span></span><br><span class="line">ctr task rm &lt;taskName&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Remove the Container Metadata</span></span><br><span class="line">ctr container rm &lt;taskName&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="nerdctl"><a href="#nerdctl" class="headerlink" title="nerdctl"></a>nerdctl</h1><p>Converting your Docker command to containerd requires using either <code>ctr</code> (low-level tool) or <code>nerdctl</code> (Docker-compatible CLI). <strong>I strongly recommend using <code>nerdctl</code></strong> as <code>ctr</code> is designed for debugging and lacks many Docker features.</p>
+<p><code>nerdctl</code> provides a Docker-compatible interface and supports the features you need.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list</span></span><br><span class="line">nerdctl ps</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">exec</span></span> </span><br><span class="line">nerdctl exec -it &lt;containerID&gt; bash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> stop</span></span><br><span class="line">nerdctl stop &lt;containerID&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rm</span></span><br><span class="line">nerdctl rm &lt;containerID&gt;</span><br></pre></td></tr></table></figure>
 
 
   </div>
@@ -208,7 +248,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#best-practise"><span class="toc-number">1.</span> <span class="toc-text">best practise</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number"></span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#image"><span class="toc-number">1.</span> <span class="toc-text">image</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#history"><span class="toc-number">1.</span> <span class="toc-text">history</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#best-practise"><span class="toc-number">2.</span> <span class="toc-text">best practise</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#command"><span class="toc-number">3.</span> <span class="toc-text">command</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#image"><span class="toc-number">3.1.</span> <span class="toc-text">image</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#container"><span class="toc-number">3.2.</span> <span class="toc-text">container</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nerdctl"><span class="toc-number">4.</span> <span class="toc-text">nerdctl</span></a></li></ol>
       </div>
     
 
@@ -243,7 +283,7 @@
     Copyright &copy;
     
     
-    2016-2025
+    2016-2026
     brook
   </div>
   <div class="footer-right">

@@ -14,7 +14,7 @@
 <meta property="og:description" content="hbase   节点 端口号 协议 使用 说明    zookeeper 2181  zkCli.sh -server zookeeper1:2181 客户端接入   2888,3888  N&#x2F;A 集群内部通讯    HDFS Namenode 9000 HDFS hdfs dfs -ls hdfs:&#x2F;&#x2F;namenode1:9000&#x2F; 客户端接入   50070 HTTP http:&#x2F;&#x2F;namen">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-29T11:11:30.000Z">
-<meta property="article:modified_time" content="2025-09-10T08:51:02.852Z">
+<meta property="article:modified_time" content="2025-12-23T06:59:49.045Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="point">
 <meta name="twitter:card" content="summary">
@@ -316,20 +316,20 @@
 <li><p>如果之前没有登录过，需要设置当前用户进行登录操作</p>
 <p>There is no default username and password without you creating one. The simplest possible setup is to follow these steps to set up your own user as a superuser.</p>
 <p>At a terminal prompt, create a postgres user with your own username</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres createuser --superuser $USER	# $USER无须替换</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres createuser --superuser $USER	# $USER无须替换</span><br></pre></td></tr></table></figure>
 
 <p>Start the postgresql command prompt as your username but running as root since you didn’t set a password yet;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br></pre></td></tr></table></figure>
 
 <p>At the postgresql prompt, set your password;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\password $USER    # 其中$USER需要替换成当前用户名</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\password $USER    # 其中$USER需要替换成当前用户名</span><br></pre></td></tr></table></figure>
 
 <p>After that, you should be able to log on just fine.</p>
 </li>
 <li><p>如果之前设置了上面的步骤，可直接运行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql postgres</span><br></pre></td></tr></table></figure></li>
-<li><p>psql</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入指定数据库</span></span><br><span class="line">\c your_database_name</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有表</span></span><br><span class="line">\dt</span><br></pre></td></tr></table></figure></li>
+<li><p>psql command</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all database</span></span><br><span class="line">\l  # or \list</span><br><span class="line">or </span><br><span class="line">SELECT datname FROM pg_database;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入指定数据库</span></span><br><span class="line">\c your_database_name</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有表</span></span><br><span class="line">\dt</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="导入文件"><a href="#导入文件" class="headerlink" title="导入文件"></a>导入文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">psql postgres	# login command</span><br><span class="line">\c some_database	# choose database</span><br><span class="line">\i \path\TO\file_name.sql	# execute sql</span><br></pre></td></tr></table></figure>
 
@@ -491,7 +491,7 @@
     Copyright &copy;
     
     
-    2016-2025
+    2016-2026
     brook
   </div>
   <div class="footer-right">
