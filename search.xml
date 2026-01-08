@@ -8015,7 +8015,7 @@
 
 <ul>
 <li><p>更改当前分支对应的远程分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> (optional) If origin/&lt;branch-name&gt; does NOT exist</span></span><br><span class="line">git push origin &lt;branch-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set the upstream of the <span class="built_in">local</span> branch</span></span><br><span class="line">git branch -u origin/&lt;branch-name&gt; &lt;branch-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the change</span></span><br><span class="line">git branch -vv</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> (optional) If origin/&lt;branch-name&gt; does NOT exist</span></span><br><span class="line">git push -u origin &lt;branch-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set the upstream of the <span class="built_in">local</span> branch</span></span><br><span class="line">git branch -u origin/&lt;branch-name&gt; &lt;branch-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the change</span></span><br><span class="line">git branch -vv</span><br></pre></td></tr></table></figure></li>
 <li><p>拉取远程分支</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> First, fetch the remote branches:</span></span><br><span class="line">git fetch origin</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Next, checkout the branch you want. In this <span class="keyword">case</span>, the branch we want is called “branchxyz”.</span></span><br><span class="line">git checkout -b branchxyz origin/branchxyz**</span><br></pre></td></tr></table></figure></li>
 <li><p>新建分支</p>
@@ -10914,15 +10914,12 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 统计目录下所有文件数量</span></span><br><span class="line">find /path/to/directory -type f | wc -l</span><br></pre></td></tr></table></figure>
 
 <h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><ul>
-<li>下载指定目录</li>
+<li><p>下载指定目录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -P /path/to/local/dir http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/</span><br></pre></td></tr></table></figure>
-
 <h2 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unzip package.zip -d /path/to/target_directory</span><br></pre></td></tr></table></figure>
 
 <h1 id="senario"><a href="#senario" class="headerlink" title="senario"></a>senario</h1><h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check filesystem <span class="built_in">type</span></span></span><br><span class="line">df -T /path/to/mountpoint</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">fallocate -l 1G fileName</span><br></pre></td></tr></table></figure>
 
@@ -14351,7 +14348,19 @@
 
 <h1 id="system"><a href="#system" class="headerlink" title="system"></a>system</h1><h2 id="kernel-dumps"><a href="#kernel-dumps" class="headerlink" title="kernel dumps"></a>kernel dumps</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Changing Kernel Crash Dump Directory (<span class="keyword">for</span> kdump)</span></span><br><span class="line">sudo vi /etc/kdump.conf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Look <span class="keyword">for</span> the line starting with path and change it to your desired directory</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> default: /var/crash</span></span><br><span class="line">path /new/crash/directory</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Restart the kdump service:</span></span><br><span class="line">sudo systemctl restart kdump</span><br></pre></td></tr></table></figure>
 
-<h2 id="core-dumps"><a href="#core-dumps" class="headerlink" title="core dumps"></a>core dumps</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 方式一：设置 core 文件的存放路径 (it is temporary and will usually reset after a reboot)</span></span><br><span class="line">echo &quot;/corefiles/core.%e.%p.%t&quot; &gt; /proc/sys/kernel/core_pattern</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">	%e is replaced by the executable name.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	%p is replaced by the process ID.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方式二(config permanently)：</span></span><br><span class="line">sudo vim /etc/sysctl.conf</span><br><span class="line">kernel.core_pattern=/corefiles/core-%e-%p-%t</span><br><span class="line"><span class="meta">#</span><span class="bash"> Apply the changes</span></span><br><span class="line">sudo sysctl -p</span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">sudo sysctl kernel.core_pattern</span><br></pre></td></tr></table></figure>
+<h2 id="core-dumps"><a href="#core-dumps" class="headerlink" title="core dumps"></a>core dumps</h2><h3 id="enable-core-dump-file"><a href="#enable-core-dump-file" class="headerlink" title="enable core dump file"></a>enable core dump file</h3><ul>
+<li><p>check</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ulimit -c</span><br><span class="line"><span class="meta">#</span><span class="bash"> 0  means the maximum core dump file size is <span class="built_in">set</span> to zero bytes, <span class="built_in">which</span> completely disables core dump generation <span class="keyword">for</span> the current shell and its child processes. 0 causes immediate skip—no core file written, regardless of  kernel.core_pattern)</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> unlimited means unlimited core dump size</span></span><br></pre></td></tr></table></figure></li>
+<li><p>enable core dump</p>
+<ul>
+<li><p>temporary </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ulimit -c unlimited </span><br></pre></td></tr></table></figure></li>
+<li><p>permanently</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /etc/security/limits.conf </span><br><span class="line">* soft core unlimited</span><br><span class="line">* hard core unlimited</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="config-core-dump-file"><a href="#config-core-dump-file" class="headerlink" title="config core dump file"></a>config core dump file</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 方式一：设置 core 文件的存放路径 (it is temporary and will usually reset after a reboot)</span></span><br><span class="line">echo &quot;/corefiles/core.%e.%p.%t&quot; &gt; /proc/sys/kernel/core_pattern</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">	%e is replaced by the executable name.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">	%p is replaced by the process ID.</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方式二(config permanently)：</span></span><br><span class="line">sudo vim /etc/sysctl.conf</span><br><span class="line">kernel.core_pattern=/corefiles/core-%e-%p-%t</span><br><span class="line"><span class="meta">#</span><span class="bash"> Apply the changes</span></span><br><span class="line">sudo sysctl -p</span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">sudo sysctl kernel.core_pattern</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 测试生成 core file</span></span><br><span class="line">sleep 100 &amp; kill -SEGV $!</span><br></pre></td></tr></table></figure>
 
 <table>
 <thead>
@@ -14445,8 +14454,12 @@
 </ul>
 </li>
 </ul>
-<h2 id="清理内存"><a href="#清理内存" class="headerlink" title="清理内存"></a>清理内存</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-
+<h2 id="清理内存"><a href="#清理内存" class="headerlink" title="清理内存"></a>清理内存</h2><ul>
+<li><p>Pagecache (Value 1): This targets cached file contents from disk reads, making that memory available again without affecting filesystem metadata. Running it alone leaves slab caches intact, so less total memory gets reclaimed.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Use 1 <span class="keyword">for</span> lighter tuning focused on file data.</span></span><br><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure></li>
+<li><p>Full Clear (Value 3): Value 3 combines pagecache with dentries (directory entries) and inodes (file metadata), clearing more cache types for greater memory release. Both operations skip dirty data and work best after  sync  to flush changes to disk first.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Use 3 when needing maximum free memory from caches.</span></span><br><span class="line">sync; echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="查看buff-cache"><a href="#查看buff-cache" class="headerlink" title="查看buff/cache"></a>查看buff/cache</h2><ul>
 <li>工具推荐 <a href="https://github.com/silenceshell/hcache">https://github.com/silenceshell/hcache</a></li>
 </ul>
@@ -15252,7 +15265,7 @@
 <li><p>Check Available CPU Governors</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Run the following <span class="built_in">command</span> to check available CPU governors:</span></span><br><span class="line">cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You should see something like below info:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> conservative ondemand userspace powersave performance schedutil</span></span><br></pre></td></tr></table></figure></li>
 <li><p>Check Current CPU Governor</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</span><br><span class="line">or</span><br><span class="line">cpupower frequency-info --policy # should install cpupower command by &#x27;sudo dnf install kernel-tools -y&#x27;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</span><br><span class="line">or</span><br><span class="line"><span class="meta">#</span><span class="bash"> (optional) install cpupower <span class="built_in">command</span> by <span class="string">&#x27;sudo dnf install kernel-tools -y&#x27;</span></span></span><br><span class="line">cpupower frequency-info --policy </span><br></pre></td></tr></table></figure></li>
 <li><p>Set CPU Governor to Performance temporarily</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> To temporarily <span class="built_in">set</span> the CPU governor to performance (until reboot):</span></span><br><span class="line">for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do</span><br><span class="line">  echo performance | sudo tee $cpu</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
 <li><p>Set CPU Governor Persistent</p>
