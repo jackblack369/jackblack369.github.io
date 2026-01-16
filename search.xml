@@ -7897,35 +7897,23 @@
 <p><strong>command</strong></p>
 <img src="/images/git/git command.JPG" style="zoom:100%">
 
-<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span> </span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span></span> </span><br><span class="line">git config --local user.name &quot;Your Name&quot;</span><br><span class="line">git config --local user.email &quot;Your Email&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all config</span> </span><br><span class="line">git config --global --list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span> </span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> global config</span></span><br><span class="line">git config --global user.email &quot;you@example.com&quot;</span><br><span class="line">git config --global user.name &quot;Your Name&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> <span class="built_in">local</span> repo config</span></span><br><span class="line">git config --local user.name &quot;Your Name&quot;</span><br><span class="line">git config --local user.email &quot;Your Email&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git automatically converts CRLF to LF when committing and back to CRLF when checking out.</span></span><br><span class="line">git config --global core.autocrlf</span><br></pre></td></tr></table></figure>
 
-<h2 id="文件相关"><a href="#文件相关" class="headerlink" title="文件相关"></a>文件相关</h2><ul>
-<li><p>提交单个文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
-<li><p>提交多个文件，但是需要排除指定的文件</p>
-<ul>
-<li>method a</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add -u</span><br><span class="line">git reset -- main/dontcheckmein.txt</span><br><span class="line">然后进行commit、pull等操作</span><br></pre></td></tr></table></figure>
+<h1 id="file"><a href="#file" class="headerlink" title="file"></a>file</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> submit specify file</span></span><br><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> submit files exclude specify file</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># method 1</span></span></span><br><span class="line">git add -u</span><br><span class="line">git reset -- main/dontcheckmein.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># method 2</span></span></span><br><span class="line">git add . &#x27;:!&lt;file-to-exclude&gt;&#x27;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>method b</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add . &#x27;:!&lt;file-to-exclude&gt;&#x27;</span><br></pre></td></tr></table></figure></li>
-<li><p>remove a specific file from the staging area (undo the add)</p>
+<li><p>remove a specific file from the staging area </p>
 <blockquote>
-<p> 只执行了add， 没有执行commit</p>
+<p>only operate commit action , not do add action)</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Undo git add <span class="keyword">for</span> a specific file</span></span><br><span class="line">git restore --staged path/to/file</span><br><span class="line">or </span><br><span class="line">git reset path/to/file</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Undo git add . <span class="keyword">for</span> all files</span> </span><br><span class="line">git restore --staged .</span><br><span class="line">or </span><br><span class="line">git reset</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Undo git add <span class="keyword">for</span> a specific file</span></span><br><span class="line">git restore --staged /path/to/file</span><br><span class="line">or </span><br><span class="line">git reset /path/to/file</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Undo git add . <span class="keyword">for</span> all files</span> </span><br><span class="line">git restore --staged .</span><br><span class="line">or </span><br><span class="line">git reset</span><br></pre></td></tr></table></figure></li>
 <li><p>Undo add for a specific file but keep the commit</p>
 <blockquote>
 <p>已执行了 add 和 commit</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Unstage the file from the commit</span></span><br><span class="line">git reset HEAD^ -- /path/to/file</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit --amend</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Completely restore the file to the version before commit</span></span><br><span class="line">git checkout HEAD^ -- /path/to/file</span><br><span class="line">git add /path/to/file</span><br><span class="line">git commit --amend</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Unstage the file from the commit</span></span><br><span class="line">git reset HEAD^ -- /path/to/file</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit --amend</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Completely restore the file to the version before commit</span></span><br><span class="line">git checkout HEAD^ -- /path/to/file</span><br><span class="line">git add /path/to/file</span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure></li>
 <li><p>Undo the entire commit (including all files)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Soft reset (keep all changes unstaged)</span></span><br><span class="line">git reset --soft HEAD~1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mixed reset (keep changes but unstaged)</span></span><br><span class="line">git reset HEAD~1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hard reset (delete commit AND file changes)</span></span><br><span class="line">git reset --hard HEAD~1</span><br></pre></td></tr></table></figure></li>
-<li><p>撤回刚才错误提交的commit</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset HEAD~1</span><br></pre></td></tr></table></figure></li>
 <li><p>比较文件，在不同版本的区别</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to HEAD</span></span><br><span class="line">git diff &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> uncommited file to before last commit</span></span><br><span class="line">git diff HEAD^ -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">last commit to before last commit</span></span><br><span class="line">git diff HEAD^ HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">difference between HEAD and n-th grandparent</span></span><br><span class="line">git diff HEAD~n HEAD -- &lt;path&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">Another cool feature is whatchanged <span class="built_in">command</span></span></span><br><span class="line">git whatchanged -- &lt;path&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>删除远程仓库文件，但保留本地文件系统的文件</p>
@@ -7937,42 +7925,15 @@
 <li><p>查看指定commit提交的文件信息</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git show --name-only &lt;commit-hash&gt;</span><br><span class="line">git show --name-status &lt;commit-hash&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="fork-相关"><a href="#fork-相关" class="headerlink" title="fork 相关"></a>fork 相关</h2><p>Git fork后的分支，更新最新的源代码</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sourcer为源项目代码</span><br><span class="line">forker为fork之后的项目代码</span><br><span class="line"></span><br><span class="line">1、找一个空的目录下签出 fork 后的代码</span><br><span class="line">git clone https://github.com/sourcer/demo.git</span><br><span class="line">查看 remote 信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">2、然后添加源项目地址（距离定义为 source）</span><br><span class="line">git remote add source https://github.com/forker/demo.git</span><br><span class="line">查看 remote 信息，可以看到新增两条信息</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">3、fetch 源项目</span><br><span class="line">git fetch source</span><br><span class="line"></span><br><span class="line">4、合并代码</span><br><span class="line">git merge source/master</span><br><span class="line"></span><br><span class="line">5、把合并最新的代码推送到你的fork项目上</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h1 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 撤回刚才错误提交的commit</span></span><br><span class="line">git reset HEAD~1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看每一行是哪次提交最后修改的</span></span><br><span class="line">git blame filename </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出文件的所有修改记录</span></span><br><span class="line">git log -p filename</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 以单行列出commit信息</span></span><br><span class="line">git log --oneline</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改最后一条commit人员信息</span></span><br><span class="line">git commit --amend --author=&quot;New Name &lt;new.email@example.com&gt;&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看最新的commit info</span></span><br><span class="line">git rev-parse --short HEAD</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> get a commit <span class="built_in">hash</span> with a specific number of characters (<span class="keyword">for</span> example, 7),</span></span><br><span class="line">git rev-parse --short=7 HEAD</span><br></pre></td></tr></table></figure>
 
-<h2 id="commit相关"><a href="#commit相关" class="headerlink" title="commit相关"></a>commit相关</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看每一行是哪次提交最后修改的</span></span><br><span class="line">git blame filename </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出文件的所有修改记录</span></span><br><span class="line">git log -p filename</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 以单行列出commit信息</span></span><br><span class="line">git log --oneline</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改最后一条commit人员信息</span></span><br><span class="line">git commit --amend --author=&quot;New Name &lt;new.email@example.com&gt;&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看最新的commit info</span></span><br><span class="line">git rev-parse --short HEAD</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> get a commit <span class="built_in">hash</span> with a specific number of characters (<span class="keyword">for</span> example, 7),</span></span><br><span class="line">git rev-parse --short=7 HEAD</span><br></pre></td></tr></table></figure>
+<p><strong>commit info</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> commit info format</span></span><br><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;footer&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">type</span></span></span><br><span class="line">- feat: a new feature, or change to an existing feature.</span><br><span class="line">- fix: Fixing a bug or known issue in code.</span><br><span class="line">- test: Adding additional tests for existing features.</span><br><span class="line">- chore: Updating build tools, like webpack, gulp, ascripts, etc.</span><br><span class="line">- docs: Update to documentation like README, wiki, etc.</span><br></pre></td></tr></table></figure>
 
-<h3 id="config-1"><a href="#config-1" class="headerlink" title="config"></a>config</h3><ul>
-<li><p>config commit identity</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all config</span> </span><br><span class="line">git config --global --list</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;you@example.com&quot;</span><br><span class="line">git config --global user.name &quot;Your Name&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> Setting these values with --global applies them to all repositories on your machine. You can also <span class="built_in">set</span> them at the repository level by omitting --global, <span class="keyword">in</span> <span class="built_in">which</span> <span class="keyword">case</span> they will override the global settings <span class="keyword">for</span> that specific project.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.</span></span><br><span class="line">git config  user.email &quot;jackblack369@163.com&quot;</span><br><span class="line">git config  user.name &quot;DongWei&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git automatically converts CRLF to LF when committing and back to CRLF when checking out.</span></span><br><span class="line">git config --global core.autocrlf</span><br></pre></td></tr></table></figure></li>
-<li><p>commit info</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>Type</p>
-<blockquote>
-<p>You can use your own commit types, but here are the most common use cases:</p>
-</blockquote>
 <ul>
-<li><p>feat: a new feature, or change to an existing feature.</p>
-</li>
-<li><p>fix: Fixing a bug or known issue in code.</p>
-</li>
-<li><p>test: Adding additional tests for existing features.</p>
-</li>
-<li><p>chore: Updating build tools, like webpack, gulp, ascripts, etc.</p>
-</li>
-<li><p>docs: Update to documentation like README, wiki, etc.</p>
-</li>
+<li>reference <a href="https://hackernoon.com/7-rules-for-writing-a-good-commit-message">7 Rules for Writing a Good Commit Message</a></li>
 </ul>
-</li>
-<li><p>Scope</p>
-<blockquote>
-<p>The scope of the commit can be kept as granular as required and is bound to change based on the complexity of the project. If you are starting off a project, it might not seem necessary at the beginning, although, it is highly recommended as it makes you think twice and harder about the changes that you are about to push.</p>
-</blockquote>
-</li>
-<li><p>reference <a href="https://hackernoon.com/7-rules-for-writing-a-good-commit-message">7 Rules for Writing a Good Commit Message</a></p>
-</li>
-</ul>
-<h3 id="amend"><a href="#amend" class="headerlink" title="amend"></a>amend</h3><blockquote>
+<h2 id="amend"><a href="#amend" class="headerlink" title="amend"></a>amend</h2><blockquote>
 <p>In Git, the –amend option is used with the git commit command to modify the most recent commit. It allows you to make changes to the last commit without creating a new one, which is helpful for fixing small mistakes such as a missing file, a typo in the commit message, or an incorrect change.</p>
 </blockquote>
 <ul>
@@ -7995,23 +7956,9 @@
 <li><strong>Use in Local Development</strong></li>
 </ol>
 <p><code>git commit --amend</code> is best used in local branches before pushing changes to a shared repository.</p>
-<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><ul>
-<li><p>method 1: 重置当前分支的 HEAD 指针以及工作目录和暂存区的内容到指定的提交，擦除了目标提交之后的所有提交历史。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>Method 2: 只想回滚到指定提交，并保留后续提交历史</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git revert &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>回滚远程分支</p>
-<ul>
-<li>本地代码回滚到上一版本 <code>git reset --hard HEAD~1</code></li>
-<li>回滚到指定版本commitId  <code>git reset --hard commitId</code></li>
-</ul>
-</li>
-</ul>
-<p>加入-f参数，强制提交，远程端将强制跟新到reset版本</p>
-<blockquote>
-<p> git push -f</p>
-</blockquote>
-<h2 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看分支提交历史</span></span><br><span class="line">git log --oneline --graph --decorate</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看分支对应的远程分支</span></span><br><span class="line">git branch -vv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重命名分支</span></span><br><span class="line">git branch -m new-branch-name</span><br><span class="line">git push origin -u new-branch-name</span><br><span class="line"><span class="meta">#</span><span class="bash"> （可选：删除原分支）git push origin --delete old-branch-name</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份分支</span></span><br><span class="line">git branch bk-dev HEAD</span><br></pre></td></tr></table></figure>
+<h1 id="roll-back"><a href="#roll-back" class="headerlink" title="roll back"></a>roll back</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1:重置当前分支的 HEAD 指针以及工作目录和暂存区的内容到指定的提交，擦除了目标提交之后的所有提交历史</span></span><br><span class="line">git reset --hard &lt;commit-id&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># roll back to previous version</span></span></span><br><span class="line">git reset --hard HEAD~1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2:只想回滚到指定提交，并保留后续提交历史</span></span><br><span class="line">git revert &lt;commit-id&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> force change remote repo commit</span> </span><br><span class="line">git push -f</span><br></pre></td></tr></table></figure>
+
+<h1 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看分支提交历史</span></span><br><span class="line">git log --oneline --graph --decorate</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看分支对应的远程分支</span></span><br><span class="line">git branch -vv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重命名分支</span></span><br><span class="line">git branch -m new-branch-name</span><br><span class="line">git push origin -u new-branch-name</span><br><span class="line"><span class="meta">#</span><span class="bash"> （可选：删除原分支）git push origin --delete old-branch-name</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份分支</span></span><br><span class="line">git branch bk-dev HEAD</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>更改当前分支对应的远程分支</p>
@@ -8025,7 +7972,7 @@
 <li><p>删除分支</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)</span></span><br><span class="line">git branch -d localBranchName</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete branch remotely</span></span><br><span class="line">git push origin --delete remoteBranchName</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If someone <span class="keyword">else</span> has already deleted the branch, you just <span class="keyword">do</span> below</span></span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h2><ul>
+<h1 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h1><ul>
 <li><p>拉取并切换指定tag 分支</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">  git fetch --all --tags</span><br><span class="line">  git tag  # list all tag</span><br><span class="line">  git checkout &lt;tag_name&gt;</span><br><span class="line"></span><br><span class="line">- 对指定commit进行标记tag</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  git tag &lt;tag_name&gt; &lt;commit_hash&gt;</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> origin tag</span></span><br><span class="line">  git push origin &lt;tag_name&gt;</span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> push remote upstream repo</span></span><br><span class="line">  git push upstream &lt;tag_name&gt;</span><br><span class="line"><span class="meta">  #</span><span class="bash"> 该命令会自动触发upstream repo的github workflow</span></span><br></pre></td></tr></table></figure></li>
 <li><p>根据tag创建分支</p>
@@ -8033,100 +7980,20 @@
 <li><p>删除tag</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> origin</span></span><br><span class="line">git push origin --delete refs/tags/&lt;tagname&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upstream</span></span><br><span class="line">git push upstream --delete refs/tags/&lt;tagname&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行上述任何操作之后，需要清理本地的tag记录</span></span><br><span class="line">git tag -d &lt;tagname&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="conflict"><a href="#conflict" class="headerlink" title="conflict"></a>conflict</h2><ul>
+<h1 id="conflict"><a href="#conflict" class="headerlink" title="conflict"></a>conflict</h1><ul>
 <li><p>查看冲突文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Highlight conflicts within files</span></span><br><span class="line">git diff</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> List conflict files directly</span></span><br><span class="line">git diff --name-only --diff-filter=U</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check merge conflicts interactively</span></span><br><span class="line">git mergetool</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="暂存区"><a href="#暂存区" class="headerlink" title="暂存区"></a>暂存区</h2><ul>
-<li><p>查看暂存内容的差异：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure></li>
-<li><p>重置暂存区（对于所有文件）：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>在Git中，<code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
-<p>以下是<code>stash</code>命令的使用方式：</p>
-<ol>
-<li><p>暂存当前修改：(这个命令将当前的修改暂存起来，让你的工作目录变成干净的状态。)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure></li>
-<li><p>恢复暂存的修改：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git stash apply</span><br></pre></td></tr></table></figure>
+<h1 id="staging"><a href="#staging" class="headerlink" title="staging"></a>staging</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check current code diff with current commitID</span></span><br><span class="line">git diff --cached</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> reset staging</span> </span><br><span class="line">git reset</span><br></pre></td></tr></table></figure>
 
-<p>这个命令将之前暂存的修改应用到当前分支上。如果你有多个stash，可以使用<code>git stash apply stash@&#123;n&#125;</code>来指定恢复某个特定的stash。</p>
-</li>
-<li><p>删除stash：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash drop</span><br></pre></td></tr></table></figure>
+<h1 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h1><blockquote>
+<p> <code>stash</code>命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> save stash with describe info</span></span><br><span class="line">git stash save &quot;stash message&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> stash specify file</span></span><br><span class="line">git stash push path/to/file</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list stash</span></span><br><span class="line">git stash list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> restore latest stash</span></span><br><span class="line">git stash apply</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> restore specify stash</span></span><br><span class="line">git stash apply stash@&#123;n&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> delete latest stash</span></span><br><span class="line">git stash drop</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> apply and remove latest stash (equal: git stash apply + git stash drop )</span></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
 
-<p>这个命令会删除最近的一个stash。</p>
-</li>
-<li><p>列出所有stash：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure></li>
-<li><p>应用并删除stash：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<h1 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> optional</span></span><br><span class="line">git checkout &lt;currentBranch&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fetch latest upstream code</span></span><br><span class="line">git fetch upstream</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sync upstream/&lt;remoteBranch&gt; code into current &lt;currentBranch&gt;</span></span><br><span class="line">git rebase upstream/&lt;remoteBranch&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> optional: resolve conflict</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># show conflict code</span></span></span><br><span class="line">git diff --name-only --diff-filter=U</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># after resolve conflict</span></span></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;xxx&quot;</span><br><span class="line">git rebase --continue</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> optional: terminate rebase</span></span><br><span class="line">git rebase --abort</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> push rebased code</span></span><br><span class="line">git push -f</span><br></pre></td></tr></table></figure>
 
-<p>这个命令相当于<code>git stash apply</code>和<code>git stash drop</code>的组合，它会将最近的一个stash应用到当前分支，并将其删除。</p>
-</li>
-<li><p>暂存特定的文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git stash push path/to/file</span><br></pre></td></tr></table></figure>
-
-<p>这个命令可以将指定的文件暂存起来，而不是暂存整个工作目录。</p>
-</li>
-<li><p>给stash添加描述：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git stash save <span class="string">&quot;stash message&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h2><p><a href="https://waynerv.com/posts/git-rebase-intro/">git rebase 用法详解与工作原理</a></p>
-<p><a href="https://johneverettcase.com/git-how-to-rebase-a-fork">How to Rebase a Fork</a></p>
-<ol>
-<li><p><strong>更新本地主分支（通常是 master 或 main）:</strong> 获取原始仓库的最新更改并合并到你的本地主分支：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master  # 切换到你的本地主分支</span><br><span class="line">git pull upstream master  # 从原始仓库拉取最新更改到本地主分支</span><br></pre></td></tr></table></figure>
-
-<p>或</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch upstream</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>切换到你的分支并进行 rebase:</strong> 切换到你的分支并将其 rebase 到主分支上：</p>
-<ul>
-<li>如果是新分支</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout &lt;新分支&gt;</span><br><span class="line">git rebase master  # 将新分支 rebase 到你的本地主分支</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果是已有分支</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout &lt;已有分支&gt;</span><br><span class="line">git rebase upstream/master</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>解决冲突（如果有）:</strong> 如果在 rebase 过程中出现冲突，你需要手动解决冲突，然后使用 <code>git add</code> 标记为已解决。</p>
-<ul>
-<li>展示冲突代码（可省略）</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff --name-only --diff-filter=U</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>解决代码冲突<ul>
-<li>IDE手动解决</li>
-<li>vimdiff解决</li>
-<li>meld解决</li>
-</ul>
-</li>
-<li>解决之后</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .  # resolve conflict, always use add &amp; commit 🚨</span><br><span class="line">git commit -m &quot;xxx&quot;</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>终止rebase</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rebase --abort</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>推送更改到远程仓库:</strong> 推送你的更改到远程仓库：</p>
-<ul>
-<li>如果是新分支</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin &lt;分支&gt; --force  # 强制推送到你的 fork 仓库的新分支上</span><br><span class="line">或</span><br><span class="line">git push -f origin &lt;分支&gt;</span><br></pre></td></tr></table></figure>
-
-<p>请注意：使用 <code>--force</code> 参数进行强制推送时，请确保你了解它的影响。它可能会覆盖远程分支的历史记录，因此务必小心操作。</p>
-<ul>
-<li>如果是已有分支</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>创建 Pull Request:</strong> 在你的 fork 仓库中，从新分支创建一个 Pull Request（PR），将你的更改合并到原始仓库的目标分支</p>
-</li>
-</ol>
-<h2 id="squash-reword-commit"><a href="#squash-reword-commit" class="headerlink" title="squash/reword commit"></a>squash/reword commit</h2><blockquote>
+<h1 id="squash-reword-commit"><a href="#squash-reword-commit" class="headerlink" title="squash/reword commit"></a>squash/reword commit</h1><blockquote>
 <p>提前备份待操作的分支 git branch bk-dev HEAD</p>
 </blockquote>
 <ol>
@@ -8159,60 +8026,11 @@
 <li><p>其它结合</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 先进行 `git rebase upstream/v1` 可以确保你的分支是基于最新的上游代码。</span><br><span class="line"></span><br><span class="line">- 然后进行 `git rebase -i HEAD~2` 让你可以在最新代码的基础上修改你的提交。</span><br><span class="line"></span><br><span class="line">  这个顺序可以减少冲突的可能性，因为你先将你的代码基于最新的上游代码，然后再修改你自己的提交。</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h2><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
-<ul>
-<li><strong>初始化仓库</strong></li>
-</ul>
-<ol>
-<li><p>List the current configured remote repository for your fork.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</span></span><br></pre></td></tr></table></figure></li>
-<li><p>Specify a new remote <em>upstream</em> repository that will be synced with the fork.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</span><br></pre></td></tr></table></figure></li>
-<li><p>Verify the new upstream repository you’ve specified for your fork.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>同步代码</strong></li>
-</ul>
-<ol>
-<li><p>Change the current working directory to your local project.</p>
-</li>
-<li><p>Fetch the branches and their respective commits from the upstream repository. Commits to <code>BRANCHNAME</code> will be stored in the local branch <code>upstream/BRANCHNAME</code>.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git fetch upstream</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> remote: Counting objects: 75, <span class="keyword">done</span>.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> remote: Compressing objects: 100% (53/53), <span class="keyword">done</span>.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> remote: Total 62 (delta 27), reused 44 (delta 9)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Unpacking objects: 100% (62/62), <span class="keyword">done</span>.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  * [new branch]      main     -&gt; upstream/main</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定fetch某个分支</span></span><br><span class="line">git fetch &lt;remote&gt; &lt;branch&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>Check out your fork’s local default branch - in this case, we use <code>main</code>.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Switched to branch <span class="string">&#x27;main&#x27;</span></span></span><br></pre></td></tr></table></figure></li>
-<li><p>Merge the changes from the upstream default branch - in this case, <code>upstream/main</code> - into your local default branch. This brings your fork’s default branch into sync with the upstream repository, without losing your local changes.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge upstream/main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Updating a422352..5fdff0f</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Fast-forward</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  README                    |    9 -------</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  README.md                 |    7 ++++++</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  2 files changed, 7 insertions(+), 9 deletions(-)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  delete mode 100644 README</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  create mode 100644 README.md</span></span><br></pre></td></tr></table></figure>
+<h1 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h1><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> List remote</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add remote</span> </span><br><span class="line">git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> modify remote</span> </span><br><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure>
 
-<p>If your local branch didn’t have any unique commits, Git will perform a fast-forward. For more information, see <a href="https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">Basic Branching and Merging</a> in the Git documentation.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge upstream/main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Updating 34e91da..16c56ad</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Fast-forward</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  README.md                 |    5 +++--</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  1 file changed, 3 insertions(+), 2 deletions(-)</span></span><br></pre></td></tr></table></figure>
+<h1 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> init <span class="built_in">clone</span> with submodule</span></span><br><span class="line">git clone --recurse-submodules https://github.com/chaconinc/MainProject</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check submodule</span></span><br><span class="line">git submodule status</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> init submodule dir</span></span><br><span class="line">git submodule init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> update submodule code</span></span><br><span class="line">git submodule update</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add the submodule</span></span><br><span class="line">git submodule add https://github.com/example/submodule.git submodule-dir</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 后期从远程仓库更新submodule代码</span></span><br><span class="line">git submodule update --remote</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fetch and checkout the specific tag</span></span><br><span class="line">cd submodule-dir</span><br><span class="line">git fetch --tags</span><br><span class="line">git checkout &lt;xxx&gt;</span><br><span class="line">cd ..</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> change submodule specify commitID</span></span><br><span class="line">cd &lt;submoduleDir&gt;</span><br><span class="line">git fetch</span><br><span class="line">git checkout &lt;commit-id&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove submodule</span></span><br><span class="line">git submodule deinit path/to/submodule</span><br><span class="line">rm -rf path/to/submodule</span><br><span class="line">git rm --cached path/to/submodule</span><br><span class="line">git commit -m &quot;Removed submodule path/to/submodule&quot;</span><br></pre></td></tr></table></figure>
 
-<p>If your local branch had unique commits, you may need to resolve conflicts. For more information, see “<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts">Addressing merge conflicts</a>.”</p>
-</li>
-</ol>
-<h2 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h2><blockquote>
-<p>对于项目中包含子项目的git项目</p>
-<p>reference</p>
-<p><a href="https://www.git-scm.com/book/en/v2/Git-Tools-Submodules">https://www.git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
-<p> <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
-</blockquote>
-<ul>
-<li><p>如果是首次克隆，初始化代码需要 <code>git clone --recurse-submodules https://github.com/chaconinc/MainProject</code></p>
-<p>或如果首次没有使用<code>--recurse-submodules</code>，那后面可以通过 <code>git submodule init</code>和<code>git submodule update</code>，进行子模块的拉取更新</p>
-</li>
-</ul>
-<ul>
-<li><p>如何要对子模块的代码也用克隆地址</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config -f .gitmodules -e    # opens editor, update URLs for your forks`</span><br><span class="line">git submodule sync</span><br></pre></td></tr></table></figure></li>
-<li><p>后期从远程仓库更新submodule代码</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git submodule update --remote</span><br></pre></td></tr></table></figure></li>
-<li><p>在已有项目添加子模块</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> add the submodule</span></span><br><span class="line">git submodule add https://github.com/example/submodule.git submodule-dir</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fetch and checkout the specific tag</span></span><br><span class="line">cd submodule-dir</span><br><span class="line">git fetch --tags</span><br><span class="line">git checkout &lt;xxx&gt;</span><br><span class="line">cd ..</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check submodule</span></span><br><span class="line">git submodule status</span><br></pre></td></tr></table></figure></li>
-<li><p>更换到指定commitID</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git checkout &lt;commit-id&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>remove submodule</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git submodule deinit path/to/submodule</span><br><span class="line">rm -rf path/to/submodule</span><br><span class="line">git rm --cached path/to/submodule</span><br><span class="line">git commit -m &quot;Removed submodule path/to/submodule&quot;</span><br></pre></td></tr></table></figure></li>
-</ul>
 <h1 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry pick"></a>cherry pick</h1><p>If the new commits (commit-4, commit-5, commit-6) are in the feat-alpha branch and you want to cherry-pick them into a clean branch based on upstream/main, here’s how to do it:</p>
 <p><strong>1. Fetch the Latest Changes from Upstream</strong></p>
 <p>First, ensure you have the latest changes from the upstream repository:</p>
@@ -14335,7 +14153,9 @@
 
 <h2 id="Tree-view-all-process"><a href="#Tree-view-all-process" class="headerlink" title="Tree view all process"></a>Tree view all process</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pstree -g</span><br></pre></td></tr></table></figure>
 
-<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="略过gui提示"><a href="#略过gui提示" class="headerlink" title="略过gui提示"></a>略过gui提示</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=l apt install -y xxx</span><br></pre></td></tr></table></figure>
+
+<h2 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装deb文件出错时"><a href="#安装deb文件出错时" class="headerlink" title="安装deb文件出错时"></a>安装deb文件出错时</h2><p>使用<code>apt-get -f -y install</code>修复之后，再进行安装</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示</span><br><span class="line">2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．</span><br><span class="line">3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功</span><br></pre></td></tr></table></figure>
@@ -17961,7 +17781,7 @@ So later in the script, you can safely loop through options using:
     <url>/2024/09/15/k8s-cmd%20kubectl/</url>
     <content><![CDATA[<h1 id="common"><a href="#common" class="headerlink" title="common"></a>common</h1><h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl version</span><br><span class="line">kubectl api-versions</span><br></pre></td></tr></table></figure>
 
-<h2 id="health"><a href="#health" class="headerlink" title="health"></a>health</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check kubernetes inner ip</span> </span><br><span class="line">kubectl get svc kubernetes -n default</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check api server</span></span><br><span class="line">kubectl get componentstatuses</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check crd</span></span><br><span class="line">kubectl get crd | grep cert-manager</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check all pods</span></span><br><span class="line">kubectl get pods -A</span><br></pre></td></tr></table></figure>
+<h2 id="health"><a href="#health" class="headerlink" title="health"></a>health</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> overview usage</span> </span><br><span class="line">kubectl top node</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check kubernetes inner ip</span> </span><br><span class="line">kubectl get svc kubernetes -n default</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check api server</span></span><br><span class="line">kubectl get componentstatuses</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check crd</span></span><br><span class="line">kubectl get crd | grep cert-manager</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check all pods</span></span><br><span class="line">kubectl get pods -A</span><br></pre></td></tr></table></figure>
 
 <h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">--kubeconfig=/path/to/configfile</span><br></pre></td></tr></table></figure>
 
@@ -17999,7 +17819,7 @@ So later in the script, you can safely loop through options using:
 
 <h2 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl cp 命令空间/容器id:path/to/source_file ./path/to/local_file</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意 pod里面的路径无需带 /，使用相对路径即可（相对于进入pod之后的默认目录）</span></span><br><span class="line"></span><br><span class="line">kubectl cp /path/to/local_file 命令空间/容器id:path/to/target_dir</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> </span></span><br><span class="line">kubectl exec -n &lt;namespace&gt; &lt;pod_name&gt; -- tar cf - &lt;path/to/file&gt; | tar xf - -C .</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. kubectl <span class="built_in">exec</span> -n dingofs dingofs-csi-node-5bfkf -- tar cf - /proc/mounts | tar xf - -C .</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1</span></span><br><span class="line">kubectl delete pod &#123;pod_name&#125; --grace-period=0 --force -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">kubectl patch pod &lt;pod-name&gt; -n &lt;target-namespace&gt; -p &#x27;&#123;&quot;metadata&quot;:&#123;&quot;finalizers&quot;:null&#125;&#125;&#x27; --type=merge</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 3</span></span><br><span class="line">step1 : kubectl edit pod &lt;pod-name&gt; -n &lt;namespace&gt;</span><br><span class="line">step2 : delete the finalizers array under metadata, save the file, and exit</span><br></pre></td></tr></table></figure>
+<h2 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1</span></span><br><span class="line">kubectl delete pod &#123;pod_name&#125; --grace-period=0 --force -n &#123;namespace&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">kubectl patch pod &lt;pod-name&gt; -n &lt;target-namespace&gt; -p &#x27;&#123;&quot;metadata&quot;:&#123;&quot;finalizers&quot;:null&#125;&#125;&#x27; --type=merge</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 3</span></span><br><span class="line">step1 : kubectl edit pod &lt;pod-name&gt; -n &lt;namespace&gt;</span><br><span class="line">step2 : delet2e the finalizers array under metadata, save the file, and exit</span><br></pre></td></tr></table></figure>
 
 <table>
 <thead>
