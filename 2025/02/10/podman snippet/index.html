@@ -14,7 +14,7 @@
 <meta property="og:description" content="不同用户下执行 podman ps，只能查看当前用户的运行容器（即使是root用户，也不能查看其他普通用户启用的容器信息）  commandoverview12345# check disk usagepodman system df# debug command podman --log-level&#x3D;debug xxx  image12# load tar file to imagepodma">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-02-10T08:06:03.000Z">
-<meta property="article:modified_time" content="2025-11-09T09:28:03.277Z">
+<meta property="article:modified_time" content="2026-01-22T06:25:37.758Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
@@ -220,6 +220,8 @@
 <p>Rootless Podman runs containers without root privileges and inherits the current user’s resource limits from the system . When a container’s  RLIMIT_NOFILE  (max open files) or  RLIMIT_NPROC  (max processes) configuration exceeds the user’s hard limits,  crun  (the OCI runtime) fails to apply them because non-root users cannot raise hard limits beyond system-defined values .</p>
 </blockquote>
 <p>same with above </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">ulimit -Sn # soft open file</span><br><span class="line">ulimit -Hn # hard open file</span><br></pre></td></tr></table></figure>
+
 <h2 id="panic-runtime-error-invalid-memory-address-or-nil-pointer-dereference"><a href="#panic-runtime-error-invalid-memory-address-or-nil-pointer-dereference" class="headerlink" title="panic: runtime error: invalid memory address or nil pointer dereference"></a>panic: runtime error: invalid memory address or nil pointer dereference</h2><ul>
 <li><p>issue </p>
 <blockquote>

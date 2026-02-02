@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="LVM + lvmlockd (clvm replacement)  source code12345678910https:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;?p&#x3D;lvm2.githttps:&#x2F;&#x2F;gitlab.com&#x2F;lvmteam&#x2F;lvm2https:&#x2F;&#x2F;github.com&#x2F;lvmteam&#x2F;lvm2https:&#x2F;&#x2F;android.googlesource.com&#x2F;platform">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvmlocked sanlock">
+<meta property="og:url" content="https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/index.html">
+<meta property="og:site_name" content="Clean &amp; Focus">
+<meta property="og:description" content="LVM + lvmlockd (clvm replacement)  source code12345678910https:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;?p&#x3D;lvm2.githttps:&#x2F;&#x2F;gitlab.com&#x2F;lvmteam&#x2F;lvm2https:&#x2F;&#x2F;github.com&#x2F;lvmteam&#x2F;lvm2https:&#x2F;&#x2F;android.googlesource.com&#x2F;platform">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-01-13T10:19:01.000Z">
+<meta property="article:modified_time" content="2026-02-02T10:22:01.133Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="lvmlocked">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>lvmlocked sanlock</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Clean & Focus" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2026/01/29/AI%20Philosophy/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/11/10/linux%20env:%20alternatives/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&text=lvmlocked sanlock"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lvmlocked sanlock&body=Check out this article: https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&title=lvmlocked sanlock"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&title=lvmlocked sanlock"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&title=lvmlocked sanlock"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&t=lvmlocked sanlock"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#source-code"><span class="toc-number">1.</span> <span class="toc-text">source code</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%9A%A8prepare"><span class="toc-number">2.</span> <span class="toc-text">🚨prepare</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#install"><span class="toc-number">3.</span> <span class="toc-text">install</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lvmlocked"><span class="toc-number">3.1.</span> <span class="toc-text">lvmlocked</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sanlock"><span class="toc-number">3.2.</span> <span class="toc-text">sanlock</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#first-node"><span class="toc-number">4.</span> <span class="toc-text">first node</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Convert-VG-to-sanlock"><span class="toc-number">4.1.</span> <span class="toc-text">Convert VG to sanlock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-the-Lockspace"><span class="toc-number">4.2.</span> <span class="toc-text">Start the Lockspace</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enable-the-Global-Lock"><span class="toc-number">4.3.</span> <span class="toc-text">Enable the Global Lock</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#other-node"><span class="toc-number">5.</span> <span class="toc-text">other node</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-the-Lockspace-1"><span class="toc-number">5.1.</span> <span class="toc-text">Start the Lockspace</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#init-lock"><span class="toc-number">6.</span> <span class="toc-text">init lock</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#best-practices"><span class="toc-number">7.</span> <span class="toc-text">best practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E6%8C%81%E6%9C%89%E7%9A%84%E9%94%81"><span class="toc-number">7.1.</span> <span class="toc-text">查看当前节点持有的锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-lvmlockd-status"><span class="toc-number">7.2.</span> <span class="toc-text">check lvmlockd status</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        lvmlocked sanlock
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-01-13T10:19:01.000Z" class="dt-published" itemprop="datePublished">2026-01-13</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/fs/">fs</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/lvmlocked/" rel="tag">lvmlocked</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p> LVM + lvmlockd (clvm replacement)</p>
+</blockquote>
+<h1 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">https://sourceware.org/git/?p=lvm2.git</span><br><span class="line">https://gitlab.com/lvmteam/lvm2</span><br><span class="line">https://github.com/lvmteam/lvm2</span><br><span class="line"></span><br><span class="line">https://android.googlesource.com/platform/external/lvm2/+/d44af0be2c6f4652eafd90a70e7ba5f24c0f6d5a/lib/locking/lvmlockd.c</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> how lvmlockd  talks to  sanlock , look at the  daemons/lvmlockd/  directory <span class="keyword">in</span> the <span class="built_in">source</span> tree.</span></span><br><span class="line">	•	Core Logic:  daemons/lvmlockd/lvmlockd-core.c </span><br><span class="line">	•	Sanlock Adapter:  daemons/lvmlockd/lvmlockd-sanlock.c </span><br><span class="line">	•	This file contains the C functions that translate LVM lock requests ( lock_lv ,  lock_vg ) into  sanlock_acquire and sanlock_release calls.</span><br></pre></td></tr></table></figure>
+
+<h1 id="🚨prepare"><a href="#🚨prepare" class="headerlink" title="🚨prepare"></a>🚨prepare</h1><ul>
+<li><p>❗操作之后需要把之前冗余的 <code>activate</code> 的 lv 都设置成 <code>inactive</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> flite</span></span><br><span class="line">lvscan | grep &#x27;/csi-lvm/&#x27; | grep -v inactive</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> deactivate duplicate pv</span></span><br><span class="line">lvchange -an /dev/csi-lvm/pvc-xxx</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> sanlock and lvmlocked</span></span><br><span class="line">apt install lvm2 sanlock lvm2-lockd</span><br></pre></td></tr></table></figure>
+
+<h2 id="lvmlocked"><a href="#lvmlocked" class="headerlink" title="lvmlocked"></a>lvmlocked</h2><ul>
+<li><p>enable locked</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/lvm/lvm.conf</span></span><br><span class="line">use_lvmlockd = 1</span><br></pre></td></tr></table></figure></li>
+<li><p>check</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvmconfig --type current global/use_lvmlockd</span><br></pre></td></tr></table></figure></li>
+<li><p>restart lvmlockd</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart lvmlockd</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="sanlock"><a href="#sanlock" class="headerlink" title="sanlock"></a>sanlock</h2><ul>
+<li><p>config host id</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/lvm/lvmlocal.conf</span></span><br><span class="line">local &#123;</span><br><span class="line">    # Replace &lt;nodeNum&gt; with the unique integer for this node (e.g., 1, 2, 3...)</span><br><span class="line">    host_id = &lt;nodeNum&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Restart</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sanlock</span><br><span class="line">sleep 8</span><br><span class="line">systemctl restart lvmlockd</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="first-node"><a href="#first-node" class="headerlink" title="first node"></a>first node</h1><h2 id="Convert-VG-to-sanlock"><a href="#Convert-VG-to-sanlock" class="headerlink" title="Convert VG to sanlock"></a>Convert VG to sanlock</h2><ul>
+<li><p>config sanlock</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(optional) lvchange -an csi-lvm</span><br></pre></td></tr></table></figure></li>
+<li><p>skip global lockspace </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vgchange --lock-type sanlock --lockopt skipgl csi-lvm</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span></span><br><span class="line">WARNING: skipping global lock in lvmlockd.</span><br><span class="line">Logical volume &quot;lvmlock&quot; created.</span><br><span class="line">device-mapper: remove ioctl on  (253:9) failed: Device or resource busy</span><br><span class="line">Volume group &quot;csi-lvm&quot; successfully changed</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Start-the-Lockspace"><a href="#Start-the-Lockspace" class="headerlink" title="Start the Lockspace"></a>Start the Lockspace</h2><blockquote>
+<p>Activate the lockspace for newly converted VG.This allows the local lvmlockd to manage it.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vgchange --lock-start csi-lvm</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span></span></span><br><span class="line">Skipping global lock: lockspace not found or started</span><br><span class="line">VG csi-lvm starting sanlock lockspace</span><br><span class="line">Starting locking.  Waiting for sanlock may take 20 sec to 3 min...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Enable-the-Global-Lock"><a href="#Enable-the-Global-Lock" class="headerlink" title="Enable the Global Lock"></a>Enable the Global Lock</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span></span> </span><br><span class="line">lvmlockctl --gl-enable csi-lvm</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> verify</span></span><br><span class="line">lvmlockctl -i</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 正常打印</span></span><br><span class="line">VG csi-lvm lock_type=sanlock UShLSg-JLRf-Agkb-YRQK-asNV-GSFn-IRqbDH</span><br><span class="line">LS sanlock lvm_csi-lvm</span><br><span class="line">LK VG un ver 0 🚨 初始化之后，本来为0，等创建lv之后（lvcreate -L 10G -n lv-temp-1 csi-lvm）会出现数字</span><br><span class="line">LK GL un ver 0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the Global Lock</span></span><br><span class="line">sanlock client status</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> verify</span></span><br><span class="line">vgs -o vg_name,lock_type</span><br><span class="line">or</span><br><span class="line">vgs -o+lock_type,lock_args</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="other-node"><a href="#other-node" class="headerlink" title="other node"></a>other node</h1><h2 id="Start-the-Lockspace-1"><a href="#Start-the-Lockspace-1" class="headerlink" title="Start the Lockspace"></a>Start the Lockspace</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vgchange --lock-start csi-lvm</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify the Global Lock</span></span><br><span class="line">sanlock client status</span><br><span class="line"></span><br><span class="line">vgs -o vg_name,lock_type</span><br></pre></td></tr></table></figure>
+
+<h1 id="init-lock"><a href="#init-lock" class="headerlink" title="init lock"></a>init lock</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvcreate -L 10G -n lv-temp-1 csi-lvm</span><br></pre></td></tr></table></figure>
+
+<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="查看当前节点持有的锁"><a href="#查看当前节点持有的锁" class="headerlink" title="查看当前节点持有的锁"></a>查看当前节点持有的锁</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sanlock client status</span><br></pre></td></tr></table></figure>
+
+<h2 id="check-lvmlockd-status"><a href="#check-lvmlockd-status" class="headerlink" title="check lvmlockd status"></a>check lvmlockd status</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status lvmlockd</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#source-code"><span class="toc-number">1.</span> <span class="toc-text">source code</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%9A%A8prepare"><span class="toc-number">2.</span> <span class="toc-text">🚨prepare</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#install"><span class="toc-number">3.</span> <span class="toc-text">install</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lvmlocked"><span class="toc-number">3.1.</span> <span class="toc-text">lvmlocked</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sanlock"><span class="toc-number">3.2.</span> <span class="toc-text">sanlock</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#first-node"><span class="toc-number">4.</span> <span class="toc-text">first node</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Convert-VG-to-sanlock"><span class="toc-number">4.1.</span> <span class="toc-text">Convert VG to sanlock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-the-Lockspace"><span class="toc-number">4.2.</span> <span class="toc-text">Start the Lockspace</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enable-the-Global-Lock"><span class="toc-number">4.3.</span> <span class="toc-text">Enable the Global Lock</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#other-node"><span class="toc-number">5.</span> <span class="toc-text">other node</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-the-Lockspace-1"><span class="toc-number">5.1.</span> <span class="toc-text">Start the Lockspace</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#init-lock"><span class="toc-number">6.</span> <span class="toc-text">init lock</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#best-practices"><span class="toc-number">7.</span> <span class="toc-text">best practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E6%8C%81%E6%9C%89%E7%9A%84%E9%94%81"><span class="toc-number">7.1.</span> <span class="toc-text">查看当前节点持有的锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check-lvmlockd-status"><span class="toc-number">7.2.</span> <span class="toc-text">check lvmlockd status</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&text=lvmlocked sanlock"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lvmlocked sanlock&body=Check out this article: https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&title=lvmlocked sanlock"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&title=lvmlocked sanlock"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&title=lvmlocked sanlock"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2026/01/13/fs:%20lvmlockd/&t=lvmlocked sanlock"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

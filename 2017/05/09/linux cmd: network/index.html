@@ -14,7 +14,7 @@
 <meta property="og:description" content="portcheck listening portsRun any one of the following command: 123sudo lsof -i -P -n | grep LISTEN sudo netstat -tulpn | grep LISTENsudo nmap -sTU -O IP-address-Here  check remote port Telnet  nc 1234">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2017-05-09T02:01:30.000Z">
-<meta property="article:modified_time" content="2025-09-24T06:57:49.275Z">
+<meta property="article:modified_time" content="2026-01-19T07:26:08.592Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -180,7 +180,7 @@
 <h2 id="check-port-by-pid"><a href="#check-port-by-pid" class="headerlink" title="check port by pid"></a>check port by pid</h2><ul>
 <li><p>先查看进程pid    <code>ps -ef | grep 进程名 </code></p>
 </li>
-<li><p>再通过pid查看占用端口  </p>
+<li><p>再通过pid查看占用端口</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -nap | grep &lt;pid&gt;</span><br><span class="line">lsof -p &lt;pid&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>通过端口查看进程</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &lt;portnumber&gt;</span><br><span class="line">lsof -i:&lt;portnumber&gt;</span><br></pre></td></tr></table></figure></li>
