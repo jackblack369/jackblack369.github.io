@@ -8999,7 +8999,7 @@
 </ul>
 <p>​    <code>cache -rebalance --caches=myCache1,myCache2,myCache3</code></p>
 <ul>
-<li><p>停止所有缓存表，</p>
+<li><p>停止所有缓存表</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cache -stop --all </span><br><span class="line">cache -start --all</span><br></pre></td></tr></table></figure></li>
 <li><p>重新加载所有缓存表并重新平衡</p>
 <p><code>cache -l -r --all</code></p>
@@ -18439,6 +18439,39 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>lvmlocked</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TiKV</title>
+    <url>/2026/02/05/TiKV/</url>
+    <content><![CDATA[<h1 id="TiUP"><a href="#TiUP" class="headerlink" title="TiUP"></a>TiUP</h1><blockquote>
+<p><a href="https://tikv.org/docs/7.1/deploy/install/production/">https://tikv.org/docs/7.1/deploy/install/production/</a></p>
+</blockquote>
+<h2 id="prepare"><a href="#prepare" class="headerlink" title="prepare"></a>prepare</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --proto &#x27;=https&#x27; --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh</span><br><span class="line"></span><br><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure>
+
+<h2 id="cluster-component"><a href="#cluster-component" class="headerlink" title="cluster component"></a>cluster component</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> install cluster component</span></span><br><span class="line">tiup cluster</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> update cluster component</span></span><br><span class="line">tiup update --self &amp;&amp; tiup update cluster</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> verify version</span></span><br><span class="line">tiup --binary cluster</span><br></pre></td></tr></table></figure>
+
+<h2 id="Initialize-cluster-topology-file"><a href="#Initialize-cluster-topology-file" class="headerlink" title="Initialize cluster topology file"></a>Initialize cluster topology file</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> init template</span></span><br><span class="line">tiup cluster template &gt; topology.yaml</span><br></pre></td></tr></table></figure>
+
+<p><strong>topoloy.yaml</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">&quot;tikv&quot;</span></span><br><span class="line">  <span class="attr">ssh_port:</span> <span class="number">22</span></span><br><span class="line">  <span class="attr">deploy_dir:</span> <span class="string">&quot;/tikv-deploy&quot;</span></span><br><span class="line">  <span class="attr">data_dir:</span> <span class="string">&quot;/tikv-data&quot;</span></span><br><span class="line"><span class="attr">server_configs:</span> &#123;&#125;</span><br><span class="line"><span class="attr">pd_servers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.3</span></span><br><span class="line"><span class="attr">tikv_servers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.5</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.6</span></span><br><span class="line"><span class="attr">monitoring_servers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.7</span></span><br><span class="line"><span class="attr">grafana_servers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="number">10.0</span><span class="number">.1</span><span class="number">.7</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="precheck-environment"><a href="#precheck-environment" class="headerlink" title="precheck environment"></a>precheck environment</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Dry-run first (see failures)</span></span><br><span class="line">tiup cluster check ./topology.yaml</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment"># Auto-fix + check</span></span> </span><br><span class="line">tiup cluster check ./topology.yaml --apply</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span> </span><br><span class="line">tiup cluster check ./topology.yaml --user &lt;userName&gt; -i ~/.ssh/id_rsa</span><br><span class="line">tiup cluster check ./topology.yaml --apply --user &lt;userName&gt; -i ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list tikv version</span></span><br><span class="line">tiup list tikv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> optional: <span class="built_in">enable</span> writeable .ssh/authorized_keys, TiUP stores its own key pair <span class="keyword">in</span> ~/.tiup/storage/cluster/clusters/&lt;cluster_name&gt;/ssh/  (id_rsa + id_rsa.pub).</span> </span><br><span class="line">sudo chattr -i authorized_keys</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> deploy</span></span><br><span class="line">tiup cluster deploy &lt;clusterName&gt; &lt;tikvVersion&gt; ./topology.yaml</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> or e.g.</span></span><br><span class="line">tiup cluster deploy tikv-test v5.0.1 ./topology.yaml --user root -i ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<h2 id="status"><a href="#status" class="headerlink" title="status"></a>status</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list</span></span><br><span class="line">tiup cluster list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> status</span></span><br><span class="line">tiup cluster display &lt;clusterName&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tiup cluster start &lt;clusterName&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.</span></span><br><span class="line">tiup cluster start tikv-dingofs --init</span><br></pre></td></tr></table></figure>
+
+<h1 id="monitor"><a href="#monitor" class="headerlink" title="monitor"></a>monitor</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> grafana, default login admin/admin</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;Grafana-ip&#125;:3000</span>  </span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>KV</category>
+      </categories>
+      <tags>
+        <tag>TiKV</tag>
       </tags>
   </entry>
 </search>
