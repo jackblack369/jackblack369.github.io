@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="cpugovernor strategy Check Available CPU Governors 12345# Run the following command to check available CPU governors:cat &#x2F;sys&#x2F;devices&#x2F;system&#x2F;cpu&#x2F;cpu0&#x2F;cpufreq&#x2F;scaling_available_governors# You should se">
+    <meta name="description" content="cpuidle policy12345cpupower idle-set -D 3# checkcpupower idle-info# console print : C6 (DISABLED)   governor strategy Check Available CPU Governors 12345# Run the following command to check available">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux tune">
 <meta property="og:url" content="https://www.willshirley.top/2025/01/21/linux%20tune/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="cpugovernor strategy Check Available CPU Governors 12345# Run the following command to check available CPU governors:cat &#x2F;sys&#x2F;devices&#x2F;system&#x2F;cpu&#x2F;cpu0&#x2F;cpufreq&#x2F;scaling_available_governors# You should se">
+<meta property="og:description" content="cpuidle policy12345cpupower idle-set -D 3# checkcpupower idle-info# console print : C6 (DISABLED)   governor strategy Check Available CPU Governors 12345# Run the following command to check available">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-01-21T02:43:04.000Z">
-<meta property="article:modified_time" content="2026-01-05T11:08:46.983Z">
+<meta property="article:modified_time" content="2026-02-09T03:11:15.962Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tune">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.1.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#idle-policy"><span class="toc-number">1.1.</span> <span class="toc-text">idle policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.2.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li></ol>
       </div>
     
   </span>
@@ -166,7 +166,9 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h1><h2 id="governor-strategy"><a href="#governor-strategy" class="headerlink" title="governor strategy"></a>governor strategy</h2><ul>
+    <h1 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h1><h2 id="idle-policy"><a href="#idle-policy" class="headerlink" title="idle policy"></a>idle policy</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cpupower idle-set -D 3</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">cpupower idle-info</span><br><span class="line"><span class="meta">#</span><span class="bash"> console <span class="built_in">print</span> : C6 (DISABLED)</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="governor-strategy"><a href="#governor-strategy" class="headerlink" title="governor strategy"></a>governor strategy</h2><ul>
 <li><p>Check Available CPU Governors</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Run the following <span class="built_in">command</span> to check available CPU governors:</span></span><br><span class="line">cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You should see something like below info:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> conservative ondemand userspace powersave performance schedutil</span></span><br></pre></td></tr></table></figure></li>
 <li><p>Check Current CPU Governor</p>
@@ -322,7 +324,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.1.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#idle-policy"><span class="toc-number">1.1.</span> <span class="toc-text">idle policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.2.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li></ol>
       </div>
     
 
