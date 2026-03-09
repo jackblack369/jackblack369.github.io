@@ -14,7 +14,7 @@
 <meta property="og:description" content="image123456789101112131415# v3.13quay.io&#x2F;cephcsi&#x2F;cephcsi:canaryregistry.k8s.io&#x2F;sig-storage&#x2F;csi-node-driver-registrar:v2.13.0registry.k8s.io&#x2F;sig-storage&#x2F;csi-provisioner:v5.1.0registry.k8s.io&#x2F;sig-storag">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-26T06:14:17.000Z">
-<meta property="article:modified_time" content="2025-11-03T09:48:50.722Z">
+<meta property="article:modified_time" content="2026-03-03T10:38:41.907Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="csi">
 <meta name="twitter:card" content="summary">
@@ -188,6 +188,7 @@
 </ul>
 <h2 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h2><blockquote>
 <p>Requires subvolumegroup to be created before provisioning the PVC. If the subvolumegroup provided in <code>ceph-csi-config</code> ConfigMap is missing in the ceph cluster, the PVC creation will fail and will stay in <code>Pending</code> state.</p>
+<p>We do NOT need to manually mount CephFS on the worker node host. The Ceph CSI driver (deployed as a DaemonSet called  csi-cephfsplugin ) handles all mounting automatically on each worker node on behalf of your pods.<br>The CSI node plugin performs a staged mount on the host at a path like  <strong>/var/lib/kubelet/plugins/cephfs.csi.ceph.com/…</strong> , then bind-mounts it into the target pod’s filesystem. This is entirely managed by the CSI driver — you never touch  /etc/fstab  or run  mount  manually.</p>
 </blockquote>
 <h3 id="dynamic-provision"><a href="#dynamic-provision" class="headerlink" title="dynamic provision"></a>dynamic provision</h3><ul>
 <li><p>step1 </p>

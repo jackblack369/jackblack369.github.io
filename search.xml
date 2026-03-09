@@ -2894,6 +2894,7 @@
 </ul>
 <h2 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h2><blockquote>
 <p>Requires subvolumegroup to be created before provisioning the PVC. If the subvolumegroup provided in <code>ceph-csi-config</code> ConfigMap is missing in the ceph cluster, the PVC creation will fail and will stay in <code>Pending</code> state.</p>
+<p>We do NOT need to manually mount CephFS on the worker node host. The Ceph CSI driver (deployed as a DaemonSet called  csi-cephfsplugin ) handles all mounting automatically on each worker node on behalf of your pods.<br>The CSI node plugin performs a staged mount on the host at a path like  <strong>/var/lib/kubelet/plugins/cephfs.csi.ceph.com/…</strong> , then bind-mounts it into the target pod’s filesystem. This is entirely managed by the CSI driver — you never touch  /etc/fstab  or run  mount  manually.</p>
 </blockquote>
 <h3 id="dynamic-provision"><a href="#dynamic-provision" class="headerlink" title="dynamic provision"></a>dynamic provision</h3><ul>
 <li><p>step1 </p>
@@ -4601,6 +4602,24 @@
 </ul>
 <h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><ul>
 <li>节点时间需要同步（延迟需要在5秒内），不然starrocks无法扩容FE节点</li>
+</ul>
+<h1 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h1><h2 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h2><p><strong>Step 1: Add the MongoDB Repository</strong></p>
+<p>Open your terminal and create a new repository file using <code>nano</code> or <code>vi</code>:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/yum.repos.d/mongodb-org-8.0.repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[mongodb-org-8.0]</span></span><br><span class="line"><span class="attr">name</span>=MongoDB Repository</span><br><span class="line"><span class="attr">baseurl</span>=https://repo.mongodb.org/yum/redhat/<span class="variable">$releasever</span>/mongodb-org/<span class="number">8.0</span>/x<span class="number">86_64</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=https://pgp.mongodb.com/server-<span class="number">8.0</span>.asc</span><br></pre></td></tr></table></figure>
+<p><strong>Step 2: Install MongoDB</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># yum or dnf </span></span><br><span class="line">sudo yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>init admin user</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mongosh</span><br><span class="line"></span><br><span class="line">use admin</span><br><span class="line"></span><br><span class="line">db.createUser(&#123;</span><br><span class="line">  user: &quot;admin&quot;,</span><br><span class="line">  pwd: &quot;weiwei&quot;,</span><br><span class="line">  roles: [</span><br><span class="line">    &#123; role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; &#125;,</span><br><span class="line">    &#123; role: &quot;readWriteAnyDatabase&quot;, db: &quot;admin&quot; &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>enable security</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># /etc/mongod.conf</span></span><br><span class="line"></span><br><span class="line"><span class="attr">security:</span></span><br><span class="line">  <span class="attr">authorization:</span> <span class="string">enabled</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>Step 3: Start and Enable the Service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl start mongod</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> mongod</span><br><span class="line">sudo systemctl status mongod</span><br></pre></td></tr></table></figure>
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><ul>
+<li><p>change password</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mongosh &quot;mongodb://admin:weiwei@localhost:27017/admin&quot;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="tools"><a href="#tools" class="headerlink" title="tools"></a>tools</h1><h2 id="logstash"><a href="#logstash" class="headerlink" title="logstash"></a>logstash</h2><ul>
 <li><p>Logstash Forwarder/Beats负责在源服务器上收集日志数据，然后将数据发送到集中式的Logstash或Kafka服务器。</p>
@@ -11257,6 +11276,11 @@
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用网站cookie文件</span></span><br><span class="line">yt-dlp -x --audio-format mp3 --audio-quality 0 --cookies www.youtube.com_cookies.txt &quot;xxx&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> URL <span class="string">&quot;&quot;</span> 里面不能使用转义字符<span class="string">&#x27;\&#x27;</span> (注意修改拷贝浏览器网页的URL信息)</span></span><br><span class="line">yt-dlp -x --audio-format mp3 --audio-quality 0 &quot;https://youtube.com/watch?v=...&quot; </span><br><span class="line">或者</span><br><span class="line">yt-dlp -x --audio-format mp3 --audio-quality 0 https://www.youtube.com/watch?v=...</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If the video is more than 10 hours, consider forcing best audio stream:</span></span><br><span class="line">yt-dlp -f bestaudio --extract-audio --audio-format mp3 &quot;https://www.youtube.com/watch?v=...&quot;</span><br></pre></td></tr></table></figure>
 
+<h2 id="pandoc"><a href="#pandoc" class="headerlink" title="pandoc"></a>pandoc</h2><blockquote>
+<p>convert doc to markdown</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Basic conversion</span></span><br><span class="line">pandoc document.docx -o document.md</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> GitHub Flavored Markdown (GFM)</span></span><br><span class="line">pandoc document.docx -t gfm -o document.md</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Extract embedded images to a folder</span></span><br><span class="line">pandoc document.docx --extract-media=./images -o document.md</span><br></pre></td></tr></table></figure>
+
 <h1 id="soft"><a href="#soft" class="headerlink" title="soft"></a>soft</h1><p><a href="https://github.com/jaywcjlove/awesome-mac?tab=readme-ov-file#markdown-tools">awesome-mac</a></p>
 <h2 id="wechat"><a href="#wechat" class="headerlink" title="wechat"></a>wechat</h2><ul>
 <li><p>在系统语言设置english的情况下，设置微信的language</p>
@@ -12310,6 +12334,16 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">stopped 70802e06e7ae92ef5ac6cf2e90655988949f74799c088afe3589b2031e2371f7</span><br><span class="line">panic: runtime error: invalid memory address or nil pointer dereference</span><br><span class="line">[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x564e3393c85b]</span><br></pre></td></tr></table></figure></li>
 <li><p>solution</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span> </span><br><span class="line">echo $XDG_RUNTIME_DIR</span><br><span class="line"><span class="meta">#</span><span class="bash"> If empty, <span class="built_in">set</span> it:  <span class="built_in">export</span> XDG_RUNTIME_DIR=/run/user/$(id -u)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Make sure user linger is enabled</span></span><br><span class="line">loginctl enable-linger $USER</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Restart systemd user services</span></span><br><span class="line">systemctl --user daemon-reexec</span><br><span class="line">systemctl --user restart podman</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Clean up rootless storage/socket</span></span><br><span class="line">rm -rf $XDG_RUNTIME_DIR/podman</span><br><span class="line">rm -rf $XDG_RUNTIME_DIR/libpod</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If still stuck, consider resetting container storage:</span></span><br><span class="line">podman --log-level=debug system reset</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="podman-ps-issue"><a href="#podman-ps-issue" class="headerlink" title="podman ps issue"></a><code>podman ps</code> issue</h2><ul>
+<li><p>warning</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">WARN[0000] The cgroupv2 manager is set to systemd but there is no systemd user session available</span><br><span class="line">WARN[0000] For using systemd, you may need to log in using a user session</span><br><span class="line">WARN[0000] Alternatively, you can enable lingering with: `loginctl enable-linger 1001` (possibly as root)</span><br><span class="line">WARN[0000] Falling back to --cgroup-manager=cgroupfs  </span><br></pre></td></tr></table></figure></li>
+<li><p>solution</p>
+<p><strong>vim ~/.bashrc</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export XDG_RUNTIME_DIR=/run/user/$(id -u)</span><br><span class="line">export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus</span><br></pre></td></tr></table></figure>
+
+<p><strong>Switch Cgroup Manager to cgroupfs</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">cat &gt;&gt; ~/.config/containers/containers.conf &lt;&lt; EOF</span><br><span class="line">[engine]</span><br><span class="line">cgroup_manager = &quot;cgroupfs&quot;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -14299,6 +14333,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fsck /dev/mapper/ubuntu--vg-ubuntu--lv</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">When prompted, <span class="built_in">type</span> y to accept each fix suggestion, or a to fix all.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Once fsck completes successfully, reboot the system:</span></span><br><span class="line">exec reboot -f</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="A-fatal-error-was-detected-on-a-component-at-bus-0-device-2-function-0"><a href="#A-fatal-error-was-detected-on-a-component-at-bus-0-device-2-function-0" class="headerlink" title="A fatal error was detected on a component at bus 0 device 2 function 0."></a>A fatal error was detected on a component at bus 0 device 2 function 0.</h2><ul>
+<li><p>locate the root cause</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check previous boot time</span></span><br><span class="line">journalctl --list-boots</span><br><span class="line"><span class="meta">#</span><span class="bash">.e.g.</span></span><br><span class="line"> -1 14737a98ed604f8b8dcfc5979b650b95 Thu 2026-02-26 16:21:43 CST—Thu 2026-03-05 15:40:50 CST</span><br><span class="line">  0 7f7498d4ddad4560a0b0550389be76d3 Thu 2026-03-05 15:45:27 CST—Thu 2026-03-05 16:33:10 CST</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> locate the roote cause</span></span><br><span class="line">journalctl -b -1 -n 100 </span><br></pre></td></tr></table></figure></li>
 <li><p>identify what device is at <code>bus 0 device 2 function 0</code>:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lspci -s 00:02.0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">e.g. console <span class="built_in">print</span></span></span><br><span class="line">00:02.0 PCI bridge: Intel Corporation Xeon E7 v4/Xeon E5 v4/Xeon E3 v4/Xeon D PCI Express Root Port 2 (rev 01)</span><br></pre></td></tr></table></figure></li>
 <li><p>list all PCI devices hierarchically and see what’s attached behind the 00:02.0 bridge:</p>
@@ -18474,6 +18510,71 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>TiKV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Claude Code</title>
+    <url>/2026/03/01/AI%20Agent-Claude%20Code/</url>
+    <content><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p> <a href="https://claude.md/">CLAUDE.md</a>是 Claude 每次启动时都会读的文件。你写什么规则，Claude 就按什么方式跟你工作。</p>
+<h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Claude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不动任何代码。</p>
+<h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>子代理是独立的 Claude 实例，在自己的上下文窗口里干活。它把结果汇报回来，但不占用你主会话的白板空间。用法极其简单，在任何调研任务后面加一句 “use subagents” 就行.</p>
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>vibe coding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>unsloth</title>
+    <url>/2026/03/06/AI%20FT-unsloth/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>Fine-tune</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ollama</title>
+    <url>/2026/03/04/AI%20Agent-Ollama/</url>
+    <content><![CDATA[<h1 id="entrypoint"><a href="#entrypoint" class="headerlink" title="entrypoint"></a>entrypoint</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:11434</span><br></pre></td></tr></table></figure>
+
+<h1 id="Third-party"><a href="#Third-party" class="headerlink" title="Third-party"></a>Third-party</h1><h2 id="openclaw"><a href="#openclaw" class="headerlink" title="openclaw"></a>openclaw</h2><p>You can easily connect OpenClaw to your local Ollama model. Because OpenClaw requires an API key for all its integrations—even when connecting to local, unauthenticated services like Ollama—you simply need to provide a dummy key.[2][6]</p>
+<h2 id="Method-1-Ollama-Launch"><a href="#Method-1-Ollama-Launch" class="headerlink" title="Method 1: Ollama Launch"></a>Method 1: Ollama Launch</h2><p>Ollama recently introduced a native integration command for OpenClaw that handles the setup for you.[4][5]</p>
+<ol>
+<li>Ensure Ollama is running and you have downloaded a model (e.g., <code>ollama pull qwen3:8b</code>).[8]</li>
+<li>Open your terminal and run: <code>ollama launch openclaw</code>.</li>
+<li>Ollama will automatically install OpenClaw (if needed), set up the necessary background gateway, configure the dummy API key, and let you select your downloaded local model from a menu.</li>
+</ol>
+<h2 id="Method-2-Manual"><a href="#Method-2-Manual" class="headerlink" title="Method 2: Manual"></a>Method 2: Manual</h2><p>If you prefer to configure OpenClaw manually or are integrating it into an existing setup, you can set the dummy key yourself using environment variables or OpenClaw’s config file.</p>
+<ol>
+<li><strong>Set the Environment Variable:</strong> Before starting OpenClaw, export a fake API key. Any string will work.[15][2]<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> OLLAMA_API_KEY=<span class="string">&quot;ollama-local&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>Start the OpenClaw Gateway:</strong> With the environment variable active, start the gateway.[8]<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openclaw gateway</span><br></pre></td></tr></table></figure></li>
+<li><strong>Configure via CLI (Alternative):</strong> Alternatively, you can permanently save the dummy key into OpenClaw’s configuration file.[9][2]<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openclaw config <span class="built_in">set</span> models.providers.ollama.apiKey <span class="string">&quot;ollama-local&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>Once the dummy key is set, OpenClaw will automatically discover the models available on your local Ollama instance (running at <code>http://127.0.0.1:11434</code>) and allow you to use them without any external API calls.</p>
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>Agent</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenClaw</title>
+    <url>/2026/03/02/AI%20Agent-OpenClaw/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>Agent</tag>
       </tags>
   </entry>
 </search>
