@@ -344,28 +344,6 @@
       </tags>
   </entry>
   <entry>
-    <title>GPU learn</title>
-    <url>/2024/03/08/GPU%20learn/</url>
-    <content><![CDATA[<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
-<li><p>查看卡的数量</p>
-<p><code>nvidia-smi -L</code></p>
-</li>
-<li><p>查看显卡上运行的程序，以及所占内存情况</p>
-<p><code>nvidia-smi --query-compute-apps=pid,process_name,used_memory,gpu_uuid --format=csv</code></p>
-</li>
-<li><p>查看显卡所剩内存</p>
-<p><code>nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits</code></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>GPU</category>
-      </categories>
-      <tags>
-        <tag>learn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JVM Command</title>
     <url>/2023/03/06/JVM%20command/</url>
     <content><![CDATA[<h1 id="实践一-查看进程参数"><a href="#实践一-查看进程参数" class="headerlink" title="实践一: 查看进程参数"></a>实践一: 查看进程参数</h1><blockquote>
@@ -1489,8 +1467,7 @@
     <url>/2024/06/24/ansible%20snippet/</url>
     <content><![CDATA[<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> (optional) install pip</span></span><br><span class="line">python3 -m ensurepip --upgrade</span><br><span class="line">python3 -m pip --version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config pip <span class="built_in">source</span> ( pip version &gt; 10.0.0)</span></span><br><span class="line">python3 -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">python3 -m pip install  ansible # or with &#x27;--user&#x27; which just install on current user </span><br></pre></td></tr></table></figure>
 
-
-
+<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><h2 id="changed-when-false"><a href="#changed-when-false" class="headerlink" title="changed_when: false"></a><code>changed_when: false</code></h2><p>The <code>command</code> and <code>shell</code> modules default to reporting <code>changed: true</code> because Ansible cannot know if the command modified the system. If you run a read-only command (like <code>grep</code> or <code>df</code>), you should use <code>changed_when: false</code>.</p>
 ]]></content>
       <categories>
         <category>ansible</category>
@@ -10504,6 +10481,9 @@
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> dir1 to dir2 注意传输的是 dir1中的文件到 dir2目录下（而不是传输dir1目录到dir2目录）</span></span><br><span class="line">rclone copy dir1 dir2 \  </span><br><span class="line">	--create-empty-src-dirs \</span><br><span class="line">  --transfers=32 --checkers=32 \</span><br><span class="line">  --fast-list --no-traverse \</span><br><span class="line">  --log-file=rclone_copy.log --progress \</span><br><span class="line">  --metadata</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one big file</span></span><br><span class="line">rclone copy \</span><br><span class="line">  --progress \  </span><br><span class="line">  --create-empty-src-dirs \# Monitor transfer</span><br><span class="line">  --buffer-size=512M \             # Increase buffer size (adjust based on RAM)</span><br><span class="line">  --transfers=10 \                 # Parallel file transfers (uses CPU cores)</span><br><span class="line">  --multi-thread-streams=10 \      # Split file into concurrent streams</span><br><span class="line">  --retries=10 \                   # Retry on failures</span><br><span class="line">  --low-level-retries=20 \         # Retry on transient errors</span><br><span class="line">  --fast-list \                    # Speed up directory listings (if applicable)</span><br><span class="line">  --metadata \ 										 # preserves permissions (modes), Access Control Lists (ACLs), ownership (UID/GID), and advanced timestamps (accessed/created/modified)</span><br><span class="line">  /path/to/source/file \           # Source file path</span><br><span class="line">  remote:destination/path          # Target remote</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. big file</span></span><br><span class="line">rclone copy \</span><br><span class="line">  --progress \</span><br><span class="line">  --create-empty-src-dirs \</span><br><span class="line">  --buffer-size=512M \</span><br><span class="line">  --transfers=30 \</span><br><span class="line">  --multi-thread-streams=30 \</span><br><span class="line">  --retries=5 \</span><br><span class="line">  --low-level-retries=10 \</span><br><span class="line">  --fast-list \</span><br><span class="line">  --metadata \</span><br><span class="line">  /dingofs/data/userdata \</span><br><span class="line">  /dingofs/data1/userdata</span><br><span class="line"><span class="meta">  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> large small files</span></span><br><span class="line">rclone copy /mnt/source/ /mnt/destination/ \</span><br><span class="line">  --progress \</span><br><span class="line">  --create-empty-src-dirs \</span><br><span class="line">  --transfers=30 \               # Max parallel file transfers</span><br><span class="line">  --checkers=30 \                # Parallel file checks/listing</span><br><span class="line">  --buffer-size=16M \            # Smaller buffers for small files</span><br><span class="line">  --multi-thread-streams=0 \     # Disable chunking (small files)</span><br><span class="line">  --fast-list \                  # Reduce memory for directory listings</span><br><span class="line">  --no-traverse \                # Skip scanning destination</span><br><span class="line">  --max-backlog=100000 \         # Keep the pipeline full</span><br><span class="line">  --retries=10 \               </span><br><span class="line">  --low-level-retries=20 \</span><br><span class="line">  --log-level=INFO \</span><br><span class="line">  --log-file=rclone.log \</span><br><span class="line">  --drive-use-trash=false \      # If using Google Drive (optional)</span><br><span class="line">  --checksum                    # Keep for integrity (or remove for speed)</span><br><span class="line">  --metadata</span><br></pre></td></tr></table></figure>
 
+<p>To prove that all your actual file data is safely on the target, you can ask <code>rclone</code> to count the logical bytes rather than relying on the operating system’s disk usage metrics.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rclone size /mnt/data1 # --exclude &quot;/.stats&quot;</span><br><span class="line">rclone size /mnt/data2</span><br></pre></td></tr></table></figure>
+
 <h2 id="parallel"><a href="#parallel" class="headerlink" title="parallel"></a>parallel</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /path/to/source/ -maxdepth 1 -type d | parallel -j 8 &#x27;rclone copy &#123;&#125; /path/to/target/&#123;/&#125; --transfers=32 --checkers=32 --fast-list --buffer-size=512M --max-backlog=100000 --use-mmap --no-traverse --stats=30s --log-file=rclone_&#123;/&#125;.log&#x27;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -15590,7 +15570,7 @@ So later in the script, you can safely loop through options using:
 <td>same</td>
 </tr>
 </tbody></table>
-<h1 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h1><table>
+<h1 id="window"><a href="#window" class="headerlink" title="window"></a>window</h1><table>
 <thead>
 <tr>
 <th>功能</th>
@@ -15604,7 +15584,7 @@ So later in the script, you can safely loop through options using:
 <td>Same</td>
 </tr>
 </tbody></table>
-<h1 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h1><table>
+<h1 id="pane"><a href="#pane" class="headerlink" title="pane"></a>pane</h1><table>
 <thead>
 <tr>
 <th>功能</th>
@@ -15614,21 +15594,26 @@ So later in the script, you can safely loop through options using:
 </thead>
 <tbody><tr>
 <td>调整窗格大小</td>
-<td>Ctrl + b, Esc + 方向键</td>
+<td><code>Ctrl + b</code>, <code>Esc + 方向键</code></td>
 <td>Ctrl + b, Ctrl + 方向键</td>
 </tr>
 <tr>
 <td>窗格内容翻页</td>
-<td>Ctrl + b, (Fn + 上下键) 或 PgUp/PgDn</td>
+<td><code>Ctrl + b</code>, (Fn + 上下键) 或 <code>PgUp/PgDn</code></td>
 <td>Ctrl + b, Ctrl + 上下键</td>
 </tr>
 <tr>
+<td>Quick Next</td>
+<td><code>Ctrl+b</code> → <code>o</code></td>
 <td></td>
-<td></td>
+</tr>
+<tr>
+<td>Toggle Last</td>
+<td><code>Ctrl+b</code> → <code>;</code></td>
 <td></td>
 </tr>
 </tbody></table>
-<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><table>
+<h1 id="other"><a href="#other" class="headerlink" title="other"></a>other</h1><table>
 <thead>
 <tr>
 <th>功能</th>
@@ -15648,7 +15633,7 @@ So later in the script, you can safely loop through options using:
 </tr>
 </tbody></table>
 <h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><code>ctrl + b</code> 然后按下<code>:</code></p>
-<h2 id="会话-session"><a href="#会话-session" class="headerlink" title="会话(session)"></a>会话(session)</h2><ul>
+<h2 id="session-1"><a href="#session-1" class="headerlink" title="session"></a>session</h2><ul>
 <li><p>创建会话</p>
 <p><code>new-session -s &lt;session name&gt;</code> </p>
 </li>
@@ -15662,7 +15647,7 @@ So later in the script, you can safely loop through options using:
 <p><code>ctrl+b, f</code></p>
 </li>
 </ul>
-<h2 id="窗口-window"><a href="#窗口-window" class="headerlink" title="窗口(window)"></a>窗口(window)</h2><ul>
+<h2 id="window-1"><a href="#window-1" class="headerlink" title="window"></a>window</h2><ul>
 <li><p>快速定位指定编号的窗口</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 定位编号小于10的窗口</span></span><br><span class="line">Ctrl + b &lt;index&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定位编号大于等于10的窗口</span></span><br><span class="line">Ctrl + b</span><br><span class="line">&#x27; (single quote)</span><br><span class="line">14</span><br><span class="line">Enter</span><br></pre></td></tr></table></figure></li>
 <li><p>交换窗口位置</p>
@@ -15675,7 +15660,7 @@ So later in the script, you can safely loop through options using:
 <p><code>select-window -n &lt;window name&gt;</code></p>
 </li>
 </ul>
-<h2 id="窗格-pane"><a href="#窗格-pane" class="headerlink" title="窗格(pane)"></a>窗格(pane)</h2><ul>
+<h2 id="pane-1"><a href="#pane-1" class="headerlink" title="pane"></a>pane</h2><ul>
 <li><p>分割窗格</p>
 <p><code>split-window -h</code> 水平</p>
 <p><code>split-window -v</code> 垂直</p>
@@ -18771,6 +18756,51 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>mouseless</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenAI Codex</title>
+    <url>/2026/04/13/Agent%20Codex/</url>
+    <content><![CDATA[<h1 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h1><p><strong>install</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g @openai/codex</span><br></pre></td></tr></table></figure>
+
+<p><strong>config ~/.codex/config.toml</strong></p>
+<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="attr">model_provider</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">model</span> = <span class="string">&quot;gpt-5&quot;</span></span><br><span class="line"><span class="comment"># high medium low minimal</span></span><br><span class="line"><span class="attr">model_reasoning_effort</span> = <span class="string">&quot;high&quot;</span></span><br><span class="line"><span class="attr">disable_response_storage</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># config provider </span></span><br><span class="line"><span class="section">[model_providers.xxx]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">base_url</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">wire_api</span> = <span class="string">&quot;responses&quot;</span></span><br><span class="line"><span class="attr">requires_openai_auth</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>~/.codex/auth.json</strong></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;OPENAI_API_KEY&quot;</span>: <span class="string">&quot;your API Key&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>bootstrap</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">codex </span><br><span class="line">or</span><br><span class="line">codex -m gpt-5-codex</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>vibe coding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nvidia GPU</title>
+    <url>/2024/03/08/nvidia%20GPU/</url>
+    <content><![CDATA[<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
+<li><p>查看卡的数量</p>
+<p><code>nvidia-smi -L</code></p>
+</li>
+<li><p>查看显卡上运行的程序，以及所占内存情况</p>
+<p><code>nvidia-smi --query-compute-apps=pid,process_name,used_memory,gpu_uuid --format=csv</code></p>
+</li>
+<li><p>查看显卡所剩内存</p>
+<p><code>nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>GPU</category>
+      </categories>
+      <tags>
+        <tag>learn</tag>
       </tags>
   </entry>
 </search>
