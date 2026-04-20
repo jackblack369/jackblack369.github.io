@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="env12export ANTHROPIC_BASE_URL&#x3D;&quot;xxx&quot;export ANTHROPIC_AUTH_TOKEN&#x3D;&quot;xxx&quot;  CLAUDE.md CLAUDE.md是 Claude 每次启动时都会读的文件。你写什么规则，Claude 就按什么方式跟你工作。 Plan ModeClaude Code 有一个 Plan Mode，按 Shift+">
+    <meta name="description" content="env12export ANTHROPIC_BASE_URL&#x3D;&quot;xxx&quot;export ANTHROPIC_AUTH_TOKEN&#x3D;&quot;xxx&quot;  CLAUDE.mduse &#x2F;init init CLAUDE.md Plan ModeClaude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude Code">
 <meta property="og:url" content="https://www.willshirley.top/2026/03/01/AI%20Agent-Claude%20Code/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="env12export ANTHROPIC_BASE_URL&#x3D;&quot;xxx&quot;export ANTHROPIC_AUTH_TOKEN&#x3D;&quot;xxx&quot;  CLAUDE.md CLAUDE.md是 Claude 每次启动时都会读的文件。你写什么规则，Claude 就按什么方式跟你工作。 Plan ModeClaude Code 有一个 Plan Mode，按 Shift+">
+<meta property="og:description" content="env12export ANTHROPIC_BASE_URL&#x3D;&quot;xxx&quot;export ANTHROPIC_AUTH_TOKEN&#x3D;&quot;xxx&quot;  CLAUDE.mduse &#x2F;init init CLAUDE.md Plan ModeClaude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-02-28T16:16:00.000Z">
-<meta property="article:modified_time" content="2026-03-03T01:44:33.187Z">
+<meta property="article:modified_time" content="2026-04-20T05:57:52.108Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="vibe coding">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#env"><span class="toc-number">1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CLAUDE-md"><span class="toc-number">2.</span> <span class="toc-text">CLAUDE.md</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Plan-Mode"><span class="toc-number">3.</span> <span class="toc-text">Plan Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subagents"><span class="toc-number">4.</span> <span class="toc-text">subagents</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#env"><span class="toc-number">1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CLAUDE-md"><span class="toc-number">2.</span> <span class="toc-text">CLAUDE.md</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Plan-Mode"><span class="toc-number">3.</span> <span class="toc-text">Plan Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subagents"><span class="toc-number">4.</span> <span class="toc-text">subagents</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#skill"><span class="toc-number">5.</span> <span class="toc-text">skill</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#caveman"><span class="toc-number">5.1.</span> <span class="toc-text">caveman</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -168,9 +168,13 @@
   <div class="content e-content" itemprop="articleBody">
     <h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
 
-<h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p> <a target="_blank" rel="noopener" href="https://claude.md/">CLAUDE.md</a>是 Claude 每次启动时都会读的文件。你写什么规则，Claude 就按什么方式跟你工作。</p>
+<h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p>use <code>/init</code> init <a target="_blank" rel="noopener" href="https://claude.md/">CLAUDE.md</a></p>
 <h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Claude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不动任何代码。</p>
 <h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>子代理是独立的 Claude 实例，在自己的上下文窗口里干活。它把结果汇报回来，但不占用你主会话的白板空间。用法极其简单，在任何调研任务后面加一句 “use subagents” 就行.</p>
+<h1 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h1><h2 id="caveman"><a href="#caveman" class="headerlink" title="caveman"></a><a target="_blank" rel="noopener" href="https://github.com/JuliusBrussee/caveman">caveman</a></h2><blockquote>
+<p>save tokens</p>
+</blockquote>
+<p>use <code>/caveman</code> to make Claude type less, and use <code>/caveman:compress</code> to give Claude less to read.</p>
 
   </div>
 </article>
@@ -202,7 +206,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#env"><span class="toc-number">1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CLAUDE-md"><span class="toc-number">2.</span> <span class="toc-text">CLAUDE.md</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Plan-Mode"><span class="toc-number">3.</span> <span class="toc-text">Plan Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subagents"><span class="toc-number">4.</span> <span class="toc-text">subagents</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#env"><span class="toc-number">1.</span> <span class="toc-text">env</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CLAUDE-md"><span class="toc-number">2.</span> <span class="toc-text">CLAUDE.md</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Plan-Mode"><span class="toc-number">3.</span> <span class="toc-text">Plan Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#subagents"><span class="toc-number">4.</span> <span class="toc-text">subagents</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#skill"><span class="toc-number">5.</span> <span class="toc-text">skill</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#caveman"><span class="toc-number">5.1.</span> <span class="toc-text">caveman</span></a></li></ol></li></ol>
       </div>
     
 
