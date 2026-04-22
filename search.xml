@@ -3783,7 +3783,9 @@
 <p>while <strong>ENTRYPOINT</strong> is executed after the image has been built.</p>
 </li>
 </ul>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><h2 id="check"><a href="#check" class="headerlink" title="check"></a>check</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看正在运行</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 资源占用</span> </span><br><span class="line">docker stats --no-stream</span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --rm -it &lt;imageID&gt; /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="check"><a href="#check" class="headerlink" title="check"></a>check</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看正在运行</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 资源占用</span> </span><br><span class="line">docker stats --no-stream</span><br></pre></td></tr></table></figure>
 
 <h2 id="run"><a href="#run" class="headerlink" title="run"></a>run</h2><blockquote>
 <p>docker run is a higher-level command that combines multiple subcommands (docker create, docker start, docker exec, etc.) into a single step.</p>
@@ -14053,7 +14055,7 @@
 <h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">timedatectl</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>UTC（Coordinated Universal Time ）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。</p>
+<li><p><strong>UTC</strong>（Coordinated Universal Time ）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。</p>
 <ul>
 <li><p>UTC is the global standard for timekeeping.</p>
 </li>
@@ -14065,18 +14067,21 @@
 </li>
 </ul>
 </li>
-<li><p>GMT（Greenwich Mean Time）是格林尼治时间，没有夏令时调整。</p>
+<li><p><strong>GMT</strong>（Greenwich Mean Time）是格林尼治时间，没有夏令时调整。</p>
 <ul>
 <li>GMT was historically the global time standard but has largely been replaced by UTC.</li>
 </ul>
 </li>
-<li><p>UTC+N or GMT+N</p>
+<li><p><strong>UTC+N</strong> or <strong>GMT+N</strong></p>
 <ul>
 <li>In most practical cases, <strong>UTC+N</strong> and <strong>GMT+N</strong> are equivalent.</li>
 <li>Refers to a time zone that is <strong>N hours ahead of UTC (Coordinated Universal Time)</strong>.</li>
 <li><strong>UTC+N</strong> is the modern term and is more precise in technical or scientific contexts (e.g., aviation, computing, telecommunications).</li>
 <li><strong>GMT+N</strong> is an older term that is still widely recognized but less commonly used in formal applications.</li>
 </ul>
+</li>
+<li><p><strong>CST</strong></p>
+<p><code>CST</code> can mean different things depending on the machine’s timezone setting. In many Asia-based Linux environments it means <strong>China Standard Time</strong> (<code>UTC+8</code>), e.g.<code>Tue Apr 21 03:33:07 PM CST 2026</code></p>
 </li>
 </ul>
 <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><ul>
@@ -16009,38 +16014,72 @@ So later in the script, you can safely loop through options using:
   <entry>
     <title>words fragment</title>
     <url>/2018/08/28/words%20fragment/</url>
-    <content><![CDATA[<h3 id="英文碎片"><a href="#英文碎片" class="headerlink" title="英文碎片"></a>英文碎片</h3><ul>
-<li>Life is measured by thought and action, not by time.</li>
-<li>Books and friends should be few but good.</li>
-<li>Don’t give your past the power to define your future.</li>
-<li>People will forget what you said, people will forget what you did, but people will never forget how you made them feel.</li>
-<li>Success isn’t about being the best. It’s about always getting better.</li>
-<li>Be yourself. Everyone else is already taken.</li>
-<li>It’s kind of fun to do the impossible.</li>
-<li>“Simplicity is the ultimate sophistication.”Leonardo da Vinci</li>
-<li>Build a dream and the dream will build you.</li>
-<li>Always make a total effort, even when the odds are against you.</li>
-<li>You can, you should, and if you’re brave enough to start, you will.</li>
-<li>Never give up, for that is just the place and time that the tide will turn.</li>
-<li>Awareness is the greatest agent for change.</li>
-<li>Nothing can dim the light which shines from within.</li>
-<li>Our dreams can come true if we have the courage to pursue them.</li>
-<li>Patience and perseverance have a magical effect before which difficulties disappear and obstacles vanish.</li>
-<li>What you do makes a difference, and you have to decide what kind of difference you want to make.</li>
-<li>The thing that is really hard, and really amazing, is giving up on being perfect and beginning the work of becoming yourself.</li>
-<li>You are what you do, not what you say you’ll do.</li>
-<li>This is the real secret to life—to be completely engaged with what you are doing in the here and now. And instead of calling it work, realize it is play.</li>
-<li>I am strong because I’ve been weak. I am fearless because I’ve been afraid. I am wise because I’ve been foolish.</li>
-<li>Every moment you live in the past is a moment you waste in the present.</li>
-<li>Some changes look negative on the surface, but you will soon realize that space is being created in your life for something new to emerge.</li>
-<li>The world breaks everyone and afterward many are strong at the broken places.</li>
-<li>Don’t bury your failures. Let them inspire you.</li>
-<li>Whether you think you can or you think you can’t, you are right.</li>
-<li>“An investment in knowledge pays the best interest.”Benjamin Franklin</li>
-<li>Be brave. Take risks. Nothing can substitute experience.</li>
-<li>Learn to walk before run</li>
-<li>This is love, deep in the trenches, worthy of respect, admiration and gratitude.</li>
-<li>You will learn more in three days of acting than in six months of researching.</li>
+    <content><![CDATA[<h1 id="letter"><a href="#letter" class="headerlink" title="letter"></a>letter</h1><ul>
+<li><p>Life is measured by thought and action, not by time.</p>
+</li>
+<li><p>Books and friends should be few but good.</p>
+</li>
+<li><p>Don’t give your past the power to define your future.</p>
+</li>
+<li><p>People will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p>
+</li>
+<li><p>Success isn’t about being the best. It’s about always getting better.</p>
+</li>
+<li><p>Be yourself. Everyone else is already taken.</p>
+</li>
+<li><p>It’s kind of fun to do the impossible.</p>
+</li>
+<li><p>“Simplicity is the ultimate sophistication.”Leonardo da Vinci</p>
+</li>
+<li><p>Build a dream and the dream will build you.</p>
+</li>
+<li><p>Always make a total effort, even when the odds are against you.</p>
+</li>
+<li><p>You can, you should, and if you’re brave enough to start, you will.</p>
+</li>
+<li><p>Never give up, for that is just the place and time that the tide will turn.</p>
+</li>
+<li><p>Awareness is the greatest agent for change.</p>
+</li>
+<li><p>Nothing can dim the light which shines from within.</p>
+</li>
+<li><p>Our dreams can come true if we have the courage to pursue them.</p>
+</li>
+<li><p>Patience and perseverance have a magical effect before which difficulties disappear and obstacles vanish.</p>
+</li>
+<li><p>What you do makes a difference, and you have to decide what kind of difference you want to make.</p>
+</li>
+<li><p>The thing that is really hard, and really amazing, is giving up on being perfect and beginning the work of becoming yourself.</p>
+</li>
+<li><p>You are what you do, not what you say you’ll do.</p>
+</li>
+<li><p>This is the real secret to life—to be completely engaged with what you are doing in the here and now. And instead of calling it work, realize it is play.</p>
+</li>
+<li><p>I am strong because I’ve been weak. I am fearless because I’ve been afraid. I am wise because I’ve been foolish.</p>
+</li>
+<li><p>Every moment you live in the past is a moment you waste in the present.</p>
+</li>
+<li><p>Some changes look negative on the surface, but you will soon realize that space is being created in your life for something new to emerge.</p>
+</li>
+<li><p>The world breaks everyone and afterward many are strong at the broken places.</p>
+</li>
+<li><p>Don’t bury your failures. Let them inspire you.</p>
+</li>
+<li><p>Whether you think you can or you think you can’t, you are right.</p>
+</li>
+<li><p>“An investment in knowledge pays the best interest.”Benjamin Franklin</p>
+</li>
+<li><p>Be brave. Take risks. Nothing can substitute experience.</p>
+</li>
+<li><p>Learn to walk before run</p>
+</li>
+<li><p>This is love, deep in the trenches, worthy of respect, admiration and gratitude.</p>
+</li>
+<li><p>You will learn more in three days of acting than in six months of researching.</p>
+</li>
+<li><p>“𝘐 𝘳𝘢𝘯 𝘪𝘯𝘵𝘰 𝘭𝘰𝘷𝘦 𝘣𝘦𝘤𝘢𝘶𝘴𝘦 𝘐 𝘯𝘦𝘦𝘥𝘦𝘥 𝘪𝘵 𝘵𝘰 𝘥𝘦𝘴𝘵𝘳𝘰𝘺 𝘸𝘩𝘰 𝘐 𝘶𝘴𝘦𝘥 𝘵𝘰 𝘣𝘦.”</p>
+<p>“𝘛𝘸𝘰 𝘪𝘯𝘵𝘦𝘭𝘭𝘪𝘨𝘦𝘯𝘵 𝘱𝘦𝘰𝘱𝘭𝘦 𝘤𝘢𝘯𝘯𝘰𝘵 𝘧𝘢𝘭𝘭 𝘪𝘯 𝘭𝘰𝘷𝘦; 𝘵𝘳𝘶𝘦 𝘭𝘰𝘷𝘦 𝘯𝘦𝘦𝘥𝘴 𝘰𝘯𝘦 𝘪𝘥𝘪𝘰𝘵.”  — 𝘍𝘺𝘰𝘥𝘰𝘳 𝘋𝘰𝘴𝘵𝘰𝘦𝘷𝘴𝘬𝘺</p>
+</li>
 </ul>
 <h3 id="中文碎片"><a href="#中文碎片" class="headerlink" title="中文碎片"></a>中文碎片</h3><ul>
 <li><p>虽千万人，吾往矣。</p>
