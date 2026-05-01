@@ -6,7 +6,7 @@
   <link href="https://www.willshirley.top/atom.xml" rel="self"/>
   
   <link href="https://www.willshirley.top/"/>
-  <updated>2026-04-12T16:13:46.102Z</updated>
+  <updated>2026-04-30T09:07:37.515Z</updated>
   <id>https://www.willshirley.top/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zellij</title>
+    <link href="https://www.willshirley.top/2026/04/30/zellij/"/>
+    <id>https://www.willshirley.top/2026/04/30/zellij/</id>
+    <published>2026-04-30T09:07:30.000Z</published>
+    <updated>2026-04-30T09:07:37.515Z</updated>
+    
+    
+    
+    
+    <category term="zellij" scheme="https://www.willshirley.top/categories/zellij/"/>
+    
+    
+    <category term="tool" scheme="https://www.willshirley.top/tags/tool/"/>
+    
+  </entry>
   
   <entry>
     <title>OpenAI Codex</title>
@@ -63,14 +80,14 @@
     <link href="https://www.willshirley.top/2026/03/04/AI%20Agent-Ollama/"/>
     <id>https://www.willshirley.top/2026/03/04/AI%20Agent-Ollama/</id>
     <published>2026-03-04T02:10:30.000Z</published>
-    <updated>2026-03-04T02:16:40.224Z</updated>
+    <updated>2026-04-30T10:42:15.162Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="entrypoint"><a href="#entrypoint" class="headerlink" title="entrypoint"></a>entrypoint</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:11434</span><br></pre></td></tr></table></figure><h1 id="Third-party"><a href="#Third-party" class="headerlink" title="Third-party"></a>Third-party</h1><h2 id="openclaw"><a href="#openclaw" class="headerlink" title="openclaw"></a>openclaw</h2><p>You can easily connect OpenClaw to your local Ollama model. Because OpenClaw requires an API key for all its integrations—even when connecting to local, unauthenticated services like Ollama—you simply need to provide a dummy key.[2][6]</p><h2 id="Method-1-Ollama-Launch"><a href="#Method-1-Ollama-Launch" class="headerlink" title="Method 1: Ollama Launch"></a>Method 1: Ollama Launch</h2><p>Ollama recently introduced a native integration command for OpenClaw that handles the setup for you.[4][5]</p><ol><li>Ensure Ollama is running and you have downloaded a model (e.g., <code>ollama pull qwen3:8b</code>).[8]</li><li>Open your terminal and run: <code>ollama launch openclaw</code>.</li><li>Ollama will automatically install OpenClaw (if needed), set up the necessary background gateway, configure the dummy API key, and let you select your downloaded local model from a menu.</li></ol><h2 id="Method-2-Manual"><a href="#Method-2-Manual" class="headerlink" title="Method 2: Manual"></a>Method 2: Manual</h2><p>If you prefer to configure OpenClaw manually or are integrating it into an existing setup, you can set the dummy key yourself using environment variables or OpenClaw’s config file.</p><ol><li><strong>Set the Environment Variable:</strong> Before starting OpenClaw, export a fake API key. Any string will work.[15][2]<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> OLLAMA_API_KEY=<span class="string">&quot;ollama-local&quot;</span></span><br></pre></td></tr></table></figure></li><li><strong>Start the OpenClaw Gateway:</strong> With the environment variable active, start the gateway.[8]<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw gateway</span><br></pre></td></tr></table></figure></li><li><strong>Configure via CLI (Alternative):</strong> Alternatively, you can permanently save the dummy key into OpenClaw’s configuration file.[9][2]<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw config <span class="built_in">set</span> models.providers.ollama.apiKey <span class="string">&quot;ollama-local&quot;</span></span><br></pre></td></tr></table></figure></li></ol><p>Once the dummy key is set, OpenClaw will automatically discover the models available on your local Ollama instance (running at <code>http://127.0.0.1:11434</code>) and allow you to use them without any external API calls.</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Launch"><a href="#Launch" class="headerlink" title="Launch"></a>Launch</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:11434</span><br></pre></td></tr></table></figure><h1 id="claude-code"><a href="#claude-code" class="headerlink" title="claude code"></a><a href="https://ollama.com/blog/claude">claude code</a></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANTHROPIC_AUTH_TOKEN=ollama</span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_BASE_URL=http://localhost:11434</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run Claude Code with an Ollama model</span></span><br><span class="line">claude --model gpt-oss:20b</span><br><span class="line">or</span><br><span class="line">claude --model glm-4.7:cloud</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;entrypoint&quot;&gt;&lt;a href=&quot;#entrypoint&quot; class=&quot;headerlink&quot; title=&quot;entrypoint&quot;&gt;&lt;/a&gt;entrypoint&lt;/h1&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;t</summary>
+    <summary type="html">&lt;h1 id=&quot;Launch&quot;&gt;&lt;a href=&quot;#Launch&quot; class=&quot;headerlink&quot; title=&quot;Launch&quot;&gt;&lt;/a&gt;Launch&lt;/h1&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut</summary>
       
     
     
@@ -104,9 +121,9 @@
     <link href="https://www.willshirley.top/2026/03/01/AI%20Agent-Claude%20Code/"/>
     <id>https://www.willshirley.top/2026/03/01/AI%20Agent-Claude%20Code/</id>
     <published>2026-02-28T16:16:00.000Z</published>
-    <updated>2026-04-20T05:57:52.108Z</updated>
+    <updated>2026-04-30T09:44:19.200Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure><h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p>use <code>/init</code> init <a href="https://claude.md/">CLAUDE.md</a></p><h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Claude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不动任何代码。</p><h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>子代理是独立的 Claude 实例，在自己的上下文窗口里干活。它把结果汇报回来，但不占用你主会话的白板空间。用法极其简单，在任何调研任务后面加一句 “use subagents” 就行.</p><h1 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h1><h2 id="caveman"><a href="#caveman" class="headerlink" title="caveman"></a><a href="https://github.com/JuliusBrussee/caveman">caveman</a></h2><blockquote><p>save tokens</p></blockquote><p>use <code>/caveman</code> to make Claude type less, and use <code>/caveman:compress</code> to give Claude less to read.</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure><h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p>use <code>/init</code> init <a href="https://claude.md/">CLAUDE.md</a></p><h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Claude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不动任何代码。</p><h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>TBD</p><h1 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h1><h2 id="superpowers"><a href="#superpowers" class="headerlink" title="superpowers"></a><a href="https://github.com/obra/superpowers">superpowers</a></h2><blockquote><p>An agentic skills framework &amp; software development methodology that works.</p></blockquote><h2 id="everything-claude-code"><a href="#everything-claude-code" class="headerlink" title="everything-claude-code"></a><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a></h2><blockquote><p>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add marketplace</span></span><br><span class="line">/plugin marketplace add https://github.com/affaan-m/everything-claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install plugin</span></span><br><span class="line">/plugin install everything-claude-code@everything-claude-code</span><br></pre></td></tr></table></figure><h2 id="claude-mem"><a href="#claude-mem" class="headerlink" title="claude-mem"></a><a href="https://github.com/thedotmack/claude-mem">claude-mem</a></h2><blockquote><p>A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude’s agent-sdk), and injects relevant context back into future sessions.</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install</span></span><br><span class="line">/plugin marketplace add thedotmack/claude-mem</span><br><span class="line"></span><br><span class="line">/plugin install claude-mem</span><br></pre></td></tr></table></figure><h2 id="caveman"><a href="#caveman" class="headerlink" title="caveman"></a><a href="https://github.com/JuliusBrussee/caveman">caveman</a></h2><blockquote><p>save tokens</p></blockquote><p>use <code>/caveman</code> to make Claude type less, and use <code>/caveman:compress</code> to give Claude less to read.</p><h2 id="ui-ux-pro-max-skill"><a href="#ui-ux-pro-max-skill" class="headerlink" title="ui-ux-pro-max-skill"></a><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">ui-ux-pro-max-skill</a></h2><blockquote><p>An AI SKILL that provide design intelligence for building professional UI/UX multiple platforms</p></blockquote>]]></content>
     
     
       
@@ -470,30 +487,6 @@
     
     
     <category term="snippet" scheme="https://www.willshirley.top/tags/snippet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>c++ tools</title>
-    <link href="https://www.willshirley.top/2025/06/06/c++%20tools/"/>
-    <id>https://www.willshirley.top/2025/06/06/c++%20tools/</id>
-    <published>2025-06-06T02:46:06.000Z</published>
-    <updated>2025-09-13T03:54:07.434Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="daignose-debug"><a href="#daignose-debug" class="headerlink" title="daignose/debug"></a>daignose/debug</h1><h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><h3 id="install-debug-tool"><a href="#install-debug-tool" class="headerlink" title="install debug tool"></a>install debug tool</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启用源</span></span><br><span class="line">sudo dnf config-manager --set-enabled baseos-debuginfo appstream-debuginfo crb-debuginfo devel-debuginfo</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upgrade</span></span><br><span class="line">sudo dnf upgrade glibc</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 避免使用docker源</span></span><br><span class="line">sudo dnf debuginfo-install --disablerepo=&#x27;docker*&#x27; glibc</span><br></pre></td></tr></table></figure><h2 id="Valgrind"><a href="#Valgrind" class="headerlink" title="Valgrind"></a>Valgrind</h2><h2 id="Systemtap"><a href="#Systemtap" class="headerlink" title="Systemtap"></a>Systemtap</h2><h2 id="FlameGraph"><a href="#FlameGraph" class="headerlink" title="FlameGraph"></a>FlameGraph</h2><p><a href="https://github.com/brendangregg/FlameGraph">https://github.com/brendangregg/FlameGraph</a>)</p><h2 id="pstack"><a href="#pstack" class="headerlink" title="pstack"></a>pstack</h2><h2 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h2><h2 id="perf"><a href="#perf" class="headerlink" title="perf"></a>perf</h2><h2 id="gperftools"><a href="#gperftools" class="headerlink" title="gperftools"></a>gperftools</h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;daignose-debug&quot;&gt;&lt;a href=&quot;#daignose-debug&quot; class=&quot;headerlink&quot; title=&quot;daignose/debug&quot;&gt;&lt;/a&gt;daignose/debug&lt;/h1&gt;&lt;h2 id=&quot;GDB&quot;&gt;&lt;a href=&quot;#GD</summary>
-      
-    
-    
-    
-    <category term="c++" scheme="https://www.willshirley.top/categories/c/"/>
-    
-    
-    <category term="tools" scheme="https://www.willshirley.top/tags/tools/"/>
     
   </entry>
   

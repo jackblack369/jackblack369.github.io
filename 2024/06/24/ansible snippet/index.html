@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="install123456789# (optional) install pippython3 -m ensurepip --upgradepython3 -m pip --version# config pip source ( pip version &gt; 10.0.0)python3 -m pip config set global.index-url https:&#x2F;&#x2F;mirrors.a">
+    <meta name="description" content="install123456789101112# (optional) install pip#python3 -m ensurepip --upgrade#python3 -m pip --version# or apt install python3-pip# config pip source ( pip version &gt; 10.0.0)python3 -m pip config se">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ansible">
 <meta property="og:url" content="https://www.willshirley.top/2024/06/24/ansible%20snippet/index.html">
 <meta property="og:site_name" content="Clean &amp; Focus">
-<meta property="og:description" content="install123456789# (optional) install pippython3 -m ensurepip --upgradepython3 -m pip --version# config pip source ( pip version &gt; 10.0.0)python3 -m pip config set global.index-url https:&#x2F;&#x2F;mirrors.a">
+<meta property="og:description" content="install123456789101112# (optional) install pip#python3 -m ensurepip --upgrade#python3 -m pip --version# or apt install python3-pip# config pip source ( pip version &gt; 10.0.0)python3 -m pip config se">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-24T03:28:21.000Z">
-<meta property="article:modified_time" content="2026-04-13T09:00:13.511Z">
+<meta property="article:modified_time" content="2026-04-27T11:36:34.022Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="devops">
 <meta name="twitter:card" content="summary">
@@ -166,7 +166,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> (optional) install pip</span></span><br><span class="line">python3 -m ensurepip --upgrade</span><br><span class="line">python3 -m pip --version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config pip <span class="built_in">source</span> ( pip version &gt; 10.0.0)</span></span><br><span class="line">python3 -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">python3 -m pip install  ansible # or with &#x27;--user&#x27; which just install on current user </span><br></pre></td></tr></table></figure>
+    <h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> (optional) install pip</span></span><br><span class="line"><span class="meta">#</span><span class="bash">python3 -m ensurepip --upgrade</span></span><br><span class="line"><span class="meta">#</span><span class="bash">python3 -m pip --version</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span> </span><br><span class="line">apt install python3-pip</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config pip <span class="built_in">source</span> ( pip version &gt; 10.0.0)</span></span><br><span class="line">python3 -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">python3 -m pip install ansible # or with &#x27;--user&#x27; which just install on current user </span><br></pre></td></tr></table></figure>
 
 <h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><h2 id="changed-when-false"><a href="#changed-when-false" class="headerlink" title="changed_when: false"></a><code>changed_when: false</code></h2><p>The <code>command</code> and <code>shell</code> modules default to reporting <code>changed: true</code> because Ansible cannot know if the command modified the system. If you run a read-only command (like <code>grep</code> or <code>df</code>), you should use <code>changed_when: false</code>.</p>
 

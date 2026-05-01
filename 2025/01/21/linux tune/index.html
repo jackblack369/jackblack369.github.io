@@ -14,7 +14,7 @@
 <meta property="og:description" content="cpuidle policy12345cpupower idle-set -D 3# checkcpupower idle-info# console print : C6 (DISABLED)   governor strategy Check Available CPU Governors 12345# Run the following command to check available">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-01-21T02:43:04.000Z">
-<meta property="article:modified_time" content="2026-02-09T03:11:15.962Z">
+<meta property="article:modified_time" content="2026-04-23T07:50:51.452Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="tune">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#idle-policy"><span class="toc-number">1.1.</span> <span class="toc-text">idle policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.2.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#idle-policy"><span class="toc-number">1.1.</span> <span class="toc-text">idle policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.2.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SELinux"><span class="toc-number">5.</span> <span class="toc-text">SELinux</span></a></li></ol>
       </div>
     
   </span>
@@ -293,6 +293,75 @@
 <p>Summary: Should You Configure HP &amp; THP Together?</p>
 <p>For performance-sensitive applications, it’s recommended to <strong>disable THP</strong> and <strong>manually configure Huge Pages (HP)</strong> for better performance.</p>
 <p>THP can cause latency spikes and memory fragmentation, making it less ideal for high-performance file systems.</p>
+<h1 id="SELinux"><a href="#SELinux" class="headerlink" title="SELinux"></a>SELinux</h1><table>
+<thead>
+<tr>
+<th align="left">Feature/Behavior</th>
+<th align="left">Enforcing Mode</th>
+<th align="left">Permissive Mode</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Primary Function</strong></td>
+<td align="left">Actively enforces the SELinux security policy. It protects the system by blocking unauthorized access facebook+1.</td>
+<td align="left">Consults the security policy but <strong>does not enforce it</strong>. It allows all actions to succeed cycle+1.</td>
+</tr>
+<tr>
+<td align="left"><strong>Action on Violation</strong></td>
+<td align="left"><strong>Blocks</strong> the action and writes a “denied” message to the system audit logs</td>
+<td align="left"><strong>Allows</strong> the action but still writes a “denied” warning to the system audit logs redhat+1.</td>
+</tr>
+<tr>
+<td align="left"><strong>Use Case</strong></td>
+<td align="left">Default mode for production servers. Ensures the system is secure and services cannot exceed their designated permissions facebook+1.</td>
+<td align="left">Troubleshooting and policy development. Used to identify what <em>would</em> be blocked without actually breaking the application fedoraproject+1.</td>
+</tr>
+<tr>
+<td align="left"><strong>Log Generation</strong></td>
+<td align="left">Stops at the first denial. The process is blocked immediately, so subsequent violations by that process are not logged</td>
+<td align="left">Logs multiple violations. Because the process is allowed to continue running, it generates a complete log of all potential violations</td>
+</tr>
+<tr>
+<td align="left"><strong>Temporary Switch Command</strong></td>
+<td align="left"><code>sudo setenforce 1</code></td>
+<td align="left"><code>sudo setenforce 0</code></td>
+</tr>
+</tbody></table>
+<p><strong>config Permissive Mode</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">Command</th>
+<th align="left">Scope</th>
+<th align="left">Reboot Needed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Temporary permissive</td>
+<td align="left"><code>sudo setenforce 0</code></td>
+<td align="left">System-wide</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Permanent permissive</td>
+<td align="left">Edit <code>/etc/selinux/config</code> → <code>SELINUX=permissive</code></td>
+<td align="left">System-wide</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Per-domain permissive</td>
+<td align="left"><code>sudo semanage permissive -a &lt;domain&gt;</code></td>
+<td align="left">Single service</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Back to enforcing</td>
+<td align="left"><code>sudo setenforce 1</code></td>
+<td align="left">System-wide</td>
+<td align="left">No</td>
+</tr>
+</tbody></table>
 
   </div>
 </article>
@@ -324,7 +393,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#idle-policy"><span class="toc-number">1.1.</span> <span class="toc-text">idle policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.2.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu"><span class="toc-number">1.</span> <span class="toc-text">cpu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#idle-policy"><span class="toc-number">1.1.</span> <span class="toc-text">idle policy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#governor-strategy"><span class="toc-number">1.2.</span> <span class="toc-text">governor strategy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nvme"><span class="toc-number">2.</span> <span class="toc-text">nvme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-scheduler"><span class="toc-number">2.1.</span> <span class="toc-text">I&#x2F;O scheduler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#open-file-size"><span class="toc-number">3.1.</span> <span class="toc-text">open file size</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HP-and-THP"><span class="toc-number">4.</span> <span class="toc-text">HP and THP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SELinux"><span class="toc-number">5.</span> <span class="toc-text">SELinux</span></a></li></ol>
       </div>
     
 
