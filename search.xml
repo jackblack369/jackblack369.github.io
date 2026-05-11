@@ -16237,6 +16237,8 @@ So later in the script, you can safely loop through options using:
 </li>
 <li><p>把每一次练习都当成一次考试</p>
 </li>
+<li><p>飞机飞到一定高度，就没有阴天了。其实人也一样，一切烦恼，都是因为高度不够。</p>
+</li>
 </ul>
 <h1 id="名人碎片"><a href="#名人碎片" class="headerlink" title="名人碎片"></a>名人碎片</h1><ul>
 <li>极深的暴力当中隐藏着极致的温柔    (北野武)</li>
@@ -18731,7 +18733,7 @@ So later in the script, you can safely loop through options using:
     <content><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
 
 <h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p>use <code>/init</code> init <a href="https://claude.md/">CLAUDE.md</a></p>
-<h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Claude Code 有一个 Plan Mode，按 Shift+Tab 切换。在这个模式下，Claude 只看文件、理清思路，不动任何代码。</p>
+<h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Shift+Tab ，Claude 只看文件、理清思路，不动任何代码。</p>
 <h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>TBD</p>
 <h1 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h1><h2 id="superpowers"><a href="#superpowers" class="headerlink" title="superpowers"></a><a href="https://github.com/obra/superpowers">superpowers</a></h2><blockquote>
 <p>An agentic skills framework &amp; software development methodology that works.</p>
@@ -19011,6 +19013,47 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hermes Agent</title>
+    <url>/2026/05/09/AI%20Agent-hermes/</url>
+    <content><![CDATA[<p><a href="https://github.com/nousresearch/hermes-agent">Hermes Agent</a></p>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>Installer</th>
+<th>Code lives at</th>
+<th><code>hermes</code> binary</th>
+<th>Data directory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Per-user (normal)</td>
+<td><code>~/.hermes/hermes-agent/</code></td>
+<td><code>~/.local/bin/hermes</code> (symlink)</td>
+<td><code>~/.hermes/</code></td>
+</tr>
+<tr>
+<td>Root-mode (`sudo curl …</td>
+<td>sudo bash`)</td>
+<td><code>/usr/local/lib/hermes-agent/</code></td>
+<td><code>/usr/local/bin/hermes</code></td>
+</tr>
+</tbody></table>
+<p>The root-mode <strong>FHS layout</strong> (<code>/usr/local/lib/…</code>, <code>/usr/local/bin/hermes</code>) matches where other system-wide developer tools land on Linux. It’s useful for shared-machine deployments where one system install should serve every user. Per-user config (auth, skills, sessions) still lives under each user’s <code>~/.hermes/</code> or explicit <code>HERMES_HOME</code>.</p>
+<h2 id="dir"><a href="#dir" class="headerlink" title="dir"></a>dir</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Settings:  /Users/dongwei/.hermes/config.yaml</span><br><span class="line">API Keys:  /Users/dongwei/.hermes/.env</span><br><span class="line">Data:      /Users/dongwei/.hermes/cron/, sessions/, logs/</span><br></pre></td></tr></table></figure>
+
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hermes              <span class="comment"># Interactive CLI — start a conversation</span></span><br><span class="line">hermes model        <span class="comment"># Choose your LLM provider and model</span></span><br><span class="line">hermes tools        <span class="comment"># Configure which tools are enabled</span></span><br><span class="line">hermes config <span class="built_in">set</span>   <span class="comment"># Set individual config values</span></span><br><span class="line">hermes gateway      <span class="comment"># Start the messaging gateway (Telegram, Discord, etc.)</span></span><br><span class="line">hermes setup        <span class="comment"># Run the full setup wizard (configures everything at once)</span></span><br><span class="line">hermes claw migrate <span class="comment"># Migrate from OpenClaw (if coming from OpenClaw)</span></span><br><span class="line">hermes update       <span class="comment"># Update to the latest version</span></span><br><span class="line">hermes doctor       <span class="comment"># Diagnose any issues</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>vibe coding</tag>
       </tags>
   </entry>
 </search>
