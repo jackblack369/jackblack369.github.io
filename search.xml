@@ -1465,9 +1465,19 @@
   <entry>
     <title>ansible</title>
     <url>/2024/06/24/ansible%20snippet/</url>
-    <content><![CDATA[<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> (optional) install pip</span></span><br><span class="line"><span class="meta">#</span><span class="bash">python3 -m ensurepip --upgrade</span></span><br><span class="line"><span class="meta">#</span><span class="bash">python3 -m pip --version</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span> </span><br><span class="line">apt install python3-pip</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config pip <span class="built_in">source</span> ( pip version &gt; 10.0.0)</span></span><br><span class="line">python3 -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">python3 -m pip install ansible # or with &#x27;--user&#x27; which just install on current user </span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><ul>
+<li><p>pip case</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># (optional) install pip</span></span><br><span class="line"><span class="comment">#python3 -m ensurepip --upgrade</span></span><br><span class="line"><span class="comment">#python3 -m pip --version</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">apt install python3-pip</span><br><span class="line"></span><br><span class="line"><span class="comment"># config pip source ( pip version &gt; 10.0.0)</span></span><br><span class="line">python3 -m pip config <span class="built_in">set</span> global.index-url https://mirrors.aliyun.com/pypi/simple</span><br><span class="line"></span><br><span class="line"><span class="comment"># install</span></span><br><span class="line">python3 -m pip install ansible <span class="comment"># or with &#x27;--user&#x27; which just install on current user </span></span><br></pre></td></tr></table></figure></li>
+<li><p>rocky case</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Rocky / RHEL / CentOS / Alma / Rocky</span></span><br><span class="line">sudo dnf install -y ansible</span><br></pre></td></tr></table></figure></li>
+<li><p>ubuntu case</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y software-properties-common</span><br><span class="line">sudo add-apt-repository --yes --update ppa:ansible/ansible</span><br><span class="line">sudo apt install -y ansible</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="uninstall"><a href="#uninstall" class="headerlink" title="uninstall"></a>uninstall</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pip install case</span></span><br><span class="line">python3 -m pip uninstall -y ansible ansible-core</span><br><span class="line"></span><br><span class="line"><span class="comment"># Rocky/RHEL/CentOS package case</span></span><br><span class="line">sudo dnf remove -y ansible ansible-core</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Debian package case</span></span><br><span class="line">sudo apt remove --purge -y ansible ansible-core</span><br><span class="line">sudo apt autoremove -y</span><br></pre></td></tr></table></figure>
 
 <h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><h2 id="changed-when-false"><a href="#changed-when-false" class="headerlink" title="changed_when: false"></a><code>changed_when: false</code></h2><p>The <code>command</code> and <code>shell</code> modules default to reporting <code>changed: true</code> because Ansible cannot know if the command modified the system. If you run a read-only command (like <code>grep</code> or <code>df</code>), you should use <code>changed_when: false</code>.</p>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># allocate specify node running task</span></span><br><span class="line">ansible-playbook xxx.yml --<span class="built_in">limit</span> &lt;hostName&gt;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>ansible</category>
@@ -19127,6 +19137,18 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>vibe coding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Feel Journal</title>
+    <url>/2026/06/02/%E2%98%80%EF%B8%8FFeel%20Journal/</url>
+    <content><![CDATA[<p><a href="https://sage-chair-bad.notion.site/FeelJournal-749b61971ce683c7a236818651d9a89d?source=copy_link">Feel Journal</a></p>
+]]></content>
+      <categories>
+        <category>Journal</category>
+      </categories>
+      <tags>
+        <tag>Feel</tag>
       </tags>
   </entry>
 </search>
