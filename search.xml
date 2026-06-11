@@ -2690,7 +2690,12 @@
   <entry>
     <title>c++ tools</title>
     <url>/2025/06/06/c++%20tools/</url>
-    <content><![CDATA[<h1 id="daignose-debug"><a href="#daignose-debug" class="headerlink" title="daignose/debug"></a>daignose/debug</h1><h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><h3 id="install-debug-tool"><a href="#install-debug-tool" class="headerlink" title="install debug tool"></a>install debug tool</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启用源</span></span><br><span class="line">sudo dnf config-manager --set-enabled baseos-debuginfo appstream-debuginfo crb-debuginfo devel-debuginfo</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upgrade</span></span><br><span class="line">sudo dnf upgrade glibc</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 避免使用docker源</span></span><br><span class="line">sudo dnf debuginfo-install --disablerepo=&#x27;docker*&#x27; glibc</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="build"><a href="#build" class="headerlink" title="build"></a>build</h1><h2 id="strip"><a href="#strip" class="headerlink" title="strip"></a>strip</h2><blockquote>
+<p>he <code>strip</code> utility removes debugging information, symbol tables, and other metadata from the compiled binary without altering its execution logic</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">strip --strip-all &lt;binary_file&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="daignose-debug"><a href="#daignose-debug" class="headerlink" title="daignose/debug"></a>daignose/debug</h1><h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><h3 id="install-debug-tool"><a href="#install-debug-tool" class="headerlink" title="install debug tool"></a>install debug tool</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启用源</span></span><br><span class="line">sudo dnf config-manager --set-enabled baseos-debuginfo appstream-debuginfo crb-debuginfo devel-debuginfo</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upgrade</span></span><br><span class="line">sudo dnf upgrade glibc</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 避免使用docker源</span></span><br><span class="line">sudo dnf debuginfo-install --disablerepo=&#x27;docker*&#x27; glibc</span><br></pre></td></tr></table></figure>
 
 <h2 id="Valgrind"><a href="#Valgrind" class="headerlink" title="Valgrind"></a>Valgrind</h2><h2 id="Systemtap"><a href="#Systemtap" class="headerlink" title="Systemtap"></a>Systemtap</h2><h2 id="FlameGraph"><a href="#FlameGraph" class="headerlink" title="FlameGraph"></a>FlameGraph</h2><p><a href="https://github.com/brendangregg/FlameGraph">https://github.com/brendangregg/FlameGraph</a>)</p>
 <h2 id="pstack"><a href="#pstack" class="headerlink" title="pstack"></a>pstack</h2><h2 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h2><h2 id="perf"><a href="#perf" class="headerlink" title="perf"></a>perf</h2><h2 id="gperftools"><a href="#gperftools" class="headerlink" title="gperftools"></a>gperftools</h2>]]></content>
@@ -7453,7 +7458,7 @@
 <ul>
 <li><p><a href="https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources">runner host</a></p>
 </li>
-<li><p>不同分支的workflow运行的yml是独立的</p>
+<li><p>不同分支的workflow运行的主action是独立的，但是它的trigger action是main分支控制的！</p>
 </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Developer commits code</span><br><span class="line">       ↓</span><br><span class="line">GitHub Action triggers &quot;build&quot;</span><br><span class="line">       ↓</span><br><span class="line">Artifacts built successfully</span><br><span class="line">       ↓</span><br><span class="line">&quot;publish&quot; job uploads to Maven/Nexus</span><br><span class="line">       ↓</span><br><span class="line">&quot;release&quot; job creates GitHub release for version/tag</span><br></pre></td></tr></table></figure>
@@ -7521,6 +7526,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试指定目录下的某个方法</span></span><br><span class="line">go test -v /path/to/package -run ^FuncName$</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. go <span class="built_in">test</span> -v ./http -run ^TestRunning$  <span class="comment"># 注意 &quot;./&quot; 这个是必须的</span></span></span><br></pre></td></tr></table></figure>
 
 <h1 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h1><ul>
+<li><p>build</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go build -o &lt;commandName&gt; &lt;codeName&gt;.go</span><br></pre></td></tr></table></figure></li>
 <li><p>install</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go install github.com/go-resty/resty/v2@xxx</span><br></pre></td></tr></table></figure></li>
 <li><p>errcheck</p>
@@ -12412,7 +12419,7 @@
 </blockquote>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">vim ~/.config/containers/storage.conf   # 普通用户默认采用的配置</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storge.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-&lt;userName&gt;/data&quot; # 普通用户和root用户的数据必须要区分开，不然会有目录权限操作的问题</span><br><span class="line">runroot = &quot;/mnt/podman-&lt;userName&gt;/run&quot; </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">vim ~/.config/containers/storage.conf   # 普通用户默认采用的配置</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-&lt;userName&gt;/data&quot; # 普通用户和root用户的数据必须要区分开，不然会有目录权限操作的问题</span><br><span class="line">runroot = &quot;/mnt/podman-&lt;userName&gt;/run&quot; </span><br></pre></td></tr></table></figure>
 
 <h2 id="enable-linger"><a href="#enable-linger" class="headerlink" title="enable linger"></a>enable linger</h2><blockquote>
 <p>Once linger is enabled,  systemd  will automatically start a background user manager for you at boot and will never shut it down when you close your SSH connection, keeping your containers alive indefinitely.</p>
@@ -12438,8 +12445,9 @@
 <li><p>Set ulimit when starting the container</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">podman run -it --ulimit nofile=1048576:1048576 your_image</span><br></pre></td></tr></table></figure></li>
 <li><p>Adjust host user limits (Edit <code>/etc/security/limits.conf</code> as root)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">your_username soft nofile 1048576</span><br><span class="line">your_username hard nofile 1048576</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">your_username soft nofile 1048576</span><br><span class="line">your_username hard nofile 1048576</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Soft <span class="built_in">limit</span>: max open files currently enforced</span></span><br><span class="line">ulimit -Sn</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hard <span class="built_in">limit</span>: max open files you are allowed to raise to</span></span><br><span class="line">ulimit -Hn</span><br></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="error-setting-rlimit-type-7-operation-not-permitted-OCI-permission-denied"><a href="#error-setting-rlimit-type-7-operation-not-permitted-OCI-permission-denied" class="headerlink" title="error setting rlimit type 7: operation not permitted: OCI permission denied"></a>error setting rlimit type 7: operation not permitted: OCI permission denied</h2><p>同上</p>
 <h2 id="Error-unable-to-start-container-“xxx”-crun-setrlimit-RLIMIT-NOFILE-Operation-not-permitted-OCI-permission-denied"><a href="#Error-unable-to-start-container-“xxx”-crun-setrlimit-RLIMIT-NOFILE-Operation-not-permitted-OCI-permission-denied" class="headerlink" title="Error: unable to start container “xxx”: crun: setrlimit RLIMIT_NOFILE: Operation not permitted: OCI permission denied"></a>Error: unable to start container “xxx”: crun: setrlimit <code>RLIMIT_NOFILE</code>: Operation not permitted: OCI permission denied</h2><blockquote>
 <p>Rootless Podman runs containers without root privileges and inherits the current user’s resource limits from the system . When a container’s  RLIMIT_NOFILE  (max open files) or  RLIMIT_NPROC  (max processes) configuration exceeds the user’s hard limits,  crun  (the OCI runtime) fails to apply them because non-root users cannot raise hard limits beyond system-defined values .</p>
 </blockquote>
@@ -15451,167 +15459,6 @@
       </tags>
   </entry>
   <entry>
-    <title>shell bash</title>
-    <url>/2024/07/30/shell%20bash/</url>
-    <content><![CDATA[<p><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
-<p>Bash Shell Scripting Definition</p>
-<ul>
-<li><p>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. </p>
-</li>
-<li><p>conclusion</p>
-<p>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</p>
-</li>
-</ul>
-<p><a href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
-<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="exit-code"><a href="#exit-code" class="headerlink" title="exit code"></a>exit code</h2><p>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</p>
-<h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Causes the script to exit immediately if any command fails (returns a non-zero status).</span><br></pre></td></tr></table></figure>
-
-<h2 id="set-x"><a href="#set-x" class="headerlink" title="set -x"></a>set -x</h2><blockquote>
-<p>​    1.    <strong>Debugging</strong>: When you’re trying to troubleshoot a script, set -x helps you see exactly what commands are being executed and in what order.</p>
-<p>​    2.    <strong>Selective Debugging</strong>: You can use set -x and set +x around specific parts of your script to narrow down the problematic sections.</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">echo &quot;This is a normal message&quot;</span><br><span class="line"></span><br><span class="line">set -x  # Start debugging from this point</span><br><span class="line">name=&quot;John&quot;</span><br><span class="line">echo &quot;Hello, $name&quot;</span><br><span class="line"></span><br><span class="line">set +x  # Stop debugging after this point</span><br><span class="line">echo &quot;Debugging mode is now off&quot;</span><br></pre></td></tr></table></figure>
-
-<p>output:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">This is a normal message</span><br><span class="line">+ name=John</span><br><span class="line">+ echo &#x27;Hello, John&#x27;</span><br><span class="line">Hello, John</span><br><span class="line">Debugging mode is now off</span><br></pre></td></tr></table></figure>
-
-<h2 id="shift-2"><a href="#shift-2" class="headerlink" title="shift 2"></a>shift 2</h2><ul>
-<li>Removes the first two positional parameters from command line arguments</li>
-<li>Shifts remaining parameters left by 2 positions</li>
-<li>Useful when processing command line options/arguments in loops</li>
-</ul>
-<h2 id="xx-xx"><a href="#xx-xx" class="headerlink" title="{xx..xx}"></a>{xx..xx}</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for node in node&#123;1..9&#125; node&#123;20..29&#125; ; do</span><br><span class="line">  echo -n &quot;$node: &quot;</span><br><span class="line">  kubectl get node &quot;$node&quot; -o jsonpath=&#x27;&#123;.spec.taints&#125;&#x27; || echo &quot;Not found&quot;</span><br><span class="line">  echo</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="parameter"><a href="#parameter" class="headerlink" title="parameter"></a>parameter</h2><ul>
-<li>The <code>$&#123;args[@]&#125;</code> syntax in bash is used to expand an array variable named <code>args</code></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Define an array</span></span><br><span class="line">args=(&quot;hello&quot; &quot;world&quot; &quot;test&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="variable">$&#123;args[@]&#125;</span> expands to all elements</span></span><br><span class="line">echo &quot;All arguments: $&#123;args[@]&#125;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> Output: All arguments: hello world <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li> <code>$&#123;!#&#125;</code> is a bash parameter expansion that gets the last command-line argument passed to the script.</li>
-</ul>
-<h2 id="sigle-quota-and-double-quota"><a href="#sigle-quota-and-double-quota" class="headerlink" title="sigle quota and double quota"></a>sigle quota and double quota</h2><p>single quotes <code>&#39;...&#39;</code> prevent the shell from expanding <code>$&#123;G_FSNAME&#125;</code>. As a result, the literal string <code>$&#123;G_FSNAME&#125;</code> is inserted instead of the value of the environment variable.<br>Use Double Quotes for Variable Expansion, to allow the shell to expand the variable</p>
-<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><ul>
-<li><p><code>-e</code></p>
-<p>By default, <code>echo</code> just prints the arguments as plain text. If use <code>echo -e</code>, the <code>-e</code> option tells <code>echo</code> to enable interpretation of special characters like <code>\n</code> (newline), <code>\t</code> (tab), <code>\\</code> (literal backslash), and others.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1\nline2</span><br><span class="line"></span><br><span class="line">echo -e &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1</span><br><span class="line">line2</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="numeric-operator"><a href="#numeric-operator" class="headerlink" title="numeric operator"></a>numeric operator</h2><ul>
-<li>-eq → equal (a -eq b)</li>
-<li>-ne → not equal</li>
-<li>-gt → greater than</li>
-<li>-lt → less than</li>
-<li>-ge → greater than or equal to</li>
-<li>-le → less than or equal to</li>
-</ul>
-<h2 id="trap"><a href="#trap" class="headerlink" title="trap"></a>trap</h2><p>trap is a built-in command that lets you <em>catch signals or shell events</em> and then run custom code when those signals/events happen. </p>
-<p>Normally, when your script receives a signal (like SIGINT from pressing <strong>Ctrl-C</strong>, or SIGTERM from kill), the shell just stops whatever it’s doing.With trap, you can intercept that and do cleanup first (remove temp files, stop background jobs, unmount, etc.).</p>
-<p><strong>role</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. Cleanup → remove temp files, close sockets, stop services.</span><br><span class="line">2. Graceful exit → handle Ctrl-C or kill properly.</span><br><span class="line">3. Debugging → log every command with trap DEBUG.</span><br><span class="line">4. Robust scripts → avoid leaving a mess behind.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Syntax</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">&#x27;commands&#x27;</span> → what you want to run when the signal happens.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> SIGNALS → one or more signals or special keywords.</span></span><br><span class="line">trap &#x27;commands&#x27; SIGNALS...</span><br></pre></td></tr></table></figure>
-
-<p><strong>example</strong></p>
-<ol>
-<li><p>Cleanup on exit</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">tmpfile=$(mktemp)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  Even <span class="keyword">if</span> you Ctrl-C or the script exits normally, the temp file gets removed.</span></span><br><span class="line">trap &#x27;rm -f &quot;$tmpfile&quot;&#x27; EXIT</span><br><span class="line"></span><br><span class="line">echo &quot;Working in $tmpfile&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">do</span> stuff</span></span><br></pre></td></tr></table></figure></li>
-<li><p>Handle Ctrl-C (SIGINT)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Now pressing Ctrl-C won’t abruptly <span class="built_in">kill</span> the script — it runs your custom handler.</span></span><br><span class="line">trap &#x27;echo &quot;Caught Ctrl-C, exiting cleanly&quot;; exit 1&#x27; INT</span><br><span class="line"></span><br><span class="line">while true; do</span><br><span class="line">  echo &quot;Running...&quot;</span><br><span class="line">  sleep 1</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
-<li><p>Multiple signals</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Catches SIGINT, SIGTERM, and SIGHUP and calls the cleanup <span class="keyword">function</span>.</span></span><br><span class="line">trap &#x27;cleanup&#x27; INT TERM HUP</span><br></pre></td></tr></table></figure></li>
-<li><p>Special keywords</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Bash provides keywords instead of signal names:</span></span><br><span class="line">- EXIT → runs when the script exits (any reason).</span><br><span class="line">- ERR → runs when a command fails (if set -e is enabled).</span><br><span class="line">- DEBUG → runs before every command.</span><br><span class="line">- RETURN → runs when a function returns.</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id=""><a href="#" class="headerlink" title="$!"></a>$!</h2><pre><code>•    When you run a command with  &amp;  at the end (e.g.,  python train.py &amp; ), it runs in the “background”, allowing the script to continue immediately without waiting for it to finish.
-•    The shell stores the unique ID (PID) of that background process in the special variable  $! .
-•    You can use  $!  to track, wait for, or kill that specific background process later in the script.
-</code></pre>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Run training <span class="keyword">in</span> the background</span></span><br><span class="line">python train.py &amp;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Store the PID <span class="keyword">in</span> a variable</span></span><br><span class="line">TRAIN_PID=$!</span><br><span class="line"></span><br><span class="line">echo &quot;Training started with PID: $TRAIN_PID&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Do other things...</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait <span class="keyword">for</span> the specific training process to finish</span></span><br><span class="line">wait $TRAIN_PID</span><br></pre></td></tr></table></figure>
-
-<h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
-<li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
-</ul>
-<h1 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h1><ul>
-<li><p>output of a script to a specified file</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup your_script.sh &gt; output.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>0: Standard input (stdin)</p>
-<p>1: Standard output (stdout)</p>
-<p>2: Standard error (stderr)</p>
-<p><strong>&gt;&amp;</strong>: This is used to redirect the output.</p>
-<p>&amp;: Puts the command in the background.</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="getopt"><a href="#getopt" class="headerlink" title="getopt"></a>getopt</h1><p><strong>**
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">local long_opts=&quot;role:,args:,help&quot;</span><br><span class="line">local args=getopt -o ra --long $long_opts -n &quot;$0&quot; -- &quot;$@&quot;</span><br><span class="line">eval set -- &quot;$&#123;args&#125;&quot;</span><br></pre></td></tr></table></figure>
-**</strong></p>
-<p>This snippet is a common pattern in <strong>Bash scripting</strong> to <strong>parse command-line options</strong> using getopt. Here’s a line-by-line breakdown:</p>
-<p><strong>Explanation:</strong></p>
-<p><code>local long_opts=&quot;role:,args:,help&quot;</code></p>
-<p>Defines <strong>long options</strong> supported by the script:</p>
-<ul>
-<li>role: means –role requires a value (e.g., –role=admin)</li>
-<li>args: means –args requires a value</li>
-<li>help means –help is a flag with <strong>no value</strong></li>
-</ul>
-<blockquote>
-<p>: means the option <strong>requires an argument</strong>; no colon means it’s a flag.</p>
-</blockquote>
-<p><code>local args=getopt -o ra –long $long_opts -n “$0” – “$@”</code></p>
-<ul>
-<li>-o ra: short options -r and -a are accepted</li>
-<li>–long $long_opts: specify long-form options (see above)</li>
-<li>-n “$0”: used for error messages (e.g., script name)</li>
-<li>– “$@”: separates option parsing from positional arguments</li>
-</ul>
-<p>This parses the options passed to the script and stores the <strong>normalized result</strong> in args.</p>
-<p><strong>**
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Example: ./myscript.sh --role=admin --args=val --help foo bar</span><br><span class="line">Output of getopt:</span><br><span class="line">--role admin --args val --help -- foo bar</span><br></pre></td></tr></table></figure>
-
-`eval set -- "${args}"`
-
-This re-sets the $1, $2, … positional parameters to the parsed list.
-
-So later in the script, you can safely loop through options using:
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while true; do</span><br><span class="line">  case &quot;$1&quot; in</span><br><span class="line">    --role) ROLE=$2; shift 2 ;;</span><br><span class="line">    --args) ARGS=$2; shift 2 ;;</span><br><span class="line">    --help) show_help; exit 0 ;;</span><br><span class="line">    --) shift; break ;;</span><br><span class="line">    *) echo &quot;Unknown option: $1&quot;; exit 1 ;;</span><br><span class="line">  esac</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-**</strong></p>
-<p><strong>Summary</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Line</strong></th>
-<th><strong>Purpose</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>long_opts=…</td>
-<td>Defines supported long options</td>
-</tr>
-<tr>
-<td>getopt …</td>
-<td>Parses CLI arguments</td>
-</tr>
-<tr>
-<td>eval set – …</td>
-<td>Makes parsed options available for normal while-case parsing</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>shell</category>
-      </categories>
-      <tags>
-        <tag>bash</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>spring aop</title>
     <url>/2017/12/18/spring%20aop/</url>
     <content><![CDATA[<h3 id="Architectural"><a href="#Architectural" class="headerlink" title="Architectural"></a>Architectural</h3><p><img src="https://www.baeldung.com/wp-content/uploads/2017/11/Program_Execution.jpg"></p>
@@ -18210,6 +18057,7 @@ So later in the script, you can safely loop through options using:
 </tbody></table>
 <h1 id="log"><a href="#log" class="headerlink" title="log"></a>log</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">journalctl -u kubelet -g &quot;&lt;key-words&gt;&quot;</span><br></pre></td></tr></table></figure>
 
+<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="restart-kubelet"><a href="#restart-kubelet" class="headerlink" title="restart kubelet"></a>restart kubelet</h2><p>Restart kubelet will not immediately kill an already-running pod, but it will block new volume mount activity on that node and can break pods that restart or need kubelet-driven remount/recovery until the CSI node plugin registers with kubelet again.</p>
 <h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="mount-pvc-which-is-absent"><a href="#mount-pvc-which-is-absent" class="headerlink" title="mount pvc which is absent"></a>mount pvc which is absent</h2><p>Kubelet runs <strong>multiple controllers</strong> in parallel:</p>
 <table>
 <thead>
@@ -19142,13 +18990,177 @@ So later in the script, you can safely loop through options using:
   <entry>
     <title>Feel Journal</title>
     <url>/2026/06/02/%E2%98%80%EF%B8%8FFeel%20Journal/</url>
-    <content><![CDATA[<p><a href="https://sage-chair-bad.notion.site/FeelJournal-749b61971ce683c7a236818651d9a89d?source=copy_link">Feel Journal</a></p>
-]]></content>
+    <content><![CDATA[]]></content>
       <categories>
         <category>Journal</category>
       </categories>
       <tags>
         <tag>Feel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shell bash</title>
+    <url>/2024/07/30/shell/</url>
+    <content><![CDATA[<p><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Tutorial for Beginners</a></p>
+<p>Bash Shell Scripting Definition</p>
+<ul>
+<li><p>Bash:Bourne-Again SHell<br>Bash is a command language interpreter. </p>
+</li>
+<li><p>conclusion</p>
+<p>Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.</p>
+</li>
+</ul>
+<p><a href="https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen">Bash scripting Tutorial</a></p>
+<h1 id="syntax"><a href="#syntax" class="headerlink" title="syntax"></a>syntax</h1><h2 id="exit-code"><a href="#exit-code" class="headerlink" title="exit code"></a>exit code</h2><p>the shell assigns its <strong>exit code</strong> to the <code>$?</code> environment variable. The <code>$?</code> variable is how we usually test whether a script has succeeded or not in its execution.</p>
+<h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Causes the script to exit immediately if any command fails (returns a non-zero status).</span><br></pre></td></tr></table></figure>
+
+<h2 id="set-x"><a href="#set-x" class="headerlink" title="set -x"></a>set -x</h2><blockquote>
+<p>​    1.    <strong>Debugging</strong>: When you’re trying to troubleshoot a script, set -x helps you see exactly what commands are being executed and in what order.</p>
+<p>​    2.    <strong>Selective Debugging</strong>: You can use set -x and set +x around specific parts of your script to narrow down the problematic sections.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">echo &quot;This is a normal message&quot;</span><br><span class="line"></span><br><span class="line">set -x  # Start debugging from this point</span><br><span class="line">name=&quot;John&quot;</span><br><span class="line">echo &quot;Hello, $name&quot;</span><br><span class="line"></span><br><span class="line">set +x  # Stop debugging after this point</span><br><span class="line">echo &quot;Debugging mode is now off&quot;</span><br></pre></td></tr></table></figure>
+
+<p>output:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">This is a normal message</span><br><span class="line">+ name=John</span><br><span class="line">+ echo &#x27;Hello, John&#x27;</span><br><span class="line">Hello, John</span><br><span class="line">Debugging mode is now off</span><br></pre></td></tr></table></figure>
+
+<h2 id="shift-2"><a href="#shift-2" class="headerlink" title="shift 2"></a>shift 2</h2><ul>
+<li>Removes the first two positional parameters from command line arguments</li>
+<li>Shifts remaining parameters left by 2 positions</li>
+<li>Useful when processing command line options/arguments in loops</li>
+</ul>
+<h2 id="xx-xx"><a href="#xx-xx" class="headerlink" title="{xx..xx}"></a>{xx..xx}</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for node in node&#123;1..9&#125; node&#123;20..29&#125; ; do</span><br><span class="line">  echo -n &quot;$node: &quot;</span><br><span class="line">  kubectl get node &quot;$node&quot; -o jsonpath=&#x27;&#123;.spec.taints&#125;&#x27; || echo &quot;Not found&quot;</span><br><span class="line">  echo</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="parameter"><a href="#parameter" class="headerlink" title="parameter"></a>parameter</h2><ul>
+<li>The <code>$&#123;args[@]&#125;</code> syntax in bash is used to expand an array variable named <code>args</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Define an array</span></span><br><span class="line">args=(&quot;hello&quot; &quot;world&quot; &quot;test&quot;)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="variable">$&#123;args[@]&#125;</span> expands to all elements</span></span><br><span class="line">echo &quot;All arguments: $&#123;args[@]&#125;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> Output: All arguments: hello world <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li> <code>$&#123;!#&#125;</code> is a bash parameter expansion that gets the last command-line argument passed to the script.</li>
+</ul>
+<h2 id="sigle-quota-and-double-quota"><a href="#sigle-quota-and-double-quota" class="headerlink" title="sigle quota and double quota"></a>sigle quota and double quota</h2><p>single quotes <code>&#39;...&#39;</code> prevent the shell from expanding <code>$&#123;G_FSNAME&#125;</code>. As a result, the literal string <code>$&#123;G_FSNAME&#125;</code> is inserted instead of the value of the environment variable.<br>Use Double Quotes for Variable Expansion, to allow the shell to expand the variable</p>
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><ul>
+<li><p><code>-e</code></p>
+<p>By default, <code>echo</code> just prints the arguments as plain text. If use <code>echo -e</code>, the <code>-e</code> option tells <code>echo</code> to enable interpretation of special characters like <code>\n</code> (newline), <code>\t</code> (tab), <code>\\</code> (literal backslash), and others.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1\nline2</span><br><span class="line"></span><br><span class="line">echo -e &quot;line1\nline2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> will output</span></span><br><span class="line">line1</span><br><span class="line">line2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="numeric-operator"><a href="#numeric-operator" class="headerlink" title="numeric operator"></a>numeric operator</h2><ul>
+<li>-eq → equal (a -eq b)</li>
+<li>-ne → not equal</li>
+<li>-gt → greater than</li>
+<li>-lt → less than</li>
+<li>-ge → greater than or equal to</li>
+<li>-le → less than or equal to</li>
+</ul>
+<h2 id="trap"><a href="#trap" class="headerlink" title="trap"></a>trap</h2><p>trap is a built-in command that lets you <em>catch signals or shell events</em> and then run custom code when those signals/events happen. </p>
+<p>Normally, when your script receives a signal (like SIGINT from pressing <strong>Ctrl-C</strong>, or SIGTERM from kill), the shell just stops whatever it’s doing.With trap, you can intercept that and do cleanup first (remove temp files, stop background jobs, unmount, etc.).</p>
+<p><strong>role</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. Cleanup → remove temp files, close sockets, stop services.</span><br><span class="line">2. Graceful exit → handle Ctrl-C or kill properly.</span><br><span class="line">3. Debugging → log every command with trap DEBUG.</span><br><span class="line">4. Robust scripts → avoid leaving a mess behind.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Syntax</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">&#x27;commands&#x27;</span> → what you want to run when the signal happens.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> SIGNALS → one or more signals or special keywords.</span></span><br><span class="line">trap &#x27;commands&#x27; SIGNALS...</span><br></pre></td></tr></table></figure>
+
+<p><strong>example</strong></p>
+<ol>
+<li><p>Cleanup on exit</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">tmpfile=$(mktemp)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  Even <span class="keyword">if</span> you Ctrl-C or the script exits normally, the temp file gets removed.</span></span><br><span class="line">trap &#x27;rm -f &quot;$tmpfile&quot;&#x27; EXIT</span><br><span class="line"></span><br><span class="line">echo &quot;Working in $tmpfile&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">do</span> stuff</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Handle Ctrl-C (SIGINT)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Now pressing Ctrl-C won’t abruptly <span class="built_in">kill</span> the script — it runs your custom handler.</span></span><br><span class="line">trap &#x27;echo &quot;Caught Ctrl-C, exiting cleanly&quot;; exit 1&#x27; INT</span><br><span class="line"></span><br><span class="line">while true; do</span><br><span class="line">  echo &quot;Running...&quot;</span><br><span class="line">  sleep 1</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li><p>Multiple signals</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Catches SIGINT, SIGTERM, and SIGHUP and calls the cleanup <span class="keyword">function</span>.</span></span><br><span class="line">trap &#x27;cleanup&#x27; INT TERM HUP</span><br></pre></td></tr></table></figure></li>
+<li><p>Special keywords</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Bash provides keywords instead of signal names:</span></span><br><span class="line">- EXIT → runs when the script exits (any reason).</span><br><span class="line">- ERR → runs when a command fails (if set -e is enabled).</span><br><span class="line">- DEBUG → runs before every command.</span><br><span class="line">- RETURN → runs when a function returns.</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id=""><a href="#" class="headerlink" title="$!"></a>$!</h2><pre><code>•    When you run a command with  &amp;  at the end (e.g.,  python train.py &amp; ), it runs in the “background”, allowing the script to continue immediately without waiting for it to finish.
+•    The shell stores the unique ID (PID) of that background process in the special variable  $! .
+•    You can use  $!  to track, wait for, or kill that specific background process later in the script.
+</code></pre>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Run training <span class="keyword">in</span> the background</span></span><br><span class="line">python train.py &amp;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Store the PID <span class="keyword">in</span> a variable</span></span><br><span class="line">TRAIN_PID=$!</span><br><span class="line"></span><br><span class="line">echo &quot;Training started with PID: $TRAIN_PID&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Do other things...</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait <span class="keyword">for</span> the specific training process to finish</span></span><br><span class="line">wait $TRAIN_PID</span><br></pre></td></tr></table></figure>
+
+<h1 id="point"><a href="#point" class="headerlink" title="point"></a>point</h1><ul>
+<li><code>(cd third-party &amp;&amp; ...)</code> 这样的语法，这是一个命令替换，它实质上是先临时改变到 <code>third-party</code> 目录执行里面的命令，然后脚本会继续在原先的目录中执行。</li>
+</ul>
+<h1 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h1><ul>
+<li><p>output of a script to a specified file</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nohup your_script.sh &gt; output.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>0: Standard input (stdin)</p>
+<p>1: Standard output (stdout)</p>
+<p>2: Standard error (stderr)</p>
+<p><strong>&gt;&amp;</strong>: This is used to redirect the output.</p>
+<p>&amp;: Puts the command in the background.</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="getopt"><a href="#getopt" class="headerlink" title="getopt"></a>getopt</h1><p><strong>**
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">local long_opts=&quot;role:,args:,help&quot;</span><br><span class="line">local args=getopt -o ra --long $long_opts -n &quot;$0&quot; -- &quot;$@&quot;</span><br><span class="line">eval set -- &quot;$&#123;args&#125;&quot;</span><br></pre></td></tr></table></figure>
+**</strong></p>
+<p>This snippet is a common pattern in <strong>Bash scripting</strong> to <strong>parse command-line options</strong> using getopt. Here’s a line-by-line breakdown:</p>
+<p><strong>Explanation:</strong></p>
+<p><code>local long_opts=&quot;role:,args:,help&quot;</code></p>
+<p>Defines <strong>long options</strong> supported by the script:</p>
+<ul>
+<li>role: means –role requires a value (e.g., –role=admin)</li>
+<li>args: means –args requires a value</li>
+<li>help means –help is a flag with <strong>no value</strong></li>
+</ul>
+<blockquote>
+<p>: means the option <strong>requires an argument</strong>; no colon means it’s a flag.</p>
+</blockquote>
+<p><code>local args=getopt -o ra –long $long_opts -n “$0” – “$@”</code></p>
+<ul>
+<li>-o ra: short options -r and -a are accepted</li>
+<li>–long $long_opts: specify long-form options (see above)</li>
+<li>-n “$0”: used for error messages (e.g., script name)</li>
+<li>– “$@”: separates option parsing from positional arguments</li>
+</ul>
+<p>This parses the options passed to the script and stores the <strong>normalized result</strong> in args.</p>
+<p><strong>**
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Example: ./myscript.sh --role=admin --args=val --help foo bar</span><br><span class="line">Output of getopt:</span><br><span class="line">--role admin --args val --help -- foo bar</span><br></pre></td></tr></table></figure>
+
+`eval set -- "${args}"`
+
+This re-sets the $1, $2, … positional parameters to the parsed list.
+
+So later in the script, you can safely loop through options using:
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while true; do</span><br><span class="line">  case &quot;$1&quot; in</span><br><span class="line">    --role) ROLE=$2; shift 2 ;;</span><br><span class="line">    --args) ARGS=$2; shift 2 ;;</span><br><span class="line">    --help) show_help; exit 0 ;;</span><br><span class="line">    --) shift; break ;;</span><br><span class="line">    *) echo &quot;Unknown option: $1&quot;; exit 1 ;;</span><br><span class="line">  esac</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+**</strong></p>
+<p><strong>Summary</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Line</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>long_opts=…</td>
+<td>Defines supported long options</td>
+</tr>
+<tr>
+<td>getopt …</td>
+<td>Parses CLI arguments</td>
+</tr>
+<tr>
+<td>eval set – …</td>
+<td>Makes parsed options available for normal while-case parsing</td>
+</tr>
+</tbody></table>
+<h1 id="PROMPT"><a href="#PROMPT" class="headerlink" title="PROMPT"></a>PROMPT</h1><h2 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$color_prompt</span>&quot;</span> = yes ]; <span class="keyword">then</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &#x27;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Ubuntu Default Bash Style (Green user/host, Blue path)</span></span><br><span class="line">PROMPT=<span class="string">&#x27;%F&#123;green&#125;%n@%m%f:%F&#123;blue&#125;%~%f%# &#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># High-Visibility (Neon Colors)</span></span><br><span class="line">PROMPT=<span class="string">&#x27;%F&#123;214&#125;%n%f@%F&#123;220&#125;%m%f %F&#123;33&#125;%~%f %# &#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Modern Minimal (Bold text)</span></span><br><span class="line">PROMPT=<span class="string">&#x27;%B%F&#123;magenta&#125;%n%f@%F&#123;cyan&#125;%m%f%b %F&#123;yellow&#125;%~%f %# &#x27;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>bash</tag>
       </tags>
   </entry>
 </search>

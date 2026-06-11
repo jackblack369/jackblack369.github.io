@@ -14,7 +14,7 @@
 <meta property="og:description" content="Test 你可以覆盖 100% 的代码行，但你永远无法覆盖 100% 的输入和状态组合   单元测试 (Unit Testing): 验证开发者对代码单元在预期输入下的行为。 模糊测试 (Fuzz Testing): 通过自动生成大量随机或变异输入，探索代码的边缘情况和未知缺陷。Go 1.18 已将 Fuzz Testing 内置到标准工具链中，这是一个强大的武器。 集成测试 (Integrati">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-10-22T03:07:23.000Z">
-<meta property="article:modified_time" content="2025-07-03T08:00:41.150Z">
+<meta property="article:modified_time" content="2026-06-08T10:20:03.013Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -184,6 +184,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试指定目录下的某个方法</span></span><br><span class="line">go test -v /path/to/package -run ^FuncName$</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. go <span class="built_in">test</span> -v ./http -run ^TestRunning$  <span class="comment"># 注意 &quot;./&quot; 这个是必须的</span></span></span><br></pre></td></tr></table></figure>
 
 <h1 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h1><ul>
+<li><p>build</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go build -o &lt;commandName&gt; &lt;codeName&gt;.go</span><br></pre></td></tr></table></figure></li>
 <li><p>install</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install github.com/go-resty/resty/v2@xxx</span><br></pre></td></tr></table></figure></li>
 <li><p>errcheck</p>
