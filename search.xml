@@ -12419,7 +12419,7 @@
 </blockquote>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">vim ~/.config/containers/storage.conf   # 普通用户默认采用的配置</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-&lt;userName&gt;/data&quot; # 普通用户和root用户的数据必须要区分开，不然会有目录权限操作的问题</span><br><span class="line">runroot = &quot;/mnt/podman-&lt;userName&gt;/run&quot; </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">podman info | grep &#x27;GraphRoot&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Edit Podman’s Storage Configuration</span></span><br><span class="line">mkdir -p ~/.config/containers</span><br><span class="line">vim ~/.config/containers/storage.conf   # 普通用户默认采用的配置</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit storage.conf</span></span><br><span class="line">[storage]</span><br><span class="line">driver = &quot;overlay&quot;</span><br><span class="line">graphroot = &quot;/mnt/podman-&lt;userName&gt;/data&quot; # 普通用户和root用户的数据必须要区分开，不然会有目录权限操作的问题</span><br><span class="line">runroot = &quot;/mnt/podman-&lt;userName&gt;/run&quot; </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chown</span></span><br><span class="line">sudo chown -R &lt;userName&gt;:&lt;userName&gt; /mnt/podman-&lt;userName&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="enable-linger"><a href="#enable-linger" class="headerlink" title="enable linger"></a>enable linger</h2><blockquote>
 <p>Once linger is enabled,  systemd  will automatically start a background user manager for you at boot and will never shut it down when you close your SSH connection, keeping your containers alive indefinitely.</p>
@@ -14330,6 +14330,52 @@
 
 <h2 id="Tree-view-all-process"><a href="#Tree-view-all-process" class="headerlink" title="Tree view all process"></a>Tree view all process</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pstree -g</span><br></pre></td></tr></table></figure>
 
+<h2 id="Verify-Process-Activity"><a href="#Verify-Process-Activity" class="headerlink" title="Verify Process Activity"></a>Verify Process Activity</h2><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">Command to Run</th>
+<th align="left">What it Checks</th>
+<th align="left">Signs of Activity</th>
+<th align="left">Signs of Hanging/Stuck</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>System Calls (<code>strace</code>)</strong></td>
+<td align="left"><code>strace -p &lt;pid&gt;</code></td>
+<td align="left">Real-time kernel interactions and I/O requests</td>
+<td align="left">Constant stream of <code>read()</code> and <code>write()</code> calls.</td>
+<td align="left">Output stalls entirely, often stuck on <code>select()</code> or <code>poll()</code>.</td>
+</tr>
+<tr>
+<td align="left"><strong>Disk I/O Stats (<code>/proc</code>)</strong></td>
+<td align="left"><code>watch -n 1 cat /proc/&lt;pid&gt;/io</code></td>
+<td align="left">Total bytes read/written by the process</td>
+<td align="left"><code>read_bytes</code> and <code>write_bytes</code> values continually increase.</td>
+<td align="left">Values remain static over multiple seconds.</td>
+</tr>
+<tr>
+<td align="left"><strong>Live Bandwidth (<code>iotop</code>)</strong></td>
+<td align="left"><code>iotop -p &lt;pid&gt;</code></td>
+<td align="left">Current disk read/write speeds.</td>
+<td align="left">Active MB/s or KB/s read/write speeds.</td>
+<td align="left">0.00 B/s for both read and write.</td>
+</tr>
+<tr>
+<td align="left"><strong>Kernel Stack (<code>/proc</code>)</strong></td>
+<td align="left"><code>cat /proc/&lt;pid&gt;/stack</code></td>
+<td align="left">The exact kernel function where the process is suspended</td>
+<td align="left">The output changes frequently upon repeated checks.</td>
+<td align="left">Persistently stuck on functions like <code>do_select</code> or <code>nfs_wait_bit_killable</code>.</td>
+</tr>
+<tr>
+<td align="left"><strong>Open Files (<code>lsof</code>)</strong></td>
+<td align="left"><code>lsof -p &lt;pid&gt;</code></td>
+<td align="left">The specific files or network sockets currently in use.</td>
+<td align="left">Shows the active file. (Combine with <code>ls -lh</code> to see if file grows).</td>
+<td align="left">File size/timestamp on the target file remains unchanged.</td>
+</tr>
+</tbody></table>
 <h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="略过gui提示"><a href="#略过gui提示" class="headerlink" title="略过gui提示"></a>略过gui提示</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=l apt install -y xxx</span><br></pre></td></tr></table></figure>
 
 <h2 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
@@ -14466,6 +14512,8 @@
 <p>a crash alone does not guarantee an entry in rasdaemon’s DB; only specific hardware error events that reach its tracepoints will update <code>ras-mc_event.db</code>.</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. Install the package</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install rasdaemon</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. Enable it to run <span class="keyword">in</span> the background</span></span><br><span class="line">sudo systemctl enable rasdaemon</span><br><span class="line">sudo systemctl start rasdaemon</span><br><span class="line">sudo systemctl enable ras-mc-ctl</span><br><span class="line">sudo systemctl start ras-mc-ctl</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> View Summary of Errors:</span></span><br><span class="line">ras-mc-ctl --errors</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> View Detailed Layout (DIMM Slots):</span></span><br><span class="line">ras-mc-ctl --mainboard</span><br></pre></td></tr></table></figure>
+
+<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># check specify config. e.g.</span></span><br><span class="line">systemctl show nvmeof-connect.service -p TimeoutStartUSec -p TimeoutStopUSec</span><br></pre></td></tr></table></figure>
 
 
 
@@ -18676,10 +18724,7 @@
     <url>/2026/03/01/AI%20Agent-Claude%20Code/</url>
     <content><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
 
-<h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p>use <code>/init</code> init <a href="https://claude.md/">CLAUDE.md</a></p>
-<h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Shift+Tab ，Claude 只看文件、理清思路，不动任何代码。</p>
-<h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>TBD</p>
-<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Rename current session</span></span><br><span class="line">/rename [name]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Resume by sesion name</span></span><br><span class="line">claude -r &quot;name&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># CLAUDE.md</span></span><br><span class="line"></span><br><span class="line">use `/init` init [CLAUDE.md](https://claude.md/)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plan Mode</span></span><br><span class="line"></span><br><span class="line">Shift+Tab ，Claude 只看文件、理清思路，不动任何代码。</span><br><span class="line"></span><br><span class="line"><span class="comment"># subagents</span></span><br><span class="line"></span><br><span class="line">TBD</span><br><span class="line"></span><br><span class="line"><span class="comment"># best practices</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## session</span></span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line"><span class="comment"># Rename current session</span></span><br><span class="line">/rename [name]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Resume by sesion name</span></span><br><span class="line">claude -r <span class="string">&quot;name&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="skill"><a href="#skill" class="headerlink" title="skill"></a>skill</h1><h2 id="superpowers"><a href="#superpowers" class="headerlink" title="superpowers"></a><a href="https://github.com/obra/superpowers">superpowers</a></h2><blockquote>
 <p>An agentic skills framework &amp; software development methodology that works.</p>
@@ -18687,7 +18732,7 @@
 <h2 id="everything-claude-code"><a href="#everything-claude-code" class="headerlink" title="everything-claude-code"></a><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a></h2><blockquote>
 <p>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add marketplace</span></span><br><span class="line">/plugin marketplace add https://github.com/affaan-m/everything-claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install plugin</span></span><br><span class="line">/plugin install everything-claude-code@everything-claude-code</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add marketplace</span></span><br><span class="line">/plugin marketplace add https://github.com/affaan-m/ECC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install plugin</span></span><br><span class="line">/plugin install ecc@ecc</span><br></pre></td></tr></table></figure>
 
 <h2 id="claude-mem"><a href="#claude-mem" class="headerlink" title="claude-mem"></a><a href="https://github.com/thedotmack/claude-mem">claude-mem</a></h2><blockquote>
 <p>A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude’s agent-sdk), and injects relevant context back into future sessions.</p>
@@ -18701,7 +18746,7 @@
 <h2 id="ui-ux-pro-max-skill"><a href="#ui-ux-pro-max-skill" class="headerlink" title="ui-ux-pro-max-skill"></a><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">ui-ux-pro-max-skill</a></h2><blockquote>
 <p>An AI SKILL that provide design intelligence for building professional UI/UX multiple platforms</p>
 </blockquote>
-]]></content>
+<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="API-Error-400-工具名称过长，请检查-mcp-plugin-everything-claude-code-github-create-pull-request-review"><a href="#API-Error-400-工具名称过长，请检查-mcp-plugin-everything-claude-code-github-create-pull-request-review" class="headerlink" title="API Error: 400 工具名称过长，请检查: mcp__plugin_everything-claude-code_github__create_pull_request_review"></a>API Error: 400 工具名称过长，请检查: mcp__plugin_everything-claude-code_github__create_pull_request_review</h2>]]></content>
       <categories>
         <category>AI</category>
       </categories>
