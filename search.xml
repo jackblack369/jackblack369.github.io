@@ -1476,7 +1476,10 @@
 <h1 id="uninstall"><a href="#uninstall" class="headerlink" title="uninstall"></a>uninstall</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pip install case</span></span><br><span class="line">python3 -m pip uninstall -y ansible ansible-core</span><br><span class="line"></span><br><span class="line"><span class="comment"># Rocky/RHEL/CentOS package case</span></span><br><span class="line">sudo dnf remove -y ansible ansible-core</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ubuntu/Debian package case</span></span><br><span class="line">sudo apt remove --purge -y ansible ansible-core</span><br><span class="line">sudo apt autoremove -y</span><br></pre></td></tr></table></figure>
 
 <h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><h2 id="changed-when-false"><a href="#changed-when-false" class="headerlink" title="changed_when: false"></a><code>changed_when: false</code></h2><p>The <code>command</code> and <code>shell</code> modules default to reporting <code>changed: true</code> because Ansible cannot know if the command modified the system. If you run a read-only command (like <code>grep</code> or <code>df</code>), you should use <code>changed_when: false</code>.</p>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># allocate specify node running task</span></span><br><span class="line">ansible-playbook xxx.yml --<span class="built_in">limit</span> &lt;hostName&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="list-nodes"><a href="#list-nodes" class="headerlink" title="list nodes"></a>list nodes</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># all nodes</span></span><br><span class="line">ansible all --list-hosts</span><br><span class="line"></span><br><span class="line"><span class="comment"># list specify group nodes</span></span><br><span class="line">ansible client_servers -i inventory/hosts.yaml --list-hosts</span><br></pre></td></tr></table></figure>
+
+<p><strong>run a quick command</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible &lt;pattern&gt; -m &lt;module&gt; -a <span class="string">&quot;&lt;arguments&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a single specific node using the shell module</span></span><br><span class="line">ansible all -m shell -a <span class="string">&quot;df -h | grep /dev/nvme&quot;</span> --<span class="built_in">limit</span> <span class="string">&quot;node1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on multiple specific nodes</span></span><br><span class="line">ansible all -m shell -a <span class="string">&quot;systemctl status kubelet&quot;</span> -l <span class="string">&quot;node1,node2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on an exact IP address</span></span><br><span class="line">ansible app_group -m shell -a <span class="string">&quot;podman ps -a&quot;</span> --<span class="built_in">limit</span> <span class="string">&quot;192.168.1.10&quot;</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -14264,7 +14267,7 @@
 <p><strong>Solution</strong>: Clear overloaded ssh-agent</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check loaded keys</span></span><br><span class="line">ssh-add -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Remove all</span></span><br><span class="line">ssh-add -D</span><br></pre></td></tr></table></figure>
 
-<h1 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h1><ul>
+<h1 id="firewall"><a href="#firewall" class="headerlink" title="firewall"></a>firewall</h1><h2 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h2><ul>
 <li><p>check status : <code>sudo ufw status</code></p>
 </li>
 <li><p>enable firewall: </p>
@@ -18796,6 +18799,8 @@
     <content><![CDATA[<blockquote>
 <p>verison: v0.4.3</p>
 </blockquote>
+<h1 id="install-upgrade"><a href="#install-upgrade" class="headerlink" title="install/upgrade"></a>install/upgrade</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">https://mouseless.click/<span class="comment">#download</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="config-window"><a href="#config-window" class="headerlink" title="config window"></a>config window</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> trigger</span></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
 
 <h1 id="grid-mode"><a href="#grid-mode" class="headerlink" title="grid mode"></a>grid mode</h1><table>
