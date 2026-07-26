@@ -1481,6 +1481,9 @@
 <h2 id="run-a-quick-command"><a href="#run-a-quick-command" class="headerlink" title="run a quick command"></a>run a quick command</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible &lt;pattern&gt; -m &lt;module&gt; -a <span class="string">&quot;&lt;arguments&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on a single specific node using the shell module</span></span><br><span class="line">ansible all -m shell -a <span class="string">&quot;df -h | grep /dev/nvme&quot;</span> --<span class="built_in">limit</span> <span class="string">&quot;node1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on multiple specific nodes</span></span><br><span class="line">ansible all -m shell -a <span class="string">&quot;systemctl status kubelet&quot;</span> -l <span class="string">&quot;node1,node2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run on an exact IP address</span></span><br><span class="line">ansible app_group -m shell -a <span class="string">&quot;podman ps -a&quot;</span> --<span class="built_in">limit</span> <span class="string">&quot;192.168.1.10&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="use-specify-inventory"><a href="#use-specify-inventory" class="headerlink" title="use specify inventory"></a>use specify inventory</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible-playbook -e <span class="string">&quot;@inventory/group_vars/xxx.yml&quot;</span> -i inventory/hosts-xx.yml playbooks/xxx.yml</span><br></pre></td></tr></table></figure>
+
+<h2 id="use-specify-group-nodes"><a href="#use-specify-group-nodes" class="headerlink" title="use specify group nodes"></a>use specify group nodes</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># against a different group</span></span><br><span class="line">ansible-playbook xxx.yml -e target_hosts=xxx</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>ansible</category>
@@ -7955,7 +7958,7 @@
 <p><strong>command</strong></p>
 <img src="/images/git/git command.JPG" style="zoom:100%">
 
-<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all config</span> </span><br><span class="line">git config --global --list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span> </span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> global config</span></span><br><span class="line">git config --global user.email &quot;you@example.com&quot;</span><br><span class="line">git config --global user.name &quot;Your Name&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> <span class="built_in">local</span> repo config</span></span><br><span class="line">git config --local user.name &quot;Your Name&quot;</span><br><span class="line">git config --local user.email &quot;Your Email&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git automatically converts CRLF to LF when committing and back to CRLF when checking out.</span></span><br><span class="line">git config --global core.autocrlf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">unset</span></span> </span><br><span class="line">git config --unset &lt;config-key&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all config</span> </span><br><span class="line">git config --global --list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span> </span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> global config</span></span><br><span class="line">git config --global user.email &quot;you@example.com&quot;</span><br><span class="line">git config --global user.name &quot;Your Name&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> <span class="built_in">local</span> repo config</span></span><br><span class="line">git config --local user.name &quot;Your Name&quot;</span><br><span class="line">git config --local user.email &quot;Your Email&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Git automatically converts CRLF to LF when committing and back to CRLF when checking out.</span></span><br><span class="line">git config --global core.autocrlf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">unset</span></span> </span><br><span class="line">git config --unset &lt;config-key&gt;</span><br></pre></td></tr></table></figure>
 
 <h1 id="file"><a href="#file" class="headerlink" title="file"></a>file</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> submit specify file</span></span><br><span class="line">git commit &lt;file&gt; -m &quot;your comment&quot; </span><br><span class="line">git pull</span><br><span class="line">git push</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> submit files exclude specify file</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># method 1</span></span></span><br><span class="line">git add -u</span><br><span class="line">git reset -- main/dontcheckmein.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># method 2</span></span></span><br><span class="line">git add . &#x27;:!&lt;file-to-exclude&gt;&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -11321,7 +11324,7 @@
     <content><![CDATA[<h1 id="shortcuts"><a href="#shortcuts" class="headerlink" title="shortcuts"></a>shortcuts</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">⌃⌘+F   最大化窗口</span><br><span class="line">⌘+M    最小化窗口</span><br><span class="line">⌘+H    隐藏程序的所有窗口</span><br><span class="line">⌘+W    关闭窗口</span><br><span class="line">⌘+Q    关闭程序</span><br><span class="line">shift + ⌘ + 5    截屏</span><br><span class="line">Home键   Fn+左方向</span><br><span class="line">End键    Fn+右方向</span><br><span class="line">Control+Space  输入法切换</span><br><span class="line">command + shift + . 显示/隐藏文件或目录</span><br><span class="line">Fn-上箭头：Page Up：向上滚动一页</span><br><span class="line">Fn-下箭头：Page Down：向下滚动一页</span><br><span class="line">Fn-左箭头：Home：滚动到文稿开头</span><br><span class="line">Fn-右箭头：End：滚动到文稿末尾</span><br></pre></td></tr></table></figure>
 
 <p><strong>tips</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ⌘ = <span class="built_in">command</span></span></span><br><span class="line">截屏：Shift + Command + 4</span><br><span class="line">屏幕录制：Shift + Command + 5</span><br><span class="line">背景音：background sounds</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ⌘ = <span class="built_in">command</span></span></span><br><span class="line">截屏：Shift + Command + 4</span><br><span class="line">屏幕录制：Shift + Command + 5</span><br><span class="line">背景音：background sounds</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Global search</span></span><br><span class="line">alt+command+space</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> emoji search</span></span><br><span class="line">ctrl+command+space</span><br></pre></td></tr></table></figure>
 
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h2><ul>
 <li><p>Disable  auto update when install </p>
@@ -11398,11 +11401,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">brew install sunnyyoung/tap/wechattweak</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新</span></span><br><span class="line">brew upgrade wechattweak</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行 Patch</span></span><br><span class="line">wechattweak patch</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有支持的 WeChat 版本</span></span><br><span class="line">wechattweak versions</span><br></pre></td></tr></table></figure>
 
 <h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ul>
-<li><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos</a>)</li>
-</ul>
-<p>未通过brew安装，安装路径/usr/local/mysql</p>
-<p>mysql    login：1qaz2wsx</p>
-<ul>
+<li><p><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos</a>)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">未通过brew安装，安装路径/usr/local/mysql</span><br><span class="line">mysql	login：1qaz2wsx</span><br></pre></td></tr></table></figure></li>
 <li><p>暂未配置my.cnf文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql --<span class="built_in">help</span> | grep my.cnf</span><br><span class="line">order of preference, my.cnf, <span class="variable">$MYSQL_TCP_PORT</span>,</span><br><span class="line">/etc/my.cnf /etc/mysql/my.cnf /usr/<span class="built_in">local</span>/mysql/etc/my.cnf ~/.my.cnf</span><br></pre></td></tr></table></figure></li>
 <li><p><a href="https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos">Location of my.cnf file on macOS</a></p>
@@ -11530,9 +11530,7 @@
 
 <h1 id="image"><a href="#image" class="headerlink" title="image"></a>image</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Resize/compress the WebP</span></span><br><span class="line">cwebp -q 62 /path/to/source.webp -o /path/to/target.webp</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert WebP → PNG</span></span><br><span class="line">dwebp /path/to/source.webp -o /path/to/target.png</span><br><span class="line"></span><br><span class="line"><span class="comment"># Resize/compress the PNG</span></span><br><span class="line">sips -Z 2880 /path/to/source.png</span><br></pre></td></tr></table></figure>
 
-<h1 id="keyboard"><a href="#keyboard" class="headerlink" title="keyboard"></a>keyboard</h1><h2 id="Specify-Function"><a href="#Specify-Function" class="headerlink" title="Specify Function"></a>Specify Function</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Global search</span></span><br><span class="line">alt+<span class="built_in">command</span>+space</span><br><span class="line"></span><br><span class="line"><span class="comment"># emoji search</span></span><br><span class="line">ctrl+<span class="built_in">command</span>+space</span><br></pre></td></tr></table></figure>
-
-<h2 id="Special-Characters"><a href="#Special-Characters" class="headerlink" title="Special Characters"></a>Special Characters</h2><p>Here are a few of the most common symbols and their corresponding key combination.<br>Note that <strong>OPTION</strong> + <strong>2</strong> simply means hold down the option key (the alt key) and the number 2.</p>
+<h1 id="keyboard"><a href="#keyboard" class="headerlink" title="keyboard"></a>keyboard</h1><h2 id="Special-Characters"><a href="#Special-Characters" class="headerlink" title="Special Characters"></a>Special Characters</h2><p>Here are a few of the most common symbols and their corresponding key combination.<br>Note that <strong>OPTION</strong> + <strong>2</strong> simply means hold down the option key (the alt key) and the number 2.</p>
 <p><strong>Currency Symbols</strong></p>
 <ul>
 <li><strong>€</strong> (Euro sign): <strong>OPTION</strong> + <strong>2</strong></li>
@@ -18753,17 +18751,24 @@
     <url>/2026/03/01/AI%20Agent-Claude%20Code/</url>
     <content><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
 
-<h1 id="CLAUDE-md"><a href="#CLAUDE-md" class="headerlink" title="CLAUDE.md"></a>CLAUDE.md</h1><p>use <code>/init</code> init <a href="https://claude.md/">CLAUDE.md</a></p>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Rename current session</span></span><br><span class="line">/rename [name]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Resume session, --resume, -r</span></span><br><span class="line">claude -r [session]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Resume by ID/name</span></span><br><span class="line">/resume [session]</span><br></pre></td></tr></table></figure>
+<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Here is the complete precedence order from highest to lowest priority:</span><br><span class="line">1.	Command-line flag (e.g.,  claude --model &lt;model-name&gt; )</span><br><span class="line">2.	Environment variable ( ANTHROPIC_MODEL  or  CLAUDE_MODEL  defined <span class="keyword">in</span> your terminal,  ~/.bashrc , or  ~/.zshrc )</span><br><span class="line">3.	Project-level settings (a <span class="built_in">local</span>  .claude/settings.json  inside your current working directory)</span><br><span class="line">4.	User-level global settings ( ~/.claude/settings.json )</span><br></pre></td></tr></table></figure>
 
-<h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Launch with a specific model:</span></span><br><span class="line">claude --model sonnet</span><br><span class="line">claude --model opus</span><br><span class="line">claude --model haiku</span><br><span class="line"></span><br><span class="line"><span class="comment"># Type /model inside session. It shows the available models and lets you switch:</span></span><br><span class="line">/model sonnet	<span class="comment"># Sonnet 5 (default daily driver)</span></span><br><span class="line">/model haiku	<span class="comment"># Haiku 4.5 (fast, cheap)</span></span><br><span class="line">/model opus	<span class="comment"># Opus 4.8 (deepest reasoning)</span></span><br><span class="line">/model fable	<span class="comment"># Fable 5 (newest)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># thrid-part</span></span><br><span class="line">/model qwen/qwen3.7-max</span><br></pre></td></tr></table></figure>
+<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="claude-md"><a href="#claude-md" class="headerlink" title="claude.md"></a>claude.md</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/init</span><br></pre></td></tr></table></figure>
 
-<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><h3 id="disable-specify-plugin"><a href="#disable-specify-plugin" class="headerlink" title="disable specify plugin"></a>disable specify plugin</h3><ul>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Rename current session</span></span><br><span class="line">/rename [name]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Resume session, --resume, -r</span></span><br><span class="line">claude -r [session]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Resume by ID/name</span></span><br><span class="line">/resume [session]</span><br></pre></td></tr></table></figure>
+
+<h2 id="model-1"><a href="#model-1" class="headerlink" title="model"></a>model</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Launch with a specific model:</span></span><br><span class="line">claude --model sonnet</span><br><span class="line">claude --model opus</span><br><span class="line">claude --model haiku</span><br><span class="line"></span><br><span class="line"><span class="comment"># Type /model inside session. It shows the available models and lets you switch:</span></span><br><span class="line">/model sonnet	<span class="comment"># Sonnet 5 (default daily driver)</span></span><br><span class="line">/model haiku	<span class="comment"># Haiku 4.5 (fast, cheap)</span></span><br><span class="line">/model opus	<span class="comment"># Opus 4.8 (deepest reasoning)</span></span><br><span class="line">/model fable	<span class="comment"># Fable 5 (newest)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># thrid-part</span></span><br><span class="line">/model qwen/qwen3.7-max</span><br></pre></td></tr></table></figure>
+
+<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><h3 id="upgrade"><a href="#upgrade" class="headerlink" title="upgrade"></a>upgrade</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Refresh the marketplace catalog so Claude Code sees the latest ECC version</span></span><br><span class="line">/plugin marketplace update ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Update the plugin itself</span></span><br><span class="line">/plugin update ecc@ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Verify what&#x27;s now installed</span></span><br><span class="line">/plugin list ecc@ecc</span><br></pre></td></tr></table></figure>
+
+<h3 id="disable"><a href="#disable" class="headerlink" title="disable"></a>disable</h3><ul>
 <li><p>method1: use command</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># disable specify plugin</span></span><br><span class="line">/plugin <span class="built_in">disable</span> gateguard@ecc</span><br></pre></td></tr></table></figure></li>
-<li><p>method2: Persistent config in ~/.claude/settings.json</p>
+<li><p>method2: Persistent config in <code>~/.claude/settings.json</code></p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;enabledPlugins&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;gateguard@ecc&quot;</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="uninstall"><a href="#uninstall" class="headerlink" title="uninstall"></a>uninstall</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/plugin uninstall ecc@ecc</span><br></pre></td></tr></table></figure>
+
 <h1 id="Plan-Mode"><a href="#Plan-Mode" class="headerlink" title="Plan Mode"></a>Plan Mode</h1><p>Shift+Tab ，Claude 只看文件、理清思路，不动任何代码。</p>
 <h1 id="subagents"><a href="#subagents" class="headerlink" title="subagents"></a>subagents</h1><p>TBD</p>
 <h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># prompt words</span></span><br><span class="line"><span class="built_in">continue</span>  or  please <span class="built_in">continue</span> with the remaining tasks</span><br></pre></td></tr></table></figure>
@@ -18774,7 +18779,7 @@
 <h2 id="everything-claude-code"><a href="#everything-claude-code" class="headerlink" title="everything-claude-code"></a><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a></h2><blockquote>
 <p>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add marketplace</span></span><br><span class="line">/plugin marketplace add https://github.com/affaan-m/ECC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install plugin</span></span><br><span class="line">/plugin install ecc@ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># disable GateGuard</span></span><br><span class="line">ECC_GATEGUARD=off claude xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># disable plugin</span></span><br><span class="line">/plugin <span class="built_in">disable</span> gateguard@ecc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add marketplace</span></span><br><span class="line">/plugin marketplace add https://github.com/affaan-m/ECC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install plugin</span></span><br><span class="line">/plugin install ecc@ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># disable GateGuard</span></span><br><span class="line">ECC_GATEGUARD=off claude xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># disable plugin</span></span><br><span class="line">/plugin <span class="built_in">disable</span> gateguard@ecc</span><br><span class="line">/plugin <span class="built_in">disable</span> ecc@ecc</span><br></pre></td></tr></table></figure>
 
 <h2 id="claude-mem"><a href="#claude-mem" class="headerlink" title="claude-mem"></a><a href="https://github.com/thedotmack/claude-mem">claude-mem</a></h2><blockquote>
 <p>A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude’s agent-sdk), and injects relevant context back into future sessions.</p>
@@ -18787,6 +18792,9 @@
 <p>use <code>/caveman</code> to make Claude type less, and use <code>/caveman:compress</code> to give Claude less to read.</p>
 <h2 id="ui-ux-pro-max-skill"><a href="#ui-ux-pro-max-skill" class="headerlink" title="ui-ux-pro-max-skill"></a><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">ui-ux-pro-max-skill</a></h2><blockquote>
 <p>An AI SKILL that provide design intelligence for building professional UI/UX multiple platforms</p>
+</blockquote>
+<h1 id="best-practices-1"><a href="#best-practices-1" class="headerlink" title="best practices"></a>best practices</h1><h2 id="vscode-login-claude-code"><a href="#vscode-login-claude-code" class="headerlink" title="vscode login claude code"></a>vscode login claude code</h2><blockquote>
+<p>If you have <code>ANTHROPIC_API_KEY</code> set in your shell but still see the sign-in prompt, VS Code may not have inherited your shell environment. Launch VS Code from a terminal with <code>code .</code> so it inherits your environment variables, or sign in with your Claude account instead.</p>
 </blockquote>
 <h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="API-Error-400-工具名称过长，请检查-mcp-plugin-everything-claude-code-github-create-pull-request-review"><a href="#API-Error-400-工具名称过长，请检查-mcp-plugin-everything-claude-code-github-create-pull-request-review" class="headerlink" title="API Error: 400 工具名称过长，请检查: mcp__plugin_everything-claude-code_github__create_pull_request_review"></a>API Error: 400 工具名称过长，请检查: mcp__plugin_everything-claude-code_github__create_pull_request_review</h2>]]></content>
       <categories>
@@ -19073,29 +19081,6 @@
       </tags>
   </entry>
   <entry>
-    <title>OpenAI Codex</title>
-    <url>/2026/04/13/AI%20Agent%20Codex/</url>
-    <content><![CDATA[<h1 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h1><p><strong>install</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g @openai/codex</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check version</span></span><br><span class="line">npm list -g @openai/codex</span><br><span class="line">or</span><br><span class="line">codex --version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list available latest version</span></span><br><span class="line">npm view @openai/codex version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upgrade to latest version</span></span><br><span class="line">npm install -g @openai/codex@latest</span><br><span class="line">or</span><br><span class="line">npm update -g @openai/codex</span><br></pre></td></tr></table></figure>
-
-<p><strong>config ~/.codex/config.toml</strong></p>
-<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="attr">model_provider</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">model</span> = <span class="string">&quot;gpt-5&quot;</span></span><br><span class="line"><span class="comment"># high medium low minimal</span></span><br><span class="line"><span class="attr">model_reasoning_effort</span> = <span class="string">&quot;high&quot;</span></span><br><span class="line"><span class="attr">disable_response_storage</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># config provider </span></span><br><span class="line"><span class="section">[model_providers.xxx]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">base_url</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">wire_api</span> = <span class="string">&quot;responses&quot;</span></span><br><span class="line"><span class="attr">requires_openai_auth</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>~/.codex/auth.json</strong></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;OPENAI_API_KEY&quot;</span>: <span class="string">&quot;your API Key&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>bootstrap</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">codex </span><br><span class="line">or</span><br><span class="line">codex -m gpt-5-codex</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>AI</category>
-      </categories>
-      <tags>
-        <tag>vibe coding</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Feel Journal</title>
     <url>/2026/06/02/%E2%98%80%EF%B8%8FFeel%20Journal/</url>
     <content><![CDATA[]]></content>
@@ -19269,6 +19254,40 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>bash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenAI Codex</title>
+    <url>/2026/04/13/AI%20Agent-Codex/</url>
+    <content><![CDATA[<h1 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h1><p><strong>install</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g @openai/codex</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check version</span></span><br><span class="line">npm list -g @openai/codex</span><br><span class="line">or</span><br><span class="line">codex --version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list available latest version</span></span><br><span class="line">npm view @openai/codex version</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> upgrade to latest version</span></span><br><span class="line">npm install -g @openai/codex@latest</span><br><span class="line">or</span><br><span class="line">npm update -g @openai/codex</span><br></pre></td></tr></table></figure>
+
+<p><strong>config ~/.codex/config.toml</strong></p>
+<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="attr">model_provider</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">model</span> = <span class="string">&quot;gpt-5&quot;</span></span><br><span class="line"><span class="comment"># high medium low minimal</span></span><br><span class="line"><span class="attr">model_reasoning_effort</span> = <span class="string">&quot;high&quot;</span></span><br><span class="line"><span class="attr">disable_response_storage</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># config provider </span></span><br><span class="line"><span class="section">[model_providers.xxx]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">base_url</span> = <span class="string">&quot;xxx&quot;</span></span><br><span class="line"><span class="attr">wire_api</span> = <span class="string">&quot;responses&quot;</span></span><br><span class="line"><span class="attr">requires_openai_auth</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>~/.codex/auth.json</strong></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;OPENAI_API_KEY&quot;</span>: <span class="string">&quot;your API Key&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>bootstrap</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">codex </span><br><span class="line">or</span><br><span class="line">codex -m gpt-5-codex</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>vibe coding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github Copilot</title>
+    <url>/2026/07/21/AI%20Agent-Github%20Copilot/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>vibe coding</tag>
       </tags>
   </entry>
 </search>
