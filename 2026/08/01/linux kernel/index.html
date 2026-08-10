@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="kernel log123456# checkdmesg -w          # follow the kernel ring buffer, like tail -fdmesg -Tw         # same but with human-readable timestampsjournalctl -kf    # follow kernel messages via journald">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux kernel">
+<meta property="og:url" content="https://www.willshirley.top/2026/08/01/linux%20kernel/index.html">
+<meta property="og:site_name" content="Clean &amp; Focus">
+<meta property="og:description" content="kernel log123456# checkdmesg -w          # follow the kernel ring buffer, like tail -fdmesg -Tw         # same but with human-readable timestampsjournalctl -kf    # follow kernel messages via journald">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.willshirley.top/images/linux/dmsetup-info.png">
+<meta property="article:published_time" content="2026-08-01T07:41:01.000Z">
+<meta property="article:modified_time" content="2026-08-10T02:33:19.845Z">
+<meta property="article:author" content="brook">
+<meta property="article:tag" content="kernel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.willshirley.top/images/linux/dmsetup-info.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>linux kernel</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Clean & Focus" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2026/08/08/k8s-point%20volume/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/07/29/PCIe/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&text=linux kernel"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2026/08/01/linux%20kernel/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=linux kernel&body=Check out this article: https://www.willshirley.top/2026/08/01/linux%20kernel/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&title=linux kernel"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&title=linux kernel"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&title=linux kernel"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2026/08/01/linux%20kernel/&t=linux kernel"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kernel-log"><span class="toc-number">1.</span> <span class="toc-text">kernel log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bd-openers"><span class="toc-number">2.</span> <span class="toc-text">bd_openers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#roles"><span class="toc-number">2.1.</span> <span class="toc-text">roles</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-increments-it"><span class="toc-number">2.2.</span> <span class="toc-text">What increments it</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-it-blocks-your-removal"><span class="toc-number">2.3.</span> <span class="toc-text">Why it blocks your removal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#solution"><span class="toc-number">2.3.1.</span> <span class="toc-text">solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#plan-1"><span class="toc-number">2.4.</span> <span class="toc-text">plan 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#plan-2"><span class="toc-number">2.5.</span> <span class="toc-text">plan 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#try"><span class="toc-number">2.6.</span> <span class="toc-text">try</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nsenter"><span class="toc-number">3.</span> <span class="toc-text">nsenter</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        linux kernel
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">brook</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-08-01T07:41:01.000Z" class="dt-published" itemprop="datePublished">2026-08-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/linux/">linux</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/kernel/" rel="tag">kernel</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="kernel-log"><a href="#kernel-log" class="headerlink" title="kernel log"></a>kernel log</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check</span></span><br><span class="line">dmesg -w          <span class="comment"># follow the kernel ring buffer, like tail -f</span></span><br><span class="line">dmesg -Tw         <span class="comment"># same but with human-readable timestamps</span></span><br><span class="line"></span><br><span class="line">journalctl -kf    <span class="comment"># follow kernel messages via journald (better timestamping)</span></span><br><span class="line">journalctl -kf -p warning   <span class="comment"># only warnings and above</span></span><br></pre></td></tr></table></figure>
+
+<p>  <strong>check log level</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># See current values: console_loglevel default_message_loglevel ...</span></span><br><span class="line">cat /proc/sys/kernel/printk</span><br><span class="line"><span class="comment"># print </span></span><br><span class="line">4       4       1       7</span><br></pre></td></tr></table></figure>
+
+<p><code>/proc/sys/kernel/printk</code> controls the Linux kernel’s <code>printk()</code> logging thresholds—primarily which kernel messages are emitted to the <strong>console</strong>. It does not control whether messages are retained in the kernel log buffer, which you can inspect with <code>dmesg</code>.[1]</p>
+<p>For this value:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4  4  1  7</span><br></pre></td></tr></table></figure>
+
+<p>the four integers mean:</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Name</th>
+<th align="right">Value</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>console_loglevel</code></td>
+<td align="right">4</td>
+<td>Console displays messages with priority numerically <strong>less than 4</strong>: <code>KERN_EMERG</code> (0) through <code>KERN_ERR</code> (3). Warnings (4) and below are not newly printed to the console.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>default_message_loglevel</code></td>
+<td align="right">4</td>
+<td>Default priority for kernel messages that omit an explicit log-level prefix: <code>KERN_WARNING</code> (4).</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>minimum_console_loglevel</code></td>
+<td align="right">1</td>
+<td>Lowest console threshold allowed; protects against setting the console level below emergencies.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>default_console_loglevel</code></td>
+<td align="right">7</td>
+<td>Console log level used at boot/default reset: priorities 0–6, up to <code>KERN_INFO</code>.</td>
+</tr>
+</tbody></table>
+<p>Linux log priorities, from most to least severe, are:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0 emerg    System unusable</span><br><span class="line">1 alert    Immediate action required</span><br><span class="line">2 crit     Critical condition</span><br><span class="line">3 err      Error</span><br><span class="line">4 warning  Warning</span><br><span class="line">5 notice   Significant normal event</span><br><span class="line">6 info     Informational</span><br><span class="line">7 debug    Debugging</span><br></pre></td></tr></table></figure>
+
+<p>To change the current console verbosity temporarily:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Print errors and more severe messages only</span></span><br><span class="line">sudo dmesg -n 4</span><br><span class="line"></span><br><span class="line"><span class="comment"># Include warnings</span></span><br><span class="line">sudo dmesg -n 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># Include normal informational kernel messages</span></span><br><span class="line">sudo dmesg -n 7</span><br><span class="line"></span><br><span class="line"><span class="comment"># Include debug messages</span></span><br><span class="line">sudo dmesg -n 8</span><br></pre></td></tr></table></figure>
+
+<p>Equivalently, writing the first value changes only the active console threshold:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 7 | sudo tee /proc/sys/kernel/printk</span><br></pre></td></tr></table></figure>
+
+<p>Restore the prior console threshold when finished</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dmesg -n 4</span><br></pre></td></tr></table></figure>
+
+<h1 id="bd-openers"><a href="#bd-openers" class="headerlink" title="bd_openers"></a>bd_openers</h1><blockquote>
+<p>  bd_openers (block device openers)  is a kernel-level counter inside the  struct block_device  structure that tracks how many times a block device has been opened — and it’s exactly the number behind the  Open count  you saw in  dmsetup info .</p>
+<p> it’s a field in the kernel’s <code>struct block_device</code>, the in-memory object representing a block device (a disk, a partition, an LV mapping). It counts <strong>how many times that device is currently open</strong> — a plain integer refcount.</p>
+</blockquote>
+<h2 id="roles"><a href="#roles" class="headerlink" title="roles"></a>roles</h2><p>In the Linux kernel, every block device has a <code>struct block_device</code> containing <code>bd_openers</code>. It’s incremented in <code>blkdev_get_by_*()</code> (via <code>bdev_open_by_*()</code> → <code>blkdev_get_whole()</code>) every time someone opens the device, and decremented in <code>bdev_release()</code> / <code>blkdev_put()</code> when the reference is closed:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">open(path, O_RDONLY)          → bd_openers++</span><br><span class="line">mount(), dm table activation  → bd_openers++</span><br><span class="line">close / umount / dm remove    → bd_openers--</span><br></pre></td></tr></table></figure>
+
+<h2 id="What-increments-it"><a href="#What-increments-it" class="headerlink" title="What increments it"></a>What increments it</h2><table>
+<thead>
+<tr>
+<th>Opener</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Mounting a filesystem</td>
+<td><code>mount</code> opens the bdev and holds it for the entire mount’s life</td>
+</tr>
+<tr>
+<td><code>open(&quot;/dev/dm-5&quot;)</code></td>
+<td>any process — <code>dd</code>, <code>mkfs</code>, <code>blkid</code>, <code>lsblk</code>, a database on raw block</td>
+</tr>
+<tr>
+<td>Stacking a device</td>
+<td>dm/md/loop opening it as a lower layer</td>
+</tr>
+<tr>
+<td><code>swapon</code></td>
+<td>holds it until <code>swapoff</code></td>
+</tr>
+<tr>
+<td>Kernel probes</td>
+<td>udev/<code>blkid</code> briefly, on uevents</td>
+</tr>
+</tbody></table>
+<p>This is what <code>dmsetup info</code> surfaces in the <code>Open</code> column</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name                     Maj Min Stat Open Targ Event  UUID</span><br><span class="line">csi--lvm-pvc--01dec500-- 253   5 L--w    1    1      0 LVM-...</span><br><span class="line">                                         ^</span><br><span class="line">                                         bd_openers</span><br></pre></td></tr></table></figure>
+
+<img src="/images/linux/dmsetup-info.png" style="zoom: 60%; float: left">
+
+<h2 id="Why-it-blocks-your-removal"><a href="#Why-it-blocks-your-removal" class="headerlink" title="Why it blocks your removal"></a>Why it blocks your removal</h2><p><code>dm_lock_for_deletion()</code> refuses to tear down a mapping that something is still using — otherwise the kernel would free structures out from under a live opener and panic. So:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bd_openers != 0  →  remove ioctl returns EBUSY</span><br></pre></td></tr></table></figure>
+
+<p>That’s your <code>Device or resource busy</code>, verbatim. And it explains the three failures you hit:</p>
+<ul>
+<li><strong><code>--force</code></strong> — swaps the table to <code>error</code> first, <em>then</em> removes. The swap succeeded (hence your <code>Buffer I/O error on dev dm-5</code> lines); the remove still hit the refcount.</li>
+<li><strong><code>--deferred</code></strong> — flags “remove when it reaches zero.” It never reaches zero, so nothing happens.</li>
+<li><strong><code>--retry</code></strong> — loops on the same ioctl. Same EBUSY each pass.</li>
+</ul>
+<p>None of them decrement the counter. <strong>There is no userspace call that does.</strong> You can only close the thing holding it open.</p>
+<hr>
+<p>so <strong>the one opener is a mounted XFS superblock</strong>. Normally you’d find its mount in some namespace and unmount it, which releases the reference. But your scans found no mount table entry anywhere and no process holding files on it.</p>
+<p>Hence reboot — it’s the only thing that frees kernel memory holding an unreachable reference. Not a workaround; the actual mechanism.</p>
+<p>One caveat worth keeping: <code>Open 1</code> is the kernel’s own accounting and is reliable. But <code>/sys/fs/xfs/dm-5</code> is keyed by <strong>kernel name, not dm UUID</strong> — so if a previous device had reused minor 5 and was force-removed while mounted, that kobject could be stale and misattributed. That’d matter if you ever see this error with <code>Open 0</code>. With <code>Open 1</code> there’s a real opener, so it isn’t your situation.</p>
+<p>In short: <strong><code>bd_openers</code> is the kernel’s canonical “is this block device in use” counter; device-mapper consults it before allowing device removal, which is why it directly caused your deactivation failure.</strong></p>
+<h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><h2 id="plan-1"><a href="#plan-1" class="headerlink" title="plan 1"></a>plan 1</h2><p><a target="_blank" rel="noopener" href="https://github.com/jackblack369/bdopener_ctl">bdopener_cli</a></p>
+<h2 id="plan-2"><a href="#plan-2" class="headerlink" title="plan 2"></a>plan 2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<h2 id="try"><a href="#try" class="headerlink" title="try"></a>try</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. host machine</span><br><span class="line">bash release_useless_lv_improved.sh pvc-xxx</span><br><span class="line"></span><br><span class="line">2. csi plugin</span><br><span class="line">lvchange -an /dev/csi-lvm/pvc-xxx</span><br></pre></td></tr></table></figure>
+
+<h1 id="nsenter"><a href="#nsenter" class="headerlink" title="nsenter"></a>nsenter</h1><p><strong>nsenter</strong>  (“namespace enter”) is a util-linux tool that runs a program inside the Linux namespaces of another, already-running process — it’s essentially a command-line wrapper around the  setns(2)  system call.</p>
+<p>Linux namespaces partition kernel resources (network, mounts, PIDs, etc.) so processes get isolated views of the system — this is the foundation of containers.  nsenter  lets you “step into” any of those isolated environments from the host, without attaching to or modifying the container.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/archives/">Log</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kernel-log"><span class="toc-number">1.</span> <span class="toc-text">kernel log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bd-openers"><span class="toc-number">2.</span> <span class="toc-text">bd_openers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#roles"><span class="toc-number">2.1.</span> <span class="toc-text">roles</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-increments-it"><span class="toc-number">2.2.</span> <span class="toc-text">What increments it</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-it-blocks-your-removal"><span class="toc-number">2.3.</span> <span class="toc-text">Why it blocks your removal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#solution"><span class="toc-number">2.3.1.</span> <span class="toc-text">solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#plan-1"><span class="toc-number">2.4.</span> <span class="toc-text">plan 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#plan-2"><span class="toc-number">2.5.</span> <span class="toc-text">plan 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#try"><span class="toc-number">2.6.</span> <span class="toc-text">try</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nsenter"><span class="toc-number">3.</span> <span class="toc-text">nsenter</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&text=linux kernel"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.willshirley.top/2026/08/01/linux%20kernel/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=linux kernel&body=Check out this article: https://www.willshirley.top/2026/08/01/linux%20kernel/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&title=linux kernel"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&title=linux kernel"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.willshirley.top/2026/08/01/linux%20kernel/&title=linux kernel"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.willshirley.top/2026/08/01/linux%20kernel/&t=linux kernel"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    brook
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Log</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
