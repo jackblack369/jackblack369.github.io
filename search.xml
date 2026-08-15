@@ -6481,9 +6481,7 @@
 </tbody></table>
 <h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="check-is-fs-or-not"><a href="#check-is-fs-or-not" class="headerlink" title="check is fs or not"></a>check is fs or not</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">findmnt /path/to/mountpoint</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. result <span class="built_in">print</span></span></span><br><span class="line">TARGET                      SOURCE                FSTYPE       OPTIONS</span><br><span class="line">/host/dingofs/alayanew-test DingoFS:alayanew-test fuse.dingofs rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other</span><br><span class="line"></span><br><span class="line">mountpoint /path/to/mountpoint</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g. result <span class="built_in">print</span></span></span><br><span class="line">/host/dingofs/alayanew-test is a mountpoint</span><br></pre></td></tr></table></figure>
 
-<h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list avaliable disk</span></span><br><span class="line">fdisk -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list nvme (sudo dnf install -y nvme-cli)</span></span><br><span class="line">nvme list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list block disk</span></span><br><span class="line">lsblk -l</span><br></pre></td></tr></table></figure>
-
-<h3 id="Check-Disk-Health"><a href="#Check-Disk-Health" class="headerlink" title="Check Disk Health"></a>Check Disk Health</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dmesg | grep -i &#x27;error&#x27;</span><br></pre></td></tr></table></figure>
+<h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list avaliable disk</span></span><br><span class="line">fdisk -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list nvme (sudo dnf install -y nvme-cli)</span></span><br><span class="line">nvme list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list block disk</span></span><br><span class="line">lsblk -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check process use mountpoint</span></span><br><span class="line">fuser -vm /mnt/mymount</span><br></pre></td></tr></table></figure>
 
 <h3 id="umount"><a href="#umount" class="headerlink" title="umount"></a>umount</h3><ul>
 <li><p>Unmount Using umount -l (Lazy Unmount)</p>
@@ -10577,6 +10575,35 @@
 <p>使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">r=4，w=2，x=1</span><br><span class="line">若要rwx属性则4+2+1=7；</span><br><span class="line">若要rw-属性则4+2=6；</span><br><span class="line">若要r-x属性则4+1=7</span><br></pre></td></tr></table></figure>
 
+<h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><blockquote>
+<p>Column 1: only in file1<br>Column 2: only in file2<br>Column 3: present in both files</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>comm -23 file1 file2</code></td>
+<td>Only in file1</td>
+</tr>
+<tr>
+<td><code>comm -13 file1 file2</code></td>
+<td>Only in file2</td>
+</tr>
+<tr>
+<td><code>comm -12 file1 file2</code></td>
+<td>Common to both</td>
+</tr>
+<tr>
+<td><code>comm -3 file1 file2</code></td>
+<td>Different lines from either file</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># e.g.</span></span><br><span class="line">comm -23 pv-sort.txt lv-sort.txt &gt; only-in-pv.txt</span><br><span class="line">comm -13 pv-sort.txt lv-sort.txt &gt; only-in-lv.txt</span><br></pre></td></tr></table></figure>
+
 <h2 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;hello_world&quot; | cut -c1-5   # Output: hello</span><br></pre></td></tr></table></figure>
 
 <h2 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rsync -aHAX --info=progress2 --no-i-r /<span class="built_in">source</span>/path/ /destination/path/</span><br><span class="line"></span><br><span class="line"><span class="comment"># exclude specify file</span></span><br><span class="line">--exclude <span class="string">&#x27;file.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># exclude specify directory</span></span><br><span class="line">--exclude <span class="string">&#x27;logs/&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -11789,7 +11816,10 @@
 
 <h3 id="plan3-temp-available"><a href="#plan3-temp-available" class="headerlink" title="plan3: temp available"></a>plan3: temp available</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip link set ibp27s0 up</span><br><span class="line">sudo ip addr add 192.168.1.13/21 dev ibp27s0</span><br></pre></td></tr></table></figure>
 
-<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><h2 id="create-bond"><a href="#create-bond" class="headerlink" title="create bond"></a>create bond</h2><p>Bonding Mode</p>
+<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><h2 id="create-bond"><a href="#create-bond" class="headerlink" title="create bond"></a>create bond</h2><p><strong>Bonding Mode</strong></p>
+<blockquote>
+<p>check: cat /proc/net/bonding/bondxxx</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -11929,10 +11959,14 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping 172.30.12.47 # other same bond addr</span><br></pre></td></tr></table></figure>
 
 <p><strong>Step 8: Optional - Test Failover (For active-backup Mode)</strong></p>
-<p>​    1.    Temporarily bring down ib7s400p0:</p>
+<ol>
+<li>Temporarily bring down ib7s400p0:</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ip link set ib7s400p0 down</span><br></pre></td></tr></table></figure>
 
-<p>​    2.    Check bond1 status:</p>
+<ol start="2">
+<li>Check bond1 status:</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/net/bonding/bond1</span><br></pre></td></tr></table></figure>
 
 <p>In active-backup mode, bond1 should remain active (even though ib7s400p0 is down).</p>
@@ -12474,6 +12508,13 @@
 <h2 id="Error-failed-to-get-new-shm-lock-manager-failed-to-create-2048-locks-in-libpod-rootless-lock-1000-permission-denied"><a href="#Error-failed-to-get-new-shm-lock-manager-failed-to-create-2048-locks-in-libpod-rootless-lock-1000-permission-denied" class="headerlink" title="Error: failed to get new shm lock manager: failed to create 2048 locks in /libpod_rootless_lock_1000:permission denied"></a>Error: failed to get new shm lock manager: failed to create 2048 locks in /libpod_rootless_lock_1000:permission denied</h2><blockquote>
 <p>TBD</p>
 </blockquote>
+<h2 id="Error-error-creating-build-container-short-name-“xxx”-did-not-resolve-to-an-alias-and-no-unqualified-search-registries-are-defined-in-“-etc-containers-registries-conf”"><a href="#Error-error-creating-build-container-short-name-“xxx”-did-not-resolve-to-an-alias-and-no-unqualified-search-registries-are-defined-in-“-etc-containers-registries-conf”" class="headerlink" title="Error: error creating build container: short-name “xxx” did not resolve to an alias and no unqualified-search registries are defined in “/etc/containers/registries.conf”"></a>Error: error creating build container: short-name “xxx” did not resolve to an alias and no unqualified-search registries are defined in “/etc/containers/registries.conf”</h2><ul>
+<li><p><strong>root cause</strong></p>
+<p>This error means Podman refused to guess where  xxx  lives — unlike Docker, Podman doesn’t default to Docker Hub, and in a non-interactive Jenkins build it can’t prompt you to pick a registry, so it fails hard. </p>
+</li>
+<li><p><strong>solution</strong>: Configure unqualified search registries</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tee /etc/containers/registries.conf.d/00-unqualified-search-registries.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">unqualified-search-registries = [<span class="string">&quot;docker.io&quot;</span>]</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># system wide: /etc/containers/registries.conf</span></span><br><span class="line"><span class="comment"># ~jenkins/.config/containers/registries.conf</span></span><br><span class="line"></span><br><span class="line">unqualified-search-registries = [<span class="string">&quot;docker.io&quot;</span>]</span><br><span class="line">short-name-mode = <span class="string">&quot;permissive&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>podman</category>
@@ -14173,6 +14214,8 @@
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">select-editor</span><br><span class="line"><span class="meta">#</span><span class="bash"> change default editor</span></span><br><span class="line">update-alternatives --config editor</span><br></pre></td></tr></table></figure>
 <h2 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a>crontab</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">┬──────── minute (0–59)</span><br><span class="line">│ ┬────── hour (0–23)</span><br><span class="line">│ │ ┬──── day-of-month (1–31)</span><br><span class="line">│ │ │ ┬── month (1–12)</span><br><span class="line">│ │ │ │ ┬ day-of-week (0–7, Sunday=0 or 7)</span><br><span class="line">│ │ │ │ │</span><br><span class="line">* * * * *  &lt;command&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># check reecent executions log</span></span><br><span class="line">grep &lt;keywords&gt; /var/<span class="built_in">log</span>/syslog | tail -50</span><br></pre></td></tr></table></figure>
 
 <h2 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> temp</span></span><br><span class="line">sudo swapoff -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> persistent</span></span><br><span class="line">sudo sed -i &#x27;/[[:space:]]swap[[:space:]]/s/^/#/&#x27; /etc/fstab</span><br></pre></td></tr></table></figure>
 
@@ -19285,7 +19328,10 @@ So later in the script, you can safely loop through options using:
 <td>Makes parsed options available for normal while-case parsing</td>
 </tr>
 </tbody></table>
-<h1 id="PROMPT"><a href="#PROMPT" class="headerlink" title="PROMPT"></a>PROMPT</h1><h2 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$color_prompt</span>&quot;</span> = yes ]; <span class="keyword">then</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &#x27;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h1 id="PROMPT"><a href="#PROMPT" class="headerlink" title="PROMPT"></a>PROMPT</h1><blockquote>
+<p>echo $0</p>
+</blockquote>
+<h2 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$color_prompt</span>&quot;</span> = yes ]; <span class="keyword">then</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &#x27;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Ubuntu Default Bash Style (Green user/host, Blue path)</span></span><br><span class="line">PROMPT=<span class="string">&#x27;%F&#123;green&#125;%n@%m%f:%F&#123;blue&#125;%~%f%# &#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># High-Visibility (Neon Colors)</span></span><br><span class="line">PROMPT=<span class="string">&#x27;%F&#123;214&#125;%n%f@%F&#123;220&#125;%m%f %F&#123;33&#125;%~%f %# &#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Modern Minimal (Bold text)</span></span><br><span class="line">PROMPT=<span class="string">&#x27;%B%F&#123;magenta&#125;%n%f@%F&#123;cyan&#125;%m%f%b %F&#123;yellow&#125;%~%f %# &#x27;</span></span><br></pre></td></tr></table></figure>
 
@@ -19439,15 +19485,17 @@ So later in the script, you can safely loop through options using:
   <entry>
     <title>Kubernetes Volume</title>
     <url>/2026/08/08/k8s-point%20volume/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    autonumber</span><br><span class="line">    participant U as User</span><br><span class="line">    participant A as API Server</span><br><span class="line">    participant P as external-provisioner</span><br><span class="line">    participant C as CSI Controller</span><br><span class="line">    participant K as Kubelet</span><br><span class="line">    participant N as CSI Node Plugin</span><br><span class="line">    participant H as Host (LVM)</span><br><span class="line">    participant D as containerd/runc</span><br><span class="line"></span><br><span class="line">    rect rgb(230, 245, 255)</span><br><span class="line">    Note over U,H: PROVISION &amp; BIND</span><br><span class="line">    U-&gt;&gt;A: Create PVC (StorageClass: lvm-csi)</span><br><span class="line">    P-&gt;&gt;C: CreateVolume</span><br><span class="line">    C-&gt;&gt;H: lvcreate -n lv-xxx vg0</span><br><span class="line">    C--&gt;&gt;P: volume_id</span><br><span class="line">    P-&gt;&gt;A: Create PV -&gt; PV/PVC Bound</span><br><span class="line">    U-&gt;&gt;A: Create Pod (uses PVC)</span><br><span class="line">    A-&gt;&gt;K: Pod scheduled to node</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(235, 255, 235)</span><br><span class="line">    Note over K,H: MOUNT (per pod)</span><br><span class="line">    K-&gt;&gt;N: NodeStageVolume</span><br><span class="line">    N-&gt;&gt;H: lvchange -ay + mkfs + mount staging&lt;br/&gt;/var/lib/kubelet/plugins/kubernetes.io/csi/pv/pv-name/globalmount</span><br><span class="line">    K-&gt;&gt;N: NodePublishVolume</span><br><span class="line">    N-&gt;&gt;H: mount --bind staging -&gt; target&lt;br/&gt;/var/lib/kubelet/pods/uid/volumes/kubernetes.io~csi/pvc/mount</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(255, 245, 225)</span><br><span class="line">    Note over K,D: CONTAINER START</span><br><span class="line">    K-&gt;&gt;D: CRI CreateContainer (Mounts: host target -&gt; mountPath)</span><br><span class="line">    D-&gt;&gt;D: runc bind-mounts into rootfs&lt;br/&gt;/run/containerd/io.containerd.runtime.v2.task/k8s.io/cid/rootfs/mountPath</span><br><span class="line">    D--&gt;&gt;K: Container running</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(255, 235, 235)</span><br><span class="line">    Note over U,H: TEARDOWN (reverse order)</span><br><span class="line">    U-&gt;&gt;A: Delete Pod</span><br><span class="line">    K-&gt;&gt;D: StopContainer -&gt; task destroyed, rootfs path gone</span><br><span class="line">    K-&gt;&gt;N: NodeUnpublishVolume -&gt; umount pod target path</span><br><span class="line">    K-&gt;&gt;N: NodeUnstageVolume -&gt; umount staging, lvchange -an</span><br><span class="line">    U-&gt;&gt;A: Delete PVC</span><br><span class="line">    P-&gt;&gt;C: DeleteVolume</span><br><span class="line">    C-&gt;&gt;H: lvremove vg0/lv-xxx</span><br><span class="line">    end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    autonumber</span><br><span class="line">    participant U as User</span><br><span class="line">    participant A as API Server</span><br><span class="line">    participant P as external-provisioner</span><br><span class="line">    participant C as CSI Controller</span><br><span class="line">    participant K as Kubelet</span><br><span class="line">    participant N as CSI Node Plugin</span><br><span class="line">    participant H as Host (LVM)</span><br><span class="line">    participant D as containerd/runc</span><br><span class="line"></span><br><span class="line">    rect rgb(230, 245, 255)</span><br><span class="line">    Note over U,H: PROVISION &amp; BIND</span><br><span class="line">    U-&gt;&gt;A: Create PVC (StorageClass: lvm-csi)</span><br><span class="line">    P-&gt;&gt;C: CreateVolume</span><br><span class="line">    C-&gt;&gt;H: lvcreate -n lv-xxx vg0</span><br><span class="line">    C--&gt;&gt;P: volume_id</span><br><span class="line">    P-&gt;&gt;A: Create PV -&gt; PV/PVC Bound</span><br><span class="line">    U-&gt;&gt;A: Create Pod (uses PVC)</span><br><span class="line">    A-&gt;&gt;K: Pod scheduled to node</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(235, 255, 235)</span><br><span class="line">    Note over K,H: MOUNT (per pod)</span><br><span class="line">    K-&gt;&gt;N: NodeStageVolume</span><br><span class="line">    N-&gt;&gt;H: lvchange -ay + mkfs + mount staging&lt;br/&gt;/var/lib/kubelet/plugins/kubernetes.io/csi/pv/pv-name/globalmount</span><br><span class="line">    K-&gt;&gt;N: NodePublishVolume</span><br><span class="line">    N-&gt;&gt;H: mount --bind staging -&gt; target&lt;br/&gt;/var/lib/kubelet/pods/uid/volumes/kubernetes.io~csi/pvc/mount</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(255, 245, 225)</span><br><span class="line">    Note over K,D: CONTAINER START</span><br><span class="line">    K-&gt;&gt;D: CRI CreateContainer (Mounts: host target -&gt; mountPath)</span><br><span class="line">    D-&gt;&gt;D: runc bind-mounts into rootfs&lt;br/&gt;/run/containerd/io.containerd.runtime.v2.task/k8s.io/cid/rootfs/mountPath</span><br><span class="line">    D--&gt;&gt;K: Container running</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(255, 235, 235)</span><br><span class="line">    Note over U,H: TEARDOWN (reverse order)</span><br><span class="line">    U-&gt;&gt;A: Delete Pod</span><br><span class="line">    K-&gt;&gt;D: StopContainer -&gt; task destroyed, rootfs path gone</span><br><span class="line">    K-&gt;&gt;N: NodeUnpublishVolume -&gt; umount pod target path</span><br><span class="line">    K-&gt;&gt;N: NodeUnstageVolume -&gt; umount staging, lvchange -an</span><br><span class="line">    U-&gt;&gt;A: Delete PVC</span><br><span class="line">    P-&gt;&gt;C: DeleteVolume</span><br><span class="line">    C-&gt;&gt;H: lvremove vg0/lv-xxx</span><br><span class="line">    end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>command</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Get the full container ID for a pod&#x27;s container</span></span><br><span class="line">CID=$(crictl ps --name &lt;container-name&gt; -q | head -1)          <span class="comment"># truncated 13-char</span></span><br><span class="line">CID=$(crictl ps --name &lt;container-name&gt; --no-trunc -q | head -1)  <span class="comment"># full 64-char</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or filter by pod ID</span></span><br><span class="line">PODID=$(crictl pods --name &lt;pod-name&gt; --namespace &lt;ns&gt; -q)</span><br><span class="line">CID=$(crictl ps --pod <span class="variable">$PODID</span> --no-trunc -q)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Build the rootfs path</span></span><br><span class="line"><span class="built_in">echo</span> /run/containerd/io.containerd.runtime.v2.task/k8s.io/<span class="variable">$CID</span>/rootfs</span><br></pre></td></tr></table></figure>
 
-
-
 <p>Here’s the end-to-end reference flow of how a Pod’s volume target path is created in Kubernetes with a CSI driver (using your LVM-on-host + containerd scenario), from PVC all the way to the containerd rootfs view.</p>
-<h2 id="The-Big-Picture"><a href="#The-Big-Picture" class="headerlink" title="The Big Picture"></a>The Big Picture</h2><p>There are two distinct “target” concepts people often conflate: the <strong>kubelet target path</strong> (<code>/var/lib/kubelet/pods/&lt;pod-uid&gt;/volumes/kubernetes.io~csi/&lt;vol-name&gt;/mount</code>) created by the CSI node plugin, and the <strong>containerd task rootfs</strong> (<code>/run/containerd/io.containerd.runtime.v2.task/k8s.io/&lt;container-id&gt;/rootfs</code>) created later by the runtime when the container starts. The CSI driver never touches the containerd path directly — the kubelet hands the CSI target path to the CRI, and containerd/runc bind-mounts it into the container’s mount namespace.</p>
+<p>There are two distinct “target” concepts people often conflate: </p>
+<p>the <strong>kubelet target path</strong> (<code>/var/lib/kubelet/pods/&lt;pod-uid&gt;/volumes/kubernetes.io~csi/&lt;vol-name&gt;/mount</code>) created by the CSI node plugin</p>
+<p>and </p>
+<p>the <strong>containerd task rootfs</strong> (<code>/run/containerd/io.containerd.runtime.v2.task/k8s.io/&lt;container-id&gt;/rootfs</code>) created later by the runtime when the container starts. </p>
+<p>The CSI driver never touches the containerd path directly — <strong>the kubelet hands the CSI target path to the CRI, and containerd/runc bind-mounts it into the container’s mount namespace.</strong></p>
 <h2 id="Stage-1-—-Provision-and-Bind"><a href="#Stage-1-—-Provision-and-Bind" class="headerlink" title="Stage 1 — Provision and Bind"></a>Stage 1 — Provision and Bind</h2><ol>
 <li>You create a PVC referencing a StorageClass with <code>provisioner: &lt;your-csi-driver&gt;</code>.</li>
 <li>The <strong>external-provisioner</strong> sidecar watches PVCs and calls <code>CreateVolume</code> on the CSI <strong>controller</strong> plugin. For an LVM driver this typically creates the LV on the target host (or records intent for topology-aware late binding with <code>volumeBindingMode: WaitForFirstConsumer</code>).</li>
@@ -19455,7 +19503,7 @@ So later in the script, you can safely loop through options using:
 <li>Pod is created referencing the PVC; scheduler picks a node (with <code>WaitForFirstConsumer</code>, provisioning happens <em>after</em> scheduling so the LV lands on the right node).</li>
 </ol>
 <h2 id="Stage-2-—-Attach-ControllerPublishVolume"><a href="#Stage-2-—-Attach-ControllerPublishVolume" class="headerlink" title="Stage 2 — Attach (ControllerPublishVolume)"></a>Stage 2 — Attach (ControllerPublishVolume)</h2><p>If the driver reports <code>attach_required: true</code>, the Attach/Detach controller creates a <code>VolumeAttachment</code> object, and the <strong>external-attacher</strong> calls <code>ControllerPublishVolume</code> to “attach” the volume to the node. For pure local LVM drivers this is usually a no-op or skipped entirely (<code>CSIDriver.spec.attachRequired: false</code>), since the LV is already local.</p>
-<h2 id="Stage-3-—-NodeStageVolume-Staging-Path"><a href="#Stage-3-—-NodeStageVolume-Staging-Path" class="headerlink" title="Stage 3 — NodeStageVolume (Staging Path)"></a>Stage 3 — NodeStageVolume (Staging Path)</h2><p>Once the pod lands on the node, the kubelet’s <strong>Volume Manager</strong> (reconciler loop comparing desired vs. actual state of world) drives the mount:[2]</p>
+<h2 id="Stage-3-—-NodeStageVolume-Staging-Path"><a href="#Stage-3-—-NodeStageVolume-Staging-Path" class="headerlink" title="Stage 3 — NodeStageVolume (Staging Path)"></a>Stage 3 — NodeStageVolume (Staging Path)</h2><p>Once the pod lands on the node, the kubelet’s <strong>Volume Manager</strong> (reconciler loop comparing desired vs. actual state of world) drives the mount:</p>
 <ul>
 <li>Kubelet’s in-tree CSI mounter calls <code>NodeStageVolume</code> over the driver’s UNIX socket.</li>
 <li>Staging path: <code>/var/lib/kubelet/plugins/kubernetes.io/csi/pv/&lt;pv-name&gt;/globalmount</code> (for block volumes: <code>/var/lib/kubelet/plugins/kubernetes.io/csi/volumeDevices/staging/&lt;pv-name&gt;</code>).</li>
@@ -19513,7 +19561,46 @@ So later in the script, you can safely loop through options using:
 </tbody></table>
 <h2 id="Verify-on-the-Host"><a href="#Verify-on-the-Host" class="headerlink" title="Verify on the Host"></a>Verify on the Host</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># find the CSI staging + target mounts for a pod</span></span><br><span class="line">findmnt -R /var/lib/kubelet/pods/&lt;pod-uid&gt;/volumes</span><br><span class="line">findmnt /var/lib/kubelet/plugins/kubernetes.io/csi/pv/&lt;pv-name&gt;/globalmount</span><br><span class="line"></span><br><span class="line"><span class="comment"># map containerd task → rootfs and confirm the volume inside</span></span><br><span class="line">ctr -n k8s.io tasks ls</span><br><span class="line">findmnt /run/containerd/io.containerd.runtime.v2.task/k8s.io/&lt;cid&gt;/rootfs</span><br><span class="line">ls /run/containerd/io.containerd.runtime.v2.task/k8s.io/&lt;cid&gt;/rootfs/&lt;mountPath&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># confirm the LV backing it</span></span><br><span class="line">lvs -o lv_name,vg_name,lv_path,devices</span><br></pre></td></tr></table></figure>
 
-<p>Teardown is the exact reverse: <code>NodeUnpublishVolume</code> (unmount target) → container task destroyed (rootfs path disappears) → <code>NodeUnstageVolume</code> (unmount staging, optionally <code>lvchange -an</code>) → <code>ControllerUnpublishVolume</code> → <code>DeleteVolume</code> when the PV is released.[11][1]</p>
+<p>Teardown is the exact reverse: <code>NodeUnpublishVolume</code> (unmount target) → container task destroyed (rootfs path disappears) → <code>NodeUnstageVolume</code> (unmount staging, optionally <code>lvchange -an</code>) → <code>ControllerUnpublishVolume</code> → <code>DeleteVolume</code> when the PV is released.</p>
+<h1 id="OverlayFS"><a href="#OverlayFS" class="headerlink" title="OverlayFS"></a>OverlayFS</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[&quot;LVM Logical Volume&lt;br&gt;/dev/mapper/csi--lvm-pvc--85dfd566...&lt;br&gt;(block device from csi-lvm driver)&quot;]</span><br><span class="line">    B[&quot;XFS Mount&lt;br&gt;/var/lib/kubelet/pods/dfd4c191.../&lt;br&gt;volumes/kubernetes.io~csi/pvc-85dfd566.../mount&quot;]</span><br><span class="line">    C[&quot;mount/rootfs/fs&lt;br&gt;overlay upperdir (writable)&quot;]</span><br><span class="line">    D[&quot;mount/rootfs/work&lt;br&gt;overlay workdir&quot;]</span><br><span class="line">    E[&quot;Container Image Layers&lt;br&gt;lowerdir=482/fs:481/fs:...:404/fs&lt;br&gt;(read-only)&quot;]</span><br><span class="line">    F[&quot;OverlayFS Merged Mount&lt;br&gt;/run/containerd/io.containerd.runtime.v2.task/&lt;br&gt;k8s.io/52b9bde58b98.../rootfs&quot;]</span><br><span class="line">    G[&quot;Container 52b9bde58b989&lt;br&gt;sees merged rootfs as /&lt;br&gt;(bin etc usr code package workspace ...)&quot;]</span><br><span class="line"></span><br><span class="line">    A --&gt; B</span><br><span class="line">    B --&gt; C</span><br><span class="line">    B --&gt; D</span><br><span class="line">    E --&gt; F</span><br><span class="line">    C --&gt; F</span><br><span class="line">    D --&gt; F</span><br><span class="line">    F --&gt; G</span><br><span class="line">    G -. &quot;all writes land here&quot; .-&gt; C</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>OverlayFS is the union filesystem that stitches the read-only container image and writable PVC-backed directory into a single coherent root filesystem for the container. It’s the “glue” that lets one container see a complete Linux filesystem while the actual data lives in two very different places.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>host mount</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lowerdir</code></td>
+<td><code>482/fs:481/fs:...:404/fs</code></td>
+<td>The container image layers — read-only, shared, immutable base content</td>
+</tr>
+<tr>
+<td><code>upperdir</code></td>
+<td><code>.../pvc-85dfd566.../mount/rootfs/fs</code></td>
+<td>The writable layer — every change the container makes lands here, persisted on your LVM volume</td>
+</tr>
+<tr>
+<td><code>workdir</code></td>
+<td><code>.../pvc-85dfd566.../mount/rootfs/work</code></td>
+<td>Kernel-internal scratch space for atomic copy-up operations; must be on the same filesystem as upperdir</td>
+</tr>
+<tr>
+<td>merged mount</td>
+<td><code>/run/containerd/.../52b9bde58b98.../rootfs</code></td>
+<td>The unified view — what the container actually sees as <code>/</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Reads</strong>: when the container opens a file, OverlayFS checks the upperdir first; if not found, it walks the lowerdirs top-to-bottom. Unmodified files are served straight from the image layers at native speed — after open, operations go directly to the underlying filesystem.</li>
+<li><strong>New writes</strong>: files the container creates go directly into the upperdir — in your case, onto the XFS filesystem on the LVM LV. Nothing touches the image layers.</li>
+<li><strong>Modifying an image file (copy-up)</strong>: if the container writes to a file that only exists in a lowerdir, the kernel first copies the <em>entire</em> file into the upperdir, then applies the write to that copy. The original in the image layer stays untouched. The workdir is used to stage this so a crash mid-copy leaves the old version intact rather than a half-written file.</li>
+<li><strong>Deletes</strong>: removing a lower-layer file doesn’t touch the image — OverlayFS drops a “whiteout” marker in the upperdir so the file simply disappears from the merged view.</li>
+</ul>
+<p>So in one sentence: overlay is what lets the container believe it owns a normal writable root filesystem, while in reality the reads come from shared read-only image layers and every write is silently redirected into your LVM-backed PVC.</p>
 ]]></content>
       <categories>
         <category>Kubernetes</category>
@@ -19578,17 +19665,190 @@ So later in the script, you can safely loop through options using:
 <p>Equivalently, writing the first value changes only the active console threshold:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> 7 | sudo tee /proc/sys/kernel/printk</span><br></pre></td></tr></table></figure>
 
+<p>Verify config</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sysctl kernel.printk</span><br><span class="line">or</span><br><span class="line">cat /proc/sys/kernel/printk</span><br></pre></td></tr></table></figure>
+
 <p>Restore the prior console threshold when finished</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dmesg -n 4</span><br></pre></td></tr></table></figure>
 
+<h1 id="process"><a href="#process" class="headerlink" title="process"></a>process</h1><blockquote>
+<p><code>/proc/&lt;PID&gt;/</code> is the kernel’s live view into a running process. All entries are virtual files generated on-the-fly by the kernel; they cost no disk space and always reflect current state.</p>
+</blockquote>
+<p><strong>Identity &amp; Command</strong></p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Content</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>cmdline</code></td>
+<td>Full command line, args separated by <code>\0</code></td>
+<td><code>tr &#39;\0&#39; &#39; &#39; &lt; /proc/1234/cmdline</code></td>
+</tr>
+<tr>
+<td><code>comm</code></td>
+<td>Command name only (max 15 chars)</td>
+<td>Quick identification</td>
+</tr>
+<tr>
+<td><code>exe</code></td>
+<td>Symlink to the actual binary</td>
+<td><code>readlink /proc/1234/exe</code> — shows real path even if binary was deleted/replaced</td>
+</tr>
+<tr>
+<td><code>environ</code></td>
+<td>Initial environment variables, <code>\0</code>-separated</td>
+<td><code>tr &#39;\0&#39; &#39;\n&#39; &lt; /proc/1234/environ | grep PATH</code></td>
+</tr>
+<tr>
+<td><code>pid</code> / <code>ppid</code></td>
+<td>In <code>status</code></td>
+<td>Parent-child relationship tracing</td>
+</tr>
+</tbody></table>
+<p><strong>Filesystem &amp; Files</strong></p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Content</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>cwd</code></td>
+<td>Symlink to current working directory</td>
+<td><code>readlink /proc/1234/cwd</code> — shows <code>(deleted)</code> if dir was removed</td>
+</tr>
+<tr>
+<td><code>root</code></td>
+<td>Symlink to process’s root directory</td>
+<td>Differs from <code>/</code> inside chroot/containers</td>
+</tr>
+<tr>
+<td><code>fd/</code></td>
+<td>Directory of symlinks, one per open file descriptor</td>
+<td><code>ls -l /proc/1234/fd/</code> — see all open files, sockets, pipes</td>
+</tr>
+<tr>
+<td><code>fdinfo/</code></td>
+<td>Per-FD details (flags, position)</td>
+<td>Debug file offset issues</td>
+</tr>
+<tr>
+<td><code>mounts</code> / <code>mountinfo</code></td>
+<td>Mount table as seen by this process</td>
+<td>Differs across mount namespaces (containers)</td>
+</tr>
+<tr>
+<td><code>maps</code></td>
+<td>Memory-mapped regions (libraries, heap, stack)</td>
+<td>Which .so files are loaded</td>
+</tr>
+</tbody></table>
+<p><strong>Status &amp; Resource Usage</strong></p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Content</th>
+<th>Key fields</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>status</code></td>
+<td>Human-readable summary</td>
+<td><code>State</code>, <code>VmRSS</code> (actual RAM), <code>VmSize</code> (virtual), <code>Threads</code>, <code>Uid/Gid</code>, <code>voluntary_ctxt_switches</code></td>
+</tr>
+<tr>
+<td><code>stat</code></td>
+<td>Machine-readable counters</td>
+<td>utime/stime (CPU), starttime, nice, processor</td>
+</tr>
+<tr>
+<td><code>statm</code></td>
+<td>Memory in pages</td>
+<td>size, resident, shared</td>
+</tr>
+<tr>
+<td><code>io</code></td>
+<td>I/O counters</td>
+<td><code>read_bytes</code>, <code>write_bytes</code> — actual disk I/O vs <code>rchar/wchar</code> (includes cached)</td>
+</tr>
+<tr>
+<td><code>limits</code></td>
+<td>Resource limits (ulimits)</td>
+<td>Max open files, max processes</td>
+</tr>
+<tr>
+<td><code>sched</code></td>
+<td>Scheduling stats</td>
+<td>Context switches, wait times</td>
+</tr>
+</tbody></table>
+<p><strong>Debugging &amp; Advanced</strong></p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Content</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>stack</code></td>
+<td>Kernel stack trace</td>
+<td><code>sudo cat /proc/1234/stack</code> — what syscall it’s blocked in</td>
+</tr>
+<tr>
+<td><code>wchan</code></td>
+<td>Kernel function it’s sleeping in</td>
+<td>Quick “why is it stuck” check</td>
+</tr>
+<tr>
+<td><code>syscall</code></td>
+<td>Current syscall + args</td>
+<td><code>cat /proc/1234/syscall</code></td>
+</tr>
+<tr>
+<td><code>task/</code></td>
+<td>One subdirectory per thread</td>
+<td>Thread-level inspection of all the above</td>
+</tr>
+<tr>
+<td><code>oom_score</code> / <code>oom_adj</code></td>
+<td>OOM killer scoring</td>
+<td>Why the kernel killed your process</td>
+</tr>
+<tr>
+<td><code>cgroup</code></td>
+<td>Cgroup membership</td>
+<td>Which container/cgroup it belongs to</td>
+</tr>
+<tr>
+<td><code>ns/</code></td>
+<td>Namespace symlinks</td>
+<td><code>ls -l /proc/1234/ns/</code> — compare inode numbers to see if two processes share net/mnt/pid namespaces</td>
+</tr>
+<tr>
+<td><code>net/</code></td>
+<td>Network state as seen by this process</td>
+<td>Per-namespace view of <code>/proc/net/tcp</code>, etc.</td>
+</tr>
+</tbody></table>
 <h1 id="bd-openers"><a href="#bd-openers" class="headerlink" title="bd_openers"></a>bd_openers</h1><blockquote>
 <p>  bd_openers (block device openers)  is a kernel-level counter inside the  struct block_device  structure that tracks how many times a block device has been opened — and it’s exactly the number behind the  Open count  you saw in  dmsetup info .</p>
 <p> it’s a field in the kernel’s <code>struct block_device</code>, the in-memory object representing a block device (a disk, a partition, an LV mapping). It counts <strong>how many times that device is currently open</strong> — a plain integer refcount.</p>
 </blockquote>
-<h2 id="roles"><a href="#roles" class="headerlink" title="roles"></a>roles</h2><p>In the Linux kernel, every block device has a <code>struct block_device</code> containing <code>bd_openers</code>. It’s incremented in <code>blkdev_get_by_*()</code> (via <code>bdev_open_by_*()</code> → <code>blkdev_get_whole()</code>) every time someone opens the device, and decremented in <code>bdev_release()</code> / <code>blkdev_put()</code> when the reference is closed:</p>
+<p><strong>roles</strong></p>
+<p>In the Linux kernel, every block device has a <code>struct block_device</code> containing <code>bd_openers</code>. It’s incremented in <code>blkdev_get_by_*()</code> (via <code>bdev_open_by_*()</code> → <code>blkdev_get_whole()</code>) every time someone opens the device, and decremented in <code>bdev_release()</code> / <code>blkdev_put()</code> when the reference is closed:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">open(path, O_RDONLY)          → bd_openers++</span><br><span class="line">mount(), dm table activation  → bd_openers++</span><br><span class="line">close / umount / dm remove    → bd_openers--</span><br></pre></td></tr></table></figure>
 
-<h2 id="What-increments-it"><a href="#What-increments-it" class="headerlink" title="What increments it"></a>What increments it</h2><table>
+<p><strong>What increments it</strong></p>
+<table>
 <thead>
 <tr>
 <th>Opener</th>
@@ -19621,7 +19881,8 @@ So later in the script, you can safely loop through options using:
 
 <img src="/images/linux/dmsetup-info.png" style="zoom: 60%; float: left">
 
-<h2 id="Why-it-blocks-your-removal"><a href="#Why-it-blocks-your-removal" class="headerlink" title="Why it blocks your removal"></a>Why it blocks your removal</h2><p><code>dm_lock_for_deletion()</code> refuses to tear down a mapping that something is still using — otherwise the kernel would free structures out from under a live opener and panic. So:</p>
+<p><strong>Why it blocks your removal</strong></p>
+<p><code>dm_lock_for_deletion()</code> refuses to tear down a mapping that something is still using — otherwise the kernel would free structures out from under a live opener and panic. So:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bd_openers != 0  →  remove ioctl returns EBUSY</span><br></pre></td></tr></table></figure>
 
 <p>That’s your <code>Device or resource busy</code>, verbatim. And it explains the three failures you hit:</p>
@@ -19636,13 +19897,23 @@ So later in the script, you can safely loop through options using:
 <p>Hence reboot — it’s the only thing that frees kernel memory holding an unreachable reference. Not a workaround; the actual mechanism.</p>
 <p>One caveat worth keeping: <code>Open 1</code> is the kernel’s own accounting and is reliable. But <code>/sys/fs/xfs/dm-5</code> is keyed by <strong>kernel name, not dm UUID</strong> — so if a previous device had reused minor 5 and was force-removed while mounted, that kobject could be stale and misattributed. That’d matter if you ever see this error with <code>Open 0</code>. With <code>Open 1</code> there’s a real opener, so it isn’t your situation.</p>
 <p>In short: <strong><code>bd_openers</code> is the kernel’s canonical “is this block device in use” counter; device-mapper consults it before allowing device removal, which is why it directly caused your deactivation failure.</strong></p>
-<h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><h2 id="plan-1"><a href="#plan-1" class="headerlink" title="plan 1"></a>plan 1</h2><p><a href="https://github.com/jackblack369/bdopener_ctl">bdopener_cli</a></p>
-<h2 id="plan-2"><a href="#plan-2" class="headerlink" title="plan 2"></a>plan 2</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h2 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h2><p><strong>plan 1</strong></p>
+<p><a href="https://github.com/jackblack369/bdopener_ctl">bdopener_cli</a></p>
+<p><strong>plan 2</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
 
-<h2 id="try"><a href="#try" class="headerlink" title="try"></a>try</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. host machine</span><br><span class="line">bash release_useless_lv_improved.sh pvc-xxx</span><br><span class="line"></span><br><span class="line">2. csi plugin</span><br><span class="line">lvchange -an /dev/csi-lvm/pvc-xxx</span><br></pre></td></tr></table></figure>
+<p><strong>other try</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. host machine</span><br><span class="line">bash release_useless_lv_improved.sh pvc-xxx</span><br><span class="line"></span><br><span class="line">2. csi plugin</span><br><span class="line">lvchange -an /dev/csi-lvm/pvc-xxx</span><br></pre></td></tr></table></figure>
 
 <h1 id="nsenter"><a href="#nsenter" class="headerlink" title="nsenter"></a>nsenter</h1><p><strong>nsenter</strong>  (“namespace enter”) is a util-linux tool that runs a program inside the Linux namespaces of another, already-running process — it’s essentially a command-line wrapper around the  setns(2)  system call.</p>
 <p>Linux namespaces partition kernel resources (network, mounts, PIDs, etc.) so processes get isolated views of the system — this is the foundation of containers.  nsenter  lets you “step into” any of those isolated environments from the host, without attaching to or modifying the container.</p>
+<h1 id="dm"><a href="#dm" class="headerlink" title="dm"></a>dm</h1><p><strong>command</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># See all dm devices and their minor numbers</span></span><br><span class="line">dmsetup info -C -o name,major,minor</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or check the next available minor number</span></span><br><span class="line">sudo dmsetup info -C -o minor | sort -n | tail -1</span><br></pre></td></tr></table></figure>
+
+<p><strong>tips</strong></p>
+<ul>
+<li>The kernel allocates dm minor numbers sequentially from 0 upward, reusing freed numbers from the lowest available gap. So if  dm-7  was removed, minor number  7  becomes available for the next  dmsetup create  — it doesn’t skip ahead.</li>
+</ul>
 ]]></content>
       <categories>
         <category>linux</category>

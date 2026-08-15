@@ -14,7 +14,7 @@
 <meta property="og:description" content="DNSadd new dns method 1: 1234567# step1: vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf[Resolve]DNS&#x3D;10.201.44.51 223.5.5.5  # new DNSFallbackDNS&#x3D;127.0.0.53# step2: restart servicesudo systemctl restart systemd-resolv">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-10T02:04:37.000Z">
-<meta property="article:modified_time" content="2026-07-15T02:53:44.611Z">
+<meta property="article:modified_time" content="2026-08-14T06:44:38.083Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="solution">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,10 @@
 
 <h3 id="plan3-temp-available"><a href="#plan3-temp-available" class="headerlink" title="plan3: temp available"></a>plan3: temp available</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ip link set ibp27s0 up</span><br><span class="line">sudo ip addr add 192.168.1.13/21 dev ibp27s0</span><br></pre></td></tr></table></figure>
 
-<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><h2 id="create-bond"><a href="#create-bond" class="headerlink" title="create bond"></a>create bond</h2><p>Bonding Mode</p>
+<h1 id="bond"><a href="#bond" class="headerlink" title="bond"></a>bond</h1><h2 id="create-bond"><a href="#create-bond" class="headerlink" title="create bond"></a>create bond</h2><p><strong>Bonding Mode</strong></p>
+<blockquote>
+<p>check: cat /proc/net/bonding/bondxxx</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -332,10 +335,14 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 172.30.12.47 # other same bond addr</span><br></pre></td></tr></table></figure>
 
 <p><strong>Step 8: Optional - Test Failover (For active-backup Mode)</strong></p>
-<p>​    1.    Temporarily bring down ib7s400p0:</p>
+<ol>
+<li>Temporarily bring down ib7s400p0:</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ip link set ib7s400p0 down</span><br></pre></td></tr></table></figure>
 
-<p>​    2.    Check bond1 status:</p>
+<ol start="2">
+<li>Check bond1 status:</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/net/bonding/bond1</span><br></pre></td></tr></table></figure>
 
 <p>In active-backup mode, bond1 should remain active (even though ib7s400p0 is down).</p>
