@@ -1484,6 +1484,15 @@
 
 <h2 id="use-specify-group-nodes"><a href="#use-specify-group-nodes" class="headerlink" title="use specify group nodes"></a>use specify group nodes</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># against a different group</span></span><br><span class="line">ansible-playbook xxx.yml -e target_hosts=xxx</span><br></pre></td></tr></table></figure>
 
+<h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="ModuleNotFoundError-No-module-named-‘ansible-module-utils-six-moves"><a href="#ModuleNotFoundError-No-module-named-‘ansible-module-utils-six-moves" class="headerlink" title="ModuleNotFoundError: No module named ‘ansible.module_utils.six.moves"></a>ModuleNotFoundError: No module named ‘ansible.module_utils.six.moves</h2><blockquote>
+<p>Ubuntu 24.04 system default  python3 -&gt; python3.12 </p>
+</blockquote>
+<p><strong>install python10</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y software-properties-common</span><br><span class="line">add-apt-repository -y ppa:deadsnakes/ppa</span><br><span class="line">apt update</span><br><span class="line">apt install -y python3.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">python3 --version          <span class="comment"># Python 3.12.3 (unchanged)</span></span><br><span class="line">/usr/bin/python3.10 --version   <span class="comment"># Python 3.10.x</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>config ansible_python_interpreter</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">node-xxx:</span></span><br><span class="line">  <span class="attr">ansible_host:</span> <span class="string">xxx</span></span><br><span class="line">  <span class="attr">ansible_python_interpreter:</span> <span class="string">/usr/bin/python3.10</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>ansible</category>
@@ -12515,6 +12524,12 @@
 <li><p><strong>solution</strong>: Configure unqualified search registries</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tee /etc/containers/registries.conf.d/00-unqualified-search-registries.conf &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">unqualified-search-registries = [<span class="string">&quot;docker.io&quot;</span>]</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># system wide: /etc/containers/registries.conf</span></span><br><span class="line"><span class="comment"># ~jenkins/.config/containers/registries.conf</span></span><br><span class="line"></span><br><span class="line">unqualified-search-registries = [<span class="string">&quot;docker.io&quot;</span>]</span><br><span class="line">short-name-mode = <span class="string">&quot;permissive&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="UID-deleted-recreated-or-changed"><a href="#UID-deleted-recreated-or-changed" class="headerlink" title="UID deleted/recreated or changed"></a>UID deleted/recreated or changed</h2><ul>
+<li><p>issue</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># execute podman command occur below issue, but i check current user UID is 1009</span></span><br><span class="line">Error: creating events <span class="built_in">dirs</span>: mkdir /run/user/1007: permission denied</span><br></pre></td></tr></table></figure></li>
+<li><p>solution</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># locate graphroot storage path</span></span><br><span class="line">cat ~/.config/containers/storage.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Since podman use sqlite as meta backend, locate the db file and update the stored tmp dir directly</span></span><br><span class="line">find /path/to/podman/graphroot -maxdepth 3 -iname <span class="string">&#x27;*.db&#x27;</span> -o -iname <span class="string">&#x27;db.sql&#x27;</span> 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># inspect </span></span><br><span class="line">sqlite3 /path/to/podman/graphroot/db.sql \</span><br><span class="line">  <span class="string">&quot;SELECT * FROM DBConfig;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># correct it</span></span><br><span class="line">sqlite3 /path/to/podman/graphroot/db.sql \</span><br><span class="line">  <span class="string">&quot;UPDATE DBConfig SET TmpDir=&#x27;/run/user/&lt;newUID&gt;/libpod/tmp&#x27; WHERE TmpDir=&#x27;/run/user/&lt;oldUID&gt;/libpod/tmp&#x27;;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># e.g.</span></span><br><span class="line">sqlite3 /path/to/podman/graphroot/db.sql \</span><br><span class="line">  <span class="string">&quot;UPDATE DBConfig SET TmpDir=&#x27;/run/user/1009/libpod/tmp&#x27; WHERE TmpDir=&#x27;/run/user/1007/libpod/tmp&#x27;;&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>podman</category>
@@ -14546,6 +14561,11 @@
 <h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># check specify config. e.g.</span></span><br><span class="line">systemctl show nvmeof-connect.service -p TimeoutStartUSec -p TimeoutStopUSec</span><br></pre></td></tr></table></figure>
 
 <h2 id="auto-restart"><a href="#auto-restart" class="headerlink" title="auto restart"></a>auto restart</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># check auto restart </span></span><br><span class="line">systemctl is-enabled xxx.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># enable start at boot</span></span><br><span class="line">systemctl <span class="built_in">enable</span> xxx.service</span><br></pre></td></tr></table></figure>
+
+<h2 id="OOM-killer-score"><a href="#OOM-killer-score" class="headerlink" title="OOM killer score"></a>OOM killer score</h2><blockquote>
+<p> OOMScoreAdjust=  adjusts how likely a process is to be killed under memory pressure, ranging from -1000 (never killed) to 1000 (killed first); this maps directly to  /proc/<pid>/oom_score_adj</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Service]</span><br><span class="line">...</span><br><span class="line"><span class="comment"># OOM protection</span></span><br><span class="line">OOMScoreAdjust=-500</span><br></pre></td></tr></table></figure>
 
 <h1 id="troubleshooting-1"><a href="#troubleshooting-1" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><h2 id="鼠标按键会在终端输入乱码"><a href="#鼠标按键会在终端输入乱码" class="headerlink" title="鼠标按键会在终端输入乱码"></a>鼠标按键会在终端输入乱码</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> the `reset` <span class="built_in">command</span> helps restore the terminal to a known good state, <span class="built_in">which</span> can be helpful <span class="keyword">in</span> troubleshooting issues or clearing screen clutter.</span></span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
 
@@ -18074,6 +18094,8 @@
 <td>Risk of accidental edits to other fields.</td>
 </tr>
 </tbody></table>
+<h2 id="event"><a href="#event" class="headerlink" title="event"></a>event</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># check event history</span></span><br><span class="line">kubectl get events -n &lt;nsName&gt; \</span><br><span class="line">  --field-selector involvedObject.kind=Pod,involvedObject.name=&lt;podName&gt; \</span><br><span class="line">  --sort-by=.metadata.creationTimestamp</span><br></pre></td></tr></table></figure>
+
 <h1 id="deployment"><a href="#deployment" class="headerlink" title="deployment"></a>deployment</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> restart</span></span><br><span class="line">kubectl rollout restart deployment &lt;deployment-name&gt; -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure>
 
 <h1 id="statefulset"><a href="#statefulset" class="headerlink" title="statefulset"></a>statefulset</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> restart</span></span><br><span class="line">kubectl rollout restart StatefulSet/dingofs-csi-controller -n dingofs</span><br></pre></td></tr></table></figure>
@@ -18725,6 +18747,8 @@
 
 <h2 id="uninstall"><a href="#uninstall" class="headerlink" title="uninstall"></a>uninstall</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> destroy cluster</span> </span><br><span class="line">tiup cluster destroy &lt;cluster-name&gt; [flags]</span><br><span class="line"></span><br><span class="line">tiup cluster destroy command performs the following operations:</span><br><span class="line">1. Stops the cluster.</span><br><span class="line">2. For each service, delete its log directory, deployment directory, and data directory.</span><br><span class="line">3. If the parent directory of the data directory or deployment directory of each service is created by tiup-cluster, also delete the parent directory.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> other: stop cluster</span></span><br><span class="line">tiup cluster stop &lt;cluster-name&gt; [flags]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> other: uninstall component</span></span><br><span class="line">tiup uninstall &lt;component1&gt;:&lt;version&gt; [component2...N] [flags]</span><br></pre></td></tr></table></figure>
 
+<h2 id="reset-cluster"><a href="#reset-cluster" class="headerlink" title="reset cluster"></a>reset cluster</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Clean all data and logs (irreversible)</span></span><br><span class="line">tiup cluster clean tikv-8.5.6 --all</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or clean only data, keep logs</span></span><br><span class="line">tiup cluster clean tikv-8.5.6 --data</span><br><span class="line"></span><br><span class="line"><span class="comment"># Restart as a fresh cluster</span></span><br><span class="line">tiup cluster start tikv-8.5.6</span><br></pre></td></tr></table></figure>
+
 <h1 id="monitor"><a href="#monitor" class="headerlink" title="monitor"></a>monitor</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> grafana, default login admin/admin</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;Grafana-ip&#125;:3000</span>  </span><br></pre></td></tr></table></figure>
 
 ]]></content>
@@ -18748,7 +18772,7 @@
 
 <h1 id="model-1"><a href="#model-1" class="headerlink" title="model"></a>model</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Launch with a specific model:</span></span><br><span class="line">claude --model sonnet</span><br><span class="line">claude --model opus</span><br><span class="line">claude --model haiku</span><br><span class="line">claude --model openai/gpt-5.6-sol</span><br><span class="line">claude --model openai/gpt-5.6-luna</span><br><span class="line"></span><br><span class="line"><span class="comment"># Type /model inside session. It shows the available models and lets you switch:</span></span><br><span class="line">/model sonnet	<span class="comment"># Sonnet 5 (default daily driver)</span></span><br><span class="line">/model haiku	<span class="comment"># Haiku 4.5 (fast, cheap)</span></span><br><span class="line">/model opus	<span class="comment"># Opus 4.8 (deepest reasoning)</span></span><br><span class="line">/model fable	<span class="comment"># Fable 5 (newest)</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="slug"><a href="#slug" class="headerlink" title="slug"></a>slug</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;original-model-slug&gt;:amazon-bedrock</span><br><span class="line">&lt;original-model-slug&gt;:google-vertex</span><br><span class="line"></span><br><span class="line"><span class="comment"># e.g.</span></span><br><span class="line">claude-sonnet-4-5:amazon-bedrock</span><br><span class="line">claude-sonnet-4-5:google-vertex</span><br><span class="line"><span class="comment"># opus</span></span><br><span class="line">claude-opus-5:amazon-bedrock</span><br><span class="line">claude-opus-5:google-vertex</span><br><span class="line"></span><br><span class="line">claude --model <span class="string">&#x27;claude-sonnet-5:amazon-bedrock&#x27;</span></span><br><span class="line">claude --model <span class="string">&#x27;claude-sonnet-5:google-vertex&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="slug"><a href="#slug" class="headerlink" title="slug"></a>slug</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;original-model-slug&gt;:amazon-bedrock</span><br><span class="line">&lt;original-model-slug&gt;:google-vertex</span><br><span class="line"></span><br><span class="line"><span class="comment"># e.g.</span></span><br><span class="line">claude-sonnet-4-5:amazon-bedrock</span><br><span class="line">claude-sonnet-4-5:google-vertex</span><br><span class="line"><span class="comment"># opus</span></span><br><span class="line">claude-opus-5:google-vertex</span><br><span class="line">claude-opus-5:google-vertex</span><br><span class="line"></span><br><span class="line">claude --model <span class="string">&#x27;claude-sonnet-5:amazon-bedrock&#x27;</span></span><br><span class="line">claude --model <span class="string">&#x27;claude-sonnet-5:google-vertex&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>cost</strong></p>
 <table>
@@ -18765,6 +18789,36 @@
 <td>$0.28</td>
 </tr>
 <tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>z-ai/glm-5.3</td>
+<td>$1.4</td>
+<td>$4.4</td>
+</tr>
+<tr>
+<td>qwen/qwen3.8-max</td>
+<td>$1.4</td>
+<td>$4.2</td>
+</tr>
+<tr>
+<td>x-ai/grok-4.6</td>
+<td>$2</td>
+<td>$6</td>
+</tr>
+<tr>
+<td>moonshotai/kimi-k3</td>
+<td>$2.7</td>
+<td>$13.5</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td>openai/gpt-5.6-luna</td>
 <td>$0.2</td>
 <td>$1.2</td>
@@ -18775,19 +18829,9 @@
 <td>$12</td>
 </tr>
 <tr>
-<td>z-ai/glm-5.2</td>
-<td>$0.98</td>
-<td>$3.08</td>
-</tr>
-<tr>
-<td>qwen/qwen3.8-max</td>
-<td>$2</td>
-<td>$6</td>
-</tr>
-<tr>
-<td>moonshotai/kimi-k3</td>
-<td>$3</td>
-<td>$15</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>anthropic/claude-sonnet-5:amazon-bedrock</td>
@@ -18795,12 +18839,12 @@
 <td>$10</td>
 </tr>
 <tr>
-<td>anthropic/claude-opus-5:amazon-bedrock</td>
+<td>anthropic/claude-opus-5:google-vertex</td>
 <td>$5</td>
 <td>$25</td>
 </tr>
 <tr>
-<td>anthropic/claude-fable-5:amazon-bedrock</td>
+<td>anthropic/claude-fable-5:google-vertex</td>
 <td>$10</td>
 <td>$50</td>
 </tr>
@@ -19488,7 +19532,7 @@ So later in the script, you can safely loop through options using:
     <content><![CDATA[<h1 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    autonumber</span><br><span class="line">    participant U as User</span><br><span class="line">    participant A as API Server</span><br><span class="line">    participant P as external-provisioner</span><br><span class="line">    participant C as CSI Controller</span><br><span class="line">    participant K as Kubelet</span><br><span class="line">    participant N as CSI Node Plugin</span><br><span class="line">    participant H as Host (LVM)</span><br><span class="line">    participant D as containerd/runc</span><br><span class="line"></span><br><span class="line">    rect rgb(230, 245, 255)</span><br><span class="line">    Note over U,H: PROVISION &amp; BIND</span><br><span class="line">    U-&gt;&gt;A: Create PVC (StorageClass: lvm-csi)</span><br><span class="line">    P-&gt;&gt;C: CreateVolume</span><br><span class="line">    C-&gt;&gt;H: lvcreate -n lv-xxx vg0</span><br><span class="line">    C--&gt;&gt;P: volume_id</span><br><span class="line">    P-&gt;&gt;A: Create PV -&gt; PV/PVC Bound</span><br><span class="line">    U-&gt;&gt;A: Create Pod (uses PVC)</span><br><span class="line">    A-&gt;&gt;K: Pod scheduled to node</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(235, 255, 235)</span><br><span class="line">    Note over K,H: MOUNT (per pod)</span><br><span class="line">    K-&gt;&gt;N: NodeStageVolume</span><br><span class="line">    N-&gt;&gt;H: lvchange -ay + mkfs + mount staging&lt;br/&gt;/var/lib/kubelet/plugins/kubernetes.io/csi/pv/pv-name/globalmount</span><br><span class="line">    K-&gt;&gt;N: NodePublishVolume</span><br><span class="line">    N-&gt;&gt;H: mount --bind staging -&gt; target&lt;br/&gt;/var/lib/kubelet/pods/uid/volumes/kubernetes.io~csi/pvc/mount</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(255, 245, 225)</span><br><span class="line">    Note over K,D: CONTAINER START</span><br><span class="line">    K-&gt;&gt;D: CRI CreateContainer (Mounts: host target -&gt; mountPath)</span><br><span class="line">    D-&gt;&gt;D: runc bind-mounts into rootfs&lt;br/&gt;/run/containerd/io.containerd.runtime.v2.task/k8s.io/cid/rootfs/mountPath</span><br><span class="line">    D--&gt;&gt;K: Container running</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    rect rgb(255, 235, 235)</span><br><span class="line">    Note over U,H: TEARDOWN (reverse order)</span><br><span class="line">    U-&gt;&gt;A: Delete Pod</span><br><span class="line">    K-&gt;&gt;D: StopContainer -&gt; task destroyed, rootfs path gone</span><br><span class="line">    K-&gt;&gt;N: NodeUnpublishVolume -&gt; umount pod target path</span><br><span class="line">    K-&gt;&gt;N: NodeUnstageVolume -&gt; umount staging, lvchange -an</span><br><span class="line">    U-&gt;&gt;A: Delete PVC</span><br><span class="line">    P-&gt;&gt;C: DeleteVolume</span><br><span class="line">    C-&gt;&gt;H: lvremove vg0/lv-xxx</span><br><span class="line">    end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>command</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Get the full container ID for a pod&#x27;s container</span></span><br><span class="line">CID=$(crictl ps --name &lt;container-name&gt; -q | head -1)          <span class="comment"># truncated 13-char</span></span><br><span class="line">CID=$(crictl ps --name &lt;container-name&gt; --no-trunc -q | head -1)  <span class="comment"># full 64-char</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or filter by pod ID</span></span><br><span class="line">PODID=$(crictl pods --name &lt;pod-name&gt; --namespace &lt;ns&gt; -q)</span><br><span class="line">CID=$(crictl ps --pod <span class="variable">$PODID</span> --no-trunc -q)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Build the rootfs path</span></span><br><span class="line"><span class="built_in">echo</span> /run/containerd/io.containerd.runtime.v2.task/k8s.io/<span class="variable">$CID</span>/rootfs</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Get the full container ID for a pod&#x27;s container</span></span><br><span class="line">CID=$(crictl ps --name &lt;container-name&gt; -q | head -1)          <span class="comment"># truncated 13-char</span></span><br><span class="line">CID=$(crictl ps --name &lt;container-name&gt; --no-trunc -q | head -1)  <span class="comment"># full 64-char</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or filter by pod ID</span></span><br><span class="line">PODID=$(crictl pods --name &lt;pod-name&gt; --namespace &lt;ns&gt; -q)</span><br><span class="line">CID=$(crictl ps --pod <span class="variable">$PODID</span> --no-trunc -q)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Build the rootfs path</span></span><br><span class="line"><span class="built_in">echo</span> /run/containerd/io.containerd.runtime.v2.task/k8s.io/<span class="variable">$CID</span>/rootfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># (tip) check pod metadata base on CID</span></span><br><span class="line">crictl inspect <span class="variable">$CID</span> | jq <span class="string">&#x27;.status.labels&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>Here’s the end-to-end reference flow of how a Pod’s volume target path is created in Kubernetes with a CSI driver (using your LVM-on-host + containerd scenario), from PVC all the way to the containerd rootfs view.</p>
 <p>There are two distinct “target” concepts people often conflate: </p>
@@ -19517,7 +19561,7 @@ So later in the script, you can safely loop through options using:
 <li>The path is stable for the pod UID; kubelet’s reconciler will re-issue <code>NodePublishVolume</code> if the mount is lost, and drivers with <code>RequiresRepublish</code> get repeated calls.</li>
 </ul>
 <p>So on the host you now have:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/dev/mapper/vg-lv  →  /var/lib/kubelet/plugins/kubernetes.io/csi/pv/&lt;pv&gt;/globalmount</span><br><span class="line">                    →  (bind) /var/lib/kubelet/pods/&lt;uid&gt;/volumes/kubernetes.io~csi/&lt;pvc&gt;/mount</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/dev/mapper/vg-lv  →  /var/lib/kubelet/plugins/kubernetes.io/csi/pv/&lt;pv&gt;/globalmount  </span><br><span class="line">                    →  (bind) /var/lib/kubelet/pods/&lt;uid&gt;/volumes/kubernetes.io~csi/&lt;pvc&gt;/mount</span><br></pre></td></tr></table></figure>
 
 <h2 id="Stage-5-—-CRI-→-containerd-→-the-rootfs-Path"><a href="#Stage-5-—-CRI-→-containerd-→-the-rootfs-Path" class="headerlink" title="Stage 5 — CRI → containerd → the rootfs Path"></a>Stage 5 — CRI → containerd → the rootfs Path</h2><p>Now the runtime enters:</p>
 <ol>
@@ -19914,6 +19958,8 @@ So later in the script, you can safely loop through options using:
 <ul>
 <li>The kernel allocates dm minor numbers sequentially from 0 upward, reusing freed numbers from the lowest available gap. So if  dm-7  was removed, minor number  7  becomes available for the next  dmsetup create  — it doesn’t skip ahead.</li>
 </ul>
+<h1 id="D-state"><a href="#D-state" class="headerlink" title="D state"></a>D state</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List all D-state processes</span></span><br><span class="line">ps -eo pid,ppid,user,<span class="built_in">stat</span>,pcpu,comm,wchan:32 | awk <span class="string">&#x27;NR==1 || $4 ~ /^D/&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Or simpler</span></span><br><span class="line">ps aux | awk <span class="string">&#x27;$8 ~ /^D/&#x27;</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>linux</category>
