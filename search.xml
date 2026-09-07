@@ -1488,7 +1488,7 @@
 <p>Ubuntu 24.04 system default  python3 -&gt; python3.12 </p>
 </blockquote>
 <p><strong>install python10</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y software-properties-common</span><br><span class="line">add-apt-repository -y ppa:deadsnakes/ppa</span><br><span class="line">apt update</span><br><span class="line">apt install -y python3.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">python3 --version          <span class="comment"># Python 3.12.3 (unchanged)</span></span><br><span class="line">/usr/bin/python3.10 --version   <span class="comment"># Python 3.10.x</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y software-properties-common</span><br><span class="line">add-apt-repository -y ppa:deadsnakes/ppa</span><br><span class="line">apt update</span><br><span class="line">apt install -y python3.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">python3 --version               <span class="comment"># Python 3.12.3 (unchanged)</span></span><br><span class="line">/usr/bin/python3.10 --version   <span class="comment"># Python 3.10.x</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>config ansible_python_interpreter</strong></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">node-xxx:</span></span><br><span class="line">  <span class="attr">ansible_host:</span> <span class="string">xxx</span></span><br><span class="line">  <span class="attr">ansible_python_interpreter:</span> <span class="string">/usr/bin/python3.10</span></span><br></pre></td></tr></table></figure>
@@ -8101,6 +8101,9 @@
 <h1 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h1><p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">docs.github.com</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> List remote</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add remote</span> </span><br><span class="line">git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> modify remote</span> </span><br><span class="line">git remote set-url origin http://gitlab.xxx.com/username/repository.git</span><br></pre></td></tr></table></figure>
 
+<p><strong>推送到非fork的repo</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git fetch upstream</span><br><span class="line">git rebase upstream/main</span><br><span class="line">git push upstream dev-dw:main</span><br></pre></td></tr></table></figure>
+
 <h1 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> init <span class="built_in">clone</span> with submodule</span></span><br><span class="line">git clone --recurse-submodules https://github.com/chaconinc/MainProject</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check submodule</span></span><br><span class="line">git submodule status</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> init submodule dir</span></span><br><span class="line">git submodule init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> update submodule code</span></span><br><span class="line">git submodule update</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add the submodule</span></span><br><span class="line">git submodule add https://github.com/example/submodule.git submodule-dir</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 后期从远程仓库更新submodule代码</span></span><br><span class="line">git submodule update --remote</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fetch and checkout the specific tag</span></span><br><span class="line">cd submodule-dir</span><br><span class="line">git fetch --tags</span><br><span class="line">git checkout &lt;xxx&gt;</span><br><span class="line">cd ..</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> change submodule specify commitID</span></span><br><span class="line">cd &lt;submoduleDir&gt;</span><br><span class="line">git fetch</span><br><span class="line">git checkout &lt;commit-id&gt; # -f (force)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove submodule</span></span><br><span class="line">git submodule deinit path/to/submodule</span><br><span class="line">rm -rf path/to/submodule</span><br><span class="line">git rm --cached path/to/submodule</span><br><span class="line">git commit -m &quot;Removed submodule path/to/submodule&quot;</span><br></pre></td></tr></table></figure>
 
 <h1 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry pick"></a>cherry pick</h1><p>If the new commits (commit-4, commit-5, commit-6) are in the feat-alpha branch and you want to cherry-pick them into a clean branch based on upstream/main, here’s how to do it:</p>
@@ -10639,8 +10642,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rclone size /mnt/data1 # --exclude &quot;/.stats&quot;</span><br><span class="line">rclone size /mnt/data2</span><br></pre></td></tr></table></figure>
 
 <h2 id="fpsync"><a href="#fpsync" class="headerlink" title="fpsync"></a>fpsync</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># intall</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install fpart</span><br><span class="line"></span><br><span class="line"><span class="comment"># use</span></span><br><span class="line">fpsync -n 32 \ <span class="comment"># 32 parallel rsync workers (tune to CPU/FS load)</span></span><br><span class="line">  -f 4000 \ <span class="comment"># max 4000 files per chunk (good for small files)</span></span><br><span class="line">  -s $((<span class="number">16</span> * <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">1024</span>)) \ <span class="comment"># max 16 GiB per chunk (splits around big models)</span></span><br><span class="line">  -o <span class="string">&quot;-lptgoD --numeric-ids --inplace&quot;</span> \</span><br><span class="line">  -v \</span><br><span class="line">  /dingofs/mas-dingospeed-fs/ /dingofs/hd04-dingospeed-fs/</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="parallel"><a href="#parallel" class="headerlink" title="parallel"></a>parallel</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /path/to/source/ -maxdepth 1 -type d | parallel -j 8 &#x27;rclone copy &#123;&#125; /path/to/target/&#123;/&#125; --transfers=32 --checkers=32 --fast-list --buffer-size=512M --max-backlog=100000 --use-mmap --no-traverse --stats=30s --log-file=rclone_&#123;/&#125;.log&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -19645,6 +19646,34 @@ So later in the script, you can safely loop through options using:
 <li><strong>Deletes</strong>: removing a lower-layer file doesn’t touch the image — OverlayFS drops a “whiteout” marker in the upperdir so the file simply disappears from the merged view.</li>
 </ul>
 <p>So in one sentence: overlay is what lets the container believe it owns a normal writable root filesystem, while in reality the reads come from shared read-only image layers and every write is silently redirected into your LVM-backed PVC.</p>
+<h1 id="mount-propagation"><a href="#mount-propagation" class="headerlink" title="mount propagation"></a>mount propagation</h1><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Linux</th>
+<th>Container sees new host mounts</th>
+<th>Host sees mounts created in the container</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>None (default)</td>
+<td>rprivate</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>HostToContainer</td>
+<td>rslave</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Bidirectional</td>
+<td>rshared</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>Kubernetes</category>

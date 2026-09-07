@@ -14,7 +14,7 @@
 <meta property="og:description" content="overview123456789101112131415161718192021222324252627282930313233343536373839404142434445464748sequenceDiagram    autonumber    participant U as User    participant A as API Server    participant P as">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-08-08T03:36:25.000Z">
-<meta property="article:modified_time" content="2026-08-25T03:40:12.101Z">
+<meta property="article:modified_time" content="2026-09-07T03:55:29.790Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="Volume">
 <meta name="twitter:card" content="summary">
@@ -114,7 +114,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-1-%E2%80%94-Provision-and-Bind"><span class="toc-number">1.1.</span> <span class="toc-text">Stage 1 — Provision and Bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-2-%E2%80%94-Attach-ControllerPublishVolume"><span class="toc-number">1.2.</span> <span class="toc-text">Stage 2 — Attach (ControllerPublishVolume)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-3-%E2%80%94-NodeStageVolume-Staging-Path"><span class="toc-number">1.3.</span> <span class="toc-text">Stage 3 — NodeStageVolume (Staging Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-4-%E2%80%94-NodePublishVolume-Target-Path"><span class="toc-number">1.4.</span> <span class="toc-text">Stage 4 — NodePublishVolume (Target Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-5-%E2%80%94-CRI-%E2%86%92-containerd-%E2%86%92-the-rootfs-Path"><span class="toc-number">1.5.</span> <span class="toc-text">Stage 5 — CRI → containerd → the rootfs Path</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-Ownership-Map"><span class="toc-number">1.6.</span> <span class="toc-text">Path Ownership Map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Verify-on-the-Host"><span class="toc-number">1.7.</span> <span class="toc-text">Verify on the Host</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OverlayFS"><span class="toc-number">2.</span> <span class="toc-text">OverlayFS</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-1-%E2%80%94-Provision-and-Bind"><span class="toc-number">1.1.</span> <span class="toc-text">Stage 1 — Provision and Bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-2-%E2%80%94-Attach-ControllerPublishVolume"><span class="toc-number">1.2.</span> <span class="toc-text">Stage 2 — Attach (ControllerPublishVolume)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-3-%E2%80%94-NodeStageVolume-Staging-Path"><span class="toc-number">1.3.</span> <span class="toc-text">Stage 3 — NodeStageVolume (Staging Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-4-%E2%80%94-NodePublishVolume-Target-Path"><span class="toc-number">1.4.</span> <span class="toc-text">Stage 4 — NodePublishVolume (Target Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-5-%E2%80%94-CRI-%E2%86%92-containerd-%E2%86%92-the-rootfs-Path"><span class="toc-number">1.5.</span> <span class="toc-text">Stage 5 — CRI → containerd → the rootfs Path</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-Ownership-Map"><span class="toc-number">1.6.</span> <span class="toc-text">Path Ownership Map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Verify-on-the-Host"><span class="toc-number">1.7.</span> <span class="toc-text">Verify on the Host</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OverlayFS"><span class="toc-number">2.</span> <span class="toc-text">OverlayFS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mount-propagation"><span class="toc-number">3.</span> <span class="toc-text">mount propagation</span></a></li></ol>
       </div>
     
   </span>
@@ -280,6 +280,34 @@
 <li><strong>Deletes</strong>: removing a lower-layer file doesn’t touch the image — OverlayFS drops a “whiteout” marker in the upperdir so the file simply disappears from the merged view.</li>
 </ul>
 <p>So in one sentence: overlay is what lets the container believe it owns a normal writable root filesystem, while in reality the reads come from shared read-only image layers and every write is silently redirected into your LVM-backed PVC.</p>
+<h1 id="mount-propagation"><a href="#mount-propagation" class="headerlink" title="mount propagation"></a>mount propagation</h1><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Linux</th>
+<th>Container sees new host mounts</th>
+<th>Host sees mounts created in the container</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>None (default)</td>
+<td>rprivate</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>HostToContainer</td>
+<td>rslave</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Bidirectional</td>
+<td>rshared</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
 
   </div>
 </article>
@@ -311,7 +339,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-1-%E2%80%94-Provision-and-Bind"><span class="toc-number">1.1.</span> <span class="toc-text">Stage 1 — Provision and Bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-2-%E2%80%94-Attach-ControllerPublishVolume"><span class="toc-number">1.2.</span> <span class="toc-text">Stage 2 — Attach (ControllerPublishVolume)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-3-%E2%80%94-NodeStageVolume-Staging-Path"><span class="toc-number">1.3.</span> <span class="toc-text">Stage 3 — NodeStageVolume (Staging Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-4-%E2%80%94-NodePublishVolume-Target-Path"><span class="toc-number">1.4.</span> <span class="toc-text">Stage 4 — NodePublishVolume (Target Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-5-%E2%80%94-CRI-%E2%86%92-containerd-%E2%86%92-the-rootfs-Path"><span class="toc-number">1.5.</span> <span class="toc-text">Stage 5 — CRI → containerd → the rootfs Path</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-Ownership-Map"><span class="toc-number">1.6.</span> <span class="toc-text">Path Ownership Map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Verify-on-the-Host"><span class="toc-number">1.7.</span> <span class="toc-text">Verify on the Host</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OverlayFS"><span class="toc-number">2.</span> <span class="toc-text">OverlayFS</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#overview"><span class="toc-number">1.</span> <span class="toc-text">overview</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-1-%E2%80%94-Provision-and-Bind"><span class="toc-number">1.1.</span> <span class="toc-text">Stage 1 — Provision and Bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-2-%E2%80%94-Attach-ControllerPublishVolume"><span class="toc-number">1.2.</span> <span class="toc-text">Stage 2 — Attach (ControllerPublishVolume)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-3-%E2%80%94-NodeStageVolume-Staging-Path"><span class="toc-number">1.3.</span> <span class="toc-text">Stage 3 — NodeStageVolume (Staging Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-4-%E2%80%94-NodePublishVolume-Target-Path"><span class="toc-number">1.4.</span> <span class="toc-text">Stage 4 — NodePublishVolume (Target Path)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-5-%E2%80%94-CRI-%E2%86%92-containerd-%E2%86%92-the-rootfs-Path"><span class="toc-number">1.5.</span> <span class="toc-text">Stage 5 — CRI → containerd → the rootfs Path</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-Ownership-Map"><span class="toc-number">1.6.</span> <span class="toc-text">Path Ownership Map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Verify-on-the-Host"><span class="toc-number">1.7.</span> <span class="toc-text">Verify on the Host</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OverlayFS"><span class="toc-number">2.</span> <span class="toc-text">OverlayFS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mount-propagation"><span class="toc-number">3.</span> <span class="toc-text">mount propagation</span></a></li></ol>
       </div>
     
 
