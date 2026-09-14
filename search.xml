@@ -1488,7 +1488,7 @@
 <p>Ubuntu 24.04 system default  python3 -&gt; python3.12 </p>
 </blockquote>
 <p><strong>install python10</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y software-properties-common</span><br><span class="line">add-apt-repository -y ppa:deadsnakes/ppa</span><br><span class="line">apt update</span><br><span class="line">apt install -y python3.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">python3 --version               <span class="comment"># Python 3.12.3 (unchanged)</span></span><br><span class="line">/usr/bin/python3.10 --version   <span class="comment"># Python 3.10.x</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=l</span><br><span class="line">apt update</span><br><span class="line">apt install -y software-properties-common</span><br><span class="line">add-apt-repository -y ppa:deadsnakes/ppa</span><br><span class="line">apt update</span><br><span class="line">apt install -y python3.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">python3 --version               <span class="comment"># Python 3.12.3 (unchanged)</span></span><br><span class="line">/usr/bin/python3.10 --version   <span class="comment"># Python 3.10.x</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>config ansible_python_interpreter</strong></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">node-xxx:</span></span><br><span class="line">  <span class="attr">ansible_host:</span> <span class="string">xxx</span></span><br><span class="line">  <span class="attr">ansible_python_interpreter:</span> <span class="string">/usr/bin/python3.10</span></span><br></pre></td></tr></table></figure>
@@ -2877,91 +2877,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ceph csi</title>
-    <url>/2025/03/26/ceph%20csi/</url>
-    <content><![CDATA[<h1 id="image"><a href="#image" class="headerlink" title="image"></a>image</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> v3.13</span></span><br><span class="line">quay.io/cephcsi/cephcsi:canary</span><br><span class="line"></span><br><span class="line">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0</span><br><span class="line">registry.k8s.io/sig-storage/csi-provisioner:v5.1.0</span><br><span class="line">registry.k8s.io/sig-storage/csi-resizer:v1.13.1</span><br><span class="line">registry.k8s.io/sig-storage/csi-snapshotter:v8.2.0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> v3.10</span></span><br><span class="line">quay.io/cephcsi/cephcsi:v3.10-canary</span><br><span class="line"></span><br><span class="line">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.1</span><br><span class="line">registry.k8s.io/sig-storage/csi-provisioner:v3.6.2</span><br><span class="line">registry.k8s.io/sig-storage/csi-resizer:v1.9.2</span><br><span class="line">registry.k8s.io/sig-storage/csi-snapshotter:v6.3.2</span><br></pre></td></tr></table></figure>
-
-<h1 id="resource"><a href="#resource" class="headerlink" title="resource"></a>resource</h1><h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><ul>
-<li>step1</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 18 server: /home/dongwei/k8s/ceph-resource/v3.10-work/deploy/cephfs/kubernetes</span></span><br><span class="line">kubectl create -f csidriver.yaml</span><br><span class="line">kubectl create -f csi-provisioner-rbac.yaml</span><br><span class="line">kubectl create -f csi-nodeplugin-rbac.yaml</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>step2</p>
-<p><code>kubectl create -f csi-config-map.yaml</code></p>
-<blockquote>
-<p>check by <code>ceph mon dump</code></p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ceph-csi-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">config.json:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    [</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        &quot;clusterID&quot;: &quot;xxx&quot;, </span></span><br><span class="line"><span class="string">        &quot;monitors&quot;: [</span></span><br><span class="line"><span class="string">          &quot;172.20.7.xxx:6789&quot;,</span></span><br><span class="line"><span class="string">          &quot;172.20.7.xxx:6789&quot;,</span></span><br><span class="line"><span class="string">          &quot;172.20.7.xxx:6789&quot;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br></pre></td></tr></table></figure></li>
-<li><p>step3</p>
-<p><code>kubectl create -f ceph-conf.yaml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">ceph.conf:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    [global]</span></span><br><span class="line"><span class="string">    auth_cluster_required = cephx</span></span><br><span class="line"><span class="string">    auth_service_required = cephx</span></span><br><span class="line"><span class="string">    auth_client_required = cephx</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">  <span class="comment"># keyring is a required key and its value should be empty</span></span><br><span class="line">  <span class="attr">keyring:</span> <span class="string">|</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ceph-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br></pre></td></tr></table></figure></li>
-<li><p>step4</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl create -f kms-config.yaml</span><br><span class="line">kubectl create -f csi-cephfsplugin-provisioner.yaml</span><br><span class="line">kubectl create -f csi-cephfsplugin.yaml</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h2><blockquote>
-<p>Requires subvolumegroup to be created before provisioning the PVC. If the subvolumegroup provided in <code>ceph-csi-config</code> ConfigMap is missing in the ceph cluster, the PVC creation will fail and will stay in <code>Pending</code> state.</p>
-<p>We do NOT need to manually mount CephFS on the worker node host. The Ceph CSI driver (deployed as a DaemonSet called  csi-cephfsplugin ) handles all mounting automatically on each worker node on behalf of your pods.<br>The CSI node plugin performs a staged mount on the host at a path like  <strong>/var/lib/kubelet/plugins/cephfs.csi.ceph.com/…</strong> , then bind-mounts it into the target pod’s filesystem. This is entirely managed by the CSI driver — you never touch  /etc/fstab  or run  mount  manually.</p>
-</blockquote>
-<h3 id="dynamic-provision"><a href="#dynamic-provision" class="headerlink" title="dynamic provision"></a>dynamic provision</h3><ul>
-<li><p>step1 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph fs subvolumegroup create &lt;fsName&gt; csi # 会生成子目录（volumes/csi） /挂载点/volumes/csi/</span><br></pre></td></tr></table></figure></li>
-<li><p>step2</p>
-<p><code>kubectl create -f secret.yaml</code></p>
-<blockquote>
-<p>check by <code>ceph auth get client.dongwei</code> and <code>ceph auth get client.admin</code></p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">csi-cephfs-secret</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="comment"># Required for statically provisioned volumes, 🚨 this use userID</span></span><br><span class="line">  <span class="attr">userID:</span> <span class="string">dongwei</span></span><br><span class="line">  <span class="attr">userKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Required for dynamically provisioned volumes, 🚨 this use adminID</span></span><br><span class="line">  <span class="attr">adminID:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">adminKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Encryption passphrase</span></span><br><span class="line">  <span class="attr">encryptionPassphrase:</span> <span class="string">test_passphrase</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>Required secrets for provisioning:</strong> Admin credentials are required for provisioning new volumes</p>
-<ul>
-<li><code>adminID</code>: ID of an admin client</li>
-<li><code>adminKey</code>: key of the admin client</li>
-</ul>
-<p><strong>Required secrets for statically provisioned volumes:</strong> User credentials with access to an existing volume</p>
-<ul>
-<li><code>userID</code>: ID of a user client</li>
-<li><code>userKey</code>: key of a user client</li>
-</ul>
-</blockquote>
-</li>
-<li><p>step3</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl create -f storageclass.yaml</span><br><span class="line">kubectl create -f pvc.yaml</span><br><span class="line">kubectl create -f pod.yaml</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="static-provision"><a href="#static-provision" class="headerlink" title="static provision"></a>static provision</h3><ul>
-<li><p>step1 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph fs subvolumegroup create &lt;fsName&gt; testGroup</span><br><span class="line">ceph fs subvolume create &lt;fsName&gt; testSubVolume testGroup --size=1073741824  # byte 1073741824/1024/1024=1024MB</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">ceph fs subvolume getpath &lt;fsName&gt; testSubVolume testGroup</span><br></pre></td></tr></table></figure></li>
-<li><p>step2</p>
-<p><code>kubectl create -f secret.yaml</code></p>
-<blockquote>
-<p>check by <code>ceph auth get client.dongwei</code> </p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">csi-cephfs-secret-static</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="comment"># Required for statically provisioned volumes, 🚨 this use userID</span></span><br><span class="line">  <span class="attr">userID:</span> <span class="string">dongwei</span></span><br><span class="line">  <span class="attr">userKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Encryption passphrase</span></span><br><span class="line">  <span class="attr">encryptionPassphrase:</span> <span class="string">test_passphrase</span></span><br></pre></td></tr></table></figure></li>
-<li><p>step3</p>
-<p><code>kubectl create -f pv.yaml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cephfs-static-pv</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteMany</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">1Gi</span></span><br><span class="line">  <span class="attr">csi:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">cephfs.csi.ceph.com</span></span><br><span class="line">    <span class="attr">nodeStageSecretRef:</span></span><br><span class="line">      <span class="comment"># node stage secret name</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">csi-cephfs-secret</span></span><br><span class="line">      <span class="comment"># node stage secret namespace where above secret is created</span></span><br><span class="line">      <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line">    <span class="attr">volumeAttributes:</span></span><br><span class="line">      <span class="comment"># optional file system to be mounted</span></span><br><span class="line">      <span class="attr">&quot;fsName&quot;:</span> <span class="string">&quot;cephfs-1&quot;</span></span><br><span class="line">      <span class="comment"># Required options from storageclass parameters need to be added in volumeAttributes</span></span><br><span class="line">      <span class="attr">&quot;clusterID&quot;:</span> <span class="string">&quot;ba68226a-672f-4ba5-97bc-22840318b2ec&quot;</span></span><br><span class="line">      <span class="attr">&quot;staticVolume&quot;:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">      <span class="attr">&quot;rootPath&quot;:</span> <span class="string">/volumes/testGroup/testSubVolume</span></span><br><span class="line">    <span class="comment"># volumeHandle can be anything, need not to be same</span></span><br><span class="line">    <span class="comment"># as PV name or volume name. keeping same for brevity</span></span><br><span class="line">    <span class="attr">volumeHandle:</span> <span class="string">cephfs-static-pv</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Retain</span></span><br><span class="line">  <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>rootPath 也可以指定为  /volumes/csi</p>
-</blockquote>
-</li>
-<li><p>step4</p>
-<p><code>kubectl create -f pvc.yaml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cephfs-static-pvc</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteMany</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">1Gi</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br><span class="line">  <span class="comment"># volumeName should be same as PV name</span></span><br><span class="line">  <span class="attr">volumeName:</span> <span class="string">cephfs-static-pv</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="更高clusterID"><a href="#更高clusterID" class="headerlink" title="更高clusterID"></a>更高clusterID</h2><p>需要删除历史的 PV 和 PVC</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 强制删除PV</span></span><br><span class="line">kubectl patch pv pvc-xxx -p &#x27;&#123;&quot;metadata&quot;:&#123;&quot;finalizers&quot;:null&#125;&#125;&#x27; --type=merge</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>ceph</category>
-      </categories>
-      <tags>
-        <tag>csi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ceph fs</title>
     <url>/2025/03/26/ceph%20FS/</url>
     <content><![CDATA[<blockquote>
@@ -3061,14 +2976,14 @@
 
 <h1 id="cluster"><a href="#cluster" class="headerlink" title="cluster"></a>cluster</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> method 1</span></span><br><span class="line">ceph fsid</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> method 2</span></span><br><span class="line">cat /etc/ceph/ceph.conf | grep fsid</span><br></pre></td></tr></table></figure>
 
-<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check regular user key</span></span><br><span class="line">ceph auth list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check admin key</span></span><br><span class="line">ceph auth get client.admin</span><br></pre></td></tr></table></figure>
+<h1 id="User"><a href="#User" class="headerlink" title="User"></a>User</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check regular user key</span></span><br><span class="line">ceph auth list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check admin key</span></span><br><span class="line">ceph auth get client.admin</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add user</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="health"><a href="#health" class="headerlink" title="health"></a>health</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph df</span><br></pre></td></tr></table></figure>
 
 <h1 id="host"><a href="#host" class="headerlink" title="host"></a>host</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list host</span></span><br><span class="line">ceph orch host ls --detail</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add host</span></span><br><span class="line">ssh-copy-id -f -i /etc/ceph/ceph.pub root@*&lt;new-host&gt;*</span><br><span class="line">ceph orch host add *&lt;newhost&gt;* [*&lt;ip&gt;*] [*&lt;label1&gt; ...*]</span><br><span class="line"><span class="meta">#</span><span class="bash"> e.g.  ceph orch host add host2 10.10.0.102 --labels _admin</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove host</span></span><br><span class="line">ceph orch host drain *&lt;host&gt;*</span><br><span class="line">ceph orch ps &lt;host&gt;  # daemons on the host</span><br><span class="line">ceph orch host rm &lt;host&gt; # remove the host from the cluster after all daemons have been removed</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> add storage</span></span><br><span class="line">ceph orch apply osd --all-available-devices</span><br></pre></td></tr></table></figure>
 <h1 id="osd"><a href="#osd" class="headerlink" title="osd"></a>osd</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list all device</span> </span><br><span class="line">ceph orch device ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list device used by ceph</span></span><br><span class="line">ceph device ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> locate current ods node used disk</span></span><br><span class="line">ceph-volume lvm list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> locate specify ods<span class="string">&#x27;s devices, e.g. ceph device ls-by-daemon osd.1</span></span></span><br><span class="line">ceph device ls-by-daemon &lt;daemon&gt; </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> check</span></span></span><br><span class="line">ceph ods tree</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> Creating New OSDs</span></span></span><br><span class="line">ceph orch apply osd --all-available-devices</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> or</span></span></span><br><span class="line">ceph orch daemon add osd *&lt;host&gt;*:*&lt;device-path&gt;*</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> e.g.</span></span></span><br><span class="line">ceph orch daemon add osd host1:/dev/sdb</span><br><span class="line">ceph orch daemon add osd host1:data_devices=/dev/sda,/dev/sdb,db_devices=/dev/sdc,osds_per_device=2</span><br></pre></td></tr></table></figure>
 
-<h2 id="pool"><a href="#pool" class="headerlink" title="pool"></a>pool</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list available pool</span></span><br><span class="line">ceph osd pool ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check PG status:</span></span><br><span class="line">ceph pg stat</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config Replica count: For a replicated pool, size sets how many copies of each object Ceph keeps, and min_size sets the minimum number of replicas that must be available before I/O is allowed.For an erasure-coded pool, Ceph says size is reported as K+M, but it cannot be <span class="built_in">set</span> directly with ceph osd pool <span class="built_in">set</span> ... size ...., For EC pools, you control redundancy through the erasure-code profile (k and m), and you can still <span class="built_in">set</span> min_size; Ceph recommends setting min_size to a value greater than K.</span></span><br><span class="line">ceph osd pool set &#123;pool-name&#125; size 3</span><br><span class="line">ceph osd pool set &#123;pool-name&#125; min_size 2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config Capacity quota</span></span><br><span class="line">ceph osd pool set-quota &#123;pool-name&#125; max_bytes &lt;bytesSize&gt;</span><br><span class="line">ceph osd pool set-quota &#123;pool-name&#125; max_objects &lt;objectsSize&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check current settings</span></span><br><span class="line">ceph osd pool get &#123;pool-name&#125; size</span><br><span class="line">ceph osd pool get &#123;pool-name&#125; min_size</span><br><span class="line">ceph osd pool get-quota &#123;pool-name&#125;</span><br><span class="line">ceph osd pool ls detail | grep &#123;pool-name&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="pool"><a href="#pool" class="headerlink" title="pool"></a>pool</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list available pool</span></span><br><span class="line">ceph osd pool ls</span><br><span class="line">ceph osd lspools</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check PG status:</span></span><br><span class="line">ceph pg stat</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config Replica count: For a replicated pool, size sets how many copies of each object Ceph keeps, and min_size sets the minimum number of replicas that must be available before I/O is allowed.For an erasure-coded pool, Ceph says size is reported as K+M, but it cannot be <span class="built_in">set</span> directly with ceph osd pool <span class="built_in">set</span> ... size ...., For EC pools, you control redundancy through the erasure-code profile (k and m), and you can still <span class="built_in">set</span> min_size; Ceph recommends setting min_size to a value greater than K.</span></span><br><span class="line">ceph osd pool set &#123;pool-name&#125; size 3</span><br><span class="line">ceph osd pool set &#123;pool-name&#125; min_size 2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> config Capacity quota</span></span><br><span class="line">ceph osd pool set-quota &#123;pool-name&#125; max_bytes &lt;bytesSize&gt;</span><br><span class="line">ceph osd pool set-quota &#123;pool-name&#125; max_objects &lt;objectsSize&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check current settings</span></span><br><span class="line">ceph osd pool get &#123;pool-name&#125; size</span><br><span class="line">ceph osd pool get &#123;pool-name&#125; min_size</span><br><span class="line">ceph osd pool get-quota &#123;pool-name&#125;</span><br><span class="line">ceph osd pool ls detail | grep &#123;pool-name&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="replicated-pool"><a href="#replicated-pool" class="headerlink" title="replicated pool"></a>replicated pool</h3><blockquote>
 <p>If not specify the pool type, the default is <code>replicated</code>; Ceph also notes that each pool name must be unique and names beginning with <code>.</code> are reserved for internal use.</p>
@@ -3076,6 +2991,8 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># template</span></span><br><span class="line">ceph osd pool create &#123;pool-name&#125; [&#123;pg-num&#125; [&#123;pgp-num&#125;]] [replicated] [crush-rule-name] [expected-num-objects].</span><br><span class="line"></span><br><span class="line"><span class="comment">#e.g: creates a replicated pool named mypool with 32 PGs, then marks it for RBD use.</span></span><br><span class="line">ceph osd pool create mypool 32</span><br><span class="line">ceph osd pool application <span class="built_in">enable</span> mypool rbd</span><br></pre></td></tr></table></figure>
 
 <h3 id="erasure-coded-pool"><a href="#erasure-coded-pool" class="headerlink" title="erasure-coded pool"></a>erasure-coded pool</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># template</span></span><br><span class="line">ceph osd pool create &#123;pool-name&#125; [&#123;pg-num&#125; [&#123;pgp-num&#125;]] erasure [erasure-code-profile] [crush-rule-name] [expected_num_objects] [--autoscale-mode=&lt;on,off,warn&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># e.g.</span></span><br><span class="line">ceph osd pool create ecpool 32 32 erasure</span><br><span class="line">ceph osd pool application <span class="built_in">enable</span> ecpool rgw</span><br></pre></td></tr></table></figure>
+
+<h1 id="rbd"><a href="#rbd" class="headerlink" title="rbd"></a>rbd</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List images on specify pool</span></span><br><span class="line">rbd ls -p &lt;poolName&gt;</span><br><span class="line">rbd ls -l -p &lt;poolName&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inspect one image</span></span><br><span class="line">rbd info &lt;poolName&gt;/<span class="variable">$IMG</span></span><br><span class="line">rbd status &lt;poolName&gt;/<span class="variable">$IMG</span></span><br><span class="line">rbd du &lt;poolName&gt;/<span class="variable">$IMG</span></span><br><span class="line">rbd snap ls &lt;poolName&gt;/<span class="variable">$IMG</span></span><br><span class="line">rbd lock ls &lt;poolName&gt;/<span class="variable">$IMG</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list usage on specify pool</span></span><br><span class="line">rbd du -p &lt;poolName&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mapped devices, rbd showmapped  is local kernel maps. Check On a worker / in the node plugin</span></span><br><span class="line">rbd showmapped</span><br></pre></td></tr></table></figure>
 
 <h1 id="RGW"><a href="#RGW" class="headerlink" title="RGW"></a>RGW</h1><blockquote>
 <p>radosgw</p>
@@ -3544,9 +3461,10 @@
 <li><p>Move Existing Data (if required)</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop containerd  # optional</span><br><span class="line">sudo mv /var/lib/containerd /data/containerd</span><br><span class="line">sudo systemctl start containerd</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="command"><a href="#command" class="headerlink" title="command"></a>command</h1><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pull k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images pull xxx</span><br><span class="line"><span class="meta">#</span><span class="bash"> pull with auth</span></span><br><span class="line">sudo ctr images pull --user username:password registry.example.com/repository/image:tag</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> load tar file</span> </span><br><span class="line">sudo ctr -n k8s.io images import /tmp/my-image.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> combine load tar file to specify tag image</span></span><br><span class="line">sudo ctr -n k8s.io images import --base-name my.registry.com/myproject/my-image:v1.2.3 /path/to/image.tar</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rename tag</span></span><br><span class="line">sudo ctr -n k8s.io images tag &lt;old-image-name&gt; &lt;new-image-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove image</span></span><br><span class="line">sudo ctr -n k8s.io images remove &lt;name&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="ctr"><a href="#ctr" class="headerlink" title="ctr"></a>ctr</h1><p><strong>image</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images ls</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pull k8s image</span></span><br><span class="line">sudo ctr -n k8s.io images pull xxx</span><br><span class="line"><span class="meta">#</span><span class="bash"> pull with auth</span></span><br><span class="line">sudo ctr images pull --user username:password registry.example.com/repository/image:tag</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> load tar file</span> </span><br><span class="line">sudo ctr -n k8s.io images import /tmp/my-image.tar</span><br><span class="line"><span class="meta">#</span><span class="bash"> combine load tar file to specify tag image</span></span><br><span class="line">sudo ctr -n k8s.io images import --base-name my.registry.com/myproject/my-image:v1.2.3 /path/to/image.tar</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rename tag</span></span><br><span class="line">sudo ctr -n k8s.io images tag &lt;old-image-name&gt; &lt;new-image-name&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove image</span></span><br><span class="line">sudo ctr -n k8s.io images remove &lt;name&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="container"><a href="#container" class="headerlink" title="container"></a>container</h2><table>
+<table>
 <thead>
 <tr>
 <th align="left">Usage Context</th>
@@ -3576,7 +3494,10 @@
 <p><code>nerdctl</code> provides a Docker-compatible interface and supports the features you need.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list</span></span><br><span class="line">nerdctl ps</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">exec</span></span> </span><br><span class="line">nerdctl exec -it &lt;containerID&gt; bash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> stop</span></span><br><span class="line">nerdctl stop &lt;containerID&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rm</span></span><br><span class="line">nerdctl rm &lt;containerID&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="ctrctl"><a href="#ctrctl" class="headerlink" title="ctrctl"></a>ctrctl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VERSION=<span class="string">&quot;v1.34.0&quot;</span></span><br><span class="line">curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/<span class="variable">$VERSION</span>/crictl-<span class="variable">$VERSION</span>-linux-amd64.tar.gz -o crictl.tar.gz</span><br><span class="line">sudo tar zxvf crictl.tar.gz -C /usr/<span class="built_in">local</span>/bin</span><br><span class="line">rm -f crictl.tar.gz</span><br><span class="line">crictl --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># optional</span></span><br><span class="line">sudo tee /etc/crictl.yaml &gt; /dev/null &lt;&lt;<span class="string">EOT</span></span><br><span class="line"><span class="string">runtime-endpoint: unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="string">image-endpoint: unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="string">timeout: 10</span></span><br><span class="line"><span class="string">debug: false</span></span><br><span class="line"><span class="string">EOT</span></span><br></pre></td></tr></table></figure>
+<h1 id="ctrctl"><a href="#ctrctl" class="headerlink" title="ctrctl"></a>ctrctl</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VERSION=<span class="string">&quot;v1.34.0&quot;</span></span><br><span class="line">curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/<span class="variable">$VERSION</span>/crictl-<span class="variable">$VERSION</span>-linux-amd64.tar.gz -o crictl.tar.gz</span><br><span class="line">sudo tar zxvf crictl.tar.gz -C /usr/<span class="built_in">local</span>/bin</span><br><span class="line">rm -f crictl.tar.gz</span><br><span class="line">crictl --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># optional</span></span><br><span class="line">sudo tee /etc/crictl.yaml &gt; /dev/null &lt;&lt;<span class="string">EOT</span></span><br><span class="line"><span class="string">runtime-endpoint: unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="string">image-endpoint: unix:///run/containerd/containerd.sock</span></span><br><span class="line"><span class="string">timeout: 10</span></span><br><span class="line"><span class="string">debug: false</span></span><br><span class="line"><span class="string">EOT</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>command</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">crictl images</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -18790,9 +18711,9 @@
 <td>$0.28</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
+<td>meta/muse-spark-1.3</td>
+<td>$1.25</td>
+<td>$4.25</td>
 </tr>
 <tr>
 <td>z-ai/glm-5.3</td>
@@ -19995,6 +19916,550 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>kernel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CephFS csi</title>
+    <url>/2025/03/26/ceph%20csi%20fs/</url>
+    <content><![CDATA[<h1 id="image"><a href="#image" class="headerlink" title="image"></a>image</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> v3.13</span></span><br><span class="line">quay.io/cephcsi/cephcsi:canary</span><br><span class="line"></span><br><span class="line">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0</span><br><span class="line">registry.k8s.io/sig-storage/csi-provisioner:v5.1.0</span><br><span class="line">registry.k8s.io/sig-storage/csi-resizer:v1.13.1</span><br><span class="line">registry.k8s.io/sig-storage/csi-snapshotter:v8.2.0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> v3.10</span></span><br><span class="line">quay.io/cephcsi/cephcsi:v3.10-canary</span><br><span class="line"></span><br><span class="line">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.1</span><br><span class="line">registry.k8s.io/sig-storage/csi-provisioner:v3.6.2</span><br><span class="line">registry.k8s.io/sig-storage/csi-resizer:v1.9.2</span><br><span class="line">registry.k8s.io/sig-storage/csi-snapshotter:v6.3.2</span><br></pre></td></tr></table></figure>
+
+<h1 id="resource"><a href="#resource" class="headerlink" title="resource"></a>resource</h1><h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><ul>
+<li>step1</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 18 server: /home/dongwei/k8s/ceph-resource/v3.10-work/deploy/cephfs/kubernetes</span></span><br><span class="line">kubectl create -f csidriver.yaml</span><br><span class="line">kubectl create -f csi-provisioner-rbac.yaml</span><br><span class="line">kubectl create -f csi-nodeplugin-rbac.yaml</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>step2</p>
+<p><code>kubectl create -f csi-config-map.yaml</code></p>
+<blockquote>
+<p>check by <code>ceph mon dump</code></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ceph-csi-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">config.json:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    [</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        &quot;clusterID&quot;: &quot;xxx&quot;, </span></span><br><span class="line"><span class="string">        &quot;monitors&quot;: [</span></span><br><span class="line"><span class="string">          &quot;172.20.7.xxx:6789&quot;,</span></span><br><span class="line"><span class="string">          &quot;172.20.7.xxx:6789&quot;,</span></span><br><span class="line"><span class="string">          &quot;172.20.7.xxx:6789&quot;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br></pre></td></tr></table></figure></li>
+<li><p>step3</p>
+<p><code>kubectl create -f ceph-conf.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">ceph.conf:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    [global]</span></span><br><span class="line"><span class="string">    auth_cluster_required = cephx</span></span><br><span class="line"><span class="string">    auth_service_required = cephx</span></span><br><span class="line"><span class="string">    auth_client_required = cephx</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">  <span class="comment"># keyring is a required key and its value should be empty</span></span><br><span class="line">  <span class="attr">keyring:</span> <span class="string">|</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ceph-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br></pre></td></tr></table></figure></li>
+<li><p>step4</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl create -f kms-config.yaml</span><br><span class="line">kubectl create -f csi-cephfsplugin-provisioner.yaml</span><br><span class="line">kubectl create -f csi-cephfsplugin.yaml</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="provision"><a href="#provision" class="headerlink" title="provision"></a>provision</h2><blockquote>
+<p>Requires subvolumegroup to be created before provisioning the PVC. If the subvolumegroup provided in <code>ceph-csi-config</code> ConfigMap is missing in the ceph cluster, the PVC creation will fail and will stay in <code>Pending</code> state.</p>
+<p>We do NOT need to manually mount CephFS on the worker node host. The Ceph CSI driver (deployed as a DaemonSet called  csi-cephfsplugin ) handles all mounting automatically on each worker node on behalf of your pods.<br>The CSI node plugin performs a staged mount on the host at a path like  <strong>/var/lib/kubelet/plugins/cephfs.csi.ceph.com/…</strong> , then bind-mounts it into the target pod’s filesystem. This is entirely managed by the CSI driver — you never touch  /etc/fstab  or run  mount  manually.</p>
+</blockquote>
+<h3 id="dynamic-provision"><a href="#dynamic-provision" class="headerlink" title="dynamic provision"></a>dynamic provision</h3><ul>
+<li><p>step1 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph fs subvolumegroup create &lt;fsName&gt; csi # 会生成子目录（volumes/csi） /挂载点/volumes/csi/</span><br></pre></td></tr></table></figure></li>
+<li><p>step2</p>
+<p><code>kubectl create -f secret.yaml</code></p>
+<blockquote>
+<p>check by <code>ceph auth get client.dongwei</code> and <code>ceph auth get client.admin</code></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">csi-cephfs-secret</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="comment"># Required for statically provisioned volumes, 🚨 this use userID</span></span><br><span class="line">  <span class="attr">userID:</span> <span class="string">dongwei</span></span><br><span class="line">  <span class="attr">userKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Required for dynamically provisioned volumes, 🚨 this use adminID</span></span><br><span class="line">  <span class="attr">adminID:</span> <span class="string">admin</span></span><br><span class="line">  <span class="attr">adminKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Encryption passphrase</span></span><br><span class="line">  <span class="attr">encryptionPassphrase:</span> <span class="string">test_passphrase</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Required secrets for provisioning:</strong> Admin credentials are required for provisioning new volumes</p>
+<ul>
+<li><code>adminID</code>: ID of an admin client</li>
+<li><code>adminKey</code>: key of the admin client</li>
+</ul>
+<p><strong>Required secrets for statically provisioned volumes:</strong> User credentials with access to an existing volume</p>
+<ul>
+<li><code>userID</code>: ID of a user client</li>
+<li><code>userKey</code>: key of a user client</li>
+</ul>
+</blockquote>
+</li>
+<li><p>step3</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl create -f storageclass.yaml</span><br><span class="line">kubectl create -f pvc.yaml</span><br><span class="line">kubectl create -f pod.yaml</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="static-provision"><a href="#static-provision" class="headerlink" title="static provision"></a>static provision</h3><ul>
+<li><p>step1 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ceph fs subvolumegroup create &lt;fsName&gt; testGroup</span><br><span class="line">ceph fs subvolume create &lt;fsName&gt; testSubVolume testGroup --size=1073741824  # byte 1073741824/1024/1024=1024MB</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> check</span></span><br><span class="line">ceph fs subvolume getpath &lt;fsName&gt; testSubVolume testGroup</span><br></pre></td></tr></table></figure></li>
+<li><p>step2</p>
+<p><code>kubectl create -f secret.yaml</code></p>
+<blockquote>
+<p>check by <code>ceph auth get client.dongwei</code> </p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">csi-cephfs-secret-static</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line">  <span class="comment"># Required for statically provisioned volumes, 🚨 this use userID</span></span><br><span class="line">  <span class="attr">userID:</span> <span class="string">dongwei</span></span><br><span class="line">  <span class="attr">userKey:</span> <span class="string">&lt;&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Encryption passphrase</span></span><br><span class="line">  <span class="attr">encryptionPassphrase:</span> <span class="string">test_passphrase</span></span><br></pre></td></tr></table></figure></li>
+<li><p>step3</p>
+<p><code>kubectl create -f pv.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cephfs-static-pv</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteMany</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">1Gi</span></span><br><span class="line">  <span class="attr">csi:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">cephfs.csi.ceph.com</span></span><br><span class="line">    <span class="attr">nodeStageSecretRef:</span></span><br><span class="line">      <span class="comment"># node stage secret name</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">csi-cephfs-secret</span></span><br><span class="line">      <span class="comment"># node stage secret namespace where above secret is created</span></span><br><span class="line">      <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line">    <span class="attr">volumeAttributes:</span></span><br><span class="line">      <span class="comment"># optional file system to be mounted</span></span><br><span class="line">      <span class="attr">&quot;fsName&quot;:</span> <span class="string">&quot;cephfs-1&quot;</span></span><br><span class="line">      <span class="comment"># Required options from storageclass parameters need to be added in volumeAttributes</span></span><br><span class="line">      <span class="attr">&quot;clusterID&quot;:</span> <span class="string">&quot;ba68226a-672f-4ba5-97bc-22840318b2ec&quot;</span></span><br><span class="line">      <span class="attr">&quot;staticVolume&quot;:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">      <span class="attr">&quot;rootPath&quot;:</span> <span class="string">/volumes/testGroup/testSubVolume</span></span><br><span class="line">    <span class="comment"># volumeHandle can be anything, need not to be same</span></span><br><span class="line">    <span class="comment"># as PV name or volume name. keeping same for brevity</span></span><br><span class="line">    <span class="attr">volumeHandle:</span> <span class="string">cephfs-static-pv</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Retain</span></span><br><span class="line">  <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>rootPath 也可以指定为  /volumes/csi</p>
+</blockquote>
+</li>
+<li><p>step4</p>
+<p><code>kubectl create -f pvc.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cephfs-static-pvc</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ceph</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteMany</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">1Gi</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br><span class="line">  <span class="comment"># volumeName should be same as PV name</span></span><br><span class="line">  <span class="attr">volumeName:</span> <span class="string">cephfs-static-pv</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="best-practices"><a href="#best-practices" class="headerlink" title="best practices"></a>best practices</h1><h2 id="更高clusterID"><a href="#更高clusterID" class="headerlink" title="更高clusterID"></a>更高clusterID</h2><p>需要删除历史的 PV 和 PVC</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 强制删除PV</span></span><br><span class="line">kubectl patch pv pvc-xxx -p &#x27;&#123;&quot;metadata&quot;:&#123;&quot;finalizers&quot;:null&#125;&#125;&#x27; --type=merge</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>ceph</category>
+      </categories>
+      <tags>
+        <tag>csi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ceph RBD csi</title>
+    <url>/2026/09/09/ceph%20csi%20rbd/</url>
+    <content><![CDATA[<blockquote>
+<p>The RBD CSI plugin is able to provision new RBD images and attach and mount those to workloads.</p>
+</blockquote>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p><strong>Available command line arguments:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Default value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>--endpoint</code></td>
+<td align="left"><code>unix:///tmp/csi.sock</code></td>
+<td align="left">CSI endpoint, must be a UNIX socket</td>
+</tr>
+<tr>
+<td align="left"><code>--csi-addons-endpoint</code></td>
+<td align="left"><code>unix:///tmp/csi-addons.sock</code></td>
+<td align="left">CSI-Addons endpoint, must be a UNIX socket</td>
+</tr>
+<tr>
+<td align="left"><code>--drivername</code></td>
+<td align="left"><code>rbd.csi.ceph.com</code></td>
+<td align="left">Name of the driver (Kubernetes: <code>provisioner</code> field in StorageClass must correspond to this value)</td>
+</tr>
+<tr>
+<td align="left"><code>--nodeid</code></td>
+<td align="left"><em>empty</em></td>
+<td align="left">This node’s ID</td>
+</tr>
+<tr>
+<td align="left"><code>--type</code></td>
+<td align="left"><em>empty</em></td>
+<td align="left">Driver type: <code>[rbd/cephfs]</code>. If the driver type is set to <code>rbd</code> it will act as a <code>rbd plugin</code> or if it’s set to <code>cephfs</code> will act as a <code>cephfs plugin</code></td>
+</tr>
+<tr>
+<td align="left"><code>--instanceid</code></td>
+<td align="left">“default”</td>
+<td align="left">Unique ID distinguishing this instance of Ceph CSI among other instances, when sharing Ceph clusters across CSI instances for provisioning</td>
+</tr>
+<tr>
+<td align="left"><code>--pidlimit</code></td>
+<td align="left"><em>0</em></td>
+<td align="left">Configure the PID limit in cgroups. The container runtime can restrict the number of processes/tasks which can cause problems while provisioning (or deleting) a large number of volumes. A value of <code>-1</code> configures the limit to the maximum, <code>0</code> does not configure limits at all.</td>
+</tr>
+<tr>
+<td align="left"><code>--metricsport</code></td>
+<td align="left"><code>8080</code></td>
+<td align="left">TCP port for liveness metrics requests</td>
+</tr>
+<tr>
+<td align="left"><code>--metricspath</code></td>
+<td align="left"><code>&quot;/metrics&quot;</code></td>
+<td align="left">Path of prometheus endpoint where metrics will be available</td>
+</tr>
+<tr>
+<td align="left"><code>--polltime</code></td>
+<td align="left"><code>&quot;60s&quot;</code></td>
+<td align="left">Time interval in between each poll</td>
+</tr>
+<tr>
+<td align="left"><code>--timeout</code></td>
+<td align="left"><code>&quot;3s&quot;</code></td>
+<td align="left">Probe timeout in seconds</td>
+</tr>
+<tr>
+<td align="left"><code>--clustername</code></td>
+<td align="left"><em>empty</em></td>
+<td align="left">Cluster name to set on RBD image</td>
+</tr>
+<tr>
+<td align="left"><code>--domainlabels</code></td>
+<td align="left"><em>empty</em></td>
+<td align="left">Kubernetes node labels to use as CSI domain labels for topology aware provisioning, should be a comma separated value (ex:= “failure-domain/region,failure-domain/zone”)</td>
+</tr>
+<tr>
+<td align="left"><code>--rbdhardmaxclonedepth</code></td>
+<td align="left"><code>8</code></td>
+<td align="left">Hard limit for maximum number of nested volume clones that are taken before a flatten occurs</td>
+</tr>
+<tr>
+<td align="left"><code>--rbdsoftmaxclonedepth</code></td>
+<td align="left"><code>4</code></td>
+<td align="left">Soft limit for maximum number of nested volume clones that are taken before a flatten occurs</td>
+</tr>
+<tr>
+<td align="left"><code>--skipforceflatten</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">skip image flattening on kernel &lt; 5.2 which support mapping of rbd images which has the deep-flatten feature</td>
+</tr>
+<tr>
+<td align="left"><code>--maxsnapshotsonimage</code></td>
+<td align="left"><code>450</code></td>
+<td align="left">Maximum number of snapshots allowed on rbd image without flattening</td>
+</tr>
+<tr>
+<td align="left"><code>--setmetadata</code></td>
+<td align="left"><code>true</code></td>
+<td align="left"><strong>Deprecated.</strong> Set metadata on volume. This flag will be removed in a future release.</td>
+</tr>
+<tr>
+<td align="left"><code>--enable-read-affinity</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">enable read affinity</td>
+</tr>
+<tr>
+<td align="left"><code>--crush-location-labels</code></td>
+<td align="left"><em>empty</em></td>
+<td align="left">Kubernetes node labels that determine the CRUSH location the node belongs to, separated by ‘,’. <code>Note: These labels will be replaced if crush location labels are defined in the ceph-csi-config ConfigMap for the specific cluster.</code></td>
+</tr>
+<tr>
+<td align="left"><code>--logslowopinterval</code></td>
+<td align="left"><code>30s</code></td>
+<td align="left">Log slow operations at the specified rate. Operation is considered slow if it outlives its deadline.</td>
+</tr>
+<tr>
+<td align="left"><code>--feature-gates</code></td>
+<td align="left"><em>empty</em></td>
+<td align="left">Comma-separated list of feature gates (e.g., <code>SlowGRPCRestart=false</code>). Available gates: <code>SlowGRPCRestart</code> (default: <code>true</code>) — restart the process when a unary gRPC call is stuck for more than 10 minutes.</td>
+</tr>
+</tbody></table>
+<p><strong>Available volume parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Required</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>clusterID</code></td>
+<td align="left">yes</td>
+<td align="left">String representing a Ceph cluster, must be unique across all Ceph clusters in use for provisioning, cannot be greater than 36 bytes in length, and should remain immutable for the lifetime of the Ceph cluster in use</td>
+</tr>
+<tr>
+<td align="left"><code>pool</code></td>
+<td align="left">yes</td>
+<td align="left">Ceph pool into which the RBD image shall be created</td>
+</tr>
+<tr>
+<td align="left"><code>dataPool</code></td>
+<td align="left">no</td>
+<td align="left">Ceph pool used for the data of the RBD images.</td>
+</tr>
+<tr>
+<td align="left"><code>volumeNamePrefix</code></td>
+<td align="left">no</td>
+<td align="left">Prefix to use for naming RBD images (defaults to <code>csi-vol-</code>).</td>
+</tr>
+<tr>
+<td align="left"><code>snapshotNamePrefix</code></td>
+<td align="left">no</td>
+<td align="left">Prefix to use for naming RBD snapshot images (defaults to <code>csi-snap-</code>).</td>
+</tr>
+<tr>
+<td align="left"><code>imageFeatures</code></td>
+<td align="left">no</td>
+<td align="left">RBD image features. CSI RBD currently supports <code>layering</code>, <code>journaling</code>, <code>exclusive-lock</code>, <code>object-map</code>, <code>fast-diff</code>, <code>deep-flatten</code> features. deep-flatten is added for cloned images. Refer <a href="https://docs.ceph.com/en/latest/rbd/rbd-config-ref/#image-features">https://docs.ceph.com/en/latest/rbd/rbd-config-ref/#image-features</a> for image feature dependencies.</td>
+</tr>
+<tr>
+<td align="left"><code>mkfsOptions</code></td>
+<td align="left">no</td>
+<td align="left">Options to pass to the <code>mkfs</code> command while creating the filesystem on the RBD device. Check the man-page for the <code>mkfs</code> command for the filesystem for more details. When <code>mkfsOptions</code> is set here, the defaults will not be used, consider including them in this parameter.</td>
+</tr>
+<tr>
+<td align="left"><code>tryOtherMounters</code></td>
+<td align="left">no</td>
+<td align="left">Specifies whether to try other mounters in case if the current mounter fails to mount the rbd image for any reason</td>
+</tr>
+<tr>
+<td align="left"><code>mapOptions</code></td>
+<td align="left">no</td>
+<td align="left">Map options to use when mapping rbd image. See <a href="https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options">krbd</a> and <a href="https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options">nbd</a> options.</td>
+</tr>
+<tr>
+<td align="left"><code>unmapOptions</code></td>
+<td align="left">no</td>
+<td align="left">Unmap options to use when unmapping rbd image. See <a href="https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options">krbd</a> and <a href="https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options">nbd</a> options.</td>
+</tr>
+<tr>
+<td align="left"><code>csi.storage.k8s.io/provisioner-secret-name</code>, <code>csi.storage.k8s.io/node-stage-secret-name</code></td>
+<td align="left">yes (for Kubernetes)</td>
+<td align="left">name of the Kubernetes Secret object containing Ceph client credentials. Both parameters should have the same value</td>
+</tr>
+<tr>
+<td align="left"><code>csi.storage.k8s.io/provisioner-secret-namespace</code>, <code>csi.storage.k8s.io/node-stage-secret-namespace</code></td>
+<td align="left">yes (for Kubernetes)</td>
+<td align="left">namespaces of the above Secret objects</td>
+</tr>
+<tr>
+<td align="left"><code>mounter</code></td>
+<td align="left">no</td>
+<td align="left">if set to <code>rbd-nbd</code>, use <code>rbd-nbd</code> on nodes that have <code>rbd-nbd</code> and <code>nbd</code> kernel modules to map rbd images</td>
+</tr>
+<tr>
+<td align="left"><code>encrypted</code></td>
+<td align="left">no</td>
+<td align="left">disabled by default, use <code>&quot;true&quot;</code> to enable either LUKS or fscrypt encryption on PVC and <code>&quot;false&quot;</code> to disable it. <strong>Do not change for existing storageclasses</strong></td>
+</tr>
+<tr>
+<td align="left"><code>encryptionSectorSize</code></td>
+<td align="left">no</td>
+<td align="left">set the sector size that is used to perform I/O. Size must be a power of two and in between 512 and 4096. Typical values are 4096 and 512.</td>
+</tr>
+<tr>
+<td align="left"><code>encryptionCipher</code></td>
+<td align="left">no</td>
+<td align="left">set the cipher that is used for the volume encryption. <strong>Supported Keywords</strong>: <code>aes-xts-plain64</code> (default), <code>serpent-xts-plain64</code>, <code>aes-xts-random</code>, <code>serpent-xts-random</code></td>
+</tr>
+<tr>
+<td align="left"><code>encryptionKeySize</code></td>
+<td align="left">no</td>
+<td align="left">set the key size used for encryption. Typical key sizes are 128, 256 and 512. Default 256 (or 512 when using an <code>xts</code> cipher mode)</td>
+</tr>
+<tr>
+<td align="left"><code>integrityMode</code></td>
+<td align="left">no</td>
+<td align="left">set and enable the integrity verification for volume encryption. <strong>Supported Keywords</strong>: <code>hmac-sha256</code>, <code>hmac-sha512</code></td>
+</tr>
+<tr>
+<td align="left"><code>encryptionKMSID</code></td>
+<td align="left">no</td>
+<td align="left">required if encryption is enabled and a kms is used to store passphrases</td>
+</tr>
+<tr>
+<td align="left"><code>encryptionType</code></td>
+<td align="left">no</td>
+<td align="left">Either <code>block</code> or <code>file</code>. If unset or <code>block</code> use LUKS block device encryption. If <code>file</code> use ext4 fscrypt to encrypt on the file system level (requires kernel support).</td>
+</tr>
+<tr>
+<td align="left"><code>stripeUnit</code></td>
+<td align="left">no</td>
+<td align="left">stripe unit in bytes</td>
+</tr>
+<tr>
+<td align="left"><code>stripeCount</code></td>
+<td align="left">no</td>
+<td align="left">objects to stripe over before looping</td>
+</tr>
+<tr>
+<td align="left"><code>objectSize</code></td>
+<td align="left">no</td>
+<td align="left">object size in bytes</td>
+</tr>
+<tr>
+<td align="left"><code>baseIops</code></td>
+<td align="left">no</td>
+<td align="left">the base limit of operations per second</td>
+</tr>
+<tr>
+<td align="left"><code>maxIops</code></td>
+<td align="left">no</td>
+<td align="left">the max limit of operations per second</td>
+</tr>
+<tr>
+<td align="left"><code>baseReadIops</code></td>
+<td align="left">no</td>
+<td align="left">the base limit of read operations per second</td>
+</tr>
+<tr>
+<td align="left"><code>maxReadIops</code></td>
+<td align="left">no</td>
+<td align="left">the max limit of read operations per second</td>
+</tr>
+<tr>
+<td align="left"><code>baseWriteIops</code></td>
+<td align="left">no</td>
+<td align="left">the base limit of write operations per second</td>
+</tr>
+<tr>
+<td align="left"><code>maxWriteIops</code></td>
+<td align="left">no</td>
+<td align="left">the max limit of write operations per second</td>
+</tr>
+<tr>
+<td align="left"><code>baseBps</code></td>
+<td align="left">no</td>
+<td align="left">the base limit of bytes per second</td>
+</tr>
+<tr>
+<td align="left"><code>maxBps</code></td>
+<td align="left">no</td>
+<td align="left">the max limit of bytes per second</td>
+</tr>
+<tr>
+<td align="left"><code>baseReadBps</code></td>
+<td align="left">no</td>
+<td align="left">the base limit of read bytes per second</td>
+</tr>
+<tr>
+<td align="left"><code>maxReadBps</code></td>
+<td align="left">no</td>
+<td align="left">the max limit of read bytes per second</td>
+</tr>
+<tr>
+<td align="left"><code>baseWriteBps</code></td>
+<td align="left">no</td>
+<td align="left">the base limit of write bytes per second</td>
+</tr>
+<tr>
+<td align="left"><code>maxWriteBps</code></td>
+<td align="left">no</td>
+<td align="left">the max limit of write bytes per second</td>
+</tr>
+<tr>
+<td align="left"><code>iopsPerGiB</code></td>
+<td align="left">no</td>
+<td align="left">the limit of operations per GiB</td>
+</tr>
+<tr>
+<td align="left"><code>readIopsPerGiB</code></td>
+<td align="left">no</td>
+<td align="left">the limit of read operations per GiB</td>
+</tr>
+<tr>
+<td align="left"><code>writeIopsPerGiB</code></td>
+<td align="left">no</td>
+<td align="left">the limit of write operations per GiB</td>
+</tr>
+<tr>
+<td align="left"><code>bpsPerGiB</code></td>
+<td align="left">no</td>
+<td align="left">the limit of bytes per GiB</td>
+</tr>
+<tr>
+<td align="left"><code>readBpsPerGiB</code></td>
+<td align="left">no</td>
+<td align="left">the limit of read bytes per GiB</td>
+</tr>
+<tr>
+<td align="left"><code>writeBpsPerGiB</code></td>
+<td align="left">no</td>
+<td align="left">the limit of write bytes per GiB</td>
+</tr>
+<tr>
+<td align="left"><code>baseVolSizeBytes</code></td>
+<td align="left">no</td>
+<td align="left">the min size of volume what use to calculate qos beased on capacity</td>
+</tr>
+<tr>
+<td align="left"><code>extraDeploy</code></td>
+<td align="left">no</td>
+<td align="left">array of extra objects to deploy with the release</td>
+</tr>
+</tbody></table>
+<p><strong>NOTE:</strong> An accompanying CSI configuration file, needs to be provided to the running pods. Refer to <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/examples/README.md#creating-csi-configuration">Creating CSI configuration</a> for more information.</p>
+<p><strong>NOTE:</strong> A suggested way to populate and retain uniqueness of the clusterID is to use the output of <code>ceph fsid</code> of the Ceph cluster to be used for provisioning.</p>
+<p><strong>Required secrets:</strong></p>
+<p>User credentials, with required access to the pool being used in the storage class, is required for provisioning new RBD images.</p>
+<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>Use the <strong>rbd templates</strong>(/path/to/ceph-csi/deploy/rbd/kubernetes)</p>
+<p>Your Kubernetes cluster must allow privileged pods (i.e. <code>--allow-privileged</code> flag must be set to true for both the API server and the kubelet). Moreover, as stated in the <a href="https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation">mount propagation docs</a>, the Docker daemon of the cluster nodes must allow shared mounts.</p>
+<p>YAML manifests are located in <code>deploy/rbd/kubernetes</code>.</p>
+<p><strong>Create CSIDriver object:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f csidriver.yaml</span><br></pre></td></tr></table></figure>
+
+<p><strong>Deploy RBACs for sidecar containers and node plugins:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f csi-provisioner-rbac.yaml</span><br><span class="line">kubectl create -f csi-nodeplugin-rbac.yaml</span><br></pre></td></tr></table></figure>
+
+<p>Those manifests deploy service accounts, cluster roles and cluster role bindings. These are shared for both RBD and CephFS CSI plugins, as they require the same permissions.</p>
+<p><strong>Deploy ConfigMap for CSI plugins:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f csi-config-map.yaml</span><br></pre></td></tr></table></figure>
+
+<p>The configmap deploys an empty CSI configuration that is mounted as a volume within the Ceph CSI plugin pods. To add a specific Ceph clusters configuration details, refer to <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/examples/README.md#creating-csi-configuration">Creating CSI configuration for RBD based provisioning</a> for more information.</p>
+<p><strong>Deploy Ceph configuration ConfigMap for CSI pods:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f ../../ceph-conf.yaml</span><br></pre></td></tr></table></figure>
+
+<p><strong>Deploy prerequisites for CSI Snapshot:</strong></p>
+<p>If you intend to use the snapshot functionality in Kubernetes cluster, please refer to <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/rbd/snap-clone.md#prerequisite">snap-clone.md</a></p>
+<p><strong>Deploy CSI sidecar containers:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f csi-rbdplugin-provisioner.yaml</span><br></pre></td></tr></table></figure>
+
+<p>Deploys deployment of provision which includes external-provisioner ,external-attacher,csi-snapshotter sidecar containers and CSI RBD plugin.</p>
+<p><strong>Deploy RBD CSI driver:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f csi-rbdplugin.yaml</span><br></pre></td></tr></table></figure>
+
+<p>Deploys a daemon set with two containers: CSI node-driver-registrar and the CSI RBD driver.</p>
+<p><strong>NOTE:</strong> In case you want to use a different release version, replace canary with the release version in the <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml">provisioner</a> and <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/deploy/rbd/kubernetes/csi-rbdplugin.yaml">nodeplugin</a> YAMLs.</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># for stable functionality replace canary with latest release version</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">quay.io/cephcsi/cephcsi:canary</span></span><br></pre></td></tr></table></figure>
+
+<p>Check the release version <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/README.md#ceph-csi-container-images-and-release-compatibility">here.</a></p>
+<h1 id="Verify"><a href="#Verify" class="headerlink" title="Verify"></a>Verify</h1><p>After successfully completing the steps above, you should see output similar to this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl get all</span><br><span class="line">NAME                              READY     STATUS    RESTARTS   AGE</span><br><span class="line">pod/csi-rbdplugin-fptqr           3/3       Running   0          21s</span><br><span class="line">pod/csi-rbdplugin-provisioner-0   5/5       Running   0          22s</span><br><span class="line"></span><br><span class="line">NAME                                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE</span><br><span class="line">service/csi-rbdplugin-provisioner   ClusterIP   10.104.2.130   &lt;none&gt;        8080/TCP   23s</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>Once the CSI plugin configuration is updated with details from a Ceph cluster of choice, you can try deploying a demo pod from examples/rbd using the instructions <a href="https://file+.vscode-resource.vscode-cdn.net/Users/dongwei/coder/devops/ceph-csi/deploy/examples/README.md#deploying-the-storage-class">provided</a> to test the deployment further.</p>
+<p>They are two halves of the same RBD CSI driver: <strong>node I/O</strong> vs <strong>cluster control plane</strong>. Both must run; a PVC needs the provisioner to create the image and the plugin to map it on the node.[1][2]</p>
+<h2 id="Split-of-work"><a href="#Split-of-work" class="headerlink" title="Split of work"></a>Split of work</h2><table>
+<thead>
+<tr>
+<th></th>
+<th><code>csi-rbdplugin.yaml</code></th>
+<th><code>csi-rbdplugin-provisioner.yaml</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kind</td>
+<td><strong>DaemonSet</strong></td>
+<td><strong>Deployment</strong></td>
+</tr>
+<tr>
+<td>Where</td>
+<td>Every worker (<code>ubuntu2</code>, <code>ubuntu3</code>)</td>
+<td>2 replicas, not per node</td>
+</tr>
+<tr>
+<td>CSI role</td>
+<td>Node service</td>
+<td>Controller service</td>
+</tr>
+<tr>
+<td>Does</td>
+<td><code>rbd map</code> / unmap, mkfs, mount into the pod</td>
+<td><code>rbd create</code> / delete, expand, snapshot, attach metadata</td>
+</tr>
+<tr>
+<td>Host paths</td>
+<td><code>/dev</code>, <code>/sys</code>, <code>/lib/modules</code>, kubelet plugin dir</td>
+<td>Mostly ConfigMaps + emptyDir; <code>/dev</code> optional</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>One pod per node</td>
+<td>2 is enough (leader election)</td>
+</tr>
+</tbody></table>
+<p><code>CreateVolume</code> is the provisioner. <code>NodeStageVolume</code> / <code>NodePublishVolume</code> is the node plugin. That is why timezone <code>/dev</code> mounts belong on the <strong>plugin</strong> DaemonSet, not as a third provisioner replica.</p>
+<p><strong><code>csi-rbdplugin.yaml</code></strong> (node):</p>
+<ul>
+<li><code>csi-rbdplugin</code> — talks to kubelet via the CSI socket, maps the image</li>
+<li><code>driver-registrar</code> — registers <code>rbd.csi.ceph.com</code> with kubelet</li>
+<li><code>liveness-prometheus</code> — health</li>
+</ul>
+<p>Without this on a node, the PVC binds but the pod stays <code>ContainerCreating</code> (<code>FailedMount</code>).</p>
+<p><strong><code>csi-rbdplugin-provisioner.yaml</code></strong> (controller, your <code>7/7</code> pod):</p>
+<ul>
+<li><code>csi-provisioner</code> — watches PVCs, calls <code>CreateVolume</code> / <code>DeleteVolume</code></li>
+<li><code>csi-attacher</code> — VolumeAttachment</li>
+<li><code>csi-resizer</code> — PVC expand</li>
+<li><code>csi-snapshotter</code> — VolumeSnapshot</li>
+<li><code>csi-rbdplugin</code> — controller-side Ceph client (same binary, different flags)</li>
+<li>extra sidecars (liveness / CSI-Addons)</li>
+</ul>
+<p>Without this, PVCs stay <code>Pending</code> (<code>waiting for a volume to be created</code>).</p>
+<h1 id="storage-class"><a href="#storage-class" class="headerlink" title="storage class"></a>storage class</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f secret.yaml</span><br><span class="line">kubectl create -f storageclass.yaml</span><br><span class="line">kubectl create -f pvc.yaml</span><br><span class="line">kubectl create -f pod.yaml</span><br></pre></td></tr></table></figure>
+
+<h2 id="PVC-flows"><a href="#PVC-flows" class="headerlink" title="PVC flows"></a>PVC flows</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PVC → provisioner CreateVolume → RBD image in kubernetes-meta (data on kubernetes-ec)</span><br><span class="line">    → attacher</span><br><span class="line">    → node plugin on the pod’s node: rbd map + mount</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>ceph</category>
+      </categories>
+      <tags>
+        <tag>csi</tag>
       </tags>
   </entry>
 </search>
