@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.willshirley.top/images/linux/issuse-root_filesystem.png">
 <meta property="article:published_time" content="2016-10-16T04:01:30.000Z">
-<meta property="article:modified_time" content="2026-08-19T09:42:52.035Z">
+<meta property="article:modified_time" content="2026-09-16T07:24:21.029Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="command">
 <meta name="twitter:card" content="summary">
@@ -270,8 +270,13 @@
 <h2 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h2><p><strong>Enter passphrase for key ‘/home/jenkins/.ssh/id_rsa’</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> remove existed passphrase</span></span><br><span class="line">ssh-keygen -p -f ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
 
-
-
+<p><strong>ssh Permission denied (publickey)</strong></p>
+<ul>
+<li><p>check target server <code>/etc/ssh/sshd_config</code> should config below value</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> allow use password login</span></span><br><span class="line">PermitRootLogin yes</span><br><span class="line">PasswordAuthentication yes</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> allow use public key login</span></span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys</span><br></pre></td></tr></table></figure></li>
+<li><p>availble modify value</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl reload sshd</span><br></pre></td></tr></table></figure></li>
+</ul>
 <p><strong>Received disconnect from xxx port 22:2: Too many authentication failures</strong></p>
 <p><strong>Solution</strong>: Clear overloaded ssh-agent</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Check loaded keys</span></span><br><span class="line">ssh-add -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Remove all</span></span><br><span class="line">ssh-add -D</span><br></pre></td></tr></table></figure>
