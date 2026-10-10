@@ -14,7 +14,7 @@
 <meta property="og:description" content="env12export ANTHROPIC_BASE_URL&#x3D;&quot;xxx&quot;export ANTHROPIC_AUTH_TOKEN&#x3D;&quot;xxx&quot;  configmodel12345Here is the complete precedence order from highest to lowest priority:1.	Command-line flag (e">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-02-28T16:16:00.000Z">
-<meta property="article:modified_time" content="2026-09-15T07:42:19.368Z">
+<meta property="article:modified_time" content="2026-09-28T03:13:10.505Z">
 <meta property="article:author" content="brook">
 <meta property="article:tag" content="vibe coding">
 <meta name="twitter:card" content="summary">
@@ -183,14 +183,14 @@
 <thead>
 <tr>
 <th>model</th>
-<th>output price 1M tokens</th>
+<th>input 1M tokens</th>
 <th>output 1M tokens</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>deepseek/deepseek-v4-flash</td>
-<td>$0.14</td>
-<td>$0.28</td>
+<td>$0.075</td>
+<td>$0.3</td>
 </tr>
 <tr>
 <td>meta/muse-spark-1.3</td>
@@ -203,14 +203,14 @@
 <td>$4.4</td>
 </tr>
 <tr>
-<td>qwen/qwen3.8-max</td>
-<td>$1.4</td>
-<td>$4.2</td>
-</tr>
-<tr>
-<td>x-ai/grok-4.6</td>
+<td>qwen/qwen3.8-max-0902</td>
 <td>$2</td>
 <td>$6</td>
+</tr>
+<tr>
+<td>x-ai/grok-4.7</td>
+<td>$2~4</td>
+<td>$6~12</td>
 </tr>
 <tr>
 <td>moonshotai/kimi-k3</td>
@@ -223,14 +223,24 @@
 <td></td>
 </tr>
 <tr>
-<td>openai/gpt-5.6-luna</td>
-<td>$0.2</td>
-<td>$1.2</td>
+<td>openai/gpt-6-luna</td>
+<td>$0.5</td>
+<td>$0.75</td>
 </tr>
 <tr>
 <td>openai/gpt-5.6-terra</td>
 <td>$2</td>
 <td>$12</td>
+</tr>
+<tr>
+<td>openai/gpt-6-sol</td>
+<td>$10</td>
+<td>$15</td>
+</tr>
+<tr>
+<td>openai/gpt-6-astra</td>
+<td>$8</td>
+<td>$30</td>
 </tr>
 <tr>
 <td></td>
@@ -243,14 +253,19 @@
 <td>$10</td>
 </tr>
 <tr>
-<td>anthropic/claude-opus-5:google-vertex</td>
-<td>$5</td>
-<td>$25</td>
+<td>anthropic/claude-opus-5.5:google-vertex</td>
+<td>$4</td>
+<td>$20</td>
 </tr>
 <tr>
-<td>anthropic/claude-fable-5:google-vertex</td>
+<td>anthropic/claude-fable-5.1:google-vertex</td>
 <td>$10</td>
 <td>$50</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
 <h1 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h1><h2 id="upgrade"><a href="#upgrade" class="headerlink" title="upgrade"></a>upgrade</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. Refresh the marketplace catalog so Claude Code sees the latest ECC version</span></span><br><span class="line">/plugin marketplace update ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Update the plugin itself</span></span><br><span class="line">/plugin update ecc@ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Verify what&#x27;s now installed</span></span><br><span class="line">/plugin list ecc@ecc</span><br></pre></td></tr></table></figure>
