@@ -105,7 +105,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>deepseek/deepseek-v4-flash</td>
+<td>deepseek/deepseek-v4.1-flash</td>
 <td>$0.075</td>
 <td>$0.3</td>
 </tr>
@@ -163,6 +163,11 @@
 <td></td>
 <td></td>
 <td></td>
+</tr>
+<tr>
+<td>anthropic/claude-haiku-5.5:google-vertex</td>
+<td>$0.5</td>
+<td>$2.5</td>
 </tr>
 <tr>
 <td>anthropic/claude-sonnet-5.5:google-vertex</td>
@@ -13690,7 +13695,7 @@
     <url>/2016/10/16/linux%20cmd:%20system/</url>
     <content><![CDATA[<h1 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h1><h2 id="kernel"><a href="#kernel" class="headerlink" title="kernel"></a>kernel</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> check version</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
 
-<h2 id="boot"><a href="#boot" class="headerlink" title="boot"></a>boot</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list boot</span> </span><br><span class="line">journalctl --list-boots</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check system uptime <span class="built_in">history</span></span></span><br><span class="line">last reboot</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  see what happened before the crash</span></span><br><span class="line">sudo journalctl -b -1 --no-pager &gt; previous_boot.log</span><br></pre></td></tr></table></figure>
+<h2 id="boot"><a href="#boot" class="headerlink" title="boot"></a>boot</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list boot</span> </span><br><span class="line">journalctl --list-boots</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Check system uptime <span class="built_in">history</span></span></span><br><span class="line">last reboot</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  see what happened before the crash</span></span><br><span class="line">sudo journalctl -b -1 --no-pager &gt; previous_boot.log</span><br><span class="line"></span><br><span class="line">•	Related filters: You can narrow the output with  -k  (kernel messages only),  -u &lt;unit&gt;  (one service) or  -p err  (errors and worse). For example,  journalctl -k -b -1  shows the previous boot’s kernel log.</span><br></pre></td></tr></table></figure>
 
 <h2 id="machine-type"><a href="#machine-type" class="headerlink" title="machine type"></a>machine type</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Is this bare metal or a VM?</span></span><br><span class="line">systemd-detect-virt</span><br></pre></td></tr></table></figure>
 
@@ -17608,6 +17613,15 @@
 <li><p>弹跳窗口</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Toggle Bounce Animation</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h1 id="script"><a href="#script" class="headerlink" title="script"></a>script</h1><blockquote>
+<p><a href="https://github.com/raycast/script-commands">https://github.com/raycast/script-commands</a></p>
+</blockquote>
+<h2 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h2><ul>
+<li>compact</li>
+<li>fullOutput</li>
+<li>silent</li>
+<li>inline</li>
+</ul>
 ]]></content>
       <categories>
         <category>raycast</category>
@@ -20531,6 +20545,28 @@ So later in the script, you can safely loop through options using:
       </categories>
       <tags>
         <tag>Feel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vast data</title>
+    <url>/2026/10/21/vast%20data/</url>
+    <content><![CDATA[<h1 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h1><p><strong>CBox –</strong> A server chassis containing four compute nodes. VAST has had a few generations of this provided by INTEL (Cascade Lake), DELL, and HPE (Ice Lake).</p>
+<p><strong>CNode –</strong> A VAST server appliance that runs the VAST OS software. (VAST architecture allows for mixed models and generations of nodes to be added. Currently, you may use a CBOX, but in the future, a CNODE may be used, which is a single 1U device vs a 2U 4-node architecture. <em>Note: CNODE/BOX is often referred to as the protocol endpoint.</em>  <em>Client traffic will access a protocol presented by the CNODE/BOX. These devices are stateless and will never be used to store customer data</em>.</p>
+<p><strong>DBox –</strong> An NVMe-oF JBOF, this enclosure contains NVMe-oF controller cards and flash SSDs.</p>
+<p><strong>DNode –</strong> An NVMe-oF controller card within the DBox. (The DBOX will contain 2 – 4 DNODEs, but is irrelevant to the end user. The DBOX is where all data is stored.  No customer clients will address the DBOX/NODE directly.</p>
+<p><strong>Element Store -</strong> The cluster’s namespace for data. It is shared by both file and object storage protocols. The Element Store can simultaneously present data as objects in a flat hierarchy and as files in a hierarchy of directories.</p>
+<p><strong>Providers /Auth Providers -</strong> Identity providers such as Active Directory, Open LDAP servers, NIS, that store user and group attributes. They are used by the cluster when authorizing permission for users to access files and directories. They may also be used for authenticating users via Kerberos or NTLM.</p>
+<p><strong>View -</strong> A configuration that defines and exposes a path in the Element Store to selected access protocols. A view can have specific security settings for hosts and protocols. <em>Note: You may also consider these as exports or shares.</em></p>
+<p><strong>Tenants</strong> — Isolated administrative and data domains with separate credentials, quotas, and permissions.</p>
+<p><strong>VIP Pools</strong> — Virtual IPs used to serve NFS and SMB; can be dedicated per tenant or shared across multiple tenants.</p>
+<p><strong>Client IP Filters</strong> — Source-IP–based controls to restrict which clients can connect to a particular tenant’s resources.</p>
+<p><strong>VAST DNS and VMS</strong> — Provide per-tenant DNS resolution, API, role, and policy controls.</p>
+]]></content>
+      <categories>
+        <category>fs</category>
+      </categories>
+      <tags>
+        <tag>vastdata</tag>
       </tags>
   </entry>
 </search>
