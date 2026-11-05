@@ -83,7 +83,11 @@
   <entry>
     <title>Claude Code</title>
     <url>/2026/03/01/AI%20Agent-Claude%20Code/</url>
-    <content><![CDATA[<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tee /etc/yum.repos.d/claude-code.repo &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[claude-code]</span><br><span class="line">name=Claude Code</span><br><span class="line">baseurl=https://downloads.claude.ai/claude-code/rpm/stable</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://downloads.claude.ai/keys/claude-code.asc</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo dnf install claude-code</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="env"><a href="#env" class="headerlink" title="env"></a>env</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export ANTHROPIC_BASE_URL=&quot;xxx&quot;</span><br><span class="line">export ANTHROPIC_AUTH_TOKEN=&quot;xxx&quot;</span><br></pre></td></tr></table></figure>
 
 <h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Here is the complete precedence order from highest to lowest priority:</span><br><span class="line">1.	Command-line flag (e.g.,  claude --model &lt;model-name&gt; )</span><br><span class="line">2.	Environment variable ( ANTHROPIC_MODEL  or  CLAUDE_MODEL  defined <span class="keyword">in</span> your terminal,  ~/.bashrc , or  ~/.zshrc )</span><br><span class="line">3.	Project-level settings (a <span class="built_in">local</span>  .claude/settings.json  inside your current working directory)</span><br><span class="line">4.	User-level global settings ( ~/.claude/settings.json )</span><br></pre></td></tr></table></figure>
 
@@ -141,23 +145,23 @@
 </tr>
 <tr>
 <td>openai/gpt-6-luna</td>
-<td>$0.5</td>
+<td>$0.2</td>
 <td>$0.75</td>
 </tr>
 <tr>
-<td>openai/gpt-5.6-terra</td>
+<td>openai/gpt-6.1-terra</td>
 <td>$2</td>
-<td>$12</td>
+<td>$7.5</td>
 </tr>
 <tr>
-<td>openai/gpt-6-sol</td>
-<td>$10</td>
+<td>openai/gpt-6.1-sol</td>
+<td>$4</td>
 <td>$15</td>
 </tr>
 <tr>
 <td>openai/gpt-6-astra</td>
-<td>$8</td>
-<td>$30</td>
+<td>$20</td>
+<td>$75</td>
 </tr>
 <tr>
 <td></td>
@@ -188,6 +192,11 @@
 <td></td>
 <td></td>
 <td></td>
+</tr>
+<tr>
+<td>google/gemini-4-argon:google-vertex</td>
+<td>$2</td>
+<td>$10</td>
 </tr>
 </tbody></table>
 <h1 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h1><h2 id="upgrade"><a href="#upgrade" class="headerlink" title="upgrade"></a>upgrade</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Refresh the marketplace catalog so Claude Code sees the latest ECC version</span></span><br><span class="line">/plugin marketplace update ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Update the plugin itself</span></span><br><span class="line">/plugin update ecc@ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Verify what&#x27;s now installed</span></span><br><span class="line">/plugin list ecc@ecc</span><br></pre></td></tr></table></figure>
@@ -2146,6 +2155,17 @@
 <p><strong>deploy</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tiup cluster scale-out &lt;cluster-name&gt; scale-out-tidb.yaml --user root -p</span><br></pre></td></tr></table></figure>
 
+<h2 id="modify-config"><a href="#modify-config" class="headerlink" title="modify config"></a>modify config</h2><blockquote>
+<p>e.g. config tikv config</p>
+</blockquote>
+<ol>
+<li><p><code>tiup cluster edit-config &lt;cluster-name&gt;</code></p>
+</li>
+<li><p>Under the existing  server_configs:  section, put the values under  tikv: . Keep the flat dotted keys, as in your example:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">tikv:</span></span><br><span class="line">      <span class="attr">raftstore.apply-pool-size:</span> <span class="number">4</span></span><br><span class="line">      <span class="string">...</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>tiup cluster reload &lt;cluster-name&gt; -R tikv</code></p>
+</li>
+</ol>
 <h2 id="status"><a href="#status" class="headerlink" title="status"></a>status</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> list</span></span><br><span class="line">tiup cluster list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> status</span></span><br><span class="line">tiup cluster display &lt;clusterName&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="uninstall"><a href="#uninstall" class="headerlink" title="uninstall"></a>uninstall</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> destroy cluster</span> </span><br><span class="line">tiup cluster destroy &lt;cluster-name&gt; [flags]</span><br><span class="line"></span><br><span class="line">tiup cluster destroy command performs the following operations:</span><br><span class="line">1. Stops the cluster.</span><br><span class="line">2. For each service, delete its log directory, deployment directory, and data directory.</span><br><span class="line">3. If the parent directory of the data directory or deployment directory of each service is created by tiup-cluster, also delete the parent directory.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> other: stop cluster</span></span><br><span class="line">tiup cluster stop &lt;cluster-name&gt; [flags]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> other: uninstall component</span></span><br><span class="line">tiup uninstall &lt;component1&gt;:&lt;version&gt; [component2...N] [flags]</span><br></pre></td></tr></table></figure>
@@ -9271,6 +9291,9 @@
 <li><p>build</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go build -o &lt;commandName&gt; &lt;codeName&gt;.go</span><br></pre></td></tr></table></figure></li>
 <li><p>install</p>
+<blockquote>
+<p>will auto generate create module line in go.mod</p>
+</blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go install github.com/go-resty/resty/v2@xxx</span><br></pre></td></tr></table></figure></li>
 <li><p>errcheck</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">errcheck .</span><br></pre></td></tr></table></figure></li>
@@ -9638,7 +9661,9 @@
   <entry>
     <title>GO PKG</title>
     <url>/2024/12/13/golang%20pkg/</url>
-    <content><![CDATA[<h1 id="fmt"><a href="#fmt" class="headerlink" title="fmt"></a>fmt</h1><ul>
+    <content><![CDATA[<h1 id="download"><a href="#download" class="headerlink" title="download"></a>download</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># e.g. will auto generate dependent module in go.mod</span></span><br><span class="line">go get github.com/jackblack369/minio@3913710</span><br></pre></td></tr></table></figure>
+
+<h1 id="fmt"><a href="#fmt" class="headerlink" title="fmt"></a>fmt</h1><ul>
 <li><p><code>%v</code> vs <code>%#v</code></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Example <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name  <span class="keyword">string</span></span><br><span class="line">    Value <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ex := Example&#123;Name: <span class="string">&quot;test&quot;</span>, Value: <span class="number">42</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Using %v</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;Default format: %v\n&quot;</span>, ex)</span><br><span class="line">    <span class="comment">// Output: Default format: &#123;test 42&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Using %#v</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;Go syntax representation: %#v\n&quot;</span>, ex)</span><br><span class="line">    <span class="comment">// Output: Go syntax representation: main.Example&#123;Name:&quot;test&quot;, Value:42&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -13680,7 +13705,7 @@
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Capture HTTP traffic</span></span><br><span class="line">sudo tcpdump -i eth0 tcp port 80</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Monitor Specific Communication</span></span><br><span class="line">sudo tcpdump -i eth0 host 192.168.1.10 and port 22</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Capture packets between two hosts</span></span><br><span class="line">sudo tcpdump -i eth0 src host 192.168.1.10 and dst host 192.168.1.20</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  Capture to a File (and Analyze Later)</span></span><br><span class="line">sudo tcpdump -i eth0 -w capture.pcap</span><br><span class="line">wireshark capture.pcap</span><br></pre></td></tr></table></figure>
 
-<h1 id="rdma"><a href="#rdma" class="headerlink" title="rdma"></a>rdma</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># debian/ubuntu</span></span><br><span class="line">apt-get update &amp;&amp; apt-get install -y ibverbs-utils rdma-core</span><br><span class="line"><span class="comment"># centos/redhat</span></span><br><span class="line">dnf install -y libibverbs-utils rdma-core</span><br><span class="line"></span><br><span class="line">ibv_devices                      <span class="comment"># device names and GUIDs</span></span><br><span class="line">ibv_devinfo                      <span class="comment"># all devices, with port state</span></span><br><span class="line">ibv_devinfo -d mlx5_0 -i 1       <span class="comment"># one device, one port</span></span><br><span class="line">rdma link show                   <span class="comment"># device/port -&gt; netdev, state</span></span><br><span class="line">ibstat</span><br><span class="line"></span><br><span class="line"><span class="comment"># locate network reference infiniband</span></span><br><span class="line">ls /sys/class/net/&lt;network&gt;/device/infiniband/ </span><br></pre></td></tr></table></figure>
+<h1 id="rdma"><a href="#rdma" class="headerlink" title="rdma"></a>rdma</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># debian/ubuntu</span></span><br><span class="line">apt-get update &amp;&amp; apt-get install -y ibverbs-utils rdma-core</span><br><span class="line"><span class="comment"># centos/redhat</span></span><br><span class="line">dnf install -y libibverbs-utils rdma-core</span><br><span class="line"></span><br><span class="line">ibdev2netdev										 <span class="comment"># ib devcie status</span></span><br><span class="line">ibv_devices                      <span class="comment"># device names and GUIDs</span></span><br><span class="line">ibv_devinfo                      <span class="comment"># all devices, with port state</span></span><br><span class="line">ibv_devinfo -d mlx5_0 -i 1       <span class="comment"># one device, one port</span></span><br><span class="line">rdma link show                   <span class="comment"># device/port -&gt; netdev, state</span></span><br><span class="line">ibstat</span><br><span class="line"></span><br><span class="line"><span class="comment"># locate network reference infiniband</span></span><br><span class="line">ls /sys/class/net/&lt;network&gt;/device/infiniband/ </span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -13920,7 +13945,9 @@
 <td align="left">File size/timestamp on the target file remains unchanged.</td>
 </tr>
 </tbody></table>
-<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="略过gui提示"><a href="#略过gui提示" class="headerlink" title="略过gui提示"></a>略过gui提示</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=l apt install -y xxx</span><br></pre></td></tr></table></figure>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo dnf upgrade                 <span class="comment"># updates everything, including the kernel</span></span><br><span class="line">sudo dnf upgrade --exclude=<span class="string">&#x27;kernel*&#x27;</span>   <span class="comment"># update all except the kernel</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="略过gui提示"><a href="#略过gui提示" class="headerlink" title="略过gui提示"></a>略过gui提示</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=l apt install -y xxx</span><br></pre></td></tr></table></figure>
 
 <h2 id="卸载安装的软件"><a href="#卸载安装的软件" class="headerlink" title="卸载安装的软件"></a>卸载安装的软件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">浏览已安装的程序    dpkg --list</span><br><span class="line">卸载程序和所有配置文件    sudo apt-get --purge remove &lt;programname&gt;</span><br><span class="line">只卸载程序    sudo apt-get remove &lt;programname&gt;</span><br></pre></td></tr></table></figure>
 
@@ -20561,12 +20588,133 @@ So later in the script, you can safely loop through options using:
 <p><strong>VIP Pools</strong> — Virtual IPs used to serve NFS and SMB; can be dedicated per tenant or shared across multiple tenants.</p>
 <p><strong>Client IP Filters</strong> — Source-IP–based controls to restrict which clients can connect to a particular tenant’s resources.</p>
 <p><strong>VAST DNS and VMS</strong> — Provide per-tenant DNS resolution, API, role, and policy controls.</p>
-]]></content>
+<h2 id="Network-Access-through-Virtual-IPs"><a href="#Network-Access-through-Virtual-IPs" class="headerlink" title="Network Access through Virtual IPs"></a>Network Access through Virtual IPs</h2><p>VAST Cluster listens for requests on IP endpoints that are virtual, and therefore called Virtual IPs (VIPs). These endpoints are for all data traffic for all access protocols.</p>
+<p>To configure the virtual IPs, you need to create virtual IP pools (VIP pools). Virtual IP pools are ranges of IP addresses that VAST Cluster can use to listen for data traffic. All virtual IPs in a configured virtual IP pool are distributed evenly among all active CNodes or a group of CNodes. If a CNode fails, the virtual IPs assigned to it are automatically moved to other active CNodes, ensuring that clients can continue to connect to stable IP addresses</p>
+<ul>
+<li><p>This model provides for load balancing and transparent failover among the CNodes.</p>
+</li>
+<li><p>Clients can mount VAST Cluster views using DNS names. Every client is allocated a single virtual IP per mount. </p>
+</li>
+<li><p>VAST Data recommends a minimum of <strong>two virtual IPs per CNode</strong>. For optimal load balancing, we encourage four virtual IPs per CNode for clusters with one CBox (four CNodes); and four or more virtual IPs per CNode for larger clusters.</p>
+</li>
+</ul>
+<h1 id="Tenant"><a href="#Tenant" class="headerlink" title="Tenant"></a>Tenant</h1><p>VAST Cluster allows for operation of multiple cluster tenants. VAST Cluster’s multi-tenancy enables you to divide cluster storage resources into tenants with isolated data paths, serving different clients. Multi-tenancy can help you achieve security goals, and control allocation of performance and capacity for any reason.</p>
+<ul>
+<li><p>When create a tenant, an Element Store path is created for that tenant. This data path is isolated from all other tenants. It is deleted when the tenant is deleted.</p>
+</li>
+<li><p>Assign one or more virtual IP pools exclusively to a tenant. Verify that the pool(s) are not assigned to any other tenants.</p>
+</li>
+<li><p>Define a unique range of client IP addresses for each tenant. These client IP ranges must not overlap between tenants.</p>
+</li>
+</ul>
+<p>Client access to a view is authorized only if both of the following conditions are met:</p>
+<ul>
+<li>The view belongs to the tenant to which the client has access (through the tenant’s virtual IP pool or client IP ranges), and</li>
+<li>The client host has permission to access the view according to the host-based access rules defined in the view policy.</li>
+</ul>
+<h1 id="View"><a href="#View" class="headerlink" title="View"></a>View</h1><p>Every view must be associated with a tenant.</p>
+<ul>
+<li>A view policy can be associated with a specific tenant or it can serve all tenants. If a view policy is dedicated to a specific virtual IP pool, it must be a virtual IP pool that serves the same tenant as the view policy.</li>
+</ul>
+<h1 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h1>]]></content>
       <categories>
         <category>fs</category>
       </categories>
       <tags>
         <tag>vastdata</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux cpu</title>
+    <url>/2026/11/02/linux%20cpupower/</url>
+    <content><![CDATA[<h1 id="idle-policy"><a href="#idle-policy" class="headerlink" title="idle policy"></a>idle policy</h1><p><code>-d</code> disables one idle state, chosen by its index number. <code>-D</code> disables every idle state whose exit latency is at or above the value you give. </p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Argument</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-d N</code> (<code>--disable</code>)</td>
+<td>State number</td>
+<td>Disables only that one state.</td>
+</tr>
+<tr>
+<td><code>-D X</code> (<code>--disable-by-latency</code>)</td>
+<td>Latency in µs</td>
+<td>Disables all states with latency ≥ X, and enables all states with latency &lt; X.</td>
+</tr>
+</tbody></table>
+<p>The second half of <code>-D</code> matters. It also re-enables states below the threshold, so it can undo a disable you did earlier. <code>-d</code> touches only the state you name.</p>
+<p><code>idle-info</code> output gives these latencies:</p>
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th>State</th>
+<th>Latency (µs)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>POLL</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>C1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C1E</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>C6</td>
+<td>190</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>sudo cpupower idle-set -d 2</code> disables only C1E. C6 stays as it is now (disabled).</li>
+<li><code>sudo cpupower idle-set -D 2</code> disables C1E (latency 2) and C6 (190). It enables POLL and C1 (below 2).</li>
+<li><code>sudo cpupower idle-set -D 3</code> disables only C6. It re-enables C1E, because 2 is below 3.</li>
+<li><code>sudo cpupower idle-set -D 1</code> disables C1, C1E and C6, and leaves only POLL. This keeps CPUs busy-polling when idle, so power use and heat rise a lot. Avoid it unless you need it.</li>
+</ul>
+<p>Use <code>-D 2</code> if you want C1E and C6 both off with one command. It is also portable across machines, since it uses latency instead of state numbers, which can differ between CPUs. SUSE’s guide uses <code>-D 80</code> as an example of disabling all states at or above 80 µs. </p>
+<p>Use <code>-d</code> when you want exact control over one state. You can chain it, for example <code>-d 2</code> and then <code>-d 3</code>.</p>
+<p>Both changes are runtime only and are lost on reboot. Without <code>-c</code>, they apply to all CPUs, and you can limit them with <code>cpupower -c 0-15 idle-set ...</code>.  Afterwards, run <code>cpupower idle-info</code> to confirm the <code>(DISABLED)</code> flags.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>cpu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Terraform</title>
+    <url>/2026/10/29/Terraform/</url>
+    <content><![CDATA[<blockquote>
+<p>Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes low-level components like compute instances, storage, and networking; and high-level components like DNS entries and SaaS features.</p>
+</blockquote>
+<h1 id="workflow"><a href="#workflow" class="headerlink" title="workflow"></a>workflow</h1><ul>
+<li><strong>Scope</strong> - Identify the infrastructure for your project.</li>
+<li><strong>Author</strong> - Write the configuration for your infrastructure.</li>
+<li><strong>Initialize</strong> - Install the plugins Terraform needs to manage the infrastructure.</li>
+<li><strong>Plan</strong> - Preview the changes Terraform will make to match your configuration.</li>
+<li><strong>Apply</strong> - Make the planned changes.</li>
+</ul>
+<h2 id="Track"><a href="#Track" class="headerlink" title="Track"></a>Track</h2><p>Terraform keeps track of your real infrastructure in a state file, which acts as a source of truth for your environment. Terraform uses the state file to determine the changes to make to your infrastructure so that it will match your configuration.</p>
+]]></content>
+      <categories>
+        <category>basic</category>
+      </categories>
+      <tags>
+        <tag>terminology</tag>
       </tags>
   </entry>
 </search>
